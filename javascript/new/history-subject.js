@@ -40,6 +40,12 @@ function VerGrupo(id){
 
 }
 
+
+function viewAccions(Id){
+	
+		$("#divAcciones_"+Id).toggle();
+	}
+	
 function VerGrupoInactivo(id){
     $.ajax({
         url : WEB_ROOT+'/ajax/new/studentCurricula.php',

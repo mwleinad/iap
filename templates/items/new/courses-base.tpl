@@ -19,11 +19,11 @@
 
             {*} Flecha verde {*}
             {if ($docente == 1 AND $subject.courseModuleActive > 0) || !$docente}
-                <a href="{$WEB_ROOT}/graybox.php?page=view-modules-course&id={$subject.courseId}" title="Ver Modulos de Curso" data-target="#ajax" data-toggle="modal" style="color:#000" ><img src="{$WEB_ROOT}/images/arrow.png" title="Ver Modulos del Curso" /></a>
+                <a href="{$WEB_ROOT}/graybox.php?page=view-modules-course&id={$subject.courseId}" title="Ver Modulos de Curso" data-target="#ajax" data-toggle="modal" style="color:#000" ><img src="{$WEB_ROOT}/images/icons/pres.jpg" title="Ver Modulos del Curso" /></a>
             {/if}
 
             {if !$docente}
-                <a href="{$WEB_ROOT}/graybox.php?page=add-modules-course&id={$subject.courseId}" title="Agregar Modulo a Curso" data-target="#ajax" data-toggle="modal" style="color:#000" ><img src="{$WEB_ROOT}/images/icons/add.png" title="Agregar Modulo a Curso" /></a>
+                <a href="{$WEB_ROOT}/graybox.php?page=add-modules-course&id={$subject.courseId}" title="Agregar Modulo a Curso" data-target="#ajax" data-toggle="modal" style="color:#000" ><img src="{$WEB_ROOT}/images/icons/add2.png" title="Agregar Modulo a Curso" /></a>
             {/if}
         </td>
         <td align="center">
@@ -33,32 +33,36 @@
         <td align="center">{$subject.active}</td>
         {if !$docente}
             <td align="center">
+				<div>
+					<a href="javascript:void(0)" onClick="viewAccions({$subject.courseId})">Acciones</a>
+				</div>
+				<div id="divAcciones_{$subject.courseId}" style="display:none">
+					{*TODO este boton no funciona de cualquier manera asi que lo quite por lo pronto
+					<img src="{$WEB_ROOT}/images/icons/16/delete.png" class="spanDelete" data-id="{$subject.courseId}" id="d-{$subject.courseId}" name="d-{$subject.name}" title="Eliminar" />&nbsp;
+					*}
 
-                {*TODO este boton no funciona de cualquier manera asi que lo quite por lo pronto
-                <img src="{$WEB_ROOT}/images/icons/16/delete.png" class="spanDelete" data-id="{$subject.courseId}" id="d-{$subject.courseId}" name="d-{$subject.name}" title="Eliminar" />&nbsp;
-                *}
+					{if $subject.majorName=="ESPECIALIDAD" || $subject.majorName=="MAESTRIA"}
+						<img src="{$WEB_ROOT}/images/icons/matri.png" onclick="generar({$subject.courseId},'{$subject.majorName}');" title="Generar Matriculas"  />&nbsp;
+					{/if}
 
-                {if $subject.majorName=="ESPECIALIDAD" || $subject.majorName=="MAESTRIA"}
-                    <img src="{$WEB_ROOT}/images/icons/16/matricula.gif" onclick="generar({$subject.courseId},'{$subject.majorName}');" title="Generar Matriculas" width="16px" height="16px" />&nbsp;
-                {/if}
+					<a href="{$WEB_ROOT}/graybox.php?page=edit-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal">
+						<img src="{$WEB_ROOT}/images/icons/edit2.png" class="spanEdit" id="d-{$subject.subjectId}" name="d-{$subject.name}" title="Editar" />
+					</a>
 
-                <a href="{$WEB_ROOT}/graybox.php?page=edit-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal">
-                    <img src="{$WEB_ROOT}/images/icons/16/pencil.png" class="spanEdit" id="d-{$subject.subjectId}" name="d-{$subject.name}" title="Editar" />
-                </a>
+					{*TODO creo que seria mejor abrir un modal ancho*}
+					{*TODO falta la parte de generar certificado*}
+					<a href="{$WEB_ROOT}/graybox.php?page=ver-sabana-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal">
+						<img src="{$WEB_ROOT}/images/icons/cali.png" class="spanEdit" id="d-{$subject.subjectId}" name="d-{$subject.name}" title="Sabana de Calificaciones" />
+					</a>
 
-                {*TODO creo que seria mejor abrir un modal ancho*}
-                {*TODO falta la parte de generar certificado*}
-                <a href="{$WEB_ROOT}/graybox.php?page=ver-sabana-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal">
-                    <img src="{$WEB_ROOT}/images/icons/16/score.gif" class="spanEdit" id="d-{$subject.subjectId}" name="d-{$subject.name}" title="Sabana de Calificaciones" />
-                </a>
+					<a href="{$WEB_ROOT}/diplomas.php?id={$subject.courseId}" target="_blank" >
+						<img src="{$WEB_ROOT}/images/icons/cer.jpg" class="spanEdit" id="d-{$subject.subjectId}" name="d-{$subject.name}" title="Impresion de Diplomas" />
+					</a>
 
-                <a href="{$WEB_ROOT}/diplomas.php?id={$subject.courseId}" target="_blank" >
-                    <img src="{$WEB_ROOT}/images/icons/16/diploma.jpg" class="spanEdit" id="d-{$subject.subjectId}" name="d-{$subject.name}" title="Impresion de Diplomas" />
-                </a>
-
-                <a href="{$WEB_ROOT}/reporte.php?id={$subject.courseId}" target="_blank" >
-                    <img src="{$WEB_ROOT}/images/chart.png" class="spanEdit" id="d-{$subject.subjectId}" name="d-{$subject.name}" title="Reporte General" />
-                </a>
+					<a href="{$WEB_ROOT}/reporte.php?id={$subject.courseId}" target="_blank" >
+						<img src="{$WEB_ROOT}/images/icons/graf.png" class="spanEdit" id="d-{$subject.subjectId}" name="d-{$subject.name}" title="Reporte General" />
+					</a>
+				</div>
             </td>
         {/if}
     </tr>

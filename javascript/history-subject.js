@@ -123,6 +123,15 @@ new Ajax.Request(WEB_ROOT+'/ajax/studentCurricula.php',
   }
   
   
+  
+  
+  function viewAccions(Id){
+	
+		$("#divAcciones_"+Id)toggle();
+	}
+	
+	
+	//AddReg
 
   // GB_myShow = function(caption, url, height, width, is_reload_on_close) {
   // alert("llego");
