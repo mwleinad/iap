@@ -3,15 +3,16 @@
 if($_FILES)
 	{
 		$student->UpdateFoto();
+		// exit;
 	}
 				
 	$smarty->assign('mnuMain','datos');	
 				
 				
 				
-				$prof = $profesion->Enumerate();
-				$prof = $util->EncodeResult($prof);
-				$smarty->assign('prof',$prof);
+	$prof = $profesion->Enumerate();
+	$prof = $util->EncodeResult($prof);
+	$smarty->assign('prof',$prof);
 	
 	$resCode = $code->Enumerate();
 	$codes = $util->EncodeResult($resCode);

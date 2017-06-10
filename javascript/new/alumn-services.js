@@ -1,4 +1,6 @@
 function saveEditStudentAlumn(){
+	
+	$("#type").val("saveEditStudentAlumn")
 
 	$.ajax({
 	  	type: "POST",
