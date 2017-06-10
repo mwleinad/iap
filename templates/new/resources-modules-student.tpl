@@ -1,7 +1,7 @@
 <div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
-            <i class="fa fa-bullhorm"></i>Recursos de apoyo {$myModule.name|truncate:65:"..."}
+            <i class="fa fa-bullhorm"></i>Recursos de apoyo {$myModule.name|truncate:65:"..."} 
         </div>
 
     </div>

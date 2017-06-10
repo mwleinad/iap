@@ -1,0 +1,155 @@
+[18-Jul-2016 14:45:16 America/Mexico_City] PHP Fatal error:  Uncaught exception 'Exception' with message 'Unable to load template file '/home/iapchiap/public_html//templates/boxes/add-personal.tpl'' in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php:169
+Stack trace:
+#0 /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php(513): Smarty_Internal_Template->isExisting(true)
+#1 /home/iapchiap/public_html/libs/Smarty.class.php(308): Smarty_Internal_Template->getRenderedTemplate()
+#2 /home/iapchiap/public_html/libs/Smarty.class.php(325): Smarty->fetch('/home/iapchiap/...', NULL, NULL, NULL)
+#3 /home/iapchiap/public_html/ajax/new/personal.php(22): Smarty->display('/home/iapchiap/...')
+#4 {main}
+  thrown in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php on line 169
+[18-Jul-2016 14:47:39 America/Mexico_City] PHP Fatal error:  Uncaught exception 'Exception' with message 'Unable to load template file '/home/iapchiap/public_html//templates/new/boxes/add-personal.tpl'' in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php:169
+Stack trace:
+#0 /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php(513): Smarty_Internal_Template->isExisting(true)
+#1 /home/iapchiap/public_html/libs/Smarty.class.php(308): Smarty_Internal_Template->getRenderedTemplate()
+#2 /home/iapchiap/public_html/libs/Smarty.class.php(325): Smarty->fetch('/home/iapchiap/...', NULL, NULL, NULL)
+#3 /home/iapchiap/public_html/ajax/new/personal.php(22): Smarty->display('/home/iapchiap/...')
+#4 {main}
+  thrown in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php on line 169
+[18-Jul-2016 19:31:08 America/Mexico_City] PHP Fatal error:  Uncaught exception 'Exception' with message 'Unable to load template file '/home/iapchiap/public_html//templates/boxes/edit-personal.tpl'' in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php:169
+Stack trace:
+#0 /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php(513): Smarty_Internal_Template->isExisting(true)
+#1 /home/iapchiap/public_html/libs/Smarty.class.php(308): Smarty_Internal_Template->getRenderedTemplate()
+#2 /home/iapchiap/public_html/libs/Smarty.class.php(325): Smarty->fetch('/home/iapchiap/...', NULL, NULL, NULL)
+#3 /home/iapchiap/public_html/ajax/new/personal.php(51): Smarty->display('/home/iapchiap/...')
+#4 {main}
+  thrown in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php on line 169
+[18-Jul-2016 19:38:00 America/Mexico_City] PHP Fatal error:  Uncaught exception 'Exception' with message 'Unable to load template file '/home/iapchiap/public_html//templates/boxes/edit-personal.tpl'' in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php:169
+Stack trace:
+#0 /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php(513): Smarty_Internal_Template->isExisting(true)
+#1 /home/iapchiap/public_html/libs/Smarty.class.php(308): Smarty_Internal_Template->getRenderedTemplate()
+#2 /home/iapchiap/public_html/libs/Smarty.class.php(325): Smarty->fetch('/home/iapchiap/...', NULL, NULL, NULL)
+#3 /home/iapchiap/public_html/ajax/new/personal.php(51): Smarty->display('/home/iapchiap/...')
+#4 {main}
+  thrown in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php on line 169
+[18-Jul-2016 19:38:19 America/Mexico_City] PHP Fatal error:  Uncaught exception 'Exception' with message 'Unable to load template file '/home/iapchiap/public_html//templates/boxes/edit-personal.tpl'' in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php:169
+Stack trace:
+#0 /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php(513): Smarty_Internal_Template->isExisting(true)
+#1 /home/iapchiap/public_html/libs/Smarty.class.php(308): Smarty_Internal_Template->getRenderedTemplate()
+#2 /home/iapchiap/public_html/libs/Smarty.class.php(325): Smarty->fetch('/home/iapchiap/...', NULL, NULL, NULL)
+#3 /home/iapchiap/public_html/ajax/new/personal.php(51): Smarty->display('/home/iapchiap/...')
+#4 {main}
+  thrown in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php on line 169
+[18-Jul-2016 19:40:13 America/Mexico_City] PHP Fatal error:  Uncaught exception 'Exception' with message 'Unable to load template file '/home/iapchiap/public_html//templates/boxes/edit-personal.tpl'' in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php:169
+Stack trace:
+#0 /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php(513): Smarty_Internal_Template->isExisting(true)
+#1 /home/iapchiap/public_html/libs/Smarty.class.php(308): Smarty_Internal_Template->getRenderedTemplate()
+#2 /home/iapchiap/public_html/libs/Smarty.class.php(325): Smarty->fetch('/home/iapchiap/...', NULL, NULL, NULL)
+#3 /home/iapchiap/public_html/ajax/new/personal.php(51): Smarty->display('/home/iapchiap/...')
+#4 {main}
+  thrown in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php on line 169
+[18-Jul-2016 19:40:30 America/Mexico_City] PHP Fatal error:  Uncaught exception 'Exception' with message 'Unable to load template file '/home/iapchiap/public_html//templates/boxes/edit-personal.tpl'' in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php:169
+Stack trace:
+#0 /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php(513): Smarty_Internal_Template->isExisting(true)
+#1 /home/iapchiap/public_html/libs/Smarty.class.php(308): Smarty_Internal_Template->getRenderedTemplate()
+#2 /home/iapchiap/public_html/libs/Smarty.class.php(325): Smarty->fetch('/home/iapchiap/...', NULL, NULL, NULL)
+#3 /home/iapchiap/public_html/ajax/new/personal.php(51): Smarty->display('/home/iapchiap/...')
+#4 {main}
+  thrown in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php on line 169
+[19-Jul-2016 13:46:29 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/classes/util.class.php on line 892
+[19-Jul-2016 14:45:00 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/classes/util.class.php on line 882
+[19-Jul-2016 14:45:00 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/classes/util.class.php on line 882
+[19-Jul-2016 14:46:49 America/Mexico_City] PHP Fatal error:  Uncaught exception 'Exception' with message 'Unable to load template file '/home/iapchiap/public_html//templates/lists/positions.tpl'' in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php:169
+Stack trace:
+#0 /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php(513): Smarty_Internal_Template->isExisting(true)
+#1 /home/iapchiap/public_html/libs/Smarty.class.php(308): Smarty_Internal_Template->getRenderedTemplate()
+#2 /home/iapchiap/public_html/libs/Smarty.class.php(325): Smarty->fetch('/home/iapchiap/...', NULL, NULL, NULL)
+#3 /home/iapchiap/public_html/ajax/new/position.php(59): Smarty->display('/home/iapchiap/...')
+#4 {main}
+  thrown in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php on line 169
+[20-Jul-2016 13:28:33 America/Mexico_City] PHP Fatal error:  Cannot use object of type Util as array in /home/iapchiap/public_html/ajax/new/templates_c/ae374abda2a2e9c4ae54fab422f05e988e88173a.file.recordings-base.tpl.php on line 27
+[20-Jul-2016 13:28:50 America/Mexico_City] PHP Fatal error:  Cannot use object of type Util as array in /home/iapchiap/public_html/ajax/new/templates_c/ae374abda2a2e9c4ae54fab422f05e988e88173a.file.recordings-base.tpl.php on line 27
+[20-Jul-2016 13:29:15 America/Mexico_City] PHP Fatal error:  Call to undefined method Recording::setRecordingId() in /home/iapchiap/public_html/ajax/new/recording.php on line 66
+[20-Jul-2016 13:29:33 America/Mexico_City] PHP Fatal error:  Call to undefined method Recording::setRecordingId() in /home/iapchiap/public_html/ajax/new/recording.php on line 66
+[20-Jul-2016 13:30:37 America/Mexico_City] PHP Fatal error:  Call to undefined method Recording::setRecordingId() in /home/iapchiap/public_html/ajax/new/recording.php on line 66
+[20-Jul-2016 13:31:37 America/Mexico_City] PHP Fatal error:  Call to undefined method Recording::setRecordingId() in /home/iapchiap/public_html/ajax/new/recording.php on line 66
+[20-Jul-2016 13:31:54 America/Mexico_City] PHP Fatal error:  Call to undefined method Recording::setRecordingId() in /home/iapchiap/public_html/ajax/new/recording.php on line 66
+[20-Jul-2016 13:32:03 America/Mexico_City] PHP Fatal error:  Call to undefined method Recording::setRecordingId() in /home/iapchiap/public_html/ajax/new/recording.php on line 66
+[20-Jul-2016 13:34:00 America/Mexico_City] PHP Fatal error:  Call to undefined method Recording::setRecordingId() in /home/iapchiap/public_html/ajax/new/recording.php on line 66
+[20-Jul-2016 13:35:49 America/Mexico_City] PHP Fatal error:  Call to undefined method Recording::setRecordingId() in /home/iapchiap/public_html/ajax/new/recording.php on line 36
+[20-Jul-2016 13:36:04 America/Mexico_City] PHP Fatal error:  Call to undefined method Recording::setRecordingId() in /home/iapchiap/public_html/ajax/new/recording.php on line 36
+[22-Jul-2016 15:18:48 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/classes/util.class.php on line 882
+[22-Jul-2016 15:19:16 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/classes/util.class.php on line 882
+[30-Jul-2016 22:33:52 UTC] PHP Warning:  include_once(../init.php): failed to open stream: No such file or directory in /home/iapchiap/public_html/ajax/new/studentCurricula.php on line 3
+[30-Jul-2016 22:33:52 UTC] PHP Warning:  include_once(): Failed opening '../init.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/iapchiap/public_html/ajax/new/studentCurricula.php on line 3
+[30-Jul-2016 22:33:52 UTC] PHP Warning:  include_once(../config.php): failed to open stream: No such file or directory in /home/iapchiap/public_html/ajax/new/studentCurricula.php on line 4
+[30-Jul-2016 22:33:52 UTC] PHP Warning:  include_once(): Failed opening '../config.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/iapchiap/public_html/ajax/new/studentCurricula.php on line 4
+[30-Jul-2016 22:33:52 UTC] PHP Warning:  include_once(DOC_ROOT/libraries.php): failed to open stream: No such file or directory in /home/iapchiap/public_html/ajax/new/studentCurricula.php on line 5
+[30-Jul-2016 22:33:52 UTC] PHP Warning:  include_once(): Failed opening 'DOC_ROOT/libraries.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/iapchiap/public_html/ajax/new/studentCurricula.php on line 5
+[30-Jul-2016 22:33:52 UTC] PHP Fatal error:  Call to a member function setCourseId() on a non-object in /home/iapchiap/public_html/ajax/new/studentCurricula.php on line 13
+[30-Jul-2016 22:48:25 UTC] PHP Warning:  include_once(../init.php): failed to open stream: No such file or directory in /home/iapchiap/public_html/ajax/new/matricula.php on line 2
+[30-Jul-2016 22:48:25 UTC] PHP Warning:  include_once(): Failed opening '../init.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/iapchiap/public_html/ajax/new/matricula.php on line 2
+[30-Jul-2016 22:48:25 UTC] PHP Warning:  include_once(../config.php): failed to open stream: No such file or directory in /home/iapchiap/public_html/ajax/new/matricula.php on line 3
+[30-Jul-2016 22:48:25 UTC] PHP Warning:  include_once(): Failed opening '../config.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/iapchiap/public_html/ajax/new/matricula.php on line 3
+[30-Jul-2016 22:48:25 UTC] PHP Warning:  include_once(DOC_ROOT/libraries.php): failed to open stream: No such file or directory in /home/iapchiap/public_html/ajax/new/matricula.php on line 4
+[30-Jul-2016 22:48:25 UTC] PHP Warning:  include_once(): Failed opening 'DOC_ROOT/libraries.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/iapchiap/public_html/ajax/new/matricula.php on line 4
+[30-Jul-2016 22:48:25 UTC] PHP Fatal error:  Call to a member function setCourseId() on a non-object in /home/iapchiap/public_html/ajax/new/matricula.php on line 31
+[30-Jul-2016 22:48:47 UTC] PHP Warning:  include_once(../init.php): failed to open stream: No such file or directory in /home/iapchiap/public_html/ajax/new/matricula.php on line 2
+[30-Jul-2016 22:48:47 UTC] PHP Warning:  include_once(): Failed opening '../init.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/iapchiap/public_html/ajax/new/matricula.php on line 2
+[30-Jul-2016 22:48:47 UTC] PHP Warning:  include_once(../config.php): failed to open stream: No such file or directory in /home/iapchiap/public_html/ajax/new/matricula.php on line 3
+[30-Jul-2016 22:48:47 UTC] PHP Warning:  include_once(): Failed opening '../config.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/iapchiap/public_html/ajax/new/matricula.php on line 3
+[30-Jul-2016 22:48:47 UTC] PHP Warning:  include_once(DOC_ROOT/libraries.php): failed to open stream: No such file or directory in /home/iapchiap/public_html/ajax/new/matricula.php on line 4
+[30-Jul-2016 22:48:47 UTC] PHP Warning:  include_once(): Failed opening 'DOC_ROOT/libraries.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/iapchiap/public_html/ajax/new/matricula.php on line 4
+[30-Jul-2016 22:48:47 UTC] PHP Fatal error:  Call to a member function setCourseId() on a non-object in /home/iapchiap/public_html/ajax/new/matricula.php on line 31
+[20-Aug-2016 20:43:16 UTC] PHP Warning:  include_once(../init.php): failed to open stream: No such file or directory in /home/iapchiap/public_html/ajax/new/activity.php on line 3
+[20-Aug-2016 20:43:16 UTC] PHP Warning:  include_once(): Failed opening '../init.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/iapchiap/public_html/ajax/new/activity.php on line 3
+[20-Aug-2016 20:43:16 UTC] PHP Warning:  include_once(../config.php): failed to open stream: No such file or directory in /home/iapchiap/public_html/ajax/new/activity.php on line 4
+[20-Aug-2016 20:43:16 UTC] PHP Warning:  include_once(): Failed opening '../config.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/iapchiap/public_html/ajax/new/activity.php on line 4
+[20-Aug-2016 20:43:16 UTC] PHP Warning:  include_once(DOC_ROOT/libraries.php): failed to open stream: No such file or directory in /home/iapchiap/public_html/ajax/new/activity.php on line 5
+[20-Aug-2016 20:43:16 UTC] PHP Warning:  include_once(): Failed opening 'DOC_ROOT/libraries.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/iapchiap/public_html/ajax/new/activity.php on line 5
+[20-Aug-2016 20:43:16 UTC] PHP Fatal error:  Call to a member function setActivityId() on a non-object in /home/iapchiap/public_html/ajax/new/activity.php on line 12
+[20-Aug-2016 20:43:26 UTC] PHP Warning:  include_once(../init.php): failed to open stream: No such file or directory in /home/iapchiap/public_html/ajax/new/activity.php on line 3
+[20-Aug-2016 20:43:26 UTC] PHP Warning:  include_once(): Failed opening '../init.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/iapchiap/public_html/ajax/new/activity.php on line 3
+[20-Aug-2016 20:43:26 UTC] PHP Warning:  include_once(../config.php): failed to open stream: No such file or directory in /home/iapchiap/public_html/ajax/new/activity.php on line 4
+[20-Aug-2016 20:43:26 UTC] PHP Warning:  include_once(): Failed opening '../config.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/iapchiap/public_html/ajax/new/activity.php on line 4
+[20-Aug-2016 20:43:26 UTC] PHP Warning:  include_once(DOC_ROOT/libraries.php): failed to open stream: No such file or directory in /home/iapchiap/public_html/ajax/new/activity.php on line 5
+[20-Aug-2016 20:43:26 UTC] PHP Warning:  include_once(): Failed opening 'DOC_ROOT/libraries.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/iapchiap/public_html/ajax/new/activity.php on line 5
+[20-Aug-2016 20:43:26 UTC] PHP Fatal error:  Call to a member function setActivityId() on a non-object in /home/iapchiap/public_html/ajax/new/activity.php on line 12
+[18-Sep-2016 17:29:26 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/ajax/new/dependencia-ciudades.php on line 14
+[19-Sep-2016 10:14:18 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/ajax/new/dependencia-ciudades.php on line 14
+[19-Sep-2016 10:14:18 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/ajax/new/dependencia-ciudades.php on line 14
+[19-Sep-2016 10:54:54 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/ajax/new/dependencia-ciudades.php on line 14
+[19-Sep-2016 10:54:54 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/ajax/new/dependencia-ciudades.php on line 14
+[20-Sep-2016 09:50:51 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/ajax/new/dependencia-ciudades.php on line 14
+[23-Sep-2016 10:15:09 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/ajax/new/dependencia-ciudades.php on line 14
+[23-Sep-2016 10:18:36 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/ajax/new/dependencia-ciudadest.php on line 14
+[13-Oct-2016 15:28:14 America/Mexico_City] PHP Fatal error:  Uncaught exception 'Exception' with message 'Unable to load template file '/home/iapchiap/public_html//templates/boxes/view-studentadmin.tpl'' in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php:169
+Stack trace:
+#0 /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php(513): Smarty_Internal_Template->isExisting(true)
+#1 /home/iapchiap/public_html/libs/Smarty.class.php(308): Smarty_Internal_Template->getRenderedTemplate()
+#2 /home/iapchiap/public_html/libs/Smarty.class.php(325): Smarty->fetch('/home/iapchiap/...', NULL, NULL, NULL)
+#3 /home/iapchiap/public_html/ajax/new/studentCurricula.php(142): Smarty->display('/home/iapchiap/...')
+#4 {main}
+  thrown in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php on line 169
+[13-Oct-2016 15:28:17 America/Mexico_City] PHP Fatal error:  Uncaught exception 'Exception' with message 'Unable to load template file '/home/iapchiap/public_html//templates/boxes/view-studentadmin.tpl'' in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php:169
+Stack trace:
+#0 /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php(513): Smarty_Internal_Template->isExisting(true)
+#1 /home/iapchiap/public_html/libs/Smarty.class.php(308): Smarty_Internal_Template->getRenderedTemplate()
+#2 /home/iapchiap/public_html/libs/Smarty.class.php(325): Smarty->fetch('/home/iapchiap/...', NULL, NULL, NULL)
+#3 /home/iapchiap/public_html/ajax/new/studentCurricula.php(29): Smarty->display('/home/iapchiap/...')
+#4 {main}
+  thrown in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php on line 169
+[13-Oct-2016 15:28:43 America/Mexico_City] PHP Fatal error:  Uncaught exception 'Exception' with message 'Unable to load template file '/home/iapchiap/public_html//templates/boxes/view-studentadmin.tpl'' in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php:169
+Stack trace:
+#0 /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php(513): Smarty_Internal_Template->isExisting(true)
+#1 /home/iapchiap/public_html/libs/Smarty.class.php(308): Smarty_Internal_Template->getRenderedTemplate()
+#2 /home/iapchiap/public_html/libs/Smarty.class.php(325): Smarty->fetch('/home/iapchiap/...', NULL, NULL, NULL)
+#3 /home/iapchiap/public_html/ajax/new/studentCurricula.php(142): Smarty->display('/home/iapchiap/...')
+#4 {main}
+  thrown in /home/iapchiap/public_html/libs/sysplugins/smarty_internal_template.php on line 169
+[06-Mar-2017 15:22:24 America/Mexico_City] PHP Warning:  implode(): Invalid arguments passed in /home/iapchiap/public_html/ajax/new/personal.php on line 75
+[03-Apr-2017 18:12:32 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/ajax/new/dependencia-ciudadest.php on line 14
+[05-Apr-2017 12:31:51 America/Mexico_City] PHP Warning:  implode(): Invalid arguments passed in /home/iapchiap/public_html/ajax/new/personal.php on line 75
+[18-Apr-2017 21:18:30 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/ajax/new/dependencia-ciudades.php on line 14
+[01-May-2017 23:35:44 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/ajax/new/dependencia-ciudadest.php on line 14
+[01-May-2017 23:35:44 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/ajax/new/dependencia-ciudadest.php on line 14
+[15-May-2017 16:46:20 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/ajax/new/dependencia-ciudades.php on line 14
+[15-May-2017 16:46:20 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/ajax/new/dependencia-ciudades.php on line 14

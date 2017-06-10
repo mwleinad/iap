@@ -56,7 +56,7 @@
 {*
                 TODO check text areas in graybox
 *}
-                <textarea name="description" id="description" style="width:50%"></textarea>
+                <textarea name="description" id="description" style="width:150px"></textarea>
 {*
                 <input type="text" name="description" id="description" value="" maxlength="30" class="form-control"/>
 *}

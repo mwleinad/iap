@@ -40,11 +40,45 @@ function VerGrupo(id){
 
 }
 
+
+function VerGrupoAdmin(id){
+
+    $.ajax({
+        url : WEB_ROOT+'/ajax/new/studentCurricula.php',
+        type: "POST",
+        data : {type: "StudentAdmin", id:id},
+        success: function(data)
+        {
+            showModal("Ver Grupo Activos", data);
+        },
+        error: function ()
+        {
+            alert('Algo salio mal, compruebe su conexion a internet');
+        }
+    });
+}
+
 function VerGrupoInactivo(id){
     $.ajax({
         url : WEB_ROOT+'/ajax/new/studentCurricula.php',
         type: "POST",
         data : {type: "StudentInactivo", id:id},
+        success: function(data)
+        {
+            showModal("Ver Grupo Inactivo", data);
+        },
+        error: function ()
+        {
+            alert('Algo salio mal, compruebe su conexion a internet');
+        }
+    });
+}
+
+function VerGrupoInactivoAdmin(id){
+    $.ajax({
+        url : WEB_ROOT+'/ajax/new/studentCurricula.php',
+        type: "POST",
+        data : {type: "StudentInactivoAdmin", id:id},
         success: function(data)
         {
             showModal("Ver Grupo Inactivo", data);
