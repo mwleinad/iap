@@ -817,7 +817,7 @@ class Student extends User
 			return false; 
 		}
 		
-		$sqlQuery = "UPDATE user				
+		 $sqlQuery = "UPDATE user				
 						SET 
 							names = '".$this->getNames()."', 
 							lastNamePaterno = '".$this->getLastNamePaterno()."', 
