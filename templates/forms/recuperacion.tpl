@@ -1,10 +1,10 @@
  <form id="emailrecuperacion" name="emailrecuperacion" method="post">
  <input type="hidden" name="type" id="type" value="recupera">
- <input type="hidden" name="redireccion" id="redireccion" value="0">
+  <input type="hidden" name="redireccion" id="redireccion" value="0">
  <input type="hidden" name="Error" id="Error" value="">
 	
   <div class="content-settings-row">
-            <label for="f1"> Para recuperar tu contraseï¿½a ingresa tu email </label>
+            <label for="f1"> Para recuperar tu contraseña ingresa tu email </label>
                                
       </div>
 

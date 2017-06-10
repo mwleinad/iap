@@ -1,5 +1,8 @@
+console.log("jrer");
 Event.observe(window, 'load', function() {
+	console.log("jrer3");
 	Event.observe($('btnAddMajor'), "click", AddMajorDiv);
+	console.log("jrer2");
 
 	AddEditMajorListeners = function(e) {
 		var el = e.element();
