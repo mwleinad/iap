@@ -5,6 +5,7 @@
 
 	if($_POST)
 	{
+
 		$group->SendMailTeam();
 	}
 	

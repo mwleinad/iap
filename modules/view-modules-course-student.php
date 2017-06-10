@@ -8,6 +8,9 @@
 	
 	$date = date("d-m-Y");
 	$addedModules = $course->StudentCourseModules();
+	
+	// echo "<pre>"; print_r($addedModules );
+	// exit;
 	$smarty->assign('date', $date);
 	$smarty->assign('invoiceId', $_GET["id"]);
 	$smarty->assign('subjects', $addedModules);

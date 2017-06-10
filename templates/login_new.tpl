@@ -59,7 +59,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN LOGIN -->
 <div class="content">
     <!-- BEGIN LOGIN FORM -->
-    <form class="login-form" method="post" id="frmLogin">
+    <form class="login-form2" method="post" id="frmLogin">
         <input type="hidden" name="type" value="doLogin" />
 
         <h3 class="form-title">Ingresa a tu cuenta</h3>

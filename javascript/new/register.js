@@ -123,6 +123,8 @@ function AddStudentRegister()
                 ShowStatus($(splitResponse[1]));
                 $('#tblContent').html(splitResponse[2]);
                 CloseFview();
+				setTimeout("",5000);
+				 location.reload();
             }
         },
         error: function ()

@@ -4,7 +4,7 @@ include_once('init.php');
 include_once('config.php');
 include_once(DOC_ROOT.'/libraries.php');
 
-//print_r($_GET);exit;
+// print_r($_GET);exit;
 if (!isset($_SESSION))
 {
     session_start();
@@ -176,6 +176,7 @@ $smarty->assign('section', $_GET['section']);
 if($User['userId'])
     $AccessMod = $user->GetModulesAccess();
 
+$smarty->assign('cId',$_GET["cId"]);
 $smarty->assign('AccessMod',$AccessMod);
 $smarty->assign('User',$User);
 
@@ -186,7 +187,8 @@ if($_GET['section'])
 }
 $smarty->assign('includedTpl', $includedTpl);
 
-//print_r($_GET); exit;
+// echo $includedTpl;
+// exit;
 
 if(isset($_GET['vp'])){
     $smarty->assign("vistaPrevia",$_GET['vp']);

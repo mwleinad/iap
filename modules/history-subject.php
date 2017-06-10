@@ -25,19 +25,19 @@
 	$result = $course->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/history-subject', $arrPage);	
 	
 	//checar a que curriculas tengo permiso
-	if(in_array(2, $info["roles"]))
-	{
-		$smarty->assign('docente', 1);
-		$permisosDocente = $user->PermisosDocente();
+	// if(in_array(2, $info["roles"]))
+	// {
+		// $smarty->assign('docente', 1);
+		// $permisosDocente = $user->PermisosDocente();
 		
-		foreach($result as $key => $value)
-		{
-			if(!in_array($value["courseId"], $permisosDocente["course"]))
-			{
-				unset($result[$key]);
-			}
-		}
-	}
+		// foreach($result as $key => $value)
+		// {
+			// if(!in_array($value["courseId"], $permisosDocente["course"]))
+			// {
+				// unset($result[$key]);
+			// }
+		// }
+	// }
 	
 	$smarty->assign('subjects', $result);
 	$smarty->assign('arrPage', $arrPage);

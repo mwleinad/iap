@@ -13,6 +13,11 @@ $forum->setTopicId($_GET["id"]);
 		$forum->setSubject($_POST["subject"]);
 		$forum->setReply($_POST["reply"]);
 		$forum->AddTopic();
+	
+		// echo "<pre>"; print_r($_POST);
+		// exit;
+		header("Location:".WEB_ROOT."/forumsub-modules-student/id/12/topicId/".$_POST["topicId"]."");
+		exit;
 	}
 	
 	

@@ -9,7 +9,7 @@
     });
 </script>
 <!-- /TinyMCE -->
-<form class="form-horizontal" id="addMajorForm" name="addMajorForm" method="post" action="{$WEB_ROOT}/add-resource/id/{$id}">
+<form class="form-horizontal" id="addMajorForm" name="addMajorForm" method="post" action="{$WEB_ROOT}/add-resource/id/{$id}" enctype="multipart/form-data">
     <input type="hidden" id="type" name="type" value="saveAddMajor"/>
     <div class="form-body">
         <div class="form-group">

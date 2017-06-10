@@ -1036,20 +1036,32 @@ class Student extends User
 			if(file_exists(DOC_ROOT."/alumnos/".$res["userId"].".jpg"))
 			{
 				$card["foto"] = '<a href="#open-'.$res["userId"].'" id="foto-'.$res["userId"].'">
-					<img src="'.WEB_ROOT.'/alumnos/'.$res["userId"].'.jpg" width="40" height="40"/>
+					<img src="'.WEB_ROOT.'/alumnos/'.$res["userId"].'.jpg" width="40" height="40" style=" height: auto; 
+				width: auto; 
+				max-width: 80px; 
+				max-height: 80px;"/>
 				</a>
 			<div id="open-'.$res["userId"].'">
-				<img src="'.WEB_ROOT.'/alumnos/'.$res["userId"].'.jpg" />
+				<img src="'.WEB_ROOT.'/alumnos/'.$res["userId"].'.jpg" style=" height: auto; 
+				width: auto; 
+				max-width: 80px; 
+				max-height: 80px;"/>
 			</div>';
 			}
 			else
 			{
 				$card["foto"] = '<a href="#open-'.$res["userId"].'" id="foto-'.$res["userId"].'">
-					<img src="'.WEB_ROOT.'/alumnos/no_foto.JPG" width="40" height="40"/>
+					<img src="'.WEB_ROOT.'/alumnos/no_foto.JPG" width="40" height="40" style=" height: auto; 
+				width: auto; 
+				max-width: 80px; 
+				max-height: 80px;"/>
 				</a>
 			<div id="open-'.$res["userId"].'">
-				<img src="'.WEB_ROOT.'/alumnos/no_foto.JPG" />
-			</div>';;
+				<img src="'.WEB_ROOT.'/alumnos/no_foto.JPG" style=" height: auto; 
+				width: auto; 
+				max-width: 80px; 
+				max-height: 80px;" />
+						</div>';;
 			}
 			
 			$result[$key] = $card;		

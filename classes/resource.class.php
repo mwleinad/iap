@@ -21,6 +21,8 @@
 				return false;
 			}
 			
+			// echo "<pre>"; print_r($_FILES);
+			// exit;
 			$sql = "INSERT INTO
 						resource
 						( 	
@@ -42,6 +44,8 @@
 			$target_path = $target_path . "recurso_".$id. ".".$ext; 
 			$relative_path = "recurso_".$id. ".".$ext; 
 			
+			// echo $target_path;
+			// exit;
 			if(move_uploaded_file($_FILES['path']['tmp_name'], $target_path)) {
 				$sql = "UPDATE
 							resource
