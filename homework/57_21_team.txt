@@ -1,1 +1,0 @@
-mysql> GRANT ALL PRIVILEGES ON lolrpg_hs.* TO lolrpg_hs@'74.200.74.139' IDENTIFIED BY 'febe6668D'; 

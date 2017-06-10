@@ -63,6 +63,7 @@
 	<script src="{$WEB_ROOT}/javascript/datetimepicker.js?{$timestamp}" type="text/javascript"></script>
 	<script src="{$WEB_ROOT}/javascript/scoluos/src/scriptaculous.js?{$timestamp}" type="text/javascript"></script>
 	<script src="{$WEB_ROOT}/javascript/util.js?{$timestamp}" type="text/javascript"></script>
+	<script src="{$WEB_ROOT}/javascript/config.js?{$timestamp}" type="text/javascript"></script>
 	<script src="{$WEB_ROOT}/javascript/functions.js?{$timestamp}" type="text/javascript"></script>
 	<script src="{$WEB_ROOT}/javascript/{$page}.js?{$timestamp}" type="text/javascript"></script>
 
@@ -125,6 +126,7 @@
 <script src="{$WEB_ROOT}/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
 <script src="{$WEB_ROOT}/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
 <script src="{$WEB_ROOT}/assets/global/plugins/clockface/js/clockface.js" type="text/javascript"></script>
+<script src="{$WEB_ROOT}/javascript/config.js?{$timestamp}" type="text/javascript"></script>
 <script src="{$WEB_ROOT}/javascript/new/functions.js?{$timestamp}" type="text/javascript"></script>
 
 <script src="{$WEB_ROOT}/assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js" type="text/javascript"></script>
@@ -173,6 +175,7 @@
 <script src="{$WEB_ROOT}/javascript/datetimepicker.js?{$timestamp}" type="text/javascript"></script>
 <script src="{$WEB_ROOT}/javascript/scoluos/src/scriptaculous.js?{$timestamp}" type="text/javascript"></script>
 <script src="{$WEB_ROOT}/javascript/util.js?{$timestamp}" type="text/javascript"></script>
+<script src="{$WEB_ROOT}/javascript/config.js?{$timestamp}" type="text/javascript"></script>
 <script src="{$WEB_ROOT}/javascript/functions.js?{$timestamp}" type="text/javascript"></script>
 <script src="{$WEB_ROOT}/javascript/{$page}.js?{$timestamp}" type="text/javascript"></script>
 

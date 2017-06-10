@@ -579,8 +579,8 @@
 				SELECT *, major.name AS majorName, subject.name AS name FROM course
 				LEFT JOIN subject ON course.subjectId = subject.subjectId 
 				LEFT JOIN major ON major.majorId = subject.tipo
-				WHERE course.active = 'si' AND courseId IN (55)
-				ORDER BY subject.tipo");
+				WHERE course.active = 'si' AND courseId IN (89,80,59,82,81)
+				ORDER BY subject.tipo, subject.name, course.group");
 				//echo $this->Util()->DB()->query;
 			$result = $this->Util()->DB()->GetResult();
 			

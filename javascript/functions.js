@@ -1,24 +1,7 @@
-var DOC_ROOT = "../";
-var DOC_ROOT_TRUE = "../";
-var DOC_ROOT_SECTION = "../../";
-//var WEB_ROOT = "http://desarrollot.no-ip.biz/iapenlinea";
-//var WEB_ROOT = "http://187.143.245.7/iapenlinea";
-//var WEB_ROOT = "http://192.168.1.200/iapenlinea";
-
-var WEB_ROOT ="http://"+location.hostname+"/iap";
-
- // var WEB_ROOT = "http://www.iapchiapasenlinea.mx";
-
-
-
-//alert(WEB_ROOT)
-
-
 function ToogleStatusDiv()
 {
 //alert($('redireccion').value);
 
-//alert("hola");
 if($('redireccion')!= undefined){
 	if($('redireccion').value == 1)
 window.location=WEB_ROOT;}

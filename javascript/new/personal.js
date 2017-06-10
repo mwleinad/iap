@@ -13,6 +13,12 @@ $( document ).ready(function() {
         var $id = $(this).attr('id');
         EditPersonalPopup($id);
     });
+
+    console.log("jere");
+
+    $('#my_multi_select1').multiSelect();
+    console.log("jere2");
+
 });
 
 
