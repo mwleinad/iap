@@ -40,6 +40,11 @@
    
 		
     </tr>
+	<tr>
+		<td id="td_{$subject.courseModuleId}" colspan="10">
+			
+		</td>
+	</tr>
 {foreachelse}
 	<tr>
     	<td colspan="12" align="center">No se encontr&oacute; ning&uacute;n registro.</td>

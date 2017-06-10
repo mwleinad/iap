@@ -85,9 +85,12 @@
 		</div>
 		<!-- END SIDEBAR -->
 		<!-- BEGIN CONTENT -->
+		
 		<div class="page-content-wrapper">
 			{include file="new/container.tpl"}
 		</div>
+		<div id="frmModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+						</div>
 		<!-- END CONTENT -->
 	</div>
 	<!-- END CONTAINER -->

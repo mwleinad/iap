@@ -20,6 +20,7 @@
       <div class="content-settings-row">
             <label for="f1"><span style="color:#33CC00; font-weight:bold"> Ya has subido esta Tarea.</span></label>
             <a href="{$WEB_ROOT}/download.php?file=homework/{$homework.path}&mime={$homework.mime}">Ver Tarea</a>
+			
       </div>
       {/if}
 

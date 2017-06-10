@@ -4,6 +4,9 @@
 //$user->allow_access(8);
 //print_r($_SESSION);exit;
 
+// echo "<pre>"; print_r($_POST);
+// echo "<pre>"; print_r($_GET);
+// exit;
 if($_POST)
 {
     if(isset($_POST['replyId'])){
@@ -23,6 +26,8 @@ if($_POST)
         $forum->AddReply();
     }
     //TODO redirect back to page
+	header("Location:".WEB_ROOT."/add-reply/id/".$_POST["moduleId"]."/topicsubId/".$_POST["topicsubId"]."");
+	exit;
 }
 
 //print_r($_SESSION);exit;

@@ -33,6 +33,12 @@
 		$totalScore += $res["realScore"];
 	}
 	
+	if($_SESSION["exito"] == "si"){
+		
+		$smarty->assign('exito', "si");
+		unset($_SESSION["exito"]);
+	}
+	
 	$smarty->assign('totalScore', $totalScore);
 
 	$totalPonderation = $activity->TotalPonderation();

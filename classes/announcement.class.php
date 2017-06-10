@@ -37,10 +37,13 @@
 			//{
 				$courseModuleId = "AND courseModuleId = '".$courseModuleId."'";
 			//}
-			$this->Util()->DB()->setQuery("
+			
+			 $sql = "
 				SELECT * FROM announcement
 				WHERE courseId = '".$courseId."' ".$courseModuleId." 
-				ORDER BY date DESC LIMIT 20");
+				ORDER BY date DESC LIMIT 20";
+			// exit;
+			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
 			
 			foreach($result as $key => $res)

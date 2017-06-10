@@ -268,11 +268,14 @@
 			//calcular el desplazamiento de los registros a recuperar
 			$rowOffset = $arrPages['rowBegin'] - 1;
 			
-			$this->Util()->DB()->setQuery('
+			$sql = '
 				SELECT *, major.name AS majorName, subject.name AS name  FROM course
 				LEFT JOIN subject ON course.subjectId = subject.subjectId 
 				LEFT JOIN major ON major.majorId = subject.tipo
-				ORDER BY subject.tipo,  subject.name,  course.modality, initialDate DESC LIMIT ' . $rowOffset . ', ' . $rowsPerPage);
+				ORDER BY subject.tipo,  subject.name,  course.modality, initialDate DESC LIMIT ' . $rowOffset . ', ' . $rowsPerPage;
+			
+			// exit;
+			$this->Util()->DB()->setQuery($sql);
 			
 			$result = $this->Util()->DB()->GetResult();
 			//echo "<pre>".print_r($result)."</pre>";exit;
@@ -635,11 +638,15 @@
 		function AddedCourseModules()
 		{
 			$info = $this->Info();
-			$this->Util()->DB()->setQuery("
+			
+			$sql = "
 				SELECT * FROM course_module
 				LEFT JOIN subject_module ON subject_module.subjectModuleId = course_module.subjectModuleId
 				WHERE courseId = '".$info["courseId"]."'
-				ORDER BY semesterId ASC, name ASC");
+				ORDER BY semesterId ASC, name ASC";
+			
+			
+			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
 			return $result;
 		}

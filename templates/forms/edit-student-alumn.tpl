@@ -404,13 +404,16 @@
     </div>
 
 
-    <div class="form-actions">
+    
+
+</form>
+<div id="res_">
+</div>
+<div class="form-actions">
         <div class="row">
             <div class="col-md-offset-3 col-md-9">
                 <button type="button" class="btn default" data-dismiss="modal">Salir</button>
-                <button type="submit" class="btn green submitForm">Guardar</button>
+                <button type="submit" class="btn green submitForm" onClick="saveEditStudentAlumn()">Guardar</button>
             </div>
         </div>
     </div>
-
-</form>

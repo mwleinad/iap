@@ -11,7 +11,7 @@
             {/if}
             {if ($asunto== "Foro de Discusion") && ($User.type == "student")}
             {else} |
-                <a href="{$WEB_ROOT}/graybox.php?page=add-topic&id={$topicId}" data-target="#ajax" data-toggle="modal">
+                <a href="{$WEB_ROOT}/graybox.php?page=add-topic&id={$topicId}&cId={$id}" data-target="#ajax" data-toggle="modal">
                     <span class="btnAdd" id="btnAddSubject">Agregar</span>
                 </a>
             {/if}
