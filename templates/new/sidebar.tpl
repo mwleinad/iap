@@ -184,12 +184,13 @@
         {/if}
 
         {if $mnuMain == "modulo1" || $mnuMain == "modulo"}
-            <li class="nav-item {if $page == "view-modules-student"} active {/if} ">
-                <a href="{$WEB_ROOT}/view-modules-student/id/{$id}" class="nav-link nav-toggle">
-                    <i class="fa fa-bullhorn"></i>
-                    <span class="title">Anuncios</span>
+		    <li class="nav-item {if $page == "forum-modules-student"} active {/if} ">
+                <a href="{$WEB_ROOT}/forum-modules-student/id/{$id}" class="nav-link nav-toggle">
+                    <i class="fa fa-comments"></i>
+                    <span class="title">Foro</span>
                 </a>
             </li>
+            
             <li class="nav-item {if $page == "information-modules-student"} active {/if} ">
                 <a href="{$WEB_ROOT}/information-modules-student/id/{$id}" class="nav-link nav-toggle">
                     <i class="fa fa-info"></i>
@@ -245,12 +246,7 @@
                 </a>
             </li>
 
-            <li class="nav-item {if $page == "forum-modules-student"} active {/if} ">
-                <a href="{$WEB_ROOT}/forum-modules-student/id/{$id}" class="nav-link nav-toggle">
-                    <i class="fa fa-comments"></i>
-                    <span class="title">Foro</span>
-                </a>
-            </li>
+        
 
             <li class="nav-item {if $page == "team-modules-student"} active {/if} ">
                 <a href="{$WEB_ROOT}/team-modules-student/id/{$id}" class="nav-link nav-toggle">
@@ -265,7 +261,12 @@
                     <span class="title">Wiki</span>
                 </a>
             </li>
-
+			<li class="nav-item {if $page == "view-modules-student"} active {/if} ">
+                <a href="{$WEB_ROOT}/view-modules-student/id/{$id}" class="nav-link nav-toggle">
+                    <i class="fa fa-bullhorn"></i>
+                    <span class="title">Anuncios</span>
+                </a>
+            </li>
 
         {/if}
 
