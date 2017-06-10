@@ -19,6 +19,17 @@ switch($_POST["type"])
 
         break;
 
+    case "StudentAdmin":
+
+        $group->setCourseId($_POST['id']);
+        $students=$group->DefaultGroup();
+        $smarty->assign("courseId",$_POST['id']);
+        $smarty->assign("DOC_ROOT", DOC_ROOT);
+        $smarty->assign("students", $students);
+        $smarty->display(DOC_ROOT.'/templates/boxes/view-studentadmin.tpl');
+
+        break;
+
     case "calificaciones":
 
         $module->setCourseModuleId($_POST['id']);
@@ -121,7 +132,16 @@ switch($_POST["type"])
 
         break;
 
+    case "StudentInactivoAdmin":
 
+        $group->setCourseId($_POST['id']);
+        $students=$group->DefaultGroupInactivo();
+
+        $smarty->assign("DOC_ROOT", DOC_ROOT);
+        $smarty->assign("students", $students);
+        $smarty->display(DOC_ROOT.'/templates/boxes/view-studentadmin.tpl');
+
+        break;
 
 
 

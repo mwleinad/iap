@@ -92,6 +92,13 @@
             </div>
         </div>
 
+{*
+                <div style="float:left"><span class="reqField">*</span> Campo requerido</div>
+                <div style="padding-right:60px">
+                    <input type="submit" class="btn-70-l" id="addMajor" name="addMajor" value="." />
+                </div>
+*}
+
     </div>
     <div class="form-actions">
         <div class="row">
