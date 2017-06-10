@@ -363,11 +363,13 @@ public function TopicsubInfo()
 		
 		public function Enumerate()
 		{
-			$this->Util()->DB()->setQuery("
+			
+			 $sql = "
 				SELECT * FROM topic
 				LEFT JOIN user ON user.userId = topic.userId
 				WHERE courseId = ".$this->courseId." 
-				ORDER BY topicDate DESC");
+				ORDER BY topicDate DESC";
+			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
 			
 			foreach($result as $key => $res)

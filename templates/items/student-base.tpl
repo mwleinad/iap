@@ -13,10 +13,10 @@
         <td align="center">{$item.lastNameMaterno}</td>
          <td align="center">{$item.names}</td>
         <td align="center">{$item.controlNumber}</td>
-        <td align="center">
+        <td align="left">
         <form name="{$item.userId}" method="post" enctype="multipart/form-data">
         	<input type="hidden" name="userId" id="userId" value="{$item.userId}" />
-        	<input type="file" name="foto" id="foto" />
+        	<input type="file" name="foto" id="foto" /><br>
         	<input type="submit" value="Cambiar Foto" />
         </form>
         </td>

@@ -22,6 +22,8 @@ $( document ).ready(function() {
 
 });
 
+
+
 function DoLogin()
 {
 
@@ -32,16 +34,16 @@ function DoLogin()
         success: function(data)
         {
             var splitResponse = data.split("[#]");
-
+// alert(splitResponse[0])
             if(splitResponse[0] == "fail")
             {
-                if(splitResponse[1] == "data"){
+                // if(splitResponse[1] == "data"){
+                    // $(".display-hide").show();
+                // }
+                // else if(splitResponse[1] == "empty")
+                // {
                     $(".display-hide").show();
-                }
-                else if(splitResponse[1] == "empty")
-                {
-                    $(".display-hide").show();
-                }
+                // }
             }
             else
             {
