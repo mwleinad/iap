@@ -782,6 +782,7 @@
 				$students = $student->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/student', $arrPage, ' semesterId ASC, ');
 				
 				echo "ok[#]";
+				echo DOC_ROOT;
 				$smarty->assign("DOC_ROOT", DOC_ROOT);
 				$smarty->assign('students', $students);	
 				$smarty->display(DOC_ROOT.'/templates/lists/student.tpl');
