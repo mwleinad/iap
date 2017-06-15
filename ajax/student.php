@@ -685,35 +685,6 @@
 				else
 				{
 					echo "ok[#]";
-					// $smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
-					// echo "[#]";
-					
-					// $arrPage = array();		
-					// $viewPage = 1;			
-					// $rowsPerPage = 30;		
-					
-					// $pageVar = 'p';	
-					
-					// if(isset($_GET["$pageVar"]))
-						// $viewPage = $_GET["$pageVar"];	
-					
-					// $students = $student->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/student', $arrPage, ' semesterId ASC, ');
-					// $students = $util->EncodeResult($students);
-					// $smarty->assign('students', $students);	
-					// $smarty->assign('arrPage', $arrPage);
-					
-					// $smarty->assign("DOC_ROOT", DOC_ROOT);
-					// $smarty->display(DOC_ROOT.'/templates/lists/student.tpl');
-					// echo "[#]";
-					// $ids = array();
-					// foreach($students as $student)
-					// {
-						// $ids[] = $student["userId"];
-					// }
-					// echo count($ids);
-					// echo "[#]";
-					// echo $ids = implode(",", $ids);
-
 				}
 					
 				break;	
@@ -732,35 +703,6 @@
 				else
 				{
 					echo "ok[#]";
-					// $smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
-					// echo "[#]";
-					
-					// $arrPage = array();		
-					// $viewPage = 1;			
-					// $rowsPerPage = 30;		
-					
-					// $pageVar = 'p';	
-					
-					// if(isset($_GET["$pageVar"]))
-						// $viewPage = $_GET["$pageVar"];	
-					
-					// $students = $student->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/student', $arrPage, ' semesterId ASC, ');
-					// $students = $util->EncodeResult($students);
-					// $smarty->assign('students', $students);	
-					// $smarty->assign('arrPage', $arrPage);
-					
-					// $smarty->assign("DOC_ROOT", DOC_ROOT);
-					// $smarty->display(DOC_ROOT.'/templates/lists/student.tpl');
-					// echo "[#]";
-					// $ids = array();
-					// foreach($students as $student)
-					// {
-						// $ids[] = $student["userId"];
-					// }
-					// echo count($ids);
-					// echo "[#]";
-					// echo $ids = implode(",", $ids);
-
 				}
 					
 				break;	
