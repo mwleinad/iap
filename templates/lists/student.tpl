@@ -6,3 +6,4 @@
    {include file="{$DOC_ROOT}/templates/items/student-base.tpl"}
 </tbody>
 </table>
+tambien
