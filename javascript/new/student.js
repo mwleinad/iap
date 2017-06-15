@@ -241,7 +241,7 @@ function estado_dependenciat()
  function DoSearch(){
 
  
- // alert("2d")
+ alert("llega")
 	 $("#type").val("DoSearch");
 
 	$.ajax({
