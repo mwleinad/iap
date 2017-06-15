@@ -7,7 +7,7 @@
 	session_start();
 
 //print_r($_POST);
-	
+	//
 	switch($_POST["type"])
 	{
 	
