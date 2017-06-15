@@ -7,7 +7,7 @@
 	session_start();
 
 //print_r($_POST);
-	//
+	
 	switch($_POST["type"])
 	{
 	
@@ -782,7 +782,6 @@
 				$students = $student->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/student', $arrPage, ' semesterId ASC, ');
 				
 				echo "ok[#]";
-				echo "llega";
 				$smarty->assign("DOC_ROOT", DOC_ROOT);
 				$smarty->assign('students', $students);	
 				$smarty->display(DOC_ROOT.'/templates/lists/student.tpl');
