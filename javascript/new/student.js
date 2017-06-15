@@ -23,11 +23,11 @@ function desactivar(id,activo){
 			console.log(response)
 			var splitResp = response.split("[#]");
 			
-		DoSearch();
+		// DoSearch();
 			if(splitResp[0] == "ok"){
 					// $("#tblContent").html(splitResp[2]);
 					// alert("d");
-					// DoSearch();
+					DoSearch();
 				}
 			else if(splitResp[0] == "fail"){
 				$("#res_").html(splitResp[1]);
@@ -58,10 +58,10 @@ function activar(id,activo){
 			console.log(response)
 			var splitResp = response.split("[#]");
 			
-		DoSearch()
+		
 			if(splitResp[0] == "ok"){
 					// $("#tblContent").html(splitResp[2]);
-					
+					DoSearch()
 				}
 			else if(splitResp[0] == "fail"){
 				$("#res_").html(splitResp[1]);
@@ -241,7 +241,7 @@ function estado_dependenciat()
  function DoSearch(){
 
  
- alert("llega")
+ // alert("2d")
 	 $("#type").val("DoSearch");
 
 	$.ajax({
