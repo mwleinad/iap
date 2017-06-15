@@ -361,7 +361,11 @@
         </div>
     </div>
     </div>
-    <div class="form-actions">
+   
+
+</form>
+
+ <div class="form-actions">
         <div class="row">
             <div class="col-md-offset-3 col-md-9">
                 <button type="button" class="btn default" data-dismiss="modal">Cerrar</button>
@@ -369,5 +373,3 @@
             </div>
         </div>
     </div>
-
-</form>

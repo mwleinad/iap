@@ -21,6 +21,8 @@ function saveEditStudentAlumn(){
 			else if(splitResp[0] == "fail"){
 				$("#res_").html(splitResp[1]);
 				$("#centeredDivOnPopup").show();
+			}else{
+				$("#res_").html(response);
 			}
 		},
 		error:function(){

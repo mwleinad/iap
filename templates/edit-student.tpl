@@ -1,0 +1,1 @@
+<div id="tblContent">{include file="{$DOC_ROOT}/templates/lists/modules-course.tpl"}</div>

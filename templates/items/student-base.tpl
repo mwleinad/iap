@@ -6,6 +6,8 @@
 		
 	    	<script src="http://www.iapchiapasenlinea.mx/javascript/util.js" type="text/javascript"></script>      
 			<script>				new FancyZoom('foto-{$item.userId}', {ldelim}width:400, height:300{rdelim});		</script>
+			
+
 			</td>       
         
 		
@@ -35,10 +37,20 @@
           	     {else}
 		      <img src="{$WEB_ROOT}/images/cancel.png"  id="{$item.userId}" title="Dar de Alta" onclick="activar({$item.userId},{$item.activo});" />
 				 {/if}
-			
+			 <!--<a href="{$WEB_ROOT}/graybox.php?page=edit-student&id={$item.userId}" title="EDITAR" onclick="return parent.GB_show('Ver Curricula', this.href,650,700) " style="color:#000" >
+			-->
+			<a href="{$WEB_ROOT}/graybox.php?page=edit-student&id={$item.userId}&auxImagen=1" data-target="#ajax" data-toggle="modal" data-width="1000px">
 			<img src="{$WEB_ROOT}/images/icons/16/pencil.png" class="spanEdit" id="{$item.userId}" title="Editar" />
+			</a>
+			<!--
 		   <a href="{$WEB_ROOT}/student-curricula/id/{$item.userId}" title="Ver Curricula de Estudiante" onclick="return parent.GB_show('Ver Curricula', this.href,650,700) " style="color:#000" ><img src="{$WEB_ROOT}/images/icons/16/subject.gif" title="Ver Curricula Estudiante" /></a>            
-        {/if}
+			-->
+
+			<a href="{$WEB_ROOT}/graybox.php?page=student-curricula&id={$item.userId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
+				<img src="{$WEB_ROOT}/images/icons/16/subject.gif" title="Ver Curricula Estudiante" />
+			</a>            
+
+		{/if}
         </td>       
     </tr>
 {foreachelse}

@@ -4,6 +4,11 @@ class Student extends User
 {
 	private $subjectId;
 	private $name;
+	private $apaterno;
+	private $amaterno;
+	private $nombre;
+	private $noControl;
+	private $estatus;
 
 		
 	public function setSubjectId($value)
@@ -22,10 +27,33 @@ class Student extends User
 		$this->name = $value;
 	}
 	
+	public function setNombre($value)
+	{	
+		$this->nombre = $value;
+	}
+	
+	public function setApaterno($value)
+	{	
+		$this->apaterno = $value;
+	}
+	
+	public function setAmaterno($value)
+	{	
+		$this->amaterno = $value;
+	}
+	
+	public function setNocontrol($value)
+	{	
+		$this->noControl = $value;
+	}
+	
+	public function setEstatus($value)
+	{	
+		$this->estatus = $value;
+	}
 	
 
-	
-		public function setTipoBeca($value)
+	public function setTipoBeca($value)
 	{	
 		$this->tipo_beca = $value;
 	}
@@ -63,19 +91,20 @@ class Student extends User
 	}
 	
 	public function desactivar(){
+		
 	$sql="update user set activo='0' where userId='".$this->getUserId()."' ";
 	$this->Util()->DB()->setQuery($sql);
 	
 	     if(!$this->Util()->DB()->ExecuteQuery()){
 		      
-            $sql="delete from user_subjet where alumnoId ='".$this->getUserId()."' "; //Agregado por JRosales 29/09/2014
-	        $this->Util()->DB()->setQuery($sql);                                      //Agregado por JRosales 29/09/2014 
-	        $this->Util()->DB()->DeleteData();                                        //Agregado por JRosales 29/09/2014
+            // $sql="delete from user_subjet where alumnoId ='".$this->getUserId()."' "; //Agregado por JRosales 29/09/2014
+	        // $this->Util()->DB()->setQuery($sql);                                      //Agregado por JRosales 29/09/2014 
+	        // $this->Util()->DB()->DeleteData();                                        //Agregado por JRosales 29/09/2014
               
-		 	$this->Util()->setError(10030, "complete","El Alumno fue dado de Baja Correctamente");
-            $this->Util()->PrintErrors();
+		 	// $this->Util()->setError(10030, "complete","El Alumno fue dado de Baja Correctamente");
+            // $this->Util()->PrintErrors();
 		
-		  
+		  		
 		  $infoStudent=$this->GetInfo();
 		//print_r($infoStudent); exit;
 					$fecha_aplicacion=date("Y-m-d H:i:s"); 
@@ -102,7 +131,7 @@ class Student extends User
 			$this->Util()->DB()->InsertData();  
 		 
 		 
-		 
+
 		 
 		 return true;
 		 }else{
@@ -112,7 +141,7 @@ class Student extends User
 		 }}
 		 
 		 	public function Activar(){
-	echo $sql="update user set activo='1' where userId='".$this->getUserId()."' ";
+	 $sql="update user set activo='1' where userId='".$this->getUserId()."' ";
 	$this->Util()->DB()->setQuery($sql);
 	
 	     if(!$this->Util()->DB()->ExecuteQuery()){
@@ -300,7 +329,7 @@ class Student extends User
 			return false;
 		}
 		
-		$sqlQuery = "INSERT INTO 
+		 $sqlQuery = "INSERT INTO 
 						user 
 						(
 							type,
@@ -992,6 +1021,35 @@ class Student extends User
 		$result = NULL;
 		$result2 = NULL;
 
+		$filtro = "";
+		
+		if($this->nombre){
+			$filtro .= " and names like '%".$this->nombre."%'";
+		}
+		
+		if($this->apaterno){
+			$filtro .= " and lastNamePaterno like '%".$this->apaterno."%'";
+		}
+		
+		if($this->amaterno){
+			$filtro .= " and lastNameMaterno like '%".$this->amaterno."%'";
+		}
+		
+		if($this->noControl){
+			$filtro .= " and controlNumber = '".$this->noControl."'";
+		}
+		
+		if($this->estatus){
+			if($this->estatus==2){
+				$filtro .= " and activo = 0";
+			}else{
+				$filtro .= " and activo = '".$this->estatus."'";
+			}
+				
+			
+		}
+		
+		
 		$totalTableRows = $this->CountTotalRows($sqlSearch);
 
 		$totalPages = ceil($totalTableRows / $rowsPerPage);
@@ -1005,13 +1063,13 @@ class Student extends User
 
 		$rowOffset = $arrPages['rowBegin'] - 1;
 		
-		$this->Util()->DB()->setQuery("
+		 $sql = "
 								SELECT 
 									* 
 								FROM 
 									user
 								WHERE 
-									1 ".$sqlSearch."
+									1 ".$sqlSearch." ".$filtro."
 								AND
 									type = 'student'									 
 								ORDER BY 
@@ -1020,8 +1078,9 @@ class Student extends User
 									lastNameMaterno ASC,  
 									`names` ASC 
 								LIMIT 
-									".$rowOffset.", ".$rowsPerPage
-							);
+									".$rowOffset.", ".$rowsPerPage;
+		
+		$this->Util()->DB()->setQuery($sql);
 		$result2 = $this->Util()->DB()->GetResult();
 		
 		foreach($result2 as $key => $res){
@@ -1040,28 +1099,11 @@ class Student extends User
 				width: auto; 
 				max-width: 80px; 
 				max-height: 80px;"/>
-				</a>
-			<div id="open-'.$res["userId"].'">
-				<img src="'.WEB_ROOT.'/alumnos/'.$res["userId"].'.jpg" style=" height: auto; 
-				width: auto; 
-				max-width: 80px; 
-				max-height: 80px;"/>
-			</div>';
+				</a>';
 			}
 			else
 			{
-				$card["foto"] = '<a href="#open-'.$res["userId"].'" id="foto-'.$res["userId"].'">
-					<img src="'.WEB_ROOT.'/alumnos/no_foto.JPG" width="40" height="40" style=" height: auto; 
-				width: auto; 
-				max-width: 80px; 
-				max-height: 80px;"/>
-				</a>
-			<div id="open-'.$res["userId"].'">
-				<img src="'.WEB_ROOT.'/alumnos/no_foto.JPG" style=" height: auto; 
-				width: auto; 
-				max-width: 80px; 
-				max-height: 80px;" />
-						</div>';;
+				$card["foto"] = '';
 			}
 			
 			$result[$key] = $card;		
@@ -1107,7 +1149,40 @@ class Student extends User
 	
 	public function CountTotalRows()
 	{
-		$this->Util()->DB()->setQuery('SELECT COUNT(*) FROM user');
+		
+		$filtro = "";
+		
+		if($this->nombre){
+			$filtro .= " and names like '%".$this->nombre."%'";
+		}
+		
+		if($this->apaterno){
+			$filtro .= " and lastNamePaterno like '%".$this->apaterno."%'";
+		}
+		
+		if($this->amaterno){
+			$filtro .= " and lastNameMaterno like '%".$this->amaterno."%'";
+		}
+		
+		if($this->noControl){
+			$filtro .= " and controlNumber = '".$this->noControl."'";
+		}
+		
+		if($this->estatus){
+			if($this->estatus==2){
+				$filtro .= " and activo = 0";
+			}else{
+				$filtro .= " and activo = '".$this->estatus."'";
+			}
+				
+			
+		}
+		
+		
+	
+		$sql = 'SELECT COUNT(*) FROM user where type = "student" '.$filtro.'';
+		
+		$this->Util()->DB()->setQuery($sql);
 		return $this->Util()->DB()->GetSingle();
 	}
 	

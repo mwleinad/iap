@@ -155,7 +155,9 @@ $pages = array(
 
     //reportes
     'reporte-general',
-    'reporte-alumno-modulo'
+    'reporte-alumno-modulo',
+    'edit-student',
+    'add-alumno-admin'
 
 );
 
@@ -164,6 +166,8 @@ if(!in_array($_GET['page'], $pages))
     $_GET['page'] = "homepage";
 }
 
+// echo  "<pre>"; print_r($_GET);
+// exit;
 
 $smarty->assign('positionId', $User['positionId']);
 
@@ -177,6 +181,7 @@ if($User['userId'])
     $AccessMod = $user->GetModulesAccess();
 
 $smarty->assign('cId',$_GET["cId"]);
+$smarty->assign('auxImagen',$_GET["auxImagen"]);
 $smarty->assign('AccessMod',$AccessMod);
 $smarty->assign('User',$User);
 

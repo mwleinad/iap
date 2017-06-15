@@ -1,7 +1,8 @@
 <div style="font-size:12px" align="center">
+<form id="frmFiltro">
 <table width="70%" cellpadding="0" cellspacing="0" border="0">
 <tr>
-	<td bgcolor="#246e0f" align="center" colspan="6"><b>Filtros de B&uacute;squeda</b></td>
+	<td bgcolor="" align="center" colspan="6"><b><font style="color:#73AD21;">Filtros de B&uacute;squeda</font></b></td>
 </tr>
 <tr>
 	<td align="center">Ap. Paterno</td>
@@ -12,24 +13,27 @@
 	
 </tr>
 <tr>
-	<td align="center"><input type="text" name="apPaterno" id="apPaterno" /></td>
-    <td align="center"><input type="text" name="apMaterno" id="apMaterno" /></td>
-    <td align="center"><input type="text" name="nombre" id="nombre" /></td>
-    <td align="center"><input type="text" name="noControl" id="noControl" /></td>
+	<td align="center"><input type="text" name="apPaterno" id="apPaterno" style="color:black"/></td>
+    <td align="center"><input type="text" name="apMaterno" id="apMaterno" style="color:black"/></td>
+    <td align="center"><input type="text" name="nombre" id="nombre" style="color:black"/></td>
+    <td align="center"><input type="text" name="noControl" id="noControl" style="color:black"/></td>
     <td> 
-		<select id="vista" name="vista" style="width:100px">
-						<option value="2">Todos </option>
+		<select id="vista" name="vista" style="width:100px; color:black !important">
+						<option value="">Todos </option>
 						<option value="1">Alta </option>
-						<option value="0">Baja </option>
+						<option value="2">Baja </option>
 		</select>
 	
 	
 	</td>
 	</tr>
 <tr>
-	<td align="center" colspan="6"><input type="submit" name="submit" value="Buscar" onclick="DoSearch()" class="btnSearch" /></td>
+	<td align="center" colspan="6"></td>
 </tr>
 </table>
+</form>
+<input type="submit" name="submit" value="Buscar" onclick="DoSearch()" style="background:#73AD21; color:white" />
+<hr >
 </div>
 
 

@@ -461,6 +461,10 @@
 			break;
 		
 		case 'searchStudent':
+		
+		
+		// echo "<pre>"; print_r($_POST);
+		// exit;
 				
 				$name = $_POST['name'];
 				$controlNumber = $_POST['controlNumber'];
@@ -575,6 +579,10 @@
 			break;
 
 		case "saveEditStudentAlumn":	
+		
+			
+				// echo "<pre>"; print_r($_POST);
+				// exit;
 											
 				$status = $_POST['status'];
                 $student->setPermiso($_POST['permiso']);
@@ -601,14 +609,14 @@
 				//datos de contacto
 				$student->setEmail($_POST['email']);
 				$student->setPhone($_POST['phone']);
-				$student->setFax($_POST['fax']);
+				// $student->setFax($_POST['fax']);
 				$student->setMobile($_POST['mobile']);
 
 				//datos laborales
 				$student->setWorkplace($_POST['workplace']);
 				$student->setWorkplaceAddress($_POST['workplaceAddress']);
 				$student->setWorkplaceArea($_POST['workplaceArea']);
-				$student->setWorkplacePosition($_POST['workplacePosition']);
+				// $student->setWorkplacePosition($_POST['workplacePosition']);
 			    $student->setPaisT($_POST['paist']);
 				$student->setEstadoT($_POST['estadot']);
 				$student->setCiudadT($_POST['ciudadt']);
@@ -627,12 +635,18 @@
 				if(!$student->UpdateAlumn())
 				{
 					echo "fail[#]";
+					
+					$smarty->assign("auxMsj", $_POST["auxMsj"]);
 					$smarty->display(DOC_ROOT.'/templates/boxes/status_on_popup.tpl');
 				}
 				else
 				{
 					echo "ok[#]";
-					$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
+					echo '<div class="alert alert-success">
+					<button class="close" data-dismiss="alert"></button>
+							El Alumno fue editado correctamente
+					</div>';
+					// $smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
 //					header("Location: ".WEB_ROOT."/alumn-services");
 /*					$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
 					echo "[#]";
@@ -671,34 +685,34 @@
 				else
 				{
 					echo "ok[#]";
-					$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
-					echo "[#]";
+					// $smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
+					// echo "[#]";
 					
-					$arrPage = array();		
-					$viewPage = 1;			
-					$rowsPerPage = 30;		
+					// $arrPage = array();		
+					// $viewPage = 1;			
+					// $rowsPerPage = 30;		
 					
-					$pageVar = 'p';	
+					// $pageVar = 'p';	
 					
-					if(isset($_GET["$pageVar"]))
-						$viewPage = $_GET["$pageVar"];	
+					// if(isset($_GET["$pageVar"]))
+						// $viewPage = $_GET["$pageVar"];	
 					
-					$students = $student->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/student', $arrPage, ' semesterId ASC, ');
-					$students = $util->EncodeResult($students);
-					$smarty->assign('students', $students);	
-					$smarty->assign('arrPage', $arrPage);
+					// $students = $student->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/student', $arrPage, ' semesterId ASC, ');
+					// $students = $util->EncodeResult($students);
+					// $smarty->assign('students', $students);	
+					// $smarty->assign('arrPage', $arrPage);
 					
-					$smarty->assign("DOC_ROOT", DOC_ROOT);
-					$smarty->display(DOC_ROOT.'/templates/lists/student.tpl');
-					echo "[#]";
-					$ids = array();
-					foreach($students as $student)
-					{
-						$ids[] = $student["userId"];
-					}
-					echo count($ids);
-					echo "[#]";
-					echo $ids = implode(",", $ids);
+					// $smarty->assign("DOC_ROOT", DOC_ROOT);
+					// $smarty->display(DOC_ROOT.'/templates/lists/student.tpl');
+					// echo "[#]";
+					// $ids = array();
+					// foreach($students as $student)
+					// {
+						// $ids[] = $student["userId"];
+					// }
+					// echo count($ids);
+					// echo "[#]";
+					// echo $ids = implode(",", $ids);
 
 				}
 					
@@ -718,38 +732,61 @@
 				else
 				{
 					echo "ok[#]";
-					$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
-					echo "[#]";
+					// $smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
+					// echo "[#]";
 					
-					$arrPage = array();		
-					$viewPage = 1;			
-					$rowsPerPage = 30;		
+					// $arrPage = array();		
+					// $viewPage = 1;			
+					// $rowsPerPage = 30;		
 					
-					$pageVar = 'p';	
+					// $pageVar = 'p';	
 					
-					if(isset($_GET["$pageVar"]))
-						$viewPage = $_GET["$pageVar"];	
+					// if(isset($_GET["$pageVar"]))
+						// $viewPage = $_GET["$pageVar"];	
 					
-					$students = $student->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/student', $arrPage, ' semesterId ASC, ');
-					$students = $util->EncodeResult($students);
-					$smarty->assign('students', $students);	
-					$smarty->assign('arrPage', $arrPage);
+					// $students = $student->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/student', $arrPage, ' semesterId ASC, ');
+					// $students = $util->EncodeResult($students);
+					// $smarty->assign('students', $students);	
+					// $smarty->assign('arrPage', $arrPage);
 					
-					$smarty->assign("DOC_ROOT", DOC_ROOT);
-					$smarty->display(DOC_ROOT.'/templates/lists/student.tpl');
-					echo "[#]";
-					$ids = array();
-					foreach($students as $student)
-					{
-						$ids[] = $student["userId"];
-					}
-					echo count($ids);
-					echo "[#]";
-					echo $ids = implode(",", $ids);
+					// $smarty->assign("DOC_ROOT", DOC_ROOT);
+					// $smarty->display(DOC_ROOT.'/templates/lists/student.tpl');
+					// echo "[#]";
+					// $ids = array();
+					// foreach($students as $student)
+					// {
+						// $ids[] = $student["userId"];
+					// }
+					// echo count($ids);
+					// echo "[#]";
+					// echo $ids = implode(",", $ids);
 
 				}
 					
 				break;	
+				
+			case "DoSearch":
+			
+				$arrPage = array();		
+				$viewPage = 1;			
+				$rowsPerPage = 30;		
+		
+				
+				// echo "<pre>"; print_r($_POST);
+				// exit;
+				$student->setNombre($_POST["nombre"]);
+				$student->setApaterno($_POST["apPaterno"]);
+				$student->setAmaterno($_POST["apMaterno"]);
+				$student->setNocontrol($_POST["noControl"]);
+				$student->setEstatus($_POST["vista"]);
+				$students = $student->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/student', $arrPage, ' semesterId ASC, ');
+				
+				echo "ok[#]";
+				$smarty->assign("DOC_ROOT", DOC_ROOT);
+				$smarty->assign('students', $students);	
+				$smarty->display(DOC_ROOT.'/templates/lists/student.tpl');
+				
+			break;
 	
 	}
 

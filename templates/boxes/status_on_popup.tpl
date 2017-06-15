@@ -1,4 +1,7 @@
-			{include file="{$DOC_ROOT}/templates/boxes/status_open_on_popup.tpl"} 
+			{if $auxMsj ne 1}
+				{include file="{$DOC_ROOT}/templates/boxes/status_open_on_popup.tpl"} 
+			{/if}
+			
 			{if !empty($errors)}
       	<h3>
     			{if $errors.complete}

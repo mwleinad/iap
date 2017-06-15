@@ -15,13 +15,14 @@
         </div>
 
 
-        <div class="actions">
+        
             {include file="boxes/status_no_ajax.tpl"}
-            {include file="forms/search-student.tpl"}
+           <div class="accions">
             <table>
                 <tr>
-                    <td>
-                        <a href="javascript:;" class="btn green" id="btnAddPersonal">
+                    <td><!--
+                        <a href="javascript:;" class="btn green" id="btnAddPersonal">-->
+						<a class="btn green" href="{$WEB_ROOT}/graybox.php?page=add-alumno-admin&id={$item.userId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
                             <i class="fa fa-plus"></i> Agregar
                         </a>
                     </td>
@@ -33,9 +34,13 @@
                     </td>
                 </tr>
             </table>
-        </div>
+			</div>
+      
     </div>
+	
+	 
     <div class="portlet-body">
+		{include file="forms/search-student.tpl"}
         <div id="tblContent">{include file="lists/student.tpl"}</div>
     </div>
             <br />
