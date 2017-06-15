@@ -23,7 +23,7 @@ function desactivar(id,activo){
 			console.log(response)
 			var splitResp = response.split("[#]");
 			
-		// DoSearch();
+		DoSearch();
 			if(splitResp[0] == "ok"){
 					// $("#tblContent").html(splitResp[2]);
 					// alert("d");
@@ -58,7 +58,7 @@ function activar(id,activo){
 			console.log(response)
 			var splitResp = response.split("[#]");
 			
-		
+			DoSearch()
 			if(splitResp[0] == "ok"){
 					// $("#tblContent").html(splitResp[2]);
 					DoSearch()
