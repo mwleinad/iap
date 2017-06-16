@@ -1,0 +1,1 @@
+ALTER TABLE  `activity_score` ADD  `rutaArchivoRetro` VARCHAR( 255 ) NOT NULL AFTER  `retro` ;
