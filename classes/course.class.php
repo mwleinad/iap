@@ -659,11 +659,14 @@
 		function StudentCourseModules()
 		{
 			$info = $this->Info();
-			$this->Util()->DB()->setQuery("
+			
+			$sql = "
 				SELECT * FROM course_module
 				LEFT JOIN subject_module ON subject_module.subjectModuleId = course_module.subjectModuleId
 				WHERE courseId = '".$info["courseId"]."'
-				ORDER BY semesterId ASC, initialDate ASC");
+				ORDER BY semesterId ASC, initialDate ASC";
+			
+			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
 			//print_r($result);exit;
 			foreach($result as $key => $res)

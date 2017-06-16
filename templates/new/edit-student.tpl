@@ -8,4 +8,4 @@
     <div class="portlet-body">
         <div id="tblContent">{include file="forms/edit-student-alumn.tpl"}</div>
     </div>
-</div>1
+</div>

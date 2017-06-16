@@ -466,6 +466,8 @@ if($result[$key]["homework"]) { break; }
 					$result[$key]{"addepUp"} += $realScore;
 				}
 			}
+			
+			// 
 			return $result;
 		}
 

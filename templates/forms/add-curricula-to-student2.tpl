@@ -23,14 +23,17 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 <ul id="sort-box" class="sorts">
   <li>              
     <div class="content-in-popup">
-      <div class="content-settings-row">
+		<center>
             <label for="f1"><span class="reqField">*</span> Selecciona Curricula:</label>
-            <select name="courseId" id="courseId" style="width:350px">
+			<br>
+            <select name="courseId" id="courseId" style="width:500px" onChange="viewCourse()" class="form-control">
+				 <option value=""></option>
             {foreach from=$curricula item=curso}
+  	         
   	          <option value="{$curso.courseId}">{$curso.majorName} - {$curso.name} -  {$curso.group} -  {$curso.courseId}</option>
             {/foreach}  
             </select>
-      </div>
+		</center>
 	{if $positionId==1}	  
 	   <div class="content-settings-row">
             <label for="f1">Tipo de beca:</label>
@@ -50,11 +53,21 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
       </div>
 	  {/if}
 	          
+		<div id="tblContentGray"></div>
 	  
 
       <div style="float:left"><span class="reqField">*</span> Campo requerido</div>
       <div style="padding-right:60px">                 
-      <input type="submit" class="btn-70-l" onclick=";"  id="saveEditSubject" name="saveEditSubject" value="." />                  
+	  <!--
+      <input type="submit" class="btn-70-l" onclick=";"  id="saveEditSubject" name="saveEditSubject" value="." />--> 
+                  <div class="form-actions">
+					<div class="row">
+						<div class="col-md-offset-3 col-md-9">
+							<button type="button" class="btn default" data-dismiss="modal">Salir</button>
+							<button type="submit" class="btn green submitForm" onClick="addModuls()">Guardar</button>
+						</div>
+					</div>
+				</div>
       </div>
       
     </div>

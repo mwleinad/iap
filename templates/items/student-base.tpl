@@ -48,7 +48,7 @@
 		   <a href="{$WEB_ROOT}/student-curricula/id/{$item.userId}" title="Ver Curricula de Estudiante" onclick="return parent.GB_show('Ver Curricula', this.href,650,700) " style="color:#000" ><img src="{$WEB_ROOT}/images/icons/16/subject.gif" title="Ver Curricula Estudiante" /></a>            
 			-->
 
-			<a href="{$WEB_ROOT}/graybox.php?page=student-curricula&id={$item.userId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
+			<a href="{$WEB_ROOT}/graybox.php?page=student-curricula&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px">
 				<img src="{$WEB_ROOT}/images/icons/16/subject.gif" title="Ver Curricula Estudiante" />
 			</a>            
 

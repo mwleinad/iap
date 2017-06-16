@@ -19,6 +19,9 @@
         <td align="center">
             <input type="text" name="retro[{$item.alumnoId}]" {*if $entrega==0} disabled {/if*} name="retro[{$item.alumnoId}]" value="{$item.retro}" />
         </td>
+		<td>
+			<input type="file" name="" id="">
+		</td>
     </tr>
 {foreachelse}
 	<tr><td colspan="4" align="center">No se encontr&oacute; ning&uacute;n registro.</td></tr>

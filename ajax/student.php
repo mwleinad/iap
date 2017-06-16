@@ -730,6 +730,26 @@
 				
 			break;
 	
+			case "viewCourse":
+			
+			
+				// echo "<pre>"; print_r($_POST);
+				// exit;
+				$course->setCourseId($_POST["courseId"]);
+
+				$date = date("d-m-Y");
+				$addedModules = $course->StudentCourseModules();
+				
+				// echo "<pre>"; print_r($addedModules );
+				// exit;
+				$smarty->assign('date', $date);
+				$smarty->assign('invoiceId', $_POST["courseId"]);
+				$smarty->assign('subjects', $addedModules);
+	
+				echo "ok[#]";
+				$smarty->display(DOC_ROOT.'/templates/lists/new/asig-course.tpl');
+			
+			break;
 	}
 
 ?>

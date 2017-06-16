@@ -23,6 +23,12 @@
 				WHERE activityId = '".$this->getActivityId()."' AND userId = '".$this->getUserId()."'");
 			$count = $this->Util()->DB()->GetSingle();			
 			
+			$nombre = $this->getNombre();
+			
+			if($nombre == null){
+				$nombre = "Actividad";
+			}
+			
 			if($count <= 0)
 			{
 				$sql = "INSERT INTO
@@ -36,7 +42,7 @@
 						VALUES (
 								'" . $this->getUserId() . "', 
 								'" . $this->getActivityId(). "',
-								'" . $this->getNombre() . "',
+								'" . $nombre. "',
                                 '" . date('Y-m-d H:i:s') . "'
 							)";
 				$this->Util()->DB()->setQuery($sql);
@@ -47,7 +53,7 @@
 				$sql = "UPDATE 
 							homework
 							SET
-								nombre = '".$this->getNombre()."'
+								nombre = '".$nombre."'
 							WHERE activityId = '".$this->getActivityId()."' AND userId = '".$this->getUserId()."'";		
 				$this->Util()->DB()->setQuery($sql);
 				$this->Util()->DB()->UpdateData();

@@ -180,6 +180,7 @@ $smarty->assign('section', $_GET['section']);
 if($User['userId'])
     $AccessMod = $user->GetModulesAccess();
 
+$smarty->assign('auxTpl',$_GET["auxTpl"]);
 $smarty->assign('cId',$_GET["cId"]);
 $smarty->assign('auxImagen',$_GET["auxImagen"]);
 $smarty->assign('AccessMod',$AccessMod);

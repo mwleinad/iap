@@ -303,3 +303,37 @@ function AddStudentRegister()
 
 
 }
+
+
+
+
+ function viewCourse(){
+
+ 
+ // alert("2d")
+	 $("#type").val("viewCourse");
+
+	$.ajax({
+	  	type: "POST",
+	  	url: WEB_ROOT+'/ajax/student.php',
+	  	data: $("#frmFiltro").serialize(true)+'&type=viewCourse&courseId='+$("#courseId").val(),
+		beforeSend: function(){			
+			$('divLoading').show();
+		},
+	  	success: function(response) {	
+		$('divLoading').hide();
+			console.log(response)
+			var splitResp = response.split("[#]");
+			
+
+			$('#tblContentGray').html(splitResp[1]);
+			$('#pagination').html();				
+			$('#divLoading').hide();
+				
+		},
+		error:function(){
+			alert(msgError);
+		}
+    });
+	
+}//viewCourse
