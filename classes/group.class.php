@@ -65,12 +65,27 @@
 									'".$retros[$key]."',  
 									'".$score."');");
 							$result = $this->Util()->DB()->InsertData();	
-                       $hecho=$_SESSION['User']['userId']."p";				       
-					   $vista="1p,".$hecho.",".$key."u";
-				       $tablas="activity_score";
-                       $enlace="/score-activity/id/".$id;
-					   $actividad="Se ha calificado la Actividad ".$infoActivity['resumen']." para ".$infoStudent['names']." ".$infoStudent['lastNamePaterno']." ".$infoStudent['lastNameMaterno']." Calificación(De ".$activityAnt['ponderation']." a ".number_format($score,2,'.','').")   Retroalimentación(De ".$activityAnt['retro']." a ".$retros[$key].")";;
+							   $hecho=$_SESSION['User']['userId']."p";				       
+							   $vista="1p,".$hecho.",".$key."u";
+							   $tablas="activity_score";
+							   $enlace="/score-activity/id/".$id;
+							   $actividad="Se ha calificado la Actividad ".$infoActivity['resumen']." para ".$infoStudent['names']." ".$infoStudent['lastNamePaterno']." ".$infoStudent['lastNameMaterno']." Calificación(De ".$activityAnt['ponderation']." a ".number_format($score,2,'.','').")   Retroalimentación(De ".$activityAnt['retro']." a ".$retros[$key].")";;
+									
+							$target_path = DOC_ROOT."/file_retro/";
+							$ext = end(explode('.', basename($file['name'])));			
+							$target_path = $target_path."".$ext; 
+							$relative_path = $target_path."".$ext; 
 							
+							if(move_uploaded_file($file['tmp_name'], $target_path)) 
+							{
+								$sql = "UPDATE 
+											activity_score
+											SET
+												rutaArchivoRetro = '".$relative_path."'
+											WHERE activityScoreId = '".$result."'";		
+								$this->Util()->DB()->setQuery($sql);
+								$this->Util()->DB()->UpdateData();
+							}
 						}
 						else
 						{

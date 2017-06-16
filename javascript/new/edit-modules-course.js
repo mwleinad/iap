@@ -68,3 +68,45 @@ function DeleteResource(id)
 
     });
 }
+
+
+
+
+function upFile(Id,reqId,tramiteId){
+	// alert("h")
+		$(".type").val("upFile");
+		$("#auxrequisito").val(reqId);
+
+		// En esta var va incluido $_POST y $_FILES
+			var fd = new FormData(document.getElementById("frmGral_"+Id));
+			$.ajax({
+				url: AJAX_PATH,
+				data: fd,
+				processData: false,
+				contentType: false,
+				type: 'POST',
+				beforeSend: function(){		
+					$("#loader").html(LOADER);
+					$("#txtErrMsg").hide(0);
+				},
+				success: function(response){
+					
+					console.log(response);
+					var splitResp = response.split("[#]");
+
+					$("#loader").html("");
+					
+					if(splitResp[0] == "ok"){
+						$("#preLoad_"+reqId).html(splitResp[1]);		
+					}else if(splitResp[0] == "fail"){
+						$("#txtErrMsg").show();
+						$("#txtErrMsg").show();
+						$("#txtErrMsg").html(splitResp[1]);				
+					}else{
+						alert(msgFail);
+					}
+				},
+			})
+			
+		}
+		

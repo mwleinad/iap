@@ -6,7 +6,8 @@
 //	print_r($_SESSION); EXIT;
 	if($_POST)
 	{
-	
+	// echo "<pre>"; print
+	// exit;
   //print_r($_POST['ponderation']);exit;
   	    $activity->setActivityId($_GET["id"]);
 		$actividad = $activity->Info();
@@ -27,6 +28,9 @@ $smarty->assign('id', $_GET["id"]);
 	$group->setCourseModuleId($actividad["courseModuleId"]);
 	$group->setCourseId($info["courseId"]);
 	$theGroup = $group->ScoreGroup($actividad["modality"], $actividad["activityType"], $_GET["id"]);
+	
+	// echo "<pre>"; print_r($theGroup );
+	// exit;
 	$smarty->assign('theGroup', $theGroup);
 
 
