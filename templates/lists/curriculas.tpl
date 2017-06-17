@@ -13,7 +13,9 @@
 					
 					<th> Tipo </th>
 					<th> Nombre </th>
+					<th> Grupo </th>
 					<th> Modalidad </th>
+
 					<th> Fecha Inicial </th>
 					<th> Fecha Final </th>
 {*
@@ -29,6 +31,7 @@
 				   
 					<td >{$subject.majorName}</td>
 					<td >{$subject.name}</td>
+					<td >{$subject.group}</td>
 					<td >{$subject.modality}</td>
 					<td >{$subject.initialDate|date_format:"%d-%m-%Y"}</td>
 					<td >{$subject.finalDate|date_format:"%d-%m-%Y"}</td>
@@ -71,6 +74,7 @@
 					<th> Clave </th>
 					<th> Tipo </th>
 					<th> Nombre </th>
+					<th> Grupo </th>
 					<th> Modalidad </th>
 					<th> Fecha Inicial </th>
 					<th> Fecha Final </th>
@@ -90,6 +94,7 @@
 					<td >{$subject.clave}</td>
 					<td >{$subject.majorName}</td>
 					<td >{$subject.name}</td>
+					<td >{$subject.group}</td>
 					<td >{$subject.modality}</td>
 					<td >{$subject.initialDate|date_format:"%d-%m-%Y"}</td>
 					<td >{$subject.finalDate|date_format:"%d-%m-%Y"}</td>
@@ -132,6 +137,7 @@
 					<th> Clave </th>
 					<th> Tipo </th>
 					<th> Nombre </th>
+					<th> Grupo </th>
 					<th> Modalidad </th>
 					<th> Fecha Inicial </th>
 					<th> Fecha Final </th>
@@ -149,6 +155,7 @@
 					<td >{$subject.clave}</td>
 					<td >{$subject.majorName}</td>
 					<td >{$subject.name}</td>
+					<td >{$subject.group}</td>
 					<td >{$subject.modality}</td>
 					<td >{$subject.initialDate|date_format:"%d-%m-%Y"}</td>
 					<td >{$subject.finalDate|date_format:"%d-%m-%Y"}</td>
