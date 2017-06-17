@@ -13,8 +13,9 @@
 	</div>
 	<div style="clear:both"></div>
 	<div>
-
-	 {if $positionId==1} {include file="{$DOC_ROOT}/templates/lists/student-curricula.tpl"}{/if}
+	{if $auxTpl ne 1}
+		{if $positionId==1} {include file="{$DOC_ROOT}/templates/lists/student-curricula.tpl"}{/if}
+	{/if}
 	</div>
 {if $auxTpl ne 1}
 	<script >

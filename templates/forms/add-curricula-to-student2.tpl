@@ -34,23 +34,25 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
             {/foreach}  
             </select>
 		</center>
-	{if $positionId==1}	  
-	   <div class="content-settings-row">
-            <label for="f1">Tipo de beca:</label>
-            	<select name='tipo_beca' id="tipo_beca" style="width:350px"  onChange='habilitar()'>
-                    <option value="Ninguno">Ninguno</option>
-                    <option value="Particular">Particular</option>
-                    <option value="Escolar">Escolar</option>
-					<option value="Prodim">PRODIM</option>
-					
-     </select>                    
-      </div>
-  
-	  <div class="content-settings-row">
-       <label for="f1">Porcentaje de beca :</label>
-      <input type="text" name="por_beca" id="por_beca" value="0"  onkeypress="return IsNumber(event);" style="width:330px"/>% 
+	{if $auxTpl ne 1}
+		{if $positionId==1}	  
+		   <div class="content-settings-row">
+				<label for="f1">Tipo de beca:</label>
+					<select name='tipo_beca' id="tipo_beca" style="width:350px"  onChange='habilitar()'>
+						<option value="Ninguno">Ninguno</option>
+						<option value="Particular">Particular</option>
+						<option value="Escolar">Escolar</option>
+						<option value="Prodim">PRODIM</option>
+						
+		 </select>                    
+		  </div>
 	  
-      </div>
+		  <div class="content-settings-row">
+		   <label for="f1">Porcentaje de beca :</label>
+		  <input type="text" name="por_beca" id="por_beca" value="0"  onkeypress="return IsNumber(event);" style="width:330px"/>% 
+		  
+		  </div>
+		  {/if}
 	  {/if}
 </form>
 			<div class="row">
