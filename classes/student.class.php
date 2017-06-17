@@ -1675,6 +1675,9 @@ class Student extends User
 		}
 		return $totalScore;
 	}
+	
+	
+	
 }
 
 ?>

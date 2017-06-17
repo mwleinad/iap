@@ -160,7 +160,7 @@ class DB
   function InsertData()
 	{
 		$this->ExecuteQuery();
-		$last_id=mysql_insert_id();
+		$last_id=mysql_insert_id($this->conn_id);
 
     $this->CleanQuery();
 

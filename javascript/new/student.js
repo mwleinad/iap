@@ -16,7 +16,7 @@ function desactivar(id,activo){
 	  	url: WEB_ROOT+'/ajax/student.php',
 	  	data: $("#frmFiltro").serialize(true)+'&id='+id+'&activo='+activo+'&type=desactivar',
 		beforeSend: function(){			
-			
+			$('#tblContent').html(LOADER3);
 		},
 	  	success: function(response) {	
 		
@@ -51,7 +51,7 @@ function activar(id,activo){
 	  	url: WEB_ROOT+'/ajax/student.php',
 	  	data: $("#frmFiltro").serialize(true)+'&id='+id+'&activo='+activo+'&type=activar',
 		beforeSend: function(){			
-			
+			$('#tblContent').html(LOADER3);
 		},
 	  	success: function(response) {	
 		
@@ -249,7 +249,7 @@ function estado_dependenciat()
 	  	url: WEB_ROOT+'/ajax/student.php',
 	  	data: $("#frmFiltro").serialize(true)+'&type=DoSearch',
 		beforeSend: function(){			
-			$('divLoading').show();
+			$('#tblContent').html(LOADER3);
 		},
 	  	success: function(response) {	
 		$('divLoading').hide();
@@ -329,6 +329,42 @@ function AddStudentRegister()
 			$('#tblContentGray').html(splitResp[1]);
 			$('#pagination').html();				
 			$('#divLoading').hide();
+				
+		},
+		error:function(){
+			alert(msgError);
+		}
+    });
+	
+}//viewCourse
+
+
+
+
+function addModuls(){
+
+ 
+ // alert("2d")
+ 
+ // alert(LOADER3)
+	 $("#type").val("addModuls");
+
+	$.ajax({
+	  	type: "POST",
+	  	url: WEB_ROOT+'/ajax/student.php', 
+	  	data: $("#frmFiltro").serialize(true)+'&'+$("#frmAddCurricula").serialize(true)+'&type=addModuls&courseId='+$("#courseId").val(),
+		beforeSend: function(){			
+			$('#tblContentGray').html(LOADER3);
+		},
+	  	success: function(response) {	
+		$('divLoading').hide();
+			console.log(response)
+			var splitResp = response.split("[#]");
+			
+
+			$('#tblContentGray').html(splitResp[1]);
+			// $('#pagination').html();				
+			// $('#divLoading').hide();
 				
 		},
 		error:function(){

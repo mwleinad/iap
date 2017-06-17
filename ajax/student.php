@@ -750,6 +750,33 @@
 				$smarty->display(DOC_ROOT.'/templates/lists/new/asig-course.tpl');
 			
 			break;
+			
+			case "addModuls":
+			
+				// echo "<pre>"; print_r($_POST);
+				// exit;
+				
+				$complete=$student->AddUserToCurriculaFromCatalog($_POST["userId"], $_POST["courseId"],"Ninguno",0);
+			   if($complete=="no" || $complete=="Este alumno ya esta registrado en esta curricula. Favor de Seleccionar otra Curricula"){
+						echo "fail[#]";
+						//$util->setError(10028, "error");
+						$util->PrintErrors();
+						$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
+					}
+					else{	
+						echo "ok[#]";
+						$student->setUserId($_POST["userId"]);
+						$activeCourses = $student->StudentCourses("activo", "si");
+						$inactiveCourses = $student->StudentCourses("inactivo", "si");
+						$finishedCourses = $student->StudentCourses("finalizado");
+							
+						$smarty->assign("finishedCourses", $finishedCourses);	
+						$smarty->assign("inactiveCourses", $inactiveCourses);	
+						$smarty->assign("activeCourses", $activeCourses);
+						$smarty->display(DOC_ROOT.'/templates/lists/curriculas.tpl');
+					}
+
+			break;
 	}
 
 ?>

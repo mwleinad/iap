@@ -17,7 +17,7 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 }
 </script>
 
-<form id="frmAddCurricula" name="frmAddCurricula" method="post">
+<form id="frmAddCurricula" name="frmAddCurricula" method="post" onsubmit="return false">
 <input type="hidden" id="userId" name="userId" value="{$id}"/>
 <input type="hidden" id="type" name="type" value="addCurriculaStudent"/>
 <ul id="sort-box" class="sorts">
@@ -26,7 +26,7 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 		<center>
             <label for="f1"><span class="reqField">*</span> Selecciona Curricula:</label>
 			<br>
-            <select name="courseId" id="courseId" style="width:500px" onChange="viewCourse()" class="form-control">
+            <select name="courseId" id="courseId" style="width:500px" onChange="" class="form-control">
 				 <option value=""></option>
             {foreach from=$curricula item=curso}
   	         
@@ -52,25 +52,28 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 	  
       </div>
 	  {/if}
-	          
-		<div id="tblContentGray"></div>
+</form>
+			<div class="row">
+				<div class="col-md-offset-3 col-md-9">
+					<button type="button" class="btn default" data-dismiss="modal">Salir</button>
+					<button  class="btn green submitForm" onClick="addModuls()">Asignar Curricula</button>
+				</div>
+			</div>
+
+		
+			  
+		<div id="tblContentGray">
+			{include file="{$DOC_ROOT}/templates/lists/curriculas.tpl"}	  
+		</div>
 	  
 
       <div style="float:left"><span class="reqField">*</span> Campo requerido</div>
       <div style="padding-right:60px">                 
 	  <!--
       <input type="submit" class="btn-70-l" onclick=";"  id="saveEditSubject" name="saveEditSubject" value="." />--> 
-                  <div class="form-actions">
-					<div class="row">
-						<div class="col-md-offset-3 col-md-9">
-							<button type="button" class="btn default" data-dismiss="modal">Salir</button>
-							<button type="submit" class="btn green submitForm" onClick="addModuls()">Guardar</button>
-						</div>
-					</div>
-				</div>
+                  
       </div>
       
     </div>
    </li>                              
  </ul>    
-</form>

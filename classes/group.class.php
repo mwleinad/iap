@@ -71,20 +71,36 @@
 							   $enlace="/score-activity/id/".$id;
 							   $actividad="Se ha calificado la Actividad ".$infoActivity['resumen']." para ".$infoStudent['names']." ".$infoStudent['lastNamePaterno']." ".$infoStudent['lastNameMaterno']." Calificación(De ".$activityAnt['ponderation']." a ".number_format($score,2,'.','').")   Retroalimentación(De ".$activityAnt['retro']." a ".$retros[$key].")";;
 									
-							$target_path = DOC_ROOT."/file_retro/";
-							$ext = end(explode('.', basename($file['name'])));			
-							$target_path = $target_path."".$ext; 
-							$relative_path = $target_path."".$ext; 
+									
+								// echo $result;
+							// echo $arch =  "fileRetro_".$retros[$key];
 							
-							if(move_uploaded_file($file['tmp_name'], $target_path)) 
+							// exit;
+							foreach($_FILES as $keyf=>$varf)
 							{
-								$sql = "UPDATE 
-											activity_score
-											SET
-												rutaArchivoRetro = '".$relative_path."'
-											WHERE activityScoreId = '".$result."'";		
-								$this->Util()->DB()->setQuery($sql);
-								$this->Util()->DB()->UpdateData();
+							   switch($keyf)
+							   {
+									case $arch:
+										if($varf["name"]<>""){
+											// $aux = explode(".",$varf["name"]);
+											$target_path = DOC_ROOT."/file_retro/";
+											$ext = end(explode('.', basename($varf['name'])));			
+											$target_path = $target_path."".$ext; 
+											$relative_path = $target_path."".$ext; 
+
+											if(move_uploaded_file($varf['tmp_name'], $target_path)) 
+											{
+												$sql = "UPDATE 
+															activity_score
+															SET
+																rutaArchivoRetro = '".$relative_path."'
+															WHERE activityScoreId = '".$result."'";		
+												$this->Util()->DB()->setQuery($sql);
+												$this->Util()->DB()->UpdateData();
+											}
+										}
+									break;
+								}
 							}
 						}
 						else
@@ -182,11 +198,13 @@
 			switch($modality)
 			{
 				case "Individual":
-					$this->Util()->DB()->setQuery("
+					 $sql = "
 						SELECT *, user_subject.status AS status FROM user_subject
 						LEFT JOIN user ON user_subject.alumnoId = user.userId
 						WHERE courseId = '".$this->getCourseId()."' and user_subject.status = 'activo'
-						ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC");
+						ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
+					
+					$this->Util()->DB()->setQuery($sql);
 					$result = $this->Util()->DB()->GetResult();
 					
 					foreach($result as $key => $res)
