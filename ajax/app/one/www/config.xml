@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.iap.sisel" version="1.1.4" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.iap.sisel" version="1.1.5" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>SISEL</name>
     <description>
         Hello World sample application that responds to the deviceready event.
@@ -11,6 +11,13 @@
 	<plugin name="cordova-plugin-console" source="npm" spec="~1.0.3" />
 	<plugin name="phonegap-plugin-push" source="npm" spec="~1.8.0">
         <variable name="SENDER_ID" value="XXXXXXX" />
+    </plugin>
+	<plugin name="cordova-plugin-camera"  source="npm" >
+      <variable name="CAMERA_USAGE_DESCRIPTION" value="Allow the app to use your camera to change profile images and task images" />
+      <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="Allow the app to access your photos  to change profile images and task images" />
+    </plugin>
+    <plugin name="cordova-plugin-media-capture"       source="npm"  >
+      <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="Allow the app to access your photos  to change profile images and task images" />
     </plugin>
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="14" />

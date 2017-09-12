@@ -98,8 +98,8 @@ var app = {
 var urlLoc = "localhost";
 
  // var WEB_ROOT = "http://" + urlLoc + "/iap";
-  var WEB_ROOT = "http://www.iapchiapasenlinea.mx/dev/iap";
- //var WEB_ROOT = "http://www.iapchiapasenlinea.mx/";
+  // var WEB_ROOT = "http://www.iapchiapasenlinea.mx/dev/iap";
+ var WEB_ROOT = "http://www.iapchiapasenlinea.mx/";
 
 var LOADER3 = "<div align='center'><img src='"+WEB_ROOT+"/images/loading.gif'><br>Cargando...</div>";
 

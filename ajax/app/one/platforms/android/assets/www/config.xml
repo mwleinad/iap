@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.iap.sisel" version="1.1.2" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.iap.sisel" version="1.1.5" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>SISEL</name>
     <description>
         Hello World sample application that responds to the deviceready event.
@@ -11,6 +11,13 @@
 	<plugin name="cordova-plugin-console" source="npm" spec="~1.0.3" />
 	<plugin name="phonegap-plugin-push" source="npm" spec="~1.8.0">
         <variable name="SENDER_ID" value="XXXXXXX" />
+    </plugin>
+	<plugin name="cordova-plugin-camera"  source="npm" >
+      <variable name="CAMERA_USAGE_DESCRIPTION" value="Allow the app to use your camera to change profile images and task images" />
+      <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="Allow the app to access your photos  to change profile images and task images" />
+    </plugin>
+    <plugin name="cordova-plugin-media-capture"       source="npm"  >
+      <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="Allow the app to access your photos  to change profile images and task images" />
     </plugin>
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="14" />
@@ -55,32 +62,32 @@
         <splash density="port-xxxhdpi" src="res/screen/android/iap.png" />
     </platform>
     <platform name="ios">
-        <icon height="57" platform="ios" src="www/res/icon/ios/iap.png" width="57" />
-        <icon height="114" platform="ios" src="www/res/icon/ios/iap.png" width="114" />
-        <icon height="40" platform="ios" src="www/res/icon/ios/iap.png" width="40" />
-        <icon height="80" platform="ios" src="www/res/icon/ios/iap.png" width="80" />
-        <icon height="50" platform="ios" src="www/res/icon/ios/iap.png" width="50" />
-        <icon height="100" platform="ios" src="www/res/icon/ios/iap.png" width="100" />
-        <icon height="60" platform="ios" src="www/res/icon/ios/iap.png" width="60" />
+        <icon height="57" platform="ios" src="www/res/icon/ios/iap57.png" width="57" />
+        <icon height="114" platform="ios" src="www/res/icon/ios/iap114.png" width="114" />
+        <icon height="40" platform="ios" src="www/res/icon/ios/iap40.png" width="40" />
+        <icon height="80" platform="ios" src="www/res/icon/ios/iap80.png" width="80" />
+        <icon height="50" platform="ios" src="www/res/icon/ios/iap50.png" width="50" />
+        <icon height="100" platform="ios" src="www/res/icon/ios/iap100.png" width="100" />
+        <icon height="60" platform="ios" src="www/res/icon/ios/iap60.png" width="60" />
         <icon height="120" platform="ios" src="www/res/icon/ios/iap120.png" width="120" />
-        <icon height="180" platform="ios" src="www/res/icon/ios/iap.png" width="180" />
-        <icon height="72" platform="ios" src="www/res/icon/ios/iap.png" width="72" />
-        <icon height="144" platform="ios" src="www/res/icon/ios/iap.png" width="144" />
-        <icon height="76" platform="ios" src="www/res/icon/ios/iap.png" width="76" />
-        <icon height="152" platform="ios" src="www/res/icon/ios/iap.png" width="152" />
-        <icon height="29" platform="ios" src="www/res/icon/ios/iap.png" width="29" />
-        <icon height="58" platform="ios" src="www/res/icon/ios/iap.png" width="58" />
-        <icon height="87" platform="ios" src="www/res/icon/ios/iap.png" width="87" />
-        <splash height="1136" platform="ios" src="www/res/screen/ios/iap.png" width="640" />
-        <splash height="1334" platform="ios" src="www/res/screen/ios/iap.png" width="750" />
-        <splash height="2208" platform="ios" src="www/res/screen/ios/iap.png" width="1242" />
-        <splash height="1242" platform="ios" src="www/res/screen/ios/iap.png" width="2208" />
-        <splash height="1536" platform="ios" src="www/res/screen/ios/iap.png" width="2048" />
-        <splash height="768" platform="ios" src="www/res/screen/ios/iap.png" width="1024" />
-        <splash height="2048" platform="ios" src="www/res/screen/ios/iap.png" width="1536" />
-        <splash height="1024" platform="ios" src="www/res/screen/ios/iap.png" width="768" />
-        <splash height="960" platform="ios" src="www/res/screen/ios/iap.png" width="640" />
-        <splash height="480" platform="ios" src="www/res/screen/ios/iap.png" width="320" />
+        <icon height="180" platform="ios" src="www/res/icon/ios/iap180.png" width="180" />
+        <icon height="72" platform="ios" src="www/res/icon/ios/iap72.png" width="72" />
+        <icon height="144" platform="ios" src="www/res/icon/ios/iap144.png" width="144" />
+        <icon height="76" platform="ios" src="www/res/icon/ios/iap76.png" width="76" />
+        <icon height="152" platform="ios" src="www/res/icon/ios/iap152.png" width="152" />
+        <icon height="29" platform="ios" src="www/res/icon/ios/iap29.png" width="29" />
+        <icon height="58" platform="ios" src="www/res/icon/ios/iap58.png" width="58" />
+        <icon height="87" platform="ios" src="www/res/icon/ios/iap87.png" width="87" />
+        <splash height="1136" platform="ios" src="www/res/screen/ios/iap1.png" width="640" />
+        <splash height="1334" platform="ios" src="www/res/screen/ios/2.png" width="750" />
+        <splash height="2208" platform="ios" src="www/res/screen/ios/3.png" width="1242" />
+        <splash height="1242" platform="ios" src="www/res/screen/ios/4.png" width="2208" />
+        <splash height="1536" platform="ios" src="www/res/screen/ios/5.png" width="2048" />
+        <splash height="768" platform="ios" src="www/res/screen/ios/6.png" width="1024" />
+        <splash height="2048" platform="ios" src="www/res/screen/ios/7.png" width="1536" />
+        <splash height="1024" platform="ios" src="www/res/screen/ios/8.png" width="768" />
+        <splash height="960" platform="ios" src="www/res/screen/ios/9.png" width="640" />
+        <splash height="480" platform="ios" src="www/res/screen/ios/10.png" width="320" />
     </platform>
     <platform name="wp8">
         <icon height="99" platform="wp8" src="www/res/icon/wp8/ApplicationIcon.png" width="99" />
