@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+    <link rel="stylesheet" type="text/css" href="css/index.css?dfg" />
+	<link rel="stylesheet" href="css/themes/my-custom-theme.css?fgfggffdghfdf" />
+	<link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css?ff" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css?dfg" />
+	   <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/jquery-2.0.3.js"></script>
+	<script type="text/javascript" src="js/jquery.mobile-1.3.2.js"></script>
+    <title>IAP</title>
+</head>
+
+<body>
+
+	<div data-role="page" id="login" class="login" >
+	<br>
+	<br>
+
+		<center><div class="logo">&nbsp;</div></center>
+		<div data-role="content">
+		<br>
+			<div class="divlogin">
+				<h3>Ingresa a tu cuenta</h3>
+				<form id="frmGral">
+						<input type="hidden" name="type" id="type" value="doLogin" >
+						<input type="text" name="username" placeholder="Usuario">
+						<input type="password" name="passwd" placeholder="Contraseña">
+				</form>
+				<a onClick="DoLogin()" class="ui-btn">
+					Ingresar
+				</a>
+				<h4>¿Olvidaste tu contraseña?</h4>
+				<p class="parrafoLogin">No te preocupes. Da click aqui para recuperarla.</p>
+			</div>
+		</div>
+		<center><p class="parrafoLogin">2016 © Instituto de Administración Pública del Estado de Chiapas, A.C.</p></center>
+	</div>
+	
+	
+	<div data-role="page" data-theme="a" id="home" >
+		<div data-role="header" data-theme="a">
+			<div id="fotoheader" class="fotoher" onClick="miCuenta()"></div>
+			<h2>IAP</h2>
+		</div>
+		<div data-role="content" data-theme="a" id="page1_content">
+				<div class="perfilInicio" onClick="miCuenta()">
+					<table  id="" >
+						<tr>
+							<td >
+								<div id="foto"></div>
+							</td>
+							<td>
+								<div id="dataAlumnos">
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div data-role="collapsible-set" >
+				<div data-role="collapsible"  class="ui-icon-one-rana ui-btn-icon-right"  >
+					<h3>Curricula Activa</h3>
+					<div id="divActiva">
+					</div>
+				</div>
+				<div data-role="collapsible">
+					<h3>Curricula Inactiva</h3>
+					<p></p>
+				</div>
+				<div data-role="collapsible">
+					<h3>Curricula Finalizada</h3>
+					<p></p>
+				</div>
+				</div>
+		</div>
+		<div data-role="footer" data-id="foo1" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#home">Inicio</a></li>
+					<li><a href="#kardex">Kardex</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div>
+	</div>
+	
+	
+	<div data-role="page" data-theme="a" id="divDetalle" >
+		<div data-role="header" data-theme="a">
+			<div  class="atras" onClick="back('home')">&nbsp;&nbsp;&nbsp;</div>
+			<h2>IAP</h2>
+		</div>
+		<div data-role="content" data-theme="a" id="page1_content">
+			<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
+				<div data-role="collapsible">
+					<h3>Anuncios</h3>
+					<div id="divAnuncios"></div>
+				</div>
+				<div data-role="collapsible">
+					<h3>Informacion</h3>
+					<div id="divInformacion"></div>
+				</div>
+				<div data-role="collapsible">
+					<h3>Actividades</h3>
+					<p></p>
+				</div>
+				<div data-role="collapsible">
+					<h3>Examenes</h3>
+					<p></p>
+				</div>
+				<div data-role="collapsible">
+					<h3>Recursos de Apoyo</h3>
+					<p></p>
+				</div>
+				<div data-role="collapsible">
+					<h3>Foros</h3>
+					<p></p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-id="foo1" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#home">Inicio</a></li>
+					<li><a href="#kardex">Kardex</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div>
+	</div>
+	
+	<div data-role="page" data-theme="a" id="cuenta" >
+		<div data-role="header" data-theme="a">
+			<div  class="atras" onClick="back('home')">&nbsp;&nbsp;&nbsp;</div>
+			<h2>IAP</h2>
+		</div>
+		<!--<div data-role="header" data-theme="a">
+			<div id="" class="fotoher"></div>
+			<h1>Mi Cuenta</h1>
+			<a href="#home" class="ui-btn ui-btn-right ui-corner-all ui-shadow ui-icon-home ui-btn-icon-left">Atras</a>
+		</div>-->
+		<div data-role="content" data-theme="a" id="page1_content">
+			<div data-role="collapsible-set" data-theme="a" data-content-theme="a">
+
+				<div data-role="collapsible">
+					<h3>Informacion Personal</h3>
+					<div id="divPersonal"></div>
+				</div>
+				<div data-role="collapsible">
+					<h3>Domicilio</h3>
+					<div id="divDomicilio"></div>
+				</div>
+				<div data-role="collapsible">
+					<h3>Datos Laborales</h3>
+					<div id="divLaborales"></div>
+				</div>
+				<div data-role="collapsible">
+					<h3>Estudios</h3>
+					<div id="divEstudios"></div>
+				</div>
+
+			</div>
+			<div class="login">
+			<a onClick="SaveCuenta()" class="ui-btn">
+				Guardar
+			</a>
+			</div>
+			
+		</div>
+		
+		<div data-role="footer" data-id="foo1" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#home">Inicio</a></li>
+					<li><a href="#kardex">Kardex</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div>
+	</div>
+	
+
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+</body>
+
+</html>
