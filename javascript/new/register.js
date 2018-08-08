@@ -116,6 +116,7 @@ function AddStudentRegister()
 		},
         success: function(data)
         {
+			console.log(data)
 			$("#loader").html('');
 			 var splitResponse = data.split("[#]");
 			if($.trim(splitResponse[0]) == "ok"){

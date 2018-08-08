@@ -86,6 +86,26 @@
                     <ul class="nav">
 						<li>
                             <a href="{$WEB_ROOT}/perfil" >
+                               <i class="fa fa-user" aria-hidden="true"></i>Aviso de Privacidad 
+							</a>
+                        </li>
+						<li>
+                            &nbsp;
+							<br>
+							<br>
+                        </li>
+						<li>
+						<a href="{$WEB_ROOT}/graybox.php?page=contra" data-target="#ajax" data-toggle="modal" data-width="1000px">
+						   <i class="fa fa-unlock-alt"></i>INE Frente
+						</a>
+						</li>
+						<li>
+						<a href="{$WEB_ROOT}/graybox.php?page=contra" data-target="#ajax" data-toggle="modal" data-width="1000px">
+						   <i class="fa fa-unlock-alt"></i>INE Vuelta
+						</a>
+						</li>
+						<!--<li>
+                            <a href="{$WEB_ROOT}/perfil" >
                                <i class="fa fa-user" aria-hidden="true"></i>Perfil 
 							</a>
                         </li>
@@ -93,7 +113,7 @@
                             <a href="{$WEB_ROOT}/alumn-services ">
                                 <i class="icon-settings"></i> Actualizar Información</a>
                         </li>
-                        <!--<li>
+                        <li>
                             <a href="{$WEB_ROOT}/tv ">
                                 <i class="fa fa-video-camera"></i> VideoConferencias </a>
                         </li>
@@ -106,7 +126,7 @@
                             <a href="{$WEB_ROOT}/view-solicitud" >
                                <i class="fa fa-folder-open" aria-hidden="true"></i>Solicitudes 
 							</a>
-                        </li>-->
+                        </li>--><!--
 						<li>
 						<a href="{$WEB_ROOT}/graybox.php?page=referencia-bancaria" data-target="#ajax" data-toggle="modal" data-width="1000px">
 						   <i class="fa fa-university" aria-hidden="true"></i>Referencia Bancaria 
@@ -117,13 +137,14 @@
 						  <i class="fa fa-file-text" aria-hidden="true"></i>Descargar Formatos de Inscripción/Reinscripción
 						</a>
 						</li>
-						<li>
+						<li>-->
 						<!--<a href="{$WEB_ROOT}/ver-calendario" ><onClick="verCalendario()"
 						   <i class="fa fa-calendar"></i>Calendario de Pagos
 						</a>
 						</li>-->
+						<!--
 						<li>
-						<a href="{$WEB_ROOT}/estatus-financiero" ><!--onClick="verCalendario()"-->
+						<a href="{$WEB_ROOT}/estatus-financiero" >
 						  <i class="fa fa-file-text" aria-hidden="true"></i>Estatus Financiero
 						</a>
 						</li>
@@ -146,7 +167,7 @@
 						<a href="{$WEB_ROOT}/personal-academico" >
 						   <i class="fa fa-sitemap"></i>Personal Academico
 						</a>
-						</li>
+						</li>-->
                     </ul>
                 </div>
                 <!-- END MENU -->
@@ -197,8 +218,9 @@
                         <div class="portlet-title tabbable-line">
                             <div class="caption caption-md">
                                 <i class="icon-globe theme-font hide"></i>
-                                <span class="caption-subject font-blue-madison bold uppercase">Bitácora</span>
+                                <span class="caption-subject font-blue-madison bold uppercase">Datos para fichas de registros CONOCER</span>
                             </div>
+							<!--
                             <ul class="nav nav-tabs">
                                 <li class="active">
                                     <a href="#tab_1_1" data-toggle="tab"> Notificaciones </a>
@@ -206,13 +228,13 @@
                                 <li >
                                     <a href="#tab_1_2" data-toggle="tab"> Avisos </a>
                                 </li>
-                            </ul>
+                            </ul>-->
                         </div>
                         <div class="portlet-body">
                             <!--BEGIN TABS-->
                             <div class="tab-content">
                                 <div class="tab-pane " id="tab_1_2">
-                                    <div class="scroller" style="height: 320px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+                                    <!--<div class="scroller" style="height: 320px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
                                         <ul class="feeds">
 
                                             {foreach from=$announcements item=item}
@@ -238,11 +260,18 @@
                                             {/foreach}
 
                                         </ul>
-                                    </div>
+                                    </div>-->
                                 </div>
                                 <div class="tab-pane active" id="tab_1_1">
                                     <div class="scroller" style="height: 337px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-                                        <ul class="feeds">
+									
+										<div style="text-align:justify">
+											Doy mi consentimiento al CONOCER para que, en términos del artículo 22 de la LEY FEDERAL DE TRANSPARENCIA Y ACCESO A LA INFORMACIÓN PÚBLICA GUBERNAMENTAL, difunda, distribuya y publique la información contenida en el documento que se inscribe, para ser transmitida a instituciones públicas o privadas para agregar mi información a bolsas de trabajo electrónicas o en línea y facilitar mi localización en caso de que alguna otra Institución pública o privada requiera personal con las competencias certificadas con las que cuento.
+										
+										
+										</div>
+										
+                                        <!--<ul class="feeds">
                                             {foreach from=$notificaciones item=reply}
                                                 {if $reply.vistaPermiso==1}
 
@@ -269,7 +298,7 @@
                                             </li>
                                                 {/if}
                                             {/foreach}
-                                        </ul>
+                                        </ul>-->
                                     </div>
                                 </div>
                             </div>
@@ -279,72 +308,7 @@
                     <!-- END PORTLET -->
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- BEGIN PORTLET -->
-                    <div class="portlet light ">
-                        <div class="portlet-title">
-                            <div class="caption caption-md">
-                                <i class="icon-bar-chart theme-font hide"></i>
-                                <span class="caption-subject font-blue-madison bold uppercase">Curricula Activa</span>
-                            </div>
-                        </div>
-                        <div class="portlet-body">
-                            <div class="table-scrollable table-scrollable-borderless">
-                                <table class="table table-hover table-light" >
-                                    <thead>
-                                    <tr class="uppercase">
-                                        
-                                        <th style="text-align: center"> Tipo </th>
-                                        <th style="text-align: center"> Nombre </th>
-										 <th style="text-align: center"> Grupo </th>
-                                        <th style="text-align: center"> Modalidad </th>
-                                        <th style="text-align: center"> Fecha Inicial </th>
-                                        <th style="text-align: center"> Fecha Final </th>
-{*
-                                        <th style="text-align: center"> Pagos </th>
-*}
-                                        
-                                        <th style="text-align: center"> Modulos </th>
-                                       
-                                        <th style="text-align: center"> Acciones </th>
-                                    </tr>
-                                    </thead>
-                                    {foreach from=$activeCourses item=subject}
-                                    <tr>
-                                       
-                                        <td align="center">{$subject.majorName}</td>
-                                        <td align="center">{$subject.name}</td>
-										  <td align="center">{$subject.group}
-                                        <td align="center">{$subject.modality}</td>
-                                        <td align="center">{$subject.initialDate|date_format:"%d-%m-%Y"}</td>
-                                        <td align="center">{$subject.finalDate|date_format:"%d-%m-%Y"}</td>
-                                     
-{*
-                                        <td align="center">{$subject.payments}</td>
-*}
-                                        <td align="center">{$subject.courseModule}
-                                      
-                                        <td align="center">
-                                            <a href="{$WEB_ROOT}/graybox.php?page=view-modules-course-student&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
-                                            <i class="fa fa-sign-in fa-lg"></i>
-                                            </a>
-                                        </td>
-                                     </tr>
-                                        {foreachelse}
-                                        <tr>
-                                            <td colspan="12" align="center">No se encontr&oacute; ning&uacute;n registro.</td>
-                                        </tr>
-
-                                    {/foreach}
-
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END PORTLET -->
-                </div>
-            </div>
+           
 
             <div class="row">
                 <div class="col-md-12">
@@ -353,59 +317,12 @@
                         <div class="portlet-title">
                             <div class="caption caption-md">
                                 <i class="icon-bar-chart theme-font hide"></i>
-                                <span class="caption-subject font-blue-madison bold uppercase">Curricula Inactiva</span>
+                                <span class="caption-subject font-blue-madison bold uppercase"></span>
                             </div>
                         </div>
                         <div class="portlet-body">
                             <div class="table-scrollable table-scrollable-borderless">
-                                <table class="table table-hover table-light">
-                                    <thead>
-                                    <tr class="uppercase">
-                                        <th style="text-align: center"> Clave </th>
-                                        <th style="text-align: center"> Tipo </th>
-                                        <th style="text-align: center"> Nombre </th>
-                                        <th style="text-align: center"> Modalidad </th>
-                                        <th style="text-align: center"> Fecha Inicial </th>
-                                        <th style="text-align: center"> Fecha Final </th>
-                                        {*
-                                                                                <th> Pagos </th>
-                                        *}
-                                        <th style="text-align: center"> Dias Activo </th>
-                                        <th style="text-align: center"> Modulos </th>
-{*
-                                        <th> Acciones </th>
-*}
-                                    </tr>
-                                    </thead>
-                                    {foreach from=$inactiveCourses item=subject}
-
-                                    <tr>
-                                        <td align="center">{$subject.clave}</td>
-                                        <td align="center">{$subject.majorName}</td>
-                                        <td align="center">{$subject.name}</td>
-                                        <td align="center">{$subject.modality}</td>
-                                        <td align="center">{$subject.initialDate|date_format:"%d-%m-%Y"}</td>
-                                        <td align="center">{$subject.finalDate|date_format:"%d-%m-%Y"}</td>
-                                        <td align="center">{$subject.daysToFinish}</td>
-                                        {*
-                                                                                <td align="center">{$subject.payments}</td>
-                                        *}
-                                        <td align="center">{$subject.courseModule}
-{*
-                                        <td align="center">
-                                            <a href="{$WEB_ROOT}/graybox.php?page=view-modules-course-student&id={$subject.courseId}" data-target="#ajax" data-toggle="modal">
-                                                <i class="fa fa-sign-in fa-lg"></i>
-                                            </a>
-                                        </td>
-*}
-                                        </tr>
-                                        {foreachelse}
-                                        <tr>
-                                            <td colspan="12" align="center">No se encontr&oacute; ning&uacute;n registro.</td>
-                                        </tr>
-                                        {/foreach}
-
-                                </table>
+                                {include file="{$DOC_ROOT}/templates/forms/completo.tpl"}
                             </div>
                         </div>
                     </div>
@@ -413,64 +330,7 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- BEGIN PORTLET -->
-                    <div class="portlet light ">
-                        <div class="portlet-title">
-                            <div class="caption caption-md">
-                                <i class="icon-bar-chart theme-font hide"></i>
-                                <span class="caption-subject font-blue-madison bold uppercase">Curricula Finalizada</span>
-                            </div>
-                        </div>
-                        <div class="portlet-body">
-                            <div class="table-scrollable table-scrollable-borderless">
-                                <table class="table table-hover table-light">
-                                    <thead>
-                                    <tr class="uppercase">
-                                        <th style="text-align: center"> Clave </th>
-                                        <th style="text-align: center"> Tipo </th>
-                                        <th style="text-align: center"> Nombre </th>
-                                        <th style="text-align: center"> Modalidad </th>
-                                        <th style="text-align: center"> Fecha Inicial </th>
-                                        <th style="text-align: center"> Fecha Final </th>
-                                        {*
-                                                                                <th> Pagos </th>
-                                        *}
-                                        <th style="text-align: center"> Dias Activo </th>
-                                        <th style="text-align: center"> Modulos </th>
-                                        <th style="text-align: center"> Calificación </th>
-                                    </tr>
-                                    </thead>
-                                    {foreach from=$finishedCourses item=subject}
-
-                                    <tr>
-                                        <td style="text-align: center">{$subject.clave}</td>
-                                        <td style="text-align: center">{$subject.majorName}</td>
-                                        <td style="text-align: center">{$subject.name}</td>
-                                        <td style="text-align: center">{$subject.modality}</td>
-                                        <td style="text-align: center">{$subject.initialDate|date_format:"%d-%m-%Y"}</td>
-                                        <td style="text-align: center"style="text-align: center">{$subject.finalDate|date_format:"%d-%m-%Y"}</td>
-                                        <td >{$subject.daysToFinish}</td>
-                                        {*
-                                                                                <td align="center">{$subject.payments}</td>
-                                        *}
-                                        <td style="text-align: center">{$subject.courseModule}
-                                        <td style="text-align: center">{$subject.mark}</td>
-                                     </tr>
-                                        {foreachelse}
-                                        <tr>
-                                            <td colspan="12" align="center">No se encontr&oacute; ning&uacute;n registro.</td>
-                                        </tr>
-                                    {/foreach}
-
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END PORTLET -->
-                </div>
-            </div>
+            
         </div>
         <!-- END PROFILE CONTENT -->
     </div>

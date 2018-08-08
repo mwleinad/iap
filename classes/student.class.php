@@ -404,12 +404,12 @@ class Student extends User
 			return false;
 		}
                    //Validando contraseña de minimo 6 caracteres
-		if(strlen($this->getPassword()) < 6)
-		{
-			$this->Util()->setError(10028, "error", "El password debe de contener al menos 6 caracteres.");
-			$this->Util()->PrintErrors();
-			return false;
-		}
+		// if(strlen($this->getPassword()) < 6)
+		// {
+			// $this->Util()->setError(10028, "error", "El password debe de contener al menos 6 caracteres.");
+			// $this->Util()->PrintErrors();
+			// return false;
+		// }
 		
 		 $sqlQuery = "INSERT INTO 
 						user 
@@ -530,7 +530,8 @@ class Student extends User
 			$this->Util()->DB()->InsertData();  
 		
 		}
-
+		// $option = "";
+		$_POST["curricula"] = 1;
 		if($option == "createCurricula")
 		{
 			$course = new Course();
@@ -540,7 +541,7 @@ class Student extends User
               if($this->tipo_beca=="Ninguno")
 			    $this->por_beca=0;
 				
-			$this->AddUserToCurricula($id, $_POST["curricula"], $this->getNames(), $this->getEmail(), $this->getPassword(), $courseInfo["majorName"], $courseInfo["name"],$this->tipo_beca,$this->por_beca);
+			 $this->AddUserToCurricula($id, $_POST["curricula"], $this->getNames(), $this->getEmail(), $this->getPassword(), $courseInfo["majorName"], $courseInfo["name"],$this->tipo_beca,$this->por_beca);
 			
 			if($this->getRegister()==0){
 			$complete1 = "Te has registrado exitosamente. Te hemos enviado un correo electronico con los datos de ingreso al sistema";
@@ -568,7 +569,8 @@ class Student extends User
 //print_r($_POST); EXIT;
 	
 	/*    */
-		
+		// $complete1 = "Te has registrado exitosamente. Te hemos enviado un correo electronico con los datos de ingreso al sistema";
+		// $this->Util()->setError(10028, "complete", $complete1);
 		$this->Util()->PrintErrors();
 		
 		return true;
@@ -791,57 +793,60 @@ class Student extends User
 				$this->setNames($info['names']);
 				$this->setLastNamePaterno($info['lastNamePaterno']);
 				$this->setLastNameMaterno($info['lastNameMaterno']);
-				$this->setSexo($info['sexo']);
-				$info['birthdate'] = explode("-", $info['birthdate']);
-				$this->setBirthdate($info['birthdate']);
-				$this->setMaritalStatus($info['maritalStatus']);
+				// $this->setSexo($info['sexo']);
+				// $info['birthdate'] = explode("-", $info['birthdate']);
+				// $this->setBirthdate($info['birthdate']);
+				// $this->setMaritalStatus($info['maritalStatus']);
 				$this->setPassword(trim($info['password']));
 
 				//domicilio
 				//print_r($info);
-				$this->setStreet($info['street']);
-				$this->setNumber($info['number']);
-				$this->setColony($info['colony']);
-				$this->setCity($info['ciudad']);
-				$this->setState($info['estado']);
-				$this->setCountry($info['pais']);
-				$this->setPostalCode($info['postalCode']);
+				// $this->setStreet($info['street']);
+				// $this->setNumber($info['number']);
+				// $this->setColony($info['colony']);
+				// $this->setCity($info['ciudad']);
+				// $this->setState($info['estado']);
+				// $this->setCountry($info['pais']);
+				// $this->setPostalCode($info['postalCode']);
 
 				//datos de contacto
 				$this->setEmail($info['email']);
-				$this->setPhone($info['phone']);
-				$this->setFax($info['fax']);
-				$this->setMobile($info['mobile']);
+				// $this->setPhone($info['phone']);
+				// $this->setFax($info['fax']);
+				// $this->setMobile($info['mobile']);
 
 				//datos laborales
-				$this->setWorkplace($info['workplace']);
-				$this->setWorkplaceOcupation($info['workplaceOcupation']);
-				$this->setWorkplaceAddress($info['workplaceAddress']);
-				$this->setWorkplaceArea($info['workplaceArea']);
-				$this->setWorkplacePosition($info['workplacePosition']);
-				$this->setWorkplaceCity($info['nombreciudad']);
-				$this->setWorkplacePhone($info['workplacePhone']);
-				$this->setWorkplaceEmail($info['workplaceEmail']);
+				// $this->setWorkplace($info['workplace']);
+				// $this->setWorkplaceOcupation($info['workplaceOcupation']);
+				// $this->setWorkplaceAddress($info['workplaceAddress']);
+				// $this->setWorkplaceArea($info['workplaceArea']);
+				// $this->setWorkplacePosition($info['workplacePosition']);
+				// $this->setWorkplaceCity($info['nombreciudad']);
+				// $this->setWorkplacePhone($info['workplacePhone']);
+				// $this->setWorkplaceEmail($info['workplaceEmail']);
 				
 				//Estudios
-				$this->setAcademicDegree($info['academicDegree']);
-				$this->setSchool($info['school']);
-				$this->setHighSchool($info['highSchool']);
-				$this->setMasters($info['masters']);
-				$this->setMastersSchool($info['mastersSchool']);
-				$this->setProfesion($info['profesion']);				
+				// $this->setAcademicDegree($info['academicDegree']);
+				// $this->setSchool($info['school']);
+				// $this->setHighSchool($info['highSchool']);
+				// $this->setMasters($info['masters']);
+				// $this->setMastersSchool($info['mastersSchool']);
+				// $this->setProfesion($info['profesion']);				
 				
 			// }
 			
 			//crear vencimientos
 			$this->AddInvoices($id, $curricula);
+			
+			
 			//create file to attach
 			$files  = new Files;
 			//print_r($this);        //pdf del correo electronico
 			$file = $files->CedulaInscripcion($id, $curricula, $this, $major, $course);
 			//enviar correo
 			$sendmail = new SendMail;
-
+// echo "siga";
+			// exit;
 			$details_body = array(
 				"email" => $info["controlNumber"],
 				"password" => $password,
@@ -1691,6 +1696,8 @@ class Student extends User
 	
 	function AddInvoices($id, $curricula)
 	{
+		// echo "asdsss";
+		// exit;
 		$course = new Course;
 		$course->SetCourseId($curricula);
 		$por_beca=$this->por_beca($id);
@@ -1721,8 +1728,9 @@ class Student extends User
 			  $valor=$myCourse["cost"];
 			  }
 			  
+			  $sql = "SELECT  * FROM  `invoice` where userId='".$id."' and courseId='".$curricula."'  and  dueDate='".$initialYear."-".$initialMonth."-".$initialDay."'  and amount='".$valor."'   ";
 			
-	          $this->Util()->DB()->setQuery("SELECT  * FROM  `invoice` where userId='".$id."' and courseId='".$curricula."'  and  dueDate='".$initialYear."-".$initialMonth."-".$initialDay."'  and amount='".$valor."'   ");
+	          $this->Util()->DB()->setQuery($sql);
 			  $info_invoice = $this->Util()->DB()->cons();
 			  
 			  
@@ -2974,7 +2982,14 @@ class Student extends User
     
 	}
 	
+	public function EnumerateSolicitantes()
+	{
+		$sql = "SELECT * FROM tiposolicitante WHERE 1";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
 		
+		return 	$result;
+	}
 	
 }
 
