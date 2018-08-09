@@ -967,6 +967,59 @@
 			}
 		
 		break;
+		
+		case "saveAddStudentCompleto":
+			
+			
+				
+				//datos personales
+				$student->setUserId($_POST['userId']);
+				$student->setNames($_POST['names']);
+				$student->setLastNamePaterno($_POST['lastNamePaterno']);
+				$student->setLastNameMaterno($_POST['lastNameMaterno']);
+				$student->setSexo($_POST['sexo']);
+				$student->setBirthdate($_POST['day'],$_POST['month'],$_POST['year']);
+
+				//domicilio
+				$student->setStreet($_POST['street']);
+				$student->setNumber($_POST['number']);
+				$student->setColony($_POST['colony']);
+				// $student->setCity($_POST['ciudad']);
+				$student->setState($_POST['estado']);
+				// $student->setCountry($_POST['pais']);
+				$student->setPostalCode($_POST['postalCode']);
+
+				//datos de contacto
+				$student->setEmail($_POST['email']);
+				$student->setPhone($_POST['mobile']);
+				// $student->setFax($_POST['fax']);
+				$student->setMobile($_POST['mobile']);
+
+				//datos laborales
+				
+				$student->setWorkplacePosition($_POST['workplacePosition']);
+				
+				
+				
+				// $student->setWorkplacePhone($_POST['workplacePhone']);
+				// $student->setWorkplaceEmail($_POST['workplaceEmail']);
+				
+				//Estudios
+						
+				
+				
+				if(!$student->Update())
+				{
+					echo "fail[#]";
+					$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
+				}
+				else
+				{
+					echo "ok[#]";
+					$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
+				}	
+
+		break;
 	}
 
 ?>

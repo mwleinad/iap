@@ -33,10 +33,10 @@
                     </select>
 					</td>
 					<td>Certificación:<br>
-					<select id="certificacion" name="certificacion" style="width:250px"   class="form-control">
-                        <option value="0">Selecciona....</option>
-                        {foreach from=$lstCertificacion item=pais}
-                            <option value="{$pais.certificacionId}">{$pais.nombre} </option>
+					
+					  <select name='curricula' id="curricula" style="width:400px" class="form-control"><option value="0">Selecciona....</option>
+                        {foreach from=$activeCourses item=course}
+                            <option value="{$course.courseId}">{$course.majorName} - {$course.name} - {$course.group}</option>
                         {/foreach}
                     </select>
 					

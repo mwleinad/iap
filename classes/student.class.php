@@ -531,7 +531,7 @@ class Student extends User
 		
 		}
 		// $option = "";
-		$_POST["curricula"] = 1;
+		// $_POST["curricula"] = 1;
 		if($option == "createCurricula")
 		{
 			$course = new Course();
@@ -910,7 +910,8 @@ class Student extends User
 							school = '".$this->getSchool()."', 
 							masters = '".$this->getMasters()."', 
 							mastersSchool = '".$this->getMastersSchool()."', 
-							highSchool = '".$this->getHighSchool()."'						
+							highSchool = '".$this->getHighSchool()."',						
+							actualizado = 'si'						
 						WHERE 
 							userId = ".$this->getUserId();		
 		
@@ -1822,7 +1823,8 @@ class Student extends User
 			$result[$key]["courseModule"] = $this->Util()->DB()->GetSingle();
 			
 		}		
-		
+		// echo "<pre>"; print_r($result);
+	// exit;
 		return $result;
 		
 	}
@@ -2991,6 +2993,15 @@ class Student extends User
 		return 	$result;
 	}
 	
+	
+	public function EnumerateSector()
+	{
+		$sql = "SELECT * FROM sector WHERE 1 order by nombre";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		
+		return 	$result;
+	}
 }
 
 ?>

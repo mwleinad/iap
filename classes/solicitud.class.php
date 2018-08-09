@@ -1096,6 +1096,16 @@ class Solicitud extends Module
 		return true;
 	}
 	
+	public function generarAcuse()
+	{
+		$sqlQuery = "UPDATE user_subject set acuseDerecho ='si'  where courseId = '".$_POST["courseId"]."' and alumnoId = ".$_POST["userId"].""; 	
+				$this->Util()->DB()->setQuery($sqlQuery);
+				$this->Util()->DB()->ExecuteQuery();	
+				
+		return true;
+	}
+	
+	
 	
 }	
 ?>

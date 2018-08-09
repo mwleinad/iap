@@ -9,7 +9,7 @@
     <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
     <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
     <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-    <ul class="page-sidebar-menu  page-header-fixed {if $User.type == "student" ||  $User.type == "Docente" || $page == "register"} page-sidebar-menu-closed {/if}" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+    <ul class="page-sidebar-menu  page-header-fixed {if $User.type == "student" ||  $User.type == "Docente"} page-sidebar-menu-closed {/if}" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
         <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
         <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
         <li class="sidebar-toggler-wrapper hide">
@@ -25,7 +25,7 @@
             </a>
 
         </li>
-
+		
         {if $AccessMod[32] == 1 || $AccessMod[33] == 1}
 {*
         <li class="nav-item start ">
@@ -389,7 +389,7 @@
 		
 
         {if $mnuMain == "modulo1" || $mnuMain == "modulo"}
-		
+		<!--
 		<li class="nav-item {if $page == "view-modules-student"} active {/if} ">
                 <a href="{$WEB_ROOT}/view-modules-student/id/{$id}" class="nav-link nav-toggle">
                     <i class="fa fa-bullhorn"></i>
@@ -419,7 +419,7 @@
                 <i class="fa fa-user"></i>
                 <span class="title">Asesor</span>
             </a>
-        </li>
+        </li>-->
 <!--
 		<li class="nav-item {if $page == "personal-academico"} active {/if}">
             <a href="{$WEB_ROOT}/personal-academico/id/{$id}" class="nav-link nav-toggle">
@@ -427,7 +427,7 @@
                 <span class="title">Personal Académico</span>
             </a>
         </li>-->
-
+<!--
         {if $mnuMain == "modulo"}
             <li class="nav-item {if $page == "calendar-image-modules-student"} active {/if} ">
                 <a href="{$WEB_ROOT}/calendar-image-modules-student/id/{$id}" class="nav-link nav-toggle">
@@ -452,14 +452,16 @@
                 </a>
             </li>
             {/if}
-
+-->
+			{if $info.acuseDerecho eq "si"}
             <li class="nav-item {if $page == "examen-modules-student"} active {/if} ">
                 <a href="{$WEB_ROOT}/examen-modules-student/id/{$id}" class="nav-link nav-toggle">
                     <i class="fa fa-check-square-o"></i>
                     <span class="title">Examenes</span>
                 </a>
             </li>
-
+			{/if}
+<!--
             <li class="nav-item {if $page == "resources-modules-student"} active {/if} ">
                 <a href="{$WEB_ROOT}/resources-modules-student/id/{$id}" class="nav-link nav-toggle">
                     <i class="fa fa-files-o"></i>
@@ -493,7 +495,7 @@
                     <i class="fa fa-wikipedia-w"></i>
                     <span class="title">Wiki</span>
                 </a>
-            </li>
+            </li>-->
 			<!-- 
 			 <li class="nav-item {if $page == "inbox"} active {/if} ">
                 <a href="{$WEB_ROOT}/inbox/id/{$id}" class="nav-link nav-toggle">

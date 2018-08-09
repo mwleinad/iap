@@ -1022,7 +1022,7 @@
 				LEFT JOIN subject_module ON subject_module.subjectModuleId = course_module.subjectModuleId
 				WHERE courseId = '".$info["courseId"]."'
 				ORDER BY semesterId ASC, initialDate ASC";
-			
+			// exit;
 			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
 			//print_r($result);exit;

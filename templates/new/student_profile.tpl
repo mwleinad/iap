@@ -211,6 +211,7 @@
         <!-- END BEGIN PROFILE SIDEBAR -->
         <!-- BEGIN PROFILE CONTENT -->
         <div class="profile-content">
+		{if $info.actualizado eq "no"}
             <div class="row">
                 <div class="col-md-12">
                     <!-- BEGIN PORTLET -->
@@ -220,85 +221,17 @@
                                 <i class="icon-globe theme-font hide"></i>
                                 <span class="caption-subject font-blue-madison bold uppercase">Datos para fichas de registros CONOCER</span>
                             </div>
-							<!--
-                            <ul class="nav nav-tabs">
-                                <li class="active">
-                                    <a href="#tab_1_1" data-toggle="tab"> Notificaciones </a>
-                                </li>
-                                <li >
-                                    <a href="#tab_1_2" data-toggle="tab"> Avisos </a>
-                                </li>
-                            </ul>-->
                         </div>
                         <div class="portlet-body">
                             <!--BEGIN TABS-->
                             <div class="tab-content">
                                 <div class="tab-pane " id="tab_1_2">
-                                    <!--<div class="scroller" style="height: 320px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-                                        <ul class="feeds">
-
-                                            {foreach from=$announcements item=item}
-                                            <li>
-                                                <div class="col1">
-                                                    <div class="cont">
-                                                        <div class="cont-col1">
-                                                            <div class="label label-sm label-success">
-                                                                <i class="fa fa-bell-o"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="cont-col2">
-                                                            <div class="desc">
-                                                                <b>{$item.title}</b>: {$item.description}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col2">
-                                                    <div class="date"> {$item.date|date_format:"%d %b '%y"} </div>
-                                                </div>
-                                            </li>
-                                            {/foreach}
-
-                                        </ul>
-                                    </div>-->
                                 </div>
                                 <div class="tab-pane active" id="tab_1_1">
                                     <div class="scroller" style="height: 337px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-									
 										<div style="text-align:justify">
 											Doy mi consentimiento al CONOCER para que, en términos del artículo 22 de la LEY FEDERAL DE TRANSPARENCIA Y ACCESO A LA INFORMACIÓN PÚBLICA GUBERNAMENTAL, difunda, distribuya y publique la información contenida en el documento que se inscribe, para ser transmitida a instituciones públicas o privadas para agregar mi información a bolsas de trabajo electrónicas o en línea y facilitar mi localización en caso de que alguna otra Institución pública o privada requiera personal con las competencias certificadas con las que cuento.
-										
-										
 										</div>
-										
-                                        <!--<ul class="feeds">
-                                            {foreach from=$notificaciones item=reply}
-                                                {if $reply.vistaPermiso==1}
-
-                                                <li>
-                                                <a href="{$WEB_ROOT}{$reply.enlace}">
-                                                    <div class="col1">
-                                                        <div class="cont">
-                                                            <div class="cont-col1">
-                                                                <div class="label label-sm label-success">
-                                                                    <i class="fa fa-bell-o"></i>
-                                                                </div>
-                                                            </div>
-                                                            <div class="cont-col2">
-                                                                <div class="desc">
-                                                                    {$reply.actividad} por {$reply.nombre}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col2">
-                                                        <div class="date"> {$reply.fecha_aplicacion|date_format:"%d %b '%y"} </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                                {/if}
-                                            {/foreach}
-                                        </ul>-->
                                     </div>
                                 </div>
                             </div>
@@ -308,8 +241,8 @@
                     <!-- END PORTLET -->
                 </div>
             </div>
-           
-
+           {/if}
+			{if $info.actualizado eq "no"}
             <div class="row">
                 <div class="col-md-12">
                     <!-- BEGIN PORTLET -->
@@ -329,7 +262,67 @@
                     <!-- END PORTLET -->
                 </div>
             </div>
+			{else}
+				  <div class="row">
+                <div class="col-md-12">
+                    <!-- BEGIN PORTLET -->
+                    <div class="portlet light ">
+                        <div class="portlet-title">
+                            <div class="caption caption-md">
+                                <i class="icon-bar-chart theme-font hide"></i>
+                                <span class="caption-subject font-blue-madison bold uppercase">Certificación Activa</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="table-scrollable table-scrollable-borderless">
+                                <table class="table table-hover table-light" >
+                                    <thead>
+                                    <tr class="uppercase">
+                                        
+                                        <th style="text-align: center"> Tipo </th>
+                                        <th style="text-align: center"> Nombre </th>
+										 <th style="text-align: center"> Grupo </th>
+                                        <th style="text-align: center"> Modalidad </th>
+                                        <th style="text-align: center"> Fecha Inicial </th>
+                                        <th style="text-align: center"> Fecha Final </th>                                        
+                                        <th style="text-align: center"> Modulos </th>
+                                       
+                                        <th style="text-align: center"> Acciones </th>
+                                    </tr>
+                                    </thead>
+                                    {foreach from=$activeCourses item=subject}
+                                    <tr>
+                                       
+                                        <td align="center">{$subject.majorName}</td>
+                                        <td align="center">{$subject.name}</td>
+										  <td align="center">{$subject.group}
+                                        <td align="center">{$subject.modality}</td>
+                                        <td align="center">{$subject.initialDate|date_format:"%d-%m-%Y"}</td>
+                                        <td align="center">{$subject.finalDate|date_format:"%d-%m-%Y"}</td>
+                                        <td align="center">{$subject.courseModule}
+                                      
+                                        <td align="center">
+											<a href="{$WEB_ROOT}/view-modules-student/id/{$subject.courseId}" title="Ver Modulo de Curso"  style="color:#000" target="_top" >
+                                            <!--<a href="{$WEB_ROOT}/graybox.php?page=view-modules-course-student&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
+                                            --><i class="fa fa-sign-in fa-lg"></i>
+                                            </a>
+                                        </td>
+                                     </tr>
+                                        {foreachelse}
+                                        <tr>
+                                            <td colspan="12" align="center">No se encontr&oacute; ning&uacute;n registro.</td>
+                                        </tr>
 
+                                    {/foreach}
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END PORTLET -->
+                </div>
+            </div>
+			{/if}
             
         </div>
         <!-- END PROFILE CONTENT -->

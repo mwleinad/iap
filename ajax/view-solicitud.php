@@ -287,6 +287,19 @@ switch($_POST["type"])
 					$smarty->display(DOC_ROOT.'/templates/lists/view-solicitud.tpl');
 			
 			break;
+			
+			
+			
+			case 'onAceptar':
+			
+				if ($solicitud->generarAcuse()){
+					echo 'ok[#]';
+					
+				}else{
+					echo 'fail[#]';
+				}
+			
+			break;
 	}
 
 ?>

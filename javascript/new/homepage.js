@@ -269,3 +269,64 @@ function printReferencia(){
 	url=WEB_ROOT+"/ajax/referencia_pdf.php?"+$('#frmfiltro').serialize(true);
 	open(url,"voucher","toolbal=0,width=800,resizable=1");
 }
+
+
+
+function AddStudentRegister()
+{
+    //alert("hola");
+    $.ajax({
+        url : WEB_ROOT+'/ajax/student.php',
+        type: "POST",
+        data :  $('#addStudentForm').serialize(),
+		beforeSend: function(){		
+			$("#addStudent").hide();
+			$("#loader").html(LOADER3);
+		},
+        success: function(data)
+        {
+			console.log(data)
+			$("#loader").html('');
+			 var splitResponse = data.split("[#]");
+			if($.trim(splitResponse[0]) == "ok"){
+				ShowStatus($(splitResponse[1]));
+				CloseFview();
+                // $('#res_').html(splitResponse[1]);
+                $('#tblContent').html(splitResponse[2]);
+				setTimeout("recargarPage()",2000);
+			}else{
+				$("#addStudent").show();
+				 // $('#res_').html(splitResponse[1]);
+				ShowStatusPopUp($(splitResponse[1]));
+			}	
+			// $("#loader").html('');
+            // var splitResponse = data.split("[#]");
+            // if(splitResponse[0] == "fail")
+            // {
+                // ShowStatusPopUp($(splitResponse[1]));
+            // }
+            // else
+            // {
+                // ShowStatus($(splitResponse[1]));
+				// CloseFview();
+                // $('#tblContent').html(splitResponse[2]);
+				// setTimeout("recargarPage()",5000);
+
+				
+            // }
+        },
+        // error: function ()
+        // {
+            // alert('En breve recibirás un correo con la confirmación de tu registro, favor de verificar en tu bandeja de correo no deseado');
+        // }
+    });
+
+
+}
+
+
+function recargarPage()
+{
+	WEB_ROOTDoc = WEB_ROOT+'/';
+	$(location).attr('href',WEB_ROOTDoc);
+}
