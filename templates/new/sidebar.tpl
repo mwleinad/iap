@@ -453,7 +453,7 @@
             </li>
             {/if}
 -->
-			{if $info.acuseDerecho eq "si"}
+			{if $infoUSubject.acuseDerecho eq "si"}
             <li class="nav-item {if $page == "examen-modules-student"} active {/if} ">
                 <a href="{$WEB_ROOT}/examen-modules-student/id/{$id}" class="nav-link nav-toggle">
                     <i class="fa fa-check-square-o"></i>

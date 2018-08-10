@@ -41,6 +41,8 @@
 <h1 class="page-title"> Bienvenido
     <small></small>
 </h1>
+<div id="msjHome">
+</div>
 {if $msjC eq 'si'}
 <div class="alert alert-info alert-dismissable">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -85,8 +87,8 @@
                 <div class="profile-usermenu">
                     <ul class="nav">
 						<li>
-                            <a href="{$WEB_ROOT}/perfil" >
-                               <i class="fa fa-user" aria-hidden="true"></i>Aviso de Privacidad 
+                           <a href="{$WEB_ROOT}/graybox.php?page=aviso" data-target="#ajax" data-toggle="modal" data-width="1000px">
+                               <i class="fa fa-adn" aria-hidden="true"></i>Aviso de Privacidad 
 							</a>
                         </li>
 						<li>
@@ -95,13 +97,13 @@
 							<br>
                         </li>
 						<li>
-						<a href="{$WEB_ROOT}/graybox.php?page=contra" data-target="#ajax" data-toggle="modal" data-width="1000px">
-						   <i class="fa fa-unlock-alt"></i>INE Frente
+						<a href="{$WEB_ROOT}/graybox.php?page=add-ine&id=1" data-target="#ajax" data-toggle="modal" data-width="1000px">
+						  <i class="fa fa-newspaper-o" style="color:green" aria-hidden="true"></i>INE Frente
 						</a>
 						</li>
 						<li>
-						<a href="{$WEB_ROOT}/graybox.php?page=contra" data-target="#ajax" data-toggle="modal" data-width="1000px">
-						   <i class="fa fa-unlock-alt"></i>INE Vuelta
+						<a href="{$WEB_ROOT}/graybox.php?page=add-ine&id=2" data-target="#ajax" data-toggle="modal" data-width="1000px">
+						    <i class="fa fa-newspaper-o" style="color:#2ab4c0" aria-hidden="true"></i>INE Vuelta
 						</a>
 						</li>
 						<!--<li>
@@ -228,11 +230,25 @@
                                 <div class="tab-pane " id="tab_1_2">
                                 </div>
                                 <div class="tab-pane active" id="tab_1_1">
-                                    <div class="scroller" style="height: 337px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+                                    <div class="scroller" style="height: 137px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
 										<div style="text-align:justify">
 											Doy mi consentimiento al CONOCER para que, en términos del artículo 22 de la LEY FEDERAL DE TRANSPARENCIA Y ACCESO A LA INFORMACIÓN PÚBLICA GUBERNAMENTAL, difunda, distribuya y publique la información contenida en el documento que se inscribe, para ser transmitida a instituciones públicas o privadas para agregar mi información a bolsas de trabajo electrónicas o en línea y facilitar mi localización en caso de que alguna otra Institución pública o privada requiera personal con las competencias certificadas con las que cuento.
 										</div>
+										<br>
+										<br>
+										<br>
+										
+										
                                     </div>
+									<form id="frmConfirma">
+									<center>
+										<b>No autorizo</b>
+										<label class="switch">
+										  <input type="checkbox" name="confirma" id="confirma">
+										  <span class="slider round"></span>
+										</label>
+										<b>Si autorizo</b>
+									</form>
                                 </div>
                             </div>
                             <!--END TABS-->

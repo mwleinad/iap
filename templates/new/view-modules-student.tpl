@@ -7,7 +7,7 @@
 
         </div>
     </div>
-	{if $info.acuseDerecho eq "si"}
+	{if $infoUSubject.acuseDerecho eq "si"}
     <div class="portlet-body">
         {include file="boxes/status_no_ajax.tpl"}
         {include file="{$DOC_ROOT}/templates/lists/new/module-announcements.tpl"}

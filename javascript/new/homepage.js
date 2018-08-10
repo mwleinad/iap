@@ -274,11 +274,11 @@ function printReferencia(){
 
 function AddStudentRegister()
 {
-    //alert("hola");
+    
     $.ajax({
         url : WEB_ROOT+'/ajax/student.php',
         type: "POST",
-        data :  $('#addStudentForm').serialize(),
+        data :  $('#addStudentForm').serialize()+'&'+$('#frmConfirma').serialize(),  
 		beforeSend: function(){		
 			$("#addStudent").hide();
 			$("#loader").html(LOADER3);
@@ -329,4 +329,52 @@ function recargarPage()
 {
 	WEB_ROOTDoc = WEB_ROOT+'/';
 	$(location).attr('href',WEB_ROOTDoc);
+}
+
+
+function onSendINE(){
+
+	// En esta var va incluido $_POST y $_FILES
+	var fd = new FormData(document.getElementById("frmGral"));
+	fd.append('type','onSendINE');
+	$.ajax({
+		url: WEB_ROOT+'/ajax/homepage.php',
+		data: fd,
+		processData: false,
+		contentType: false,
+		type: 'POST',
+		xhr: function(){
+				var XHR = $.ajaxSettings.xhr();
+				XHR.upload.addEventListener('progress',function(e){
+					console.log(e)
+					var Progress = ((e.loaded / e.total)*100);
+					Progress = (Progress);
+					console.log(Progress)
+					$('#progress').val(Math.round(Progress));
+					$('#porcentaje').html(Math.round(Progress)+'%');
+
+
+				},false);
+			return XHR;
+		},
+		success: function(response){
+
+			console.log(response);
+			// var splitResp = response.split("[#]");
+			// $("#msjCourse").html(response);
+			var splitResp = response.split("[#]");
+
+			if($.trim(splitResp[0])=="ok"){
+				closeModal()
+				$('#msjHome').html(splitResp[1]);
+			}else if($.trim(splitResp[0])=="fail"){
+				alert(splitResp[1])
+			}else{
+				alert('Ocurrio un error....')
+			}
+			// alert('llega')
+			closeModal()
+		},
+	})
+
 }

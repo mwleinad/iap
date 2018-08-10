@@ -43,6 +43,24 @@
 			$smarty->assign("semesterId", $_POST['semesterId']);
 			$smarty->display(DOC_ROOT.'/templates/new/confirma-reinscripcion.tpl');
 		break;
+		
+		case "onSendINE":
+		
+			// echo "<pre>"; print_r($_FILES);
+			// echo "<pre>"; print_r($_POST);
+			// echo "<pre>"; print_r($_GET);
+			// exit;
+			if ($solicitud->SaveINE($_POST["userId"])){
+				echo 'ok[#]';
+				echo '<br><div class="alert alert-info alert-dismissable">
+					  <button type="button" class="close" data-dismiss="alert">&times;</button>
+					  El documento se guardo correctamente
+					</div>';
+			}else{
+				echo 'fail[#]';
+			}
+		
+		break;
 	
 	}
 

@@ -21,8 +21,76 @@ class Student extends User
 	private $anterior;
 	private $nuevo;
 	private $repite;
+	private $nacionality;
+	private $lee;
+	private $estudios;
+	private $d_estudios;
+	private $discapacidad;
+	private $discapacidades;
+	private $idiomas;
+	private $trabaja;
+	private $experienciaLaboral;
+	private $certificacion;
+	private $certificaciones;
 	
 	
+	public function setNacionality($value)
+	{
+		$this->Util()->ValidateString($value, $max_chars=6000000000000000, $minChars = 1, "Nacionalidad");
+		$this->nacionality = $value;
+	}
+	
+	public function setLee($value)
+	{
+		$this->Util()->ValidateString($value, $max_chars=6000000000000000, $minChars = 1, "¿Sabe leer?");
+		$this->lee = $value;
+	}
+	
+	public function setEstudios($value)
+	{
+		$this->Util()->ValidateString($value, $max_chars=6000000000000000, $minChars = 1, "¿Tiene estudios?");
+		$this->estudios = $value;
+	}
+	public function setDEstudios($value)
+	{
+		$this->Util()->ValidateString($value, $max_chars=6000000000000000, $minChars = 1, "studios");
+		$this->d_estudios = $value;
+	}
+	public function setDiscapacidad($value)
+	{
+		$this->Util()->ValidateString($value, $max_chars=6000000000000000, $minChars = 1, "Tiene alguna discapacidad");
+		$this->discapacidad = $value;
+	}
+	public function setDiscapacidades($value)
+	{
+		$this->Util()->ValidateString($value, $max_chars=6000000000000000, $minChars = 1, "Discapacidades");
+		$this->discapacidades = $value;
+	}
+	public function setIdiomas($value)
+	{
+		$this->Util()->ValidateString($value, $max_chars=6000000000000000, $minChars = 1, "Idiomas");
+		$this->idiomas = $value;
+	}
+	public function setTrabaja($value)
+	{
+		$this->Util()->ValidateString($value, $max_chars=6000000000000000, $minChars = 1, "Trabaja");
+		$this->trabaja = $value;
+	}
+	public function setExperienciaLaboral($value)
+	{
+		$this->Util()->ValidateString($value, $max_chars=6000000000000000, $minChars = 1, "experiencia Laboral");
+		$this->experienciaLaboral = $value;
+	}
+	public function setCertificacion($value)
+	{
+		$this->Util()->ValidateString($value, $max_chars=6000000000000000, $minChars = 1, "Certificacion");
+		$this->certificacion = $value;
+	}
+	public function setCertificaciones($value)
+	{
+		$this->Util()->ValidateString($value, $max_chars=6000000000000000, $minChars = 1, "Certificaciones");
+		$this->certificaciones = $value;
+	}
 	public function setAnterior($value)
 	{
 		$this->anterior = $value;	
@@ -875,6 +943,8 @@ class Student extends User
 			return false; 
 		}
 		
+		// password = '".$this->getPassword()."', 
+		
 		$sqlQuery = "UPDATE user				
 						SET 
 							names = '".$this->getNames()."', 
@@ -883,9 +953,21 @@ class Student extends User
 							birthdate = '".$this->getBirthdate()."', 
 							email = '".$this->getEmail()."', 
 							phone = '".$this->getPhone()."', 
-							password = '".$this->getPassword()."', 
-							street = '".$this->getStreet()."', 
-							number = '".$this->getNumer()."', 
+							nacionality = '".$this->nacionality."', 
+							curp = '".$this->curp."', 
+							cityBorn = '".$this->getCityBorn()."', 
+							lee = '".$this->lee."', 
+							estudios = '".$this->estudios."', 
+							d_estudios = '".$this->d_estudios."', 
+							discapacidad = '".$this->discapacidad."', 
+							discapacidades = '".$this->discapacidades."', 
+							idiomas = '".$this->idiomas."', 
+							trabaja = '".$this->trabaja."', 
+							experienciaLaboral = '".$this->experienciaLaboral."', 
+							certificacion = '".$this->certificacion."', 
+							certificaciones = '".$this->certificaciones."', 
+							street = '".$this->getStreet()."',   
+							number = '".$this->getNumer()."',   
 							colony = '".$this->getColony()."', 
 							ciudad = '".$this->getCity()."', 
 							estado = '".$this->getState()."', 
@@ -914,7 +996,7 @@ class Student extends User
 							actualizado = 'si'						
 						WHERE 
 							userId = ".$this->getUserId();		
-		
+		// exit;
 		$this->Util()->DB()->setQuery($sqlQuery);
 		$this->Util()->DB()->ExecuteQuery();
 		

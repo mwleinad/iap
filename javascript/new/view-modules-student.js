@@ -23,7 +23,7 @@ function onAceptar(){
 	  	success: function(response) {	
 		
 			console.log(response)
-			
+			location.reload();
 			$("#container").html(response);
 				
 

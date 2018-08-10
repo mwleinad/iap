@@ -1170,5 +1170,39 @@
 		return true;
 	}
 	
+	public function moduloDeCurso($Id){
+		
+		
+		$sql = "SELECT 
+				*
+			FROM
+				course_module 
+			WHERE
+				courseId = ".$Id." limit 0,1";
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->GetRow();
+			
+		return $result;
+		
+	}
+	
+	
+	
+	public function infoUserSubject($courseId,$alumnoId){
+		
+		
+		$sql = "SELECT 
+				*
+			FROM
+				user_subject 
+			WHERE
+				courseId = ".$courseId." and alumnoId = ".$alumnoId." ";
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->GetRow();
+			
+		return $result;
+		
+	}
+	
 }	
 ?>

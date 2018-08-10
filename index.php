@@ -201,7 +201,8 @@ $pages = array(
 	'perfil',
 	'grupo',
 	'aviso',
-    'calification'
+    'calification',
+    'add-ine',
 	
 	
 	

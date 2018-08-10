@@ -971,14 +971,38 @@
 		case "saveAddStudentCompleto":
 			
 			
+			
+				if(!isset($_POST["confirma"])){
+					echo "fail[#]";
+				$errors["value"] = "Necesita autorizar el envio de Información";
+					$smarty->assign("errors", $errors);	
+					$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
+					exit;
+				}
 				
-				//datos personales
+				//datos personales  
 				$student->setUserId($_POST['userId']);
 				$student->setNames($_POST['names']);
 				$student->setLastNamePaterno($_POST['lastNamePaterno']);
 				$student->setLastNameMaterno($_POST['lastNameMaterno']);
-				$student->setSexo($_POST['sexo']);
-				$student->setBirthdate($_POST['day'],$_POST['month'],$_POST['year']);
+				$student->setSexo($_POST['genero']);
+				$student->setCurp($_POST['curp']);
+				$student->setBirthdate($_POST['year'],$_POST['month'],$_POST['day']);
+				$student->setNacionality($_POST['nacionality']);
+				$student->setAcademicDegree($_POST['academicDegree']);
+				$student->setCityBorn($_POST['cityBorn']);
+				$student->setLee($_POST['lee']);
+				$student->setEstudios($_POST['estudios']);
+				$student->setDEstudios($_POST['d_estudios']);
+				$student->setDiscapacidad($_POST['discapacidad']);
+				// $student->setDiscapacidades($_POST['discapacidades']);
+				$student->setIdiomas($_POST['idiomas']);
+				$student->setTrabaja($_POST['trabaja']);
+				$student->setExperienciaLaboral($_POST['experienciaLaboral']);
+				$student->setCertificacion($_POST['certificacion']);
+				$student->setCertificaciones($_POST['certificaciones']);
+				// echo "<pre>"; print_r($_POST);
+			// exit;
 
 				//domicilio
 				$student->setStreet($_POST['street']);
@@ -1015,6 +1039,7 @@
 				}
 				else
 				{
+					// exit;
 					echo "ok[#]";
 					$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
 				}	

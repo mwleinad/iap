@@ -1105,7 +1105,54 @@ class Solicitud extends Module
 		return true;
 	}
 	
-	
+	function SaveINE($Id)
+		{
+			
+			// echo '<pre>'; print_r($_FILES);
+			// echo '<pre>'; print_r($_POST);
+			// exit;
+			$archivo = 'ine';
+			foreach($_FILES as $key=>$var)
+			{
+			   switch($key)
+			   {
+				   case $archivo:
+				   if($var["name"]<>""){
+						$aux = explode(".",$var["name"]);
+						$extencion=end($aux);
+						$temporal = $var['tmp_name'];
+						$url = DOC_ROOT;	
+						if($_POST["tipo"]==1){
+							$foto_name="ine_frente_".$Id.".".$extencion;		
+							if(move_uploaded_file($temporal,$url."/alumnos/ine/".$foto_name)){									
+							$sql = 'UPDATE 		
+								user SET 		
+								ineFrente = "'.$foto_name.'"			      		
+								WHERE userId = '.$Id.'';		
+							$this->Util()->DB()->setQuery($sql);		
+							$this->Util()->DB()->UpdateData();
+						}		
+					   }else{
+						   $foto_name="ine_vuelta_".$Id.".".$extencion;		
+							if(move_uploaded_file($temporal,$url."/alumnos/ine/".$foto_name)){									
+								$sql = 'UPDATE 		
+									user SET 		
+									ineVuelta = "'.$foto_name.'"			      		
+									WHERE userId = '.$Id.'';		
+								$this->Util()->DB()->setQuery($sql);		
+								$this->Util()->DB()->UpdateData();
+							}
+					   }
+					}
+					break;
+				}
+			}
+			
+			unset($_FILES);
+			
+			return true;
+		}	
+		
 	
 }	
 ?>

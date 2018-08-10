@@ -7,8 +7,19 @@
 // exit;
 	$empleados = $personal->Enumerate();
 	$smarty->assign('empleados', $empleados);
+	// cosnultamos el unico modulo del curso
+	
+	
+	
+	$myUnicoModulo = $module->moduloDeCurso($_GET["id"]);
+	$infoUSubject = $module->infoUserSubject($_GET["id"],$_SESSION['User']['userId']);
+	
+	if($myUnicoModulo == null){
+		
+		exit;
+	}
 
-	$module->setCourseModuleId($_GET["id"]);
+	$module->setCourseModuleId($myUnicoModulo["courseModuleId"]);
 	$myModule = $module->InfoCourseModule();
     $courseId=$myModule["courseId"];
 	
@@ -26,7 +37,7 @@
 	$info= $course->Info();
 	$modalidad=$info["modality"];
 
-	// echo "<pre>"; print_r(	$info);
+	// echo "<pre>"; print_r(	$infoUSubject);
 	// exit;
 	$empleados = $personal->Enumerate();
 	$smarty->assign('empleados', $empleados);
@@ -35,6 +46,7 @@
 	$smarty->assign('date', $date);
 
 	$smarty->assign('invoiceId', $_GET["id"]);
+	$smarty->assign('infoUSubject', $infoUSubject);
 	$smarty->assign('myModule', $myModule);
 
 	$majorModality = $activity->GetMajorModality();
