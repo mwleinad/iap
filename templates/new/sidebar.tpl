@@ -67,16 +67,31 @@
                     </a>
                 </li>
 				{if $AccessMod[38] != 1}
+				<!--
                 <li class="nav-item  ">
                     <a href="{$WEB_ROOT}/position" class="nav-link ">
                         <span class="title">Puestos</span>
                     </a>
                 </li>
+				-->
                 <li class="nav-item  ">
                     <a href="{$WEB_ROOT}/role" class="nav-link ">
                         <span class="title">Roles</span>
                     </a>
                 </li>
+				{if $AccessMod[39] != 1}
+                        <li class="nav-item  ">
+                            <a href="{$WEB_ROOT}/subject" class="nav-link ">
+                                <span class="title">Certificaciones</span>
+                            </a>
+                        </li>
+						{/if}
+				<li class="nav-item  ">
+                            <a href="{$WEB_ROOT}/history-subject" class="nav-link ">
+                                <span class="title">Historial</span>
+                            </a>
+                        </li>
+				<!--
                 <li class="nav-item  ">
                     <a href="{$WEB_ROOT}/profesion" class="nav-link ">
                         <span class="title">Profesiones</span>
@@ -86,7 +101,7 @@
                     <a href="{$WEB_ROOT}/recording" class="nav-link ">
                         <span class="title">Videoconferencias</span>
                     </a>
-                </li>
+                </li>-->
 				{/if}
 			 {/if}
             </ul>
@@ -97,6 +112,7 @@
 
         {if $AccessMod[34] == 1 || $User.positionId == 1}
 		{if $vistaPrevia ne 1}
+		<!--
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-book" aria-hidden="true"></i>
@@ -115,13 +131,13 @@
                     </a>
                 </li>
             </ul>
-        </li>
+        </li>-->
         {/if}
         {/if}
 
         {if $AccessMod[11] == 1 || $User.positionId == 1 || $AccessMod[31] == 1 || $AccessMod[8] == 1 ||  $AccessMod[39] == 1}
             {if !$docente}
-			{if $vistaPrevia ne 1}
+			{if $vistaPrevia ne 1}<!--
                 <li class="nav-item   {if $page == "subject" || $page == "history-subject"} active {/if} ">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-settings"></i>
@@ -142,7 +158,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li>-->
 			{/if}
             {else}
                 <li class="nav-item ">
@@ -161,6 +177,7 @@
         {if $vistaPrevia ne 1}
 		 {if !$docente}
 		 {if $AccessMod[40] != 1}
+		 <!--
 		<li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-video-camera"></i>
@@ -179,17 +196,17 @@
                     </a>
                 </li>
             </ul>
-        </li>
-		{/if}
+        </li>-->
+		{/if}<!--
 		<li class="nav-item  ">
             <a href="{$WEB_ROOT}/solicitud" class="nav-link nav-toggle">
                 <i class="fa fa-folder-open" aria-hidden="true"></i>
                 <span class="title">Solicitudes</span>
                 <span class="arrow"></span>
             </a>
-        </li>
+        </li>-->
 		{if $AccessMod[40] != 1}
-		 <li class="nav-item  ">
+		 <!--<li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                <i class="fa fa-money" aria-hidden="true"></i>
                 <span class="title">Finanzas</span>
@@ -207,7 +224,7 @@
                     </a>
                 </li>
             </ul>
-        </li>
+        </li>-->
 		{/if}
 		<!--
 		<li class="nav-item  ">
@@ -239,7 +256,7 @@
                 </li>
             </ul>
         </li>-->
-		{/if}
+		{/if}<!--
 		<li class="nav-item  ">
             <a href="{$WEB_ROOT}/inbox/or/h" class="nav-link nav-toggle">
                <i class="fa fa-comments"></i>
@@ -247,9 +264,9 @@
                 <span class="arrow"></span>
             </a>
         </li>
+		-->
 		
-		
-	
+	<!--
 		 <li class="nav-item {if $page == "doc-docente" 
 		 || $page == "info-docente" 
 		 || $page == "repositorio" 
@@ -322,9 +339,9 @@
                 </li>
 				{/if}
             </ul>
-        </li>
+        </li>-->
 		{if !$docente}
-		<li class="nav-item {if  $page == "vehiculos" || $page == "report-materia" || $page == "doc-mat"  || $page == "report-docentes"} active {/if} "> 
+		<!--<li class="nav-item {if  $page == "vehiculos" || $page == "report-materia" || $page == "doc-mat"  || $page == "report-docentes"} active {/if} "> 
 
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-desktop" aria-hidden="true"></i>
@@ -361,7 +378,7 @@
 				</li>
 				{/if}
             </ul>
-        </li>
+        </li>-->
 			{/if}
 		<!--<li class="nav-item  ">
             <a href="{$WEB_ROOT}/mensaje" class="nav-link nav-toggle">
@@ -375,14 +392,14 @@
 
         {if $User.positionId == 1 || $AccessMod[13] == 1 || $AccessMod[14] == 1  || $AccessMod[15] == 1 || $AccessMod[16] == 1}
 			 {if $vistaPrevia ne 1}
-			
+			<!--
 			<li class="nav-item  ">
 				<a href="{$WEB_ROOT}/institution" class="nav-link ">
 					<i class="icon-wallet"></i>
 					<span class="title">Configuración</span>
 					<span class="arrow"></span>
 				</a>
-			</li>
+			</li>-->
 			{/if}
         {/if}
 		

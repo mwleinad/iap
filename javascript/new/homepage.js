@@ -378,3 +378,28 @@ function onSendINE(){
 	})
 
 }
+
+
+function ciudad_dependenciat(subjectId){
+	
+	var e = $("#estado").val();
+	
+	$.ajax({
+	  	type: "POST",
+	  	url: WEB_ROOT+'/ajax/student.php',
+	  	data: "type=ciudad_dependenciat&estadoId="+e,
+		beforeSend: function(){			
+			// $("#td_"+id).html(LOADER3);
+		},
+	  	success: function(response) {	
+			console.log(response)
+			
+			
+				$("#divMunicipio").html(response);
+	
+		},
+		error:function(){
+			alert(msgError);
+		}
+    });
+}

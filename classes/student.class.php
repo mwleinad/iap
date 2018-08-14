@@ -32,6 +32,30 @@ class Student extends User
 	private $experienciaLaboral;
 	private $certificacion;
 	private $certificaciones;
+	private $statusacademicDegree;
+	private $tipoSolicitante;
+	private $sectorId;
+	
+	
+	public function setSectorId($value)
+	{
+		$this->Util()->ValidateInteger($value);
+		 $this->sectorId = $value;
+
+	}
+	
+	public function setTipoSolitante($value)
+	{
+		$this->Util()->ValidateInteger($value);
+		 $this->tipoSolicitante = $value;
+
+	}
+	
+	public function setstatusacademicDegree($value)
+	{
+		$this->Util()->ValidateString($value, $max_chars=6000000000000000, $minChars = 1, "Estatus");
+		$this->statusacademicDegree = $value;
+	}
 	
 	
 	public function setNacionality($value)
@@ -63,7 +87,7 @@ class Student extends User
 	}
 	public function setDiscapacidades($value)
 	{
-		$this->Util()->ValidateString($value, $max_chars=6000000000000000, $minChars = 1, "Discapacidades");
+		// $this->Util()->ValidateString($value, $max_chars=6000000000000000, $minChars = 1, "Discapacidades");
 		$this->discapacidades = $value;
 	}
 	public function setIdiomas($value)
@@ -943,15 +967,17 @@ class Student extends User
 			return false; 
 		}
 		
+	// echo "<pre>"; print_r($this->getAcademicDegree());
+		// exit;
 		// password = '".$this->getPassword()."', 
 		
-		$sqlQuery = "UPDATE user				
+		 $sqlQuery = "UPDATE user				
 						SET 
 							names = '".$this->getNames()."', 
 							lastNamePaterno = '".$this->getLastNamePaterno()."', 
 							lastNameMaterno = '".$this->getLastNameMaterno()."', 
 							birthdate = '".$this->getBirthdate()."', 
-							email = '".$this->getEmail()."', 
+							email = '".$this->getEmail()."',   
 							phone = '".$this->getPhone()."', 
 							nacionality = '".$this->nacionality."', 
 							curp = '".$this->curp."', 
@@ -987,9 +1013,12 @@ class Student extends User
 							ciudadt='".$this->getCiudadT()."',
 						    workplacePhone = '".$this->getWorkplacePhone()."', 
 							workplaceEmail = '".$this->getWorkplaceEmail()."', 
-							academicDegree = '".$this->getAcademicDegree()."', 
+							academicDegree = '".$this->getAcademicDegree()."',  
+							statusacademicDegree = '".$this->statusacademicDegree."',  
+							tiposolicitanteId = '".$this->tipoSolicitante."',  
 							profesion = '".$this->getProfesion()."', 
 							school = '".$this->getSchool()."', 
+							sectorId = '".$this->sectorId."', 
 							masters = '".$this->getMasters()."', 
 							mastersSchool = '".$this->getMastersSchool()."', 
 							highSchool = '".$this->getHighSchool()."',						
@@ -3079,6 +3108,17 @@ class Student extends User
 	public function EnumerateSector()
 	{
 		$sql = "SELECT * FROM sector WHERE 1 order by nombre";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		
+		return 	$result;
+	}
+	
+	
+	
+	public function enumerateMunicipio($Id)
+	{
+		$sql = "SELECT * FROM municipio WHERE estadoId = ".$Id."";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 		

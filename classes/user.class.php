@@ -223,7 +223,7 @@ class User extends Main
 	    if($this->permiso==0)
 		    {
 			   if($value==0){
-			      return $this->Util()->setError(20003, "error", "", $field);
+			      return $this->Util()->setError(20003, "error", "", "Municipio");
 			   }
 			}
 		$this->city = $value;
@@ -270,7 +270,7 @@ class User extends Main
 	     if($this->permiso==0)
 		    {
 			   if($value==0){
-			      return $this->Util()->setError(20001, "error", "", $field);
+			      return $this->Util()->setError(20001, "error", "", "Municipio");
 			   }
 			}
 			//print_r($value);

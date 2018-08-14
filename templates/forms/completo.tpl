@@ -32,10 +32,19 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
       
 	  <table width="100%" class="tblGral table table-bordered table-striped table-condensed flip-content" >
 		<tr>
-			<td colspan="2">Municipio:<br></td>
-			<td>Nombre:<br><input type="text" name="names" class="form-control" value="{$info.names}"></td>
-			<td>Apellido Paterno:<br><input type="text" name="lastNamePaterno" class="form-control" value="{$info.lastNamePaterno}"></td>
-			<td colspan="2">Apellido Materno:<br><input type="text" name="lastNameMaterno" class="form-control" value="{$info.lastNameMaterno}"></td>
+			<td colspan="2" {if $info.ciudad ne ""} style="background:#e7505a33" {/if}>Municipio:<br>
+			<select id="municipiotId" name="municipiotId"  style="width:250px" class="form-control" >
+                            <option value="0">Selecciona </option>
+							  {foreach from=$lst item=pais}
+                            <option value="{$pais.municipioId}" {if $info.ciudadt == $pais.municipioId} selected="selected" {/if}>{$pais.nombre} </option>
+                        {/foreach}
+							
+                        </select>
+			
+			</td>
+			<td {if $info.names ne ""} style="background:#e7505a33" {/if}>Nombre:<br><input type="text" name="names" class="form-control" value="{$info.names}"></td>
+			<td {if $info.lastNamePaterno ne ""} style="background:#e7505a33" {/if}>Apellido Paterno:<br><input type="text" name="lastNamePaterno" class="form-control" value="{$info.lastNamePaterno}"></td>
+			<td colspan="2" {if $info.lastNameMaterno ne ""} style="background:#e7505a33" {/if}>Apellido Materno:<br><input type="text" name="lastNameMaterno" class="form-control" value="{$info.lastNameMaterno}"></td>
 
 		</tr>
 		<tr>
@@ -43,31 +52,31 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 			<td>Nacionalidad:<br><input type="text" name="nacionality" class="form-control" value="{$info.nacionality}"></td>
 			<td>
 			Fecha de Nacimiento:<br>
-			<select name="day" class="form-control" style="width:20%; float:left; ">
+			<select name="day" class="form-control" style="width:30%; float:left; ">
 				<option value="">dias</option>
 				{for $foo=1 to 31}
-				<option>{$foo}</option>
+				<option  {if $info.dia == $foo} selected="selected" {/if}>{$foo}</option>
 				{/for}
 			</select>
-			<select name="month" class="form-control" style="width:20%; float:left">
+			<select name="month" class="form-control" style="width:30%; float:left">
 				<option value="">mes</option>
-				<option value="01">Enero</option>
-				<option value="02">Febrero</option>
-				<option value="03">Marzo</option>
-				<option value="04">Abril</option>
-				<option value="05">Mayo</option>
-				<option value="06">Junio</option>
-				<option value="07">Julio</option>
-				<option value="08">Agosto</option>
-				<option value="09">Septiembre</option>
-				<option value="10">Octubre</option>
-				<option value="11">Noviembre</option>
-				<option value="12">Diciembre</option>
+				<option value="1" {if $info.mes ==1} selected="selected" {/if}>Enero</option>
+				<option value="2" {if $info.mes ==2} selected="selected" {/if}>Febrero</option>
+				<option value="3" {if $info.mes ==3} selected="selected" {/if}>Marzo</option>
+				<option value="4" {if $info.mes ==4} selected="selected" {/if}>Abril</option>
+				<option value="5" {if $info.mes ==5} selected="selected" {/if}>Mayo</option>
+				<option value="6" {if $info.mes ==6} selected="selected" {/if}>Junio</option>
+				<option value="7" {if $info.mes ==7} selected="selected" {/if}>Julio</option>
+				<option value="8" {if $info.mes ==8} selected="selected" {/if}>Agosto</option>
+				<option value="9" {if $info.mes ==9} selected="selected" {/if}>Septiembre</option>
+				<option value="10" {if $info.mes ==10} selected="selected" {/if}>Octubre</option>
+				<option value="11" {if $info.mes ==11} selected="selected" {/if}>Noviembre</option>
+				<option value="12" {if $info.mes ==12} selected="selected" {/if}>Diciembre</option>
 			</select>
-			<select name="year" class="form-control" style="width:20%; float:left">
+			<select name="year" class="form-control" style="width:30%; float:left">
 				<option value="">Año</option>
 				{for $foo=1920 to 2000}
-				<option>{$foo}</option>
+				<option {if $info.mes ==12} selected="selected" {/if}>{$foo}</option>
 				{/for}
 			</select>
 			</td>
@@ -88,11 +97,11 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 			</td>
 			<td colspan="2">Estatus:<br>
 			
-				<select name="academicDegree" id="academicDegree" class="form-control">
+				<select name="statusacademicDegree" id="statusacademicDegree" class="form-control">
                         <option value=""></option>
-                        <option value="TRUNCOS" {if $info.academicDegree == "TRUNCOS"} selected="selected" {/if}>TRUNCOS</option>
-                        <option value="CONCLUIDO" {if $info.academicDegree == "CONCLUIDO"} selected="selected" {/if}>CONCLUIDO</option>
-                        <option value="TITULADO" {if $info.academicDegree == "TITULADO"} selected="selected" {/if}>TITULADO</option>
+                        <option value="TRUNCOS" {if $info.statusacademicDegree == "TRUNCOS"} selected="selected" {/if}>TRUNCOS</option>
+                        <option value="CONCLUIDO" {if $info.statusacademicDegree == "CONCLUIDO"} selected="selected" {/if}>CONCLUIDO</option>
+                        <option value="TITULADO" {if $info.statusacademicDegree == "TITULADO"} selected="selected" {/if}>TITULADO</option>
                     </select>
 			
 			</td>
@@ -110,11 +119,11 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
                     </select>
 			</td>
 			<td>CURP:<br><input type="text" name="curp" class="form-control" value="{$info.curp}"></td>  
-			<td>Tipo de Solicitante:<br>
+			<td {if $info.tiposolicitanteId ne ""} style="background:#e7505a33" {/if}>Tipo de Solicitante:<br>
 			<select id="tipoSolicitante" name="tipoSolicitante" style="width:250px"   class="form-control">
                         <option value="0">Selecciona....</option>
                         {foreach from=$lstSolicitante item=pais}
-                            <option value="{$pais.solicitanteId}" {if $info.solicitanteId == $pais.solicitanteId} selected="selected" {/if}>{$pais.nombre} </option>
+                            <option value="{$pais.tiposolicitanteId}" {if $info.tiposolicitanteId == $pais.tiposolicitanteId} selected="selected" {/if}>{$pais.nombre} </option>
                         {/foreach}
                     </select>
 			
@@ -122,7 +131,7 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 			<td colspan="2">Sector Productivo:<br>
 			
 			
-			<select id="tipoSolicitante" name="tipoSolicitante" style="width:250px"   class="form-control">
+			<select id="sectorId" name="sectorId" style="width:250px"   class="form-control">
                         <option value="0">Selecciona....</option>
                         {foreach from=$lstSector item=pais}
                             <option value="{$pais.sectorId}"  {if $info.sectorId == $pais.sectorId} selected="selected" {/if}>{$pais.nombre} </option>
@@ -151,13 +160,16 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 							
                         </select>
 			</td>
-			<td>Ciudad:<br></td>
+			<td>Ciudad:<br>
+			<div id="divMunicipio">
+			</div>	
+			</td>
 			
 		</tr>
 		
 		<tr>
-			<td>Email:<br><input type="text" name="email" class="form-control" value="{$info.email}"></td>
-			<td>Telefono:<br><input type="text"  name="mobile"  class="form-control" value="{$info.phone}"></td>
+			<td {if $info.email ne ""} style="background:#e7505a33" {/if}>Email:<br><input type="text" name="email" class="form-control" value="{$info.email}"></td>
+			<td {if $info.phone ne ""} style="background:#e7505a33" {/if}>Telefono:<br><input type="text"  name="mobile"  class="form-control" value="{$info.phone}"></td>
 			<td colspan="4">Celular:<br><input type="text" name="mobile" class="form-control" value="{$info.phone}"></td>
 
 		</tr>

@@ -68,6 +68,10 @@ $x=0;
 	$smarty->assign('lstSolicitante', $lstSolicitante);
 	// echo '_'.$_SESSION['msjC'];
 // exit;
+
+	$lst = $student->enumerateMunicipio(7);
+			$smarty->assign("lst", $lst);	
+
 	$notificaciones=$notificacion->Enumerate();
 	$smarty->assign('notificaciones', $notificaciones);
 	$smarty->assign('msjC', $_SESSION['msjC']);

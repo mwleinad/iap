@@ -974,11 +974,32 @@
 			
 				if(!isset($_POST["confirma"])){
 					echo "fail[#]";
-				$errors["value"] = "Necesita autorizar el envio de Información";
+					$errors["value"] = "Necesita autorizar el envio de Información";
 					$smarty->assign("errors", $errors);	
 					$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
 					exit;
 				}
+				
+			$discapacidad = "";
+			
+			if($_POST["motriz"])
+				$discapacidad  .= "motriz-";
+			
+			if($_POST["visual"])
+				$discapacidad  .= "visual-";
+			
+			if($_POST["auditiva"])
+				$discapacidad  .= "auditiva-";
+			
+			if($_POST["lenguaje"])
+				$discapacidad  .= "lenguaje-";
+			
+			if($_POST["intelectual"])
+				$discapacidad  .= "intelectual-";
+			
+			if($_POST["otras"])
+				$discapacidad  .= "otras-";
+				
 				
 				//datos personales  
 				$student->setUserId($_POST['userId']);
@@ -987,15 +1008,17 @@
 				$student->setLastNameMaterno($_POST['lastNameMaterno']);
 				$student->setSexo($_POST['genero']);
 				$student->setCurp($_POST['curp']);
-				$student->setBirthdate($_POST['year'],$_POST['month'],$_POST['day']);
+				$student->setBirthdate($_POST['day'],$_POST['month'],$_POST['year']);
 				$student->setNacionality($_POST['nacionality']);
 				$student->setAcademicDegree($_POST['academicDegree']);
+				$student->setstatusacademicDegree($_POST['statusacademicDegree']); 
+				$student->setTipoSolitante($_POST['tipoSolicitante']); 
 				$student->setCityBorn($_POST['cityBorn']);
 				$student->setLee($_POST['lee']);
 				$student->setEstudios($_POST['estudios']);
 				$student->setDEstudios($_POST['d_estudios']);
 				$student->setDiscapacidad($_POST['discapacidad']);
-				// $student->setDiscapacidades($_POST['discapacidades']);
+				$student->setDiscapacidades($discapacidad);
 				$student->setIdiomas($_POST['idiomas']);
 				$student->setTrabaja($_POST['trabaja']);
 				$student->setExperienciaLaboral($_POST['experienciaLaboral']);
@@ -1008,8 +1031,9 @@
 				$student->setStreet($_POST['street']);
 				$student->setNumber($_POST['number']);
 				$student->setColony($_POST['colony']);
-				// $student->setCity($_POST['ciudad']);
-				$student->setState($_POST['estado']);
+				$student->setCity($_POST['municipioId']);
+				$student->setCiudadT($_POST['municipiotId']);
+				$student->setState($_POST['estado']);  
 				// $student->setCountry($_POST['pais']);
 				$student->setPostalCode($_POST['postalCode']);
 
@@ -1022,6 +1046,7 @@
 				//datos laborales
 				
 				$student->setWorkplacePosition($_POST['workplacePosition']);
+				$student->setSectorId($_POST['sectorId']);
 				
 				
 				
@@ -1044,6 +1069,15 @@
 					$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
 				}	
 
+		break;
+		
+		case "ciudad_dependenciat":
+		
+			// echo "<pre>"; print_r($_POST);
+			$lst = $student->enumerateMunicipio($_POST["estadoId"]);
+			$smarty->assign("lst", $lst);	
+			$smarty->display(DOC_ROOT.'/templates/forms/new/municipio.tpl');
+		
 		break;
 	}
 
