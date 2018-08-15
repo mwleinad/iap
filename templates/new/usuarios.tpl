@@ -40,7 +40,7 @@
 	 
     <div class="portlet-body">
 		{include file="forms/search-student.tpl"}
-        <div id="tblContent">{include file="lists/student.tpl"}</div>
+        <div id="tblContent">{include file="lists/usuarios.tpl"}</div>
 		{if $studentsCount}
                 <div id="pagination" class="lnkPages">
                     {include file="footer-pages-links.tpl"}

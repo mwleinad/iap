@@ -5,5 +5,7 @@
     <th width="">Apellido Materno</th>
     <th width="">Nombre</th>
     <th width="">No. Control</th>
+    <th width="">Correo</th>
+    <th width="">Password</th>
     <th width="">Acciones</th>
 </tr>

@@ -210,7 +210,8 @@ $pages = array(
 	'add-activity-c',
 	'informe',
 	'add-resource-c',
-	'add-ine'
+	'add-ine',
+	'student-certificacion'
 
 );
 

@@ -1,3 +1,5 @@
+
+
 {foreach from=$students item=item key=key}
         <tr>
         <td align="center" class="id">{$item.userId}</td>       
@@ -8,13 +10,21 @@
         <td align="center">{$item.lastNameMaterno|upper}</td>
          <td align="center">{$item.names|upper}</td>
         <td align="center">{$item.controlNumber}</td>
+        <td align="center">{$item.email}</td>
+        <td align="center">{$item.password}</td>
 
         <td align="center">   
-		<a href="{$WEB_ROOT}/graybox.php?page=student-certificacion&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px" title="VER CERTIFICACIONES">
+		<a href="{$WEB_ROOT}/graybox.php?page=student-certificacion&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px" title="ENVIAR DATOS DE REGISTRO">
 				<i class="material-icons">
+				mail
+				</i>
+			</a> 
+		<a href="#" onClick="dataRegistro({$item.userId})" title="IMPRIMIR DATOS DE REGISTRO">
+
+		<i class="material-icons">
 		picture_in_picture
-		</i>
-			</a>   
+		</i>	
+		</a>
 		<!--
         {if $page == "course-student"}
 		

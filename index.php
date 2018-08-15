@@ -203,6 +203,8 @@ $pages = array(
 	'aviso',
     'calification',
     'add-ine',
+    'student-certificacion',
+    'usuarios'
 	
 	
 	

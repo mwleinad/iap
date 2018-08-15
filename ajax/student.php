@@ -236,11 +236,11 @@
 				// $student->setStreet($_POST['street']);
 				// $student->setNumber($_POST['number']);
 				// $student->setColony($_POST['colony']);
-				$student->setCity($_POST['ciudad']);
+				$student->setCiudadT($_POST['ciudad']);
 				// $student->setState($_POST['estado']);
 				// $student->setCountry($_POST['pais']);
 				// $student->setPostalCode($_POST['postalCode']);
-
+				$student->setTipoSolitante($_POST['tipoSolicitante']); 
 				//datos de contacto
 				$student->setEmail($_POST['email']);
 				// $student->setPhone($_POST['phone']);

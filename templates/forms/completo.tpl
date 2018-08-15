@@ -50,15 +50,15 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 		<tr>
 			<td>Lugar de Nacimiento:<br><input type="text" name="cityBorn" class="form-control" value="{$info.cityBorn}"></td>
 			<td>Nacionalidad:<br><input type="text" name="nacionality" class="form-control" value="{$info.nacionality}"></td>
-			<td>
+			<td style="width:180px">
 			Fecha de Nacimiento:<br>
-			<select name="day" class="form-control" style="width:30%; float:left; ">
+			<select name="day" class="form-control" style="width:45%; float:left; ">
 				<option value="">dias</option>
 				{for $foo=1 to 31}
 				<option  {if $info.dia == $foo} selected="selected" {/if}>{$foo}</option>
 				{/for}
 			</select>
-			<select name="month" class="form-control" style="width:30%; float:left">
+			<select name="month" class="form-control" style="width:45%; float:left">
 				<option value="">mes</option>
 				<option value="1" {if $info.mes ==1} selected="selected" {/if}>Enero</option>
 				<option value="2" {if $info.mes ==2} selected="selected" {/if}>Febrero</option>
@@ -73,7 +73,7 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 				<option value="11" {if $info.mes ==11} selected="selected" {/if}>Noviembre</option>
 				<option value="12" {if $info.mes ==12} selected="selected" {/if}>Diciembre</option>
 			</select>
-			<select name="year" class="form-control" style="width:30%; float:left">
+			<select name="year" class="form-control" style="width:45%; float:left">
 				<option value="">Año</option>
 				{for $foo=1920 to 2000}
 				<option {if $info.mes ==12} selected="selected" {/if}>{$foo}</option>
@@ -170,7 +170,7 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 		<tr>
 			<td {if $info.email ne ""} style="background:#e7505a33" {/if}>Email:<br><input type="text" name="email" class="form-control" value="{$info.email}"></td>
 			<td {if $info.phone ne ""} style="background:#e7505a33" {/if}>Telefono:<br><input type="text"  name="mobile"  class="form-control" value="{$info.phone}"></td>
-			<td colspan="4">Celular:<br><input type="text" name="mobile" class="form-control" value="{$info.phone}"></td>
+			<td colspan="4">Celular:<br><input type="text" name="mobile" class="form-control" value="{$info.mobile}"></td>
 
 		</tr>
 		<tr>
@@ -229,7 +229,7 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 		</tr>
 		
 		<tr>
-			<td>Experiencia Laboral(Separara por comas)<br><textarea  name="experienciaLaboral"  class="form-control">{$info.experienciaLaboral}</textarea></td>
+			<td>Experiencia Laboral(Separara por comas)<br><textarea  name="experienciaLaboral"  class="form-control" style="width:100% ; height:150px">{$info.experienciaLaboral}</textarea></td>
 			<td>¿Cuenta con alguna certificación?:<br>
 			<select name="certificacion"  class="form-control" style="width:70px; ">
 				<option></option>
@@ -237,7 +237,7 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 				<option {if $info.certificacion == "no"} selected="selected" {/if}>no</option>
 			</select>
 			</td>
-			<td>¿Certificaciones con las que cuenta?(separar por comas)?:<br><textarea  class="form-control" name="certificaciones" >{$info.certificaciones}</textarea></td>
+			<td>¿Certificaciones con las que cuenta?(separar por comas)?:<br><textarea   style="width:100% ; height:150px" class="form-control" name="certificaciones" >{$info.certificaciones}</textarea></td>
 			<td></td>
 			<td></td>
 			<td></td>

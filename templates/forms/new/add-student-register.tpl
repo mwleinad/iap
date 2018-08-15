@@ -28,7 +28,7 @@
 					<select id="tipoSolicitante" name="tipoSolicitante" style="width:250px"   class="form-control">
                         <option value="0">Selecciona....</option>
                         {foreach from=$lstSolicitante item=pais}
-                            <option value="{$pais.solicitanteId}">{$pais.nombre} </option>
+                            <option value="{$pais.tiposolicitanteId}">{$pais.nombre} </option>
                         {/foreach}
                     </select>
 					</td>

@@ -61,11 +61,22 @@
                     </a>
                 </li>
 				{/if}
+				<li class="nav-item  ">
+                    <a href="{$WEB_ROOT}/student" class="nav-link ">
+                        <span class="title">Solicitudes</span>
+                    </a>
+                </li>
+				<li class="nav-item  ">
+                    <a href="{$WEB_ROOT}/usuarios" class="nav-link ">
+                        <span class="title">Usuarios</span>
+                    </a>
+                </li>
+				<!--
                 <li class="nav-item  ">
                     <a href="{$WEB_ROOT}/student" class="nav-link ">
                         <span class="title">Alumnos</span>
                     </a>
-                </li>
+                </li>-->
 				{if $AccessMod[38] != 1}
 				<!--
                 <li class="nav-item  ">

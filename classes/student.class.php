@@ -542,7 +542,8 @@ class Student extends User
 							school,
 							masters,
 							mastersSchool,
-							highSchool
+							highSchool,
+							tipoSolicitanteId
 						)
 							VALUES
 						(
@@ -582,7 +583,8 @@ class Student extends User
 							'".$this->getSchool()."', 
 							'".$this->getMasters()."', 
 							'".$this->getMastersSchool()."', 
-							'".$this->getHighSchool()."' 
+							'".$this->getHighSchool()."',
+							'".$this->tipoSolicitanteId."' 
 							
 						)";
 
