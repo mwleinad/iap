@@ -61,6 +61,23 @@
 			}
 		
 		break;
+		
+		case "onDeleteCarta":
+		
+			// echo "<pre>"; print_r($_POST);
+			// echo '<pre>'; print_r($_POST);
+			if($url = $student->onDeleteINE($_POST["id"],$_POST["ti"])){
+				echo "ok[#]";
+				echo '<br><div class="alert alert-info alert-dismissable">
+					  <button type="button" class="close" data-dismiss="alert">&times;</button>
+					  El documento se ha eliminado correctamente
+					</div>';
+			}else{
+				echo "fail[#]";
+				
+			}
+		
+		break;
 	
 	}
 

@@ -1000,7 +1000,12 @@ class User extends Main
 		$this->Util()->DB()->setQuery($sql);
 		$row = $this->Util()->DB()->GetRow();
 		
+		if($row["rutaFoto"]==""){
+			$row["rutaFoto"] = "noexiste";
+		}
 		
+		// echo DOC_ROOT."/alumnos/".$row["rutaFoto"];
+		// exit;
 		if(file_exists(DOC_ROOT."/alumnos/".$row["rutaFoto"].""))
 			{
 				// echo DOC_ROOT."/alumnos/".$row["rutaFoto"]."";

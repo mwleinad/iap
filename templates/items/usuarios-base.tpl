@@ -14,12 +14,12 @@
         <td align="center">{$item.password}</td>
 
         <td align="center">   
-		<a href="{$WEB_ROOT}/graybox.php?page=student-certificacion&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px" title="ENVIAR DATOS DE REGISTRO">
+		<a href="{$WEB_ROOT}/graybox.php?page=envia-info&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px" title="ENVIAR DATOS DE REGISTRO">
 				<i class="material-icons">
 				mail
 				</i>
 			</a> 
-		<a href="#" onClick="dataRegistro({$item.userId})" title="IMPRIMIR DATOS DE REGISTRO">
+		<a href="{$WEB_ROOT}/ajax/datas.php"   target='_blank'  title="IMPRIMIR DATOS DE REGISTRO"> 
 
 		<i class="material-icons">
 		picture_in_picture

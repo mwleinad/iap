@@ -403,3 +403,40 @@ function ciudad_dependenciat(subjectId){
 		}
     });
 }
+
+
+
+
+function onDeleteCarta(id,ti)
+{
+
+	var resp = confirm("Seguro de  eliminar el Documento?");
+
+		if(!resp)
+			return;
+
+    $.ajax({
+		url: WEB_ROOT+'/ajax/homepage.php',
+        type: "POST",
+        data : {type: "onDeleteCarta", id:id,ti:ti},
+        success: function(data)
+        {
+           console.log(data);
+		    var splitResp = data.split("[#]");
+			 if($.trim(splitResp[0]) == "ok")
+            {
+               closeModal();
+			   $('#msjHome').html(splitResp[1]);
+			   
+            }
+            else
+            {
+               alert('Ocurrio un error');
+            }
+        },
+        error: function ()
+        {
+            alert('Algo salio mal, compruebe su conexión a internet');
+        }
+    });
+}

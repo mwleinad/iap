@@ -3126,6 +3126,65 @@ class Student extends User
 		
 		return 	$result;
 	}
+	
+	
+	public function onDeleteINE($id,$ti){
+		
+		
+		$sql = "SELECT 
+					* 
+				FROM 
+					user
+				WHERE
+					userId = ".$id."";
+		// exit;
+		$this->Util()->DB()->setQuery($sql);
+		$info = $this->Util()->DB()->GetRow();
+		
+		 
+		 
+		 if($ti==1){
+			 @unlink(DOC_ROOT.'/alumnos/ine/'.$info['ineFrente']);
+			  $sql = 'UPDATE 		
+				user SET 		
+				ineFrente = ""			      		
+				WHERE userId = '.$id.'';		
+			$this->Util()->DB()->setQuery($sql);		
+	
+		 }else{
+			 @unlink(DOC_ROOT.'/alumnos/ine/'.$info['ineVuelta']);
+			 $sql = 'UPDATE 		
+				user SET 		
+				ineVuelta = ""			      		
+				WHERE userId = '.$id.'';		
+			$this->Util()->DB()->setQuery($sql);
+		 }
+		
+		$this->Util()->DB()->UpdateData();
+
+		return true;
+		
+	}
+	
+	public function CertificacionStident($Id){
+		
+		 $sql = "
+			SELECT 
+				s.name as certificacion,
+				u.alumnoId as userId,
+				c.courseId
+			FROM 
+				user_subject as u
+			left join course as c on c.courseId = u.courseId 
+			left join subject as s on s.subjectId = c.subjectId 
+			WHERE alumnoId = ".$Id."";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		
+		return 	$result;
+		
+	}
+	
 }
 
 ?>

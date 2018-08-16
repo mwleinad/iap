@@ -16,11 +16,26 @@
 					</tr>
 				</thead>
 				<tbody>
+				{foreach from=$registros item=item key=key}
+				
 				    <tr>
-					<td align="center" class="id"></td>       
-					<td align="center" class="id"></td>       
+					<td align="center" class="id">{$item.certificacion}</td>       
+					<td align="center" class="id">
+					<a href="{$WEB_ROOT}/ajax/acuse.php"   target='_blank' title='ACUSE'>
+						<i class="material-icons">how_to_reg</i>
+					</a>
+					
+					<i class="material-icons">school</i>	
+						
+					<a href="{$WEB_ROOT}/files/solicitudes/{$item.userId}_{$item.courseId}.pdf"   target='_blank' title='FICHA DE REGSITRO'>	
+					<i class="material-icons">description</i>
+					</a>	
+					<i class="material-icons">picture_in_picture</i>
+					
+					</td>       
 					   
 					</tr>
+					{/foreach}
 				</tbody>
 			</table>
 

@@ -204,7 +204,8 @@ $pages = array(
     'calification',
     'add-ine',
     'student-certificacion',
-    'usuarios'
+    'usuarios',
+    'envia-info'
 	
 	
 	
