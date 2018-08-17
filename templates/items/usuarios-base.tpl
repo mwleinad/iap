@@ -19,7 +19,7 @@
 				mail
 				</i>
 			</a> 
-		<a href="{$WEB_ROOT}/ajax/datas.php"   target='_blank'  title="IMPRIMIR DATOS DE REGISTRO"> 
+		<a href="{$WEB_ROOT}/ajax/datas.php?id={$item.userId}"   target='_blank'  title="IMPRIMIR DATOS DE REGISTRO"> 
 
 		<i class="material-icons">
 		picture_in_picture

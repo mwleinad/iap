@@ -9,47 +9,7 @@
         <td align="center">{if $subject.modality eq 'Local'}Presencial{else}{$subject.modality}{/if}</td>
         <td align="center">{if $subject.initialDate != "0000-00-00"} {$subject.initialDate|date_format:"%d-%m-%Y"}{else} S/F {/if}</td>
         <td align="center">{if $subject.finalDate != "0000-00-00"}  {$subject.finalDate|date_format:"%d-%m-%Y"}  {else} S/F  {/if}   </td>
-        <!--<td align="center">{$subject.daysToFinish}</td>-->
-        <td align="center">
-            {if $docente == 1}
-                {if !$docente} {$subject.courseModuleActive} {/if}
-            {else}
-               {if !$docente}  {$subject.courseModule} {/if}
-            {/if}
-             {if !$docente}  /{$subject.modules} {/if}
-
-            {*} Flecha verde {*}
-			<br>
-            {if ($docente == 1 AND $subject.courseModuleActive > 0) || !$docente}
-                <a href="{$WEB_ROOT}/graybox.php?page=view-modules-course&id={$subject.courseId}" title="Ver Modulos de Curso" data-target="#ajax" data-toggle="modal" >
-				<img src="{$WEB_ROOT}/images/icons/16/applications-blue.png" style="width:16px" title="Ver Modulos del Curso" />
-
-				</a>
-            {/if}
-
-            {if !$docente}
-                <a href="{$WEB_ROOT}/graybox.php?page=add-modules-course&id={$subject.courseId}" title="Agregar Modulo a Curso" data-target="#ajax" data-toggle="modal" style="color:#000" >
-				<!--<img src="{$WEB_ROOT}/images/add_small.png " style="width:16px" title="Agregar Modulo a Curso" />-->
-				<i class="fa fa-plus-circle" aria-hidden="true" ></i>
-
-
-				</a>
-            {/if} 
-        </td>
-        <td align="center">
-
-            {if !$docente}
-                <span style="cursor:pointer" class="spanActive" onclick="VerGrupoAdmin({$subject.courseId});" title="Alumnos" id="{$subject.courseId}">{$subject.alumnActive}</span>             /
-                <span style="cursor:pointer" class="spanInactive" onclick="VerGrupoInactivoAdmin({$subject.courseId});"  id="{$subject.courseId}">{$subject.alumnInactive}</span>
-            {else}
-                <!--<span style="cursor:pointer" class="spanActive" onclick="VerGrupo({$subject.courseId});" title="Alumnos" id="{$subject.courseId}">-->
-				{$subject.alumnActive}<!--</span>-->             /
-                <!--<span style="cursor:pointer" class="spanInactive" onclick="VerGrupoInactivo({$subject.courseId});"  id="{$subject.courseId}">-->{$subject.alumnInactive}<!--</span>-->
-            {/if}
-			
-
-
-        </td>
+       
         <td align="center">{$subject.active}</td>
         {if !$docente}
             <td align="center">

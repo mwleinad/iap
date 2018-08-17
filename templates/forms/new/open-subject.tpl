@@ -5,13 +5,18 @@
             <label class="col-md-3 control-label">Selecciona Curricula:</label>
             <div class="col-md-8">
                 <select name="subjectId" id="subjectId" style="width:350px" class="form-control">
-                    {foreach from=$cursos item=curso}
-                        <option value="{$curso.subjectId}">{$curso.majorName} - {$curso.name}</option>
+                    {foreach from=$rsubjects item=curso}
+                        <option value="{$curso.majorId}">{$curso.name}</option>
                     {/foreach}
                 </select>
             </div>
         </div>
-
+		<div class="form-group">
+            <label class="col-md-3 control-label">Nombre:</label>
+            <div class="col-md-8">
+                 <input type="text" name="nombre" id="nombre"  class="form-control"/>
+            </div>
+        </div>
         <div class="form-group">
             <label class="col-md-3 control-label">Modalidad:</label>
             <div class="col-md-8">

@@ -1,7 +1,7 @@
 <div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
-            <i class="fa fa-bullhorm"></i>Instancias de Curricula
+            <i class="fa fa-bullhorm"></i>Certificaciones
         </div>
         <div class="actions">
             {if $docente != 1}

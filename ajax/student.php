@@ -973,11 +973,10 @@
 			
 			
 				if(!isset($_POST["confirma"])){
-					echo "fail[#]";
-					$errors["value"] = "Necesita autorizar el envio de Información";
-					$smarty->assign("errors", $errors);	
-					$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
-					exit;
+					$autorizo = "no";
+				}else{
+					$autorizo = "si";
+					
 				}
 				
 			$discapacidad = "";
@@ -1002,6 +1001,7 @@
 				
 				
 				//datos personales  
+				$student->setAutorizoj($autorizo);
 				$student->setUserId($_POST['userId']);
 				$student->setNames($_POST['names']);
 				$student->setLastNamePaterno($_POST['lastNamePaterno']);

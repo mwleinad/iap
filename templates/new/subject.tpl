@@ -1,7 +1,7 @@
 <div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
-            <i class="fa fa-bullhorm"></i>Certificaciones
+            <i class="fa fa-bullhorm"></i>Curricula
         </div>
         <div class="actions">
             <a class=" btn green" href="{$WEB_ROOT}/graybox.php?page=new-subject" data-target="#ajax" data-toggle="modal">

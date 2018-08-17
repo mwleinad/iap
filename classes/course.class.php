@@ -19,6 +19,16 @@
 		private $curricula;
 		private $subtotal;
 		private $tipoCuatri;
+		private $name;
+		
+		
+		
+		public function setName($value)
+		{
+			$this->Util()->ValidateString($value, 255, 0, 'Nombre ');
+			$this->name = $value;	
+		}
+		
 		
 		public function setTipoCuatri($value)
 		{
@@ -556,8 +566,33 @@
 				// si hay errores regresa false
 				return false;
 			}
-			//si no hay errores
-			//creamos la cadena de insercion
+			
+			$sql = "INSERT INTO
+						subject
+						( 	
+						 	name,
+						 	tipo
+						)
+					VALUES (
+							'" . $this->name . "',
+							'" . $this->getSubjectId() . "'
+							)";
+			$this->Util()->DB()->setQuery($sql);
+			$subjectId = $this->Util()->DB()->InsertData();
+			
+
+			$sql = "INSERT INTO
+						subject_module
+						( 	
+						 	subjectId
+						)
+					VALUES (
+							'" . $subjectId. "'
+							)";
+			$this->Util()->DB()->setQuery($sql);
+			$subId = $this->Util()->DB()->InsertData();
+				
+
 		 $sql = "INSERT INTO
 						course
 						( 	
@@ -580,7 +615,7 @@
 							tipo
 						)
 					VALUES (
-							'" . $this->getSubjectId() . "',
+							'" . $subjectId . "',
 							'" . $this->initialDate . "',
 							'" . $this->finalDate . "',
 							'" . $this->daysToFinish . "',
@@ -602,6 +637,27 @@
 			$this->Util()->DB()->setQuery($sql);
 			//ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
 			$result = $this->Util()->DB()->InsertData();
+			
+			$sql = "INSERT INTO
+							course_module
+							( 	
+								courseId,
+								subjectModuleId,
+								initialDate,
+								finalDate
+							)
+						VALUES (
+								'" . $result . "',
+								'" . $subId . "',
+								'" . $this->initialDate . "',
+								'" . $this->finalDate . "'
+								)";
+				$this->Util()->DB()->setQuery($sql);
+				$this->Util()->DB()->InsertData();
+		
+			
+		
+			
 			if($result > 0)
 			{
 				//si el resultado es mayor a cero, se inserto el nuevo registro con exito...se regresara true

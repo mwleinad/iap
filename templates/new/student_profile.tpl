@@ -92,6 +92,16 @@
 							</a>
                         </li>
 						<li>
+                           <a href="{$WEB_ROOT}/graybox.php?page=registro-add" data-target="#ajax" data-toggle="modal" data-width="1000px">
+                               <i class="fa fa-adn" aria-hidden="true"></i>Registro
+							</a>
+                        </li>
+						<li>
+                           <a  href="{$WEB_ROOT}/ajax/acuse.php" target="_blank" >
+                               <i class="fa fa-adn" aria-hidden="true"></i>Acuse de Derecho
+							</a>
+                        </li>
+						<li>
                             &nbsp;
 							<br>
 							<br>

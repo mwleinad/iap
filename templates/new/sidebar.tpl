@@ -91,15 +91,15 @@
                     </a>
                 </li>
 				{if $AccessMod[39] != 1}
-                        <li class="nav-item  ">
+                        <!--<li class="nav-item  ">
                             <a href="{$WEB_ROOT}/subject" class="nav-link ">
-                                <span class="title">Certificaciones</span>
+                                <span class="title">Curricula</span>
                             </a>
-                        </li>
+                        </li>-->
 						{/if}
 				<li class="nav-item  ">
                             <a href="{$WEB_ROOT}/history-subject" class="nav-link ">
-                                <span class="title">Historial</span>
+                                <span class="title">Certificaciones</span>
                             </a>
                         </li>
 				<!--

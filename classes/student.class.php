@@ -35,7 +35,14 @@ class Student extends User
 	private $statusacademicDegree;
 	private $tipoSolicitante;
 	private $sectorId;
-	
+	private $autorizoj;
+		
+		//new
+		
+		public function setAutorizoj($value)
+		{
+			$this->autorizoj = $value;
+		}
 	
 	public function setSectorId($value)
 	{
@@ -584,7 +591,7 @@ class Student extends User
 							'".$this->getMasters()."', 
 							'".$this->getMastersSchool()."', 
 							'".$this->getHighSchool()."',
-							'".$this->tipoSolicitanteId."' 
+							'".$this->tipoSolicitante."' 
 							
 						)";
 
@@ -1024,7 +1031,8 @@ class Student extends User
 							masters = '".$this->getMasters()."', 
 							mastersSchool = '".$this->getMastersSchool()."', 
 							highSchool = '".$this->getHighSchool()."',						
-							actualizado = 'si'						
+							actualizado = 'si',						
+							autorizo = '".$this->autorizoj."'					
 						WHERE 
 							userId = ".$this->getUserId();		
 		// exit;

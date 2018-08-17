@@ -1,5 +1,21 @@
 
-
+function comprueba_extension(archivo) { 
+   extensiones_permitidas = new Array(".png",".jpg");  
+      extension = (archivo.substring(archivo.lastIndexOf("."))).toLowerCase(); 
+      permitida = false; 
+      for (var i = 0; i < extensiones_permitidas.length; i++) { 
+         if (extensiones_permitidas[i] == extension) { 
+         permitida = true; 
+         break; 
+         } 
+      } 
+      if (!permitida) { 
+         return "no";
+      	}else{ 
+         return "si"; 
+      	} 
+   return 0; 
+}
 
 
 
@@ -333,6 +349,17 @@ function recargarPage()
 
 
 function onSendINE(){
+	
+	
+	var ine = $("#ine").val();
+
+	var res = comprueba_extension(ine);
+	
+	if(res == "no"){
+		alert("Solo se permiten archivos con extencion PNG y JPG")
+		return ;
+	}
+	
 
 	// En esta var va incluido $_POST y $_FILES
 	var fd = new FormData(document.getElementById("frmGral"));

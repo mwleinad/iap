@@ -7,9 +7,8 @@
 
 	session_start();
 
-$student->setUserId($_GET["id"]);
+	$student->setUserId($_GET["id"]);
 	$info = $student->GetInfo();
-	
 	// echo "<pre>"; print_r($info);
 	// exit;
 	// $course->setUserId($_SESSION['User']['userId']);
@@ -20,7 +19,7 @@ $student->setUserId($_GET["id"]);
 	$html .= "
 	<html>
 	<head>
-	<title>INFORMACION DE REGISTRO</title>
+	<title>IDENTIFICACION OFICIAL</title>
 	<style type='text/css'>
 	.txtTicket{
 			font-size:12px;
@@ -52,47 +51,32 @@ $student->setUserId($_GET["id"]);
 	
 	$html .= '
 	<center>
-	<table style="width:90%; text-align:right; border:0px" boder=0 >
+	Identificacion Oficial
+	<br>
+	<br>
+	<br>
+	<br>
+	<table style="width:100%; text-align:center; border:0px" boder=0 >
 	<tr>
-		<td style="height:100px" align=right>
-			Tuxtla Gutiérrez, Chiapas<br>
-			Fecha: '.date("Y-m-d").'
-		</td>
+	<td style="height:350px">
+	Frente<br>
+	<img src="'.DOC_ROOT.'/alumnos/ine/'.$info["ineFrente"].'" style="width:150px">
+	</td>
 	</tr>
 	<tr>
-	<td style="height:800px" align=center>
-
-	<table>
-		<tr>
-			<td>Usuario:</td>
-			<td>'.$info["controlNumber"].'</td>
-		</tr>
-		<tr>
-			<td>Contraseña:</td>
-			<td>'.$info["password"].'</td>
-		</tr>
+	<td >
+	Vuelta<br>
+	<img src="'.DOC_ROOT.'/alumnos/ine/'.$info["ineVuelta"].'" style="width:150px">
+	</td>
+	</tr>
 	</table>
-	
-';
-		
+	';
+
 			
 		
 	$html .= "	
-	<tr>
-	<td style='width:90%; text-align:center; border:0px'>
-	<font style='font-size:9'>
-	Instituto de Administración Pública del Estado de Chiapas, A.C.<br>
-	Libramiento Norte Poniente No. 2718, Fracc Ladera de la Loma, C.P. 29026<br>
-	Tuxtla Gutiérrez, Chiapas; Teléfonos: (961) 12 515 08, 12 515 09, 12 51510, ext 107<br>
-	www.iapchiapas.org.mx, redconocer@iapchiapas.org.mx
-	
-		</font>
-		</td>
-		</tr>
-		</table> 
 	</body>
 	</html>
-
 	";
 	// echo $html;
 	// exit;
