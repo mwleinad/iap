@@ -5,17 +5,21 @@
 
 	if($_POST)
 	{
-		$activity->setActivityId($_GET["id"]);
+		// echo "<pre>"; print_r($_POST);
+		// exit;
+		$activity->setActivityId($_POST["activityId"]);
 		$activity->setTimeLimit($_POST["timeLimit"]);
 		$activity->setNoQuestions($_POST["noQuestions"]);
 		$activity->EditExamen();
 	}
+	
+	$id = $activity->crearActividad($_GET["courseId"]);
 
-	$activity->setActivityId($_GET["id"]);
+	$activity->setActivityId($id);
 	$activity = $activity->Info();
 	$smarty->assign('activity', $activity);
 	
-	$test->setActivityId($_GET["id"]);
+	$test->setActivityId($id);
 	$tests = $test->Enumerate();
 	$smarty->assign('tests', $tests);
 
@@ -23,7 +27,7 @@
 	
 		
 	
-	$smarty->assign('activityId', $_GET["id"]);
+	$smarty->assign('activityId', $id);
 	$smarty->assign('mnuMain', "cursos");
 
 ?>

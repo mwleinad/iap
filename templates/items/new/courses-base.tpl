@@ -32,16 +32,21 @@
 						
 					</li>
 					<li>
-						<a href="{$WEB_ROOT}/graybox.php?page=edit-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal"><!--
-							<img src="{$WEB_ROOT}/images/pencil.png" class="spanEdit" id="d-{$subject.subjectId}" name="d-{$subject.name}" title="Editar" style="width:16px" />-->
+						<a href="{$WEB_ROOT}/graybox.php?page=edit-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal">
 							<i class="material-icons md-16">create</i>
 							Editar
 						</a>
 					</li>
 					<li>
+						<a href="{$WEB_ROOT}/configuracion-examen/courseId/{$subject.courseId}" >
+							<i class="material-icons md-16">grade</i>
+							Configurar Evaluación
+						</a>
+					</li>
+					<!--
+					<li>
 						<a href="{$WEB_ROOT}/graybox.php?page=ver-sabana-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Sabana de Calificaciones">
-							<!--<img src="{$WEB_ROOT}/images/cal.png" class="spanEdit" id="d-{$subject.subjectId}" name="d-{$subject.name}"  style="width:16px"  />
-							--><i class="material-icons md-16">grade</i>
+							<i class="material-icons md-16">grade</i>
 							Sabana de Calificaciones
 						</a>
 					</li>
@@ -49,16 +54,14 @@
 						<a href="{$WEB_ROOT}/diplomas.php?id={$subject.courseId}" target="_blank" >
 							<i class="material-icons md-16">folder_special</i>
 							Diplomas
-							<!--<img src="{$WEB_ROOT}/images/cer.jpg" class="spanEdit" id="d-{$subject.subjectId}" name="d-{$subject.name}" title="Impresion de Diplomas"  style="width:16px" />
-							-->
+							
 						</a>
 					</li>
 					<li>
 						<a href="{$WEB_ROOT}/reporte.php?id={$subject.courseId}" target="_blank" >
 							<i class="material-icons md-16">poll</i>
 							Reportes
-							<!--<img src="{$WEB_ROOT}/images/graf.png" class="spanEdit" id="d-{$subject.subjectId}" name="d-{$subject.name}" title="Reporte General" style="width:16px"  />
-							-->
+							
 						</a>
 					</li>
 					<li>
@@ -78,7 +81,7 @@
 						<i class="material-icons md-16">event</i>
 						Periodos
 						</a>  
-					</li>
+					</li>-->
 					</ul>
 				</div> 	
 				<div id="divAccion_{$subject.courseId}" >
