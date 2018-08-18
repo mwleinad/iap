@@ -17,7 +17,7 @@
 			<br>
 			<br>
 
-			Aviso de privacidad del Instituto de Administración Pública del Estado de Chiapas, A.C. con domicilio en Libramiento Norte Poniente No. 2718, Fraccionamiento Ladera de la Loma, Tuxtla Gutiérrez, Chiapas, Código Postal 29026. La información que nos proporcione es confidencial; de tal manera que no será trasferida a terceros con el fin de salvaguardar su confidencialidad, su información será utilizada únicamente para fines académicos y administrativos dentro de nuestro Instituto.
+			Aviso de privacidad del Instituto de Administración Pública del Estado de Chiapas, A.C. con domicilio en Libramiento Norte Poniente No. 2718, Fraccionamiento Ladera de la Loma, Tuxtla Gutiérrez, Chiapas, Código Postal 29026. La información que nos proporcione es confidencial; de tal manera que no será trasferida a terceros con el fin de salvaguardar su confidencialidad, su información será utilizada únicamente para fines administrativos dentro de nuestro Instituto.
 		   <br>
 			<br>
 			<br>

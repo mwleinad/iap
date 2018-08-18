@@ -210,7 +210,7 @@
                     <span class="profile-desc-text"> El <b>Instituto de Administración Pública del Estado de Chiapas, A. C.</b><br />te da la mas cordial bienvenida a nuestro Sistema de Educación en Línea.</span>
                     <div class="margin-top-20 profile-desc-link">
                         <i class="fa fa-globe"></i>
-                        <a href="http://www.iapchiapas.org.mx">www.iapchiapas.org.mx</a>
+                        <a href="httpw://www.iapchiapas.org.mx">www.iapchiapas.org.mx</a>
                     </div>
                     <div class="margin-top-20 profile-desc-link">
                         <i class="fa fa-facebook"></i>
@@ -304,28 +304,28 @@
                                 <table class="table table-hover table-light" >
                                     <thead>
                                     <tr class="uppercase">
-                                        
-                                        <th style="text-align: center"> Tipo </th>
+
+                                        <!-- <th style="text-align: center"> Tipo </th>-->
                                         <th style="text-align: center"> Nombre </th>
 										 <th style="text-align: center"> Grupo </th>
-                                        <th style="text-align: center"> Modalidad </th>
+                                        <!--<th style="text-align: center"> Modalidad </th>-->
                                         <th style="text-align: center"> Fecha Inicial </th>
-                                        <th style="text-align: center"> Fecha Final </th>                                        
-                                        <th style="text-align: center"> Modulos </th>
+                                        <th style="text-align: center"> Fecha Final </th>
+                                        <!--<th style="text-align: center"> Modulos </th>-->
                                        
-                                        <th style="text-align: center"> Acciones </th>
+                                        <th style="text-align: center"> Ingresar </th>
                                     </tr>
                                     </thead>
                                     {foreach from=$activeCourses item=subject}
                                     <tr>
                                        
-                                        <td align="center">{$subject.majorName}</td>
+                                       <!-- <td align="center">{$subject.majorName}</td>-->
                                         <td align="center">{$subject.name}</td>
 										  <td align="center">{$subject.group}
-                                        <td align="center">{$subject.modality}</td>
+                                              <!-- <td align="center">{$subject.modality}</td>-->
                                         <td align="center">{$subject.initialDate|date_format:"%d-%m-%Y"}</td>
                                         <td align="center">{$subject.finalDate|date_format:"%d-%m-%Y"}</td>
-                                        <td align="center">{$subject.courseModule}
+                                        <!--<td align="center">{$subject.courseModule}-->
                                       
                                         <td align="center">
 											<a href="{$WEB_ROOT}/view-modules-student/id/{$subject.courseId}" title="Ver Modulo de Curso"  style="color:#000" target="_top" >
