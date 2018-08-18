@@ -49,8 +49,8 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 		</tr>
 		<tr>
 			<td colspan="2">Lugar de Nacimiento:<br><input type="text" name="cityBorn" class="form-control" value="{$info.cityBorn}"></td>
-			<td colspan="2">Nacionalidad:<br><input type="text" name="nacionality" class="form-control" value="{$info.nacionality}"></td>
-			<td style="width:180px" colspan="2">
+			<td>Nacionalidad:<br><input type="text" name="nacionality" class="form-control" value="{$info.nacionality}"></td>
+			<td style="width:180px" colspan="3">
 			Fecha de Nacimiento:<br>
 			<select name="day" class="form-control" style="width:45%; float:left; ">
 				<option value="">dias</option>
@@ -181,7 +181,7 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 			</td>
 		</tr>
 		<tr>
-			<td>¿Sabe leer y escribir?:<br>
+			<td>¿Sabe leer y escribir?<br>
 			<select name="lee" class="form-control" style="width:70px; float:left">
 				<option></option>
 				<option {if $info.lee == "si"} selected="selected" {/if}>si</option>
@@ -202,12 +202,12 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 		
 		<tr>
 
-			<td colspan="2">¿Trabaja actualmente?:<br><select name="trabaja" class="form-control" style="width:70px; float:left">
+			<td>¿Trabaja actualmente?:<br><select name="trabaja" class="form-control" style="width:70px; float:left">
 				<option></option>
 				<option {if $info.trabaja == "si"} selected="selected" {/if}>si</option>
 				<option {if $info.trabaja == "no"} selected="selected" {/if}>no</option>
 			</select></td>
-			<td colspan="4">¿Puesto que ocupa?:<br><input type="text" name="workplacePosition" value="{$info.workplacePosition}" class="form-control"></td>
+			<td colspan="5">¿Puesto que ocupa?:<br><input type="text" name="workplacePosition" value="{$info.workplacePosition}" class="form-control"></td>
 		</tr>
 		  <tr>
 		  <td>¿Tiene alguna discapacidad?:<br>
