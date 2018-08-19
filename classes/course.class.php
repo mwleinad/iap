@@ -1404,7 +1404,7 @@
 				SELECT 
 					
 					m.nombre as municipio,
-					u.*,
+					us.*,
 					s.name as certificacion
 				FROM 
 					user_subject as u

@@ -14,7 +14,7 @@
     <tbody>
     	{foreach from=$result item=item}
     	<tr>
-			<td align="center">{$item.municipo}</td>
+			<td align="center">{$item.municipio}</td>
 			<td align="center">{$item.names} {$item.lastNamePaterno} {$item.lastNameMaterno}</td>
 			<td align="center">{$item.certificacion}</td>
 			<td align="center">{$item.email}</td>
