@@ -2,7 +2,7 @@
 
 $message[1]["subject"] = "Bienvenido a la Entidad de Certificacion y Evaluacion del IAP Chiapas";
 $message[1]["body"] = "
-	Bienvenido a la Entidad de Certificacion y Evaluacion ECE213-15 del Instituto de Administraci�n P�blica del Estado de Chiapas. Estamos muy agradecidos que nos hayas elegido.
+	Bienvenido a la Entidad de Certificacion y Evaluacion ECE213-15 del Instituto de Administracion Publica del Estado de Chiapas. Estamos muy agradecidos que nos hayas elegido.
 	
 	La Certificación de tu elección es:
 	<b>|course|</b>
