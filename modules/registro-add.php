@@ -76,6 +76,7 @@ $x=0;
 	$smarty->assign('notificaciones', $notificaciones);
 	$smarty->assign('msjC', $_SESSION['msjC']);
 	$smarty->assign('msjCc', $_SESSION['msjCc']);
+	$smarty->assign('aparecConfirma', "si");
 		unset($_SESSION['msjC']);
 		unset($_SESSION['msjCc']);
 	// echo '<pre>'; print_r($lstEstados);

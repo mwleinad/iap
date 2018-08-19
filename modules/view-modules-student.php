@@ -16,7 +16,7 @@
 
 	if($infoUSubject["acuseDerecho"]=="si"){
 
-		if($myModule["evalDocenteCompleta"]=="si"){
+		if($myModule["evalOk"]=="si"){
 			$verResultado = true;
 			$resEstadoisticas = $test->estadisticas($myModule["infoActivity"]["activityId"]);
 		}

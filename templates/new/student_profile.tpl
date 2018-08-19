@@ -97,7 +97,7 @@
 							</a>
                         </li>
 						<li>
-                           <a  href="{$WEB_ROOT}/ajax/acuse.php" target="_blank" >
+                           <a  href="{$WEB_ROOT}/ajax/acuse.php?id={$id}" target="_blank" >
                                <i class="fa fa-adn" aria-hidden="true"></i>Acuse de Derecho
 							</a>
                         </li>

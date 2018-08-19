@@ -18,7 +18,7 @@
 		}else{
 			$_POST["listar"]  = 'no';
 		}
-		
+		$course->setSubjectId($_POST["subjectId"]);
 		$course->setCourseId($_POST["courseId"]);
 		$course->setSubjectId($_POST["subjectId"]);
 		$course->setModality($_POST["modality"]);
@@ -43,10 +43,13 @@
 		$course->setAparece($_POST["apareceT"]);
 		$course->setTipoCuatri($_POST["tipoCuatri"]);
 		$course->setListar($_POST["listar"]);
+		$course->setName($_POST["nombre"]);
+		$course->setNumero($_POST["numero"]);
 		$course->Update();
 	}
-
+	$rsubjects =$major->Enumerate();
 	$cursos = $subject->Enumerate();
+	$smarty->assign('rsubjects', $rsubjects);
 	$smarty->assign('cursos', $cursos);
 
 	$empleados = $personal->Enumerate('lastname_paterno');

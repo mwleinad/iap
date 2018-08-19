@@ -1,6 +1,6 @@
 {foreach from=$tests item=subject}
     <tr>
-        <td align="center" class="id">{$subject.testId}</td>
+        <td align="center" class="id">{$subject.numero}</td>
         <td align="center">{$subject.question}</td>
         <td align="center">{$subject.opcionAShort}</td>
         <td align="center">{$subject.opcionBShort}</td>

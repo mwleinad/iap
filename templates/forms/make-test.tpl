@@ -11,7 +11,7 @@
 <!-- /TinyMCE -->
 {if $access = 1}
 <form id="addMajorForm" name="addMajorForm" method="post">
-<input type="hidden" name="courseModuleId" id="courseModuleId" value="{$id}">
+<input type="hidden" name="courseId" id="courseId" value="{$id}">
 <input type="hidden" name="activityId" id="activityId" value="{$activityId}">
 <input type="hidden" name="modality" id="modality" value="{$actividad.modality}">
 <input type="hidden" id="type" name="type" value="saveAddMajor"/>
@@ -28,9 +28,10 @@
           <center>
 {foreach from=$myTest item=subject}
 			<table style="width:80%" class="tblGral table table-bordered table-striped table-condensed flip-content">
-			<tr><td><b>{$subject.question} <!--&raquo;Valor: {$subject.ponderation}%--></b></td></tr>
+			<tr><td><b>{$subject.numero}. {$subject.question} <!--&raquo;Valor: {$subject.ponderation}%--></b></td></tr>
 			<tr >
 			<td >
+				<input type="hidden" name="preguntas[{$subject.testId}]]">
 				{if $subject.opcionA}
 			  <input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionA" />{$subject.opcionA}
 			  {/if}

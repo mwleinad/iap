@@ -29,7 +29,16 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
             <b>.:: Datos Personales ::.</b>
       </div>
       -->
-      
+	 {if $aparecConfirma eq 'si'}
+	<center>
+		<b>No autorizo</b>
+		<label class="switch">
+		  <input type="checkbox" name="confirma" id="confirma" {if $info.autorizo eq 'si'} checked {/if}>
+		  <span class="slider round"></span>
+		</label>
+		<b>Si autorizo</b>
+	</center>
+	{/if}
 	  <table width="100%" class="tblGral table table-bordered table-striped table-condensed flip-content" >
 		<tr>
 			<td colspan="2" {if $info.ciudad ne ""} style="background:#e7505a33" {/if}>Municipio:<br>
@@ -76,7 +85,7 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 			<select name="year" class="form-control" style="width:45%; float:left">
 				<option value="">Año</option>
 				{for $foo=1920 to 2000}
-				<option {if $info.mes ==12} selected="selected" {/if}>{$foo}</option>
+				<option {if $info.year ==$foo} selected="selected" {/if}>{$foo}</option>
 				{/for}
 			</select>
 			</td>
@@ -164,6 +173,7 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 			</td>
 			<td>Ciudad:<br>
 			<div id="divMunicipio">
+				{include file="{$DOC_ROOT}/templates/forms/new/municipio.tpl"}
 			</div>	
 			</td>
 			

@@ -1,22 +1,22 @@
 <?php
-// echo "<pre>"; print_r($_GET); 
-// exit;
 	include_once('../initPdf.php');
 	include_once('../config.php');
 	include_once(DOC_ROOT.'/libraries.php');
 
 	session_start();
-
-	// $course->setCourseId($_GET['q']);
-	// $infoCourse = $course->Info();
 	
-	// echo "<pre>"; print_r();
+	// echo "<pre>"; print_r($_SESSION["User"]);
 	// exit;
-	// $course->setUserId($_SESSION['User']['userId']);
-	// $lstBoleta = $course->boletaAlumno();
- 
-	// echo '<pre>'; print_r($infoCourse);
-	// exit;
+	if($_SESSION["User"]["type"]=="student"){
+		if($_SESSION["User"]["userId"]<>$_GET['id'])
+			exit;
+		
+	}
+	$student->setUserId($_GET['id']);
+	$info = $student->GetInfo();
+	
+	
+	
 	$html .= "
 	<html>
 	<head>
@@ -51,43 +51,59 @@
 	
 	
 	$html .= '
-	<center>
-	<table style="width:90%; text-align:right; border:0px" boder=0 >
+
+	<table style="width:100%; "  >
 	<tr>
-		<td>
+		<td style="text-align:left; ">
+			<img src="'.DOC_ROOT.'/images/logo_correo.jpg" >
+		</td>
+		<td style="text-align:right; ">
+			<img src="'.DOC_ROOT.'/images/logoconocer.png" style="width:95% !important">
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 style="text-align:right; ">
 			Tuxtla Gutiérrez, Chiapas<br>
 			Fecha: '.date("Y-m-d").'
 		</td>
 	</tr>
 	<tr>
-	<td style="height:800px" align=center>
+	<td style="height:800px" align=center colspan=2>
 
 	
 	<b>ACUSE DE RECIBO DEL DOCUMENTO DERECHOS Y
 	OBLIGACIONES DEL USUARIO DEL SNC</b>
+	<br>
+	<br>
 	
-	<br>
-	<br>
+	
 	Manifiesto por este medio, haber recibido por parte del Evaluador el documento titulado:<br>
 	"Derechos y Obligaciones de los Usuarios del Sistema Nacional de Competencias", el cual
 	tendrá observancia durante todo mi proceso de Evaluación, cuyo contenido me permite
-	exigir mis derechos y cumplir con mis obligaciones. </td></tr></center>';
+	exigir mis derechos y cumplir con mis obligaciones. 
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<b>'.strtoupper($info["names"].' '.$info["lastNamePaterno"].'  '.$info["lastNameMaterno"]).'</b><br>
+	Firma del Candidato
+	</td></tr>';
 		
 			
 		
 	$html .= "	
 	<tr>
-	<td style='width:90%; text-align:center; border:0px'>
-	<font style='font-size:9'>
-	Instituto de Administración Pública del Estado de Chiapas, A.C.<br>
-	Libramiento Norte Poniente No. 2718, Fracc Ladera de la Loma, C.P. 29026<br>
-	Tuxtla Gutiérrez, Chiapas; Teléfonos: (961) 12 515 08, 12 515 09, 12 51510, ext 107<br>
-	www.iapchiapas.org.mx, redconocer@iapchiapas.org.mx
-	
+	<td style='width:90%; text-align:center; ' colspan=2>
+		<font style='font-size:9'>
+		Instituto de Administración Pública del Estado de Chiapas, A.C.<br>
+		Libramiento Norte Poniente No. 2718, Fracc Ladera de la Loma, C.P. 29026<br>
+		Tuxtla Gutiérrez, Chiapas; Teléfonos: (961) 12 515 08, 12 515 09, 12 51510, ext 107<br>
+		www.iapchiapas.org.mx, redconocer@iapchiapas.org.mx
 		</font>
-		</td>
-		</tr>
-		</table> 
+	</td>
+	</tr>
+	</table> 
 	</body>
 	</html>
 

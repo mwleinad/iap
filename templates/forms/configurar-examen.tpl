@@ -7,7 +7,7 @@
 	<thead>
 		<tr>
 			<th style="width:400px">Titulo</th>
-			<th>Tiempo Limite</th>
+			<th>Respuesta para acreditar</th>
 			<th>Numero de Preguntas</th>
 		</tr>
 	</thead>
@@ -37,7 +37,7 @@
 	<br>
 	<br>
 	<center><b>.:: Preguntas ::.</b></center>
-	<table>
+	<!--<table>
 		<tr>
 			<td>Preguntas en Total: </td>
 			<td><b>{$activity.noQuestions * 2}</b></td>
@@ -50,7 +50,7 @@
 			<td>Ponderacion por Pregunta: </td>
 			<td><b>{$ponderationPerQuestion}%</b></td>
 		</tr>
-	</table>
+	</table>-->
 	<br>
 	<br>
 	<div class="content-settings-row-register" align="center">

@@ -16,7 +16,7 @@
 			<br>
 			<br>
 			<br>
- {include file="{$DOC_ROOT}/templates/forms/completo.tpl"}
+			{include file="{$DOC_ROOT}/templates/forms/completo.tpl"}
 		   <br>
 			<br>
 			<br>

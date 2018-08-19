@@ -17,6 +17,12 @@
                  <input type="text" name="nombre" id="nombre"  class="form-control"/>
             </div>
         </div>
+		<div class="form-group">
+            <label class="col-md-3 control-label">Numero:</label>
+            <div class="col-md-8">
+                 <input type="text" name="numero" id="numero"  class="form-control"/>
+            </div>
+        </div>
         <div class="form-group">
             <label class="col-md-3 control-label">Modalidad:</label>
             <div class="col-md-8">

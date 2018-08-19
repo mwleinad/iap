@@ -117,18 +117,25 @@
 		public function Enumerate($verResultado=false)
 		{
 			
+			$filtro = "";
+			if($verResultado == true){
+				$filtro =  " and answer <>''";
+			}
+			
 			 $sql = "
 				SELECT * FROM activity_test
-				WHERE activityId = '".$this->getActivityId()."'
-				ORDER BY testId ASC";
+				WHERE activityId = '".$this->getActivityId()."' ".$filtro."
+				ORDER BY numero ASC";
 			
 			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
 
 			foreach($result as $key => $res)
 			{
-				
+			
 				if($verResultado == true){
+					
+					
 					 $sql = "
 						SELECT respuesta FROM resultado
 						WHERE preguntaId = '".$res["testId"]."' limit 0,1";
@@ -138,7 +145,7 @@
 
 					
 					if($resu["respuesta"]==$res["answer"]){
-							$result[$key][$resu["respuesta"]] = "<font color='green'>".$result[$key][$resu["respuesta"]]."</font>"; 
+							$result[$key][$resu["respuesta"]] = "<b><font color='#73b760'>".$result[$key][$resu["respuesta"]]."</font></b>"; 
 					}
 					else{
 						$opciones = array("opcionA","opcionB","opcionC","opcionD","opcionE");
@@ -278,27 +285,51 @@
 		function SendTest($answers)
 		{
 			
+			if($answers==null){
+					echo "fail[#]";
+					echo "<font color='red'>Necesita responder todas las preguntas </font>";
+					exit;
+			}
+			
+			foreach($_POST["preguntas"] as $key=>$aux){
+				if($answers[$key]==null){
+						echo "fail[#]";
+						echo "<font  color='red'>Necesita responder la pregunta numero ".($key)."</font>";
+						exit;
+					}
+				
+			}
+		
+			
 			 $sql = "UPDATE 
-						course_module 
+						user_subject 
 					SET
 						evalDocenteCompleta = 'si'
 					WHERE
-							courseId='" . $_POST["courseModuleId"] . "'";
+							alumnoId ='" . $_POST["userId"] . "' and courseId = ".$_POST["courseId"]."";
 			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->UpdateData();
 			
 			
 			foreach($answers as $key=>$aux){
 				
-				$sql = "SELECT 
-						puntos
+				 $sql = "SELECT 
+						puntos,
+						answer
 					FROM
 						activity_test
 					WHERE
 							testId='".$key."'"; 
 				$this->Util()->DB()->setQuery($sql);
-				$puntos = $this->Util()->DB()->GetSingle();
-			
+				$puntos = $this->Util()->DB()->GetRow();
+				
+				
+				if($puntos["answer"]<>$aux){ 
+					$puntos["puntos"] = 0;
+				}
+				// echo $puntos["answer"] ;
+				// echo "__".$aux;
+				// exit;
 			
 					 $sql = 'INSERT INTO resultado (
 							preguntaId, 
@@ -314,11 +345,11 @@
 							1,
 							"'.$_POST["activityId"].'",
 							'.$_POST["userId"].',
-							'.$puntos.'
+							'.$puntos["puntos"].'
 						)';
-// exit;
+// exit;exit;exit;
 						$this->Util()->DB()->setQuery($sql);
-						$this->id = $this->Util()->DB()->InsertData();
+						$this->id = $this->Util()->DB()->InsertData(); 
 			}
 				
 
@@ -342,7 +373,7 @@
 					FROM
 						resultado
 					WHERE
-							activityId='" . $Id . "' and puntos<>''";
+							activityId='" . $Id . "' and puntos<>0";
 			$this->Util()->DB()->setQuery($sql);
 			$count = $this->Util()->DB()->GetSingle();
 			
@@ -351,7 +382,7 @@
 					FROM
 						activity_test
 					WHERE
-							activityId='" . $Id . "'";
+							activityId='" . $Id . "' and answer <>''";
 			$this->Util()->DB()->setQuery($sql);
 			$results = $this->Util()->DB()->GetSingle();
 			
@@ -360,22 +391,68 @@
 					FROM
 						resultado as r
 					left join activity_test as a on a.testId = r.preguntaId
+					left join activity as ac on ac.activityId = a.activityId
 					WHERE
-							r.activityId='" . $Id . "' and r.puntos=''";
+							r.activityId='" . $Id . "' and r.puntos=0 order by numero";
 			// exit;
 			$this->Util()->DB()->setQuery($sql);
 			$lstRes = $this->Util()->DB()->GetResult();
 			
-			$data["puntosOk"] = $result;
+			$data["puntosOk"] =number_format( $result,2);
 			$data["countOK"] = $count;
-			$data["totalPuntos"] = $results;
+			$data["totalPuntos"] = number_format($results,2);
 			$data["lstRes"] = $lstRes;
-			$data["calificacion"] = ($result/$results);
+			$data["limiteAprobatorio"] = $lstRes[0]["timeLimit"];
+			$data["calificacion"] = number_format(($result/$results),2);
 			
 			return $data;
 			
 		}
 		
+		function sendInfo($name,$pass){
+			
+			$sendmail = new SendMail;
+					
+			$sql = "SELECT 
+						*
+					FROM
+						user
+					WHERE
+							controlNumber='" . $name . "'";
+			$this->Util()->DB()->setQuery($sql);
+			$lstRes = $this->Util()->DB()->GetRow();
+			
+			$msj = "
+				 Instituto de Administración Publica del Estado de Chiapas, A. C.
+				<br>
+				<br>
+				Sus datos de acceso para nuestro Sistema de Educación en Línea son:<br>
+				Usuario: ".$name."<br>
+				Contraseña: ".$pass."<br>
+				<br>
+				<br>
+				
+				Cualquier duda, favor de contactarnos:<br>
+				Teléfonos: (961) 125-15-08, 125-15-09, 125-15-10 Ext. 106 o 114<br>
+				Correo: enlinea@iapchiapas.org.mx<br>
+				Saludos.<br>
+				IAP-Chiapas<br>
+				<img src='".WEB_ROOT."/images/logo_correo.jpg'>
+
+				<br>
+				<br>
+				<br>
+				
+				";
+				
+				$sendmail->PrepareAttachment("IAP Chiapas | Recuperacion de datos de usuario", utf8_decode($msj), "","", $lstRes["email"], $names, $attachment, $fileName);
+				
+				// $this->Util()->setError(10030, "complete","Se ha enviado un correo con tus datos de acceso");
+				// $this->Util()->PrintErrors();	
+				
+				return true;
+
+		}
 		
 	}
 	

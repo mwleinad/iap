@@ -722,13 +722,24 @@
 			$questions = $this->Util()->DB()->GetSingle();
 			
 			//crear 2 preguntas para dar margen a examenes random
-			$extraQuestions = $this->noQuestions * 2;
+			$extraQuestions = $this->noQuestions ;
 			
-			$missing = $extraQuestions - $questions;
-			if($missing > 0)
-			{
-				for($ii = 0; $ii < $missing - 1; $ii++)
+			$sql = "SELECT MAX(numero) FROM `activity_test`
+					WHERE activityId = '".$this->activityId."'";
+			$this->Util()->DB()->setQuery($sql);
+			$maxTestId = $this->Util()->DB()->GetSingle();
+			
+			if($maxTestId ==null){
+				$maxTestId =0;
+			}
+			// $maxTestId
+			
+			// $missing = $extraQuestions - $questions;
+			// if($missing > 0)
+			// {
+				for($ii = 1; $ii <= $_POST["noQuestions"] ; $ii++)
 				{
+					$consecutivo = $maxTestId + $ii;
 					$sql = "
 					INSERT INTO  `activity_test` (
 						`activityId` ,
@@ -738,7 +749,8 @@
 						`opcionC` ,
 						`opcionD` ,
 						`opcionE` ,
-						`answer`
+						`answer`,
+						`numero`
 						)
 						VALUES (
 						'".$this->activityId."',  
@@ -748,32 +760,35 @@
 						'',  
 						'',  
 						'',  
-						'optionA')";
+						'optionA',
+						'".($consecutivo)."')";
 					//configuramos la consulta con la cadena de insercion
 					$this->Util()->DB()->setQuery($sql);
 					$questions = $this->Util()->DB()->InsertData();
 				}
-			}
+				
+				// exit;
+			// }
 
-			if($missing < 0)
-			{
-				for($ii = 0; $ii < abs($missing); $ii++)
-				{
-					$sql = "SELECT MAX(testId) FROM `activity_test`
-					WHERE activityId = '".$this->activityId."'";
-					$this->Util()->DB()->setQuery($sql);
-					$maxTestId = $this->Util()->DB()->GetSingle();
+			// if($missing < 0)
+			// {
+				// for($ii = 0; $ii < abs($missing); $ii++)
+				// {
+					// $sql = "SELECT MAX(testId) FROM `activity_test`
+					// WHERE activityId = '".$this->activityId."'";
+					// $this->Util()->DB()->setQuery($sql);
+					// $maxTestId = $this->Util()->DB()->GetSingle();
 
-					$sql = "
-					DELETE FROM `activity_test`
-					WHERE testId = '".$maxTestId."' LIMIT 1";
-					$this->Util()->DB()->setQuery($sql);
-					$questions = $this->Util()->DB()->DeleteData();
-				}
-			}
+					// $sql = "
+					// DELETE FROM `activity_test`
+					// WHERE testId = '".$maxTestId."' LIMIT 1";
+					// $this->Util()->DB()->setQuery($sql);
+					// $questions = $this->Util()->DB()->DeleteData();
+				// }
+			// }
 			
 			//ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
-			$result = $this->Util()->DB()->UpdateData();
+			// $result = $this->Util()->DB()->UpdateData();
 			$this->Util()->setError(90000, 'complete', "Se ha editado la actividad");
 			$this->Util()->PrintErrors();
 			return $result;

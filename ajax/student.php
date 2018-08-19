@@ -217,6 +217,7 @@
 				break;
 		case "saveAddStudentRegister":
 				
+				
 				$_POST['password'] = date("His").rand(5,15);
 				
 				$status = $_POST['status'];

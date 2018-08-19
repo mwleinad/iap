@@ -314,6 +314,18 @@ switch($_POST["type"])
 				
 			
 			break;
+			
+			case "":
+			
+				// echo "<pre>"; print_r($_POST);
+				if($test->sendInfo($_POST["names"],$_POST["pass"])){
+					echo "ok[#]";
+				}else{
+					echo "fail[#]";
+					
+				}
+			
+			break;
 	}
 
 ?>

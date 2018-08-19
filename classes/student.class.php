@@ -363,15 +363,27 @@ class Student extends User
 	
 	
 	public function GetInfo()
-	{ //print_r($this->userId);exit;
+	{ 
 	
 			$sql = "
 		SELECT u.*,m.nombre as nombreciudad FROM user as u 
 		left join municipio as m on m.municipioId = u.ciudadt
 		WHERE userId = '".$this->userId."'";
 		$this->Util()->DB()->setQuery($sql);
-		
 		$row = $this->Util()->DB()->GetRow();
+
+		$count_ = substr_count($row["discapacidades"], '-');
+		$f = explode("-",$row["discapacidades"]);
+		for($i=0;$i<=$count_;$i++){
+			$row[$f[$i]]=true;
+		}
+		$dc = explode("-",$row["birthdate"]);
+		$row["dia"] = $dc[0];
+		$row["mes"] = $dc[1];
+		$row["year"] = $dc[2];
+		
+	// echo "<pre>"; print_r($row);
+		// exit;
 		$row["names"] = $this->Util()->DecodeTiny($row["names"]);
 		$row["lastNamePaterno"] = $this->Util()->DecodeTiny($row["lastNamePaterno"]);
 		$row["lastNameMaterno"] = $this->Util()->DecodeTiny($row["lastNameMaterno"]);
@@ -480,7 +492,9 @@ class Student extends User
 			return false; 
 		}
 		
+		$firma = uniqid();
 		
+
 		
 		//Verificando que no se duplique el correo electronico
 		$this->Util()->DB()->setQuery("
@@ -550,7 +564,8 @@ class Student extends User
 							masters,
 							mastersSchool,
 							highSchool,
-							tipoSolicitanteId
+							tipoSolicitanteId,
+							firma
 						)
 							VALUES
 						(
@@ -591,7 +606,8 @@ class Student extends User
 							'".$this->getMasters()."', 
 							'".$this->getMastersSchool()."', 
 							'".$this->getHighSchool()."',
-							'".$this->tipoSolicitante."' 
+							'".$this->tipoSolicitante."',
+							'".$firma."' 
 							
 						)";
 
@@ -3180,11 +3196,18 @@ class Student extends User
 			SELECT 
 				s.name as certificacion,
 				u.alumnoId as userId,
-				c.courseId
+				c.courseId,
+				m.nombre as municipio,
+				c.numero,
+				at.activityId
 			FROM 
 				user_subject as u
 			left join course as c on c.courseId = u.courseId 
 			left join subject as s on s.subjectId = c.subjectId 
+			left join user as us on us.userId = u.alumnoId 
+			left join municipio as m on m.municipioId = us.ciudadt 
+			left join course_module as cm on cm.courseId = c.courseId 
+			left join activity as at on at.courseModuleId = cm.courseModuleId 
 			WHERE alumnoId = ".$Id."";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();

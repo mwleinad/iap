@@ -58,13 +58,21 @@
 	<br>
 	<table style="width:100%; text-align:center; border:0px" boder=0 >
 	<tr>
-	<td style="height:350px">
+		<td style="text-align:left; ">
+			<img src="'.DOC_ROOT.'/images/logo_correo.jpg" >
+		</td>
+		<td style="text-align:right; ">
+			<img src="'.DOC_ROOT.'/images/logoconocer.png" style="width:95% !important">
+		</td>
+	</tr>
+	<tr>
+	<td style="height:350px" colspan=2>
 	Frente<br>
 	<img src="'.DOC_ROOT.'/alumnos/ine/'.$info["ineFrente"].'" style="width:150px">
 	</td>
 	</tr>
 	<tr>
-	<td >
+	<td colspan=2>
 	Vuelta<br>
 	<img src="'.DOC_ROOT.'/alumnos/ine/'.$info["ineVuelta"].'" style="width:150px">
 	</td>

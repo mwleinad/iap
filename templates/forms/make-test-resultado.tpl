@@ -28,7 +28,7 @@
           <center>
 {foreach from=$myTest item=subject}
 			<table style="width:80%" class="tblGral table table-bordered table-striped table-condensed flip-content">
-			<tr><td style="width:90%"><b>{$subject.question} <!--&raquo;Valor: {$subject.ponderation}%--></b></td><td>{$subject.puntos}</td></tr>
+			<tr><td style="width:90%"><b>{$subject.numero}. {$subject.question} <!--&raquo;Valor: {$subject.ponderation}%--></b></td><td>{$subject.puntos}</td></tr>
 			<tr >
 			<td >
 				{if $subject.opcionA} 
@@ -59,20 +59,28 @@
 			
 	  </table>
 {/foreach}
+			<table style="width:80%" class="tblGral table table-bordered table-striped table-condensed flip-content">
+			<tr>
+			<td>
+				Comentarios acerca del resultado del diagnóstico:
+				   <br>
+				   <br>
+					
+					{foreach from=$resEstadoisticas.lstRes item=subject4}
+						{$subject4.comentario} [{$subject4.numero}]<br>
+					{/foreach}
+					<br>
+					<br>
+					Respuestas Correctas:{$resEstadoisticas.countOK}<br>
+					Puntos Obtenidos: {$resEstadoisticas.puntosOk}<br>
+					Calificación: {$resEstadoisticas.calificacion} ({$resEstadoisticas.puntosOk}/{$resEstadoisticas.totalPuntos})<br>
+					Sugerencia:{if $resEstadoisticas.countOK < $resEstadoisticas.limiteAprobatorio} Se recomienda  Certificación {else} Ninguna{/if}
+			</td>
+			</tr>
+		</table>
        </center>
 	   </form>
-	   Comentarios acerca del resultado del diagnostico:
-	   <br>
-	   <br>
-		
-		{foreach from=$resEstadoisticas.lstRes item=subject4}
-			{$subject4.comentario}<br>
-		{/foreach}
-		
-		Respuestas Correctas:{$resEstadoisticas.countOK}<br>
-		Puntos Obtenidos: {$resEstadoisticas.puntosOk}<br>
-		Calificación: {$resEstadoisticas.calificacion} ({$resEstadoisticas.puntosOk}/{$resEstadoisticas.totalPuntos})<br>
-		Sugerencia:
+	   
     </div>
                             
   

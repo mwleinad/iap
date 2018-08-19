@@ -208,15 +208,18 @@
 						c.tarifaDr as tarifaDr,
 						c.hora as hora,
 						course_module.subtotal as subtotal,
-						subject_module.clave as claveMateria
+						subject_module.clave as claveMateria 
 					FROM
 						course_module
 					LEFT JOIN course as c ON c.courseId = course_module.courseId
 					LEFT JOIN subject_module ON course_module.subjectModuleId = subject_module.subjectModuleId
 					LEFT JOIN	subject ON subject.subjectId = subject_module.subjectId	
 					LEFT JOIN	major ON major.majorId = subject.tipo	
+				
 					WHERE
 							courseModuleId='" . $this->courseModuleId . "'";
+							
+							
 			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetRow();				
 			$sql = "SELECT 
@@ -229,7 +232,15 @@
 			$this->Util()->DB()->setQuery($sql);
 			$infoActivity = $this->Util()->DB()->GetRow();
 
-
+			$sql = "SELECT 
+						evalDocenteCompleta
+					FROM
+						user_subject
+					WHERE
+							courseId = '" . $result["courseId"]. "' and alumnoId = ".$_SESSION['User']['userId']."";
+							// exit;
+			$this->Util()->DB()->setQuery($sql);
+			$infoud = $this->Util()->DB()->GetRow();
 			
 
 			$explodedInitialDate = explode("-", $result["initialDate"]);
@@ -258,6 +269,7 @@
 			$result["evaluationDecoded"] = html_entity_decode($result["evaluation"]);
 			$result["bibliographyDecoded"] = html_entity_decode($result["bibliography"]);
 			$result["infoActivity"] = $infoActivity;
+			$result["evalOk"] = $infoud["evalDocenteCompleta"];
 			// $result["claveMateria"] = html_entity_decode($result["claveMateria"]);
 
 			//print_r($result);

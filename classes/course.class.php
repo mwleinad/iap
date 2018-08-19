@@ -20,8 +20,14 @@
 		private $subtotal;
 		private $tipoCuatri;
 		private $name;
+		private $numero;
 		
 		
+		public function setNumero($value)
+		{
+			$this->Util()->ValidateString($value, 255, 0, 'Nombre ');
+			$this->numero = $value;	
+		}
 		
 		public function setName($value)
 		{
@@ -418,6 +424,11 @@
 			//calcular el desplazamiento de los registros a recuperar
 			$rowOffset = $arrPages['rowBegin'] - 1;
 			
+			if($rowOffset <0){
+				
+				$rowOffset = 0;
+			}
+			
 			$sql = '
 				SELECT *, major.name AS majorName, subject.name AS name  FROM course
 				LEFT JOIN subject ON course.subjectId = subject.subjectId 
@@ -612,7 +623,8 @@
 							horario,
 							apareceTabla,
 							listar,
-							tipo
+							tipo,
+							numero
 						)
 					VALUES (
 							'" . $subjectId . "',
@@ -631,7 +643,8 @@
 							'".$this->horario."',
 							'".$this->aparece."',
 							'".$this->listar."',
-							'".$this->tipoCuatri."'
+							'".$this->tipoCuatri."',
+							'".$this->numero."'
 							)";
 			//configuramos la consulta con la cadena de insercion
 			$this->Util()->DB()->setQuery($sql);
@@ -682,13 +695,30 @@
 				// si hay errores regresa false
 				return false;
 			}
-			//si no hay errores
-//			print_r($this);
-			//creamos la cadena de actualizacion
+
+			$sql = '
+				SELECT subjectId FROM course
+				where courseId = '.$this->courseId.'';
+			$this->Util()->DB()->setQuery($sql);
+			$info = $this->Util()->DB()->GetRow();
+			
+			
+			 $sql = "UPDATE 
+						subject
+					SET
+						name='". $this->name."'
+						WHERE subjectId='".$info["subjectId"]."'";
+						
+						// exit;
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->UpdateData();
+			
+			//
+
 			$sql = "UPDATE 
 						course
 					SET
-						subjectId='" 	. $this->getSubjectId() . "', 
+						 
 						initialDate='" 	. $this->initialDate . "',
 						finalDate='" 	. $this->finalDate . "',
 						daysToFinish='" 	. $this->daysToFinish . "',
@@ -707,6 +737,7 @@
 						tipo='".$this->tipoCuatri."',
 						apareceTabla='".$this->aparece."',
 						listar='".$this->listar."',
+						numero='".$this->numero."',
 						access='".$this->personalId."|".$this->teacherId."|".$this->tutorId."|".$this->extraId."'
 						WHERE courseId='" . utf8_decode($this->courseId) . "'";
 			//configuramos la consulta con la cadena de actualizacion
@@ -820,6 +851,9 @@
 			$this->Util()->DB()->setQuery($sql);
 			//ejecutamos la consulta y obtenemos el resultado
 			$result = $this->Util()->DB()->GetRow();
+			
+			// echo "<pre>"; print_r($result);
+			// exit;
 			if($result)
 			{
 //				$result = $this->Util->EncodeRow($result);

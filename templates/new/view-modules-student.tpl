@@ -11,7 +11,8 @@
 		<div class="portlet-body">
 			{include file="boxes/status_no_ajax.tpl"}
 			{**include file="{$DOC_ROOT}/templates/new/eval.tpl"**}
-			{if $myModule.evalDocenteCompleta eq "si"}
+			
+			{if $myModule.evalOk eq "si"}
 				<div id="tblContent">{include file="{$DOC_ROOT}/templates/forms/make-test-resultado.tpl"}</div>
 			{else}
 				<div id="tblContent">{include file="{$DOC_ROOT}/templates/forms/make-test.tpl"}</div>
