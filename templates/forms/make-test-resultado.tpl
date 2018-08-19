@@ -15,7 +15,7 @@
 <input type="hidden" name="activityId" id="activityId" value="{$activityId}">
 <input type="hidden" name="modality" id="modality" value="{$actividad.modality}">
 <input type="hidden" id="type" name="type" value="saveAddMajor"/>
-<input type="hidden" name="userId" id="userId" value="{$userId}">
+
             
     <div class="content-in-small">
     
@@ -28,45 +28,51 @@
           <center>
 {foreach from=$myTest item=subject}
 			<table style="width:80%" class="tblGral table table-bordered table-striped table-condensed flip-content">
-			<tr><td><b>{$subject.question} <!--&raquo;Valor: {$subject.ponderation}%--></b></td></tr>
+			<tr><td style="width:90%"><b>{$subject.question} <!--&raquo;Valor: {$subject.ponderation}%--></b></td><td>{$subject.puntos}</td></tr>
 			<tr >
 			<td >
-				{if $subject.opcionA}
-			  <input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionA" />{$subject.opcionA}
+				{if $subject.opcionA} 
+				{$subject.opcionA}
 			  {/if}
-				{if $subject.opcionB}
+				{if $subject.opcionB} 
 			  <div style="clear:both"></div>
-			  <input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionB" />{$subject.opcionB}
+			  {$subject.opcionB}
 			  {/if}
-				{if $subject.opcionC}
+				{if $subject.opcionC} 
 			  <div style="clear:both"></div>
-			  <input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionC" />{$subject.opcionC}
+			  {$subject.opcionC}
 			  {/if}
 				{if $subject.opcionD}
 			  <div style="clear:both"></div>
-			  <input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionD" />{$subject.opcionD}
+			 {$subject.opcionD}
 			  {/if}
 				{if $subject.opcionE}
 			  <div style="clear:both"></div>
-			  <input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionE" />{$subject.opcionE}<br />
+			  {$subject.opcionE}<br />
 			  {/if}
+			 
+			</td>
+			<td>
+				
 			</td>
 			</tr>
 			
 	  </table>
 {/foreach}
-       <center>
+       </center>
 	   </form>
-      <!--<div style="float:left"><span class="reqField">*</span> Campo requerido</div>-->
-	  <br>
-	  <br>
-	  <div id="msjError">
-	  </div>
-      <div style="padding-right:60px">
-
-       <button type="button" class="btn green submitForm" onclick="send();" id="addStudent">Guardar</button>
-      </div>
-      
+	   Comentarios acerca del resultado del diagnostico:
+	   <br>
+	   <br>
+		
+		{foreach from=$resEstadoisticas.lstRes item=subject4}
+			{$subject4.comentario}<br>
+		{/foreach}
+		
+		Respuestas Correctas:{$resEstadoisticas.countOK}<br>
+		Puntos Obtenidos: {$resEstadoisticas.puntosOk}<br>
+		Calificación: {$resEstadoisticas.calificacion} ({$resEstadoisticas.puntosOk}/{$resEstadoisticas.totalPuntos})<br>
+		Sugerencia:
     </div>
                             
   

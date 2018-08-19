@@ -14,6 +14,21 @@
 		private $usuarioId;
 		private $horaInicial;
 		private $verponderation;
+		private $comentario;
+		private $puntos;
+		
+		public function setComentario($value)
+		{
+			$this->Util()->ValidateString($value, 60, 0, 'Tipo de Actividad');
+			$this->comentario = $value;
+		}
+		
+		public function setPuntos($value)
+		{
+			$this->Util()->ValidateString($value, 60, 0, 'Puntos');
+			$this->puntos = $value;
+		}
+		
 		
 		public function setVerponderation($value)
 		{
@@ -795,7 +810,9 @@
 								opcionC = '".$this->opcionC."',
 								opcionD = '".$this->opcionD."',
 								opcionE = '".$this->opcionE."',
-								answer = '".$this->respuesta."'
+								answer = '".$this->respuesta."',
+								comentario = '".$this->comentario."',
+								puntos = '".$this->puntos."'
 							WHERE testId = '".$this->testId."'";
 				//configuramos la consulta con la cadena de insercion
 				$this->Util()->DB()->setQuery($sql);

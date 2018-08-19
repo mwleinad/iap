@@ -10,12 +10,7 @@
 	}
 
 	
-	if($_POST)
-	{
-		$test->setUserId($_SESSION["User"]["userId"]);
-		$test->setActivityId($_GET["id"]);
-		$test->SendTest($_POST["anwer"]);
-	}
+	
 
 	$activity->setActivityId($_GET["id"]);
 	$actividad = $activity->Info();

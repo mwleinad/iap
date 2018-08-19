@@ -300,6 +300,20 @@ switch($_POST["type"])
 				}
 			
 			break;
+			
+			case "send":
+			
+				$test->setUsertId($_SESSION["User"]["userId"]);
+				$test->setActivityId($_POST["activityId"]);
+				if($test->SendTest($_POST["anwer"])){
+					echo "ok[#]";
+				}else{
+					echo "fail[#]";
+					
+				}
+				
+			
+			break;
 	}
 
 ?>

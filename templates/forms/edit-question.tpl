@@ -55,6 +55,14 @@
             <label for="f1"> Opcion E:</label>
             <input type="text" name="opcionE" id="opcionE" value="{$question.opcionE}"  class="form-control"/>
       </div>
+	   <div class="content-settings-row">
+            <label for="f1"> Puntos:</label>
+            <input type="text" name="puntos" id="puntos" value="{$question.puntos}"  class="form-control"/>
+      </div>
+	  <div class="content-settings-row">
+            <label for="f1"> Comentario:</label>
+            <input type="text" name="comentario" id="comentario" value="{$question.comentario}"  class="form-control"/>
+      </div>
       <div class="content-settings-row">
             <label for="f1"><span class="reqField">*</span> Respuesta:</label>
             <select id="answer" name="answer" class="form-control">

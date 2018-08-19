@@ -18,6 +18,8 @@ switch($_POST["type"])
 			$activity->setOpcionE($_POST["opcionE"]);
 			$activity->setRespuesta($_POST["answer"]);
 			$activity->setTestId($_POST["Id"]);
+			$activity->setComentario($_POST["comentario"]);
+			$activity->setPuntos($_POST["puntos"]);
 			
 			if($activity->EditTest()){
 				echo "ok[#]";

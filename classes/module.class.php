@@ -217,11 +217,20 @@
 					LEFT JOIN	major ON major.majorId = subject.tipo	
 					WHERE
 							courseModuleId='" . $this->courseModuleId . "'";
-							// exit;
-			//configuramos la consulta con la cadena de actualizacion
 			$this->Util()->DB()->setQuery($sql);
-			//ejecutamos la consulta y obtenemos el resultado
-			$result = $this->Util()->DB()->GetRow();
+			$result = $this->Util()->DB()->GetRow();				
+			$sql = "SELECT 
+						* 
+					FROM
+						activity
+					WHERE
+							courseModuleId = '" . $this->courseModuleId . "'";
+							// exit;
+			$this->Util()->DB()->setQuery($sql);
+			$infoActivity = $this->Util()->DB()->GetRow();
+
+
+			
 
 			$explodedInitialDate = explode("-", $result["initialDate"]);
 			//$date = mktime(0, 0, 0, $explodedInitialDate[1], $explodedInitialDate[2], $explodedInitialDate[0]); 
@@ -248,6 +257,7 @@
 			$result["politicsDecoded"] = html_entity_decode($result["politics"]);
 			$result["evaluationDecoded"] = html_entity_decode($result["evaluation"]);
 			$result["bibliographyDecoded"] = html_entity_decode($result["bibliography"]);
+			$result["infoActivity"] = $infoActivity;
 			// $result["claveMateria"] = html_entity_decode($result["claveMateria"]);
 
 			//print_r($result);

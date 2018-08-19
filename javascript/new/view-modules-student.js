@@ -34,3 +34,39 @@ function onAceptar(){
     });
 	
 }
+
+
+
+
+
+function send(){
+
+	$("#type").val("send")
+	
+	$.ajax({
+	  	type: "POST",
+	  	url: WEB_ROOT+'/ajax/view-solicitud.php',
+	  	data: $("#addMajorForm").serialize(true)+'&type=send',
+		beforeSend: function(){			
+			$("#load").html(LOADER3);
+		},
+	  	success: function(response) {	
+		var splitResp = response.split("[#]");
+			console.log(response)
+				if($.trim(splitResp[0]) == "ok"){
+					location.reload();
+					$("#container").html(response);
+				}else{
+					
+					$("#msjError").html($.trim(splitResp[1]));
+				}
+			
+				
+
+		},
+		error:function(){
+			alert(msgError);
+		}
+    });
+	
+}
