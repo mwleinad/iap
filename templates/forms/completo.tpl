@@ -38,7 +38,7 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 							  {foreach from=$lst item=pais}
                             <option value="{$pais.municipioId}" {if $info.ciudadt == $pais.municipioId} selected="selected" {/if}>{$pais.nombre} </option>
                         {/foreach}
-							
+
                         </select>
 			
 			</td>
@@ -48,9 +48,9 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 
 		</tr>
 		<tr>
-			<td>Lugar de Nacimiento:<br><input type="text" name="cityBorn" class="form-control" value="{$info.cityBorn}"></td>
+			<td colspan="2">Lugar de Nacimiento:<br><input type="text" name="cityBorn" class="form-control" value="{$info.cityBorn}"></td>
 			<td>Nacionalidad:<br><input type="text" name="nacionality" class="form-control" value="{$info.nacionality}"></td>
-			<td style="width:180px">
+			<td style="width:180px" colspan="3">
 			Fecha de Nacimiento:<br>
 			<select name="day" class="form-control" style="width:45%; float:left; ">
 				<option value="">dias</option>
@@ -80,7 +80,9 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 				{/for}
 			</select>
 			</td>
-			<td >Nivel Académico:<br>
+		</tr>
+		  <tr>
+			<td colspan="3">Nivel Académico:<br>
 			  <select name="academicDegree" id="academicDegree" class="form-control">
                         <option value=""></option>
                         <option value="PRIMARIA" {if $info.academicDegree == "PRIMARIA"} selected="selected" {/if}>PRIMARIA</option>
@@ -95,7 +97,7 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 			
 			
 			</td>
-			<td colspan="2">Estatus:<br>
+			<td colspan="3">Estatus:<br>
 			
 				<select name="statusacademicDegree" id="statusacademicDegree" class="form-control">
                         <option value=""></option>
@@ -111,14 +113,14 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 		</tr>
 		
 		<tr>
-			<td colspan="2">Genero:<br>
+			<td>Genero:<br>
 					<select name="genero" id="genero" class="form-control">
                         <option value=""></option>
                         <option value="m" {if $info.sexo == "m"} selected="selected" {/if}>MASCULINO</option>
                         <option value="f" {if $info.sexo == "f"} selected="selected" {/if}>FEMENINO</option>
                     </select>
 			</td>
-			<td>CURP:<br><input type="text" name="curp" class="form-control" value="{$info.curp}"></td>  
+			<td colspan="2">CURP:<br><input type="text" name="curp" class="form-control" value="{$info.curp}"></td>
 			<td {if $info.tiposolicitanteId ne ""} style="background:#e7505a33" {/if}>Tipo de Solicitante:<br>
 			<select id="tipoSolicitante" name="tipoSolicitante" style="width:250px"   class="form-control">
                         <option value="0">Selecciona....</option>
@@ -168,9 +170,9 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 		</tr>
 		
 		<tr>
-			<td {if $info.email ne ""} style="background:#e7505a33" {/if}>Email:<br><input type="text" name="email" class="form-control" value="{$info.email}"></td>
-			<td {if $info.phone ne ""} style="background:#e7505a33" {/if}>Telefono:<br><input type="text"  name="mobile"  class="form-control" value="{$info.phone}"></td>
-			<td colspan="4">Celular:<br><input type="text" name="mobile" class="form-control" value="{$info.mobile}"></td>
+			<td {if $info.email ne ""} style="background:#e7505a33" {/if} colspan="2">Email:<br><input type="text" name="email" class="form-control" value="{$info.email}"></td>
+			<td {if $info.phone ne ""} style="background:#e7505a33" {/if} colspan="2">Telefono:<br><input type="text"  name="mobile"  class="form-control" value="{$info.phone}"></td>
+			<td colspan="2">Celular:<br><input type="text" name="mobile" class="form-control" value="{$info.mobile}"></td>
 
 		</tr>
 		<tr>
@@ -179,7 +181,7 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 			</td>
 		</tr>
 		<tr>
-			<td>¿Sabe leer y escribir?:<br>
+			<td>¿Sabe leer y escribir?<br>
 			<select name="lee" class="form-control" style="width:70px; float:left">
 				<option></option>
 				<option {if $info.lee == "si"} selected="selected" {/if}>si</option>
@@ -193,26 +195,34 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 				<option {if $info.lee == "no"} selected="selected" {/if}>no</option>
 			</select>
 			</td>
-			<td>¿Cuales?:<br><input type="text" name="d_estudios" class="form-control" value="{$info.d_estudios}"></td>
-			<td colspan="3">¿Que idiomas o lenguas habla?<input type="text" name="idiomas" value="{$info.idiomas}" class="form-control"></td>
+			<td colspan="2">¿Cuales?:<br><input type="text" name="d_estudios" class="form-control" value="{$info.d_estudios}"></td>
+			<td colspan="2">¿Que idiomas o lenguas habla?<input type="text" name="idiomas" value="{$info.idiomas}" class="form-control"></td>
 
 		</tr>
 		
 		<tr>
-			<td>¿Tiene alguna discapacidad?:<br>
-			<select name="discapacidad" class="form-control" style="width:70px; float:left">
-				<option></option>
-				<option {if $info.discapacidad == "si"} selected="selected" {/if}>si</option>
-				<option {if $info.discapacidad == "no"} selected="selected" {/if}>no</option>
-			</select>
-			</td>
+
 			<td>¿Trabaja actualmente?:<br><select name="trabaja" class="form-control" style="width:70px; float:left">
 				<option></option>
 				<option {if $info.trabaja == "si"} selected="selected" {/if}>si</option>
 				<option {if $info.trabaja == "no"} selected="selected" {/if}>no</option>
 			</select></td>
-			<td colspan="4">Puesto que ocupa?:<br><input type="text" name="workplacePosition" value="{$info.workplacePosition}" class="form-control"></td>
+			<td colspan="5">¿Puesto que ocupa?:<br><input type="text" name="workplacePosition" value="{$info.workplacePosition}" class="form-control"></td>
 		</tr>
+		  <tr>
+		  <td>¿Tiene alguna discapacidad?:<br>
+			  <select name="discapacidad" class="form-control" style="width:70px; float:left">
+				  <option></option>
+				  <option {if $info.discapacidad == "si"} selected="selected" {/if}>si</option>
+				  <option {if $info.discapacidad == "no"} selected="selected" {/if}>no</option>
+			  </select>
+		  </td>
+			  <td></td>
+			  <td></td>
+			  <td></td>
+			  <td></td>
+			  <td></td>
+		  </tr>
 		<tr>
 			<td colspan="6">
 				<b>En caso de discapacidad, marcar el o los tipos</b>
@@ -229,7 +239,7 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 		</tr>
 		
 		<tr>
-			<td>Experiencia Laboral(Separara por comas)<br><textarea  name="experienciaLaboral"  class="form-control" style="width:100% ; height:150px">{$info.experienciaLaboral}</textarea></td>
+			<td colspan="2">Experiencia Laboral(Separara por comas)<br><textarea  name="experienciaLaboral"  class="form-control" style="width:100% ; height:150px">{$info.experienciaLaboral}</textarea></td>
 			<td>¿Cuenta con alguna certificación?:<br>
 			<select name="certificacion"  class="form-control" style="width:70px; ">
 				<option></option>
@@ -237,10 +247,8 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 				<option {if $info.certificacion == "no"} selected="selected" {/if}>no</option>
 			</select>
 			</td>
-			<td>¿Certificaciones con las que cuenta?(separar por comas)?:<br><textarea   style="width:100% ; height:150px" class="form-control" name="certificaciones" >{$info.certificaciones}</textarea></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td colspan="2">¿Certificaciones con las que cuenta?(separar por comas)?:<br><textarea   style="width:100% ; height:150px" class="form-control" name="certificaciones" >{$info.certificaciones}</textarea></td>
+
 
 		</tr>
 	  </table>
