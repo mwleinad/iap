@@ -14,9 +14,11 @@
 	}
 	
 	$id = $activity->crearActividad($_GET["courseId"]);
+	$countR = $activity->verificaExamenRespuesta($id);
 
 	$activity->setActivityId($id);
 	$activity = $activity->Info();
+	$smarty->assign('countR', $countR);
 	$smarty->assign('activity', $activity);
 	
 	$test->setActivityId($id);

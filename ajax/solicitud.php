@@ -18,14 +18,18 @@ switch($_POST["type"])
 
 	case 'buscarSolicitud': 
 			
+			$result = $course->reporteRegion();
+			
+			// $solicitud->setNombre($_POST['alumnoId']);
+			// $solicitud->setTipoSolicitudId($_POST['tipo']);
+			// $solicitud->setStatus($_POST['estatus']);
+			// $registros = $solicitud->enumarateSolicitudesAdmin();
+			$smarty->assign("result", $result);
+			$smarty->display(DOC_ROOT.'/templates/lists/new/reporte-region.tpl');
 			
 			
-			$solicitud->setNombre($_POST['alumnoId']);
-			$solicitud->setTipoSolicitudId($_POST['tipo']);
-			$solicitud->setStatus($_POST['estatus']);
-			$registros = $solicitud->enumarateSolicitudesAdmin();
-			$smarty->assign("registros", $registros);
-			$smarty->display(DOC_ROOT.'/templates/lists/new/solicitud.tpl');
+			
+			
 	break;
 	
 	case 'enviarArchivo';

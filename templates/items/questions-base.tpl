@@ -11,9 +11,10 @@
         <td align="center">
 		<!--
 					 <a href="{$WEB_ROOT}/edit-question/id/{$subject.testId}" onclick="return parent.GB_show('Editar Pregunta', this.href,650,700) ">-->
-					  <a href="{$WEB_ROOT}/graybox.php?page=edit-question&id={$subject.testId}&auxTpl=admin&cId={$myModule.courseModuleId}" data-target="#ajax" data-toggle="modal">
+					 {if $countR <=0} <a href="{$WEB_ROOT}/graybox.php?page=edit-question&id={$subject.testId}&auxTpl=admin&cId={$myModule.courseModuleId}" data-target="#ajax" data-toggle="modal">
 					 <img src="{$WEB_ROOT}/images/icons/16/pencil.png" class="spanEdit" id="d-{$subject.subjectId}" name="d-{$subject.name}" title="Editar" />
-					 </a>            
+					 </a>      
+					 {/if}					 
         </td>
     </tr>
 {foreachelse}

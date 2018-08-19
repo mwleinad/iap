@@ -205,7 +205,8 @@ $pages = array(
     'add-ine',
     'student-certificacion',
     'usuarios',
-    'envia-info'
+    'envia-info',
+    'reporte-region'
 	
 	
 	

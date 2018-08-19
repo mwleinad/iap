@@ -33,7 +33,8 @@
 	</tbody>
 	</table>
 	<span class="reqField">*</span> Campo requerido<br>   
-	<center><input type="submit" id="addMajor" name="addMajor" value="Guardar" class="btn green"  /></center>
+	
+	<center>{if $countR >=1}La evalucion no se puede modificar porque, ya existen respuesta de alumnos{else}<input type="submit" id="addMajor" name="addMajor" value="Guardar" class="btn green"  />{/if}</center>
 	<br>
 	<br>
 	<center><b>.:: Preguntas ::.</b></center>

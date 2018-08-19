@@ -41,7 +41,7 @@
 {if !$docente}
 {if $vistaPrevia ne 1}
         
-        <li class="nav-item {if  $page == "personal1"} active {/if} ">
+        <li class="nav-item {if  $page == "personal1" || $page == "major" || $page == "student"  || $page == "usuarios" || $page == "role" || $page == "history-subject"  || $page == "configuracion-examen"} active {/if} ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-diamond"></i>
                 <span class="title">Catálogos</span>
@@ -100,6 +100,11 @@
 				<li class="nav-item  ">
                             <a href="{$WEB_ROOT}/history-subject" class="nav-link ">
                                 <span class="title">Certificaciones</span>
+                            </a>
+                        </li>
+						<li class="nav-item  ">
+                            <a href="{$WEB_ROOT}/reporte-region" class="nav-link ">
+                                <span class="title">Reporte</span>
                             </a>
                         </li>
 				<!--

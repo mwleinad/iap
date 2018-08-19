@@ -1378,6 +1378,82 @@
 			return true;
 		}
 		
+		function reporteRegion()
+		{
+			
+			$filtro = "";
+			
+			if($_POST["tipo"]){
+				
+				$filtro.= " and courseId = ".$_POST["tipo"]."";
+			}
+			
+			if($_POST["estatus"]){
+				$filtro.= " and mr.grupo = ".$_POST["estatus"]."";
+				
+			}
+			
+			if($_POST["region"]){
+				
+				$filtro.= " and mr.region = ".$_POST["region"]."";
+			}
+			
+			
+			
+		$sql = "
+				SELECT 
+					
+					m.nombre as municipio,
+					u.*,
+					s.name as certificacion
+				FROM 
+					user_subject as u
+				left join  course as c on c.courseId = u.courseId 
+				left join  user as us on us.userId = u.alumnoId 
+				left join  municipio_region as mr on mr.municipioId = us.ciudadt 
+				left join  municipio as m on m.municipioId = us.ciudadt 
+				left join  subject as s on s.subjectId = c.subjectId 
+
+				WHERE 1 ".$filtro." group by us.userId,c.courseId";		
+				// exit;
+				$this->Util()->DB()->setQuery($sql);
+				$cal = $this->Util()->DB()->GetResult();
+				
+				return $cal;
+		
+		}
+		
+		function enumerateCer()
+		{
+			$sql = "
+				SELECT 
+					s.name as nombre
+				FROM 
+					course as c
+				left join subject as s on s.subjectId = c.subjectId
+
+				WHERE 1";		
+				// exit;
+				$this->Util()->DB()->setQuery($sql);
+				$cal = $this->Util()->DB()->GetResult();
+				
+				return $cal;
+		}
+		
+		function regiones()
+		{
+			$sql = "
+				SELECT 
+					region
+				FROM 
+					municipio_region
+				WHERE 1 group by region order by region";		
+				// exit;
+				$this->Util()->DB()->setQuery($sql);
+				$cal = $this->Util()->DB()->GetResult();
+				
+				return $cal;
+		}
 		
 		
 	

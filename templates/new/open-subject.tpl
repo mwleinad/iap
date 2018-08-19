@@ -1,7 +1,7 @@
 <div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
-            <i class="fa fa-bullhorm"></i>Agregar Instancias de Curricula
+            <i class="fa fa-bullhorm"></i>Agregar Certificacion
         </div>
         <div class="actions">
         </div>

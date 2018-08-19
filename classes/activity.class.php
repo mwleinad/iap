@@ -1097,5 +1097,17 @@
 			return $Id;
 		}
 		
+		public function verificaExamenRespuesta($Id)
+		{
+			$sql ="
+				SELECT count(*) from resultado as r
+				left join activity_test as a on a.testId = r.preguntaId
+				WHERE a.activityId = ".$Id.""; 
+			
+			$this->Util()->DB()->setQuery($sql);
+			$c = $this->Util()->DB()->GetSingle();
+			
+			return $c;
+		}
 	}	
 ?>
