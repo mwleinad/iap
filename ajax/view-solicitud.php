@@ -315,9 +315,9 @@ switch($_POST["type"])
 			
 			break;
 			
-			case "":
+			case "sendInfo":
 			
-				// echo "<pre>"; print_r($_POST);
+				// echo "<pre>"; print_r($_POST); exit;
 				if($test->sendInfo($_POST["names"],$_POST["pass"])){
 					echo "ok[#]";
 				}else{

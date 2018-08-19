@@ -22,7 +22,8 @@
 	
 	$resEstadoisticas = $test->estadisticas($_GET["cId"]);
 	
-	// echo "<pre>"; print_r($resEstadoisticas );
+	$firma = $student->extraeFirma($_GET['id'],2);
+	// echo "<pre>"; print_r($firma );
 	// exit;
 	
 	$html .= "
@@ -143,7 +144,15 @@ $html .='<table style="width:100%" >
 					Puntos Obtenidos: ".$resEstadoisticas["puntosOk"]."<br>
 					Calificación: ".$resEstadoisticas["calificacion"]."(".$resEstadoisticas["puntosOk"]."/".$resEstadoisticas["totalPuntos"].")<br>
 					Sugerencia:"; if ($resEstadoisticas["countOK"] < $resEstadoisticas["limiteAprobatorio"]) { $html .= "Se recomienda  Certificación"; }  else { $html .= "Ninguna"; }
-	$html .= "	</b></td>
+	$html .= "	</b>
+	
+	<br>
+	<br>
+	<center>
+	SOLICITO MI PROCESO DE EVALUACION<br>
+	".$firma["firma"]."<br>
+	".strtoupper($info["names"].' '.$info["lastNamePaterno"].'  '.$info["lastNameMaterno"])."</center>
+	</td>
 	</tr>
 	
 	</table> 

@@ -15,7 +15,7 @@
 	$student->setUserId($_GET['id']);
 	$info = $student->GetInfo();
 	
-	
+	$firma = $student->extraeFirma($info["userId"],1);
 	
 	$html .= "
 	<html>
@@ -64,7 +64,7 @@
 	<tr>
 		<td colspan=2 style="text-align:right; ">
 			Tuxtla Gutiérrez, Chiapas<br>
-			Fecha: '.date("Y-m-d").'
+			Fecha: '.$firma["fecha"].'
 		</td>
 	</tr>
 	<tr>
@@ -86,6 +86,7 @@
 	<br>
 	<br>
 	<br>
+	<b>'.$firma["firma"].'<b/><br>
 	<b>'.strtoupper($info["names"].' '.$info["lastNamePaterno"].'  '.$info["lastNameMaterno"]).'</b><br>
 	Firma del Candidato
 	</td></tr>';

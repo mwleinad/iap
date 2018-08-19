@@ -51,6 +51,16 @@ $student->setUserId($_GET["id"]);
 	
 	
 	$html .= '
+	<table style="width:100%; "  >
+	<tr>
+		<td style="text-align:left; ">
+			<img src="'.DOC_ROOT.'/images/logo_correo.jpg" >
+		</td>
+		<td style="text-align:right; ">
+			<img src="'.DOC_ROOT.'/images/logoconocer.png" style="width:95% !important">
+		</td>
+	</tr>
+	</table>
 	<center>
 	<table style="width:90%; text-align:right; border:0px" boder=0 >
 	<tr>

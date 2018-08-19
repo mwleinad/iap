@@ -261,16 +261,14 @@
 		
 		public function PonderationPerQuestion()
 		{
-			//creamos la cadena de seleccion
+
 			$sql = "SELECT 
 						noQuestions
 					FROM
 						activity
 					WHERE
 							activityId='" . $this->getActivityId() . "'";
-			//configuramos la consulta con la cadena de actualizacion
 			$this->Util()->DB()->setQuery($sql);
-			//ejecutamos la consulta y obtenemos el resultado
 			$result = $this->Util()->DB()->GetSingle();
 			
 			if($result == 0)
@@ -327,17 +325,14 @@
 				if($puntos["answer"]<>$aux){ 
 					$puntos["puntos"] = 0;
 				}
-				// echo $puntos["answer"] ;
-				// echo "__".$aux;
-				// exit;
-			
+
 					 $sql = 'INSERT INTO resultado (
 							preguntaId, 
 							respuesta, 
 							encuestaId, 
 							activityId, 
 							usuarioId,
-							puntos 
+							puntos
 						)
 						VALUES(
 							"'.$key.'",
@@ -347,11 +342,39 @@
 							'.$_POST["userId"].',
 							'.$puntos["puntos"].'
 						)';
-// exit;exit;exit;
 						$this->Util()->DB()->setQuery($sql);
 						$this->id = $this->Util()->DB()->InsertData(); 
 			}
 				
+			// firma
+			$sqlQuery = 'SELECT 
+					firma
+				FROM 
+					user
+				WHERE  userId = '.$_POST["userId"].'';
+			$this->Util()->DB()->setQuery($sqlQuery);
+			$firma = $this->Util()->DB()->GetRow();	
+			
+			$sqlNot="insert into 
+				firma(
+				procesoId,
+				firma,
+				userId,
+				fecha,
+				tablaFirmada,
+				registroFirmado
+				)
+			   values(
+			            '2', 
+			            '".$firma["firma"]."', 
+			            '".$_POST["userId"]."',
+			            '".date("Y-m-d h:i:s")."',
+						'course',
+						'".$_POST["courseId"]."'
+			         )";
+
+			$this->Util()->DB()->setQuery($sqlNot);
+			$Id = $this->Util()->DB()->InsertData(); 		
 
 			return true;
 
@@ -411,7 +434,7 @@
 		
 		function sendInfo($name,$pass){
 			
-			$sendmail = new SendMail;
+			// $sendmail = new SendMail;
 					
 			$sql = "SELECT 
 						*
@@ -421,6 +444,9 @@
 							controlNumber='" . $name . "'";
 			$this->Util()->DB()->setQuery($sql);
 			$lstRes = $this->Util()->DB()->GetRow();
+			
+			// echo "<pre>"; print_r($lstRes);
+			// exit;
 			
 			$msj = "
 				 Instituto de Administración Publica del Estado de Chiapas, A. C.
@@ -445,7 +471,10 @@
 				
 				";
 				
-				$sendmail->PrepareAttachment("IAP Chiapas | Recuperacion de datos de usuario", utf8_decode($msj), "","", $lstRes["email"], $names, $attachment, $fileName);
+				// echo $msj ;
+				// exit;
+				
+				$sendmail->PrepareAttachment("IAP Chiapas | Recuperacion de datos de usuario", utf8_decode($msj), "","", $lstRes["email"], $name, $attachment, $fileName);
 				
 				// $this->Util()->setError(10030, "complete","Se ha enviado un correo con tus datos de acceso");
 				// $this->Util()->PrintErrors();	

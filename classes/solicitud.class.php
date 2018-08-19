@@ -1102,6 +1102,31 @@ class Solicitud extends Module
 				$this->Util()->DB()->setQuery($sqlQuery);
 				$this->Util()->DB()->ExecuteQuery();	
 				
+		 $sqlQuery = 'SELECT 
+					firma
+				FROM 
+					user
+				WHERE  userId = '.$_POST["userId"].'';
+		$this->Util()->DB()->setQuery($sqlQuery);
+		$firma = $this->Util()->DB()->GetRow();		
+				
+		$sqlNot="insert into 
+				firma(
+				procesoId,
+				firma,
+				userId,
+				fecha
+				)
+			   values(
+			            '1', 
+			            '".$firma["firma"]."', 
+			            '".$_POST["userId"]."',
+			            '".date("Y-m-d h:i:s")."'
+			         )";
+
+			$this->Util()->DB()->setQuery($sqlNot);
+			$Id = $this->Util()->DB()->InsertData(); 	
+				
 		return true;
 	}
 	

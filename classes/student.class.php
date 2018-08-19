@@ -3216,6 +3216,38 @@ class Student extends User
 		
 	}
 	
+	public function extraeFirma($userId,$procesoId){
+		
+		switch($procesoId){
+			
+			case 1:
+				 $sql = "
+					SELECT 
+						*
+					FROM 
+						firma
+					WHERE userId = ".$userId." and procesoId=".$procesoId.""; 
+				$this->Util()->DB()->setQuery($sql);
+				$result = $this->Util()->DB()->GetRow();
+			break;
+			
+			case 2:
+				$sql = "
+					SELECT 
+						*
+					FROM 
+						firma
+					WHERE userId = ".$userId." and procesoId=".$procesoId.""; 
+				$this->Util()->DB()->setQuery($sql);
+				$result = $this->Util()->DB()->GetRow();
+			break;
+		}
+		
+		
+		
+		return $result;
+	}
+	
 }
 
 ?>

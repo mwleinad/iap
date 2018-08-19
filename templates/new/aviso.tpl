@@ -21,7 +21,7 @@
 		   <br>
 			<br>
 			<br>
-
+			<center><button type="button" class="btn default" data-dismiss="modal">Cerrar</button></center>
         </div>
     </div>
 </div>
