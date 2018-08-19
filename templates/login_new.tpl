@@ -42,7 +42,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="{$WEB_ROOT}/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME GLOBAL STYLES -->
     <!-- BEGIN PAGE LEVEL STYLES -->
-    <link href="{$WEB_ROOT}/assets/pages/css/login-1.min.css" rel="stylesheet" type="text/css" />
+    <link href="{$WEB_ROOT}/assets/pages/css/login-4.min.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL STYLES -->
     <!-- BEGIN THEME LAYOUT STYLES -->
     <!-- END THEME LAYOUT STYLES -->
@@ -475,7 +475,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="{$WEB_ROOT}/assets/global/plugins/bootstrap-growl/jquery.bootstrap-growl.min.js" type="text/javascript"></script>
-<script src="{$WEB_ROOT}/assets/pages/scripts/login-1.min.js" type="text/javascript"></script>
+<script src="{$WEB_ROOT}/assets/pages/scripts/login-4.min.js" type="text/javascript"></script>
 <script src="{$WEB_ROOT}/javascript/config.js?{$timestamp}" type="text/javascript"></script>
 <script src="{$WEB_ROOT}/javascript/functions.js?{$timestamp}" type="text/javascript"></script>
 <script src="{$WEB_ROOT}/javascript/new/{$page}.js?{$timestamp}" type="text/javascript"></script>
