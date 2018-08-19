@@ -36,7 +36,7 @@
 					
 					  <select name='curricula' id="curricula" style="width:400px" class="form-control"><option value="0">Selecciona....</option>
                         {foreach from=$activeCourses item=course}
-                            <option value="{$course.courseId}">{$course.majorName} - {$course.name} - {$course.group}</option>
+                            <option value="{$course.courseId}">{$course.name} - {$course.group}</option>
                         {/foreach}
                     </select>
 					
