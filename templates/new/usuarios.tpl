@@ -1,10 +1,4 @@
-<script type="text/javascript" charset="utf-8">
-    $(document).observe('dom:loaded', function() {ldelim}
-        {foreach from=$students item=item key=key}
-        new FancyZoom('foto-{$item.userId}', {ldelim}width:400, height:300{rdelim});
-        {/foreach}
-        {rdelim});
-</script>
+
 </head>
 <body>
 
@@ -38,9 +32,9 @@
     </div>
 	
 	 
-    <div  id='contenido'>
+    <div class="portlet-body">
 
-        {include file="lists/usuarios.tpl"}
+        <div id="tblContent">{include file="lists/usuarios.tpl"}</div>
 
     </div>
         
