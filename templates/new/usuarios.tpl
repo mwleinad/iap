@@ -38,9 +38,9 @@
     </div>
 	
 	 
-    <div class="portlet-body">
+    <div  id='contenido'>
 
-        <div id="tblContent">{include file="lists/usuarios.tpl"}</div>
+        {include file="lists/usuarios.tpl"}
 
     </div>
         
