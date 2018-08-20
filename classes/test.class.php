@@ -114,7 +114,7 @@
 			return $this->answer;
 		}
 		
-		public function Enumerate($verResultado=false)
+		public function Enumerate($verResultado=false,$user=false)
 		{
 			
 			$filtro = "";
@@ -136,10 +136,10 @@
 				if($verResultado == true){
 					
 					
-					 $sql = "
+					  $sql = "
 						SELECT respuesta FROM resultado
-						WHERE preguntaId = '".$res["testId"]."' limit 0,1";
-					
+						WHERE preguntaId = '".$res["testId"]."' and usuarioId = ".$user." limit 0,1";
+					// exit;
 					$this->Util()->DB()->setQuery($sql);
 					$resu = $this->Util()->DB()->GetRow();
 

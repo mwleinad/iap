@@ -21,8 +21,10 @@
 			$resEstadoisticas = $test->estadisticas($myModule["infoActivity"]["activityId"]);
 		}
 		
+		// echo $_SESSION['User']['userId'];
+		// exit;
 		$test->setActivityId($myModule["infoActivity"]["activityId"]);
-		$myTest = $test->Enumerate($verResultado);
+		$myTest = $test->Enumerate($verResultado,$_SESSION['User']['userId']);
 	}
 	
 	$smarty->assign('resEstadoisticas', $resEstadoisticas);
