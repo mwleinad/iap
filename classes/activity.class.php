@@ -144,7 +144,7 @@
 		public function setPregunta($value)
 		{
 			// if($this->Util()->ValidateRequireField($value, 'RFC')){
-			$this->Util()->ValidateString($value,10000,0);
+			$this->Util()->ValidateString($value,10000000000000000000000000000000,0);
 			$this->pregunta = $value;
 			// }
 		}
