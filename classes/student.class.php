@@ -1365,8 +1365,7 @@ class Student extends User
 									lastNamePaterno ASC, 
 									lastNameMaterno ASC,  
 									`names` ASC 
-								LIMIT 
-									".$rowOffset.", ".$rowsPerPage;
+								 ".;
 		
 		$this->Util()->DB()->setQuery($sql);
 		$result2 = $this->Util()->DB()->GetResult();
