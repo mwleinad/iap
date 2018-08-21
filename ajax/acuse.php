@@ -74,6 +74,9 @@
 			<br>
 			<br>
 			<br>
+			<br>
+			<br>
+			<br>
 		</td>
 	</tr>
 	<tr>
@@ -82,10 +85,13 @@
 	OBLIGACIONES DEL USUARIO DEL SNC</b>
 	<br>
 	<br>
+	<br>
+	<br>
 	Manifiesto por este medio, haber recibido por parte del Evaluador el documento titulado:<br>
 	"Derechos y Obligaciones de los Usuarios del Sistema Nacional de Competencias", el cual
 	tendrá observancia durante todo mi proceso de Evaluación, cuyo contenido me permite
 	exigir mis derechos y cumplir con mis obligaciones. 
+	<br>
 	<br>
 	<br>
 	<br>
@@ -107,7 +113,10 @@
 		<br>
 		<br>
 		<br>
-		
+		<br>
+		<br>
+		<br>
+		<br>
 		Instituto de Administración Pública del Estado de Chiapas, A.C.<br>
 		Libramiento Norte Poniente No. 2718, Fracc Ladera de la Loma, C.P. 29026<br>
 		Tuxtla Gutiérrez, Chiapas; Teléfonos: (961) 12 515 08, 12 515 09, 12 51510, ext 107<br>
