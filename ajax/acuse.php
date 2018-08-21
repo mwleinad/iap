@@ -61,12 +61,16 @@
 		<td style="text-align:right; ">
 			<img src="'.DOC_ROOT.'/images/logoconocer.png" >
 				<br>
+				<br>
 		</td>
 	</tr>
 	<tr>
 		<td colspan=2 style="text-align:right; ">
 			Tuxtla Gutiérrez, Chiapas<br>
 			Fecha: '.$firma["fecha"].'
+			<br>
+			<br>
+			<br>
 			<br>
 			<br>
 			<br>
@@ -99,6 +103,11 @@
 		<br>
 		<br>
 		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		
 		Instituto de Administración Pública del Estado de Chiapas, A.C.<br>
 		Libramiento Norte Poniente No. 2718, Fracc Ladera de la Loma, C.P. 29026<br>
 		Tuxtla Gutiérrez, Chiapas; Teléfonos: (961) 12 515 08, 12 515 09, 12 51510, ext 107<br>
