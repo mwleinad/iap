@@ -79,28 +79,12 @@ $student->setUserId($_GET["id"]);
 
 	<table>
 		<tr>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
 			<td>Usuario:</td>
 			<td>'.$info["controlNumber"].'</td>
 		</tr>
 		<tr>
 			<td>Contraseña:</td>
 			<td>'.$info["password"].'</td>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
 		</tr>
 	</table>
 	
