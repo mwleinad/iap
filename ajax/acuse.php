@@ -62,7 +62,7 @@
 			<img src="'.DOC_ROOT.'/images/logo_correo.jpg" >
 		</td>
 		<td style="text-align:right; ">
-			<img src="'.DOC_ROOT.'/images/logoconocer.png" >
+			<img src="'.DOC_ROOT.'/images/logoconocer.png" style="width:95% !important">
 		</td>
 	</tr>
 	<tr>
@@ -73,6 +73,8 @@
 	</tr>
 	<tr>
 	<td style="height:800px" align=center colspan=2>
+
+	
 	<b>ACUSE DE RECIBO DEL DOCUMENTO DERECHOS Y
 	OBLIGACIONES DEL USUARIO DEL SNC</b>
 	<br>
@@ -92,6 +94,8 @@
 	<b>'.strtoupper($info["names"].' '.$info["lastNamePaterno"].'  '.$info["lastNameMaterno"]).'</b><br>
 	Firma del Candidato
 	</td></tr>';
+
+
 
 	$html .= "	
 	<tr>
