@@ -114,7 +114,7 @@
 			return $this->answer;
 		}
 		
-		public function Enumerate($verResultado=false,$user=false)
+		public function Enumerate($verResultado=false,$user=null)
 		{
 			
 			$filtro = "";
@@ -126,7 +126,7 @@
 				SELECT * FROM activity_test
 				WHERE activityId = '".$this->getActivityId()."' ".$filtro."
 				ORDER BY numero ASC";
-			
+		
 			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
 
@@ -143,7 +143,7 @@
 					$this->Util()->DB()->setQuery($sql);
 					$resu = $this->Util()->DB()->GetRow();
 
-					
+						// exit;
 					if($resu["respuesta"]==$res["answer"]){
 							$result[$key][$resu["respuesta"]] = "<b><font color='#73b760'>".$result[$key][$resu["respuesta"]]."</font></b>"; 
 					}

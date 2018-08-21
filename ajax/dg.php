@@ -5,7 +5,7 @@
 
 	session_start();
 	
-	// echo "<pre>"; print_r($_SESSION["User"]);
+	// echo "<pre>"; print_r($_GET);
 	// exit;
 	if($_SESSION["User"]["type"]=="student"){
 		if($_SESSION["User"]["userId"]<>$_GET['id'])
@@ -18,9 +18,9 @@
 	$info = $student->GetInfo();
 	
 	$test->setActivityId($_GET["cId"]);
-	$myTest = $test->Enumerate($verResultado);
+	$myTest = $test->Enumerate($verResultado,$_GET['id']);
 	
-	$resEstadoisticas = $test->estadisticas($_GET["cId"]);
+	$resEstadoisticas = $test->estadisticas($_GET["cId"],$_GET['id']);
 	
 	$firma = $student->extraeFirma($_GET['id'],2);
 	// echo "<pre>"; print_r($firma );
