@@ -18,7 +18,7 @@
 
 		if($myModule["evalOk"]=="si"){
 			$verResultado = true;
-			$resEstadoisticas = $test->estadisticas($myModule["infoActivity"]["activityId"]);
+			$resEstadoisticas = $test->estadisticas($myModule["infoActivity"]["activityId"],$_SESSION['User']['userId']);
 		}
 		
 		// echo $_SESSION['User']['userId'];

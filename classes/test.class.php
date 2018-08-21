@@ -380,14 +380,14 @@
 
 		}
 		
-		function estadisticas($Id)
+		function estadisticas($Id,$userId =null)
 		{
 			$sql = "SELECT 
 						sum(puntos)
 					FROM
 						resultado
 					WHERE
-							activityId='" . $Id . "'";
+							activityId='" . $Id . "' and usuarioId = ".$userId."";
 			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetSingle();
 			
@@ -396,7 +396,7 @@
 					FROM
 						resultado
 					WHERE
-							activityId='" . $Id . "' and puntos<>0";
+							activityId='" . $Id . "' and puntos<>0 and usuarioId = ".$userId."";
 			$this->Util()->DB()->setQuery($sql);
 			$count = $this->Util()->DB()->GetSingle();
 			
@@ -405,7 +405,7 @@
 					FROM
 						activity_test
 					WHERE
-							activityId='" . $Id . "' and answer <>''";
+							activityId='" . $Id . "' and answer <>'' ";
 			$this->Util()->DB()->setQuery($sql);
 			$results = $this->Util()->DB()->GetSingle();
 			
@@ -416,7 +416,7 @@
 					left join activity_test as a on a.testId = r.preguntaId
 					left join activity as ac on ac.activityId = a.activityId
 					WHERE
-							r.activityId='" . $Id . "' and r.puntos=0 order by numero";
+							r.activityId='" . $Id . "' and r.puntos=0 order by numero and r.usuarioId = ".$userId."";
 			// exit;
 			$this->Util()->DB()->setQuery($sql);
 			$lstRes = $this->Util()->DB()->GetResult();
