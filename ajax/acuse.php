@@ -49,8 +49,7 @@
 	</style>
 	</head>
 	<body>
-	<br>	
-	<br>	
+		
 ";
 	$html .= '
 
@@ -61,6 +60,7 @@
 		</td>
 		<td style="text-align:right; ">
 			<img src="'.DOC_ROOT.'/images/logoconocer.png" >
+				<br>
 		</td>
 	</tr>
 	<tr>
@@ -70,13 +70,11 @@
 		</td>
 	</tr>
 	<tr>
-	<td style="height:800px" align=center colspan=2>
+	<td style="text-align:center; " colspan=2>
 	<b>ACUSE DE RECIBO DEL DOCUMENTO DERECHOS Y
 	OBLIGACIONES DEL USUARIO DEL SNC</b>
 	<br>
 	<br>
-	
-	
 	Manifiesto por este medio, haber recibido por parte del Evaluador el documento titulado:<br>
 	"Derechos y Obligaciones de los Usuarios del Sistema Nacional de Competencias", el cual
 	tendrá observancia durante todo mi proceso de Evaluación, cuyo contenido me permite
@@ -92,7 +90,7 @@
 	</td></tr>';
 	$html .= "	
 	<tr>
-	<td style='width:90%; text-align:center; ' colspan=2>
+	<td style=\"text-align:center; \" colspan=2>
 		<font style='font-size:9'>
 		Instituto de Administración Pública del Estado de Chiapas, A.C.<br>
 		Libramiento Norte Poniente No. 2718, Fracc Ladera de la Loma, C.P. 29026<br>
