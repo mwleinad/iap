@@ -1385,7 +1385,7 @@
 			
 			if($_POST["tipo"]){
 				
-				$filtro.= " and courseId = ".$_POST["tipo"]."";
+				$filtro.= " and s.subjectId = ".$_POST["tipo"]."";
 			}
 			
 			if($_POST["estatus"]){
@@ -1405,7 +1405,9 @@
 					
 					m.nombre as municipio,
 					us.*,
-					s.name as certificacion
+					s.name as certificacion,
+					mr.grupo,
+					mr.region
 				FROM 
 					user_subject as u
 				left join  course as c on c.courseId = u.courseId 
@@ -1427,7 +1429,8 @@
 		{
 			$sql = "
 				SELECT 
-					s.name as nombre
+					s.name as nombre,
+					s.subjectId
 				FROM 
 					course as c
 				left join subject as s on s.subjectId = c.subjectId

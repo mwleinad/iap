@@ -6,6 +6,8 @@
 			<th width="">Certificacion</th>	 
 			<th width="">Correo</th>		 
 			<th width="">Telefono</th>		 
+			<th width="">Grupo</th>		 
+			<th width="">Region</th>		 
 	 
 	 
 		 
@@ -19,6 +21,8 @@
 			<td align="center">{$item.certificacion}</td>
 			<td align="center">{$item.email}</td>
 			<td align="center">{$item.phone}</td>
+			<td align="center">{$item.grupo}</td>
+			<td align="center">{$item.region}</td>
 		</tr>
 	{/foreach}
 		

@@ -25,7 +25,7 @@
 				<select name='tipo' class="form-control" style="width:150px; float:left">
 				<option></option>
 				{foreach from=$lstSolicitudes item=item}
-				<option value='{$item.courseId}'>{$item.nombre}</option>
+				<option value='{$item.subjectId}'>{$item.subjectId}</option>
 				{/foreach}
 				</select>
 			</div>
@@ -42,7 +42,7 @@
 				<select name='region' class="form-control" style="width:150px; float:left">
 				<option></option>
 				{foreach from=$lstR item=item}
-				<option value='{$item.regionId}'>{$item.region}</option>
+				<option value='{$item.region}'>{$item.region}</option>
 				{/foreach}
 				</select>
 			</div>
