@@ -49,8 +49,7 @@ $student->setUserId($_GET["id"]);
 	</style>
 	</head>
 	<body>
-	<br>	
-	<br>	
+
 ";
 	
 	
@@ -61,7 +60,9 @@ $student->setUserId($_GET["id"]);
 			<img src="'.DOC_ROOT.'/images/logo_correo.jpg" >
 		</td>
 		<td style="text-align:right; ">
-			<img src="'.DOC_ROOT.'/images/logoconocer.png" style="width:95% !important">
+			<img src="'.DOC_ROOT.'/images/logoconocer.png" ">
+			<br>
+			<br>
 		</td>
 	</tr>
 	</table>
@@ -74,16 +75,32 @@ $student->setUserId($_GET["id"]);
 		</td>
 	</tr>
 	<tr>
-	<td style="height:800px" align=center>
+	<td style="width:90%; align=center>
 
 	<table>
 		<tr>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
 			<td>Usuario:</td>
 			<td>'.$info["controlNumber"].'</td>
 		</tr>
 		<tr>
 			<td>Contraseña:</td>
 			<td>'.$info["password"].'</td>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
 		</tr>
 	</table>
 	
