@@ -416,7 +416,7 @@
 					left join activity_test as a on a.testId = r.preguntaId
 					left join activity as ac on ac.activityId = a.activityId
 					WHERE
-							r.activityId='" . $Id . "' and r.puntos=0 order by numero and r.usuarioId = ".$userId."";
+							r.activityId='" . $Id . "' and r.puntos=0 and r.usuarioId = ".$userId." order by numero ";
 			// exit;
 			$this->Util()->DB()->setQuery($sql);
 			$lstRes = $this->Util()->DB()->GetResult();
