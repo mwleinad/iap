@@ -72,7 +72,7 @@ use Dompdf\Exception;
 			<img src='".DOC_ROOT."/images/logo_correo.jpg' >
 		</td>
 		<td style='text-align:right; '>
-			<img src='".DOC_ROOT."/images/logoconocer.png' style='width:95% !important'>
+			<img src='".DOC_ROOT."/images/logoconocer.png' >
 		</td>
 	</tr>
 	<tr>

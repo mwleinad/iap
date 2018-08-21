@@ -5,6 +5,10 @@
 	include_once('../config.php');
 	include_once(DOC_ROOT.'/libraries.php');
 
+use Dompdf\Adapter\CPDF;
+use Dompdf\Dompdf;
+use Dompdf\Exception;
+
 	session_start();
 
 $student->setUserId($_GET["id"]);
@@ -114,7 +118,7 @@ $student->setUserId($_GET["id"]);
 	$mipdf ->set_paper("A4", "portrait");
 	 
 	# Cargamos el contenido HTML.
-	$mipdf ->load_html(utf8_decode($html));
+	$mipdf ->load_html($html);
 	 
 	# Renderizamos el documento PDF.
 	$mipdf ->render();
