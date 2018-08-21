@@ -8,7 +8,7 @@
 			<th width="">Telefono</th>
 			<th width="">CURP</th>
 			<th width="">CP</th>
-			<th width="">Calle/Número/Colonia</th>
+			<th width="">Calle-Número-Colonia</th>
 			<th width="">Estudios</th>
 			<th width="">Grupo</th>		 
 			<th width="">Region</th>		 
@@ -24,7 +24,7 @@
 			<td align="center">{$item.phone}</td>
 			<td align="center">{$item.curp}</td>
 			<td align="center">{$item.postalCode}</td>
-			<td align="center">{$item.street}/{$item.number}/{$item.colony}</td>
+			<td align="center">{$item.street}-{$item.number}-{$item.colony}</td>
 			<td align="center">{$item.academicDegree}</td>
 			<td align="center">{$item.grupo}</td>
 			<td align="center">{$item.region}</td>

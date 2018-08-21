@@ -25,7 +25,7 @@
 				<select name='tipo' class="form-control" style="width:150px; float:left">
 				<option></option>
 				{foreach from=$lstSolicitudes item=item}
-				<option value='{$item.subjectId}'>{$item.subjectId}</option>
+				<option value='{$item.subjectId}'>{$item.subjectId}-{$item.nombre}</option>
 				{/foreach}
 				</select>
 			</div>
