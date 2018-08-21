@@ -28,13 +28,13 @@
 					<a href="{$WEB_ROOT}/ajax/acuse.php?id={$item.userId}"   target='_blank' title='ACUSE'>
 						<i class="material-icons">how_to_reg</i>
 					</a>
-					<a href="{$WEB_ROOT}/ajax/dg.php?id={$item.userId}&cId={$item.activityId}"   target='_blank' title='ACUSE'>
+					<a href="{$WEB_ROOT}/ajax/dg.php?id={$item.userId}&cId={$item.activityId}"   target='_blank' title='EVALUACION'>
 					<i class="material-icons">school</i>	
 					</a>	
-					<a href="{$WEB_ROOT}/files/solicitudes/{$item.userId}_{$item.courseId}.pdf"   target='_blank' title='FICHA DE REGISTRO'>	
+					<a href="{$WEB_ROOT}/files/solicitudes/{$item.userId}_{$item.courseId}.pdf"   target='_blank' title='REGISTRO'>	
 					<i class="material-icons">description</i>
 				
-					<a href="{$WEB_ROOT}/ajax/ine.php?id={$item.userId}"   target='_blank' title='FICHA DE REGSITRO'>	
+					<a href="{$WEB_ROOT}/ajax/ine.php?id={$item.userId}"   target='_blank' title='INE'>	
 					<i class="material-icons">picture_in_picture</i>
 					</a>	
 					</td>       
