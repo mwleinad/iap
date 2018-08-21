@@ -22,7 +22,7 @@
 	
 	$arrPage = array();		
 	$viewPage = 1;			
-	$rowsPerPage = 30;		
+	$rowsPerPage = 3000;
 	
 	$pageVar = 'p';	
 	

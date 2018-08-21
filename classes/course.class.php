@@ -1414,7 +1414,7 @@
 				left join  municipio as m on m.municipioId = us.ciudadt 
 				left join  subject as s on s.subjectId = c.subjectId 
 
-				WHERE 1 ".$filtro." group by us.userId,c.courseId";		
+				WHERE 1 ".$filtro." group by us.userId,c.courseId order by c.courseId";
 				// exit;
 				$this->Util()->DB()->setQuery($sql);
 				$cal = $this->Util()->DB()->GetResult();
