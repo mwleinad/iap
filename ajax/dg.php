@@ -3,9 +3,9 @@
 	include_once('../config.php');
 	include_once(DOC_ROOT.'/libraries.php');
 
-use Dompdf\Adapter\CPDF;
-use Dompdf\Dompdf;
-use Dompdf\Exception;
+	use Dompdf\Adapter\CPDF;
+	use Dompdf\Dompdf;
+	use Dompdf\Exception;
 
 	session_start();
 	
@@ -92,11 +92,10 @@ use Dompdf\Exception;
 	
 	$html .= '
 <div id="content">
-	<table style="width:100%;"  >';
+	';
 	
 			 
-		$html .='
-			<tr><td >';
+	
 				
 foreach($myTest as $key=>$subject){
 $html .='<table style="width:100%" >
@@ -125,11 +124,13 @@ $html .='<table style="width:100%" >
 			}	
 					
 		
-	$html .= '</td></tr>';
+
 		
 			
 		
 	$html .= "
+	<div style='page-break-after:always;'></div>
+	<table style='width:100%;'  >
 	<tr>
 		<td><b>
 			Comentarios acerca del resultado del diagnóstico:
