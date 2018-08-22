@@ -3,6 +3,10 @@
 	include_once('../config.php');
 	include_once(DOC_ROOT.'/libraries.php');
 
+use Dompdf\Adapter\CPDF;
+use Dompdf\Dompdf;
+use Dompdf\Exception;
+
 	session_start();
 	
 	// echo "<pre>"; print_r($_GET);
@@ -68,7 +72,7 @@
 			<img src='".DOC_ROOT."/images/logo_correo.jpg' >
 		</td>
 		<td style='text-align:right; '>
-			<img src='".DOC_ROOT."/images/logoconocer.png' style='width:95% !important'>
+			<img src='".DOC_ROOT."/images/logoconocer.png' >
 		</td>
 	</tr>
 	<tr>
@@ -171,7 +175,7 @@ $html .='<table style="width:100%" >
 	$mipdf ->set_paper("A4", "portrait");
 	 
 	# Cargamos el contenido HTML.
-	$mipdf ->load_html(utf8_decode($html));
+	$mipdf ->load_html($html);
 	 
 	# Renderizamos el documento PDF.
 	$mipdf ->render();

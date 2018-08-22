@@ -5,6 +5,10 @@
 	include_once('../config.php');
 	include_once(DOC_ROOT.'/libraries.php');
 
+use Dompdf\Adapter\CPDF;
+use Dompdf\Dompdf;
+use Dompdf\Exception;
+
 	session_start();
 
 $student->setUserId($_GET["id"]);
@@ -45,8 +49,7 @@ $student->setUserId($_GET["id"]);
 	</style>
 	</head>
 	<body>
-	<br>	
-	<br>	
+
 ";
 	
 	
@@ -57,7 +60,9 @@ $student->setUserId($_GET["id"]);
 			<img src="'.DOC_ROOT.'/images/logo_correo.jpg" >
 		</td>
 		<td style="text-align:right; ">
-			<img src="'.DOC_ROOT.'/images/logoconocer.png" style="width:95% !important">
+			<img src="'.DOC_ROOT.'/images/logoconocer.png" ">
+			<br>
+			<br>
 		</td>
 	</tr>
 	</table>
@@ -70,7 +75,7 @@ $student->setUserId($_GET["id"]);
 		</td>
 	</tr>
 	<tr>
-	<td style="height:800px" align=center>
+	<td style="width:90%; align=center>
 
 	<table>
 		<tr>
@@ -114,7 +119,7 @@ $student->setUserId($_GET["id"]);
 	$mipdf ->set_paper("A4", "portrait");
 	 
 	# Cargamos el contenido HTML.
-	$mipdf ->load_html(utf8_decode($html));
+	$mipdf ->load_html($html);
 	 
 	# Renderizamos el documento PDF.
 	$mipdf ->render();

@@ -49,11 +49,8 @@
 	</style>
 	</head>
 	<body>
-	<br>	
-	<br>	
+		
 ";
-	
-	
 	$html .= '
 
 	<table style="width:100%; "  >
@@ -62,25 +59,34 @@
 			<img src="'.DOC_ROOT.'/images/logo_correo.jpg" >
 		</td>
 		<td style="text-align:right; ">
-			<img src="'.DOC_ROOT.'/images/logoconocer.png" style="width:95% !important">
+			<img src="'.DOC_ROOT.'/images/logoconocer.png" >
+				<br>
+				<br>
 		</td>
 	</tr>
 	<tr>
 		<td colspan=2 style="text-align:right; ">
 			Tuxtla Gutiérrez, Chiapas<br>
 			Fecha: '.$firma["fecha"].'
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
 		</td>
 	</tr>
 	<tr>
-	<td style="height:800px" align=center colspan=2>
-
-	
+	<td style="text-align:center; " colspan=2>
 	<b>ACUSE DE RECIBO DEL DOCUMENTO DERECHOS Y
 	OBLIGACIONES DEL USUARIO DEL SNC</b>
 	<br>
 	<br>
-	
-	
+	<br>
+	<br>
 	Manifiesto por este medio, haber recibido por parte del Evaluador el documento titulado:<br>
 	"Derechos y Obligaciones de los Usuarios del Sistema Nacional de Competencias", el cual
 	tendrá observancia durante todo mi proceso de Evaluación, cuyo contenido me permite
@@ -90,17 +96,27 @@
 	<br>
 	<br>
 	<br>
+	<br>
 	<b>'.$firma["firma"].'<b/><br>
 	<b>'.strtoupper($info["names"].' '.$info["lastNamePaterno"].'  '.$info["lastNameMaterno"]).'</b><br>
 	Firma del Candidato
 	</td></tr>';
-		
-			
-		
 	$html .= "	
 	<tr>
-	<td style='width:90%; text-align:center; ' colspan=2>
+	<td style=\"text-align:center; \" colspan=2>
 		<font style='font-size:9'>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
 		Instituto de Administración Pública del Estado de Chiapas, A.C.<br>
 		Libramiento Norte Poniente No. 2718, Fracc Ladera de la Loma, C.P. 29026<br>
 		Tuxtla Gutiérrez, Chiapas; Teléfonos: (961) 12 515 08, 12 515 09, 12 51510, ext 107<br>

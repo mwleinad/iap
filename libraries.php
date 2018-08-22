@@ -180,6 +180,6 @@ define('TIT_DIR','DIRECTORA');
 $schV1 = $util->versionHorario();
 $smarty->assign('schV1', $schV1);
 
-// require 'vendor/autoload.php';
+ require 'vendor/autoload.php';
 // exit;
 ?>
