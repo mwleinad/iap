@@ -10,7 +10,7 @@
 	
 	
 	$lstSolicitudes = $student->cargarCiudades(7);
-	$result = $course->reporteRegion();
+	$result = $course->reporteB();
 	// $lstSolicitudes = $course->enumerateCer();
 	$lstR = $course->regiones();
 

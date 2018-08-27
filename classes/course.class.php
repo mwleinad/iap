@@ -1456,7 +1456,16 @@
 					us.*,
 					s.name as certificacion,
 					mr.grupo,
-					mr.region
+					mr.region,
+					(SELECT 
+						count(*)
+					FROM 
+						user_subject as u2
+					left join  course as c2 on c2.courseId = u2.courseId 
+					left join  user as us2 on us2.userId = u2.alumnoId 
+					left join  municipio_region as mr2 on mr2.municipioId = us2.ciudadt 
+					where us2.ciudadt = m.municipioId
+					) as cantidad
 				FROM 
 					user_subject as u
 				left join  course as c on c.courseId = u.courseId 
@@ -1465,7 +1474,7 @@
 				left join  municipio as m on m.municipioId = us.ciudadt 
 				left join  subject as s on s.subjectId = c.subjectId 
 
-				WHERE 1 ".$filtro." group by us.userId,c.courseId order by c.courseId";
+				WHERE 1 ".$filtro." group by m.municipioId order by c.courseId";
 				// exit;
 				$this->Util()->DB()->setQuery($sql);
 				$cal = $this->Util()->DB()->GetResult();
