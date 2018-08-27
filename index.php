@@ -206,7 +206,8 @@ $pages = array(
     'student-certificacion',
     'usuarios',
     'envia-info',
-    'reporte-region'
+    'reporte-region',
+    'reporte-b'
 	
 	
 	

@@ -213,7 +213,8 @@ $pages = array(
 	'add-ine',
 	'student-certificacion',
 	'envia-info',
-	'registro-add'
+	'registro-add',
+	'foto'
 
 );
 

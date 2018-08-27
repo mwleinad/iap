@@ -107,6 +107,11 @@
                                 <span class="title">Reporte</span>
                             </a>
                         </li>
+						<li class="nav-item  ">
+                            <a href="{$WEB_ROOT}/reporte-b" class="nav-link ">
+                                <span class="title">Reporte B</span>
+                            </a>
+                        </li>
 				<!--
                 <li class="nav-item  ">
                     <a href="{$WEB_ROOT}/profesion" class="nav-link ">

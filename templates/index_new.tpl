@@ -103,6 +103,7 @@ $page == 'view-inbox' or
  $page == 'prog-materia' or 
  $page == 'report-docentes' or 
  $page == 'perfil' or 
+ $page == 'student' or 
  $page == 'materias'}
 <style type="text/css">
 

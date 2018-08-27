@@ -79,6 +79,37 @@
 		
 		break;
 	
+	
+		case "onSendFoto":
+		
+			// echo "<pre>"; print_r($_POST);
+			if($url = $student->onSendFoto($_POST["id"])){
+				echo "ok[#]";
+				echo '<br><div class="alert alert-info alert-dismissable">
+					  <button type="button" class="close" data-dismiss="alert">&times;</button>
+					  La fotografia se guardo correctamente
+					</div>';
+			}else{
+				echo "fail[#]";
+				
+			}
+		
+		break;
+		
+		case "onDeleteFoto":
+			
+			if($url = $student->onDeleteFoto($_POST["id"])){
+				echo "ok[#]";
+				echo '<br><div class="alert alert-info alert-dismissable">
+					  <button type="button" class="close" data-dismiss="alert">&times;</button>
+					  El documento se ha eliminado correctamente
+					</div>';
+			}else{
+				echo "fail[#]";
+				
+			}
+		
+		break;
 	}
 
 ?>

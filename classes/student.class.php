@@ -3246,6 +3246,70 @@ class Student extends User
 		return $result;
 	}
 	
+
+	public function onSendFoto($userId){
+	
+		$archivo = 'ine';
+			foreach($_FILES as $key=>$var)
+			{
+			   switch($key)
+			   {
+				   case $archivo:
+				   if($var["name"]<>""){
+						$aux = explode(".",$var["name"]);
+						$extencion=end($aux);
+						$temporal = $var['tmp_name'];
+						$url = DOC_ROOT;	
+						
+							$foto_name="foto_".$userId.".".$extencion;		
+							if(move_uploaded_file($temporal,$url."/alumnos/".$foto_name)){									
+							$sql = 'UPDATE 		
+								user SET 		
+								rutaFoto = "'.$foto_name.'"			      		
+								WHERE userId = '.$userId.'';		
+							$this->Util()->DB()->setQuery($sql);		
+							$this->Util()->DB()->UpdateData();
+						}		
+					   
+					}
+					break;
+				}
+			}
+			
+			unset($_FILES);
+			
+			return true;
+	}
+	
+	public function onDeleteFoto($id){
+		
+		$sql = "SELECT 
+					* 
+				FROM 
+					user
+				WHERE
+					userId = ".$id."";
+		// exit;
+		$this->Util()->DB()->setQuery($sql);
+		$info = $this->Util()->DB()->GetRow();
+		
+		 
+		 
+		 
+		 @unlink(DOC_ROOT.'/alumnos/'.$info['rutaFoto']);
+		 $sql = 'UPDATE 		
+			user SET 		
+			rutaFoto = ""			      		
+			WHERE userId = '.$id.'';		
+		$this->Util()->DB()->setQuery($sql);
+	
+		
+		$this->Util()->DB()->UpdateData();
+
+		return true;
+	}
+	
+	
 }
 
 ?>

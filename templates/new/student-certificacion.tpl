@@ -31,7 +31,8 @@
 					<a href="{$WEB_ROOT}/ajax/dg.php?id={$item.userId}&cId={$item.activityId}"   target='_blank' title='EVALUACION'>
 					<i class="material-icons">school</i>	
 					</a>	
-					<a href="{$WEB_ROOT}/files/solicitudes/{$item.userId}_{$item.courseId}.pdf"   target='_blank' title='REGISTRO'>	
+					<!--<a href="{$WEB_ROOT}/files/solicitudes/{$item.userId}_{$item.courseId}.pdf"   target='_blank' title='REGISTRO'>	-->
+					<a href="{$WEB_ROOT}/ajax/reg.php?id={$item.userId}"   target='_blank' title='EVALUACION'>
 					<i class="material-icons">description</i>
 				
 					<a href="{$WEB_ROOT}/ajax/ine.php?id={$item.userId}"   target='_blank' title='INE'>	

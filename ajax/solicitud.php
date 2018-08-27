@@ -1,4 +1,4 @@
-<?php
+<?php
 include_once('../init.php');
 include_once('../config.php');
 include_once(DOC_ROOT.'/libraries.php');
@@ -26,6 +26,23 @@ switch($_POST["type"])
 			// $registros = $solicitud->enumarateSolicitudesAdmin();
 			$smarty->assign("result", $result);
 			$smarty->display(DOC_ROOT.'/templates/lists/new/reporte-region.tpl');
+			
+			
+			
+			
+	break;
+	
+	
+	case 'buscarSolicitudb': 
+			
+			$result = $course->reporteB();
+			
+			// $solicitud->setNombre($_POST['alumnoId']);
+			// $solicitud->setTipoSolicitudId($_POST['tipo']);
+			// $solicitud->setStatus($_POST['estatus']);
+			// $registros = $solicitud->enumarateSolicitudesAdmin();
+			$smarty->assign("result", $result);
+			$smarty->display(DOC_ROOT.'/templates/lists/new/reporte-b.tpl');
 			
 			
 			

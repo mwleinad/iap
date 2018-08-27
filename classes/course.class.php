@@ -1425,6 +1425,55 @@
 		
 		}
 		
+		
+		
+		function reporteB()
+		{
+			
+			$filtro = "";
+			
+			if($_POST["tipo"]){
+				
+				$filtro.= " and s.subjectId = ".$_POST["tipo"]."";
+			}
+			
+			if($_POST["estatus"]){
+				$filtro.= " and mr.grupo = ".$_POST["estatus"]."";
+				
+			}
+			
+			if($_POST["region"]){
+				
+				$filtro.= " and mr.region = ".$_POST["region"]."";
+			}
+			
+			
+			
+		$sql = "
+				SELECT 
+					
+					m.nombre as municipio,
+					us.*,
+					s.name as certificacion,
+					mr.grupo,
+					mr.region
+				FROM 
+					user_subject as u
+				left join  course as c on c.courseId = u.courseId 
+				left join  user as us on us.userId = u.alumnoId 
+				left join  municipio_region as mr on mr.municipioId = us.ciudadt 
+				left join  municipio as m on m.municipioId = us.ciudadt 
+				left join  subject as s on s.subjectId = c.subjectId 
+
+				WHERE 1 ".$filtro." group by us.userId,c.courseId order by c.courseId";
+				// exit;
+				$this->Util()->DB()->setQuery($sql);
+				$cal = $this->Util()->DB()->GetResult();
+				
+				return $cal;
+		
+		}
+		
 		function enumerateCer()
 		{
 			$sql = "
