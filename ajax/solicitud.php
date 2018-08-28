@@ -133,6 +133,14 @@ switch($_POST["type"])
 		}
 			
 	break;
+	
+	case "ver":
+	
+		$result = $course->detalleReporteB($_POST['Id']);
+		$smarty->assign("result", $result);	
+		$smarty->display(DOC_ROOT.'/templates/lists/new/reporte-b-detalle.tpl');
+		
+	break;
 		
 }
 ?>

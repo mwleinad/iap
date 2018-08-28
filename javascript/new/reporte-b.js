@@ -24,3 +24,33 @@ function buscarSolicitud(){
 
 	
 }//addHeredero
+
+
+
+function ver(Id){
+	
+	$.ajax({
+	  	type: "POST",
+	  	url: WEB_ROOT+'/ajax/solicitud.php',
+	  	data: "type=ver&"+$("#frmFiltro").serialize(true)+'&Id='+Id,
+		beforeSend: function(){			
+			$("#loader").html(LOADER3);
+		},
+	  	success: function(response) {
+
+		$("#loader").html('');
+			console.log(response)
+			var splitResp = response.split("[#]");
+											
+				$("#td_"+Id).toggle();
+				$("#td_"+Id).html(response);
+
+		},
+		error:function(){
+			alert(msgError);
+		}
+    });
+	
+
+	
+}//addHeredero

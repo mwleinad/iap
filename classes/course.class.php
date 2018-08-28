@@ -1434,7 +1434,7 @@
 			
 			if($_POST["tipo"]){
 				
-				$filtro.= " and s.subjectId = ".$_POST["tipo"]."";
+				$filtro.= " and us.ciudadt = ".$_POST["tipo"]."";
 			}
 			
 			if($_POST["estatus"]){
@@ -1451,7 +1451,7 @@
 			
 		$sql = "
 				SELECT 
-					
+					us.ciudadt as municipioId,
 					m.nombre as municipio,
 					us.*,
 					s.name as certificacion,
@@ -1474,7 +1474,15 @@
 				left join  municipio as m on m.municipioId = us.ciudadt 
 				left join  subject as s on s.subjectId = c.subjectId 
 
-				WHERE 1 ".$filtro." group by m.municipioId order by c.courseId";
+				WHERE 1 ".$filtro." group by m.municipioId order by (SELECT 
+						count(*)
+					FROM 
+						user_subject as u2
+					left join  course as c2 on c2.courseId = u2.courseId 
+					left join  user as us2 on us2.userId = u2.alumnoId 
+					left join  municipio_region as mr2 on mr2.municipioId = us2.ciudadt 
+					where us2.ciudadt = m.municipioId
+					) desc";
 				// exit;
 				$this->Util()->DB()->setQuery($sql);
 				$cal = $this->Util()->DB()->GetResult();
@@ -1516,7 +1524,26 @@
 				return $cal;
 		}
 		
-		
-	
+		public function detalleReporteB($Id)
+		{
+			$sql = "
+				SELECT 
+					u.*,
+					s.*
+				FROM 
+					user as u
+				left join user_subject as us on u.userId = us.alumnoId
+				left join course as c on c.courseId = us.courseId
+				left join subject as s on s.subjectId = c.subjectId
+				WHERE ciudadt = ".$Id."";		
+// exit;
+				$this->Util()->DB()->setQuery($sql);
+				$cal = $this->Util()->DB()->GetResult();
+				
+				// echo "<pre>"; print_r($cal);
+				// exit;
+				
+				return $cal;
+		}
 }	
 ?>
