@@ -38,7 +38,7 @@
 	$html .= "
 	<html>
 	<head>
-	<title>FICHA DE REGSITRO DE CANDIDADO</title>
+	<title>FICHA DE REGISTRO DE CANDIDADO</title>
 	<style type='text/css'>
 	.txtTicket{
 			text-align:justify;
@@ -54,7 +54,7 @@
 	
 	
     @page { margin: 180px 50px; }
-    #header { position: fixed; left: 0px; top: -180px; right: 0px; height: 150px;  text-align: center; }
+    #header { position: fixed; left: 0px; top: -180px; right: 0px; height: 80px;  text-align: center; }
     #footer { position: fixed; left: 0px; bottom: -180px; right: 0px; height: 150px; text-align:center; font-size:9}
     #footer .page:after { content: counter(page, upper-roman); }
   
@@ -194,6 +194,70 @@
 					protección de Datos Personales, publicados en el Diario Oficial de la Federación el 30 de septiembre de 2005. El CONOCER deberá informar al Instituto, dentro de los primeros diez días hábiles de enero y
 					julio de cada año, lo siguiente: a) Los sistemas de datos personales, b) Cualquier modificación o cancelación de dichos sistemas+-c) Cualquier transmisión de sistemas de datos personales de conformidad
 					a los dispuesto por los Lineamientos Vigésimo quinto y Vigésimo sexto de los Lineamientos de protección de Datos Personales. 
+					</td>
+				</tr>
+			</table>
+			<div style='page-break-after:always;'></div>
+			<table class='txtTicket' border=1 width='100%'>
+				<tr>
+					<td style='background:#c4e9b9'>¿Sabes Leer y Escribir? </td>
+					<td>".$info["lee"]."</td>
+					<td style='background:#c4e9b9'>¿Cuenta con estudios? </td>
+					<td>".$info["estudios"]."</td>
+					<td style='background:#c4e9b9'>Cuales:</td>
+					<td>".$info["d_estudios"]."</td>
+				</tr>
+				<tr>
+					<td style='background:#c4e9b9'>¿Tiene algun tipo de discapacidad?</td>
+					<td>".$info["discapacidad"]."</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style='background:#c4e9b9'>¿Que Idiomas o lenguas habla?</td>
+					<td>".$info["idiomas"]."</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style='background:#c4e9b9'>¿Trabaja actualmente? </td>
+					<td>".$info["trabaja"]."</td>
+					<td style='background:#c4e9b9'>Puesto de trabajo:</td>
+					<td>".$info["workplacePosition"]."</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style='background:#c4e9b9'>Experiencia laboral</td>
+					<td>".$info["experienciaLaboral"]."</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style='background:#c4e9b9'>observaciones</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style='background:#c4e9b9'>¿Cuenta con alguna Certificacion? </td>
+					<td>".$info["certificacion"]."</td>
+					<td style='background:#c4e9b9'>cuales:</td>
+					<td>".$info["certificaciones"]."</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan=6>
+						DECLARO BAJO PROTESTA DE DECIR VERDAD QUE LOS DATOS ASENTADOS EN ESTE DOCUMENTO SON CORRECTOS Y VERDADEROS. 
 					</td>
 				</tr>
 			</table>
