@@ -21,6 +21,11 @@
 	$student->setUserId($_GET['id']);
 	$info = $student->GetInfo();
 	
+	$infoCertificacion = $student->infoCertificacion($_GET["courseId"]);
+	
+	// echo "<pre>"; print_r($info );
+	// exit;
+	
 	if($info["rutaFoto"]=="")
 		$foto = "<img src='".DOC_ROOT."/alumnos/no_foto.JPG' style='width:90%; '>";
 	else
@@ -53,10 +58,10 @@
 	}
 	
 	
-    @page { margin: 180px 50px; }
-    #header { position: fixed; left: 0px; top: -180px; right: 0px; height: 80px;  text-align: center; }
-    #footer { position: fixed; left: 0px; bottom: -180px; right: 0px; height: 150px; text-align:center; font-size:9}
-    #footer .page:after { content: counter(page, upper-roman); }
+    @page { margin: 180px 30px; }
+    #header { position: fixed; left: 0px; top: -180px; right: 0px; height: 40px;  text-align: center; }
+    #footer { position: fixed; left: 0px; bottom: -160px; right: 0px; height: 150px; text-align:center; font-size:9}
+    #footer .page:after { content: counter(page, upper-decimal); }
   
 	</style>
 	</head>
@@ -77,12 +82,12 @@
 	</tr>
 	</table >
 	  </div>
-	  <div id='content'>
+	  <div id='content' style='top:-70px ; height:300px; position: relative !important'>
 	  
 			<table class='txtTicket table' style='width:100%' border=1>
 				<tr>
 					<td>Estandar de Competencia:</td>
-					<td></td>
+					<td>".$infoCertificacion["certificacion"]."</td>
 					<td  style='background:#c4e9b9'>Fecha:</td>
 					<td>".date("d-m-Y")."</td>
 				</tr>
@@ -122,6 +127,7 @@
 						de los mismos.
 						<br>
 						<br>
+						<br>
 						<center><b>".$info["names"]." ".$info["lastNamePaterno"]." ".$info["lastNameMaterno"]."<br>
 						".$info["firma"]."</b></center>
 					</td>
@@ -133,52 +139,52 @@
 										<td rowspan='5'>
 											".$foto."
 										</td>
-										<td style='background:#c4e9b9' colspan='2'>Nombre Completo:</td><td>".$info["names"]." ".$info["lastNamePaterno"]." ".$info["lastNameMaterno"]."</td>
+										<td style='background:#c4e9b9' colspan='2'>Nombre Completo:</td><td colspan='3'>".$info["names"]." ".$info["lastNamePaterno"]." ".$info["lastNameMaterno"]."</td>
 									</tr>
 									<tr>
-										<td style='background:#c4e9b9' colspan='2'>Lugar de Nacimiento:</td><td>".$info["cityBorn"]."</td>
+										<td style='background:#c4e9b9' colspan='2'>Lugar de Nacimiento:</td><td colspan='3'>".$info["cityBorn"]."</td>
 									</tr>
 									<tr>
-										<td style='background:#c4e9b9' colspan='2'>Nacionalidad:</td><td>".$info["nacionality"]."</td>
+										<td style='background:#c4e9b9' colspan='2'>Nacionalidad:</td><td colspan='3'>".$info["nacionality"]."</td>
 									</tr>
 									<tr>
-										<td style='background:#c4e9b9' colspan='2'>CURP:</td><td>".$info["curp"]."</td>
+										<td style='background:#c4e9b9' colspan='2'>CURP:</td><td colspan='3'>".$info["curp"]."</td>
 									</tr>		
 									<tr>		
-										<td style='background:#c4e9b9' colspan='2'>Género:</td><td>".$info["sexo"]."</td>
+										<td style='background:#c4e9b9' colspan='2'>Género:</td><td>".$info["sexo"]."</td><td>Fecha De Nacimiento</td><td>".$info["birthdate"]."</td>
 									</tr>	
 									<tr>	
-										<td colspan='4' style='background:#c4e9b9'>Domicilio Particular</td>
+										<td colspan='6' style='background:#c4e9b9'>Domicilio Particular</td>
 									</tr>	
 									<tr>	
 										<td>".$info["street"]."</td>
 										<td>".$info["number"]."</td>
 										<td>".$info["postalCode"]."</td>
-										<td>".$info["colony"]."</td>
+										<td colspan='4'>".$info["colony"]."</td>
 									</tr>
 									<tr>	
 										<td style='background:#c4e9b9'>Calle</td>
 										<td style='background:#c4e9b9'>Numero</td>
 										<td style='background:#c4e9b9'>CP</td>
-										<td style='background:#c4e9b9'>Colonia</td>
+										<td style='background:#c4e9b9' colspan='4'>Colonia</td>
 									</tr>
 									<tr>	
-										<td >".$info["city"]."</td>
-										<td colspan='3'>".$info["estado"]."</td>
+										<td >".$info["ciudad2"]."</td>
+										<td colspan='5'>".$info["nombreEstado"]."</td>
 									</tr>
 									<tr>	
 										<td style='background:#c4e9b9' >Ciudad</td>
-										<td style='background:#c4e9b9' colspan='3'>Entidad</td>
+										<td style='background:#c4e9b9' colspan='5'>Entidad</td>
 									</tr>
 									<tr>	
 										<td >".$info["email"]."</td>
 										<td >".$info["mobile"]."</td>
-										<td colspan='2'>".$info["phone"]."</td>
+										<td colspan='4'>".$info["phone"]."</td>
 									</tr>
 									<tr>	
 										<td style='background:#c4e9b9'>Email</td>
-										<td style='background:#c4e9b9'>Telefono</td>
-										<td style='background:#c4e9b9' colspan='2'>Telefono Celular</td>
+										<td style='background:#c4e9b9' >Telefono</td>
+										<td style='background:#c4e9b9'  colspan='4'>Telefono Celular</td>
 									</tr>
 								</table>		
 					</td>
@@ -201,62 +207,77 @@
 			<table class='txtTicket' border=1 width='100%'>
 				<tr>
 					<td style='background:#c4e9b9'>¿Sabes Leer y Escribir? </td>
-					<td>".$info["lee"]."</td>
-					<td style='background:#c4e9b9'>¿Cuenta con estudios? </td>
+					<td colspan='2'>".$info["lee"]."</td>
+					<td style='background:#c4e9b9' colspan='3'>¿Cuenta con estudios? </td>
 					<td>".$info["estudios"]."</td>
-					<td style='background:#c4e9b9'>Cuales:</td>
-					<td>".$info["d_estudios"]."</td>
+					<td style='background:#c4e9b9' style='background:#c4e9b9' colspan='4'>Cuales:</td>
+					<td colspan='2'>".$info["d_estudios"]."</td>
 				</tr>
 				<tr>
 					<td style='background:#c4e9b9'>¿Tiene algun tipo de discapacidad?</td>
-					<td>".$info["discapacidad"]."</td>
+					<td colspan='2'>".$info["discapacidad"]."</td>
+					<td colspan='3'></td>
 					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td colspan='4'></td>
+					<td colspan='2'></td>
+				</tr>
+				<tr>
+					<td style='background:#c4e9b9' >Cual:</td>
+					<td style='background:#c4e9b9' >Motriz</td>
+					<td>"; if($info['motriz'])$html .="si"; $html .="</td>
+					<td style='background:#c4e9b9' >Visual</td>
+					<td>"; if($info['visual'])$html .="si"; $html .="</td>
+					<td style='background:#c4e9b9' >Auditiva</td>
+					<td>"; if($info['auditiva'])$html .="si"; $html .="</td>
+					<td style='background:#c4e9b9' >Lenguaje</td>
+					<td>"; if($info['lenguaje'])$html .="si"; $html .="</td>
+					<td style='background:#c4e9b9' >Intelectual</td>
+					<td>"; if($info['intelectual'])$html .="si"; $html .="</td>
+					<td style='background:#c4e9b9' >Otras</td>
+					<td>"; if($info['otras'])$html .="si"; $html .="</td>
 				</tr>
 				<tr>
 					<td style='background:#c4e9b9'>¿Que Idiomas o lenguas habla?</td>
-					<td>".$info["idiomas"]."</td>
+					<td colspan='2'>".$info["idiomas"]."</td>
+					<td colspan='3'></td>
 					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td colspan='4'></td>
+					<td colspan='2'></td>
 				</tr>
 				<tr>
 					<td style='background:#c4e9b9'>¿Trabaja actualmente? </td>
-					<td>".$info["trabaja"]."</td>
-					<td style='background:#c4e9b9'>Puesto de trabajo:</td>
+					<td colspan='2'>".$info["trabaja"]."</td>
+					<td style='background:#c4e9b9' colspan='3'>Puesto de trabajo:</td>
 					<td>".$info["workplacePosition"]."</td>
-					<td></td>
-					<td></td>
+					<td colspan='4'></td>
+					<td colspan='2'></td>
 				</tr>
 				<tr>
 					<td style='background:#c4e9b9'>Experiencia laboral</td>
-					<td>".$info["experienciaLaboral"]."</td>
+					<td colspan='2'>".$info["experienciaLaboral"]."</td>
+					<td colspan='3'></td>
 					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td colspan='4'></td>
+					<td colspan='2'></td>
 				</tr>
 				<tr>
 					<td style='background:#c4e9b9'>observaciones</td>
+					<td colspan='2'></td>
+					<td colspan='3'></td>
 					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td colspan='4'></td>
+					<td colspan='2'></td>
 				</tr>
 				<tr>
 					<td style='background:#c4e9b9'>¿Cuenta con alguna Certificacion? </td>
-					<td>".$info["certificacion"]."</td>
-					<td style='background:#c4e9b9'>cuales:</td>
+					<td colspan='2'>".$info["certificacion"]."</td>
+					<td style='background:#c4e9b9' colspan='3'>cuales:</td>
 					<td>".$info["certificaciones"]."</td>
-					<td></td>
-					<td></td>
+					<td colspan='4'></td>
+					<td colspan='2'></td>
 				</tr>
 				<tr>
-					<td colspan=6>
+					<td colspan=13>
 						DECLARO BAJO PROTESTA DE DECIR VERDAD QUE LOS DATOS ASENTADOS EN ESTE DOCUMENTO SON CORRECTOS Y VERDADEROS. 
 					</td>
 				</tr>

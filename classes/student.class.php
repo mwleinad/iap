@@ -366,8 +366,10 @@ class Student extends User
 	{ 
 	
 			$sql = "
-		SELECT u.*,m.nombre as nombreciudad FROM user as u 
+		SELECT u.*,m.nombre as nombreciudad,c.nombre as ciudad2,e.nombre as nombreEstado FROM user as u 
 		left join municipio as m on m.municipioId = u.ciudadt
+		left join municipio as c on c.municipioId = u.ciudad
+		left join estado as e on e.estadoId = u.estado
 		WHERE userId = '".$this->userId."'";
 		$this->Util()->DB()->setQuery($sql);
 		$row = $this->Util()->DB()->GetRow();
@@ -3214,7 +3216,27 @@ class Student extends User
 		
 	}
 	
-	public function extraeFirma($userId,$procesoId){
+	public function infoCertificacion($Id){
+		
+		$sql = "
+			SELECT 
+				s.name as certificacion
+			FROM 
+				user_subject as u
+			left join course as c on c.courseId = u.courseId 
+			left join subject as s on s.subjectId = c.subjectId 
+			left join user as us on us.userId = u.alumnoId 
+			left join municipio as m on m.municipioId = us.ciudadt 
+			left join course_module as cm on cm.courseId = c.courseId 
+			left join activity as at on at.courseModuleId = cm.courseModuleId 
+			WHERE c.courseId = ".$Id."";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetRow();
+		
+		return 	$result;
+	}
+	
+	public function extraeFirma($userId,$procesoId,$tablaId=null,$registroId=null){
 		
 		switch($procesoId){
 			
@@ -3224,9 +3246,11 @@ class Student extends User
 						*
 					FROM 
 						firma
-					WHERE userId = ".$userId." and procesoId=".$procesoId.""; 
+					WHERE userId = ".$userId." and procesoId=".$procesoId." and registroFirmado = ".$registroId.""; 
+				
 				$this->Util()->DB()->setQuery($sql);
 				$result = $this->Util()->DB()->GetRow();
+
 			break;
 			
 			case 2:

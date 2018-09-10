@@ -19,8 +19,9 @@
 	$student->setUserId($_GET['id']);
 	$info = $student->GetInfo();
 	
-	$firma = $student->extraeFirma($info["userId"],1);
-	
+	$firma = $student->extraeFirma($info["userId"],1,'course',$_GET['courseId']);
+	// echo "<pre>"; print_r($firma);
+	// exit;
 	$html .= "
 	<html>
 	<head>
