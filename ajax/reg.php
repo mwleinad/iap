@@ -21,6 +21,10 @@
 	$student->setUserId($_GET['id']);
 	$info = $student->GetInfo();
 	
+	$firma = $student->extraeFirma($_GET["id"],1,'course',$_GET['courseId']);
+	
+	$fj = explode(' ',$firma["fecha"]);
+	
 	$infoCertificacion = $student->infoCertificacion($_GET["courseId"]);
 	
 	// echo "<pre>"; print_r($info );
@@ -74,7 +78,7 @@
 			<img src='".DOC_ROOT."/images/logo_correo.jpg' >
 		</td>
 		<td style='text-align:right; '>
-			<img src='".DOC_ROOT."/images/logoconocer.png' style='width:90%; '>
+			<img src='".DOC_ROOT."/images/logoconocer.png'  >
 		</td>
 	</tr>
 	<tr>
@@ -89,7 +93,7 @@
 					<td>Estandar de Competencia:</td>
 					<td>".$infoCertificacion["certificacion"]."</td>
 					<td  style='background:#c4e9b9'>Fecha:</td>
-					<td>".date("d-m-Y")."</td>
+					<td>".$fj[0]."</td>
 				</tr>
 			</table>
 			
@@ -224,17 +228,17 @@
 				<tr>
 					<td style='background:#c4e9b9' >Cual:</td>
 					<td style='background:#c4e9b9' >Motriz</td>
-					<td>"; if($info['motriz'])$html .="si"; $html .="</td>
+					<td>"; if($info['motriz'])$html.="si";else$html.="no";$html.="</td>
 					<td style='background:#c4e9b9' >Visual</td>
-					<td>"; if($info['visual'])$html .="si"; $html .="</td>
+					<td>"; if($info['visual'])$html .="si";else$html.="no"; $html .="</td>
 					<td style='background:#c4e9b9' >Auditiva</td>
-					<td>"; if($info['auditiva'])$html .="si"; $html .="</td>
+					<td>"; if($info['auditiva'])$html .="si";else$html.="no"; $html .="</td>
 					<td style='background:#c4e9b9' >Lenguaje</td>
-					<td>"; if($info['lenguaje'])$html .="si"; $html .="</td>
+					<td>"; if($info['lenguaje'])$html .="si"; else$html.="no";$html .="</td>
 					<td style='background:#c4e9b9' >Intelectual</td>
-					<td>"; if($info['intelectual'])$html .="si"; $html .="</td>
+					<td>"; if($info['intelectual'])$html .="si";else$html.="no"; $html .="</td>
 					<td style='background:#c4e9b9' >Otras</td>
-					<td>"; if($info['otras'])$html .="si"; $html .="</td>
+					<td>"; if($info['otras'])$html .="si";else$html.="no"; $html .="</td>
 				</tr>
 				<tr>
 					<td style='background:#c4e9b9'>¿Que Idiomas o lenguas habla?</td>
