@@ -3250,6 +3250,17 @@ class Student extends User
 				
 				$this->Util()->DB()->setQuery($sql);
 				$result = $this->Util()->DB()->GetRow();
+				if($result["firma"]==null){
+					 $sql = "
+					SELECT 
+						*
+					FROM 
+						firma
+					WHERE userId = ".$userId." and procesoId=2 and registroFirmado = ".$registroId.""; 
+				
+					$this->Util()->DB()->setQuery($sql);
+					$result = $this->Util()->DB()->GetRow();
+				}
 
 			break;
 			

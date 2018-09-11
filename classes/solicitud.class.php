@@ -1115,13 +1115,17 @@ class Solicitud extends Module
 				procesoId,
 				firma,
 				userId,
-				fecha
+				fecha,
+				tablaFirmada,
+				registroFirmado
 				)
 			   values(
 			            '1', 
 			            '".$firma["firma"]."', 
 			            '".$_POST["userId"]."',
-			            '".date("Y-m-d h:i:s")."'
+			            '".date("Y-m-d h:i:s")."',
+			            'course',
+			            '".$_POST["courseId"]."'
 			         )";
 
 			$this->Util()->DB()->setQuery($sqlNot);
