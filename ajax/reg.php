@@ -33,7 +33,7 @@
 	if($info["rutaFoto"]=="")
 		$foto = "<img src='".DOC_ROOT."/alumnos/no_foto.JPG' style='width:90%; '>";
 	else
-		$foto = "<img src='".DOC_ROOT."/alumnos/".$info["rutaFoto"]."' style='width:90%; '>";
+		$foto = "<img src='".DOC_ROOT."/alumnos/".$info["rutaFoto"]."' style ='width:90;'  >";
 	
 	// $test->setActivityId($_GET["cId"]);
 	// $myTest = $test->Enumerate($verResultado,$_GET['id']);
@@ -47,7 +47,7 @@
 	$html .= "
 	<html>
 	<head>
-	<title>FICHA DE REGISTRO DE CANDIDADO</title>
+	<title>FICHA DE REGISTRO DE CANDIDATO</title>
 	<style type='text/css'>
 	.txtTicket{
 			text-align:justify;
@@ -86,6 +86,7 @@
 	</tr>
 	</table >
 	  </div>
+<br>
 	  <div id='content' style='top:-70px ; height:300px; position: relative !important'>
 	  
 			<table class='txtTicket table' style='width:100%' border=1>
@@ -140,7 +141,7 @@
 									
 									
 									<tr>
-										<td rowspan='5'>
+										<td rowspan='4'>
 											".$foto."
 										</td>
 										<td style='background:#c4e9b9' colspan='2'>Nombre Completo:</td><td colspan='3'>".$info["names"]." ".$info["lastNamePaterno"]." ".$info["lastNameMaterno"]."</td>
@@ -208,6 +209,7 @@
 				</tr>
 			</table>
 			<div style='page-break-after:always;'></div>
+			<br>
 			<table class='txtTicket' border=1 width='100%'>
 				<tr>
 					<td style='background:#c4e9b9'>¿Sabes Leer y Escribir? </td>
