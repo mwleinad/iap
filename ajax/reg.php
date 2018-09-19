@@ -142,7 +142,7 @@
 									
 									<tr>
 										<td rowspan='4'>
-											".$foto."
+											<center>".$foto."</center>
 										</td>
 										<td style='background:#c4e9b9' colspan='2'>Nombre Completo:</td><td colspan='3'>".$info["names"]." ".$info["lastNamePaterno"]." ".$info["lastNameMaterno"]."</td>
 									</tr>
