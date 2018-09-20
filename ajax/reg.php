@@ -86,6 +86,13 @@
 	</tr>
 	</table >
 	  </div>
+	    <div id='footer'>
+		<p class='page'>
+		Instituto de Administración Pública del Estado de Chiapas, A.C.<br>
+		Libramiento Norte Poniente No. 2718, Fracc Ladera de la Loma, C.P. 29026<br>
+		Tuxtla Gutiérrez, Chiapas; Teléfonos: (961) 12 515 08, 12 515 09, 12 51510, ext 107<br>
+		www.iapchiapas.org.mx, redconocer@iapchiapas.org.mx <br></p>
+	  </div>	
 <br>
 	  <div id='content' style='top:-70px ; height:300px; position: relative !important'>
 	  
@@ -147,7 +154,7 @@
 										<td style='background:#c4e9b9' colspan='2'>Nombre Completo:</td><td colspan='3'>".$info["names"]." ".$info["lastNamePaterno"]." ".$info["lastNameMaterno"]."</td>
 									</tr>
 									<tr>
-										<td style='background:#c4e9b9' colspan='2'>Lugar de Nacimiento:</td><td colspan='3'>".$info["cityBorn"]."</td>
+										<td style='background:#c4e9b9' colspan='2'>Lugar de Nacimiento:</td><td colspan='3'>".$info["cityBorn"].", ".$info["nombreEstado"]."</td>
 									</tr>
 									<tr>
 										<td style='background:#c4e9b9' colspan='2'>Nacionalidad:</td><td colspan='3'>".$info["nacionality"]."</td>
@@ -290,13 +297,7 @@
 			</table>
 	  </div>
 	  
-	  <div id='footer'>
-		<p class='page'>
-		Instituto de Administración Pública del Estado de Chiapas, A.C.<br>
-		Libramiento Norte Poniente No. 2718, Fracc Ladera de la Loma, C.P. 29026<br>
-		Tuxtla Gutiérrez, Chiapas; Teléfonos: (961) 12 515 08, 12 515 09, 12 51510, ext 107<br>
-		www.iapchiapas.org.mx, redconocer@iapchiapas.org.mx <br>
-	  </div>	
+	
 ";
 	
 	
