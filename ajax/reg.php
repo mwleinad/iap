@@ -93,7 +93,7 @@
 		Tuxtla Gutiérrez, Chiapas; Teléfonos: (961) 12 515 08, 12 515 09, 12 51510, ext 107<br>
 		www.iapchiapas.org.mx, redconocer@iapchiapas.org.mx <br></p>
 	  </div>	
-
+<br>
 	  <div id='content' style='top:-70px ; height:300px; position: relative !important'>
 	  
 			<table class='txtTicket table' style='width:100%' border=1>
@@ -188,16 +188,8 @@
 										<td style='background:#c4e9b9' >Ciudad</td>
 										<td style='background:#c4e9b9' colspan='5'>Entidad</td>
 									</tr>
-									<tr>	
-										<td >".$info["email"]."</td>
-										<td >".$info["mobile"]."</td>
-										<td colspan='4'>".$info["phone"]."</td>
-									</tr>
-									<tr>	
-										<td style='background:#c4e9b9'>Email</td>
-										<td style='background:#c4e9b9' >Telefono</td>
-										<td style='background:#c4e9b9'  colspan='4'>Telefono Celular</td>
-									</tr>
+
+
 								</table>		
 					</td>
 				</tr>
