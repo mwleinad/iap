@@ -75,10 +75,10 @@
 		<table style='width:100%; border: 0px solid !important'  >
 	<tr>
 		<td style='text-align:left; '>
-			<img src='".DOC_ROOT."/images/logo_correo.jpg' >
+			<img src='".DOC_ROOT."/images/logo_correo.jpg' style ='width:150;'>
 		</td>
 		<td style='text-align:right; '>
-			<img src='".DOC_ROOT."/images/logoconocer.png'  >
+			<img src='".DOC_ROOT."/images/logoconocer.png'  style ='width:120;'>
 		</td>
 	</tr>
 	<tr>
