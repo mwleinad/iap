@@ -182,13 +182,18 @@
 									</tr>
 									<tr>	
 										<td >".$info["ciudad2"]."</td>
-										<td colspan='5'>".$info["nombreEstado"]."</td>
+										<td>".$info["nombreEstado"]."</td>
+										<td colspan='2'>".$info["email"]."</td>
+										<td >".$info["mobile"]."</td>
+										<td >".$info["phone"]."</td>
 									</tr>
 									<tr>	
 										<td style='background:#c4e9b9' >Ciudad</td>
-										<td style='background:#c4e9b9' colspan='5'>Entidad</td>
+										<td style='background:#c4e9b9' >Entidad</td>
+										<td style='background:#c4e9b9' colspan='2'>Email</td>
+										<td style='background:#c4e9b9' >Telefono</td>
+										<td style='background:#c4e9b9'  >Tel. Celular</td>
 									</tr>
-
 
 								</table>		
 					</td>
