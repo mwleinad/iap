@@ -64,7 +64,7 @@
 	
     @page { margin: 180px 30px; }
     #header { position: fixed; left: 0px; top: -180px; right: 0px; height: 40px;  text-align: center; }
-    #footer { position: fixed; left: 0px; bottom: -160px; right: 0px; height: 150px; text-align:center; font-size:9}
+    #footer { position: fixed; left: 0px; bottom: -210px; right: 0px; height: 150px; text-align:center; font-size:9}
     #footer .page:after { content: counter(page, upper-decimal); }
   
 	</style>
@@ -121,7 +121,7 @@
 				<tr>
 					<td style='width:30%'>
 						
-						<center>".$info["autorizo"]."</center>
+						<center><strong>".$info["autorizo"]."</strong></center>
 						 doy mi consentimiento al CONOCER para
 						que, en términos del artículo 212 de la Ley
 						Federal de Transparencia y Acceso a la
