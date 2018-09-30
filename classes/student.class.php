@@ -3344,6 +3344,66 @@ class Student extends User
 		return true;
 	}
 	
+	public function extraeUserCourse($pagess,$limit){
+		
+		
+		// $filtro = " limit 0,50"; 
+		
+		
+		 if($limit)
+			 $filtro = " limit ".$pagess.",".$limit."";
+		 
+		
+		
+
+		$sql = "
+					SELECT 
+						*
+					FROM 
+						user_subject
+					WHERE acuseDerecho='si' ".$filtro.""; 
+				$this->Util()->DB()->setQuery($sql);
+				$result = $this->Util()->DB()->GetResult();
+				
+				// exit;
+				
+		return $result;
+		
+	}
+	
+	
+	public function extraeUserCourseEv($pagess,$limit){
+		
+		
+		// $filtro = " limit 0,50"; 
+		
+		
+		 if($limit)
+			 $filtro = " limit ".$pagess.",".$limit."";
+		 
+		
+		
+
+		$sql = "
+					SELECT 
+						u.alumnoId as id,
+						activityId as cId
+						
+					FROM 
+						user_subject as u
+					left join course as c on c.courseId = u.courseId 
+					left join course_module as cm on cm.courseId = c.courseId 
+					left join activity as at on at.courseModuleId = cm.courseModuleId 
+					WHERE acuseDerecho='si' ".$filtro.""; 
+				$this->Util()->DB()->setQuery($sql);
+				$result = $this->Util()->DB()->GetResult();
+				
+				// exit;
+				
+		return $result;
+		
+	}
+	
 	
 }
 
