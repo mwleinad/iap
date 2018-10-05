@@ -15,7 +15,19 @@
 	
 	$lstp1 = $student->extraeUserCourseEv($pagess,$limit); 
 	
-	$html .= "
+	
+	
+	
+	foreach($lstp1 as $keym=>$auxUC){
+		
+
+	$keym = new DOMPDF();
+	$keym ->set_paper("A4", "portrait");
+		
+		$html = "";
+		
+		
+		$html .= "
 	<html>
 	<head>
 	<title>EVALUACION DIAGNOSTICA</title>
@@ -78,9 +90,6 @@
 	$html .= '
 <div id="content">
 	';
-	
-	
-	foreach($lstp1 as $key=>$auxUC){
 	
 	$verResultado = true;
 	$student->setUserId($auxUC['id']);
@@ -163,29 +172,27 @@ $html .='<table style="width:100%" >
 	
 	</table> 
 	</div>
-	<div style='page-break-after:always;'></div>
-	";}
+
+	";
+	
 	$html .= "</body>
 	</html>
 
 	";
-	// echo $html;
-	// exit;
-	# Instanciamos un objeto de la clase DOMPDF.
-	$mipdf = new DOMPDF();
+	
+	
+	
 	 
-	# Definimos el tamaño y orientación del papel que queremos.
-	# O por defecto cogerá el que está en el fichero de configuración.
-	$mipdf ->set_paper("A4", "portrait");
-	 
-	# Cargamos el contenido HTML.
-	$mipdf ->load_html($html);
-	 
-	# Renderizamos el documento PDF.
-	$mipdf ->render();
-	 
-	# Enviamos el fichero PDF al navegador.
-	$mipdf ->stream('acuse.pdf',array('Attachment' => 0));
+
+		$keym  ->load_html($html);
+
+		$keym  ->render();
+
+	file_put_contents('evaluacion/eval_'.$auxUC["name"].'.pdf', $keym ->output());
+	
+	}
+	
+	
 			
 
 

@@ -10,6 +10,17 @@
 	session_start();
 	
 	
+	
+$lstp1 = $student->extraeUserCourse($pagess,$limit); 
+foreach($lstp1 as $keym=>$auxUC){
+	
+	$keym = new DOMPDF();
+
+	$keym ->set_paper("A4", "landscape");
+	 
+	
+	$html = "";
+	
 	$html .= "
 	<html>
 	<head>
@@ -61,8 +72,6 @@
 	  </div>	
 <br>
 ";
-$lstp1 = $student->extraeUserCourse($pagess,$limit); 
-foreach($lstp1 as $key=>$auxUC){
 
 	$student->setUserId($auxUC['alumnoId']);
 	$info = $student->GetInfo();
@@ -289,8 +298,6 @@ $html .= "
 	
 	$html .= '<div id="content"></table> 
 	</div>';
-
-}
 	
 	$html .= "	
 	
@@ -299,25 +306,21 @@ $html .= "
 	</html>
 
 	";
-	// echo $html;
-	// exit;
-	# Instanciamos un objeto de la clase DOMPDF.
-	$mipdf = new DOMPDF();
+	
+	
+	$keym ->load_html($html);
+	
+	$keym ->render();
 	 
-	# Definimos el tamaño y orientación del papel que queremos.
-	# O por defecto cogerá el que está en el fichero de configuración.
-	// $mipdf ->set_paper("A4", "portrait");
-	$mipdf ->set_paper("A4", "landscape");
-	 
-	# Cargamos el contenido HTML.
-	$mipdf ->load_html($html);
-	 
-	# Renderizamos el documento PDF.
-	$mipdf ->render();
-	 
-	# Enviamos el fichero PDF al navegador.
-	$mipdf ->stream('acuse.pdf',array('Attachment' => 0));
+	file_put_contents('registro/ereg_'.$auxUC["name"].'.pdf', $keym ->output());
+	// $keym ->stream('acuse.pdf',array('Attachment' => 0));
 			
+
+}
+	
+	
+
+	
 
 
 ?>

@@ -73,7 +73,7 @@ function EditPersonal()
 
 function DeletePersonalPopup(id)
 {
-    var $message = "¿Está seguro de eliminar este usuario? Toma en cuenta que podrían perdese muchas asociaciones (Horarios, materias, etc)";
+    var $message = "¿Está seguro de deshabilitar ha este usuario?";
     bootbox.confirm($message, function(result) {
         if(result == false)
         {
@@ -237,4 +237,32 @@ function compruebaFirma()
 		$('#btnEdit').show();
 	}
    
+}
+
+function savePersonal()
+{
+	
+	
+
+		 $.ajax({
+			url : WEB_ROOT+'/ajax/new/personal.php',
+			type: "POST",
+			// data : {type: "savePersonal"},
+			 data :  $('#addPersonalForm').serialize(),
+			success: function(data)
+			{
+				console.log(data);
+				var splitResponse = data.split("[#]");
+				if($.trim(splitResponse[0]) == "fail"){
+					$('#divMsj').html($.trim(splitResponse[1]));
+					$('#btnEdit').hide();
+				}
+				
+			},
+			error: function ()
+			{
+				alert('Algo salio mal, compruebe su conexión a internet');
+			}
+		});
+	
 }

@@ -517,10 +517,45 @@ class Personal extends Main
 			return false; 
 		}
 		
-		$sql = "INSERT INTO 
+		if($_POST["personalId"]){
+			$sql = "UPDATE
+					personal SET
+					
+				 	name =  '".$this->name."',
+					lastname_paterno = '".$this->lastnamePaterno."',
+					lastname_materno = '".$this->lastnameMaterno."',
+			
+					username =  '".$this->username."', 
+					passwd =  '".$this->passwd."', 
+					description = '".$this->description."',
+					curp = '".$this->curp."',
+					rfc = '".$this->rfc."',
+					sexo = '".$this->sexo."',
+					fecha_nacimiento = '".$this->fechaNacimiento."',
+					fecha_sep = '".$this->fechaSep."',
+					fecha_dgta = '".$this->fechaDgta."',
+					claves_presupuestales = '".$this->clavesPresupuestales."',
+					categoria = '".$this->categoria."',
+					correo = '".$this->correo."',
+					celular = '".$this->celular."',
+					semblanza = '".$this->semblanza."',
+					perfil = '".$this->perfil."',
+					profesion = '".$this->prof."',
+					firmaConstancia = '".$this->firmaConstancia."',
+					mostrar = '".$this->mostrar."',
+					numero = '".$this->numero."'
+				WHERE 
+					personalId = ".$this->personalId;
+				// exit;	
+		
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->ExecuteQuery();
+			
+		}else{
+			$sql = "INSERT INTO 
 					personal 
 					(						
-						positionId, 
+					
 						name,
 						lastname_materno,
 						lastname_paterno,
@@ -543,7 +578,7 @@ class Personal extends Main
 					)
 				 VALUES 
 					(						
-						".$this->positionId.",
+						
 						'".$this->name."',
 						'".$this->lastnamePaterno."',
 						'".$this->lastnameMaterno."',
@@ -567,30 +602,34 @@ class Personal extends Main
 								
 		$this->Util()->DB()->setQuery($sql);
 		$personalId = $this->Util()->DB()->InsertData();
-		
-		$listRoles = explode(',',$this->rolesId);
-		
-		if($listRoles){
-		
-			foreach($listRoles as $val){
-				if(!empty($val)){
-					$sql = "INSERT INTO 
-								personal_role 
-								(						
-									personalId, 
-									roleId
-								)
-							 VALUES 
-								(						
-									".$personalId.",
-									".$val."
-								)";
-											
-					$this->Util()->DB()->setQuery($sql);
-					$this->Util()->DB()->InsertData();
-				}
-			}//foreach
+			
 		}
+		
+		
+		
+		// $listRoles = explode(',',$this->rolesId);
+		
+		// if($listRoles){
+		
+			// foreach($listRoles as $val){
+				// if(!empty($val)){
+					// $sql = "INSERT INTO 
+								// personal_role 
+								// (						
+									// personalId, 
+									// roleId
+								// )
+							 // VALUES 
+								// (						
+									// ".$personalId.",
+									// ".$val."
+								// )";
+											
+					// $this->Util()->DB()->setQuery($sql);
+					// $this->Util()->DB()->InsertData();
+				// }
+			// }//foreach
+		// }
 		
 		$this->Util()->setError(10031, "complete");
 		$this->Util()->PrintErrors();
@@ -716,13 +755,20 @@ class Personal extends Main
 			return false; 
 		}
 		
-		$sql = "DELETE FROM 
-					personal
-				WHERE 
-					personalId = ".$this->personalId;
+		$sql = "UPDATE personal SET
+										estatus = 'eliminado'
+									WHERE
+										personalId = ".$this->personalId;
+								$this->Util()->DB()->setQuery($sql);
+								$this->Util()->DB()->ExecuteQuery();
+								
+		// $sql = "DELETE FROM 
+					// personal
+				// WHERE 
+					// personalId = ".$this->personalId;
 							
-		$this->Util()->DB()->setQuery($sql);
-		$this->Util()->DB()->ExecuteQuery();
+		// $this->Util()->DB()->setQuery($sql);
+		// $this->Util()->DB()->ExecuteQuery();
 		
 		$sql = "DELETE FROM 
 					personal_role

@@ -30,6 +30,8 @@ switch($_POST["type"])
 
     case "editPersonal":
 
+	// echo "<pre>"; print_r($_POST);
+	// exit;
         $states = $util->EnumerateStates();
         $personal->setPersonalId($_POST['id']);
         $info = $personal->Info();
@@ -66,7 +68,7 @@ switch($_POST["type"])
         $smarty->assign("positions",$positions);
         $smarty->assign("info", $info);
         $smarty->assign("DOC_ROOT", DOC_ROOT);
-        $smarty->display(DOC_ROOT.'/templates/forms/new/edit-personal.tpl');
+         $smarty->display(DOC_ROOT.'/templates/forms/new/add-personal.tpl');
 
         break;
 
@@ -78,31 +80,30 @@ switch($_POST["type"])
 			$_POST['mostrarP'] = 'si';
 		}
 	
-        $personal->setPositionId($_POST['positionId']);
+	    $personal->setPersonalId($_POST['personalId']);
+        // $personal->setPositionId($_POST['positionId']);
         $personal->setName($_POST['name']);
         $personal->setLastnamePaterno($_POST['lastname_paterno']);
         $personal->setLastnameMaterno($_POST['lastname_materno']);
-        $personal->setStateId($_POST['stateId']);
+        // $personal->setStateId($_POST['stateId']);
         $personal->setUserName($_POST['username']);
         $personal->setPasswd($_POST['passwd']);
-        $personal->setDescription($_POST['description']);
-        $_POST['list_roles'] = implode(',', $_POST['role_from']);
-
-        $personal->setRolesId($_POST['list_roles']);
-
-        $personal->setCurp($_POST['curp']);
-        $personal->setRfc($_POST['rfc']);
-        $personal->setSexo($_POST['sexo']);
-        $personal->setFechaNacimiento($_POST['fecha_nacimiento']);
-        $personal->setFechaSep($_POST['fecha_sep']);
-        $personal->setFechaDgta($_POST['fecha_dgta']);
-        $personal->setClavesPresupuestales($_POST['claves_presupuestales']);
-        $personal->setCategoria($_POST['categoria']);
-        $personal->setPerfil('Docente');
-        $personal->setProf($_POST['prof']);
+        // $personal->setDescription($_POST['description']);
+        // $_POST['list_roles'] = implode(',', $_POST['role_from']);
+        // $personal->setRolesId($_POST['list_roles']);
+        // $personal->setCurp($_POST['curp']);
+        // $personal->setRfc($_POST['rfc']);
+        // $personal->setSexo($_POST['sexo']);
+        // $personal->setFechaNacimiento($_POST['fecha_nacimiento']);
+        // $personal->setFechaSep($_POST['fecha_sep']);
+        // $personal->setFechaDgta($_POST['fecha_dgta']);
+        // $personal->setClavesPresupuestales($_POST['claves_presupuestales']);
+        // $personal->setCategoria($_POST['categoria']);
+        // $personal->setPerfil('Docente');
+        // $personal->setProf($_POST['prof']);
 		
-		$personal->setMostrar($_POST['mostrarP']);
-        $personal->setNumero($_POST['numeroP']);
+		// $personal->setMostrar($_POST['mostrarP']);
+        // $personal->setNumero($_POST['numeroP']);
 
         if(!$personal->Save())
         {

@@ -67,6 +67,11 @@
                     </a>
                 </li>
 				<li class="nav-item  ">
+                    <a href="{$WEB_ROOT}/prueba" class="nav-link ">
+                        <span class="title">prueba</span>
+                    </a>
+                </li>
+				<li class="nav-item  ">
                     <a href="{$WEB_ROOT}/usuarios" class="nav-link ">
                         <span class="title">Usuarios</span>
                     </a>

@@ -9,14 +9,24 @@
 
 	session_start();
 	
-
+	
 	
 	$pagess = $_GET["pagina"];
 	$limit =  $_GET["total"];
 	
 	$lstp1 = $student->extraeUserCourse($pagess,$limit); 
 	
-	$html .= "
+	// echo "<pre>"; print_r($lstp1);
+	// exit;
+
+	foreach($lstp1 as $key=>$auxUC){
+		
+		$key = new DOMPDF();
+		$key  ->set_paper("A4", "portrait");
+		
+		$html = "";
+		
+		$html .= "
 		<html>
 		<head>
 		<title>ACUSE DE RECIBO</title>
@@ -46,8 +56,6 @@
 		<body>
 			
 	";
-
-	foreach($lstp1 as $key=>$auxUC){
 	
 	$student->setUserId($auxUC['alumnoId']);
 	$info = $student->GetInfo();
@@ -131,31 +139,24 @@
 	</table> 
 	<div style='page-break-after:always;'></div>
 	";
-	}
 	$html .= "
 	</body>
 	</html>
 
 	";
-	// echo $html;
-	// exit;
-	# Instanciamos un objeto de la clase DOMPDF.
+	
+		$key  ->load_html($html);
+
+		$key  ->render();
+		 
+		file_put_contents('acuses/acuse_'.$auxUC["name"].'.pdf', $key ->output());
+
+	}
 	
 	
-	$mipdf = new DOMPDF();
 	 
-	# Definimos el tamaño y orientación del papel que queremos.
-	# O por defecto cogerá el que está en el fichero de configuración.
-	$mipdf ->set_paper("A4", "portrait");
-	 
-	# Cargamos el contenido HTML.
-	$mipdf ->load_html($html);
-	 
-	# Renderizamos el documento PDF.
-	$mipdf ->render();
-	 
-	# Enviamos el fichero PDF al navegador.
-	$mipdf ->stream('acuse_'.$key.'.pdf',array('Attachment' => 0));
+
+	
 			
 
 	

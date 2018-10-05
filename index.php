@@ -207,7 +207,8 @@ $pages = array(
     'usuarios',
     'envia-info',
     'reporte-region',
-    'reporte-b'
+    'reporte-b',
+    'prueba'
 	
 	
 	

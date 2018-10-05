@@ -3358,9 +3358,13 @@ class Student extends User
 
 		$sql = "
 					SELECT 
-						*
+						alumnoId,
+						courseId,
+						controlNumber,
+						concat(names,lastNamePaterno,lastNamePaterno) as name
 					FROM 
-						user_subject
+						user_subject as u
+						left join user as us on us.userId = u.alumnoId
 					WHERE acuseDerecho='si' ".$filtro.""; 
 				$this->Util()->DB()->setQuery($sql);
 				$result = $this->Util()->DB()->GetResult();
@@ -3387,10 +3391,11 @@ class Student extends User
 		$sql = "
 					SELECT 
 						u.alumnoId as id,
-						activityId as cId
-						
+						activityId as cId,
+						concat(names,lastNamePaterno,lastNamePaterno) as name
 					FROM 
 						user_subject as u
+					left join user as us on us.userId = u.alumnoId
 					left join course as c on c.courseId = u.courseId 
 					left join course_module as cm on cm.courseId = c.courseId 
 					left join activity as at on at.courseModuleId = cm.courseModuleId 
