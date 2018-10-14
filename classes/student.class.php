@@ -39,6 +39,12 @@ class Student extends User
 		
 		//new
 		
+	public function setPages($value)
+	{
+		$this->pages = $value;
+	}	
+		
+		
 		public function setAutorizoj($value)
 		{
 			$this->autorizoj = $value;
@@ -1335,10 +1341,14 @@ class Student extends User
 			}else{
 				$filtro .= " and activo = '".$this->estatus."'";
 			}
-				
-			
 		}
 		
+		if($_POST["evaluado"]){
+			if($_POST["evaluado"] == "si")
+				$filtro .= " and (select count(*) from usuario_personal as us where us.usuarioId = user.userId ) > 0";
+			else
+				$filtro .= " and (select count(*) from usuario_personal as us where us.usuarioId = user.userId ) <= 0";
+		}
 		
 		$totalTableRows = $this->CountTotalRows($sqlSearch);
 
@@ -1355,13 +1365,15 @@ class Student extends User
 		
 		 $sql = "
 								SELECT 
-									* 
+									*,
+									(select count(*) from usuario_personal as us where us.usuarioId = user.userId )as count	
 								FROM 
 									user
 								WHERE 
 									1 ".$sqlSearch." ".$filtro."
 								AND
-									type = 'student'									 
+									type = 'student'	
+									
 								ORDER BY 
 									".$orderSemester."
 									lastNamePaterno ASC, 
@@ -1369,7 +1381,6 @@ class Student extends User
 									`names` ASC 
 								LIMIT 
 									".$rowOffset.", ".$rowsPerPage;
-		
 		$this->Util()->DB()->setQuery($sql);
 		$result2 = $this->Util()->DB()->GetResult();
 		
@@ -1388,7 +1399,6 @@ class Student extends User
 		$courseId = $this->Util()->DB()->GetSIngle();
 		
 		$card["courseId"] = $courseId;
-		// $result["courseId"] = "zxzf";
 			
 		$card["lastNameMaterno"] = $this->Util->DecodeTiny($card["lastNameMaterno"]);
 		$card["lastNamePaterno"] = $this->Util->DecodeTiny($card["lastNamePaterno"]);
@@ -1449,10 +1459,87 @@ class Student extends User
 		$arrPages['refreshPage'] = $pageLink . '/' . $pageVar . '/' . $currentPage ;
 
 		
-		// echo "<pre>"; print_r($result);
-		// exit;
 		return $result;
 	}
+	
+	public function enumerateOk(){
+		
+		$filtro = '';
+		
+		if($_POST["certificacionId"]){
+			  $filtro .= " and sb.subjectId = ".$_POST["certificacionId"]."";
+			 
+			 // exit;
+		}
+		
+		if($_POST["evaluado"]){
+			if($_POST["evaluado"] == "si")
+				$filtro .= " and (select count(*) from usuario_personal as us1 where us1.usuarioId = u.userId ) > 0 ";
+			else
+				$filtro .= " and (select count(*) from usuario_personal as us1 where us1.usuarioId = u.userId ) <= 0";
+		}
+		
+		
+		$sqlQuery = "
+				SELECT 
+					count(*)
+				FROM 
+					user as u
+				left join user_subject as us on us.alumnoId = u.userId
+				left join course as cs on cs.courseId = us.courseId
+				left join subject as sb on sb.subjectId = cs.subjectId
+				WHERE 
+					1 ".$sqlSearch." ".$filtro."
+				AND
+					type = 'student'	
+				ORDER BY 
+					".$orderSemester."
+					lastNamePaterno ASC, 
+					lastNameMaterno ASC,  
+					`names` ASC 
+				".$sqlLim."";
+
+		$this->Util()->DB()->setQuery($sqlQuery);
+		$total = $this->Util()->DB()->GetSIngle();
+		
+		
+		$resPage = $this->Util->HandlePagesAjax($this->pages, $total , '');		
+		$sqlLim = "LIMIT ".$resPage['pages']['start'].", ".$resPage['pages']['items_per_page'];
+		
+
+		 $sql = "
+				SELECT 
+					*,
+					sb.subjectId,
+					sb.name as certificacion
+				FROM 
+					user as u
+				left join user_subject as us on us.alumnoId = u.userId
+				left join course as cs on cs.courseId = us.courseId
+				left join subject as sb on sb.subjectId = cs.subjectId
+				WHERE 
+					1 ".$sqlSearch." ".$filtro."
+				AND
+					type = 'student'	
+				ORDER BY 
+					".$orderSemester."
+					lastNamePaterno ASC, 
+					lastNameMaterno ASC,  
+					`names` ASC 
+				".$sqlLim."";
+// exit;
+		$this->Util()->DB()->setQuery($sql);
+		$result7 = $this->Util()->DB()->GetResult();
+		
+		$result['result'] = $result7;
+		$result['pages'] = $resPage['pages'];
+		$result['info'] = $resPage['info'];
+		
+
+		return $result;
+	
+	}
+	
 	
 	public function CountTotalRows()
 	{

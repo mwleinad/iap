@@ -66,8 +66,10 @@
 		}
 	}
 	
+	$lstRol = $role->Enumerate();
 	$personals = $personal->Enumerate('lastname_paterno ASC');
 	$smarty->assign('personals', $personals);
+	$smarty->assign('lstRol', $lstRol);
 	$smarty->assign('mnuMain','catalogos');
 	$smarty->assign('mnuSubmain','personal');	
 

@@ -1128,24 +1128,39 @@ class User extends Main
 	
 	public function allow_access_module($userId, $moduleId){
 		
-		$this->Util()->DB()->setQuery(
-			"SELECT 
-				m.roleId 
-		   FROM 
-		   		personal AS p,
-				personal_role AS r,
-				role_modules AS m 
-			WHERE 
-				p.personalId = '".$userId."' 
-			AND
-				p.personalId = r.personalId
-			AND
-				r.roleId = m.roleId
-			AND
-				m.moduleId = '".$moduleId."'
-		");
+		
+		// echo	$sql = "SELECT 
+				// m.roleId 
+		   // FROM 
+		   		// personal AS p,
+				// personal_role AS r,
+				// role_modules AS m 
+			// WHERE 
+				// p.personalId = '".$userId."' 
+			// AND
+				// p.personalId = r.personalId
+			// AND
+				// r.roleId = m.roleId
+			// AND
+				// m.moduleId = '".$moduleId."'
+		// ";
+		// exit;
+		
+		$sql ="
+		select m.roleId
+		
+		from
+		personal as p
+		left join personal_role as pr on pr.personalId = p.personalId
+		left join role_modules as m on m.roleId = pr.roleId
+		left join role as r on r.roleId = m.roleId
+		where p.personalId = '".$userId."' and m.moduleId = '".$moduleId."' and r.estatus <> 'eliminado'
+		";
+		
+		$this->Util()->DB()->setQuery($sql);
 		$allow = $this->Util()->DB()->GetSingle();
 		
+		// echo $allow;
 		return $allow;
 		
 	}
@@ -1199,11 +1214,15 @@ class User extends Main
 			
 		}
 		
+		
 		if($User["type"] == "student")
 		{
 				$card["32"] = 1;
 				$card["33"] = 1;
 		}
+		
+		// echo "<pre>"; print_r($result);
+		// exit;
 		return $card;
 	
 	}

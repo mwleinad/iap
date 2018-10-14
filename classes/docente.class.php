@@ -602,6 +602,90 @@ class Docente extends Empresa{
 	
 	
 	
+	public function guadarDoc()
+	{
+		
+		$sql = "INSERT INTO 
+			repositorio 
+			(						
+				tipoDocumentoId,
+				userId,
+				subjectId
+			)
+		 VALUES 
+			(						
+				'".$_POST["tipoDocumentoId"]."',
+				'".$_POST["usuarioId"]."',
+				'".$_POST["subjectId"]."'
+				
+			)";
+								
+		$this->Util()->DB()->setQuery($sql);
+		$Id = $this->Util()->DB()->InsertData();
+		// exit;
+		$url = DOC_ROOT;
+		$archivo = "comprobante";
+		foreach($_FILES as $key=>$var)
+		{
+		   switch($key)
+		   {
+				   case $archivo:
+					   if($var["name"]<>""){
+							$aux = explode(".",$var["name"]);
+							$extencion=end($aux);
+							$temporal = $var['tmp_name'];
+							$foto_name="doc_".$Id.".".$extencion;		
+							if(move_uploaded_file($temporal,$url."/alumnos/repositorio/".$foto_name)){						
+								$sql = "UPDATE repositorio SET
+										ruta = '".$foto_name."'
+									WHERE
+										repositorioId = ".$Id;
+								$this->Util()->DB()->setQuery($sql);
+								$this->Util()->DB()->ExecuteQuery();
+							}   
+						}
+					break;
+			}
+		}
+		
+		return true;
+		
+	}
+	
+	
+	public function onDoc($cmId)
+	{
+		$sql = "SELECT 
+					* 
+				FROM 
+					repositorio
+				WHERE
+					repositorioId = ".$cmId."";
+		// exit;
+		$this->Util()->DB()->setQuery($sql);
+		$info = $this->Util()->DB()->GetRow();
+		
+		 @unlink(DOC_ROOT.'/alumnos/repositorio/'.$info['ruta']);
+		
+		 $sql = "
+				delete
+					from 
+					repositorio 
+				WHERE 
+					repositorioId = ".$cmId;
+					
+		
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->ExecuteQuery();
+		
+	
+		
+		
+		return true;
+	
+	}
+	
+	
 }//Docente
 
 

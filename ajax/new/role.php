@@ -114,6 +114,31 @@ switch($_POST["type"])
         }
 
         break;
+		
+		
+	case "ActivarRolePopup":
+		
+	$role->setRoleId($_POST['id']);
+
+        if(!$role->activar())
+        {
+            echo "fail[#]";
+            $smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
+        }
+        else
+        {
+            echo "ok[#]";
+            $smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
+            echo "[#]";
+            $result = $role->Enumerate();
+            $roles = $util->EncodeResult($result);
+            $smarty->assign("roles", $roles);
+            $smarty->assign("DOC_ROOT", DOC_ROOT);
+            $smarty->display(DOC_ROOT.'/templates/lists/role.tpl');
+        }
+
+        break;
+	break;
 }
 
 ?>

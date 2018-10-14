@@ -7,5 +7,7 @@
     <th width="">No. Control</th>
     <th width="">Correo</th>
     <th width="">Password</th>
+	 <th width="">Certificacion</th>
     <th width="">Acciones</th>
+   
 </tr>

@@ -369,14 +369,31 @@ class Personal extends Main
 		global $position;
 		global $role;
 		
+		$filtro = "";
+		
+		if($_POST["role"]){
+			$filtro .= " and ro.roleId = ".$_POST["role"]."";
+		}
+		
+		
+		if($_POST["nombre"]){
+			$filtro .= " and p.name  like '%".$_POST["nombre"]."%'";
+		}
+		
+		
 		$sql = "SELECT 
-					* 
+					*,
+					ro.name as roleName 					
 				FROM 
-					personal
+					personal as p
+				left join personal_role as r on r.personalId = p.personalId
+				left join role as ro on ro.roleId = r.roleId
 				WHERE
 					positionId <> 1
+				".$filtro."	
+				group by p.personalId
 				ORDER BY 
-					".$orden;
+					p.name ASC";
 		
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
@@ -448,15 +465,19 @@ class Personal extends Main
 	public function Info()
 	{
 		
-		$sql = "SELECT 
-					* 
+		 $sql = "SELECT 
+					*,
+					r.roleId
 				FROM 
-					personal 
+					personal as p 
+				left join personal_role as r on p.personalId = r.personalId
 				WHERE 
-					personalId = '".$this->personalId."'";
-	
+					p.personalId = '".$this->personalId."'";
+	// exit;
 		$this->Util()->DB()->setQuery($sql);
 		$info = $this->Util()->DB()->GetRow();
+		
+		// echo "<pre>"; print_r($info);
 		
 		$row = $info;		// anexado hrsc
 		if($info)			// para evitar errores cuando no hay registros que coinciden con $this->personalId
@@ -545,12 +566,12 @@ class Personal extends Main
 					mostrar = '".$this->mostrar."',
 					numero = '".$this->numero."'
 				WHERE 
-					personalId = ".$this->personalId;
+					personalId = ".$_POST["personalId"];
 				// exit;	
 		
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
-			
+		$personalId = $_POST["personalId"];
 		}else{
 			$sql = "INSERT INTO 
 					personal 
@@ -574,6 +595,7 @@ class Personal extends Main
 						perfil,
 						profesion,
 						mostrar,
+						correo,
 						numero
 					)
 				 VALUES 
@@ -597,12 +619,63 @@ class Personal extends Main
 						'".$this->perfil."',
 						'".$this->prof."',
 						'".$this->mostrar."',
+						'".$this->correo."',
 						'".$this->numero."'
 					)";
 								
+								
+								// exit;
 		$this->Util()->DB()->setQuery($sql);
 		$personalId = $this->Util()->DB()->InsertData();
 			
+		}
+		
+// echo "<pre>"; print_r($_POST);
+// echo "<pre>"; print_r($_FILES);
+		// exit;
+		$sql = 'DELETE FROM personal_role WHERE personalId = '.$personalId;
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->ExecuteQuery();
+		
+		 $sql7 = "INSERT INTO 
+					personal_role 
+					(						
+						personalId, 
+						roleId
+					)
+				 VALUES 
+					(						
+						".$personalId.",
+						".$_POST["positionId"]."
+					)";
+								
+		$this->Util()->DB()->setQuery($sql7);
+		$this->Util()->DB()->InsertData();
+		// exit;
+		
+		$url = DOC_ROOT;
+		$archivo = "foto";
+		foreach($_FILES as $key=>$var)
+		{
+		   switch($key)
+		   {
+				   case $archivo:
+					   if($var["name"]<>""){
+							$aux = explode(".",$var["name"]);
+							$extencion=end($aux);
+							$temporal = $var['tmp_name'];
+							 $foto_name="foto_".$personalId.".".$extencion;		
+							if(move_uploaded_file($temporal,$url."/images/docente/fotografia/".$foto_name)){						
+								 $sql = "UPDATE personal SET
+										foto = '".$foto_name."'
+									WHERE
+										personalId = ".$personalId;
+								$this->Util()->DB()->setQuery($sql);
+								$this->Util()->DB()->ExecuteQuery();
+							}   
+						}
+					break;
+			}
 		}
 		
 		
@@ -1777,9 +1850,84 @@ class Personal extends Main
 		
 	}
 	
+	public function Activar(){
+		
+		 $sql = 'UPDATE 		
+				personal SET 		
+				estatus = "activo"			      		
+				WHERE personalId = '.$this->personalId.'';		
+				// exit;
+		$this->Util()->DB()->setQuery($sql);		
+		$this->Util()->DB()->UpdateData();
+		
+		return true;
+		
+	}
 	
 	
+	public function saveGuardarCertificacion(){
+		
+		
+		$sql = 'DELETE FROM course_module_personal WHERE personalId = '.$_POST["personalId"];
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->ExecuteQuery();
+		
+		foreach($_POST as $key=>$aux){
+			
+			$f = explode("_",$key);
+			if($f[0]=="chek"){
+
+			
+			 $sql = "INSERT INTO 
+					course_module_personal 
+					(						
+						personalId, 
+						courseModuleId
+					)
+				 VALUES 
+					(						
+						".$_POST["personalId"].",
+						'".$f[1]."'
+					)";
+								
+			$this->Util()->DB()->setQuery($sql);
+			$lastId = $this->Util()->DB()->InsertData();
+				
+			}
+		
+			
+		}
+		
+		return true;
+	}
 	
+	
+	public function saveCalificadorUsuario(){
+		
+		
+		$sql = 'DELETE FROM usuario_personal WHERE personalId = '.$_POST["personalId"].' and usuarioId = '.$_POST["id"].' and subjectId = '.$_POST["subjectId"].'';
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->ExecuteQuery();
+		
+		 $sql = "INSERT INTO 
+					usuario_personal 
+					(						
+						personalId, 
+						usuarioId,
+						subjectId
+					)
+				 VALUES 
+					(						
+						".$_POST["personalId"].",
+						".$_POST["id"].",
+						".$_POST["subjectId"]."
+					)";
+								
+			$this->Util()->DB()->setQuery($sql);
+			$lastId = $this->Util()->DB()->InsertData();
+		
+		return true;
+	}
 }
 
 

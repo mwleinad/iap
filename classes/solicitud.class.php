@@ -1182,6 +1182,21 @@ class Solicitud extends Module
 			return true;
 		}	
 		
+		
+	public function infoDoc()
+	{
+		
+		 $sqlQuery = 'SELECT 
+					*
+				FROM 
+					repositorio
+				WHERE   userId = '.$_GET["id"].' and tipoDocumentoId = '.$_GET["auxTpl"].' and subjectId = '.$_GET["cId"].'';
+		// exit;
+		$this->Util()->DB()->setQuery($sqlQuery);
+		$infoFol = $this->Util()->DB()->GetRow();
+		
+		return $infoFol;
+	}
 	
 }	
 ?>

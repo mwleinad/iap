@@ -439,6 +439,49 @@ public function Enumerate_p(){
 			}
 			return $result;
 		}
+		
+		public function EnumerateCertificacion()
+		{
+			
+			$sql = '
+				SELECT 
+					*, 
+					major.name AS majorName, 
+					subject.name AS name 
+				FROM 
+					subject 
+				LEFT JOIN 	major ON major.majorId = subject.tipo
+				LEFT JOIN 	subject_module as sm ON sm.subjectId = subject.subjectId
+				LEFT JOIN 	course_module as cm ON cm.subjectModuleId = sm.subjectModuleId
+				ORDER BY   
+					FIELD (major.name,"MAESTRIA","DOCTORADO","CURSO","ESPECIALIDAD") ASC, subject.name';
+			// exit;
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->GetResult();
+			
+			// ECHO '<PRE>'; PRINT_R($result);
+			// EXIT;
+			
+			foreach($result as $key=>$aux){
+				
+				 $sql = "
+					SELECT COUNT(*) FROM course_module_personal WHERE personalId = '".$_POST["id"]."' and courseModuleId = ".$aux["courseModuleId"]."";
+				// exit;
+				
+				$this->Util()->DB()->setQuery($sql);
+				$result[$key]["countModule"] = $this->Util()->DB()->GetSingle();
+				
+			}
+			
+			// foreach($result as $key => $res)
+			// {
+				// $this->Util()->DB()->setQuery("
+					// SELECT COUNT(*) FROM subject_module WHERE subjectId ='".$res["subjectId"]."'");
+			
+				// $result[$key]["modules"] = $this->Util()->DB()->GetSingle();
+			// }
+			return $result;
+		}
 
 		
 		public function EnumerateGroups()
@@ -1514,6 +1557,23 @@ public function Enumerate_p(){
 		// echo '<pre>'; print_r($lst);
 		// exit;
 		return $lst;
+	}
+	
+	public function extraeCalificador(){
+		
+		$sqlQuery = '
+			SELECT 
+				p.*
+			FROM
+				personal as p
+			left join personal_role as pr on pr.personalId = p.personalId
+			left join role as r on r.roleId = pr.roleId
+			WHERE 1 and r.name="Evaluador" group by p.personalId order by lastname_paterno';
+			$this->Util()->DB()->setQuery($sqlQuery);			
+		
+			$lst = $this->Util()->DB()->GetResult();
+			
+			return $lst ;
 	}
 	
 }	

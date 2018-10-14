@@ -326,6 +326,19 @@ switch($_POST["type"])
 				}
 			
 			break;
+			
+			case "saveCalificador":
+			
+
+				if($personal->saveCalificadorUsuario()){
+					echo "ok[#]";
+					echo "El evaluador se agrego correctamente";
+				}else{
+					echo "fail[#]";
+					
+				}
+			
+			break;
 	}
 
 ?>

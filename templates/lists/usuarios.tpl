@@ -7,3 +7,4 @@
    {include file="{$DOC_ROOT}/templates/items/usuarios-base.tpl"}
 </tbody>
 </table>
+{include file="{$DOC_ROOT}/templates/lists/pages_ok.tpl" pages=$registros.pages info=$registros.info}

@@ -10,6 +10,18 @@
         </div>
     </div>
     <div class="portlet-body">
-        <div id="tblContent">{include file="lists/personal.tpl"}</div>
+		<form id="frmBuscar" >
+		<input type="hidden" name="type" value="buscarPersonal">
+		Rol:<select name="role" class="form-control" style="width:200px">
+			<option></option>
+			{foreach from=$lstRol item=item}
+			<option value="{$item.roleId}">{$item.name}</option>
+			{/foreach}
+			
+		</select>
+		Nombre:<input type="text" name="nombre" class="form-control" style="width:200px">
+        </form>
+		<button type="button" class="btn green submitForm" onclick="buscarPersonal()">Buscar</button>
+		<div id="tblContent">{include file="lists/personal.tpl"}</div>
     </div>
 </div>

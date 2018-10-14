@@ -14,16 +14,19 @@
 					 {/foreach}
                 </select>
             </div>
-        </div>
+        </div>-->
         <div class="form-group">
-            <label class="col-md-3 control-label">Puesto:</label>
+            <label class="col-md-3 control-label">Rol:</label>
             <div class="col-md-8">
+		
                 <select name="positionId" id="positionId" style="width:250px" class="form-control" placeholder="Seleccione">
                     <option value="">Seleccione</option>
-                    {include file="{$DOC_ROOT}/templates/lists/enum-position.tpl"}
+					{foreach from=$roles item=item}
+						<option value="{$item.roleId}" {if $item.roleId eq $info.roleId} selected {/if}>{$item.name}</option>
+					{/foreach}
                 </select>
             </div>
-        </div>-->
+        </div>
         <div class="form-group">
             <label class="col-md-3 control-label">Nombre:</label>
             <div class="col-md-8">

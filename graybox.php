@@ -214,7 +214,9 @@ $pages = array(
 	'student-certificacion',
 	'envia-info',
 	'registro-add',
-	'foto'
+	'foto',
+	'add-calificador',
+	'add-doc'
 
 );
 
