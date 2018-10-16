@@ -216,7 +216,8 @@ $pages = array(
 	'registro-add',
 	'foto',
 	'add-calificador',
-	'add-doc'
+	'add-doc',
+	'add-evaluar'
 
 );
 

@@ -685,6 +685,28 @@ class Docente extends Empresa{
 	
 	}
 	
+	public function saveEstatus()
+	{
+		// echo "<pre>"; print_r($_POST);
+		// exit;
+		$sql = "
+				UPDATE
+					user_subject 
+				SET 
+					aprobado = '".$_POST["estatus"]."'
+				WHERE 
+					courseId = ".$_POST["subjectId"]." and alumnoId = ".$_POST["usuarioId"];
+					
+		// exit;
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->ExecuteQuery();
+			
+			
+		return true;
+		
+	}	
+	
+	
 	
 }//Docente
 

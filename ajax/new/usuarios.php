@@ -54,6 +54,21 @@ switch($_POST["type"])
 		 $smarty->assign("registros", $students);
 		$smarty->display(DOC_ROOT.'/templates/lists/usuarios.tpl');
 	break;
+	
+	
+	case "saveEstatus":
+	
+		if($docente->saveEstatus($_POST["id"])){  
+				echo 'ok[#]';
+				echo '
+				 Los datos se guardaron correctamente
+				';
+				 echo '[#]';
+			}else{
+				echo 'fail[#]';
+			}
+	
+	break;
 }
 
 ?>

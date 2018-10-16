@@ -53,6 +53,13 @@
 		<option>si</option>
 		<option>no</option>
 	 </select>
+	 Estatus
+	 <select class="form-control" style="width:100px" name="evaluacion">
+		<option value="">Todos</option>
+		<option value="s/n">Sin Asignar</option>
+		<option value="si">Aprobado</option>
+		<option value="no">No Aprobado</option>
+	 </select>
 	 </form>
 	   <button type="submit" class="btn green submitForm" onClick="buscarCertificacion()">Buscar</button>
         <div id="tblContent">{include file="lists/usuarios.tpl"}</div>

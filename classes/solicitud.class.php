@@ -1198,5 +1198,20 @@ class Solicitud extends Module
 		return $infoFol;
 	}
 	
+	public function infoCourse()
+	{
+		
+		 $sqlQuery = 'SELECT 
+					*
+				FROM 
+					user_subject
+				WHERE   alumnoId = '.$_GET["id"].' and courseId = '.$_GET["cId"].'';
+		// exit;
+		$this->Util()->DB()->setQuery($sqlQuery);
+		$infoFol = $this->Util()->DB()->GetRow();
+		
+		return $infoFol;
+	}
+	
 }	
 ?>

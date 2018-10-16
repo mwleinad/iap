@@ -8,6 +8,7 @@
         <td align="center">{$item.email}</td>
         <td align="center">{$item.password}</td>
         <td align="center">{$item.certificacion}</td>
+        <td align="center">{if $item.aprobado eq 'si'} Aprobado{else if $item.aprobado eq 'no'} No aprobado {else} Sin asignar{/if}</td>
         <td align="center">   
 		<a href="{$WEB_ROOT}/graybox.php?page=envia-info&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px" title="ENVIAR DATOS DE REGISTRO">
 		<i class="material-icons">
@@ -42,6 +43,11 @@
 		<a href="{$WEB_ROOT}/graybox.php?page=add-doc&id={$item.userId}&auxTpl=4&cId={$item.subjectId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="AGREGAR PRODUCTOS">
 		<i class="material-icons">
 			description
+			</i>
+		</a>
+		<a href="{$WEB_ROOT}/graybox.php?page=add-evaluar&id={$item.userId}&auxTpl=4&cId={$item.courseId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="AGREGAR PRODUCTOS">
+					<i class="material-icons">
+			school
 			</i>
 		</a>
 		<!--

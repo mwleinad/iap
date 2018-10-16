@@ -1468,8 +1468,10 @@ class Student extends User
 		
 		if($_POST["certificacionId"]){
 			  $filtro .= " and sb.subjectId = ".$_POST["certificacionId"]."";
-			 
-			 // exit;
+		}
+		
+		if($_POST["evaluacion"]){
+			  $filtro .= " and us.aprobado = '".$_POST["evaluacion"]."'";
 		}
 		
 		if($_POST["evaluado"]){
@@ -1530,6 +1532,9 @@ class Student extends User
 // exit;
 		$this->Util()->DB()->setQuery($sql);
 		$result7 = $this->Util()->DB()->GetResult();
+		
+		// echo "<pre>"; print_r($result7);
+		// exit;
 		
 		$result['result'] = $result7;
 		$result['pages'] = $resPage['pages'];
