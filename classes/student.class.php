@@ -3284,6 +3284,13 @@ class Student extends User
 	
 	public function CertificacionStident($Id){
 		
+		
+		$filtro = "";
+		
+		if($Id){
+			$filtro.= " and alumnoId = ".$Id."";
+		}
+		
 		 $sql = "
 			SELECT 
 				s.name as certificacion,
@@ -3300,7 +3307,7 @@ class Student extends User
 			left join municipio as m on m.municipioId = us.ciudadt 
 			left join course_module as cm on cm.courseId = c.courseId 
 			left join activity as at on at.courseModuleId = cm.courseModuleId 
-			WHERE alumnoId = ".$Id."";
+			WHERE 1 ".$filtro."";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 		

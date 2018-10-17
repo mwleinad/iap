@@ -50,6 +50,13 @@
 			school
 			</i>
 		</a>
+		<a href="{$WEB_ROOT}/graybox.php?page=student-certificacion&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px" title="VER CERTIFICACIONES">
+				<i class="material-icons">
+				picture_in_picture
+				</i>
+		</a> 
+		
+		<!--
 		<!--
 		{if $page == "course-student"}
 
