@@ -383,7 +383,8 @@ class Personal extends Main
 		
 		$sql = "SELECT 
 					*,
-					ro.name as roleName 					
+					ro.name as roleName,
+					(select count(*) from usuario_personal as usub where usub.personalId = p.personalId) as numCandidatos
 				FROM 
 					personal as p
 				left join personal_role as r on r.personalId = p.personalId
@@ -394,7 +395,7 @@ class Personal extends Main
 				group by p.personalId
 				ORDER BY 
 					p.name ASC";
-		
+		// exit;
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 		

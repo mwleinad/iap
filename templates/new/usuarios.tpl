@@ -60,6 +60,8 @@
 		<option value="si">Aprobado</option>
 		<option value="no">No Aprobado</option>
 	 </select>
+	 Numero de Elementos
+	 <input type="" name="elementos" id=""  class="form-control" style="width:100px">
 	 </form>
 	   <button type="submit" class="btn green submitForm" onClick="buscarCertificacion()">Buscar</button>
         <div id="tblContent">{include file="lists/usuarios.tpl"}</div>

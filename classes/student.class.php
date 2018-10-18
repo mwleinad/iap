@@ -1481,6 +1481,11 @@ class Student extends User
 				$filtro .= " and (select count(*) from usuario_personal as us1 where us1.usuarioId = u.userId ) <= 0";
 		}
 		
+		if($_POST["elementos"]){
+			  $filtro .= " 
+			  			and	(select count(*) from repositorio as r where r.userId = u.userId and r.subjectId = sb.subjectId) = ".$_POST["elementos"]."
+			  ";
+		}
 		
 		$sqlQuery = "
 				SELECT 
@@ -1513,7 +1518,8 @@ class Student extends User
 				SELECT 
 					*,
 					sb.subjectId,
-					sb.name as certificacion
+					sb.name as certificacion,
+					(select count(*) from repositorio as r where r.userId = u.userId and r.subjectId = sb.subjectId) as countRepositorio
 				FROM 
 					user as u
 				left join user_subject as us on us.alumnoId = u.userId

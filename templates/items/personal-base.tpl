@@ -4,6 +4,11 @@
         <td>{if $item.estatus eq "eliminado"} <strike>{/if}&nbsp;{$item.lastname_paterno} {$item.lastname_materno} {$item.name}{if $item.estatus eq "eliminado"} </strike>{/if}</td>
         <td align="center">{$item.correo}</td>        
         <td align="center">{$item.roleName}</td>        
+        <td align="center">
+		<a href="{$WEB_ROOT}/usuarios">
+		{$item.numCandidatos}
+		</a>
+		</td>        
         <td>&nbsp;
 		<img src="{$WEB_ROOT}/images/docente/fotografia/{$item.foto}" style="max-width:40px">
 		</td>
