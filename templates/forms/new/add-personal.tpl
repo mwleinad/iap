@@ -165,10 +165,12 @@
     
 
 </form>
+<div id="divMsj">
+</div>
 <div class="form-actions">
         <div class="row">
             <div class="col-md-offset-3 col-md-9">
-                <button type="button" class="btn green submitForm" onClick="savePersonal()">Guardar</button>
+                <button type="button" class="btn green submitForm" onClick="savePersonal()" id="btnSavePersonal">Guardar</button>
                 <button type="button" class="btn default closeModal">Cancelar</button>
             </div>
         </div>

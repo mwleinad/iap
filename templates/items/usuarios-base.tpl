@@ -57,6 +57,11 @@
 				</i>
 		</a> 
 		
+		<a href="{$WEB_ROOT}/graybox.php?page=add-certificacion-alumno&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px" title="AGREGAR CERTIFICACION">
+				<i class="material-icons">
+				folder_special
+				</i>
+		</a> 
 		<!--
 		<!--
 		{if $page == "course-student"}

@@ -339,6 +339,13 @@ switch($_POST["type"])
 				}
 			
 			break;
+			
+			
+			case 'addCertificacion':
+			
+				echo '<pre>'; print_r($_POST);
+			
+			break;
 	}
 
 ?>

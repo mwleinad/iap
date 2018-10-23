@@ -151,6 +151,7 @@ function ActivarPersonalPopup(id)
             data : {type: "ActivarPersonalPopup", id: id},
             success: function(data, textStatus, jqXHR)
             {
+				console.log(data);
                 var splitResponse = data.split("[#]");
                 ShowStatus(splitResponse[1]);
                 $('#tblContent').html(splitResponse[2]);
@@ -330,6 +331,7 @@ function savePersonal(){
 		beforeSend: function(){		
 			// $("#loader").html(LOADER);
 			// $("#erro_"+reqId).hide(0);
+			$("#btnSavePersonal").hide();
 		},
 		success: function(response){
 			
@@ -343,6 +345,8 @@ function savePersonal(){
                 $('#tblContent').html(splitResp[2]);
                 CloseFview();
 			}else if($.trim(splitResp[0]) == "fail"){
+				$("#btnSavePersonal").show();
+				$('#centeredDivOnPopup').show();
 				$('#divMsj').html($.trim(splitResp[1]));
 				$('#btnEdit').hide();
 			}else{

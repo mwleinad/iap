@@ -383,12 +383,15 @@ class Personal extends Main
 		
 		$sql = "SELECT 
 					*,
+					p.name as nombrePersonal,
 					ro.name as roleName,
-					(select count(*) from usuario_personal as usub where usub.personalId = p.personalId) as numCandidatos
+					(select count(*) from usuario_personal as usub where usub.personalId = p.personalId) as numCandidatos,
+					p.estatus,
+					p.personalId
 				FROM 
 					personal as p
-				left join personal_role as r on r.personalId = p.personalId
-				left join role as ro on ro.roleId = r.roleId
+			 left join personal_role as r on r.personalId = p.personalId
+			 left join role as ro on ro.roleId = r.roleId
 				WHERE
 					positionId <> 1
 				".$filtro."	
@@ -603,8 +606,8 @@ class Personal extends Main
 					(						
 						
 						'".$this->name."',
-						'".$this->lastnamePaterno."',
 						'".$this->lastnameMaterno."',
+						'".$this->lastnamePaterno."',
 						'".$this->stateId."',
 						'".$this->username."',
 						'".$this->passwd."', 
@@ -1860,6 +1863,9 @@ class Personal extends Main
 				// exit;
 		$this->Util()->DB()->setQuery($sql);		
 		$this->Util()->DB()->UpdateData();
+		
+		$this->Util()->setError(40104, "complete");
+		$this->Util()->PrintErrors();
 		
 		return true;
 		

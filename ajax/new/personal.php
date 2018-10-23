@@ -94,6 +94,10 @@ switch($_POST["type"])
         if(!$personal->Save())
         {
             echo "fail[#]";
+			// echo "no";
+			// exit;
+			
+			  $smarty->assign("auxMsj", 1);
             $smarty->display(DOC_ROOT.'/templates/boxes/status_on_popup.tpl');
         }
         else
@@ -543,6 +547,9 @@ switch($_POST["type"])
 	
 	case "ActivarPersonalPopup":
 	
+	
+	// echo "<pre>"; print_r($_POST);
+	// exit;
         $personal->setPersonalId($_POST['id']);
 
         if(!$personal->Activar())
