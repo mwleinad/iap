@@ -70,31 +70,32 @@
                 <!-- SIDEBAR MENU -->
                 <div class="profile-usermenu">
                     <ul class="nav">
-                        <li class="">
+                        <!--<li class="">
                             <a href="{$WEB_ROOT}/info-docente">
                                 <i class="icon-settings"></i> Información Personal </a>
-                        </li>
+                        </li>-->
 
 						<li>
-						<a href="{$WEB_ROOT}/history-subject" ><!--onClick="verCalendario()"-->
-						  <i class="fa fa-file-text" aria-hidden="true"></i>Curricula
+						<a href="{$WEB_ROOT}/usuarios" ><!--onClick="verCalendario()"-->
+						  <i class="fa fa-file-text" aria-hidden="true"></i>Candidatos
 						</a>
 						</li>
-						<li>
+						<!--<li>
+						
 						<a href="{$WEB_ROOT}/doc-docente" >
-						   <i class="fa fa-files-o"></i>Documentos
+						   <i class="fa fa-files-o"></i>Dictamen
 						</a>
 						</li>
 						<li>
 						<a href="{$WEB_ROOT}/repositorio" >
-						   <i class="fa fa-files-o"></i>Repositorio
+						   <i class="fa fa-files-o"></i>Descargas
 						</a>
 						</li>
 						<li>
 						<a href="{$WEB_ROOT}/inbox/or/h" >
 						 <i class="fa fa-comments"></i>Inbox 
 						</a>
-						</li>
+						</li>-->
                     </ul>
                 </div>
                 <!-- END MENU -->

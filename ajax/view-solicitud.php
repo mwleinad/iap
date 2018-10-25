@@ -343,7 +343,16 @@ switch($_POST["type"])
 			
 			case 'addCertificacion':
 			
-				echo '<pre>'; print_r($_POST);
+				// echo '<pre>'; print_r($_POST);
+				// exit;
+				if($personal->addCertificacionOk()){
+					echo "ok[#]";
+					echo "El evaluador se agrego correctamente";
+				}else{
+					echo "fail[#]";
+					
+				}
+			
 			
 			break;
 	}

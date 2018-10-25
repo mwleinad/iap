@@ -301,7 +301,7 @@ function addCertificacion(){
 	$.ajax({
 	  	type: "POST",
 	  	url: WEB_ROOT+'/ajax/view-solicitud.php',
-	  	data: "type=addCertificacion"+'&'+$("#frmGral").serialize(true),
+	  	data: "type=addCertificacion"+'&'+$("#frmGral2").serialize(true),
 		beforeSend: function(){			
 			$("#msj").html('Cargando....');
 			$("#btnSaveEncuesta").hide();

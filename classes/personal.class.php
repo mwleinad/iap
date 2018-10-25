@@ -542,7 +542,38 @@ class Personal extends Main
 			return false; 
 		}
 		
+	
+		
+		$sql = "SELECT 
+					* 
+				FROM 
+					role 
+				WHERE 
+					roleId = '".$_POST["positionId"]."'";
+		$this->Util()->DB()->setQuery($sql);
+		$infoRow = $this->Util()->DB()->GetRow();
+		
+		if($infoRow["name"]=="Evaluador" || $infoRow["name"]=="EVALUADOR" ){
+			$this->perfil = "Docente";
+		}		
+		
 		if($_POST["personalId"]){
+			
+		$sql = "SELECT 
+					count(*) 
+				FROM 
+					personal 
+				WHERE 
+					username = '".$this->username."' and personalId <> ".$_POST["personalId"]."";
+		$this->Util()->DB()->setQuery($sql);
+		$countP = $this->Util()->DB()->GetSingle();
+		
+		if($countP >=1){
+				echo "fail[#]";
+				echo "<font color='red'>El usuario ya existe</font>";
+				exit;
+		}
+			
 			$sql = "UPDATE
 					personal SET
 					
@@ -577,6 +608,23 @@ class Personal extends Main
 		$this->Util()->DB()->ExecuteQuery();
 		$personalId = $_POST["personalId"];
 		}else{
+			
+		$sql = "SELECT 
+					count(*) 
+				FROM 
+					personal 
+				WHERE 
+					username = '".$this->username."' ";
+		$this->Util()->DB()->setQuery($sql);
+		$countP = $this->Util()->DB()->GetSingle();
+		
+		if($countP >=1){
+				echo "fail[#]";
+				echo "<font color='red'>El usuario ya existe</font>";
+				exit;
+			}
+			
+			
 			$sql = "INSERT INTO 
 					personal 
 					(						
@@ -1934,6 +1982,46 @@ class Personal extends Main
 			$lastId = $this->Util()->DB()->InsertData();
 		
 		return true;
+	}
+	
+	public function addCertificacionOk(){
+		
+		
+		$sql = "SELECT 
+					count(*) 
+				FROM 
+					user_subject
+				WHERE
+					alumnoId  = ".$_POST["alumnoId"]." and courseId = ".$_POST["courseId"]."";
+		// exit;
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetSingle();
+		
+		if($result >=1){
+			echo "<font color='red'>La certificacion ya se encuentra agregada</font>";
+			exit;
+		}
+		
+		
+		 $sql = "INSERT INTO 
+					user_subject 
+					(						
+						alumnoId, 
+						courseId,
+						status
+					)
+				 VALUES 
+					(						
+						".$_POST["alumnoId"].",
+						".$_POST["courseId"].",
+						'activo'
+					)";
+								
+			$this->Util()->DB()->setQuery($sql);
+			$lastId = $this->Util()->DB()->InsertData();
+			
+		return true;
+		
 	}
 }
 

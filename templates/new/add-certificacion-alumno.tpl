@@ -7,8 +7,9 @@
         </div>
     </div>
     <div class="portlet-body">
-		<form name="frmGral">
-        <select name="certificacion" class="form-control">
+		<form name="frmGral2" id="frmGral2">
+		<input type="hidden" name="alumnoId" value="{$id}">
+        <select name="courseId" class="form-control">
         <option></option>
 		{foreach from=$lstCertificaciones item=item}
 		<option value="{$item.courseId}">{$item.name}</option>
