@@ -54,3 +54,27 @@ function ver(Id){
 
 	
 }//addHeredero
+
+
+function buscarGrupos(){
+	
+	$.ajax({
+	  	type: "POST",
+	  	url: WEB_ROOT+'/ajax/new/usuarios.php',
+	  	data: $("#frmFiltro").serialize(true)+'&type=buscarGrupos',
+		beforeSend: function(){			
+			$("#load").html(LOADER3);
+		},
+	  	success: function(response) {	
+		
+			console.log(response)
+			
+			$("#divGrupos").html(response);
+				
+
+		},
+		error:function(){
+			alert(msgError);
+		}
+    });
+}

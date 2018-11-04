@@ -69,6 +69,15 @@ switch($_POST["type"])
 			}
 	
 	break;
+	
+	case "buscarGrupos":
+	
+		// echo "<pre>"; print_r($_POST);
+		$lstG = $student->gruposCertificacion($_POST["certificacionId"]);
+		 $smarty->assign("lstG", $lstG);
+		$smarty->display(DOC_ROOT.'/templates/lists/select-grupos.tpl');
+	
+	break;
 }
 
 ?>

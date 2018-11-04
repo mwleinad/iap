@@ -71,6 +71,7 @@
 	
 	// echo "<pre>"; print_r($personals);
 	// exit;
+	$smarty->assign('rand', rand());
 	$smarty->assign('personals', $personals);
 	$smarty->assign('lstRol', $lstRol);
 	$smarty->assign('mnuMain','catalogos');

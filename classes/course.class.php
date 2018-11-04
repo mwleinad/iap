@@ -29,6 +29,12 @@
 			$this->numero = $value;	
 		}
 		
+		public function setSubjectId($value)
+		{
+			// $this->Util()->ValidateString($value, 255, 0, 'Nombre ');
+			$this->subjectId = $value;	
+		}
+		
 		public function setName($value)
 		{
 			$this->Util()->ValidateString($value, 255, 0, 'Nombre ');
@@ -377,6 +383,23 @@
 		  return $majorName;
 		  
 		  }
+		  
+		 public function EnumerateCertificacions()
+		{
+			$sql = '
+				SELECT *, major.name AS majorName, subject.name AS name  FROM subject
+				LEFT JOIN major ON major.majorId = subject.tipo
+				where 1 '.$filtro.'
+				ORDER BY 
+				 subject.name
+				
+				';
+			$this->Util()->DB()->setQuery($sql);
+			
+			$result = $this->Util()->DB()->GetResult();
+			
+			return 	$result;
+		}
 		  		  
 		public function EnumerateByPage($currentPage, $rowsPerPage, $pageVar, $pageLink, &$arrPages)
 		{
@@ -429,16 +452,24 @@
 				$rowOffset = 0;
 			}
 			
+			// $sql = '
+				// SELECT *, major.name AS majorName, subject.name AS name  FROM course
+				// LEFT JOIN subject ON course.subjectId = subject.subjectId 
+				// LEFT JOIN major ON major.majorId = subject.tipo
+				// where 1 '.$filtro.'
+				// ORDER BY 
+				// FIELD (major.name,"MAESTRIA","DOCTORADO","CURSO","ESPECIALIDAD") asc, subject.name, modality desc, initialDate desc,  active
+				
+				// LIMIT ' . $rowOffset . ', ' . $rowsPerPage;
+			// exit;
 			$sql = '
-				SELECT *, major.name AS majorName, subject.name AS name  FROM course
-				LEFT JOIN subject ON course.subjectId = subject.subjectId 
+				SELECT *, major.name AS majorName, subject.name AS name  FROM subject
 				LEFT JOIN major ON major.majorId = subject.tipo
 				where 1 '.$filtro.'
 				ORDER BY 
-				FIELD (major.name,"MAESTRIA","DOCTORADO","CURSO","ESPECIALIDAD") asc, subject.name, modality desc, initialDate desc,  active
+				FIELD (major.name,"MAESTRIA","DOCTORADO","CURSO","ESPECIALIDAD") asc, subject.name
 				
 				LIMIT ' . $rowOffset . ', ' . $rowsPerPage;
-			// exit;
 			$this->Util()->DB()->setQuery($sql);
 			
 			$result = $this->Util()->DB()->GetResult();
@@ -604,7 +635,131 @@
 			$subId = $this->Util()->DB()->InsertData();
 				
 
-		 $sql = "INSERT INTO
+		 // $sql = "INSERT INTO
+						// course
+						// ( 	
+						 	// subjectId,
+							// initialDate,
+							// finalDate,
+							// daysToFinish,
+							// `group`,
+							// turn,
+							// scholarCicle,
+							// active,
+							// modality,
+							// libro,
+							// folio,
+							// access,
+							// dias,
+							// horario,
+							// apareceTabla,
+							// listar,
+							// tipo,
+							// numero
+						// )
+					// VALUES (
+							// '" . $subjectId . "',
+							// '" . $this->initialDate . "',
+							// '" . $this->finalDate . "',
+							// '" . $this->daysToFinish . "',
+							// '" . $this->group . "',
+							// '" . $this->turn . "',
+							// '" . $this->scholarCicle . "',
+							// '" . $this->active . "',
+							// '" . $this->modality . "',
+							// '" . $this->libro . "',
+							// '" . $this->folio . "',
+							// '".$this->personalId."|".$this->teacherId."|".$this->tutorId."|".$this->extraId."',
+							// '".$this->dias."',
+							// '".$this->horario."',
+							// '".$this->aparece."',
+							// '".$this->listar."',
+							// '".$this->tipoCuatri."',
+							// '".$this->numero."'
+							// )";
+
+			// $this->Util()->DB()->setQuery($sql);
+			// $result = $this->Util()->DB()->InsertData();
+			// $sql = "INSERT INTO
+							// course_module
+							// ( 	
+								// courseId,
+								// subjectModuleId,
+								// initialDate,
+								// finalDate
+							// )
+						// VALUES (
+								// '" . $result . "',
+								// '" . $subId . "',
+								// '" . $this->initialDate . "',
+								// '" . $this->finalDate . "'
+								// )";
+				// $this->Util()->DB()->setQuery($sql);
+				// $this->Util()->DB()->InsertData();
+		
+			
+		
+			
+			if($subId > 0)
+			{
+				//si el resultado es mayor a cero, se inserto el nuevo registro con exito...se regresara true
+				$result = true;
+				$this->Util()->setError(90000, 'complete', "Se ha abierto un nuevo curso");
+			}
+			else
+			{
+				//si el resultado es cero, no se pudo insertar el nuevo registro...se regresara false
+				$result = false;
+				$this->Util()->setError(90010, 'error');
+			}
+			$this->Util()->PrintErrors();
+			return $result;
+		}
+		
+		
+		public function OpenGrupo()
+		{
+			if($this->Util()->PrintErrors())
+			{
+				return false;
+			}
+			
+			
+		if($this->courseId){
+			
+			$sql = "UPDATE 
+						course
+					SET
+						 
+						subjectId='" 	. $this->subjectId . "',
+						initialDate='" 	. $this->initialDate . "',
+						finalDate='" 	. $this->finalDate . "',
+						daysToFinish='" 	. $this->daysToFinish . "',
+						active='" 	. $this->active . "',
+						`group`='" 	. $this->group . "',
+						turn='" 	. $this->turn . "',
+						scholarCicle='" 	. $this->scholarCicle . "',
+						folio='" 	. $this->folio . "',
+						libro='" 	. $this->libro . "',
+						backDiploma='" 	. $this->backDiploma . "',
+						modality='" 	. $this->modality . "',
+						ponenteText='" 	. $this->ponenteText . "',
+						fechaDiploma='" 	. $this->fechaDiploma . "',
+						dias='".$this->dias."',
+						horario='".$this->horario."',
+						tipo='".$this->tipoCuatri."',
+						apareceTabla='".$this->aparece."',
+						listar='".$this->listar."',
+						numero='".$this->numero."',
+						access='".$this->personalId."|".$this->teacherId."|".$this->tutorId."|".$this->extraId."'
+						WHERE courseId='" . utf8_decode($this->courseId) . "'";
+
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->UpdateData();
+			$subId = 1;
+			
+		}else{
+			$sql = "INSERT INTO
 						course
 						( 	
 						 	subjectId,
@@ -627,7 +782,7 @@
 							numero
 						)
 					VALUES (
-							'" . $subjectId . "',
+							'" . $this->subjectId . "',
 							'" . $this->initialDate . "',
 							'" . $this->finalDate . "',
 							'" . $this->daysToFinish . "',
@@ -646,11 +801,9 @@
 							'".$this->tipoCuatri."',
 							'".$this->numero."'
 							)";
-			//configuramos la consulta con la cadena de insercion
+
 			$this->Util()->DB()->setQuery($sql);
-			//ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
 			$result = $this->Util()->DB()->InsertData();
-			
 			$sql = "INSERT INTO
 							course_module
 							( 	
@@ -668,26 +821,24 @@
 				$this->Util()->DB()->setQuery($sql);
 				$this->Util()->DB()->InsertData();
 		
-			
-		
-			
-			if($result > 0)
+		}	
+				
+
+			if($subId > 0)
 			{
-				//si el resultado es mayor a cero, se inserto el nuevo registro con exito...se regresara true
 				$result = true;
 				$this->Util()->setError(90000, 'complete', "Se ha abierto un nuevo curso");
 			}
 			else
 			{
-				//si el resultado es cero, no se pudo insertar el nuevo registro...se regresara false
 				$result = false;
 				$this->Util()->setError(90010, 'error');
 			}
 			$this->Util()->PrintErrors();
-			return $result;
+			return true;
 		}
 		
-
+		
 		public function Update()
 		{
 			if($this->Util()->PrintErrors())
@@ -696,18 +847,18 @@
 				return false;
 			}
 
-			$sql = '
-				SELECT subjectId FROM course
-				where courseId = '.$this->courseId.'';
-			$this->Util()->DB()->setQuery($sql);
-			$info = $this->Util()->DB()->GetRow();
+			// $sql = '
+				// SELECT subjectId FROM course
+				// where courseId = '.$this->courseId.'';
+			// $this->Util()->DB()->setQuery($sql);
+			// $info = $this->Util()->DB()->GetRow();
 			
 			
 			 $sql = "UPDATE 
 						subject
 					SET
 						name='". $this->name."'
-						WHERE subjectId='".$info["subjectId"]."'";
+						WHERE subjectId='".$_POST["courseId"]."'";
 						
 						// exit;
 			$this->Util()->DB()->setQuery($sql);
@@ -715,35 +866,34 @@
 			
 			//
 
-			$sql = "UPDATE 
-						course
-					SET
+			// $sql = "UPDATE 
+						// course
+					// SET
 						 
-						initialDate='" 	. $this->initialDate . "',
-						finalDate='" 	. $this->finalDate . "',
-						daysToFinish='" 	. $this->daysToFinish . "',
-						active='" 	. $this->active . "',
-						`group`='" 	. $this->group . "',
-						turn='" 	. $this->turn . "',
-						scholarCicle='" 	. $this->scholarCicle . "',
-						folio='" 	. $this->folio . "',
-						libro='" 	. $this->libro . "',
-						backDiploma='" 	. $this->backDiploma . "',
-						modality='" 	. $this->modality . "',
-						ponenteText='" 	. $this->ponenteText . "',
-						fechaDiploma='" 	. $this->fechaDiploma . "',
-						dias='".$this->dias."',
-						horario='".$this->horario."',
-						tipo='".$this->tipoCuatri."',
-						apareceTabla='".$this->aparece."',
-						listar='".$this->listar."',
-						numero='".$this->numero."',
-						access='".$this->personalId."|".$this->teacherId."|".$this->tutorId."|".$this->extraId."'
-						WHERE courseId='" . utf8_decode($this->courseId) . "'";
-			//configuramos la consulta con la cadena de actualizacion
-			$this->Util()->DB()->setQuery($sql);
-			//ejecutamos la consulta y guardamos el resultado, que sera el numero de columnas afectadas
-			$this->Util()->DB()->UpdateData();
+						// initialDate='" 	. $this->initialDate . "',
+						// finalDate='" 	. $this->finalDate . "',
+						// daysToFinish='" 	. $this->daysToFinish . "',
+						// active='" 	. $this->active . "',
+						// `group`='" 	. $this->group . "',
+						// turn='" 	. $this->turn . "',
+						// scholarCicle='" 	. $this->scholarCicle . "',
+						// folio='" 	. $this->folio . "',
+						// libro='" 	. $this->libro . "',
+						// backDiploma='" 	. $this->backDiploma . "',
+						// modality='" 	. $this->modality . "',
+						// ponenteText='" 	. $this->ponenteText . "',
+						// fechaDiploma='" 	. $this->fechaDiploma . "',
+						// dias='".$this->dias."',
+						// horario='".$this->horario."',
+						// tipo='".$this->tipoCuatri."',
+						// apareceTabla='".$this->aparece."',
+						// listar='".$this->listar."',
+						// numero='".$this->numero."',
+						// access='".$this->personalId."|".$this->teacherId."|".$this->tutorId."|".$this->extraId."'
+						// WHERE courseId='" . utf8_decode($this->courseId) . "'";
+
+			// $this->Util()->DB()->setQuery($sql);
+			// $this->Util()->DB()->UpdateData();
 			$result = 1;
 			if($result > 0)
 			{
@@ -1437,8 +1587,8 @@
 				$filtro.= " and us.ciudadt = ".$_POST["tipo"]."";
 			}
 			
-			if($_POST["estatus"]){
-				$filtro.= " and mr.grupo = ".$_POST["estatus"]."";
+			if($_POST["grupos"]){
+				$filtro.= " and c.group = '".$_POST["grupos"]."'";
 				
 			}
 			

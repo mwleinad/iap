@@ -21,7 +21,7 @@
 					<td>{$item.name}</td>
 					<td>
 				
-					<input type="checkbox" name="chek_{$item.courseModuleId}" id="" 	{if $item.countModule >0} checked {/if} >
+					<input type="checkbox" name="chek_{$item.subjectId}" id="" 	{if $item.countModule >0} checked {/if} >
 					</td>
 				</tr>
 				{/foreach}

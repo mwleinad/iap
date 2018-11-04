@@ -11,6 +11,7 @@
     </div>
     <div class="portlet-body">
 		<form id="frmBuscar" >
+		<div style="display:-webkit-inline-box">
 		<input type="hidden" name="type" value="buscarPersonal">
 		Rol:<select name="role" class="form-control" style="width:200px">
 			<option></option>
@@ -21,6 +22,7 @@
 		</select>
 		Nombre:<input type="text" name="nombre" class="form-control" style="width:200px">
         </form>
+		</div>
 		<button type="button" class="btn green submitForm" onclick="buscarPersonal()">Buscar</button>
 		<div id="tblContent">{include file="lists/personal.tpl"}</div>
     </div>

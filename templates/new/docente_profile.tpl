@@ -75,10 +75,10 @@
                                 <i class="icon-settings"></i> Información Personal </a>
                         </li>-->
 
-						<li>
-						<a href="{$WEB_ROOT}/usuarios" ><!--onClick="verCalendario()"-->
+						<li><!--
+						<a href="{$WEB_ROOT}/usuarios" >
 						  <i class="fa fa-file-text" aria-hidden="true"></i>Candidatos
-						</a>
+						</a>-->
 						</li>
 						<!--<li>
 						
@@ -232,12 +232,12 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <!-- BEGIN PORTLET 
+                    <!-- BEGIN PORTLET -->
                     <div class="portlet light ">
                         <div class="portlet-title">
                             <div class="caption caption-md">
                                 <i class="icon-bar-chart theme-font hide"></i>
-                                <span class="caption-subject font-blue-madison bold uppercase">Curricula Activa</span>
+                                <span class="caption-subject font-blue-madison bold uppercase">Certificaciones</span>
                             </div>
                         </div>
                         <div class="portlet-body">
@@ -246,38 +246,22 @@
                                     <thead>
                                     <tr class="uppercase">
                                         
-                                        <th style="text-align: center"> Tipo </th>
                                         <th style="text-align: center"> Nombre </th>
-										 <th style="text-align: center"> Grupo </th>
-                                        <th style="text-align: center"> Modalidad </th>
-                                        <th style="text-align: center"> Fecha Inicial </th>
-                                        <th style="text-align: center"> Fecha Final </th>
-{*
-                                        <th style="text-align: center"> Pagos </th>
-*}
-                                        
-                                        <th style="text-align: center"> Modulos </th>
+
                                        
                                         <th style="text-align: center"> Acciones </th>
                                     </tr>
                                     </thead>
-                                    {foreach from=$activeCourses item=subject}
+                                    {foreach from=$resu item=subject}
                                     <tr>
                                        
-                                        <td align="center">{$subject.majorName}</td>
                                         <td align="center">{$subject.name}</td>
-										  <td align="center">{$subject.group}
-                                        <td align="center">{$subject.modality}</td>
-                                        <td align="center">{$subject.initialDate|date_format:"%d-%m-%Y"}</td>
-                                        <td align="center">{$subject.finalDate|date_format:"%d-%m-%Y"}</td>
-                                     
-{*
-                                        <td align="center">{$subject.payments}</td>
-*}
-                                        <td align="center">{$subject.courseModule}
-                                      
+
+
+
+                                    
                                         <td align="center">
-                                            <a href="{$WEB_ROOT}/graybox.php?page=view-modules-course-student&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
+                                            <a href="{$WEB_ROOT}/usuarios/id/{$subject.subjectId}" >
                                             <i class="fa fa-sign-in fa-lg"></i>
                                             </a>
                                         </td>
@@ -293,7 +277,7 @@
                             </div>
                         </div>
                     </div>
-                   -->
+                   
                 </div>
             </div>
 

@@ -10,7 +10,16 @@
 		</a>
 		</td>        
         <td>&nbsp;
-		<img src="{$WEB_ROOT}/images/docente/fotografia/{$item.foto}" style="max-width:40px">
+		{if $item.foto eq ""}
+				<img src="{$WEB_ROOT}/images/iap.jpg" style="max-width:40px">
+		{else}
+		
+			
+			<a href="{$WEB_ROOT}/graybox.php?page=ver-foto&id={$item.foto}" data-target="#ajax" data-toggle="modal">
+			<img src="{$WEB_ROOT}/images/docente/fotografia/{$item.foto}?{$rand}" style="max-width:40px">
+			</a>
+		{/if}
+		
 		</td>
         <td align="center">     
 

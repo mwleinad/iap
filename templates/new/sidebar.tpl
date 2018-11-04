@@ -41,7 +41,7 @@
 {if !$docente}
 {if $vistaPrevia ne 1}
         
-        <li class="nav-item {if  $page == "personal1" || $page == "major" || $page == "student"  || $page == "usuarios" || $page == "role" || $page == "history-subject"  || $page == "configuracion-examen"} active {/if} ">
+        <li class="nav-item {if  $page == "personal1" || $page == "role"} active {/if} ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-diamond"></i>
                 <span class="title">Catálogos</span>
@@ -61,21 +61,7 @@
                     </a>
                 </li>
 				{/if}
-				<li class="nav-item  ">
-                    <a href="{$WEB_ROOT}/student" class="nav-link ">
-                        <span class="title">Solicitudes</span>
-                    </a>
-                </li>
-				<li class="nav-item  ">
-                    <a href="{$WEB_ROOT}/prueba" class="nav-link ">
-                        <span class="title">prueba</span>
-                    </a>
-                </li>
-				<li class="nav-item  ">
-                    <a href="{$WEB_ROOT}/usuarios" class="nav-link ">
-                        <span class="title">Usuarios</span>
-                    </a>
-                </li>
+			
 				<!--
                 <li class="nav-item  ">
                     <a href="{$WEB_ROOT}/student" class="nav-link ">
@@ -102,21 +88,7 @@
                             </a>
                         </li>-->
 						{/if}
-				<li class="nav-item  ">
-                            <a href="{$WEB_ROOT}/history-subject" class="nav-link ">
-                                <span class="title">Certificaciones</span>
-                            </a>
-                        </li>
-						<li class="nav-item  ">
-                            <a href="{$WEB_ROOT}/reporte-region" class="nav-link ">
-                                <span class="title">Reporte</span>
-                            </a>
-                        </li>
-						<li class="nav-item  ">
-                            <a href="{$WEB_ROOT}/reporte-b" class="nav-link ">
-                                <span class="title">Reporte B</span>
-                            </a>
-                        </li>
+				
 				<!--
                 <li class="nav-item  ">
                     <a href="{$WEB_ROOT}/profesion" class="nav-link ">
@@ -132,7 +104,69 @@
 			 {/if}
             </ul>
         </li>
-       
+		<li class="nav-item {if  $page == "grupos" || $page == "history-subject"} active {/if} ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-diamond"></i>
+                <span class="title">Certificaciones</span>
+                <span class="arrow"></span>
+            </a>
+			<ul class="sub-menu">
+			<li class="nav-item  ">
+                            <a href="{$WEB_ROOT}/history-subject" class="nav-link ">
+                                <span class="title">Certificaciones</span>
+                            </a>
+                        </li>
+						<li class="nav-item  ">
+                            <a href="{$WEB_ROOT}/grupos" class="nav-link ">
+                                <span class="title">Grupos</span>
+                            </a>
+                        </li>
+			</ul>
+		</li>	
+       <li class="nav-item {if  $page == "student" || $page == "usuarios"} active {/if} ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-diamond"></i>
+                <span class="title">Candidatos</span>
+                <span class="arrow"></span>
+            </a>
+			<ul class="sub-menu">
+				<li class="nav-item  ">
+                    <a href="{$WEB_ROOT}/student" class="nav-link ">
+                        <span class="title">Solicitudes</span>
+                    </a>
+                </li>
+				<li class="nav-item  ">
+                    <a href="{$WEB_ROOT}/usuarios" class="nav-link ">
+                        <span class="title">Usuarios</span>
+                    </a>
+                </li>
+			</ul>
+		</li>	
+		
+		 <li class="nav-item {if  $page == "reporte-region" || $page == "reporte-b"} active {/if} ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-diamond"></i>
+                <span class="title">Reportes</span>
+                <span class="arrow"></span>
+            </a>
+			<ul class="sub-menu">
+				<li class="nav-item  ">
+                    <a href="{$WEB_ROOT}/reporte-b" class="nav-link ">
+                        <span class="title">Reporte B</span>
+                    </a>
+                </li>
+				<li class="nav-item  ">
+                            <a href="{$WEB_ROOT}/reporte-region" class="nav-link ">
+                                <span class="title">Reporte</span>
+                            </a>
+                 </li>
+				 <li class="nav-item  ">
+					<a href="{$WEB_ROOT}/log" class="nav-link ">
+						<span class="title">Log</span>
+					</a>
+                 </li>
+			</ul>
+		</li>
         {/if}
         {/if}
 

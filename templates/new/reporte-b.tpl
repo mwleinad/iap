@@ -19,6 +19,7 @@
 
         {include file="boxes/status_no_ajax.tpl"}
 		<form id='frmFiltro'>
+		
 			
 			<div style="float:left">Municipio<br>
 				<select name='tipo' class="form-control" style="width:150px; float:left">
@@ -28,6 +29,20 @@
 				{/foreach}
 				</select>
 			</div>
+			<div style="float:left">Certificaciones
+			 <select name="certificacionId" class="form-control" style="width:100px" onChange="buscarGrupos()">
+				<option></option>
+				{foreach from=$lstCertificaciones item=item key=key}
+				<option value="{$item.subjectId}">{$item.name}</option>
+				{/foreach}
+			 </select>
+			</div>
+			<div style="float:left">
+			Grupos
+				<div id="divGrupos">
+				</div>
+			</div>
+			<!--
 			<div style="float:left">Grupo<br>
 				<select name='estatus' class="form-control" style="width:150px;  float:left">
 				<option></option>
@@ -36,7 +51,7 @@
 				<option>3</option>
 				<option>4</option>
 				</select>
-			</div>
+			</div>-->
 			<!--<div style="float:left">Certificaciones<br>
 				<select name='tipo' class="form-control" style="width:150px; float:left">
 				<option></option>

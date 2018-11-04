@@ -11,7 +11,7 @@
 <div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
-            <i class="fa fa-bullhorm"></i>Usuarios
+            <i class="fa fa-bullhorm"></i>Log
         </div>
 
 
@@ -39,7 +39,7 @@
 	
 	 
     <div class="portlet-body" > 
-	<form id="frmBuscar">
+	<!--<form id="frmBuscar">
 	<div style="display:-webkit-inline-box">
 	Certificaciones
 	 <select name="certificacionId" class="form-control" style="width:100px" onChange="buscarGrupos()">
@@ -68,8 +68,8 @@
 	 </div>
 	 </div>
 	 </form>
-	   <button type="submit" class="btn green submitForm" onClick="buscarCertificacion()">Buscar</button>
-        <div id="tblContent">{include file="lists/usuarios.tpl"}</div>
+	   <button type="submit" class="btn green submitForm" onClick="buscarCertificacion()">Buscar</button>-->
+        <div id="tblContent">{include file="lists/log.tpl"}</div>
 
     </div>
         

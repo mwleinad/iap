@@ -12,6 +12,7 @@
 				<thead>      
 					 <tr>
 						<th width="" height="28">Nombre</th>		
+						<th width="" height="28">Grupo</th>		
 						<th width="" height="28">Numero</th>		
 						<th width="" height="28">Municipio</th>		
 						<th width="" height="28">Acciones</th>		
@@ -22,6 +23,7 @@
 				
 				    <tr>
 					<td align="center" class="id">{$item.certificacion}</td>       
+					<td align="center" class="id">{$item.group}</td>       
 					<td align="center" class="id">{$item.numero}</td>       
 					<td align="center" class="id">{$item.municipio}</td>       
 					<td align="center" class="id">

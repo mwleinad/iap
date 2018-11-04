@@ -222,13 +222,12 @@
 							
 			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetRow();				
-			$sql = "SELECT 
-						* 
-					FROM
-						activity
-					WHERE
-							courseModuleId = '" . $this->courseModuleId . "'";
-							// exit;
+			$sql = "SELECT * 
+				FROM course c
+				LEFT JOIN subject AS s ON s.subjectId = c.subjectId
+				LEFT JOIN activity AS a ON a.subjectId = s.subjectId
+				WHERE c.courseId = '" . $this->courseModuleId . "'";
+											// exit;
 			$this->Util()->DB()->setQuery($sql);
 			$infoActivity = $this->Util()->DB()->GetRow();
 

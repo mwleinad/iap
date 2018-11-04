@@ -1062,28 +1062,21 @@
 				SELECT activityId,cm.courseModuleId from activity as a
 				left join course_module as cm on cm.courseModuleId = a.courseModuleId
 				left join course as c on c.courseId = cm.courseId
-				WHERE c.courseId = ".$Id.""; 
+				WHERE a.subjectId = ".$Id.""; 
 				// exit;
 			$this->Util()->DB()->setQuery($sql);
 			$count = $this->Util()->DB()->GetRow();	
 			
 			if($count["activityId"]==null){
-				
-				$sql ="
-				SELECT * from course_module as a
-				left join course as c on c.courseId = a.courseId
-				WHERE c.courseId = ".$Id.""; 
-				// exit;
-			$this->Util()->DB()->setQuery($sql);
-			$counte = $this->Util()->DB()->GetRow();	
+					
 				
 				$sql = "INSERT INTO
 						activity
 						( 	
-							courseModuleId 
+							subjectId 
 						)
 					VALUES (
-							'".$counte['courseModuleId']."'
+							'".$Id."'
 							)";
 				// exit;			
 				$this->Util()->DB()->setQuery($sql);

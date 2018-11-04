@@ -208,7 +208,9 @@ $pages = array(
     'envia-info',
     'reporte-region',
     'reporte-b',
-    'prueba'
+    'prueba',
+    'grupos',
+    'log'
 	
 	
 	

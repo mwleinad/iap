@@ -218,7 +218,9 @@ $pages = array(
 	'add-calificador',
 	'add-doc',
 	'add-evaluar',
-	'add-certificacion-alumno'
+	'add-certificacion-alumno',
+	'add-grupos',
+	'ver-foto'
 
 );
 

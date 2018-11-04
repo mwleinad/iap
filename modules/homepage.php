@@ -19,7 +19,7 @@ $x=0;
 	// $x=1;
 	
 	//}	
-//  	print_r($_SESSION);exit;
+ 	// echo "<pre>"; print_r($_SESSION);exit;
 	
 		$smarty->assign("x",$x);	
 	$user->allow_access();	
@@ -78,6 +78,15 @@ $x=0;
 	$smarty->assign('msjCc', $_SESSION['msjCc']);
 		unset($_SESSION['msjC']);
 		unset($_SESSION['msjCc']);
+		
+	if($_SESSION["User"]["type"]=="Docente"){
+		
+		$resu=$student->certificacionesEval($_SESSION["User"]["userId"]);	
+	}	
+	
+// echo "<pre>"; print_r($resu);
+	// exit;	
+	$smarty->assign('resu', $resu);
 	// echo '<pre>'; print_r($lstEstados);
 	// exit;
 	/*

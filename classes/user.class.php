@@ -1255,7 +1255,22 @@ class User extends Main
 			$card['type'] =  $row['perfil'];
 			$_SESSION['User'] = $card;
 			$_SESSION['empresaId'] = 15;
-			$_SESSION["lastClick"] = time();			
+			$_SESSION["lastClick"] = time();	
+
+			$sqlQuery = 'INSERT INTO 
+							log 
+							(
+								userId, 
+								tipo
+							)
+							VALUES
+							(
+								"'.$row['personalId'].'",
+								"personal"
+							)';
+			$this->Util()->DB()->setQuery($sqlQuery);
+			$this->Util()->DB()->InsertData();
+			
 			return true;
 			
 		}else{
@@ -1288,7 +1303,22 @@ class User extends Main
 						$card['activo'] = $row['activo'];
 						$card['isLogged'] = true;
 						$_SESSION['User'] = $card;
-						$_SESSION["lastClick"] = time();							
+						$_SESSION["lastClick"] = time();	
+
+							$sqlQuery = 'INSERT INTO 
+							log 
+							(
+								userId, 
+								tipo
+							)
+							VALUES
+							(
+								"'.$row['userId'].'",
+								"alumno"
+							)';
+			$this->Util()->DB()->setQuery($sqlQuery);
+			$this->Util()->DB()->InsertData();
+						
 						return $row['userId'];
 					}else{
 						$this->Util()->setError(10057, "error", "");

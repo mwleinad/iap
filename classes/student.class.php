@@ -1487,6 +1487,11 @@ class Student extends User
 			  ";
 		}
 		
+		if($_POST["grupos"]){
+			
+			$filtro .= " and cs.group = '".$_POST["grupos"]."'";
+		}
+		
 		$sqlQuery = "
 				SELECT 
 					count(*)
@@ -3304,7 +3309,8 @@ class Student extends User
 				c.courseId,
 				m.nombre as municipio,
 				c.numero,
-				at.activityId
+				at.activityId,
+				c.group
 			FROM 
 				user_subject as u
 			left join course as c on c.courseId = u.courseId 
@@ -3511,6 +3517,40 @@ class Student extends User
 				// exit;
 				
 		return $result;
+		
+	}
+	
+	public function gruposCertificacion($Id){
+		
+		 $sql = "
+					SELECT 
+						*
+					FROM 
+						course as u
+					WHERE subjectId = ".$Id.""; 
+				$this->Util()->DB()->setQuery($sql);
+				$result = $this->Util()->DB()->GetResult();
+				
+				
+		return $result ;
+		
+		
+	}
+	
+	public function certificacionesEval($Id){
+		
+		$sql = "
+					SELECT 
+						*
+					FROM 
+						personal_subject as p
+					left join subject as s on s.subjectId = p.subjectId 
+					WHERE personalId = ".$Id.""; 
+				$this->Util()->DB()->setQuery($sql);
+				$result = $this->Util()->DB()->GetResult();
+				
+				
+		return $result ;
 		
 	}
 	

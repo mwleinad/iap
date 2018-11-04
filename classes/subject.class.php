@@ -464,10 +464,14 @@ public function Enumerate_p(){
 			
 			foreach($result as $key=>$aux){
 				
-				 $sql = "
-					SELECT COUNT(*) FROM course_module_personal WHERE personalId = '".$_POST["id"]."' and courseModuleId = ".$aux["courseModuleId"]."";
-				// exit;
+				if($aux["subjectId"]==null){
+					
+					$aux["subjectId"] = 0;
+				}
 				
+				 $sql = "
+					SELECT COUNT(*) FROM personal_subject WHERE personalId = '".$_POST["id"]."' and subjectId = ".$aux["subjectId"]."";
+
 				$this->Util()->DB()->setQuery($sql);
 				$result[$key]["countModule"] = $this->Util()->DB()->GetSingle();
 				
@@ -1159,7 +1163,7 @@ public function Enumerate_p(){
 		public function Info()
 		{
 			//creamos la cadena de seleccion
-			$sql = "SELECT 
+			 $sql = "SELECT 
 						* 
 					FROM
 						subject
@@ -1575,6 +1579,32 @@ public function Enumerate_p(){
 			
 			return $lst ;
 	}
+	
+	public function enumerateLog(){
+		
+		$sqlQuery = '
+			SELECT 
+
+			concat_ws(" ",name,lastname_paterno,lastname_materno) as personal
+			,concat_ws(" ",u.names,u.lastNamePaterno,u.lastNameMaterno,lastNamePaterno) as alumno
+			,
+			l.fecha,
+			l.tipo
+			FROM
+				log l
+			left join personal as p on (p.personalId = l.userId and l.tipo ="personal") 
+			left join user as u on (u.userId = l.userId and l.tipo ="alumno") 
+			WHERE 1';
+			$this->Util()->DB()->setQuery($sqlQuery);			
+		
+			$lst = $this->Util()->DB()->GetResult();
+			
+			$data["result"] =$lst;
+			
+			return $data ;
+		
+	}
+	
 	
 }	
 ?>

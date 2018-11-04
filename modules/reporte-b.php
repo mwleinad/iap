@@ -7,7 +7,7 @@
 	
 	
 	
-	
+		$lstCertificaciones = $subject->Enumerate();
 	
 	$lstSolicitudes = $student->cargarCiudades(7);
 	$result = $course->reporteB();
@@ -21,6 +21,7 @@
 	$smarty->assign('lstMajor', $lstMajor);
 	$smarty->assign('result', $result);
 	$smarty->assign('lstSolicitudes', $lstSolicitudes);
+	$smarty->assign('lstCertificaciones', $lstCertificaciones);
 	$smarty->assign('arrPage', $arrPage);
 	$smarty->assign('coursesCount', $coursesCount);
 	// -------------------------------------------------------------------------------------------------

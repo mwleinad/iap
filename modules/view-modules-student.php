@@ -21,8 +21,7 @@
 			$resEstadoisticas = $test->estadisticas($myModule["infoActivity"]["activityId"],$_SESSION['User']['userId']);
 		}
 		
-		// echo $_SESSION['User']['userId'];
-		// exit;
+
 		$test->setActivityId($myModule["infoActivity"]["activityId"]);
 		$myTest = $test->Enumerate($verResultado,$_SESSION['User']['userId']);
 	}

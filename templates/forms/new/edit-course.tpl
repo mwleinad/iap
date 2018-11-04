@@ -1,5 +1,5 @@
-<form id="editSubjectForm" name="editSubjectForm" method="post" class="form-horizontal" action="{$WEB_ROOT}/edit-course/id/{$post.courseId}">
-    <input type="hidden" id="courseId" name="courseId" value="{$post.courseId}"/>
+<form id="editSubjectForm" name="editSubjectForm" method="post" class="form-horizontal" action="{$WEB_ROOT}/edit-course/id/{$id}">
+    <input type="hidden" id="courseId" name="courseId" value="{$id}"/>
     <div class="form-body">
 
         <div class="form-group">
@@ -18,6 +18,7 @@
                  <input type="text" name="nombre" id="nombre"  class="form-control" value="{$post.name}"/>
             </div>
         </div>
+		<!--
 		<div class="form-group">
             <label class="col-md-3 control-label">Numero:</label>
             <div class="col-md-8">
@@ -170,7 +171,7 @@
                 </select >
             </div>
         </div>
-    </div>
+    </div>-->
     <div class="form-actions">
         <div class="row">
             <div class="col-md-offset-3 col-md-9">

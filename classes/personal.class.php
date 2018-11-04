@@ -1934,10 +1934,10 @@ class Personal extends Main
 
 			
 			 $sql = "INSERT INTO 
-					course_module_personal 
+					personal_subject
 					(						
 						personalId, 
-						courseModuleId
+						subjectId
 					)
 				 VALUES 
 					(						
