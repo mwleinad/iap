@@ -1563,18 +1563,21 @@ public function Enumerate_p(){
 		return $lst;
 	}
 	
-	public function extraeCalificador(){
+	public function extraeCalificador($Id){
 		
 		$sqlQuery = '
 			SELECT 
-				p.*
+				p.*,
+				(select count(*) from personal_subject p1 where p1.personalId = p.personalId and p1.subjectId = '.$Id.') as seleccion
 			FROM
 				personal as p
 			left join personal_role as pr on pr.personalId = p.personalId
 			left join role as r on r.roleId = pr.roleId
-			WHERE 1 and r.name="Evaluador" group by p.personalId order by lastname_paterno';
+			WHERE 1
+			and (select count(*) from personal_subject p1 where p1.personalId = p.personalId and p1.subjectId = '.$Id.') >0
+			and r.name="Evaluador" group by p.personalId order by lastname_paterno';
 			$this->Util()->DB()->setQuery($sqlQuery);			
-		
+		// exit;
 			$lst = $this->Util()->DB()->GetResult();
 			
 			return $lst ;
@@ -1594,7 +1597,7 @@ public function Enumerate_p(){
 				log l
 			left join personal as p on (p.personalId = l.userId and l.tipo ="personal") 
 			left join user as u on (u.userId = l.userId and l.tipo ="alumno") 
-			WHERE 1';
+			WHERE 1 order by fecha desc';
 			$this->Util()->DB()->setQuery($sqlQuery);			
 		
 			$lst = $this->Util()->DB()->GetResult();

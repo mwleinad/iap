@@ -11,6 +11,8 @@
         <td align="center">{if $item.aprobado eq 'si'} Aprobado{else if $item.aprobado eq 'no'} No aprobado {else} Sin asignar{/if}</td>
         <td align="center">{$item.countRepositorio}/4</td>
         <td align="center">   
+	
+		{if $tipoUs ne "Docente"}
 		<a href="{$WEB_ROOT}/graybox.php?page=envia-info&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px" title="ENVIAR DATOS DE REGISTRO">
 		<i class="material-icons">
 		mail
@@ -26,6 +28,7 @@
 			dashboard
 		</i>	
 		</a>
+		{/if}
 		<a href="{$WEB_ROOT}/graybox.php?page=add-doc&id={$item.userId}&auxTpl=1&cId={$item.subjectId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="AGREGAR PLAN">
 		<i class="material-icons">
 		calendar_today
@@ -46,7 +49,7 @@
 			description
 			</i>
 		</a>
-		<a href="{$WEB_ROOT}/graybox.php?page=add-evaluar&id={$item.userId}&auxTpl=4&cId={$item.courseId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="AGREGAR PRODUCTOS">
+		<a href="{$WEB_ROOT}/graybox.php?page=add-evaluar&id={$item.userId}&auxTpl=4&cId={$item.courseId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="EVALUAR">
 					<i class="material-icons">
 			school
 			</i>
@@ -56,12 +59,13 @@
 				picture_in_picture
 				</i>
 		</a> 
-		
+			{if $tipoUs ne "Docente"}
 		<a href="{$WEB_ROOT}/graybox.php?page=add-certificacion-alumno&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px" title="AGREGAR CERTIFICACION">
 				<i class="material-icons">
 				folder_special
 				</i>
 		</a> 
+		{/if}
 		<!--
 		<!--
 		{if $page == "course-student"}

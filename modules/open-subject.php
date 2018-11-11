@@ -49,7 +49,7 @@
 		// $course->setNumero($_POST["numero"]);
 
 		$course->Open();
-
+		header('Location: history-subject'); 
 		//TODO add heeder location when we finish the template change
 
 	}

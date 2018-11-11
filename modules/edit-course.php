@@ -48,6 +48,7 @@
 		$course->setName($_POST["nombre"]);
 		// $course->setNumero($_POST["numero"]);
 		$course->Update();
+		header('Location: ../../history-subject'); 
 	}
 	$rsubjects =$major->Enumerate();
 	$cursos = $subject->Enumerate();

@@ -13,13 +13,14 @@
             </div>
         </div>
 	
-		
+		<!--
 		<div class="form-group">
             <label class="col-md-3 control-label">Numero:</label>
             <div class="col-md-8">
                  <input type="text" name="numero" id="numero"  class="form-control" value="{$post.numero}"/>
             </div>
-        </div>
+        </div>-->
+		<!--
         <div class="form-group">
             <label class="col-md-3 control-label">Modalidad:</label>
             <div class="col-md-8">
@@ -28,7 +29,7 @@
                     <option value="Online" {if $post.modality == "Online"} selected="selected"{/if}>Online</option>
                 </select>
             </div>
-        </div>
+        </div>-->
 
         <div class="form-group">
             <label class="col-md-3 control-label">Fecha Inicial:</label>
@@ -43,13 +44,13 @@
                 <input type="text" name="finalDate" id="finalDate" size="10"  class="form-control date-picker" value="{$post.finalDate}" />
             </div>
         </div>
-
+<!--
         <div class="form-group">
             <label class="col-md-3 control-label"> Dias para terminar:</label>
             <div class="col-md-8">
                 <input type="text" name="daysToFinish" id="daysToFinish" class="form-control" value="{$post.daysToFinish}"/>
             </div>
-        </div>
+        </div>-->
 
         <div class="form-group">
             <label class="col-md-3 control-label">Personal Administrativo Asignado:</label>
@@ -57,7 +58,7 @@
                 <select name="personalId" id="personalId" class="form-control">
                 <option value="-1">Seleccione...</option>
                 {foreach from=$empleados item=personal}
-                    <option value="{$personal.personalId}" {if $post.access.0 == $personal.personalId} selected="selected"{/if}>{$personal.lastname_paterno} {$personal.lastname_materno} {$personal.name}</option>
+                    <option value="{$personal.personalId}" {if $post.access.0 == $personal.personalId} selected="selected"{/if}>{$personal.nombrePersona}</option>
                 {/foreach}
             </select>
             </div>
@@ -79,7 +80,7 @@
                 <input type="text" name="group" id="group" value="{$post.group}"  class="form-control"/>
             </div>
         </div>
-
+<!--
         <div class="form-group">
             <label class="col-md-3 control-label"> Turno:</label>
             <div class="col-md-8">
@@ -120,7 +121,7 @@
             <div class="col-md-8">
                 <input type="text" name="horario" id="horario" value="{$post.horario}"  class="form-control"/>
             </div>
-        </div>
+        </div>-->
 		<div class="form-group">
             <label class="col-md-3 control-label"> Aparece en Tabla:</label>
             <div class="col-md-8">
@@ -132,7 +133,7 @@
             <div class="col-md-8">
                 <input type="checkbox" name="listar" id="listar"   class="form-control" {if $post.listar eq 'si'} checked {/if}/>
             </div>
-        </div>
+        </div><!--
 		<div class="form-group">
             <label class="col-md-3 control-label">Tipo:</label>
             <div class="col-md-8">
@@ -142,7 +143,7 @@
 					<option {if $post.tipoCuatri == "Semestre"} selected="selected"{/if}>Semestre</option>
                 </select >
             </div>
-        </div>
+        </div>-->
     </div>
    
 </form>

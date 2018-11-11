@@ -8,6 +8,8 @@
 	
 	
 	
+	$lstC = $course->EnumerateCertificacions();
 	$resultC = $course->EnumerateCourse();
+	$smarty->assign('lstC', $lstC);
 	$smarty->assign('resultC', $resultC);
 ?>

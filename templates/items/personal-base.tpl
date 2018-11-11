@@ -36,7 +36,7 @@
 			{if $item.firmaConstancia eq 'si'}
 			<img src="images/pointer.png?sd"   title="FIRMA CONSTANCIAS" />
 			{/if}
-			{if $item.roleName eq 'Evaluador'}
+			{if $item.roleName eq 'Evaluador' && $item.estatus ne "eliminado"}
 			<img src="images/icons/cats.png"  class="spanAgregarCertificacion" id="{$item.personalId}" title="AGREGAR CERTIFICACION" />
 			{/if}
         </td>

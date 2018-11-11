@@ -18,7 +18,8 @@
 			<span class="reqField">*</span>
 			</td>
 			<td>
-				<select name="noQuestions" id="noQuestions" class="form-control" style="width:150px" >
+				<input type="number" name="noQuestions" id="noQuestions" class="form-control" style="width:150px">
+				<!--<select  >
 					<option value="4" {if $activity.noQuestions == 4} selected="selected" {/if}>4</option>
 					<option value="5" {if $activity.noQuestions == 5} selected="selected" {/if}>5</option>
 					<option value="10" {if $activity.noQuestions == 10} selected="selected" {/if}>10</option>
@@ -26,7 +27,7 @@
 					<option value="25" {if $activity.noQuestions == 25} selected="selected" {/if}>25</option>
 					<option value="50" {if $activity.noQuestions == 50} selected="selected" {/if}>50</option>
 					<option value="100" {if $activity.noQuestions == 100} selected="selected" {/if}>100</option>
-				</select>
+				</select>-->
 				<span class="reqField">*</span>
 			</td>
 		</tr>

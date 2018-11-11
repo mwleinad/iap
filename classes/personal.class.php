@@ -383,6 +383,7 @@ class Personal extends Main
 		
 		$sql = "SELECT 
 					*,
+					concat_ws(' ',p.name,p.lastname_materno,p.lastname_paterno) as nombrePersona,
 					p.name as nombrePersonal,
 					ro.name as roleName,
 					(select count(*) from usuario_personal as usub where usub.personalId = p.personalId) as numCandidatos,
@@ -895,13 +896,13 @@ class Personal extends Main
 		// $this->Util()->DB()->setQuery($sql);
 		// $this->Util()->DB()->ExecuteQuery();
 		
-		$sql = "DELETE FROM 
-					personal_role
-				WHERE 
-					personalId = ".$this->personalId;
+		// $sql = "DELETE FROM 
+					// personal_role
+				// WHERE 
+					// personalId = ".$this->personalId;
 							
-		$this->Util()->DB()->setQuery($sql);
-		$this->Util()->DB()->ExecuteQuery();
+		// $this->Util()->DB()->setQuery($sql);
+		// $this->Util()->DB()->ExecuteQuery();
 		
 		$this->Util()->setError(10032, "complete");
 		$this->Util()->PrintErrors();
@@ -1923,7 +1924,7 @@ class Personal extends Main
 	public function saveGuardarCertificacion(){
 		
 		
-		$sql = 'DELETE FROM course_module_personal WHERE personalId = '.$_POST["personalId"];
+		$sql = 'DELETE FROM personal_subject WHERE personalId = '.$_POST["personalId"];
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->ExecuteQuery();
 		

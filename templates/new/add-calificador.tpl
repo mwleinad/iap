@@ -15,7 +15,7 @@
 		<select name="personalId" id="" class="form-control">
 			<option></option>
 			{foreach from=$lstCalificador  item=item}
-			<option value="{$item.personalId}">{$item.name} {$item.lastname_paterno} {$item.lastname_materno}</option>
+			<option value="{$item.personalId}"  {if $item.seleccion > 0} selected {/if}  >{$item.name} {$item.lastname_paterno} {$item.lastname_materno}</option>
 			{/foreach}
 		</select>
 	  

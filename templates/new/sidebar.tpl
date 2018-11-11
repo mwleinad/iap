@@ -52,7 +52,7 @@
 				{if $AccessMod[38] != 1}
                 <li class="nav-item  ">
                     <a href="{$WEB_ROOT}/major" class="nav-link ">
-                        <span class="title">Programas Académicos</span>
+                        <span class="title">Tipos de Cursos</span>
                     </a>
                 </li>
                 <li class="nav-item  ">

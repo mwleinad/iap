@@ -467,7 +467,7 @@
 				LEFT JOIN major ON major.majorId = subject.tipo
 				where 1 '.$filtro.'
 				ORDER BY 
-				FIELD (major.name,"MAESTRIA","DOCTORADO","CURSO","ESPECIALIDAD") asc, subject.name
+				subjectId desc
 				
 				LIMIT ' . $rowOffset . ', ' . $rowsPerPage;
 			$this->Util()->DB()->setQuery($sql);
@@ -550,10 +550,17 @@
 		public function EnumerateCourse()
 		{
 			
+			// echo "<pre>"; print_r($_POST);
+			// exit;
 			$filtro = "";
 			
 			if($this->aparece){
 				$filtro .= " and course.apareceTabla ='si'";
+			}
+			
+			if($_POST["curricula"]){
+				
+					$filtro .= " and subject.subjectId =".$_POST["curricula"]."";
 			}
 			
 			
@@ -617,7 +624,7 @@
 						)
 					VALUES (
 							'" . $this->name . "',
-							'" . $this->getSubjectId() . "'
+							'" .$_POST["subjectId"]. "'
 							)";
 			$this->Util()->DB()->setQuery($sql);
 			$subjectId = $this->Util()->DB()->InsertData();
@@ -629,7 +636,7 @@
 						 	subjectId
 						)
 					VALUES (
-							'" . $subjectId. "'
+							'" .$_POST["subjectId"]. "'
 							)";
 			$this->Util()->DB()->setQuery($sql);
 			$subId = $this->Util()->DB()->InsertData();
@@ -899,15 +906,15 @@
 			{
 				//si el resultado es mayor a cero, se actualizo el registro con exito
 				$result = true;
-				$this->Util()->setError(90002,'complete', 'El curso se ha actualizado correctamente');
+				// $this->Util()->setError(90002,'complete', 'El curso se ha actualizado correctamente');
 			}
 			else
 			{
 				//si el resultado es cero, no se pudo modificar el registro...se regresa false
-				$result = false;
-				$this->Util()->setError(90011,'error', "No se pudo modificar el curso");
+				// $result = false;
+				// $this->Util()->setError(90011,'error', "No se pudo modificar el curso");
 			}
-			$this->Util()->PrintErrors();
+			// $this->Util()->PrintErrors();
 			return $result;
 		}
 		

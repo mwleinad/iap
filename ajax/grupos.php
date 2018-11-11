@@ -61,6 +61,17 @@ switch($_POST["type"])
 	break;
 		
 		
+	case "onBuscar":
+	
+	
+		$resultC = $course->EnumerateCourse();
+		$smarty->assign("DOC_ROOT", DOC_ROOT);
+		$smarty->assign("resultC", $resultC);
+		$smarty->display(DOC_ROOT.'/templates/lists/grupos.tpl');
+		
+
+	break;	
+		
 		
 }
 ?>

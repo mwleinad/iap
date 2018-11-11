@@ -42,6 +42,7 @@ switch($_POST["type"])
 	case "buscarCertificacion":
 		
 		$students = $student->enumerateOk();
+		$smarty->assign("tipoUs", $_SESSION["User"]["type"]);	
 		$smarty->assign("registros", $students);
 		$smarty->display(DOC_ROOT.'/templates/lists/usuarios.tpl');
 	break;
@@ -51,6 +52,7 @@ switch($_POST["type"])
 	case "LoadPage":
 		$student->setPages($_POST['page']);
 		$students = $student->enumerateOk();
+		$smarty->assign("tipoUs", $_SESSION["User"]["type"]);	
 		 $smarty->assign("registros", $students);
 		$smarty->display(DOC_ROOT.'/templates/lists/usuarios.tpl');
 	break;
@@ -74,6 +76,7 @@ switch($_POST["type"])
 	
 		// echo "<pre>"; print_r($_POST);
 		$lstG = $student->gruposCertificacion($_POST["certificacionId"]);
+		$smarty->assign("tipoUs", $_SESSION["User"]["type"]);	
 		 $smarty->assign("lstG", $lstG);
 		$smarty->display(DOC_ROOT.'/templates/lists/select-grupos.tpl');
 	

@@ -1,7 +1,9 @@
 <?php
 	
-	// $student->setUserId($_GET["id"]);
-	$lstCalificador = $subject->extraeCalificador();
+	$student->setUserId($_GET);
+	// echo "<pre>"; print_r($_GET);
+	// exit;
+	$lstCalificador = $subject->extraeCalificador($_GET["cId"]);
 	
 	// echo "<pre>"; print_r($lstCalificador );
 	// exit;

@@ -1,7 +1,13 @@
 <?php
 	
+	// echo "<pre>"; print_r($_SESSION);
+	// exit;
+	if($_SESSION["User"]["type"]=="student"){
+		
+		exit;
+	}
 	/* For Session Control - Don't remove this */
-	$user->allow_access(4);	
+	// $user->allow_access(4);	
 	/* End Session Control */
 
 	if($_FILES)
@@ -42,6 +48,7 @@
 	
 	// echo "<pre>"; print_r($students );
 	// exit;
+	$smarty->assign("tipoUs", $_SESSION["User"]["type"]);	
 	$smarty->assign("lstCertificaciones", $lstCertificaciones);	
 	$smarty->assign("studentsCount", $studentsCount);	
 	$smarty->assign("registros", $students);	
