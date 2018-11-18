@@ -177,7 +177,7 @@
 
                                     
                                         <td align="center">
-                                            <a href="{$WEB_ROOT}/usuarios/id/{$subject.subjectId}" >
+                                            <a href="{$WEB_ROOT}/gps/id/{$subject.subjectId}" >
                                             <i class="fa fa-sign-in fa-lg"></i>
                                             </a>
                                         </td>

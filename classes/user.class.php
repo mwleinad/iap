@@ -986,6 +986,36 @@ class User extends Main
 			$row["roles"][] = $rol["roleId"];
 		}
 		
+		// echo "<pre>"; print_r($row); 
+		// exit;
+		
+		return $row;
+	}
+	
+	
+	
+	function modulosValidos()
+	{
+		
+		$this->userId = $_SESSION["User"]["userId"];
+		
+		$sql = "SELECT 
+				*
+			FROM 
+				personal_role as r 
+			left join role_modules as rm on rm.roleId = r.roleId
+			WHERE personalId = '".$this->userId."' group by rm.moduleId";
+		
+		$this->Util()->DB()->setQuery($sql);
+		$row = $this->Util()->DB()->GetResult();
+		
+		// echo "<pre>"; print_r($row );
+		// exit;
+		
+		// $array = array();
+		// $row 
+		
+		
 		return $row;
 	}
 	
@@ -1221,7 +1251,7 @@ class User extends Main
 				$card["33"] = 1;
 		}
 		
-		// echo "<pre>"; print_r($result);
+		// echo "<pre>"; print_r($card);
 		// exit;
 		return $card;
 	

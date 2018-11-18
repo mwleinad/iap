@@ -12,12 +12,18 @@
 		<form id="frmGral">	     
        <input type="hidden" id="" name="subjectId" value="{$cId}">
        <input type="hidden" id="id" name="id" value="{$id}">
-		<select name="personalId" id="" class="form-control">
+	   
+	   Certificacion:
+	   <select name="subjectId" id="" class="form-control" onChange="busEval()">
 			<option></option>
-			{foreach from=$lstCalificador  item=item}
-			<option value="{$item.personalId}"  {if $item.seleccion > 0} selected {/if}  >{$item.name} {$item.lastname_paterno} {$item.lastname_materno}</option>
+			{foreach from=$registros  item=item}
+			<option value="{$item.subjectId}"  >{$item.certificacion}</option>
 			{/foreach}
 		</select>
+		Evaluador
+		<div id="divEval">
+		</div>
+
 	  
 	  </form>
 	  <br>

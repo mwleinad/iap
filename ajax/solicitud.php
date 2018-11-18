@@ -122,7 +122,7 @@ switch($_POST["type"])
 					   // }
 		   // }
 		// }
-		// echo '<pre>'; print_r($_POST);
+		
 		// echo '<pre>'; print_r($_FILES);
 		// echo 'llega';
 		// exit;
@@ -135,7 +135,8 @@ switch($_POST["type"])
 	break;
 	
 	case "ver":
-	
+	// echo '<pre>'; print_r($_POST);
+	// exit;
 		$result = $course->detalleReporteB($_POST['Id']);
 		$smarty->assign("result", $result);	
 		$smarty->display(DOC_ROOT.'/templates/lists/new/reporte-b-detalle.tpl');

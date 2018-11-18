@@ -1466,6 +1466,11 @@ class Student extends User
 		
 		$filtro = '';
 		
+		
+		if($_GET["id"]){
+			  $filtro .= " and cs.courseId = ".$_GET["id"]."";
+		}
+		
 		if($_POST["certificacionId"]){
 			  $filtro .= " and sb.subjectId = ".$_POST["certificacionId"]."";
 		}
@@ -1489,7 +1494,18 @@ class Student extends User
 		
 		if($_POST["grupos"]){
 			
-			$filtro .= " and cs.group = '".$_POST["grupos"]."'";
+			$filtro .= " and cs.courseId = '".$_POST["grupos"]."'";
+		}
+		
+		if($_POST["nombre"]){
+			$filtro .= " and u.names like '%".$_POST["nombre"]."%'";
+		}
+		
+		if($_POST["apellidoP"]){
+			$filtro .= " and u.lastNamePaterno like '%".$_POST["apellidoP"]."%'";
+		}
+		if($_POST["apellidoM"]){
+			$filtro .= " and u.lastNameMaterno like '%".$_POST["apellidoM"]."%'";
 		}
 		
 		$sqlQuery = "
@@ -1503,7 +1519,7 @@ class Student extends User
 				WHERE 
 					1 ".$sqlSearch." ".$filtro."
 				AND
-					type = 'student'	
+					type = 'student'	 
 				ORDER BY 
 					".$orderSemester."
 					lastNamePaterno ASC, 
@@ -1524,7 +1540,9 @@ class Student extends User
 					*,
 					sb.subjectId,
 					sb.name as certificacion,
-					(select count(*) from repositorio as r where r.userId = u.userId and r.subjectId = sb.subjectId) as countRepositorio
+					(select count(*) from repositorio as r where r.userId = u.userId and r.subjectId = sb.subjectId) as countRepositorio,
+					(select count(*) from user_subject usub where usub.alumnoId = us.alumnoId) as numCertificaciones,
+					(select count(*) from usuario_personal spusb where spusb.usuarioId = us.alumnoId ) as numEvaluadores
 				FROM 
 					user as u
 				left join user_subject as us on us.alumnoId = u.userId
@@ -1533,16 +1551,18 @@ class Student extends User
 				WHERE 
 					1 ".$sqlSearch." ".$filtro."
 				AND
-					type = 'student'	
+					type = 'student'	group by u.userId 
 				ORDER BY 
 					".$orderSemester."
 					lastNamePaterno ASC, 
 					lastNameMaterno ASC,  
 					`names` ASC 
-				".$sqlLim."";
+				".$sqlLim." ";
 // exit;
 		$this->Util()->DB()->setQuery($sql);
 		$result7 = $this->Util()->DB()->GetResult();
+		
+		
 		
 		// echo "<pre>"; print_r($result7);
 		// exit;
@@ -3310,7 +3330,9 @@ class Student extends User
 				m.nombre as municipio,
 				c.numero,
 				at.activityId,
-				c.group
+				c.group,
+				s.subjectId
+				
 			FROM 
 				user_subject as u
 			left join course as c on c.courseId = u.courseId 
@@ -3320,6 +3342,60 @@ class Student extends User
 			left join course_module as cm on cm.courseId = c.courseId 
 			left join activity as at on at.courseModuleId = cm.courseModuleId 
 			WHERE 1 ".$filtro."";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		
+		foreach($result as $key=>$aux){
+			 $sql = "
+			SELECT 
+				name,
+				lastname_paterno,
+				lastname_materno
+			FROM 
+				usuario_personal as u
+			left join personal as p on p.personalId= u.personalId
+			WHERE u.subjectId =  ".$aux["subjectId"]." and usuarioId = ".$Id."";
+			$this->Util()->DB()->setQuery($sql);
+			// exit;
+			$r = $this->Util()->DB()->GetRow();
+			$result[$key]["suEvaluador"] = $r ;
+		}
+		
+		
+		// echo "<pre>"; print_r($result);
+		// exit;
+		return 	$result;
+		
+	}
+	
+	public function CertificacionStident2($Id){
+		
+		
+		$filtro = "";
+		
+		if($Id){
+			$filtro.= " and alumnoId = ".$Id."";
+		}
+		
+		 $sql = "
+			SELECT 
+				s.name as certificacion,
+				u.alumnoId as userId,
+				c.courseId,
+				m.nombre as municipio,
+				c.numero,
+				at.activityId,
+				c.group,
+				s.subjectId
+			FROM 
+				user_subject as u
+			left join course as c on c.courseId = u.courseId 
+			left join subject as s on s.subjectId = c.subjectId 
+			left join user as us on us.userId = u.alumnoId 
+			left join municipio as m on m.municipioId = us.ciudadt 
+			left join course_module as cm on cm.courseId = c.courseId 
+			left join activity as at on at.courseModuleId = cm.courseModuleId 
+			WHERE 1 ".$filtro." group by s.subjectId";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 		

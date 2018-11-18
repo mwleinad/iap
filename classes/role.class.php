@@ -95,9 +95,10 @@ class Role extends Main
 		$sql = "SELECT 
 					* 
 				FROM 
-					module				
+					module
+				where numero > 0
 				ORDER BY 
-					name ASC";
+					numero ASC";
 		
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();

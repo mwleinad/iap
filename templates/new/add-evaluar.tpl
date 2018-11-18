@@ -26,8 +26,8 @@
 		<select class="form-control" name="estatus">
 			<option value=""></option>
 			<option value="s/n" {if $infoDoc.aprobado eq 's/s'} selected{/if}>Sin asignar</option>
-			<option value="no" {if $infoDoc.aprobado eq 'no'} selected{/if}>No Aprobado</option>
-			<option value="si" {if $infoDoc.aprobado eq 'si'} selected{/if}>Aprobado</option>
+			<option value="no" {if $infoDoc.aprobado eq 'no'} selected{/if}>No Competente</option>
+			<option value="si" {if $infoDoc.aprobado eq 'si'} selected{/if}>Competente</option>
 		</select>
 		</center>
 

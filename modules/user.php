@@ -29,6 +29,8 @@ if($_SESSION["User"]["type"] == "Docente"){
 }
 
 $info = $user->Info();
+// $lstModulosValidos = $user->modulosValidos();
+
 $smarty->assign("info", $info);
 
 	if(in_array(2, $info["roles"]))

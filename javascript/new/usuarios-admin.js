@@ -57,7 +57,6 @@ function saveCalificador(){
 				ShowStatus((splitResp[1]));
 				closeModal();
 			console.log(response)
-			buscarCertificacion();
 			}else if($.trim(splitResp[0]) == "fail"){
 				$("#msj").html(splitResp[1]);
 			}else{
@@ -192,7 +191,7 @@ function buscarCertificacion(){
 	 $.ajax({
 		url: WEB_ROOT+'/ajax/new/usuarios.php',
         type: "POST",
-        data: "type=buscarCertificacion"+'&'+$("#frmBuscar").serialize(true),
+        data: "type=buscarCertificacionAdmin"+'&'+$("#frmBuscar").serialize(true),
         success: function(data)
         {
            console.log(data);
@@ -215,7 +214,7 @@ function LoadPage(page){
 	$.ajax({
 	  	type: "POST",
 	  	url: WEB_ROOT+'/ajax/new/usuarios.php',
-	  	data: $("#editStudentForm").serialize(true)+'&type=LoadPage&page='+page,
+	  	data: $("#editStudentForm").serialize(true)+'&type=LoadPageAdmin&page='+page,
 		beforeSend: function(){			
 			$("#load").html(LOADER3);
 		},
@@ -373,6 +372,33 @@ function buscarGrupoModal(){
 			console.log(response)
 			
 			$("#divGps").html(response);
+				
+
+		},
+		error:function(){
+			alert(msgError);
+		}
+    });
+}
+
+
+
+
+
+function busEval(){
+	
+	$.ajax({
+	  	type: "POST",
+	  	url: WEB_ROOT+'/ajax/new/usuarios.php',
+	  	data: $("#frmGral").serialize(true)+'&type=busEval',
+		beforeSend: function(){			
+			$("#load").html(LOADER3);
+		},
+	  	success: function(response) {	
+		
+			console.log(response)
+			
+			$("#divEval").html(response);
 				
 
 		},

@@ -9,13 +9,20 @@
     <div class="portlet-body">
 		<form name="frmGral2" id="frmGral2">
 		<input type="hidden" name="alumnoId" value="{$id}">
-        <select name="courseId" class="form-control">
+		Certificacion:
+        <select name="certificacionId" class="form-control" onChange="buscarGrupoModal()">
         <option></option>
 		{foreach from=$lstCertificaciones item=item}
-		<option value="{$item.courseId}">{$item.name}</option>
+		<option value="{$item.subjectId}">{$item.name}</option>
 		{/foreach}
         </select>
+		<br>
+		Grupo:
+		<div id="divGps">
+		</div>
 		</form>
+		<div id="msj">
+		</div>
 	 <div class="form-actions">
             <div class="row">
                 <div class="col-md-offset-3 col-md-9">

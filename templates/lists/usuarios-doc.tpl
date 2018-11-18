@@ -1,4 +1,24 @@
-{foreach from=$registros.result item=item key=key}
+
+<table width="100%" class="tblGral table table-bordered table-striped table-condensed flip-content">
+<thead>      
+ <tr>
+	{if $tipoUs != "Docente"}
+    <th width="" height="28">ID</th>		
+	{/if}
+    <th width="">Apellido Paterno</th>
+    <th width="">Apellido Materno</th>
+    <th width="">Nombre</th>
+    <th width="">No. Control</th>
+    <th width="">Correo</th>
+	 <th width="">Num. Certificaciones</th>
+	 <th width="">Evaluacion</th>
+	 <th width="">Elementos</th>
+    <th width="">Acciones</th>
+   
+</tr>
+</thead>
+<tbody>
+  {foreach from=$registros.result item=item key=key}
         <tr>
 			{if $tipoUs != "Docente"}
 		<td align="center">{$item.userId}</td>
@@ -8,15 +28,13 @@
          <td align="center">{$item.names|upper}</td>
         <td align="center">{$item.controlNumber}</td>
         <td align="center">{$item.email}</td>
-        <td align="center">{$item.password}</td>
-        <td align="center">{$item.certificacion}</td>
         <td align="center">{$item.numCertificaciones}</td>
         <td align="center">{if $item.aprobado eq 'si'} Aprobado{else if $item.aprobado eq 'no'} No aprobado {else} Sin asignar{/if}</td>
         <td align="center">{$item.countRepositorio}/4</td>
         <td align="center">   
 	
 		{if $tipoUs ne "Docente"}
-		<a href="{$WEB_ROOT}/graybox.php?page=envia-info&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px" title="ENVIAR DATOS DE REGISTRO">
+		<!--<a href="{$WEB_ROOT}/graybox.php?page=envia-info&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px" title="ENVIAR DATOS DE REGISTRO">
 		<i class="material-icons">
 		mail
 		</i>
@@ -56,18 +74,18 @@
 					<i class="material-icons">
 			school
 			</i>
-		</a>
+		</a>-->
 		<a href="{$WEB_ROOT}/graybox.php?page=student-certificacion&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px" title="VER CERTIFICACIONES">
 				<i class="material-icons">
 				picture_in_picture
 				</i>
 		</a> 
 			{if $tipoUs ne "Docente"}
-		<a href="{$WEB_ROOT}/graybox.php?page=add-certificacion-alumno&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px" title="AGREGAR CERTIFICACION">
+		<!--<a href="{$WEB_ROOT}/graybox.php?page=add-certificacion-alumno&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px" title="AGREGAR CERTIFICACION">
 				<i class="material-icons">
 				folder_special
 				</i>
-		</a> 
+		</a> -->
 		{/if}
 		<!--
 		<!--
@@ -102,3 +120,7 @@
     	<td colspan="11" align="center">No se encontr&oacute; ning&uacute;n registro.</td>
     </tr>				
 {/foreach}
+
+</tbody>
+</table>
+{include file="{$DOC_ROOT}/templates/lists/pages_ok.tpl" pages=$registros.pages info=$registros.info}

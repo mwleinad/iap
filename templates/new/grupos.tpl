@@ -26,7 +26,7 @@
 				<option></option>
 				{foreach from=$lstC item=subject}
 				
-				<option value="{$subject.majorId}">{$subject.name}</option>
+				<option value="{$subject.subjectId}">{$subject.name}</option>
 				{/foreach}
 			</select>
 		</form>

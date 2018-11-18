@@ -1993,12 +1993,13 @@ class Personal extends Main
 				FROM 
 					user_subject
 				WHERE
-					alumnoId  = ".$_POST["alumnoId"]." and courseId = ".$_POST["courseId"]."";
-		// exit;
+					alumnoId  = ".$_POST["alumnoId"]." and courseId = ".$_POST["grupos"]."";
+	
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetSingle();
 		
 		if($result >=1){
+			echo "fail[#]";
 			echo "<font color='red'>La certificacion ya se encuentra agregada</font>";
 			exit;
 		}
@@ -2014,7 +2015,7 @@ class Personal extends Main
 				 VALUES 
 					(						
 						".$_POST["alumnoId"].",
-						".$_POST["courseId"].",
+						".$_POST["grupos"].",
 						'activo'
 					)";
 								
@@ -2022,6 +2023,37 @@ class Personal extends Main
 			$lastId = $this->Util()->DB()->InsertData();
 			
 		return true;
+		
+	}
+	
+	
+	public function gruposEvalaudor(){
+		
+	
+		 $sql = "SELECT 
+					c.courseId,
+					 c.group,
+					 (
+						SELECT 
+							 count(*)
+						FROM 
+							usuario_personal up
+						left join user_subject u on u.alumnoId = up.usuarioId
+						left join course c on c.courseId = u.courseId
+						WHERE
+							up.personalId  = ".$_SESSION["User"]["userId"]." and c.subjectId = ".$_GET["id"]."
+					 ) as cantidad
+				FROM 
+					usuario_personal up
+				left join user_subject u on u.alumnoId = up.usuarioId
+				left join course c on c.courseId = u.courseId
+				WHERE
+					up.personalId  = ".$_SESSION["User"]["userId"]." and c.subjectId = ".$_GET["id"]." group by c.courseId";
+		// exit;
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		
+		return $result;
 		
 	}
 }

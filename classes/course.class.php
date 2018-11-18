@@ -1588,20 +1588,24 @@
 		{
 			
 			$filtro = "";
+			$filtrog = "";
 			
 			if($_POST["tipo"]){
 				
 				$filtro.= " and us.ciudadt = ".$_POST["tipo"]."";
+				// $filtrog = "";
 			}
 			
 			if($_POST["grupos"]){
-				$filtro.= " and c.group = '".$_POST["grupos"]."'";
+				$filtro.= " and c.courseId = '".$_POST["grupos"]."'";
+				$filtrog .=  " and c2.courseId = '".$_POST["grupos"]."'";
 				
 			}
 			
 			if($_POST["region"]){
 				
 				$filtro.= " and mr.region = ".$_POST["region"]."";
+				// $filtrog = "";
 			}
 			
 			
@@ -1621,7 +1625,7 @@
 					left join  course as c2 on c2.courseId = u2.courseId 
 					left join  user as us2 on us2.userId = u2.alumnoId 
 					left join  municipio_region as mr2 on mr2.municipioId = us2.ciudadt 
-					where us2.ciudadt = m.municipioId
+					where us2.ciudadt = m.municipioId ".$filtrog."
 					) as cantidad
 				FROM 
 					user_subject as u
@@ -1638,7 +1642,7 @@
 					left join  course as c2 on c2.courseId = u2.courseId 
 					left join  user as us2 on us2.userId = u2.alumnoId 
 					left join  municipio_region as mr2 on mr2.municipioId = us2.ciudadt 
-					where us2.ciudadt = m.municipioId
+					where us2.ciudadt = m.municipioId ".$filtrog."
 					) desc";
 				// exit;
 				$this->Util()->DB()->setQuery($sql);
@@ -1683,6 +1687,13 @@
 		
 		public function detalleReporteB($Id)
 		{
+			
+			$filtro = "";
+			if($_POST["grupos"]){
+				
+				$filtro .= " and c.courseId = ".$_POST["grupos"]."";
+			}
+			
 			$sql = "
 				SELECT 
 					u.*,
@@ -1692,7 +1703,7 @@
 				left join user_subject as us on u.userId = us.alumnoId
 				left join course as c on c.courseId = us.courseId
 				left join subject as s on s.subjectId = c.subjectId
-				WHERE ciudadt = ".$Id."";		
+				WHERE ciudadt = ".$Id." ".$filtro."";		
 // exit;
 				$this->Util()->DB()->setQuery($sql);
 				$cal = $this->Util()->DB()->GetResult();

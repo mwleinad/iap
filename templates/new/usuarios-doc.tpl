@@ -11,7 +11,7 @@
 <div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
-            <i class="fa fa-bullhorm"></i>Usuarios
+            <i class="fa fa-bullhorm"></i>Documentos
         </div>
 
 
@@ -58,13 +58,13 @@
 		{foreach from=$lstCertificaciones item=item key=key}
 		<option value="{$item.subjectId}">{$item.name}</option>
 		{/foreach}
-	 </select>
+	 </select><!--
 	 Evaluador
 	 <select class="form-control" style="width:100px" name="evaluado">
 		<option value="">Todos</option>
 		<option>si</option>
 		<option>no</option>
-	 </select>
+	 </select>-->
 	 Estatus
 	 <select class="form-control" style="width:100px" name="evaluacion">
 		<option value="">Todos</option>
@@ -80,7 +80,7 @@
 	 </div>
 	 </form>
 	   <button type="submit" class="btn green submitForm" onClick="buscarCertificacion()">Buscar</button>
-        <div id="tblContent">{include file="lists/usuarios.tpl"}</div>
+        <div id="tblContent">{include file="lists/usuarios-doc.tpl"}</div>
 
     </div>
         

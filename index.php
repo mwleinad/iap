@@ -210,7 +210,11 @@ $pages = array(
     'reporte-b',
     'prueba',
     'grupos',
-    'log'
+    'log',
+    'gps',
+    'usuarios-admin',
+    'usuarios-doc',
+    'usuarios-sol'
 	
 	
 	

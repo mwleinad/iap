@@ -11,7 +11,7 @@
 <div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
-            <i class="fa fa-bullhorm"></i>Usuarios
+            <i class="fa fa-bullhorm"></i>Solicitudes
         </div>
 
 
@@ -41,7 +41,7 @@
     <div class="portlet-body" > 
 	<form id="frmBuscar">
 	<div style="display:-webkit-inline-box">
-	{if $tipoUs == "Docente"}
+
 	<input type="hidden" name="id" id="id" value="{$id}">
 	Nombre:
 	<input type="text" name="nombre" id="nombre" class="form-control" style="width:150px">
@@ -49,38 +49,13 @@
 	<input type="text" name="apellidoP" id="apellidoP" class="form-control" style="width:150px">
 	Apellido Materno:
 	<input type="text" name="apellidoM" id="apellidoM" class="form-control" style="width:150px">
-	{/if}
 	
-	{if $tipoUs != "Docente"}
-	Certificaciones
-	 <select name="certificacionId" class="form-control" style="width:100px" onChange="buscarGrupos()">
-		<option></option>
-		{foreach from=$lstCertificaciones item=item key=key}
-		<option value="{$item.subjectId}">{$item.name}</option>
-		{/foreach}
-	 </select>
-	 Evaluador
-	 <select class="form-control" style="width:100px" name="evaluado">
-		<option value="">Todos</option>
-		<option>si</option>
-		<option>no</option>
-	 </select>
-	 Estatus
-	 <select class="form-control" style="width:100px" name="evaluacion">
-		<option value="">Todos</option>
-		<option value="s/n">Sin Asignar</option>
-		<option value="si">Aprobado</option>
-		<option value="no">No Aprobado</option>
-	 </select>
+	
 
-	 Grupos:
-	 <div id="divGrupos">
-	 </div>
-	 {/if}
 	 </div>
 	 </form>
 	   <button type="submit" class="btn green submitForm" onClick="buscarCertificacion()">Buscar</button>
-        <div id="tblContent">{include file="lists/usuarios.tpl"}</div>
+        <div id="tblContent">{include file="lists/usuarios-sol.tpl"}</div>
 
     </div>
         

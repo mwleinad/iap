@@ -447,7 +447,8 @@ public function Enumerate_p(){
 				SELECT 
 					*, 
 					major.name AS majorName, 
-					subject.name AS name 
+					subject.name AS name,
+					subject.subjectId
 				FROM 
 					subject 
 				LEFT JOIN 	major ON major.majorId = subject.tipo
@@ -467,13 +468,17 @@ public function Enumerate_p(){
 				if($aux["subjectId"]==null){
 					
 					$aux["subjectId"] = 0;
-				}
-				
-				 $sql = "
+					$result[$key]["countModule"] = 0;
+				}else{
+					
+					 $sql = "
 					SELECT COUNT(*) FROM personal_subject WHERE personalId = '".$_POST["id"]."' and subjectId = ".$aux["subjectId"]."";
 
-				$this->Util()->DB()->setQuery($sql);
-				$result[$key]["countModule"] = $this->Util()->DB()->GetSingle();
+					$this->Util()->DB()->setQuery($sql);
+					$result[$key]["countModule"] = $this->Util()->DB()->GetSingle();
+				}
+				
+				
 				
 			}
 			
@@ -1563,12 +1568,27 @@ public function Enumerate_p(){
 		return $lst;
 	}
 	
-	public function extraeCalificador($Id){
+	public function extraeCalificador($Id,$userId){
 		
-		$sqlQuery = '
+	// echo
+	// $sqlQuery = '
+			// SELECT 
+				// p.*,
+				// (select count(*) from usuario_personal p1 where p1.personalId = p.personalId and p1.subjectId = '.$Id.' and usuarioId = '.$userId.') as seleccion
+			// FROM
+				// personal as p
+			// left join personal_role as pr on pr.personalId = p.personalId
+			// left join role as r on r.roleId = pr.roleId
+			// WHERE 1
+			// and (select count(*) from personal_subject p1 where p1.personalId = p.personalId and p1.subjectId = '.$Id.') >0
+			// and r.name="Evaluador" group by p.personalId order by lastname_paterno';
+			// $this->Util()->DB()->setQuery($sqlQuery);			
+
+			// $lst = $this->Util()->DB()->GetResult();
+			
+			$sqlQuery = '
 			SELECT 
-				p.*,
-				(select count(*) from personal_subject p1 where p1.personalId = p.personalId and p1.subjectId = '.$Id.') as seleccion
+				p.*
 			FROM
 				personal as p
 			left join personal_role as pr on pr.personalId = p.personalId
@@ -1577,7 +1597,7 @@ public function Enumerate_p(){
 			and (select count(*) from personal_subject p1 where p1.personalId = p.personalId and p1.subjectId = '.$Id.') >0
 			and r.name="Evaluador" group by p.personalId order by lastname_paterno';
 			$this->Util()->DB()->setQuery($sqlQuery);			
-		// exit;
+
 			$lst = $this->Util()->DB()->GetResult();
 			
 			return $lst ;
