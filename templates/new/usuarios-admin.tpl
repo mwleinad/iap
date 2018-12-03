@@ -41,15 +41,16 @@
     <div class="portlet-body" > 
 	<form id="frmBuscar">
 	<div style="display:-webkit-inline-box">
-	{if $tipoUs == "Docente"}
+	
 	<input type="hidden" name="id" id="id" value="{$id}">
+	<input type="hidden" name="pas" id="pas" value="usuarios-admin">
 	Nombre:
 	<input type="text" name="nombre" id="nombre" class="form-control" style="width:150px">
 	Apellido Paterno:
 	<input type="text" name="apellidoP" id="apellidoP" class="form-control" style="width:150px">
 	Apellido Materno:
 	<input type="text" name="apellidoM" id="apellidoM" class="form-control" style="width:150px">
-	{/if}
+
 	
 	{if $tipoUs != "Docente"}
 	Certificaciones

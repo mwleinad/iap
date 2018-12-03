@@ -1462,6 +1462,138 @@ class Student extends User
 		return $result;
 	}
 	
+	
+	
+	
+	public function enumerateOkNum(){
+		
+		$filtro = '';
+		
+		
+		if($_GET["id"]){
+			  $filtro .= " and cs.courseId = ".$_GET["id"]."";
+		}
+		
+		if($_POST["certificacionId"]){
+			  $filtro .= " and sb.subjectId = ".$_POST["certificacionId"]."";
+		}
+		
+		if($_POST["evaluacion"]){
+			  $filtro .= " and us.aprobado = '".$_POST["evaluacion"]."'";
+		}
+		
+		if($_POST["evaluado"]){
+			if($_POST["evaluado"] == "si")
+				$filtro .= " and (select count(*) from usuario_personal as us1 where us1.usuarioId = u.userId ) > 0 ";
+			else
+				$filtro .= " and (select count(*) from usuario_personal as us1 where us1.usuarioId = u.userId ) <= 0";
+		}
+		
+		if($_POST["elementos"]){
+			  $filtro .= " 
+			  			and	(select count(*) from repositorio as r where r.userId = u.userId and r.subjectId = sb.subjectId) = ".$_POST["elementos"]."
+			  ";
+		}
+		
+		if($_POST["grupos"]){
+			
+			$filtro .= " and cs.courseId = '".$_POST["grupos"]."'";
+		}
+		
+		if($_POST["nombre"]){
+			$filtro .= " and u.names like '%".$_POST["nombre"]."%'";
+		}
+		
+		if($_POST["apellidoP"]){
+			$filtro .= " and u.lastNamePaterno like '%".$_POST["apellidoP"]."%'";
+		}
+		if($_POST["apellidoM"]){
+			$filtro .= " and u.lastNameMaterno like '%".$_POST["apellidoM"]."%'";
+		}
+		
+		if($_GET["admin"]){
+			
+			
+			$filtro .= " and up.personalId = '".$_GET["admin"]."'";
+			
+
+		}
+		
+		$sqlQuery = "
+				SELECT 
+					count(DISTINCT (
+					u.userId
+					))
+				FROM 
+					user as u
+				left join user_subject as us on us.alumnoId = u.userId
+				left join course as cs on cs.courseId = us.courseId
+				left join subject as sb on sb.subjectId = cs.subjectId
+				inner join usuario_personal as up on up.usuarioId = u.userId
+				
+
+				WHERE 
+					1 ".$sqlSearch." ".$filtro."
+				AND
+					type = 'student'	 
+				ORDER BY 
+					".$orderSemester."
+					lastNamePaterno ASC, 
+					lastNameMaterno ASC,  
+					`names` ASC 
+				".$sqlLim."";
+		$this->Util()->DB()->setQuery($sqlQuery);
+		$total = $this->Util()->DB()->GetSIngle();
+		
+		
+		$resPage = $this->Util->HandlePagesAjax($this->pages, $total , '');		
+		$sqlLim = "LIMIT ".$resPage['pages']['start'].", ".$resPage['pages']['items_per_page'];
+		
+
+		 $sql = "
+				SELECT 
+					*,
+					sb.subjectId,
+					sb.name as certificacion,
+					(select count(*) from repositorio as r where r.userId = u.userId and r.subjectId = sb.subjectId) as countRepositorio,
+					(select count(*) from user_subject usub where usub.alumnoId = us.alumnoId) as numCertificaciones,
+					(select count(*) from usuario_personal spusb where spusb.usuarioId = us.alumnoId ) as numEvaluadores
+				FROM 
+					user as u
+				left join user_subject as us on us.alumnoId = u.userId
+				left join course as cs on cs.courseId = us.courseId
+				left join subject as sb on sb.subjectId = cs.subjectId
+				inner join usuario_personal as up on up.usuarioId = u.userId
+				WHERE 
+					1 ".$sqlSearch." ".$filtro."
+				AND
+					type = 'student'	group by u.userId 
+				ORDER BY 
+					".$orderSemester."
+					lastNamePaterno ASC, 
+					lastNameMaterno ASC,  
+					`names` ASC 
+				".$sqlLim." ";
+// exit;
+		$this->Util()->DB()->setQuery($sql);
+		$result7 = $this->Util()->DB()->GetResult();
+		
+		
+		
+		// echo "<pre>"; print_r($result7);
+		// exit;
+		
+		$result['result'] = $result7;
+		$result['pages'] = $resPage['pages'];
+		$result['info'] = $resPage['info'];
+		
+
+		return $result;
+	
+	}
+	
+	
+	
 	public function enumerateOk(){
 		
 		$filtro = '';
@@ -1510,7 +1642,9 @@ class Student extends User
 		
 		$sqlQuery = "
 				SELECT 
-					count(*)
+					count(DISTINCT (
+					u.userId
+					))
 				FROM 
 					user as u
 				left join user_subject as us on us.alumnoId = u.userId
@@ -1558,7 +1692,7 @@ class Student extends User
 					lastNameMaterno ASC,  
 					`names` ASC 
 				".$sqlLim." ";
-// exit;
+
 		$this->Util()->DB()->setQuery($sql);
 		$result7 = $this->Util()->DB()->GetResult();
 		
@@ -3348,6 +3482,7 @@ class Student extends User
 		foreach($result as $key=>$aux){
 			 $sql = "
 			SELECT 
+				u.personalId,
 				name,
 				lastname_paterno,
 				lastname_materno
@@ -3356,9 +3491,25 @@ class Student extends User
 			left join personal as p on p.personalId= u.personalId
 			WHERE u.subjectId =  ".$aux["subjectId"]." and usuarioId = ".$Id."";
 			$this->Util()->DB()->setQuery($sql);
-			// exit;
+
 			$r = $this->Util()->DB()->GetRow();
+			
+			$sql = "
+			SELECT 
+				*
+			FROM 
+				personal_subject as u
+			left join personal as p on p.personalId= u.personalId
+			WHERE u.subjectId =  ".$aux["subjectId"]."";
+			$this->Util()->DB()->setQuery($sql);
+
+			$res = $this->Util()->DB()->GetResult();
+			
+			$result[$key]["evaluadores"] = $res ;
 			$result[$key]["suEvaluador"] = $r ;
+			
+			
+			
 		}
 		
 		
@@ -3428,12 +3579,17 @@ class Student extends User
 		switch($procesoId){
 			
 			case 1:
+				$f = "";
+				if($registroId){
+					$f = " and registroFirmado = ".$registroId."";
+				}
+			
 				 $sql = "
 					SELECT 
 						*
 					FROM 
 						firma
-					WHERE userId = ".$userId." and procesoId=".$procesoId." and registroFirmado = ".$registroId.""; 
+					WHERE userId = ".$userId." and procesoId=".$procesoId." ".$f.""; 
 				
 				$this->Util()->DB()->setQuery($sql);
 				$result = $this->Util()->DB()->GetRow();

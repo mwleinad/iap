@@ -82,6 +82,8 @@ switch($_POST["type"])
 	
 	
 	case "buscarCertificacion":
+		// echo "<pre>"; print_r($_POST);
+	// exit;
 		
 		$_GET = $_POST;
 		$students = $student->enumerateOk();
@@ -91,6 +93,10 @@ switch($_POST["type"])
 	break;
 	
 	case "LoadPage":
+	
+	// echo "<pre>"; print_r($_POST);
+	// exit;
+	$_GET = $_POST;
 		$student->setPages($_POST['page']);
 		$students = $student->enumerateOk();
 		$smarty->assign("tipoUs", $_SESSION["User"]["type"]);	
@@ -99,7 +105,10 @@ switch($_POST["type"])
 	break;
 	
 	case "buscarCertificacionAdmin":
-		
+		if($_POST["pas"]){
+			// exit;
+			$smarty->assign("page", $_POST["pas"]);
+		}
 		$_GET = $_POST;
 		$student->setPages($_POST['page']);
 		$students = $student->enumerateOk();
@@ -162,6 +171,21 @@ switch($_POST["type"])
 		$smarty->assign("auxTpl", $_POST["tipo"]);
 		$smarty->assign("infoDoc", $infoDoc);
 		$smarty->display(DOC_ROOT.'/templates/new/add-evaluar.tpl');
+	break;
+	
+	case "sendInfoEvaluador":
+	
+		// echo "<pre>"; print_r($_POST);
+		if($personal->sendInfoEvaluador()){  
+			echo 'ok[#]';
+			echo '
+			 Los datos se guardaron correctamente
+			';
+			 echo '[#]';
+		}else{
+			echo 'fail[#]';
+		}
+	
 	break;
 }
 

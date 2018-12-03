@@ -11,7 +11,7 @@
         <td align="center">{$item.password}</td>
         <td align="center">{$item.certificacion}</td>
         <td align="center">{$item.numCertificaciones}</td>
-        <td align="center">{if $item.aprobado eq 'si'} Aprobado{else if $item.aprobado eq 'no'} No aprobado {else} Sin asignar{/if}</td>
+        <td align="center">{if $item.aprobado eq 'si'} Competente{else if $item.aprobado eq 'no'} No Competente {else} Sin asignar{/if}</td>
         <td align="center">{$item.countRepositorio}/4</td>
         <td align="center">   
 	
@@ -57,12 +57,15 @@
 			school
 			</i>
 		</a>
+		{if $tipoUs ne "Docente"}
 		<a href="{$WEB_ROOT}/graybox.php?page=student-certificacion&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px" title="VER CERTIFICACIONES">
 				<i class="material-icons">
 				picture_in_picture
 				</i>
 		</a> 
-			{if $tipoUs ne "Docente"}
+		
+		
+			
 		<a href="{$WEB_ROOT}/graybox.php?page=add-certificacion-alumno&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px" title="AGREGAR CERTIFICACION">
 				<i class="material-icons">
 				folder_special

@@ -106,20 +106,20 @@ function enviarArchivo(){
 		processData: false,
 		contentType: false,
 		type: 'POST',
-		/*xhr: function(){
+		xhr: function(){
 				var XHR = $.ajaxSettings.xhr();
 				XHR.upload.addEventListener('progress',function(e){
 					console.log(e)
 					var Progress = ((e.loaded / e.total)*100);
 					Progress = (Progress);
 					console.log(Progress)
-					$('#progress_'+reqId).val(Math.round(Progress));
-					$('#porcentaje_'+reqId).html(Math.round(Progress)+'%');
+					$('#progress_').val(Math.round(Progress));
+					$('#porcentaje_').html(Math.round(Progress)+'%');
 					
 					
 				},false);
 			return XHR;
-		},*/
+		},
 		beforeSend: function(){		
 			// $("#loader").html(LOADER);
 			// $("#erro_"+reqId).hide(0);
@@ -135,7 +135,8 @@ function enviarArchivo(){
 				 ShowStatus((splitResp[1]));
 				// $("#msj").html(splitResp[1]);
 				$("#contenido").html(splitResp[2]);
-				closeModal()
+				closeModal();
+				buscarCertificacion()
 			}else if($.trim(splitResp[0]) == "fail"){
 				$("#txtErrMsg").show();
 	
@@ -204,7 +205,8 @@ function onDeleteCarta(id)
 			 if($.trim(splitResp[0]) == "ok")
             {
 				ShowStatus((splitResp[1]));
-               // closeModal()
+                closeModal();
+				 buscarCertificacion();
             }
             else
             {
@@ -267,7 +269,7 @@ function LoadPage(page){
 	$.ajax({
 	  	type: "POST",
 	  	url: WEB_ROOT+'/ajax/new/usuarios.php',
-	  	data: $("#editStudentForm").serialize(true)+'&type=LoadPageDoc&page='+page,
+	  	data: $("#frmBuscar").serialize(true)+'&type=LoadPageDoc&page='+page,
 		beforeSend: function(){			
 			$("#load").html(LOADER3);
 		},

@@ -235,7 +235,7 @@ function LoadPage(page){
 	$.ajax({
 	  	type: "POST",
 	  	url: WEB_ROOT+'/ajax/new/usuarios.php',
-	  	data: $("#editStudentForm").serialize(true)+'&type=LoadPageSol&page='+page,
+	  	data: $("#frmBuscar").serialize(true)+'&type=LoadPageSol&page='+page,
 		beforeSend: function(){			
 			$("#load").html(LOADER3);
 		},

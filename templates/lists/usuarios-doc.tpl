@@ -29,7 +29,7 @@
         <td align="center">{$item.controlNumber}</td>
         <td align="center">{$item.email}</td>
         <td align="center">{$item.numCertificaciones}</td>
-        <td align="center">{if $item.aprobado eq 'si'} Aprobado{else if $item.aprobado eq 'no'} No aprobado {else} Sin asignar{/if}</td>
+        <td align="center">{if $item.aprobado eq 'si'} Competente{else if $item.aprobado eq 'no'} No Competente {else} Sin asignar{/if}</td>
         <td align="center">{$item.countRepositorio}/4</td>
         <td align="center">   
 	

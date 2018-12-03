@@ -75,8 +75,10 @@ $student->setUserId($_GET["id"]);
 		</td>
 	</tr>
 	<tr>
-	<td style="width:90%; align=center>
 
+</td>
+		</tr>
+		</table> 
 	<table>
 		<tr>
 			<td>Usuario:</td>
@@ -87,24 +89,14 @@ $student->setUserId($_GET["id"]);
 			<td>'.$info["password"].'</td>
 		</tr>
 	</table>
-	
+	</td>
 ';
 		
 			
 		
 	$html .= "	
-	<tr>
-	<td style='width:90%; text-align:center; border:0px'>
-	<font style='font-size:9'>
-	Instituto de Administración Pública del Estado de Chiapas, A.C.<br>
-	Libramiento Norte Poniente No. 2718, Fracc Ladera de la Loma, C.P. 29026<br>
-	Tuxtla Gutiérrez, Chiapas; Teléfonos: (961) 12 515 08, 12 515 09, 12 51510, ext 107<br>
-	www.iapchiapas.org.mx, redconocer@iapchiapas.org.mx
 	
-		</font>
-		</td>
-		</tr>
-		</table> 
+		
 	</body>
 	</html>
 
@@ -119,7 +111,7 @@ $student->setUserId($_GET["id"]);
 	$mipdf ->set_paper("A4", "portrait");
 	 
 	# Cargamos el contenido HTML.
-	$mipdf ->load_html($html);
+	$mipdf ->load_html(utf8_decode($html));
 	 
 	# Renderizamos el documento PDF.
 	$mipdf ->render();

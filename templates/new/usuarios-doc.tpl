@@ -41,7 +41,7 @@
     <div class="portlet-body" > 
 	<form id="frmBuscar">
 	<div style="display:-webkit-inline-box">
-	{if $tipoUs == "Docente"}
+	
 	<input type="hidden" name="id" id="id" value="{$id}">
 	Nombre:
 	<input type="text" name="nombre" id="nombre" class="form-control" style="width:150px">
@@ -49,7 +49,7 @@
 	<input type="text" name="apellidoP" id="apellidoP" class="form-control" style="width:150px">
 	Apellido Materno:
 	<input type="text" name="apellidoM" id="apellidoM" class="form-control" style="width:150px">
-	{/if}
+
 	
 	{if $tipoUs != "Docente"}
 	Certificaciones

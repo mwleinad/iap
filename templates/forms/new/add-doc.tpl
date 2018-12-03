@@ -25,6 +25,8 @@
 			   <br>
 			   <br>
             </div>
+			<progress id="progress_" value="0" min="0" max="100"></progress>
+			<div id="porcentaje_" >0%</div>
         </div>
 		{/if}
        

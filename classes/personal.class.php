@@ -1961,7 +1961,7 @@ class Personal extends Main
 	public function saveCalificadorUsuario(){
 		
 		
-		$sql = 'DELETE FROM usuario_personal WHERE personalId = '.$_POST["personalId"].' and usuarioId = '.$_POST["id"].' and subjectId = '.$_POST["subjectId"].'';
+		 $sql = 'DELETE FROM usuario_personal WHERE  usuarioId = '.$_POST["id"].' and subjectId = '.$_POST["subjectId"].'';
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
 		
@@ -1978,10 +1978,33 @@ class Personal extends Main
 						".$_POST["id"].",
 						".$_POST["subjectId"]."
 					)";
-								
+				// exit;				
 			$this->Util()->DB()->setQuery($sql);
 			$lastId = $this->Util()->DB()->InsertData();
+		// exit;
+		return true;
+	}
+	
+	
+	public function sendInfoEvaluador(){
 		
+		// echo "<pre>"; print_r($_POST);
+		// exit;
+		foreach($_POST as $key=>$aux){
+			$f = explode("_",$key);
+			// echo $f [0];
+			if($f[0] == "evaluador"){				
+				$_POST["personalId"] = $aux;
+				$_POST["id"] = $_POST["id"];
+				$_POST["subjectId"] = $f[1];
+				if($aux <> ''){
+					$this->saveCalificadorUsuario();
+				}
+				
+			}
+			
+		}
+		// exit;
 		return true;
 	}
 	

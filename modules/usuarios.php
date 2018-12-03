@@ -42,7 +42,13 @@
 	// }//if	
 	
 	
-	$students = $student->enumerateOk();
+	if($_GET["admin"]){
+		//exit;
+		$students = $student->enumerateOkNum();
+	}else{
+		$students = $student->enumerateOk();
+	}
+	// $students = $student->enumerateOk();
 	$lstCertificaciones = $subject->Enumerate();
 	
 	

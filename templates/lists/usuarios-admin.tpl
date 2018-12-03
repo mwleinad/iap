@@ -13,7 +13,7 @@
     <th width="">Password</th>
 	 <th width="">Num. Certificaciones</th>
 	 <th width="">Evaluador</th>
-    <th width="">Acciones</th>
+    <th width="">Acciones </th>
    
 </tr>
 </thead>
@@ -46,11 +46,12 @@
 		picture_in_picture
 		</i>	
 		</a>
+		<!--
 		<a href="{$WEB_ROOT}/graybox.php?page=add-calificador&id={$item.userId}&auxTpl=1&cId={$item.subjectId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="ASIGNAR EVALUADOR">
 		<i class="material-icons">
 			dashboard
 		</i>	
-		</a>
+		</a>-->
 		<!--
 		
 		{/if}
@@ -79,9 +80,9 @@
 			school
 			</i>
 		</a>-->
-		<a href="{$WEB_ROOT}/graybox.php?page=student-certificacion&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px" title="VER CERTIFICACIONES">
+		<a href="{$WEB_ROOT}/graybox.php?page=student-certificacion&id={$item.userId}&auxTpl=1&cId={$page}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="VER CERTIFICACIONES">
 				<i class="material-icons">
-				picture_in_picture
+				dashboard
 				</i>
 		</a> 
 			{if $tipoUs ne "Docente"}

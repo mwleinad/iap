@@ -5,7 +5,7 @@
         <td align="center">{$item.correo}</td>        
         <td align="center">{$item.roleName}</td>        
         <td align="center">
-		<a href="{$WEB_ROOT}/usuarios">
+		<a href="{$WEB_ROOT}/usuarios/admin/{$item.personalId}">
 		{$item.numCandidatos}
 		</a>
 		</td>        
