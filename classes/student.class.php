@@ -1578,6 +1578,22 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		$result7 = $this->Util()->DB()->GetResult();
 		
+		foreach($result7 as $key=>$aux){
+			
+			 $sql = "
+			SELECT 
+				activityId
+				
+			FROM 
+				course_module as cm 
+			left join activity as at on at.courseModuleId = cm.courseModuleId 
+			WHERE cm.courseId = ".$aux["courseId"]."";
+			
+			$this->Util()->DB()->setQuery($sql);
+			$acI = $this->Util()->DB()->GetSIngle();
+			$result7[$key]["activityId"] = $acI;
+		}
+		
 		
 		
 		// echo "<pre>"; print_r($result7);
@@ -3778,6 +3794,23 @@ class Student extends User
 						personal_subject as p
 					left join subject as s on s.subjectId = p.subjectId 
 					WHERE personalId = ".$Id.""; 
+				$this->Util()->DB()->setQuery($sql);
+				$result = $this->Util()->DB()->GetResult();
+				
+				
+		return $result ;
+		
+	}
+	
+	
+	public function GettDocumentos($Id){
+		
+		$sql = "
+					SELECT 
+						*
+					FROM 
+						repositorio as r
+					WHERE userId = ".$Id.""; 
 				$this->Util()->DB()->setQuery($sql);
 				$result = $this->Util()->DB()->GetResult();
 				

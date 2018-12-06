@@ -426,7 +426,7 @@
 			$data["totalPuntos"] = number_format($results,2);
 			$data["lstRes"] = $lstRes;
 			$data["limiteAprobatorio"] = $lstRes[0]["timeLimit"];
-			$data["calificacion"] = number_format(($result/$results),2);
+			@$data["calificacion"] = number_format(($result/$results),2);
 			
 			return $data;
 			
@@ -434,7 +434,7 @@
 		
 		function sendInfo($name,$pass){
 			
-			// $sendmail = new SendMail;
+			 $sendmail = new SendMail;
 					
 			$sql = "SELECT 
 						*
@@ -473,6 +473,8 @@
 				
 				// echo $msj ;
 				// exit;
+				// echo $lstRes["email"];
+		// exit;
 				
 				$sendmail->PrepareAttachment("IAP Chiapas | Recuperacion de datos de usuario", utf8_decode($msj), "","", $lstRes["email"], $name, $attachment, $fileName);
 				

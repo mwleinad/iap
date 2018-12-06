@@ -461,3 +461,29 @@ function onSendINE(){
 	})
 
 }
+
+
+
+function verForm(userId,subjectId,tipo){
+	
+	$.ajax({
+	  	type: "POST",
+	  	url: WEB_ROOT+'/ajax/new/usuarios.php',
+	  	data: $("#frmGral2").serialize(true)+'&type=verForm&userId='+userId+'&subjectId='+subjectId+'&tipo='+tipo,
+		beforeSend: function(){			
+			$("#load").html(LOADER3);
+		},
+	  	success: function(response) {	
+		
+			console.log(response)
+			
+			$("#r_"+subjectId).toggle();
+			$("#r_"+subjectId).html(response);
+				
+
+		},
+		error:function(){
+			alert(msgError);
+		}
+    });
+}

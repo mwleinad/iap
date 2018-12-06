@@ -52,6 +52,7 @@
 	{/if}
 	
 	{if $tipoUs != "Docente"}
+	<input type="hidden" name="admin" id="admin" value="{$admin}">
 	Certificaciones
 	 <select name="certificacionId" class="form-control" style="width:100px" onChange="buscarGrupos()">
 		<option></option>

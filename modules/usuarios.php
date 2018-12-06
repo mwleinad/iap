@@ -43,12 +43,11 @@
 	
 	
 	if($_GET["admin"]){
-		//exit;
 		$students = $student->enumerateOkNum();
 	}else{
-		$students = $student->enumerateOk();
+		$students = $student->enumerateOkNum();
 	}
-	// $students = $student->enumerateOk();
+
 	$lstCertificaciones = $subject->Enumerate();
 	
 	
@@ -56,6 +55,7 @@
 	// exit;
 	$smarty->assign("tipoUs", $_SESSION["User"]["type"]);	
 	$smarty->assign("id", $_GET["id"]);	
+	$smarty->assign("admin", $_GET["admin"]);	
 	$smarty->assign("lstCertificaciones", $lstCertificaciones);	
 	$smarty->assign("studentsCount", $studentsCount);	
 	$smarty->assign("registros", $students);	

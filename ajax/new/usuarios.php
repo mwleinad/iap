@@ -86,7 +86,7 @@ switch($_POST["type"])
 	// exit;
 		
 		$_GET = $_POST;
-		$students = $student->enumerateOk();
+		$students = $student->enumerateOkNum();
 		$smarty->assign("tipoUs", $_SESSION["User"]["type"]);	
 		$smarty->assign("registros", $students);
 		$smarty->display(DOC_ROOT.'/templates/lists/usuarios.tpl');

@@ -3,32 +3,34 @@
 	include_once('../config.php');
 	include_once(DOC_ROOT.'/libraries.php');
 
-	// use Dompdf\Adapter\CPDF;
-	// use Dompdf\Dompdf;
-	// use Dompdf\Exception;
-
-	// echo "<pre>"; print_r($_POST);
-	// exit;
 	session_start();
-
-	$Files=array('file1.ext','file2.ext','file3.ext');
-	RARFiles('asdf.rar',$Files);
+	
+	$zip = new ZipArchive();
+	$lst = $student->GettDocumentos($_GET['userId']);
+	$filename = "documentos_".$_GET['userId'].".zip";
+	if($zip->open($filename,ZIPARCHIVE::CREATE)===true){
+		
+		foreach($lst as $key=>$aux){
+			if(file_exists(DOC_ROOT."/alumnos/repositorio/".$aux["ruta"])){
+				 $zip->addFile(DOC_ROOT."/alumnos/repositorio/".$aux["ruta"]);
+			}
+		}
+		$zip->close();
+		echo "creado ".$filename;
+		if(file_exists(DOC_ROOT."/ajax/".$filename)){
+			$enlace = DOC_ROOT."/ajax/".$filename;
+			header ("Content-Disposition: attachment; filename=".$filename."");
+			header ("Content-Type: application/octet-stream");
+			header ("Content-Length: ".filesize($enlace));
+			readfile($enlace);
+		}
+		
+	}else{
+		
+		
+	}
 	
 
  
-$zip = new ZipArchive();
- 
-$filename = 'test.zip';
- 
-if($zip->open($filename,ZIPARCHIVE::CREATE)===true) {
-        $zip->addFile('a.txt');
-        $zip->addFile('b.txt');
-        $zip->close();
-        echo 'Creado '.$filename;
-}
-else {
-        echo 'Error creando '.$filename;
-}
- 
 ?>
-?>
+

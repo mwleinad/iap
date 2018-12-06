@@ -67,10 +67,24 @@
 						</i>
 					</a>
 					
-					<a href="{$WEB_ROOT}/ajax/download.php"  target="_blank" title="DESCARGAR">
-								<i class="material-icons">
-						school
-						</i>
+					<a href="{$WEB_ROOT}/ajax/acuse.php?id={$item.userId}"   target='_blank' title='ACUSE'>
+						<i class="material-icons">how_to_reg</i>
+					</a>
+					<a href="{$WEB_ROOT}/ajax/dg.php?id={$item.userId}&cId={$item.activityId}"   target='_blank' title='EVALUACION'>
+					<i class="material-icons">ballot</i>	
+					</a>	
+					<!--<a href="{$WEB_ROOT}/files/solicitudes/{$item.userId}_{$item.courseId}.pdf"   target='_blank' title='REGISTRO'>	-->
+					<a href="{$WEB_ROOT}/ajax/reg.php?id={$item.userId}&courseId={$item.subjectId}"   target='_blank' title='Ficha de Registro'>
+					<i class="material-icons">description</i>
+				
+					<a href="{$WEB_ROOT}/ajax/ine.php?id={$item.userId}"   target='_blank' title='INE'>	
+					<i class="material-icons">picture_in_picture</i>
+					</a>
+					
+					<a href="{$WEB_ROOT}/ajax/download.php?userId={$item.userId}"  target="_blank" title="DESCARGAR">
+							<i class="material-icons">
+					save_alt
+					</i>
 					</a>
 
 					</td>

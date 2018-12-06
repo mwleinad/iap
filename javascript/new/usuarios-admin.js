@@ -17,7 +17,9 @@ function sendInfo(){
 									
 			if($.trim(splitResp[0]) == "ok"){
 				
-console.log(response)
+			console.log(response)
+			alert("El correo se envio correctamnte");
+			location.reload();
 			}else if($.trim(splitResp[0]) == "fail"){
 				$("#msj").html(splitResp[1]);
 			}else{

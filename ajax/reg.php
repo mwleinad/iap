@@ -26,8 +26,8 @@
 	$fj = explode(' ',$firma["fecha"]);
 	
 	$infoCertificacion = $student->infoCertificacion($_GET["courseId"]);
-	
-	// echo "<pre>"; print_r($info );
+	// exit;
+	// echo "<pre>"; print_r($firma );
 	// exit;
 	
 	if($info["rutaFoto"]=="")
