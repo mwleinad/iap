@@ -45,6 +45,11 @@
 	if($_GET["admin"]){
 		$students = $student->enumerateOkNum();
 	}else{
+		// echo "<pre>"; print_r($_SESSION["User"]);
+		// exit;
+		
+		$smarty->assign("admin", "admin");
+		$_GET["admin"] = $_SESSION["User"]["userId"];
 		$students = $student->enumerateOkNum();
 	}
 

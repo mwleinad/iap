@@ -7,6 +7,31 @@
         </div>
     </div>
     <div class="portlet-body">
+	
+	
+	<table width="100%" class="tblGral table table-bordered table-striped table-condensed flip-content">
+				<thead>      
+					 <tr>
+						<th width="" height="28">Nombre</th>		
+						<th width="" height="28">Grupo</th>				
+					</tr>
+				</thead>
+				<tbody>
+				{foreach from=$registros item=item key=key}
+				
+				    <tr>
+					<td align="center" class="id">{$item.certificacion}</td>       
+					<td align="center" class="id">{$item.group}</td>            				
+					</tr>
+					<tr>
+						<td colspan="5" style="display:none" id="r_{$item.subjectId}">
+						
+						</td>
+					</tr>
+					{/foreach}
+				</tbody>
+			</table>
+	
 		<form name="frmGral2" id="frmGral2">
 		<input type="hidden" name="alumnoId" value="{$id}">
 		Certificacion:

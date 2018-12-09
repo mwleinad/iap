@@ -20,6 +20,7 @@
 						<th width="" height="28">Evaluador</th>	
 								
 						<th width="" height="28">Acciones</th>
+						<th width="" height="28">Descargas</th>
 						{else}
 						<th width="" height="28">Evaluador</th>
 						{/if}
@@ -66,7 +67,8 @@
 						school
 						</i>
 					</a>
-					
+					</td>
+					<td>
 					<a href="{$WEB_ROOT}/ajax/acuse.php?id={$item.userId}"   target='_blank' title='ACUSE'>
 						<i class="material-icons">how_to_reg</i>
 					</a>
