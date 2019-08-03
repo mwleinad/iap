@@ -197,7 +197,7 @@
 
 {*}
 {foreach from=$replies item=item}
-<div class="portlet box red">
+<div class="portlet box {$PORTLET_COLOR}">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i> Aportación de:
@@ -216,7 +216,7 @@
                     <input value="Eliminar" type="submit" class="btn-70-delete"  onClick="return confirmando();" style="border:none; height:24px;" name="eliminar" id="eliminar" >
                 </form>
             {/if}
-            <a href="{$WEB_ROOT}/graybox.php?page=add-comment&id={$item.replyId}&moduleId={$moduleId}&topicsubId={$topicsubId}" data-target="#ajax" data-toggle="modal" class="btn green">
+            <a href="{$WEB_ROOT}/graybox.php?page=add-comment&id={$item.replyId}&moduleId={$moduleId}&topicsubId={$topicsubId}" data-target="#ajax" data-toggle="modal" class="btn {$BUTTON_COLOR}">
                 Agregar Comentario
             </a>
         </div>

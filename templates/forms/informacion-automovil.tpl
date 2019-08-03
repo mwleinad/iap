@@ -16,7 +16,7 @@ llenar la siguiente información para poder apartarle un cajón el dia de sus cl
 {if $cId ne 'si'}
 
 <center>
-<button onClick='guardarInformacion(4)' class="btn green" >
+<button onClick='guardarInformacion(4)' class="btn {$BUTTON_COLOR}" >
 Guardar
 </button>
 </center>
@@ -30,6 +30,6 @@ Guardar
 {/if}
 <center>
 <div class="divControls" style="display:none">
-	<button onClick='guardarInformacion(4)' class="btn green" >Guardar</button>
+	<button onClick='guardarInformacion(4)' class="btn {$BUTTON_COLOR}" >Guardar</button>
 </div>
 </center>

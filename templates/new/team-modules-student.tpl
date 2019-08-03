@@ -1,4 +1,4 @@
-<div class="portlet box red">
+<div class="portlet box {$PORTLET_COLOR}">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i>Equipo {$myModule.name|truncate:45:"..."}
@@ -64,7 +64,7 @@
                     <div class="form-actions">
                         <div class="row">
                             <div class="col-md-offset-3 col-md-9">
-                                <button type="button" class="btn green submitForm" onclick="SubmitForm()">Enviar Correo</button>
+                                <button type="button" class="btn {$BUTTON_COLOR} submitForm" onclick="SubmitForm()">Enviar Correo</button>
 
                             </div>
                         </div>

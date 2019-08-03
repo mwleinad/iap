@@ -107,7 +107,7 @@
 			if(file_exists(DOC_ROOT."/".$aux['foto'])){
 				$foto = DOC_ROOT."/".$aux['foto'];
 			}else{
-				$foto = DOC_ROOT."/alumnos/no_foto.JPG";
+				$foto = DOC_ROOT."/images/no_foto.jpg";
 			}
 			
 			$html .= "<tr>";

@@ -1,4 +1,4 @@
-<div class="portlet box red">
+<div class="portlet box {$PORTLET_COLOR}">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i>Editar Preguntas
@@ -75,5 +75,5 @@
 </div>  
 <center>
 <div id="msj"></div>
- <button type="submit" class="btn green"  id="addMajor" name="addMajor" value="Editar" onClick="EditTest()"> Editar </button>   
+ <button type="submit" class="btn {$BUTTON_COLOR}"  id="addMajor" name="addMajor" value="Editar" onClick="EditTest()"> Editar </button>
 </center>

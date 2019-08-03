@@ -1,4 +1,4 @@
-<div class="portlet box red">
+<div class="portlet box {$PORTLET_COLOR}">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-comments-o"></i>
@@ -11,7 +11,7 @@
 					<div class="span2">
 						<ul class="inbox-nav margin-bottom-10">
 							<!--<li class="compose-btn">
-								<a href="javascript:;" data-title="Compose" class="btn green"> 
+								<a href="javascript:;" data-title="Compose" class="btn {$BUTTON_COLOR}">
 								<i class="icon-edit"></i> Redactar
 								</a>
 							</li>-->
@@ -31,7 +31,7 @@
 							<form action="#" class="form-search pull-right">
 								<div class="input-append">
 									<input class="form-control" style="float:left" type="text" placeholder="Search Mail">
-									<button class="btn green" type="button">Search</button>
+									<button class="btn {$BUTTON_COLOR}" type="button">Search</button>
 								</div>
 							</form>
 							{/if}

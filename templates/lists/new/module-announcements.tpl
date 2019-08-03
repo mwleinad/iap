@@ -1,5 +1,5 @@
 {foreach from=$announcements item=item}
-<div class="portlet box red">
+<div class="portlet box {$PORTLET_COLOR}">
     <div class="portlet-title">
         <!-- TODO Poner al centro el título-->
         <div class="caption" >

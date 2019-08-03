@@ -18,7 +18,7 @@
         <div class="form-actions">
             <div class="row">
                 <div class="col-md-offset-3 col-md-9">
-                    <input type="submit" class="btn green submitForm" id="addMajor" name="addMajor"/>
+                    <input type="submit" class="btn {$BUTTON_COLOR} submitForm" id="addMajor" name="addMajor"/>
                     <button type="button" class="btn default closeModal" onClick="closeModal()">Cancelar</button>
                 </div>
             </div>

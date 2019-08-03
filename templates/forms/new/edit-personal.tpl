@@ -183,7 +183,7 @@
 		</div>
         <div class="row">
             <div class="col-md-offset-3 col-md-9">
-                <input type="submit" class="btn green" value="Guardar" id='btnEdit'/>
+                <input type="submit" class="btn {$BUTTON_COLOR}" value="Guardar" id='btnEdit'/>
                 <button type="button" class="btn default closeModal">Cancelar</button>
             </div>
         </div>

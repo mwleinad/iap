@@ -1,6 +1,6 @@
 
 {if $auxImagen ne 1}
-<!--<div class="portlet box red">
+<!--<div class="portlet box {$PORTLET_COLOR}">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i>Cambiar foto de perfil
@@ -15,7 +15,7 @@
 				{if $exFoto eq "si"}
 				<img src="{$WEB_ROOT}/alumnos/{$info.userId}.jpg?{$rand}" width="110" height="110">
 				{else}
-				<img src="{$WEB_ROOT}/alumnos/no_foto.JPG?{$rand}" width="110" height="110">
+				<img src="{$WEB_ROOT}/images/no_foto.jpg?{$rand}" width="110" height="110">
 				{/if}
 			</td>
 			<td>
@@ -27,7 +27,7 @@
 					<br>
 					
 				</form>
-				 <button type="submit" class="btn green submitForm" onClick="updateFoto()">Guardar</button>
+				 <button type="submit" class="btn {$BUTTON_COLOR} submitForm" onClick="updateFoto()">Guardar</button>
             </td>
 			</tr>
 			</table>
@@ -54,7 +54,7 @@
     <input type="hidden" id="courseMxId" name="courseMxId" value="{$courseMId}"/>
     <input type="hidden" id="subjecxtId" name="subjecxtId" value="{$subjectId}"/>
 	 <input type="hidden" id="coursexId" name="coursexId" value="{$courseId}"/>
-    <div class="portlet box red">
+    <div class="portlet box {$PORTLET_COLOR}">
         <div class="portlet-title">
             <div class="caption">
                 <i class="fa fa-bullhorm"></i>Información Personal
@@ -135,7 +135,7 @@
         </div>
     </div>
 
-    <div class="portlet box red">
+    <div class="portlet box {$PORTLET_COLOR}">
         <div class="portlet-title">
             <div class="caption">
                 <i class="fa fa-bullhorm"></i>Domicilio
@@ -228,7 +228,7 @@
         </div>
     </div>
 
-    <div class="portlet box red">
+    <div class="portlet box {$PORTLET_COLOR}">
         <div class="portlet-title">
             <div class="caption">
                 <i class="fa fa-bullhorm"></i>Datos de contacto
@@ -260,7 +260,7 @@
         </div>
     </div>
 
-    <div class="portlet box red">
+    <div class="portlet box {$PORTLET_COLOR}">
         <div class="portlet-title">
             <div class="caption">
                 <i class="fa fa-bullhorm"></i>Datos laborales
@@ -371,7 +371,7 @@
         </div>
     </div>
 
-    <div class="portlet box red">
+    <div class="portlet box {$PORTLET_COLOR}">
         <div class="portlet-title">
             <div class="caption">
                 <i class="fa fa-bullhorm"></i>Estudios
@@ -449,7 +449,7 @@
 				<button type="button" class="btn default" data-dismiss="modal">Salir</button>
 				{/if}
                 
-                <button type="submit" class="btn green submitForm" onClick="saveEditStudentAlumn()">Guardar</button>
+                <button type="submit" class="btn {$BUTTON_COLOR} submitForm" onClick="saveEditStudentAlumn()">Guardar</button>
             </div>
         </div>
     </div>

@@ -92,6 +92,7 @@ class DB
         if(!$this->conn_id)
             $this->DatabaseConnect();
 
+        mysqli_query($this->conn_id, "SET NAMES 'utf8'");
         $this->sqlResult = mysqli_query($this->conn_id, $this->query)  or die (trigger_error(mysqli_error($this->conn_id)));		;
     }
 

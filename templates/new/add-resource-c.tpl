@@ -1,4 +1,4 @@
-<div class="portlet box red">
+<div class="portlet box {$PORTLET_COLOR}">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i>Agregar Recurso
@@ -54,10 +54,10 @@
 		<div class="form-actions">
 						<div class="row">
 							<div class="col-md-offset-3 col-md-9"><!--
-								<input type="submit" class="btn green submitForm" id="addMajor" name="addMajor"/>-->
-								<button type="button" onClick="saveRecursos()" class="btn green submitForm">Guardar</button>
+								<input type="submit" class="btn {$BUTTON_COLOR} submitForm" id="addMajor" name="addMajor"/>-->
+								<button type="button" onClick="saveRecursos()" class="btn {$BUTTON_COLOR} submitForm">Guardar</button>
 								{*
-													<button type="submit" class="btn green submitForm">Guardar</button>
+													<button type="submit" class="btn {$BUTTON_COLOR} submitForm">Guardar</button>
 								*}
 								<button type="button" class="btn default closeModal">Cancelar</button>
 							</div>

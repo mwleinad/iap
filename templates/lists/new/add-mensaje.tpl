@@ -26,4 +26,4 @@
 <textarea class='form-control' name="mensaje"></textarea>
 <input type='hidden' value='{$chatId}' name="chatId">
 </form>
-<center><button type="submit" class="btn green submitForm" onClick='saveMsj()'>Enviar</button></center>
+<center><button type="submit" class="btn {$BUTTON_COLOR} submitForm" onClick='saveMsj()'>Enviar</button></center>

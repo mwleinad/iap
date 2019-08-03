@@ -56,7 +56,7 @@
       <div style="float:left"><span class="reqField">*</span> Campo requerido</div>
       <div style="padding-right:60px">
 
-        <input type="submit" class="btn green submitForm" id="addMajor" name="addMajor" value="Enviar" onClick="return confirmSubmit()" />
+        <input type="submit" class="btn {$BUTTON_COLOR} submitForm" id="addMajor" name="addMajor" value="Enviar" onClick="return confirmSubmit()" />
       </div>
       
     </div>

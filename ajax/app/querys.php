@@ -47,8 +47,8 @@
 				$fotoHeader = "<img src='".WEB_ROOT."/alumnos/".$info["userId"].".jpg?".rand()."' style='width:30px; border-radius: 50%;' />";
 			}else{
 				echo  'no';
-				$urlFoto = "<img src='".WEB_ROOT."/alumnos/no_foto.JPG' style='width:100px; border-radius: 50%;' />";
-				$fotoHeader = "<img src='".WEB_ROOT."/alumnos/no_foto.JPG' style='width:30px; border-radius: 50%;' />";
+				$urlFoto = "<img src='".WEB_ROOT."/images/no_foto.jpg' style='width:100px; border-radius: 50%;' />";
+				$fotoHeader = "<img src='".WEB_ROOT."/images/no_foto.jpg' style='width:30px; border-radius: 50%;' />";
 			}
 			
 			$activeCourses = $student->StudentCourses("activo", "si");
@@ -199,7 +199,7 @@
 			if($docente['foto']){
 				$urlFotoDoc = "<img src='".WEB_ROOT."/".$docente['foto']."' style='width:100px; border-radius: 50%;' '>";
 			} else {
-				$urlFotoDoc = "<img src='".WEB_ROOT."/alumnos/no_foto.JPG' style='width:100px; border-radius: 50%;' '>";
+				$urlFotoDoc = "<img src='".WEB_ROOT."/images/no_foto.jpg' style='width:100px; border-radius: 50%;' '>";
 			}
 
 			// echo "<pre>"; print_r($docente);
@@ -253,7 +253,7 @@
 			{
 				$urlFoto = "<img src='".WEB_ROOT."/alumnos/".$info["userId"].".jpg?".rand()."' style='width:100px; height:100px; border-radius: 50%;' />";
 			}else{
-				$urlFoto = "<img src='".WEB_ROOT."/alumnos/no_foto.JPG' style='width:100px; border-radius: 50%;' />";
+				$urlFoto = "<img src='".WEB_ROOT."/images/no_foto.jpg' style='width:100px; border-radius: 50%;' />";
 			}
 		
 			echo "ok[#]";

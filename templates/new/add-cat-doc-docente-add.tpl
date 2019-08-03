@@ -1,4 +1,4 @@
-<div class="portlet box red">
+<div class="portlet box {$PORTLET_COLOR}">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorn"></i>Documentos del Docente
@@ -38,7 +38,7 @@
 <div id="msj_1">
 					</div>
 					<center>
-					<button onClick='onSave()' class="btn green" >
+					<button onClick='onSave()' class="btn {$BUTTON_COLOR}" >
 					Guardar
 					</button>
 					<button type="button" class="btn default closeModal" onClick="cancelarSolicitud()">Cancelar</button>

@@ -1,4 +1,4 @@
-<div class="portlet box red">
+<div class="portlet box {$PORTLET_COLOR}">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i>Nuevo Mensaje
@@ -47,7 +47,7 @@
 							<div class="col-md-offset-3 col-md-9">
 								
 			
-								<button  class="btn green submitForm" onClick="saveNew()">Guardar</button>
+								<button  class="btn {$BUTTON_COLOR} submitForm" onClick="saveNew()">Guardar</button>
 		
 								<button type="button" class="btn default closeModal">Cancelar</button>
 							</div>

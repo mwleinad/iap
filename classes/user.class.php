@@ -1011,8 +1011,8 @@ class User extends Main
 			}
 			else
 			{
-				$row["foto"] = '<img src="'.WEB_ROOT.'/alumnos/no_foto.JPG" width="110" height="110"/>';
-				$row["imagen"] = WEB_ROOT.'/alumnos/no_foto.JPG';
+				$row["foto"] = '<img src="'.WEB_ROOT.'/images/no_foto.jpg" width="110" height="110"/>';
+				$row["imagen"] = WEB_ROOT.'/images/no_foto.jpg';
 			}
 			return $row;
 	}
@@ -1059,8 +1059,8 @@ class User extends Main
 			}
 			else
 			{
-				$row["foto"] = '<img src="'.WEB_ROOT.'/alumnos/no_foto.JPG" width="110" height="110"/>';
-				$row["imagen"] = WEB_ROOT.'/alumnos/no_foto.JPG';
+				$row["foto"] = '<img src="'.WEB_ROOT.'/images/no_foto.jpg" width="110" height="110"/>';
+				$row["imagen"] = WEB_ROOT.'/images/no_foto.jpg';
 			}
 			return $row;
 	}

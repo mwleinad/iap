@@ -19,7 +19,7 @@
 </div>
 {if $cId ne 'si'}
 <center>
-<button onClick='guardarInformacion(5)' class="btn green" >
+<button onClick='guardarInformacion(5)' class="btn {$BUTTON_COLOR}" >
 Guardar
 </button>
 </center>
@@ -33,6 +33,6 @@ Guardar
 {/if}
 <center>
 <div class="divControls" style="display:none">
-	<button onClick='guardarInformacion(5)' class="btn green" >Guardar</button>
+	<button onClick='guardarInformacion(5)' class="btn {$BUTTON_COLOR}" >Guardar</button>
 </div>
 </center>

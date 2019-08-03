@@ -1,5 +1,5 @@
 <hr>
-<a class="btn green submitForm" href="{$WEB_ROOT}/reply-inbox/id/{$courseMId}/cId/{$chatId}&or={$or}"  data-title="Trash">Responder</a>
+<a class="btn {$BUTTON_COLOR} submitForm" href="{$WEB_ROOT}/reply-inbox/id/{$courseMId}/cId/{$chatId}&or={$or}"  data-title="Trash">Responder</a>
 <a class="btn default" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','borrador','{$chatId}')" data-title="Trash">Descartar</a>
 <a class="btn default" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','borrar','{$chatId}')" data-title="Trash">Borrar</a>
 <hr>

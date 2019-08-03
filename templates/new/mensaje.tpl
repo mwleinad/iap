@@ -1,10 +1,10 @@
-<div class="portlet box red">
+<div class="portlet box {$PORTLET_COLOR}">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i><b>Mensajes</b> {$myModule.name|truncate:65:"..."} &raquo;
         </div>
         <div class="actions">
-			<a class="btn green" href="{$WEB_ROOT}/graybox.php?page=nuevo-mensaje&id={$item.userId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
+			<a class="btn {$BUTTON_COLOR}" href="{$WEB_ROOT}/graybox.php?page=nuevo-mensaje&id={$item.userId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
 				<i class="fa fa-plus"></i> Nuevo Mensaje
 			</a>
         </div>
@@ -54,7 +54,7 @@
 		</form>
 		<br>
 		
-		<button onClick='buscarSolicitud()' class="btn green submitForm">Buscar</button>
+		<button onClick='buscarSolicitud()' class="btn {$BUTTON_COLOR} submitForm">Buscar</button>
 		<div id='loader'>
 		</div>-->
 		<div id='contenido'>

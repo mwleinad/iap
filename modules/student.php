@@ -45,9 +45,9 @@
 		$_SESSION['stdSearch'] = '';
 		unset($_SESSION['stdSearch']);
 			
-	}//if	
-	
-	$smarty->assign("studentsCount", $studentsCount);	
+	}//if
+
+	$smarty->assign("studentsCount", $studentsCount);
 	$smarty->assign("students", $students);	
 	$smarty->assign('mnuMain','catalogos');
 	$smarty->assign('mnuSubmain','alumnos');	

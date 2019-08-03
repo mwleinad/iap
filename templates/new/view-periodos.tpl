@@ -1,4 +1,4 @@
-<div class="portlet box red">
+<div class="portlet box {$PORTLET_COLOR}">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i>Agregar Periodos
@@ -38,7 +38,7 @@
 			</table>
 			</form>
 			<center>
-				<button onClick='savePeriodos()' class="btn green submitForm" >Solicitar</button>
+				<button onClick='savePeriodos()' class="btn {$BUTTON_COLOR} submitForm" >Solicitar</button>
 			</center>
 		</div>
     </div>

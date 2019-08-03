@@ -213,9 +213,6 @@ if(!in_array($_GET['page'], $pages))
 	$_GET['page'] = "homepage";
 }
 
-// echo $_GET['id'];
-// exit;
-
 $smarty->assign('positionId', $User['positionId']);
 
 include_once(DOC_ROOT.'/modules/user.php');

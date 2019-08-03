@@ -1,6 +1,6 @@
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
-    <div class="page-footer-inner"> {$smarty.now|date_format:"%Y"} &copy; Instituto de Administraci&oacute;n P&uacute;blica del Estado de Chiapas, A.C.
+    <div class="page-footer-inner"> {$smarty.now|date_format:"%Y"} &copy; {$COPYRIGHT}
     </div>
     <div class="scroll-to-top">
         <i class="icon-arrow-up"></i>
@@ -12,7 +12,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <img src="../assets/global/img/loading-spinner-grey.gif" alt="" class="loading">
+                <img src="{$WEB_ROOT}/assets/global/img/loading-spinner-grey.gif" alt="" class="loading">
                 <span> &nbsp;&nbsp;Loading... </span>
             </div>
         </div>

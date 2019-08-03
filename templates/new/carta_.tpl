@@ -1,4 +1,4 @@
-<div class="portlet box red">
+<div class="portlet box {$PORTLET_COLOR}">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i>Carta Descriptiva
@@ -104,7 +104,7 @@
 			</table>
 	</form>
 		<center>
-			<button class="btn green" type="button" onClick="onSaveCarta()">Guardar</button>
+			<button class="btn {$BUTTON_COLOR}" type="button" onClick="onSaveCarta()">Guardar</button>
 		</center>
     </div>
 </div>

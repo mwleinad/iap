@@ -1,4 +1,4 @@
-<div class="portlet box red">
+<div class="portlet box {$PORTLET_COLOR}">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorn"></i>Evaluación Docente
@@ -58,7 +58,7 @@
 		</form>
 		<center>
 			
-			<a href="javascript:void(0)" id="btnSaveEncuesta" onclick="SaveEncuesta()" class="btn green submitForm">Enviar Evaluación</a>
+			<a href="javascript:void(0)" id="btnSaveEncuesta" onclick="SaveEncuesta()" class="btn {$BUTTON_COLOR} submitForm">Enviar Evaluación</a>
 		</center>
 		
     </div>

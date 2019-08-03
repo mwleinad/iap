@@ -1684,7 +1684,7 @@ class Personal extends Main
 			if(file_exists(DOC_ROOT."/".$aux['foto'])){
 				$foto = WEB_ROOT."/".$aux['foto'];
 			}else{
-				$foto = WEB_ROOT."/alumnos/no_foto.JPG";
+				$foto = WEB_ROOT."/images/no_foto.jpg";
 			}
 			$result[$key]['description'] = htmlspecialchars_decode($aux['description']);   
 			$result[$key]['foto'] = $foto; 

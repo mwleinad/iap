@@ -1,5 +1,5 @@
 <hr>
-<a class="btn green submitForm" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','activo','{$chatId}')" data-title="Trash">Enviar</a>
+<a class="btn {$BUTTON_COLOR} submitForm" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','activo','{$chatId}')" data-title="Trash">Enviar</a>
 <a class="btn default" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','borrador','{$chatId}')" data-title="Trash">Descartar</a>
 <a class="btn default" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','borrar','{$chatId}')" data-title="Trash">Borrar</a>
 <hr>
@@ -65,7 +65,7 @@ Agregar Archivo
 <hr>
 
 <hr>
-<a class="btn green submitForm" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','activo','{$chatId}')" data-title="Trash">Enviar</a>
+<a class="btn {$BUTTON_COLOR} submitForm" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','activo','{$chatId}')" data-title="Trash">Enviar</a>
 <a class="btn default" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','borrador','{$chatId}')" data-title="Trash">Descartar</a>
 <a class="btn default" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','borrar','{$chatId}')" data-title="Trash">Borrar</a>
 
