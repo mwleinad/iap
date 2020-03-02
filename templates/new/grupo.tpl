@@ -1,4 +1,4 @@
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorn"></i>Grupo
@@ -25,7 +25,7 @@
 
 				<a href="{$WEB_ROOT}/graybox.php?page=view-perfil&id={$item.userId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
 				{if $item.rutaFoto eq ''}
-				       <img src="{$WEB_ROOT}/images/no_foto.jpg" class="img-responsive" alt="" style="border-radius: 60%;  width: 60%;height: 60%;">
+				       <img src="{$WEB_ROOT}/alumnos/no_foto.JPG" class="img-responsive" alt="" style="border-radius: 60%;  width: 60%;height: 60%;"> 
 
 				{else}
 				       <img src="{$WEB_ROOT}/alumnos/{$item.rutaFoto}?{$rand}" class="img-responsive" alt="" style="border-radius: 60%;  width: 60%;height: 60%;"> 

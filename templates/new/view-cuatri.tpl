@@ -1,4 +1,4 @@
-<div class="portlet box {$PORTLET_COLOR}" >
+<div class="portlet box red" >
     <div class="portlet-title" >
         <div class="caption">
             <i class="fa fa-bullhorm"></i>Selecciona la curricula
@@ -60,7 +60,7 @@
              </form>
 			 <div class="msjError"></div>
 			<center>
-				<button onClick='addSaveSolicitud()' class="btn {$BUTTON_COLOR} submitForm" >Solicitar</button> <!--
+				<button onClick='addSaveSolicitud()' class="btn green submitForm" >Solicitar</button> <!--
 				<button type="button"  onClick='closeModal()'  class="btn default closeModal">Cancelar</button>-->
 			</center>
         </div>

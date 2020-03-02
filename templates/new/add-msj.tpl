@@ -13,7 +13,7 @@
 </script>
 </head>
 <body>
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i>Nuevo Mensaje
@@ -74,7 +74,7 @@
 		{if $infoMsj}
 				{if $infoMsj.ruta ne ''}
 				<center>
-				<a href="{$WEB_ROOT}/docentes/msj/{$infoMsj.ruta}" class="btn {$BUTTON_COLOR} submitForm" target="_blank">
+				<a href="{$WEB_ROOT}/docentes/msj/{$infoMsj.ruta}" class="btn green submitForm" target="_blank">
 					Ver Archivo
 				</a>
 				</center>
@@ -95,7 +95,7 @@
 		{if !$infoMsj}
             <div class="row">
                 <div class="col-md-offset-3 col-md-9">
-                    <button type="button" class="btn {$BUTTON_COLOR} submitForm" id="addMajor" name="addMajor" onClick="onEnviaMsj()" >Guardar</button>
+                    <button type="button" class="btn green submitForm" id="addMajor" name="addMajor" onClick="onEnviaMsj()" >Guardar</button>
                     <button type="button" class="btn default closeModal" onClick="closeModal()">Cancelar</button>
                 </div>
             </div>

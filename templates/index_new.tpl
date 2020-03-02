@@ -8,7 +8,6 @@
 
 <head>
 	<meta charset="utf-8" />
-	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
 	<title>Sistema de Educaci&oacute;n en Linea | IAP Chiapas</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta content="width=device-width, initial-scale=1" name="viewport" />
@@ -37,7 +36,7 @@
 	
 	<!-- BEGIN THEME LAYOUT STYLES -->
 	<link href="{$WEB_ROOT}/assets/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />
-	<link href="{$WEB_ROOT}/assets/layouts/layout/css/themes/{$THEME}.css" rel="stylesheet" type="text/css" id="style_color" />
+	<link href="{$WEB_ROOT}/assets/layouts/layout/css/themes/light2.css" rel="stylesheet" type="text/css" id="style_color" />
 	<link href="{$WEB_ROOT}/assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
 	<link href="{$WEB_ROOT}/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" rel="stylesheet" type="text/css" />
 	<link href="{$WEB_ROOT}/assets/global/plugins/jquery-multi-select/css/multi-select.css" rel="stylesheet" type="text/css" />
@@ -60,6 +59,7 @@
 	<script type="text/javascript" src="{$WEB_ROOT}/GreyBox/greybox/AJS.js"></script>
 	<script type="text/javascript" src="{$WEB_ROOT}/GreyBox/greybox/AJS_fx.js"></script>
 	<script type="text/javascript" src="{$WEB_ROOT}/GreyBox/greybox/gb_scripts.js"></script>
+	<script type="text/javascript" src="{$WEB_ROOT}/javascript/inbox.js"></script>
 	<style>
 		.modal-dialog{
 			width: 70%;
@@ -68,6 +68,7 @@
     color: #32c5d2;
 }
 	</style>
+	<script src="{$WEB_ROOT}/assets/jquery.multiple.select.js"></script>
 
 <link href="{$WEB_ROOT}/assets/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
 {if $page == 'reply-inbox' or 
@@ -113,6 +114,15 @@ $page == 'view-inbox' or
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>-->
 {/if}
+<script>
+ $(function() {
+        $('#ms').change(function() {
+            console.log($(this).val());
+        }).multipleSelect({
+            width: '100%'
+        });
+    });
+</script>
 </head>
 <!-- END HEAD -->
 
@@ -157,19 +167,6 @@ $page == 'view-inbox' or
 <script src="{$WEB_ROOT}/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
 <script src="{$WEB_ROOT}/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
-
-<script src="{$WEB_ROOT}/assets/jquery.multiple.select.js"></script>
-<script type="text/javascript" src="{$WEB_ROOT}/javascript/inbox.js"></script>
-
-<script>
-  $(function() {
-    $('#ms').change(function() {
-      console.log($(this).val());
-    }).multipleSelect({
-      width: '100%'
-    });
-  });
-</script>
 
 
 <script>

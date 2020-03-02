@@ -1,4 +1,4 @@
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i><b>Referencia Bancaria</b> {$myModule.name|truncate:65:"..."} &raquo;
@@ -6,7 +6,7 @@
         <div class="actions">
 		
 			{if $infoStudent.referenciaBancaria ne  ''}
-			 <a href="javascript:void(0)" onClick="printReferencia()" class="btn {$BUTTON_COLOR} submitForm">Imprimir</a>
+			 <a href="javascript:void(0)" onClick="printReferencia()" class="btn green submitForm">Imprimir</a>
 			 {/if}
 		</div>
     </div>
@@ -79,7 +79,7 @@
 		<b>Tus datos de referencia bancaria no existen. Favor de solicitarlos dando clic al siguiente botón</b>
 		<br>
 		<br>
-		<button onClick="solicitarReferencia({$courseId})" class="btn {$BUTTON_COLOR} submitForm">Solicitar datos de referencia bancaria</button>
+		<button onClick="solicitarReferencia({$courseId})" class="btn green submitForm">Solicitar datos de referencia bancaria</button>
 		
 		</center>	
 		<br>

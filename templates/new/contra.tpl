@@ -1,4 +1,4 @@
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i><b>Actualizar Contraseña</b> {$myModule.name|truncate:65:"..."} &raquo;
@@ -32,7 +32,7 @@
 		</form>
 		<center>
 		<div id="res_"></div>
-		<button class="btn {$BUTTON_COLOR}" type="button" onClick="onSavePass()">Actualizar</button>
+		<button class="btn green" type="button" onClick="onSavePass()">Actualizar</button>
 		 <button type="button" class="btn default closeModal" onClick="closeModal()">Cancelar</button>
 		</center>
 		<br>

@@ -1,4 +1,4 @@
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i><b>Confirma Baja</b> {$myModule.name|truncate:65:"..."} &raquo;
@@ -21,7 +21,7 @@
 	<br>
 	<br>
 	
-	<a href="{$WEB_ROOT}/unsubscribe/sId/{$id}"  class="btn {$BUTTON_COLOR} submitForm" >SI</a>
+	<a href="{$WEB_ROOT}/unsubscribe/sId/{$id}"  class="btn green submitForm" >SI</a>
 	<button type="button" class="btn default closeModal" onClick="cancelarSolicitud()">Cancelar Solicitud</button>
 		
     </div>

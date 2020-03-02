@@ -1,4 +1,4 @@
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i>Editar
@@ -76,7 +76,7 @@
 <div class="form-actions">
 
 <center>
-	<button  class="btn {$BUTTON_COLOR} submitForm" onClick="saveEditContrato()">Guardar</button>
+	<button  class="btn green submitForm" onClick="saveEditContrato()">Guardar</button>
 	<button type="button" class="btn default closeModal" onClick="closeModal()" >Cancelar</button>
 </center>
 </div>

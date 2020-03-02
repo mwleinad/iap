@@ -8,5 +8,5 @@
         </td>
     </tr>
 {foreachelse}
-<tr><td colspan="4" align="center">No se encontrÃ³ ningÃºn registro.</td></tr>
+<tr><td colspan="4" align="center">No se encontró ningún registro.</td></tr>				
 {/foreach}

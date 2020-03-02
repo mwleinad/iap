@@ -15,6 +15,6 @@
 <div id='msjdiv'></div>
 <div id='loader'></div>
 <center>
- <button type="submit" id="btnEnviar"  class='btn {$BUTTON_COLOR}' onClick = 'saveCalificacion()'>Actualizar Calificaciones</button>
+ <button type="submit" id="btnEnviar"  class='btn green' onClick = 'saveCalificacion()'>Actualizar Calificaciones</button>
  </center>
 </div>

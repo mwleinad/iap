@@ -28,7 +28,7 @@
 	if(file_exists(DOC_ROOT."/".$info['foto'])){
 		$foto = WEB_ROOT."/".$info['foto'].'?'.rand();
 	}else{
-		$foto = WEB_ROOT."/images/no_foto.jpg";
+		$foto = WEB_ROOT."/alumnos/no_foto.JPG";
 	}
 	
 	$f1 = explode('-',$info['fecha_nacimiento']);

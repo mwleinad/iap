@@ -1,4 +1,4 @@
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i><b>Docente / Materias</b> 
@@ -10,7 +10,7 @@
 
         </div>
 		<div class="actions">
-            <!--<a href="javascript:;" class="btn {$BUTTON_COLOR}" id="btnAddMajor">
+            <!--<a href="javascript:;" class="btn green" id="btnAddMajor">
                 <i class="fa fa-plus"></i> Sincronizar School Manager
             </a>-->
 			

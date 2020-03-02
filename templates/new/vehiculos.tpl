@@ -1,10 +1,10 @@
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorn"></i>Vehiculos
         </div>
         <div class="actions">
-			<a  class="btn {$BUTTON_COLOR}" onClick='onLoadPdf()' title='AGREGAR'>
+			<a  class="btn green" onClick='onLoadPdf()' title='AGREGAR'>
 				<i class="fa fa-plus"></i> Imprimir
 			</a>
         </div>
@@ -22,7 +22,7 @@
 				</div>
 			</form>
 		<br>
-			<center><button onClick='onBuscar()' class='btn {$BUTTON_COLOR}'>Buscar</button></center>
+			<center><button onClick='onBuscar()' class='btn green'>Buscar</button></center>
 		<div id="msj">
 		</div>
 		<form id='frmGral'>

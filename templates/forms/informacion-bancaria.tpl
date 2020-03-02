@@ -39,7 +39,7 @@ deberá escanearlo y subirlo en la sección de 'DOCUMENTOS DEL DOCENTE'.</div>
 {if $cId ne 'si'}
 
 <center>
-<button onClick='guardarInformacion(3)' class="btn {$BUTTON_COLOR}" >
+<button onClick='guardarInformacion(3)' class="btn green" >
 Guardar
 </button>
 </center>
@@ -53,7 +53,7 @@ Guardar
 {/if}
 <center>
 <div class="divControls" style="display:none">
-	<button onClick='guardarInformacion(3)' class="btn {$BUTTON_COLOR}" >Guardar</button>
+	<button onClick='guardarInformacion(3)' class="btn green" >Guardar</button>
 	
 </div>
 

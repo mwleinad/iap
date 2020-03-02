@@ -42,7 +42,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="{$WEB_ROOT}/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME GLOBAL STYLES -->
     <!-- BEGIN PAGE LEVEL STYLES -->
-    <link href="{$WEB_ROOT}/assets/pages/css/{$LOGIN_PAGE}.min.css" rel="stylesheet" type="text/css" />
+    <link href="{$WEB_ROOT}/assets/pages/css/login-4.min.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL STYLES -->
     <!-- BEGIN THEME LAYOUT STYLES -->
     <!-- END THEME LAYOUT STYLES -->
@@ -53,7 +53,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN LOGO -->
 <div class="logo">
     <a href="index.html">
-        <img src="{$WEB_ROOT}/images/logos/{$LOGO}" width="250px" alt="" /> </a>
+        <img src="{$WEB_ROOT}/images/logos/Logo_3.png" width="250px" alt="" /> </a>
 </div>
 <!-- END LOGO -->
 <!-- BEGIN LOGIN -->
@@ -88,7 +88,7 @@ License: You must have a valid license purchased only from themeforest(the above
             </label>
 *}
 
-            <button type="button" onclick="DoLogin()" class="btn {$BUTTON_COLOR} pull-right"> Ingresar </button>
+            <button type="button" onclick="DoLogin()" class="btn green pull-right"> Ingresar </button>
         </div>
 {*
         <div class="login-options">
@@ -138,7 +138,7 @@ License: You must have a valid license purchased only from themeforest(the above
         </div>
         <div class="form-actions">
             <button type="button" id="back-btn" class="btn red btn-outline">Regresar</button>
-            <button type="button" class="btn {$BUTTON_COLOR} pull-right" onclick="Recuperacion();" > recuperar </button>
+            <button type="button" class="btn green pull-right" onclick="Recuperacion();" > recuperar </button>
         </div>
     </form>
     <!-- END FORGOT PASSWORD FORM -->
@@ -443,14 +443,14 @@ License: You must have a valid license purchased only from themeforest(the above
         </div>
         <div class="form-actions">
             <button id="register-back-btn" type="button" class="btn red btn-outline"> Back </button>
-            <button type="submit" id="register-submit-btn" class="btn {$BUTTON_COLOR} pull-right"> Sign Up </button>
+            <button type="submit" id="register-submit-btn" class="btn green pull-right"> Sign Up </button>
         </div>
     </form>
     <!-- END REGISTRATION FORM -->
 </div>
 <!-- END LOGIN -->
 <!-- BEGIN COPYRIGHT -->
-<div class="copyright"> {$smarty.now|date_format:"%Y"} &copy; {$COPYRIGHT}</div>
+<div class="copyright"> {$smarty.now|date_format:"%Y"} &copy; Instituto de Administraci&oacute;n P&uacute;blica del Estado de Chiapas, A.C.</div>
 <!-- END COPYRIGHT -->
 <!--[if lt IE 9]>
 <script src="{$WEB_ROOT}/assets/global/plugins/respond.min.js"></script>

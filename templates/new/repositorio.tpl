@@ -1,4 +1,4 @@
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i><b>Repositorio Docente</b> 
@@ -11,7 +11,7 @@
         </div>
 		<div class="actions">
 		 {if !$docente}
-            <a  class="btn {$BUTTON_COLOR}" id="" href="{$WEB_ROOT}/graybox.php?page=add-repositorio" data-target="#ajax" data-toggle="modal" data-width="1000px" title='ADJUNTAR DOCUMENTO'>
+            <a  class="btn green" id="" href="{$WEB_ROOT}/graybox.php?page=add-repositorio" data-target="#ajax" data-toggle="modal" data-width="1000px" title='ADJUNTAR DOCUMENTO'>
                 <i class="fa fa-plus"></i> Agregar
             </a>
 		{/if}

@@ -1,4 +1,4 @@
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorn"></i>Lista de Docentes
@@ -15,7 +15,7 @@
 			<b>Nombre</b><input type='text' name='nombre' class='form-control' style='width:230px' onKeyUp='onBuscar()' onKeyPress="onBuscar()" >
 			</form>
 			<br>
-			<button onClick='onBuscar()' class='btn {$BUTTON_COLOR}'>Buscar</button>
+			<button onClick='onBuscar()' class='btn green'>Buscar</button>
 		</div>
 		<div id="msj">
 		</div>

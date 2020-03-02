@@ -48,19 +48,19 @@
 <div id="msjd"></div>
 <button class="btn " onClick="closeModal()">Cerrar</button>
 {if $info.habilitarCalificar eq 'si'}
-<button class="btn {$BUTTON_COLOR}" style='background:#4CAF50' onClick="SaveCalificacion({$id})" id="btnSave">Guardar</button>
+<button class="btn green" style='background:#4CAF50' onClick="SaveCalificacion({$id})" id="btnSave">Guardar</button>
 {/if}
 
 {if $infoUser.perfil eq 'Administrador' or $infoUser.personalId eq 1}
-<button class="btn {$BUTTON_COLOR}" style='background:#d7ad03;border-color:#d7ad03' onClick="habilitarEdicion({$id})" id="btnSave">Habilitar Edición</button>
-<button class="btn {$BUTTON_COLOR}" style='background:#4CAF50' onClick="validarCal({$id})" id="btnSave">Publicar</button>
+<button class="btn green" style='background:#d7ad03;border-color:#d7ad03' onClick="habilitarEdicion({$id})" id="btnSave">Habilitar Edición</button>
+<button class="btn green" style='background:#4CAF50' onClick="validarCal({$id})" id="btnSave">Publicar</button>
 {/if}
 
 <br>
 <br>
 {if $info.habilitarCalificar eq 'no'}
 	{if $info.rutaActa eq ''}
-		<button  class="btn {$BUTTON_COLOR} submitForm" onClick="descargarActa({$id})">Descargar Acta</button>
+		<button  class="btn green submitForm" onClick="descargarActa({$id})">Descargar Acta</button>
 		<span class="btn btn-default btn-file" style="width:150px; height:35px !important">
 
 		<form method="post" id="frmFile" >
@@ -74,7 +74,7 @@
 	{/if}
 {/if}
 {if $info.rutaActa ne ''}
- <a href="{$WEB_ROOT}/docentes/calificaciones/{$info.rutaActa}" target='_blank' class="btn {$BUTTON_COLOR} submitForm" >Visualizar Acta Final</a>
+ <a href="{$WEB_ROOT}/docentes/calificaciones/{$info.rutaActa}" target='_blank' class="btn green submitForm" >Visualizar Acta Final</a>
 {/if}
  <br>
  <progress id='progress' name='progress' {if $info.rutaActa eq ''} value="0" {else} value="100" {/if}  min="0" max="100"></progress>

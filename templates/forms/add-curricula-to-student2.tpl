@@ -11,7 +11,7 @@ function habilitar() {
 }
 
 function IsNumber(evt){
-// Backspace = 8, Enter = 13, ï¿½0' = 48, ï¿½9' = 57, ï¿½.ï¿½ = 46
+// Backspace = 8, Enter = 13, ’0' = 48, ’9' = 57, ‘.’ = 46
 var key = nav4 ? evt.which : evt.keyCode;
 return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 }
@@ -58,7 +58,7 @@ return (key <= 13 || (key >= 48 && key <= 57) || key == 46);
 			<div class="row">
 				<div class="col-md-offset-3 col-md-9">
 					<button type="button" class="btn default" data-dismiss="modal">Salir</button>
-					<button  class="btn {$BUTTON_COLOR} submitForm" onClick="addModuls()">Asignar Curricula</button>
+					<button  class="btn green submitForm" onClick="addModuls()">Asignar Curricula</button>
 				</div>
 			</div>
 

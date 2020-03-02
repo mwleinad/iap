@@ -1,4 +1,4 @@
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i><b>Constancia de Estudios sin Calificaciones</b> {$myModule.name|truncate:65:"..."} &raquo;

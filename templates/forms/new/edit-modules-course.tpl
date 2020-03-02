@@ -1,18 +1,18 @@
 <div id="msjCourse"></div>
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-gift"></i>.:: Datos del M&oacute;dulo ::.
         </div>
-          <!-- <a class="btn {$BUTTON_COLOR}" href="{$WEB_ROOT}/graybox.php?page=view-modules-student&id={$myModule.courseModuleId}" title="Ver Modulos de Curso" data-target="#ajax" data-toggle="modal" >
+          <!-- <a class="btn green" href="{$WEB_ROOT}/graybox.php?page=view-modules-student&id={$myModule.courseModuleId}" title="Ver Modulos de Curso" data-target="#ajax" data-toggle="modal" >
 -->
-             <!-- <a  class="btn {$BUTTON_COLOR}" href="{$WEB_ROOT}/view-modules-student/id/{$myModule.courseModuleId}/vp/1&vpa=si" target="_blank" onClick="window.open(this.href, this.target, 'fullscreen,scrollbars'); return false;">
+             <!-- <a  class="btn green" href="{$WEB_ROOT}/view-modules-student/id/{$myModule.courseModuleId}/vp/1&vpa=si" target="_blank" onClick="window.open(this.href, this.target, 'fullscreen,scrollbars'); return false;">
 			 Vista previa del M&oacute;dulo
             </a>
-			  <a href="{$WEB_ROOT}/graybox.php?page=add-calificacion&id={$myModule.courseModuleId}&auxTpl=admin" data-target="#ajax" data-toggle="modal"  class="btn {$BUTTON_COLOR}">
+			  <a href="{$WEB_ROOT}/graybox.php?page=add-calificacion&id={$myModule.courseModuleId}&auxTpl=admin" data-target="#ajax" data-toggle="modal"  class="btn green">
                 Acta de Calificaciones
             </a>
-			<a href="{$WEB_ROOT}/inbox/id/{$myModule.courseModuleId}" class="btn {$BUTTON_COLOR}">
+			<a href="{$WEB_ROOT}/inbox/id/{$myModule.courseModuleId}" class="btn green">
                 Inbox
             </a>-->
 
@@ -291,7 +291,7 @@
                     <div class="row">
                         <div class="col-md-offset-3 col-md-9">
                             <button type="button" class="btn default btn-70-delete" data-dismiss="modal" id="addMajor" name="addMajor" onclick="DeleteModuleFromCourse({$myModule.courseModuleId})">Borrar</button>
-                            <button type="submit" class="btn {$BUTTON_COLOR} submitForm">Guardar</button>
+                            <button type="submit" class="btn green submitForm">Guardar</button>
                             {*
                                             <input type="submit" class="btn-70-l" id="addMajor" name="addMajor" value="." />
                             *}
@@ -305,7 +305,7 @@
     </div>
 </div>
 
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-gift"></i>.:: Grupo ::.
@@ -323,7 +323,7 @@
             &raquo; Ver Alumnos
         </a>
 
-        <a href="{$WEB_ROOT}/calification/id/{$myModule.courseModuleId}" target="_blank" data-toggle="modal" class="btn {$BUTTON_COLOR}">
+        <a href="{$WEB_ROOT}/calification/id/{$myModule.courseModuleId}" target="_blank" data-toggle="modal" class="btn green">
             &raquo; Ver Calificaciones
         </a>
 
@@ -334,7 +334,7 @@
     </div>
 </div>
 
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-gift"></i>.:: Actividades ::.
@@ -360,7 +360,7 @@
     </div>
 </div>
 
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-gift"></i>.:: Recursos de Apoyo ::.
@@ -377,7 +377,7 @@
     </div>
 </div>
 
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-gift"></i>.:: Foros ::.
@@ -394,7 +394,7 @@
     </div>
 </div>
 
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-gift"></i>.:: Avisos ::.

@@ -1,4 +1,4 @@
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-comments-o"></i>
@@ -15,7 +15,7 @@
 							
 							<li class="compose-btn">
 							
-								<a data-target="#ajax" data-toggle="modal" href="{$WEB_ROOT}/graybox.php?page=nuevo-inbox" data-title="Compose" class="btn {$BUTTON_COLOR}">
+								<a data-target="#ajax" data-toggle="modal" href="{$WEB_ROOT}/graybox.php?page=nuevo-inbox" data-title="Compose" class="btn green"> 
 								<i class="icon-edit"></i>Nuevo
 								</a>
 							</li>
@@ -36,7 +36,7 @@
 							<form action="#" class="form-search pull-right">
 								<div class="input-append">
 									<input class="form-control" style="float:left" type="text" placeholder="Buscar Correo">
-									<button class="btn {$BUTTON_COLOR}" type="button">Buscar</button>
+									<button class="btn green" type="button">Buscar</button>
 								</div>
 							</form>
 						</div>
