@@ -22,7 +22,7 @@ if($_SESSION["User"]["type"] == "Docente"){
 	if(file_exists(DOC_ROOT."/".$infoPj['foto'])){
 		$fotoPj = WEB_ROOT."/".$infoPj['foto'].'?'.rand();
 	}else{
-		$fotoPj = WEB_ROOT."/images/no_foto.jpg";
+		$fotoPj = WEB_ROOT."/alumnos/no_foto.JPG";
 	}
 	$smarty->assign('fotoPj', $fotoPj);
 }

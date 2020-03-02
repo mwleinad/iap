@@ -1,4 +1,4 @@
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i><b>Calificación acumulada:</b> {$totalScore}% &raquo;
@@ -8,13 +8,13 @@
     <div class="portlet-body">
         {foreach from=$actividades item=item}
         {if $timestamp > $item.initialDateTimestamp && $timestamp < $item.finalDateTimestamp}
-        <div class="portlet box {$PORTLET_COLOR}">
+        <div class="portlet box red">
             {/if}
             {if $timestamp > $item.finalDateTimestamp}
-            <div class="portlet box {$PORTLET_COLOR}-mint">
+            <div class="portlet box red-mint">
                 {/if}
                 {if $timestamp < $item.initialDateTimestamp}
-                <div class="portlet box {$PORTLET_COLOR}-mint">
+                <div class="portlet box red-mint">
                     {/if}
                      <div class="portlet-title">
                         <!-- TODO Poner al centro el título-->

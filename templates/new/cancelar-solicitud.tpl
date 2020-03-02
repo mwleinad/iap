@@ -1,4 +1,4 @@
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorn"></i>Cancelar Solicitud 
@@ -24,7 +24,7 @@
 			<div class="form-actions">
 				<div class="row">
 					<div class="col-md-offset-3 col-md-9">
-						<button  class="btn {$BUTTON_COLOR}" id="addMajor" name="addMajor" onClick="cancelarSolicitud()">Si</button>
+						<button  class="btn green" id="addMajor" name="addMajor" onClick="cancelarSolicitud()">Si</button>
 						<button type="button" class="btn default closeModal" onClick="closeModal()">No</button>
 					</div>
 				</div>

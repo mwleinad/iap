@@ -1,4 +1,4 @@
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i>Agregar Actividad
@@ -124,7 +124,7 @@
         <div class="form-actions">
             <div class="row">
                 <div class="col-md-offset-3 col-md-9">
-                    <button  class="btn {$BUTTON_COLOR}" id="addMajor" name="addMajor" onClick="SaveAc()">Enviar</button>
+                    <button  class="btn green" id="addMajor" name="addMajor" onClick="SaveAc()">Enviar</button>
 
                     <button type="button" class="btn default closeModal">Cancelar</button>
                 </div>

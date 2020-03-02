@@ -9217,10 +9217,10 @@ Custom colored portlets
   color: #fdfdfd; }
 
 .portlet.box.red {
-  border: 1px solid #e7505a;
+  border: 1px solid #266c13;
   border-top: 0; }
   .portlet.box.red > .portlet-title {
-    background-color: #e7505a; }
+    background-color: #73b760; }
     .portlet.box.red > .portlet-title > .caption {
       color: #ffffff; }
       .portlet.box.red > .portlet-title > .caption > i {

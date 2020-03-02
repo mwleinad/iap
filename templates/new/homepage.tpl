@@ -14,7 +14,7 @@
 
 
 <!-- BEGIN Portlet PORTLET-->
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             {if $User.type == "student"}
@@ -27,10 +27,10 @@
     <div class="portlet-body">
         <div class="scroller" style="" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#a1b2bd">
             <p class="left">
-                <b>{$institution.name_long}</b><br />te da la mas cordial bienvenida a nuestro Sistema de Educación en Línea
+                El <b>Instituto de Administración Pública del Estado de Chiapas, A. C.</b><br />te da la mas cordial bienvenida a nuestro Sistema de Educación en Línea
             </p>
             <p class="right">
-                <b>{$INTRODUCTION}</b>
+                El <b>IAP Chiapas</b> coadyuva desde 1977 en el fortalecimiento de la gestión pública de los tres órdenes de gobierno, así como con la realización de investigación, consultoría y difusión del desarrollo de las ciencias administrativas, en beneficio de la sociedad
             </p>
         </div>
     </div>
@@ -38,7 +38,7 @@
 <!-- END Portlet PORTLET-->
 
 {if $User.type != "student"}
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i>Notificaciones
@@ -55,7 +55,7 @@
 </div>
 {/if}
 
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i>Noticias
@@ -73,7 +73,7 @@
 </div>
 
 {if $User.type == "student"}
-    <div class="portlet box {$PORTLET_COLOR}">
+    <div class="portlet box red">
         <div class="portlet-title">
             <div class="caption">
                 <i class="fa fa-bullhorm"></i>Curricula Activa
@@ -89,7 +89,7 @@
         </div>
     </div>
 
-    <div class="portlet box {$PORTLET_COLOR}">
+    <div class="portlet box red">
         <div class="portlet-title">
             <div class="caption">
                 <i class="fa fa-bullhorm"></i>Curricula Inactiva (Falta de pago, baja, etc)
@@ -105,7 +105,7 @@
         </div>
     </div>
 
-    <div class="portlet box {$PORTLET_COLOR}">
+    <div class="portlet box red">
         <div class="portlet-title">
             <div class="caption">
                 <i class="fa fa-bullhorm"></i>Curricula Finalizada

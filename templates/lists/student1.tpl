@@ -13,11 +13,11 @@
 <center>
 <button class="btn default" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true">cerrar</button>
 {if $tipo eq 'matricula'}
-<button class="btn {$BUTTON_COLOR} submitForm" onClick="saveMatricula()">
+<button class="btn green submitForm" onClick="saveMatricula()">
 Guardar
 </button>
 {else}
-<button class="btn {$BUTTON_COLOR} submitForm" onClick="saveNumReferencia()">
+<button class="btn green submitForm" onClick="saveNumReferencia()">
 Guardar
 </button>
 {/if}

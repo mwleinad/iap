@@ -22,4 +22,4 @@
         </div>
     </div>
 </form>
-  <button type="button" class="btn {$BUTTON_COLOR} submitForm" onClick="Recuperacion()">Enviar</button>
+  <button type="button" class="btn green submitForm" onClick="Recuperacion()">Enviar</button>

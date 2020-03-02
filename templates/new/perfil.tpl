@@ -1,4 +1,4 @@
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorn"></i>Perfil
@@ -41,7 +41,7 @@
 					<textarea name='desc' id='desc'>{$info.perfil}</textarea>
 					<br>
 					</form>
-					<button class="btn {$BUTTON_COLOR}" type="button" onClick="onSavePerfil()">Guardar</button>
+					<button class="btn green" type="button" onClick="onSavePerfil()">Guardar</button>
 					
 				</center>
     </div>

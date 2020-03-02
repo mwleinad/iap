@@ -49,8 +49,8 @@ exit;
 				$urlFoto = "<img src='".WEB_ROOT."/alumnos/".$info["userId"].".jpg?".rand()."' style='width:100px; border-radius: 50%;' '>";
 				$fotoHeader = "<img src='".WEB_ROOT."/alumnos/".$info["userId"].".jpg?".rand()."' style='width:30px; border-radius: 50%;' >";
 			}else{
-				$urlFoto = "<img src='".WEB_ROOT."/images/no_foto.jpg' style='width:100px; border-radius: 50%;' '>";
-				$fotoHeader = "<img src='".WEB_ROOT."/images/no_foto.jpg' style='width:30px; border-radius: 50%;' '>";
+				$urlFoto = "<img src='".WEB_ROOT."/alumnos/no_foto.JPG' style='width:100px; border-radius: 50%;' '>";
+				$fotoHeader = "<img src='".WEB_ROOT."/alumnos/no_foto.JPG' style='width:30px; border-radius: 50%;' '>";
 			}
 			
 			$activeCourses = $student->StudentCourses("activo", "si");
@@ -182,7 +182,7 @@ exit;
 			$personal->setPersonalId($myModule["access"][1]);
 			$docente = $personal->Info();
 
-			$urlFotoDoc = "<img src='".WEB_ROOT."/images/no_foto.jpg' style='width:100px; border-radius: 50%;' '>";
+			$urlFotoDoc = "<img src='".WEB_ROOT."/alumnos/no_foto.JPG' style='width:100px; border-radius: 50%;' '>";
 			
 			// echo "<pre>"; print_r($actividades);
 			echo "ok[#]";
@@ -222,7 +222,7 @@ exit;
 			{
 				$fotoHeader = "<img src='".WEB_ROOT."/alumnos/".$info["userId"].".jpg?".rand()."' style='width:30px; border-radius: 50%;' >";
 			}else{
-				$fotoHeader = "<img src='".WEB_ROOT."/images/no_foto.jpg' style='width:30px; border-radius: 50%;' '>";
+				$fotoHeader = "<img src='".WEB_ROOT."/alumnos/no_foto.JPG' style='width:30px; border-radius: 50%;' '>";
 			}
 		
 			echo "ok[#]";

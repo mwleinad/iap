@@ -33,7 +33,7 @@
 	</tbody>
 	</table>
 	<span class="reqField">*</span> Campo requerido<br>   
-	<center><input type="submit" id="addMajor" name="addMajor" value="Guardar" class="btn {$BUTTON_COLOR}"  /></center>
+	<center><input type="submit" id="addMajor" name="addMajor" value="Guardar" class="btn green"  /></center>
 	<br>
 	<br>
 	<center><b>.:: Preguntas ::.</b></center>

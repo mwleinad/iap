@@ -1,10 +1,10 @@
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i><b>Calendario de actividades</b> {$myModule.name|truncate:65:"..."} &raquo;
         </div>
         <div class="actions">
-				<a class="btn {$BUTTON_COLOR}" href="javascript:void(0)" onClick="onImprimir({$id})" title='IMPRIMIR'>
+				<a class="btn green" href="javascript:void(0)" onClick="onImprimir({$id})" title='IMPRIMIR'>
 					Imprimir
 		
 			</a>

@@ -100,6 +100,6 @@
 	{/foreach}
 </table>
 <div id="msjgg"></div>
-<center><button onClick='addSaveSolicitud()' class="btn {$BUTTON_COLOR} submitForm" >Solicitar</button> </center>
+<center><button onClick='addSaveSolicitud()' class="btn green submitForm" >Solicitar</button> </center>
 
 

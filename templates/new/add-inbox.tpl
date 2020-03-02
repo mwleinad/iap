@@ -1,4 +1,4 @@
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i><b>Nuevo Mensaje</b> {$myModule.name|truncate:65:"..."} &raquo;
@@ -16,7 +16,7 @@
 		<input type='hidden' value='{$profId}' name="profId" id="profId">
 		<input type='hidden' value="{$c5Id}" name="c5Id" id="c5Id">
 		</form>
-		<center><button type="submit" class="btn {$BUTTON_COLOR} submitForm" onClick='saveMsj()'>Enviar</button></center>
+		<center><button type="submit" class="btn green submitForm" onClick='saveMsj()'>Enviar</button></center>
 		</div>
     </div>
 </div>

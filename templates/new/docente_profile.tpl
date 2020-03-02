@@ -11,7 +11,7 @@
     </ul>
     <div class="page-toolbar">
 {*        <div class="btn-group pull-right">
-            <button type="button" class="btn {$BUTTON_COLOR} btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> Actions
+            <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> Actions
                 <i class="fa fa-angle-down"></i>
             </button>
             <ul class="dropdown-menu pull-right" role="menu">

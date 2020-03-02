@@ -3,7 +3,7 @@
     <input type="hidden" id="redireccion" name="redireccion" value="1"/>
     <input type="hidden" id="tam" name="tam" value="0"/>
     <input type="hidden" id="permiso" name="permiso" value="0"/>
-    <div class="portlet box {$PORTLET_COLOR}">
+    <div class="portlet box red">
         <div class="portlet-title">
             <div class="caption">
                 <i class="fa fa-bullhorm"></i>Información Personal
@@ -106,7 +106,7 @@
         </div>
     </div>
 
-    <div class="portlet box {$PORTLET_COLOR}">
+    <div class="portlet box red">
         <div class="portlet-title">
             <div class="caption">
                 <i class="fa fa-bullhorm"></i>Domicilio
@@ -171,7 +171,7 @@
         </div>
     </div>
 
-    <div class="portlet box {$PORTLET_COLOR}">
+    <div class="portlet box red">
         <div class="portlet-title">
             <div class="caption">
                 <i class="fa fa-bullhorm"></i>Datos de contacto
@@ -206,7 +206,7 @@
         </div>
     </div>
 
-    <div class="portlet box {$PORTLET_COLOR}">
+    <div class="portlet box red">
         <div class="portlet-title">
             <div class="caption">
                 <i class="fa fa-bullhorm"></i>Datos laborales
@@ -295,7 +295,7 @@
         </div>
     </div>
 
-    <div class="portlet box {$PORTLET_COLOR}">
+    <div class="portlet box red">
         <div class="portlet-title">
             <div class="caption">
                 <i class="fa fa-bullhorm"></i>Estudios
@@ -370,7 +370,7 @@
         <div class="row">
             <div class="col-md-offset-3 col-md-9">
                 <button type="button" class="btn default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn {$BUTTON_COLOR} submitForm" onclick="AddStudentRegister();" id="addStudent" >Guardar</button>
+                <button type="button" class="btn green submitForm" onclick="AddStudentRegister();" id="addStudent" >Guardar</button>
             </div>
         </div>
     </div>

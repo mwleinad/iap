@@ -1,11 +1,11 @@
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
-            <i class="fa fa-bullhorm"></i>Presentación {$myModule.name}  {if $vistaPrevia==1}   <a class="btn {$BUTTON_COLOR}" href="{$WEB_ROOT}/flash/flash_{$id}.swf" target="_blank" data-target="#ajax" data-toggle="modal">Ver en Pantalla Completa</a>   {/if}
+            <i class="fa fa-bullhorm"></i>Presentación {$myModule.name}  {if $vistaPrevia==1}   <a class="btn green" href="{$WEB_ROOT}/flash/flash_{$id}.swf" target="_blank" data-target="#ajax" data-toggle="modal">Ver en Pantalla Completa</a>   {/if}
         </div>
     </div>
     <div class="portlet-body">
-		<button onClick="verPantallaCompleta()" class="btn {$BUTTON_COLOR}">Pantalla Completa</button>
+		<button onClick="verPantallaCompleta()" class="btn green">Pantalla Completa</button>
 		<br>
 		<br>
 		

@@ -16,7 +16,7 @@
 	if(file_exists(DOC_ROOT."/".$info['foto'])){
 		$foto = DOC_ROOT."/".$info['foto'];
 	}else{
-		$foto = DOC_ROOT."/images/no_foto.jpg";
+		$foto = DOC_ROOT."/alumnos/no_foto.JPG";
 	}
 	
 	if(date('m') <= 9){

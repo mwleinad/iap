@@ -1,5 +1,5 @@
 {if $myModule.welcomeTextDecoded != ""}
-    <div class="portlet box {$PORTLET_COLOR}">
+    <div class="portlet box red">
         <div class="portlet-title">
             <!-- TODO Poner al centro el título-->
             <div class="caption" >
@@ -12,7 +12,7 @@
     </div>
 {/if}
 {if $myModule.introductionDecoded != ""}
-    <div class="portlet box {$PORTLET_COLOR}">
+    <div class="portlet box red">
         <div class="portlet-title">
             <!-- TODO Poner al centro el título-->
             <div class="caption" >
@@ -25,7 +25,7 @@
     </div>
 {/if}
 {if $myModule.intentionsDecoded != ""}
-    <div class="portlet box {$PORTLET_COLOR}">
+    <div class="portlet box red">
         <div class="portlet-title">
             <!-- TODO Poner al centro el título-->
             <div class="caption" >
@@ -38,7 +38,7 @@
     </div>
 {/if}
 {if $myModule.objectivesDecoded != ""}
-    <div class="portlet box {$PORTLET_COLOR}">
+    <div class="portlet box red">
         <div class="portlet-title">
             <!-- TODO Poner al centro el título-->
             <div class="caption" >
@@ -51,7 +51,7 @@
     </div>
 {/if}
 {if $myModule.themesDecoded != ""}
-    <div class="portlet box {$PORTLET_COLOR}">
+    <div class="portlet box red">
         <div class="portlet-title">
             <!-- TODO Poner al centro el título-->
             <div class="caption" >
@@ -64,7 +64,7 @@
     </div>
 {/if}
 {if $myModule.schemeDecoded != ""}
-    <div class="portlet box {$PORTLET_COLOR}">
+    <div class="portlet box red">
         <div class="portlet-title">
             <!-- TODO Poner al centro el título-->
             <div class="caption" >
@@ -77,7 +77,7 @@
     </div>
 {/if}
 {if $myModule.methodologyDecoded != ""}
-    <div class="portlet box {$PORTLET_COLOR}">
+    <div class="portlet box red">
         <div class="portlet-title">
             <!-- TODO Poner al centro el título-->
             <div class="caption" >
@@ -90,7 +90,7 @@
     </div>
 {/if}
 {if $myModule.politicsDecoded != ""}
-    <div class="portlet box {$PORTLET_COLOR}">
+    <div class="portlet box red">
         <div class="portlet-title">
             <!-- TODO Poner al centro el título-->
             <div class="caption" >
@@ -103,7 +103,7 @@
     </div>
 {/if}
 {if $myModule.evaluationDecoded != ""}
-    <div class="portlet box {$PORTLET_COLOR}">
+    <div class="portlet box red">
         <div class="portlet-title">
             <!-- TODO Poner al centro el título-->
             <div class="caption" >
@@ -116,7 +116,7 @@
     </div>
 {/if}
 {if $myModule.bibliography != ""}
-    <div class="portlet box {$PORTLET_COLOR}">
+    <div class="portlet box red">
         <div class="portlet-title">
             <!-- TODO Poner al centro el título-->
             <div class="caption" >

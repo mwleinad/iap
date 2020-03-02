@@ -22,7 +22,7 @@
 	<br>
 	<center>
 	<button type="button" class="btn default" data-dismiss="modal">Cancelar</button>
-	<a class="btn {$BUTTON_COLOR} submitForm" href='{$WEB_ROOT}/reinscripcion/id/x/s/{$subjectId}&c={$courseId}&sId={$semesterId}'>Aceptar</a>
+	<a class="btn green submitForm" href='{$WEB_ROOT}/reinscripcion/id/x/s/{$subjectId}&c={$courseId}&sId={$semesterId}'>Aceptar</a>
 	</center>
     </div>
 </div>

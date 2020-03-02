@@ -148,25 +148,6 @@ $smarty = new Smarty;
 
 $smarty->assign('DOC_ROOT',DOC_ROOT);
 $smarty->assign('WEB_ROOT',WEB_ROOT);
-$smarty->assign('LOGIN_PAGE',LOGIN_PAGE);
-$smarty->assign('COPYRIGHT',COPYRIGHT);
-$smarty->assign('LOGO',LOGO);
-$smarty->assign('LOGO_SMALL',LOGO_SMALL);
-$smarty->assign('THEME',THEME);
-$smarty->assign('PORTLET_COLOR',PORTLET_COLOR);
-$smarty->assign('INTRODUCTION',INTRODUCTION);
-$smarty->assign('BUTTON_COLOR',BUTTON_COLOR);
-
-#MENU
-$smarty->assign('VIDEO_CONFERENCES_CATALOG',VIDEO_CONFERENCES_CATALOG);
-$smarty->assign('FINANCES',FINANCES);
-$smarty->assign('VIDEO_CONFERENCES',VIDEO_CONFERENCES);
-$smarty->assign('REQUESTS',REQUESTS);
-$smarty->assign('MESSAGES_INSTRUCTOR',MESSAGES_INSTRUCTOR);
-$smarty->assign('COST_TABLE_INSTRUCTOR',COST_TABLE_INSTRUCTOR);
-$smarty->assign('VEHICLES_REPORT',VEHICLES_REPORT);
-$smarty->assign('SUBJECTS_REPORT',SUBJECTS_REPORT);
-$smarty->assign('INSTRUCTORS_REPORT',INSTRUCTORS_REPORT);
 
 $smarty->assign('property', $property);
 
@@ -196,7 +177,3 @@ define('TIT_DIR','DIRECTORA');
 //Obtenemos la version del horario
 $schV1 = $util->versionHorario();
 $smarty->assign('schV1', $schV1);
-
-$institution->setInstitutionId(1);
-$myInstitution = $institution->Info();
-$smarty->assign('institution', $myInstitution);

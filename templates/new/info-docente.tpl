@@ -1,4 +1,4 @@
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i><b>Información Personal</b> 
@@ -6,7 +6,7 @@
 		
          <div class="actions">
 		 {if $docente}
-			<a class="btn {$BUTTON_COLOR}" href="{$WEB_ROOT}/graybox.php?page=aviso" data-target="#ajax" data-toggle="modal" data-width="1000px" title='AVISO DE PRIVACIDAD'>
+			<a class="btn green" href="{$WEB_ROOT}/graybox.php?page=aviso" data-target="#ajax" data-toggle="modal" data-width="1000px" title='AVISO DE PRIVACIDAD'>
 					Aviso de Privacidad
 		
 			</a>
@@ -14,7 +14,7 @@
 
         </div>
 		<div class="actions">
-            <!--<a href="javascript:;" class="btn {$BUTTON_COLOR}" id="btnAddMajor">
+            <!--<a href="javascript:;" class="btn green" id="btnAddMajor">
                 <i class="fa fa-plus"></i> Sincronizar School Manager
             </a>-->
 			{if !$docente}
@@ -186,7 +186,7 @@
 					<div id="msj_1">
 					</div>
 					<center>
-					<button onClick='guardarInformacion(1)' class="btn {$BUTTON_COLOR}" {if $cId eq 'si'} style="display:none"{/if}>
+					<button onClick='guardarInformacion(1)' class="btn green" {if $cId eq 'si'} style="display:none"{/if}>
 					Guardar
 					</button>
 					{if $cId eq 'si'}
@@ -194,7 +194,7 @@
 						Activar Edicion
 						</button>
 						<div class="divControls" style="display:none">
-							<button onClick='guardarInformacion(1)' class="btn {$BUTTON_COLOR}" >Guardar</button>
+							<button onClick='guardarInformacion(1)' class="btn green" >Guardar</button>
 							
 						</div>
 						<!--<button onClick='pdfDatos({$info.personalId})' class="btn blue" >Imprimir</button>-->

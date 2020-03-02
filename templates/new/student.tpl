@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<div class="portlet box {$PORTLET_COLOR}">
+<div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorm"></i>Alumnos
@@ -21,8 +21,8 @@
             <table>
                 <tr>
                     <td><!--
-                        <a href="javascript:;" class="btn {$BUTTON_COLOR}" id="btnAddPersonal">-->
-						<a class="btn {$BUTTON_COLOR}" href="{$WEB_ROOT}/graybox.php?page=add-alumno-admin&id={$item.userId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
+                        <a href="javascript:;" class="btn green" id="btnAddPersonal">-->
+						<a class="btn green" href="{$WEB_ROOT}/graybox.php?page=add-alumno-admin&id={$item.userId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
                             <i class="fa fa-plus"></i> Agregar
                         </a>
                     </td>
