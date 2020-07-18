@@ -1661,10 +1661,10 @@ class Student extends User
 
 
 	$this->Util()->DB()->setQuery("SELECT * FROM invoice WHERE userId = '".$alumnoId."'");
-		$id_invoices = $this->Util()->DB()->cons();
+		$id_invoices = $this->Util()->DB()->result();
 	             foreach($id_invoices as $fila){
 	                        $this->Util()->DB()->setQuery("SELECT * FROM payment WHERE invoiceId = '".$fila[0]."'");
-							$info_payment = $this->Util()->DB()->cons();
+							$info_payment = $this->Util()->DB()->result();
 
 			if(count($info_payment)==0){
 						if($por_beca !=0){
