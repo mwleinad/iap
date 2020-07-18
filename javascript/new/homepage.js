@@ -1,5 +1,21 @@
 
-
+function comprueba_extension(archivo) { 
+   extensiones_permitidas = new Array(".png",".jpg");  
+      extension = (archivo.substring(archivo.lastIndexOf("."))).toLowerCase(); 
+      permitida = false; 
+      for (var i = 0; i < extensiones_permitidas.length; i++) { 
+         if (extensiones_permitidas[i] == extension) { 
+         permitida = true; 
+         break; 
+         } 
+      } 
+      if (!permitida) { 
+         return "no";
+      	}else{ 
+         return "si"; 
+      	} 
+   return 0; 
+}
 
 
 
@@ -268,4 +284,186 @@ function verCalendario(){
 function printReferencia(){
 	url=WEB_ROOT+"/ajax/referencia_pdf.php?"+$('#frmfiltro').serialize(true);
 	open(url,"voucher","toolbal=0,width=800,resizable=1");
+}
+
+
+
+function AddStudentRegister()
+{
+    
+    $.ajax({
+        url : WEB_ROOT+'/ajax/student.php',
+        type: "POST",
+        data :  $('#addStudentForm').serialize()+'&'+$('#frmConfirma').serialize(),  
+		beforeSend: function(){		
+			$("#addStudent").hide();
+			$("#loader").html(LOADER3);
+		},
+        success: function(data)
+        {
+			console.log(data)
+			$("#loader").html('');
+			 var splitResponse = data.split("[#]");
+			if($.trim(splitResponse[0]) == "ok"){
+				ShowStatus($(splitResponse[1]));
+				CloseFview();
+                // $('#res_').html(splitResponse[1]);
+                $('#tblContent').html(splitResponse[2]);
+				setTimeout("recargarPage()",2000);
+			}else{
+				$("#addStudent").show();
+				 // $('#res_').html(splitResponse[1]);
+				ShowStatusPopUp($(splitResponse[1]));
+			}	
+			// $("#loader").html('');
+            // var splitResponse = data.split("[#]");
+            // if(splitResponse[0] == "fail")
+            // {
+                // ShowStatusPopUp($(splitResponse[1]));
+            // }
+            // else
+            // {
+                // ShowStatus($(splitResponse[1]));
+				// CloseFview();
+                // $('#tblContent').html(splitResponse[2]);
+				// setTimeout("recargarPage()",5000);
+
+				
+            // }
+        },
+        // error: function ()
+        // {
+            // alert('En breve recibirás un correo con la confirmación de tu registro, favor de verificar en tu bandeja de correo no deseado');
+        // }
+    });
+
+
+}
+
+
+function recargarPage()
+{
+	WEB_ROOTDoc = WEB_ROOT+'/';
+	$(location).attr('href',WEB_ROOTDoc);
+}
+
+
+function onSendINE(){
+	
+	
+	var ine = $("#ine").val();
+
+	var res = comprueba_extension(ine);
+	
+	if(res == "no"){
+		alert("Solo se permiten archivos con extencion PNG y JPG")
+		return ;
+	}
+	
+
+	// En esta var va incluido $_POST y $_FILES
+	var fd = new FormData(document.getElementById("frmGral"));
+	fd.append('type','onSendINE');
+	$.ajax({
+		url: WEB_ROOT+'/ajax/homepage.php',
+		data: fd,
+		processData: false,
+		contentType: false,
+		type: 'POST',
+		xhr: function(){
+				var XHR = $.ajaxSettings.xhr();
+				XHR.upload.addEventListener('progress',function(e){
+					console.log(e)
+					var Progress = ((e.loaded / e.total)*100);
+					Progress = (Progress);
+					console.log(Progress)
+					$('#progress').val(Math.round(Progress));
+					$('#porcentaje').html(Math.round(Progress)+'%');
+
+
+				},false);
+			return XHR;
+		},
+		success: function(response){
+
+			console.log(response);
+			// var splitResp = response.split("[#]");
+			// $("#msjCourse").html(response);
+			var splitResp = response.split("[#]");
+
+			if($.trim(splitResp[0])=="ok"){
+				closeModal()
+				$('#msjHome').html(splitResp[1]);
+			}else if($.trim(splitResp[0])=="fail"){
+				alert(splitResp[1])
+			}else{
+				alert('Ocurrio un error....')
+			}
+			// alert('llega')
+			closeModal()
+		},
+	})
+
+}
+
+
+function ciudad_dependenciat(subjectId){
+	
+	var e = $("#estado").val();
+	
+	$.ajax({
+	  	type: "POST",
+	  	url: WEB_ROOT+'/ajax/student.php',
+	  	data: "type=ciudad_dependenciat&estadoId="+e,
+		beforeSend: function(){			
+			// $("#td_"+id).html(LOADER3);
+		},
+	  	success: function(response) {	
+			console.log(response)
+			
+			
+				$("#divMunicipio").html(response);
+	
+		},
+		error:function(){
+			alert(msgError);
+		}
+    });
+}
+
+
+
+
+function onDeleteCarta(id,ti)
+{
+
+	var resp = confirm("Seguro de  eliminar el Documento?");
+
+		if(!resp)
+			return;
+
+    $.ajax({
+		url: WEB_ROOT+'/ajax/homepage.php',
+        type: "POST",
+        data : {type: "onDeleteCarta", id:id,ti:ti},
+        success: function(data)
+        {
+           console.log(data);
+		    var splitResp = data.split("[#]");
+			 if($.trim(splitResp[0]) == "ok")
+            {
+               closeModal();
+			   $('#msjHome').html(splitResp[1]);
+			   
+            }
+            else
+            {
+               alert('Ocurrio un error');
+            }
+        },
+        error: function ()
+        {
+            alert('Algo salio mal, compruebe su conexión a internet');
+        }
+    });
 }

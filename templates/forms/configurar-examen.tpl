@@ -7,7 +7,7 @@
 	<thead>
 		<tr>
 			<th style="width:400px">Titulo</th>
-			<th>Tiempo Limite</th>
+			<th>Respuesta para acreditar</th>
 			<th>Numero de Preguntas</th>
 		</tr>
 	</thead>
@@ -18,7 +18,8 @@
 			<span class="reqField">*</span>
 			</td>
 			<td>
-				<select name="noQuestions" id="noQuestions" class="form-control" style="width:150px" >
+				<input type="number" name="noQuestions" id="noQuestions" class="form-control" style="width:150px">
+				<!--<select  >
 					<option value="4" {if $activity.noQuestions == 4} selected="selected" {/if}>4</option>
 					<option value="5" {if $activity.noQuestions == 5} selected="selected" {/if}>5</option>
 					<option value="10" {if $activity.noQuestions == 10} selected="selected" {/if}>10</option>
@@ -26,18 +27,19 @@
 					<option value="25" {if $activity.noQuestions == 25} selected="selected" {/if}>25</option>
 					<option value="50" {if $activity.noQuestions == 50} selected="selected" {/if}>50</option>
 					<option value="100" {if $activity.noQuestions == 100} selected="selected" {/if}>100</option>
-				</select>
+				</select>-->
 				<span class="reqField">*</span>
 			</td>
 		</tr>
 	</tbody>
 	</table>
 	<span class="reqField">*</span> Campo requerido<br>   
-	<center><input type="submit" id="addMajor" name="addMajor" value="Guardar" class="btn green"  /></center>
+	
+	<center>{if $countR >=1}La evalucion no se puede modificar porque, ya existen respuesta de alumnos{else}<input type="submit" id="addMajor" name="addMajor" value="Guardar" class="btn green"  />{/if}</center>
 	<br>
 	<br>
 	<center><b>.:: Preguntas ::.</b></center>
-	<table>
+	<!--<table>
 		<tr>
 			<td>Preguntas en Total: </td>
 			<td><b>{$activity.noQuestions * 2}</b></td>
@@ -50,7 +52,7 @@
 			<td>Ponderacion por Pregunta: </td>
 			<td><b>{$ponderationPerQuestion}%</b></td>
 		</tr>
-	</table>
+	</table>-->
 	<br>
 	<br>
 	<div class="content-settings-row-register" align="center">

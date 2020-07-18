@@ -72,14 +72,17 @@
 	<script src="{$WEB_ROOT}/assets/jquery.multiple.select.js"></script>
 
 <link href="{$WEB_ROOT}/assets/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
+<link href="{$WEB_ROOT}/css/switch.css" rel="stylesheet" type="text/css"/>
 {if $page == 'reply-inbox' or 
 $page == 'view-inbox' or
  $page == 'edit-modules-course' or
  $page == 'info-docente' or 
+ $page == 'homepage' or 
  $page == 'lst-docentes' or 
  $page == 'prog-materia' or 
  $page == 'report-docentes' or 
  $page == 'perfil' or 
+ $page == 'student' or 
  $page == 'materias'}
 <style type="text/css">
 
@@ -127,7 +130,7 @@ $page == 'view-inbox' or
 </head>
 <!-- END HEAD -->
 
-<body class="page-header-fixed page-sidebar-closed-hide-logo {if $User.type == "student" || $User.type == "Docente" || $vistaPrevia eq 1} page-sidebar-closed {/if} page-content-white page-md {if ($page == 'homepage' && $User.type == 'student') || ($page == 'homepage' && $User.type == 'Docente') || $vistaPrevia eq 1} page-container-bg-solid {/if}">
+<body class="page-header-fixed page-sidebar-closed-hide-logo {if $User.type == "student" || $User.type == "Docente" || $vistaPrevia eq 1 || $page == "register"} page-sidebar-closed {/if} page-content-white page-md {if ($page == 'homepage' && $User.type == 'student') || ($page == 'homepage' && $User.type == 'Docente') || $vistaPrevia eq 1} page-container-bg-solid {/if}">
 <div class="page-wrapper">
 	{include file="new/header.tpl"}
 	<!-- BEGIN CONTAINER -->

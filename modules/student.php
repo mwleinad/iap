@@ -1,7 +1,7 @@
 <?php
 	
 	/* For Session Control - Don't remove this */
-	$user->allow_access(4);	
+	$user->allow_access(8);	
 	/* End Session Control */
 	// echo "<pre>"; print_r($_FILES);
 	// exit;
@@ -23,7 +23,7 @@
 	
 	$arrPage = array();		
 	$viewPage = 1;			
-	$rowsPerPage = 30;		
+	$rowsPerPage = 30;
 	
 	$pageVar = 'p';	
 	

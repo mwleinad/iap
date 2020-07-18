@@ -19,12 +19,13 @@ $x=0;
 	// $x=1;
 	
 	//}	
-//  	print_r($_SESSION);exit;
+ 	// echo "<pre>"; print_r($_SESSION);exit;
 	
 		$smarty->assign("x",$x);	
 	$user->allow_access();	
 	/* End Session Control */
 	$student->setUserId($_SESSION["User"]["userId"]);
+	$info = $student->GetInfo();
 	//userId
 	$smarty->assign("id",$_SESSION["User"]["userId"]);	
 	//tipo de usuario
@@ -37,8 +38,9 @@ $x=0;
 	$activeCourses = $student->StudentCourses();
 	$smarty->assign("courses", $activeCourses);	
 	
-	$activeCourses = $student->StudentCourses("activo", "si");
-//	print_r($activeCourses);
+	// $activeCourses = $student->StudentCourses("activo", "si");
+	// echo "<pre>"; print_r($activeCourses);
+	// exit;
 	$smarty->assign("activeCourses", $activeCourses);	
 
 	$inactiveCourses = $student->StudentCourses("inactivo", "si");
@@ -47,23 +49,45 @@ $x=0;
 	$finishedCourses = $student->StudentCourses("finalizado");
 	
 	
+	 $student->setCountry(1);
+	$lstEstados = $student->EnumerateEstados();
 	
+	
+	
+	$smarty->assign("lstEstados", $lstEstados);	
 	$smarty->assign("finishedCourses", $finishedCourses);	
 	
 	$announcements = $announcement->Enumerate(0, 0);
 	$smarty->assign('announcements', $announcements);
 	
 	
-	
+	$lstSolicitante=$student->EnumerateSolicitantes();	
+	$lstSector = $student->EnumerateSector();	
+	$smarty->assign('info', $info);
+	$smarty->assign('lstSector', $lstSector);
+	$smarty->assign('lstSolicitante', $lstSolicitante);
 	// echo '_'.$_SESSION['msjC'];
 // exit;
+
+	$lst = $student->enumerateMunicipio(7);
+			$smarty->assign("lst", $lst);	
+
 	$notificaciones=$notificacion->Enumerate();
 	$smarty->assign('notificaciones', $notificaciones);
 	$smarty->assign('msjC', $_SESSION['msjC']);
 	$smarty->assign('msjCc', $_SESSION['msjCc']);
 		unset($_SESSION['msjC']);
 		unset($_SESSION['msjCc']);
-	// echo '<pre>'; print_r($notificaciones);
+		
+	if($_SESSION["User"]["type"]=="Docente"){
+		
+		$resu=$student->certificacionesEval($_SESSION["User"]["userId"]);	
+	}	
+	
+// echo "<pre>"; print_r($resu);
+	// exit;	
+	$smarty->assign('resu', $resu);
+	// echo '<pre>'; print_r($lstEstados);
 	// exit;
 	/*
 	$subforos=$forum->Enumeratesubf();

@@ -1,33 +1,30 @@
 <?php
 
-$message[1]["subject"] = "Estas oficialmente pre-inscrito al Programa de Alta Dirección del Instituto de Administración Pública del Estado de Chiapas";
+$message[1]["subject"] = "Bienvenido a la Entidad de Certificacion y Evaluacion del IAP Chiapas";
 $message[1]["body"] = "
-	Bienvenido al Programa de Alta Dirección del Instituto de Administración Pública del Estado de Chiapas. Estamos muy agradecidos que nos hayas elegido.
+	Bienvenido a la Entidad de Certificacion y Evaluacion ECE213-15 del Instituto de Administracion Publica del Estado de Chiapas. Estamos muy agradecidos que nos hayas elegido.
 	
-	El(la) |major| de tu elección es:
+	La Certificacion de tu eleccion es:
 	<b>|course|</b>
 	
-	Tu datos para ingresar al sistema son los siguientes
-	<b>Matricula:</b> |email|
-	<b>Contrase&ntilde;a del Sistema:</b>	|password|
+	Para ingresar a nuestro sistema, favor de dirigirte al siguiente enlace:
+	<a href=\"https://redconocer.iapchiapas.org.mx\">https://redconocer.iapchiapas.org.mx</a>
 	
-	Tu solicitud de pre-inscripción está siendo revisada por nuestro personal, por lo que en breve recibirás un correo con la confirmación de tu inscripción, esto te dará acceso total a la currícula elegida
-
-	Nota:
-	Si eres alumno presencial, se te adjuntó a este correo una cédula de inscripción, misma que tendrás que presentar en las oficinas del IAP-Chiapas, ubicadas en Libramiento Norte Poniente No 2718. Fraccionamiento Ladera de la Loma. Tgz, Chiapas.
+	Tu datos para ingresar son los siguientes:
+	<b>Usuario:</b> |email|
+	<b>Contrase&ntilde;a:</b>	|password|
 	
-	Para mejor la experiencia de navegación en nuestro Sistema de Educación en Línea, te recomendamos utilizar el navegador Chrome así como también consultar el manual del alumno que se encuentra disponible en el siguiente enlace:
-	<a href='www.iapchiapasenlinea.mx/manual_alumno.pdf'>www.iapchiapasenlinea.mx/manual_alumno.pdf</a>
+	<b>Â¡Bienvenido!</b>
 
 	";
 
 $message[2]["subject"] = "Pago autorizado";
 $message[2]["body"] = "
-	El Instituto de Administración Pública del Estado de Chiapas, A. C., agradece tu pago y te informa que este ha sido autorizado. El acceso a:
+	El Instituto de Administraciï¿½n Pï¿½blica del Estado de Chiapas, A. C., agradece tu pago y te informa que este ha sido autorizado. El acceso a:
 
 	El(la) |major| <b>|course|</b>
 
-Se encuentra activo por lo que ya puedes acceder a la currícula que hayas elegido.
+Se encuentra activo por lo que ya puedes acceder a la currï¿½cula que hayas elegido.
 	";
 	
 	

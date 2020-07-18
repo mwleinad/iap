@@ -9,7 +9,7 @@
 	<td align="center">Ap. Materno</td>
 	<td align="center">Nombre</td>
 	<td align="center">No. Control</td>
-	<td align="center">Estatus</td>
+
 	
 </tr>
 <tr>
@@ -17,7 +17,7 @@
     <td align="center"><input type="text" name="apMaterno" id="apMaterno" style="color:black"/></td>
     <td align="center"><input type="text" name="nombre" id="nombre" style="color:black"/></td>
     <td align="center"><input type="text" name="noControl" id="noControl" style="color:black"/></td>
-    <td> 
+    <!--<td> 
 		<select id="vista" name="vista" style="width:100px; color:black !important">
 						<option value="">Todos </option>
 						<option value="1">Alta </option>
@@ -25,14 +25,14 @@
 		</select>
 	
 	
-	</td>
+	</td>-->
 	</tr>
 <tr>
 	<td align="center" colspan="6"></td>
 </tr>
 </table>
 </form>
-<input type="submit" name="submit" value="Buscar" onclick="DoSearch()" style="background:#73AD21; color:white" />
+<button name="submit" value="" onclick="DoSearch()" style="background:#73AD21; color:white" />Buscar</button>
 <hr >
 </div>
 

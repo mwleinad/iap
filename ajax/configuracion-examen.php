@@ -8,6 +8,25 @@ session_start();
 switch($_POST["type"])
 	{
 		case 'EditTest':
+		
+			if($_POST["puntos"]==null){
+				echo "fail[#]";
+				echo "<font color='red'>Campo requerido: puntos</font>";
+				exit;
+			}
+			
+			if($_POST["question"]==null){
+				echo "fail[#]";
+				echo "<font color='red'>Campo requerido: Pregunta</font>";
+				exit;
+			}
+			
+			if($_POST["opcionA"]==null){
+				echo "fail[#]";
+				echo "<font color='red'>Campo requerido: Opcion A</font>";
+				exit;
+			}
+			
 			// echo "lle";
 			// echo "<pre>"; print_r($_POST);
 			$activity->setPregunta($_POST["question"]);
@@ -18,6 +37,8 @@ switch($_POST["type"])
 			$activity->setOpcionE($_POST["opcionE"]);
 			$activity->setRespuesta($_POST["answer"]);
 			$activity->setTestId($_POST["Id"]);
+			$activity->setComentario($_POST["comentario"]);
+			$activity->setPuntos($_POST["puntos"]);
 			
 			if($activity->EditTest()){
 				echo "ok[#]";

@@ -1096,6 +1096,122 @@ class Solicitud extends Module
 		return true;
 	}
 	
+	public function generarAcuse()
+	{
+		$sqlQuery = "UPDATE user_subject set acuseDerecho ='si'  where courseId = '".$_POST["courseId"]."' and alumnoId = ".$_POST["userId"].""; 	
+				$this->Util()->DB()->setQuery($sqlQuery);
+				$this->Util()->DB()->ExecuteQuery();	
+				
+		 $sqlQuery = 'SELECT 
+					firma
+				FROM 
+					user
+				WHERE  userId = '.$_POST["userId"].'';
+		$this->Util()->DB()->setQuery($sqlQuery);
+		$firma = $this->Util()->DB()->GetRow();		
+				
+		$sqlNot="insert into 
+				firma(
+				procesoId,
+				firma,
+				userId,
+				fecha,
+				tablaFirmada,
+				registroFirmado
+				)
+			   values(
+			            '1', 
+			            '".$firma["firma"]."', 
+			            '".$_POST["userId"]."',
+			            '".date("Y-m-d h:i:s")."',
+			            'course',
+			            '".$_POST["courseId"]."'
+			         )";
+
+			$this->Util()->DB()->setQuery($sqlNot);
+			$Id = $this->Util()->DB()->InsertData(); 	
+				
+		return true;
+	}
+	
+	function SaveINE($Id)
+		{
+			
+			// echo '<pre>'; print_r($_FILES);
+			// echo '<pre>'; print_r($_POST);
+			// exit;
+			$archivo = 'ine';
+			foreach($_FILES as $key=>$var)
+			{
+			   switch($key)
+			   {
+				   case $archivo:
+				   if($var["name"]<>""){
+						$aux = explode(".",$var["name"]);
+						$extencion=end($aux);
+						$temporal = $var['tmp_name'];
+						$url = DOC_ROOT;	
+						if($_POST["tipo"]==1){
+							$foto_name="ine_frente_".$Id.".".$extencion;		
+							if(move_uploaded_file($temporal,$url."/alumnos/ine/".$foto_name)){									
+							$sql = 'UPDATE 		
+								user SET 		
+								ineFrente = "'.$foto_name.'"			      		
+								WHERE userId = '.$Id.'';		
+							$this->Util()->DB()->setQuery($sql);		
+							$this->Util()->DB()->UpdateData();
+						}		
+					   }else{
+						   $foto_name="ine_vuelta_".$Id.".".$extencion;		
+							if(move_uploaded_file($temporal,$url."/alumnos/ine/".$foto_name)){									
+								$sql = 'UPDATE 		
+									user SET 		
+									ineVuelta = "'.$foto_name.'"			      		
+									WHERE userId = '.$Id.'';		
+								$this->Util()->DB()->setQuery($sql);		
+								$this->Util()->DB()->UpdateData();
+							}
+					   }
+					}
+					break;
+				}
+			}
+			
+			unset($_FILES);
+			
+			return true;
+		}	
+		
+		
+	public function infoDoc()
+	{
+		
+		 $sqlQuery = 'SELECT 
+					*
+				FROM 
+					repositorio
+				WHERE   userId = '.$_GET["id"].' and tipoDocumentoId = '.$_GET["auxTpl"].' and subjectId = '.$_GET["cId"].'';
+		// exit;
+		$this->Util()->DB()->setQuery($sqlQuery);
+		$infoFol = $this->Util()->DB()->GetRow();
+		
+		return $infoFol;
+	}
+	
+	public function infoCourse()
+	{
+		
+		 $sqlQuery = 'SELECT 
+					*
+				FROM 
+					user_subject
+				WHERE   alumnoId = '.$_GET["id"].' and courseId = '.$_GET["cId"].'';
+		// exit;
+		$this->Util()->DB()->setQuery($sqlQuery);
+		$infoFol = $this->Util()->DB()->GetRow();
+		
+		return $infoFol;
+	}
 	
 }	
 ?>

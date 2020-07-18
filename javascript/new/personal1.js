@@ -8,10 +8,22 @@ $( document ).ready(function() {
         var $id = $(this).attr('id');
         DeletePersonalPopup($id);
     });
+	
+	 $(document).on("click",".spanActivo",function() {
+        var $id = $(this).attr('id');
+        ActivarPersonalPopup($id);
+    });
+	
 
     $(document).on("click",".spanEdit",function() {
         var $id = $(this).attr('id');
         EditPersonalPopup($id);
+    });
+	
+	
+	 $(document).on("click",".spanAgregarCertificacion",function() {
+        var $id = $(this).attr('id');
+        AgregarCertificacion($id);
     });
 
     console.log("jere");
@@ -43,6 +55,31 @@ function EditPersonalPopup(id)
     });
 }
 
+
+
+function AgregarCertificacion(id)
+{
+	
+	// alert(id)
+    $.ajax({
+        url : WEB_ROOT+'/ajax/new/personal.php',
+        type: "POST",
+        data : {type: "AgregarCertificacion", id:id},
+        success: function(data)
+        {
+            showModal("Agregar Certificacion", data);
+            // $('.submitForm').click(function() {
+                // EditPersonal();
+            // });
+        },
+        error: function ()
+        {
+            alert('Algo salio mal, compruebe su conexión a internet');
+        }
+    });
+}
+
+
 function EditPersonal()
 {
     $.ajax({
@@ -73,7 +110,7 @@ function EditPersonal()
 
 function DeletePersonalPopup(id)
 {
-    var $message = "¿Está seguro de eliminar este usuario? Toma en cuenta que podrían perdese muchas asociaciones (Horarios, materias, etc)";
+    var $message = "¿Está seguro de deshabilitar ha este usuario?";
     bootbox.confirm($message, function(result) {
         if(result == false)
         {
@@ -86,6 +123,35 @@ function DeletePersonalPopup(id)
             data : {type: "deletePersonal", id: id},
             success: function(data, textStatus, jqXHR)
             {
+                var splitResponse = data.split("[#]");
+                ShowStatus(splitResponse[1]);
+                $('#tblContent').html(splitResponse[2]);
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Algo salio mal, compruebe su conexión a internet');
+            }
+        });
+
+    });
+}
+
+function ActivarPersonalPopup(id)
+{
+    var $message = "¿Está seguro de habilitar ha este usuario?";
+    bootbox.confirm($message, function(result) {
+        if(result == false)
+        {
+            return;
+        }
+
+        $.ajax({
+            url : WEB_ROOT+'/ajax/new/personal.php',
+            type: "POST",
+            data : {type: "ActivarPersonalPopup", id: id},
+            success: function(data, textStatus, jqXHR)
+            {
+				console.log(data);
                 var splitResponse = data.split("[#]");
                 ShowStatus(splitResponse[1]);
                 $('#tblContent').html(splitResponse[2]);
@@ -171,9 +237,9 @@ function AddPersonalDiv()
         success: function(data)
         {
             showModal("Agregar Personal", data);
-            $('.submitForm').click(function() {
-                AddPersonal();
-            });
+            // $('.submitForm').click(function() {
+                // AddPersonal();
+            // });
         },
         error: function ()
         {
@@ -237,4 +303,139 @@ function compruebaFirma()
 		$('#btnEdit').show();
 	}
    
+}
+
+function savePersonal(){
+
+	var fd = new FormData(document.getElementById("addPersonalForm"));
+	$.ajax({
+		url : WEB_ROOT+'/ajax/new/personal.php',
+		data: fd,
+		processData: false,
+		contentType: false,
+		type: 'POST',
+		/*xhr: function(){
+				var XHR = $.ajaxSettings.xhr();
+				XHR.upload.addEventListener('progress',function(e){
+					console.log(e)
+					var Progress = ((e.loaded / e.total)*100);
+					Progress = (Progress);
+					console.log(Progress)
+					$('#progress_'+reqId).val(Math.round(Progress));
+					$('#porcentaje_'+reqId).html(Math.round(Progress)+'%');
+					
+					
+				},false);
+			return XHR;
+		},*/
+		beforeSend: function(){		
+			// $("#loader").html(LOADER);
+			// $("#erro_"+reqId).hide(0);
+			$("#btnSavePersonal").hide();
+		},
+		success: function(response){
+			
+			console.log(response);
+			var splitResp = response.split("[#]");
+
+			$("#loader").html("");
+			
+			if($.trim(splitResp[0]) == "ok"){
+				 ShowStatus($(splitResp[1]));
+                $('#tblContent').html(splitResp[2]);
+                CloseFview();
+			}else if($.trim(splitResp[0]) == "fail"){
+				$("#btnSavePersonal").show();
+				$('#centeredDivOnPopup').show();
+				$('#divMsj').html($.trim(splitResp[1]));
+				$('#btnEdit').hide();
+			}else{
+				alert(msgFail);
+			}
+		},
+	})
+	
+}
+
+
+/*
+function savePersonal()
+{
+	
+		 $.ajax({
+			url : WEB_ROOT+'/ajax/new/personal.php',
+			 data :  $('#addPersonalForm').serialize(),
+			success: function(data)
+			{
+				console.log(data);
+				var splitResponse = data.split("[#]");
+				if($.trim(splitResponse[0]) == "fail"){
+					$('#divMsj').html($.trim(splitResponse[1]));
+					$('#btnEdit').hide();
+				}else{
+					 ShowStatus($(splitResponse[1]));
+                $('#tblContent').html(splitResponse[2]);
+                CloseFview();
+				}
+				
+			},
+			error: function ()
+			{
+				alert('Algo salio mal, compruebe su conexión a internet');
+			}
+		});
+}
+*/
+function saveGuardarCertificacion()
+{
+	 $.ajax({
+			url : WEB_ROOT+'/ajax/new/personal.php',
+			type: "POST",
+			 data :  $('#frmGral').serialize(),
+			success: function(data)
+			{
+				console.log(data);
+				var splitResponse = data.split("[#]");
+				if($.trim(splitResponse[0]) == "fail"){
+					$('#divMsj').html($.trim(splitResponse[1]));
+					$('#btnEdit').hide();
+				}else{
+					  ShowStatus(splitResponse[1]);
+                $('#tblContent').html(splitResponse[2]);
+                CloseFview();
+					
+				}
+				
+			},
+			error: function ()
+			{
+				alert('Algo salio mal, compruebe su conexión a internet');
+			}
+		});
+}
+
+
+
+function buscarPersonal()
+{
+	
+	
+    $.ajax({
+        url : WEB_ROOT+'/ajax/new/personal.php',
+        type: "POST",
+        data :  $('#frmBuscar').serialize(),
+        success: function(data)
+        {
+            // showModal("Agregar Personal", data);
+            // $('.submitForm').click(function() {
+                // AddPersonal();
+            // });
+			console.log(data);
+			$("#tblContent").html(data);
+        },
+        error: function ()
+        {
+            alert('Algo salio mal, compruebe su conexión a internet');
+        }
+    });
 }

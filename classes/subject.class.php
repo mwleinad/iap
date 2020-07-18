@@ -439,6 +439,58 @@ public function Enumerate_p(){
 			}
 			return $result;
 		}
+		
+		public function EnumerateCertificacion()
+		{
+			
+			$sql = '
+				SELECT 
+					*, 
+					major.name AS majorName, 
+					subject.name AS name,
+					subject.subjectId
+				FROM 
+					subject 
+				LEFT JOIN 	major ON major.majorId = subject.tipo
+				LEFT JOIN 	subject_module as sm ON sm.subjectId = subject.subjectId
+				LEFT JOIN 	course_module as cm ON cm.subjectModuleId = sm.subjectModuleId
+				ORDER BY   
+					FIELD (major.name,"MAESTRIA","DOCTORADO","CURSO","ESPECIALIDAD") ASC, subject.name';
+			// exit;
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->GetResult();
+			
+			// ECHO '<PRE>'; PRINT_R($result);
+			// EXIT;
+			
+			foreach($result as $key=>$aux){
+				
+				if($aux["subjectId"]==null){
+					
+					$aux["subjectId"] = 0;
+					$result[$key]["countModule"] = 0;
+				}else{
+					
+					 $sql = "
+					SELECT COUNT(*) FROM personal_subject WHERE personalId = '".$_POST["id"]."' and subjectId = ".$aux["subjectId"]."";
+
+					$this->Util()->DB()->setQuery($sql);
+					$result[$key]["countModule"] = $this->Util()->DB()->GetSingle();
+				}
+				
+				
+				
+			}
+			
+			// foreach($result as $key => $res)
+			// {
+				// $this->Util()->DB()->setQuery("
+					// SELECT COUNT(*) FROM subject_module WHERE subjectId ='".$res["subjectId"]."'");
+			
+				// $result[$key]["modules"] = $this->Util()->DB()->GetSingle();
+			// }
+			return $result;
+		}
 
 		
 		public function EnumerateGroups()
@@ -1116,7 +1168,7 @@ public function Enumerate_p(){
 		public function Info()
 		{
 			//creamos la cadena de seleccion
-			$sql = "SELECT 
+			 $sql = "SELECT 
 						* 
 					FROM
 						subject
@@ -1515,6 +1567,67 @@ public function Enumerate_p(){
 		// exit;
 		return $lst;
 	}
+	
+	public function extraeCalificador($Id,$userId){
+		
+	// echo
+	// $sqlQuery = '
+			// SELECT 
+				// p.*,
+				// (select count(*) from usuario_personal p1 where p1.personalId = p.personalId and p1.subjectId = '.$Id.' and usuarioId = '.$userId.') as seleccion
+			// FROM
+				// personal as p
+			// left join personal_role as pr on pr.personalId = p.personalId
+			// left join role as r on r.roleId = pr.roleId
+			// WHERE 1
+			// and (select count(*) from personal_subject p1 where p1.personalId = p.personalId and p1.subjectId = '.$Id.') >0
+			// and r.name="Evaluador" group by p.personalId order by lastname_paterno';
+			// $this->Util()->DB()->setQuery($sqlQuery);			
+
+			// $lst = $this->Util()->DB()->GetResult();
+			
+			$sqlQuery = '
+			SELECT 
+				p.*
+			FROM
+				personal as p
+			left join personal_role as pr on pr.personalId = p.personalId
+			left join role as r on r.roleId = pr.roleId
+			WHERE 1
+			and (select count(*) from personal_subject p1 where p1.personalId = p.personalId and p1.subjectId = '.$Id.') >0
+			and r.name="Evaluador" group by p.personalId order by lastname_paterno';
+			$this->Util()->DB()->setQuery($sqlQuery);			
+
+			$lst = $this->Util()->DB()->GetResult();
+			
+			return $lst ;
+	}
+	
+	public function enumerateLog(){
+		
+		$sqlQuery = '
+			SELECT 
+
+			concat_ws(" ",name,lastname_paterno,lastname_materno) as personal
+			,concat_ws(" ",u.names,u.lastNamePaterno,u.lastNameMaterno,lastNamePaterno) as alumno
+			,
+			l.fecha,
+			l.tipo
+			FROM
+				log l
+			left join personal as p on (p.personalId = l.userId and l.tipo ="personal") 
+			left join user as u on (u.userId = l.userId and l.tipo ="alumno") 
+			WHERE 1 order by fecha desc';
+			$this->Util()->DB()->setQuery($sqlQuery);			
+		
+			$lst = $this->Util()->DB()->GetResult();
+			
+			$data["result"] =$lst;
+			
+			return $data ;
+		
+	}
+	
 	
 }	
 ?>

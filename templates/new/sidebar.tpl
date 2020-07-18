@@ -25,7 +25,7 @@
             </a>
 
         </li>
-
+		
         {if $AccessMod[32] == 1 || $AccessMod[33] == 1}
 {*
         <li class="nav-item start ">
@@ -37,11 +37,11 @@
 *}
         {/if}
 
-{if $User.positionId == 1 || $AccessMod[38] == 1 || $AccessMod[38] == 1 || $AccessMod[1] == 1 || $AccessMod[2] == 1  || $AccessMod[3] == 1 || $AccessMod[4] == 1 || $AccessMod[5] == 1 || $AccessMod[6] == 1 || $AccessMod[7] == 1 || $AccessMod[9] == 1 || $AccessMod[10] == 1}
+{if $User.positionId == 1 || $AccessMod[1] == 1 || $AccessMod[3] == 1 || $AccessMod[9] == 1}
 {if !$docente}
 {if $vistaPrevia ne 1}
         
-        <li class="nav-item {if  $page == "personal1"} active {/if} ">
+        <li class="nav-item {if  $page == "personal1" || $page == "role"} active {/if} ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-diamond"></i>
                 <span class="title">Catálogos</span>
@@ -49,54 +49,120 @@
             </a>
             <ul class="sub-menu">
 			
-				{if $AccessMod[38] != 1}
+				{if $User.positionId == 1 || $AccessMod[1] == 1}
                 <li class="nav-item  ">
                     <a href="{$WEB_ROOT}/major" class="nav-link ">
-                        <span class="title">Programas Académicos</span>
+                        <span class="title">Tipos de Cursos</span>
                     </a>
                 </li>
+				{/if}
+				{if $User.positionId == 1 || $AccessMod[3] == 1}
                 <li class="nav-item  ">
                     <a href="{$WEB_ROOT}/personal1" class="nav-link ">
                         <span class="title">Personal</span>
                     </a>
                 </li>
 				{/if}
-                <li class="nav-item  ">
-                    <a href="{$WEB_ROOT}/student" class="nav-link ">
-                        <span class="title">Alumnos</span>
-                    </a>
-                </li>
-				{if $AccessMod[38] != 1}
-                <li class="nav-item  ">
-                    <a href="{$WEB_ROOT}/position" class="nav-link ">
-                        <span class="title">Puestos</span>
-                    </a>
-                </li>
+				{if  $User.positionId == 1 || $AccessMod[9] == 1}
                 <li class="nav-item  ">
                     <a href="{$WEB_ROOT}/role" class="nav-link ">
                         <span class="title">Roles</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{$WEB_ROOT}/profesion" class="nav-link ">
-                        <span class="title">Profesiones</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{$WEB_ROOT}/recording" class="nav-link ">
-                        <span class="title">Videoconferencias</span>
                     </a>
                 </li>
 				{/if}
 			 {/if}
             </ul>
         </li>
-       
+		<li class="nav-item {if  $page == "grupos" || $page == "history-subject"} active {/if} ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-diamond"></i>
+                <span class="title">Certificaciones</span>
+                <span class="arrow"></span>
+            </a>
+			<ul class="sub-menu">
+					{if  $User.positionId == 1 || $AccessMod[8] == 1}
+						<li class="nav-item  ">
+                            <a href="{$WEB_ROOT}/history-subject" class="nav-link ">
+                                <span class="title">Certificaciones</span>
+                            </a>
+                        </li>
+					{/if}
+					{if  $User.positionId == 1 || $AccessMod[46] == 1}
+						<li class="nav-item  ">
+                            <a href="{$WEB_ROOT}/grupos" class="nav-link ">
+                                <span class="title">Grupos</span>
+                            </a>
+                        </li>
+					{/if}
+			</ul>
+		</li>	
+       <li class="nav-item {if  $page == "student" || $page == "usuarios"  || $page == "usuarios-admin" || $page == "usuarios-doc" || $page == "usuarios-sol"} active {/if} ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-diamond"></i>
+                <span class="title">Candidatos</span>
+                <span class="arrow"></span>
+            </a>
+			<ul class="sub-menu">
+			{if  $User.positionId == 1 || $AccessMod[40] == 1}
+				<li class="nav-item  ">
+                    <a href="{$WEB_ROOT}/usuarios-sol" class="nav-link ">
+                        <span class="title">Solicitudes</span>
+                    </a>
+                </li>
+			{/if}
+			{if  $User.positionId == 1 || $AccessMod[4] == 1}
+				<li class="nav-item  ">
+                    <a href="{$WEB_ROOT}/usuarios-admin" class="nav-link ">
+                        <span class="title">Usuarios</span>
+                    </a>
+                </li>
+			{/if}
+			{if  $User.positionId == 1 || $AccessMod[47] == 1}	
+				<li class="nav-item  ">
+                    <a href="{$WEB_ROOT}/usuarios-doc" class="nav-link ">
+                        <span class="title">Documentos</span>
+                    </a>
+                </li>
+			{/if}
+			</ul>
+		</li>	
+		
+		 <li class="nav-item {if  $page == "reporte-region" || $page == "reporte-b"} active {/if} ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-diamond"></i>
+                <span class="title">Reportes</span>
+                <span class="arrow"></span>
+            </a>
+			<ul class="sub-menu">
+				{if  $User.positionId == 1 || $AccessMod[45] == 1}
+				<li class="nav-item  ">
+                    <a href="{$WEB_ROOT}/reporte-b" class="nav-link ">
+                        <span class="title">Reporte B</span>
+                    </a>
+                </li>
+				{/if}
+				{if  $User.positionId == 1 || $AccessMod[44] == 1}
+				<li class="nav-item  ">
+                            <a href="{$WEB_ROOT}/reporte-region" class="nav-link ">
+                                <span class="title">Reporte</span>
+                            </a>
+                 </li>
+				 {/if}
+				 {if  $User.positionId == 1 || $AccessMod[48] == 1}
+				 <li class="nav-item  ">
+					<a href="{$WEB_ROOT}/log" class="nav-link ">
+						<span class="title">Log</span>
+					</a>
+                 </li>
+				 {/if}
+			</ul>
+		</li>
         {/if}
         {/if}
 
         {if $AccessMod[34] == 1 || $User.positionId == 1}
 		{if $vistaPrevia ne 1}
+		<!--
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-book" aria-hidden="true"></i>
@@ -115,13 +181,13 @@
                     </a>
                 </li>
             </ul>
-        </li>
+        </li>-->
         {/if}
         {/if}
 
         {if $AccessMod[11] == 1 || $User.positionId == 1 || $AccessMod[31] == 1 || $AccessMod[8] == 1 ||  $AccessMod[39] == 1}
             {if !$docente}
-			{if $vistaPrevia ne 1}
+			{if $vistaPrevia ne 1}<!--
                 <li class="nav-item   {if $page == "subject" || $page == "history-subject"} active {/if} ">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-settings"></i>
@@ -142,7 +208,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li>-->
 			{/if}
             {else}
                 <li class="nav-item ">
@@ -161,6 +227,7 @@
         {if $vistaPrevia ne 1}
 		 {if !$docente}
 		 {if $AccessMod[40] != 1}
+		 <!--
 		<li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-video-camera"></i>
@@ -179,17 +246,17 @@
                     </a>
                 </li>
             </ul>
-        </li>
-		{/if}
+        </li>-->
+		{/if}<!--
 		<li class="nav-item  ">
             <a href="{$WEB_ROOT}/solicitud" class="nav-link nav-toggle">
                 <i class="fa fa-folder-open" aria-hidden="true"></i>
                 <span class="title">Solicitudes</span>
                 <span class="arrow"></span>
             </a>
-        </li>
+        </li>-->
 		{if $AccessMod[40] != 1}
-		 <li class="nav-item  ">
+		 <!--<li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                <i class="fa fa-money" aria-hidden="true"></i>
                 <span class="title">Finanzas</span>
@@ -207,7 +274,7 @@
                     </a>
                 </li>
             </ul>
-        </li>
+        </li>-->
 		{/if}
 		<!--
 		<li class="nav-item  ">
@@ -239,7 +306,7 @@
                 </li>
             </ul>
         </li>-->
-		{/if}
+		{/if}<!--
 		<li class="nav-item  ">
             <a href="{$WEB_ROOT}/inbox/or/h" class="nav-link nav-toggle">
                <i class="fa fa-comments"></i>
@@ -247,9 +314,9 @@
                 <span class="arrow"></span>
             </a>
         </li>
+		-->
 		
-		
-	
+	<!--
 		 <li class="nav-item {if $page == "doc-docente" 
 		 || $page == "info-docente" 
 		 || $page == "repositorio" 
@@ -322,9 +389,9 @@
                 </li>
 				{/if}
             </ul>
-        </li>
+        </li>-->
 		{if !$docente}
-		<li class="nav-item {if  $page == "vehiculos" || $page == "report-materia" || $page == "doc-mat"  || $page == "report-docentes"} active {/if} "> 
+		<!--<li class="nav-item {if  $page == "vehiculos" || $page == "report-materia" || $page == "doc-mat"  || $page == "report-docentes"} active {/if} "> 
 
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-desktop" aria-hidden="true"></i>
@@ -361,7 +428,7 @@
 				</li>
 				{/if}
             </ul>
-        </li>
+        </li>-->
 			{/if}
 		<!--<li class="nav-item  ">
             <a href="{$WEB_ROOT}/mensaje" class="nav-link nav-toggle">
@@ -375,21 +442,21 @@
 
         {if $User.positionId == 1 || $AccessMod[13] == 1 || $AccessMod[14] == 1  || $AccessMod[15] == 1 || $AccessMod[16] == 1}
 			 {if $vistaPrevia ne 1}
-			
+			<!--
 			<li class="nav-item  ">
 				<a href="{$WEB_ROOT}/institution" class="nav-link ">
 					<i class="icon-wallet"></i>
 					<span class="title">Configuración</span>
 					<span class="arrow"></span>
 				</a>
-			</li>
+			</li>-->
 			{/if}
         {/if}
 		
 		
 
         {if $mnuMain == "modulo1" || $mnuMain == "modulo"}
-		
+		<!--
 		<li class="nav-item {if $page == "view-modules-student"} active {/if} ">
                 <a href="{$WEB_ROOT}/view-modules-student/id/{$id}" class="nav-link nav-toggle">
                     <i class="fa fa-bullhorn"></i>
@@ -419,7 +486,7 @@
                 <i class="fa fa-user"></i>
                 <span class="title">Asesor</span>
             </a>
-        </li>
+        </li>-->
 <!--
 		<li class="nav-item {if $page == "personal-academico"} active {/if}">
             <a href="{$WEB_ROOT}/personal-academico/id/{$id}" class="nav-link nav-toggle">
@@ -427,7 +494,7 @@
                 <span class="title">Personal Académico</span>
             </a>
         </li>-->
-
+<!--
         {if $mnuMain == "modulo"}
             <li class="nav-item {if $page == "calendar-image-modules-student"} active {/if} ">
                 <a href="{$WEB_ROOT}/calendar-image-modules-student/id/{$id}" class="nav-link nav-toggle">
@@ -452,14 +519,16 @@
                 </a>
             </li>
             {/if}
-
+-->
+			{if $infoUSubject.acuseDerecho eq "si"}
             <li class="nav-item {if $page == "examen-modules-student"} active {/if} ">
                 <a href="{$WEB_ROOT}/examen-modules-student/id/{$id}" class="nav-link nav-toggle">
                     <i class="fa fa-check-square-o"></i>
                     <span class="title">Examenes</span>
                 </a>
             </li>
-
+			{/if}
+<!--
             <li class="nav-item {if $page == "resources-modules-student"} active {/if} ">
                 <a href="{$WEB_ROOT}/resources-modules-student/id/{$id}" class="nav-link nav-toggle">
                     <i class="fa fa-files-o"></i>
@@ -493,7 +562,7 @@
                     <i class="fa fa-wikipedia-w"></i>
                     <span class="title">Wiki</span>
                 </a>
-            </li>
+            </li>-->
 			<!-- 
 			 <li class="nav-item {if $page == "inbox"} active {/if} ">
                 <a href="{$WEB_ROOT}/inbox/id/{$id}" class="nav-link nav-toggle">

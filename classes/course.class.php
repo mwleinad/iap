@@ -19,6 +19,28 @@
 		private $curricula;
 		private $subtotal;
 		private $tipoCuatri;
+		private $name;
+		private $numero;
+		
+		
+		public function setNumero($value)
+		{
+			$this->Util()->ValidateString($value, 255, 0, 'Nombre ');
+			$this->numero = $value;	
+		}
+		
+		public function setSubjectId($value)
+		{
+			// $this->Util()->ValidateString($value, 255, 0, 'Nombre ');
+			$this->subjectId = $value;	
+		}
+		
+		public function setName($value)
+		{
+			$this->Util()->ValidateString($value, 255, 0, 'Nombre ');
+			$this->name = $value;	
+		}
+		
 		
 		public function setTipoCuatri($value)
 		{
@@ -361,6 +383,23 @@
 		  return $majorName;
 		  
 		  }
+		  
+		 public function EnumerateCertificacions()
+		{
+			$sql = '
+				SELECT *, major.name AS majorName, subject.name AS name  FROM subject
+				LEFT JOIN major ON major.majorId = subject.tipo
+				where 1 '.$filtro.'
+				ORDER BY 
+				 subject.name
+				
+				';
+			$this->Util()->DB()->setQuery($sql);
+			
+			$result = $this->Util()->DB()->GetResult();
+			
+			return 	$result;
+		}
 		  		  
 		public function EnumerateByPage($currentPage, $rowsPerPage, $pageVar, $pageLink, &$arrPages)
 		{
@@ -408,16 +447,29 @@
 			//calcular el desplazamiento de los registros a recuperar
 			$rowOffset = $arrPages['rowBegin'] - 1;
 			
+			if($rowOffset <0){
+				
+				$rowOffset = 0;
+			}
+			
+			// $sql = '
+				// SELECT *, major.name AS majorName, subject.name AS name  FROM course
+				// LEFT JOIN subject ON course.subjectId = subject.subjectId 
+				// LEFT JOIN major ON major.majorId = subject.tipo
+				// where 1 '.$filtro.'
+				// ORDER BY 
+				// FIELD (major.name,"MAESTRIA","DOCTORADO","CURSO","ESPECIALIDAD") asc, subject.name, modality desc, initialDate desc,  active
+				
+				// LIMIT ' . $rowOffset . ', ' . $rowsPerPage;
+			// exit;
 			$sql = '
-				SELECT *, major.name AS majorName, subject.name AS name  FROM course
-				LEFT JOIN subject ON course.subjectId = subject.subjectId 
+				SELECT *, major.name AS majorName, subject.name AS name  FROM subject
 				LEFT JOIN major ON major.majorId = subject.tipo
 				where 1 '.$filtro.'
 				ORDER BY 
-				FIELD (major.name,"MAESTRIA","DOCTORADO","CURSO","ESPECIALIDAD") asc, subject.name, modality desc, initialDate desc,  active
+				subjectId desc
 				
 				LIMIT ' . $rowOffset . ', ' . $rowsPerPage;
-			// exit;
 			$this->Util()->DB()->setQuery($sql);
 			
 			$result = $this->Util()->DB()->GetResult();
@@ -498,10 +550,17 @@
 		public function EnumerateCourse()
 		{
 			
+			// echo "<pre>"; print_r($_POST);
+			// exit;
 			$filtro = "";
 			
 			if($this->aparece){
 				$filtro .= " and course.apareceTabla ='si'";
+			}
+			
+			if($_POST["curricula"]){
+				
+					$filtro .= " and subject.subjectId =".$_POST["curricula"]."";
 			}
 			
 			
@@ -556,53 +615,99 @@
 				// si hay errores regresa false
 				return false;
 			}
-			//si no hay errores
-			//creamos la cadena de insercion
-		 $sql = "INSERT INTO
-						course
+			
+			$sql = "INSERT INTO
+						subject
 						( 	
-						 	subjectId,
-							initialDate,
-							finalDate,
-							daysToFinish,
-							`group`,
-							turn,
-							scholarCicle,
-							active,
-							modality,
-							libro,
-							folio,
-							access,
-							dias,
-							horario,
-							apareceTabla,
-							listar,
-							tipo
+						 	name,
+						 	tipo
 						)
 					VALUES (
-							'" . $this->getSubjectId() . "',
-							'" . $this->initialDate . "',
-							'" . $this->finalDate . "',
-							'" . $this->daysToFinish . "',
-							'" . $this->group . "',
-							'" . $this->turn . "',
-							'" . $this->scholarCicle . "',
-							'" . $this->active . "',
-							'" . $this->modality . "',
-							'" . $this->libro . "',
-							'" . $this->folio . "',
-							'".$this->personalId."|".$this->teacherId."|".$this->tutorId."|".$this->extraId."',
-							'".$this->dias."',
-							'".$this->horario."',
-							'".$this->aparece."',
-							'".$this->listar."',
-							'".$this->tipoCuatri."'
+							'" . $this->name . "',
+							'" .$_POST["subjectId"]. "'
 							)";
-			//configuramos la consulta con la cadena de insercion
 			$this->Util()->DB()->setQuery($sql);
-			//ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
-			$result = $this->Util()->DB()->InsertData();
-			if($result > 0)
+			$subjectId = $this->Util()->DB()->InsertData();
+			
+
+			$sql = "INSERT INTO
+						subject_module
+						( 	
+						 	subjectId
+						)
+					VALUES (
+							'" .$_POST["subjectId"]. "'
+							)";
+			$this->Util()->DB()->setQuery($sql);
+			$subId = $this->Util()->DB()->InsertData();
+				
+
+		 // $sql = "INSERT INTO
+						// course
+						// ( 	
+						 	// subjectId,
+							// initialDate,
+							// finalDate,
+							// daysToFinish,
+							// `group`,
+							// turn,
+							// scholarCicle,
+							// active,
+							// modality,
+							// libro,
+							// folio,
+							// access,
+							// dias,
+							// horario,
+							// apareceTabla,
+							// listar,
+							// tipo,
+							// numero
+						// )
+					// VALUES (
+							// '" . $subjectId . "',
+							// '" . $this->initialDate . "',
+							// '" . $this->finalDate . "',
+							// '" . $this->daysToFinish . "',
+							// '" . $this->group . "',
+							// '" . $this->turn . "',
+							// '" . $this->scholarCicle . "',
+							// '" . $this->active . "',
+							// '" . $this->modality . "',
+							// '" . $this->libro . "',
+							// '" . $this->folio . "',
+							// '".$this->personalId."|".$this->teacherId."|".$this->tutorId."|".$this->extraId."',
+							// '".$this->dias."',
+							// '".$this->horario."',
+							// '".$this->aparece."',
+							// '".$this->listar."',
+							// '".$this->tipoCuatri."',
+							// '".$this->numero."'
+							// )";
+
+			// $this->Util()->DB()->setQuery($sql);
+			// $result = $this->Util()->DB()->InsertData();
+			// $sql = "INSERT INTO
+							// course_module
+							// ( 	
+								// courseId,
+								// subjectModuleId,
+								// initialDate,
+								// finalDate
+							// )
+						// VALUES (
+								// '" . $result . "',
+								// '" . $subId . "',
+								// '" . $this->initialDate . "',
+								// '" . $this->finalDate . "'
+								// )";
+				// $this->Util()->DB()->setQuery($sql);
+				// $this->Util()->DB()->InsertData();
+		
+			
+		
+			
+			if($subId > 0)
 			{
 				//si el resultado es mayor a cero, se inserto el nuevo registro con exito...se regresara true
 				$result = true;
@@ -618,21 +723,22 @@
 			return $result;
 		}
 		
-
-		public function Update()
+		
+		public function OpenGrupo()
 		{
 			if($this->Util()->PrintErrors())
 			{
-				// si hay errores regresa false
 				return false;
 			}
-			//si no hay errores
-//			print_r($this);
-			//creamos la cadena de actualizacion
+			
+			
+		if($this->courseId){
+			
 			$sql = "UPDATE 
 						course
 					SET
-						subjectId='" 	. $this->getSubjectId() . "', 
+						 
+						subjectId='" 	. $this->subjectId . "',
 						initialDate='" 	. $this->initialDate . "',
 						finalDate='" 	. $this->finalDate . "',
 						daysToFinish='" 	. $this->daysToFinish . "',
@@ -651,26 +757,164 @@
 						tipo='".$this->tipoCuatri."',
 						apareceTabla='".$this->aparece."',
 						listar='".$this->listar."',
+						numero='".$this->numero."',
 						access='".$this->personalId."|".$this->teacherId."|".$this->tutorId."|".$this->extraId."'
 						WHERE courseId='" . utf8_decode($this->courseId) . "'";
-			//configuramos la consulta con la cadena de actualizacion
+
 			$this->Util()->DB()->setQuery($sql);
-			//ejecutamos la consulta y guardamos el resultado, que sera el numero de columnas afectadas
 			$this->Util()->DB()->UpdateData();
+			$subId = 1;
+			
+		}else{
+			$sql = "INSERT INTO
+						course
+						( 	
+						 	subjectId,
+							initialDate,
+							finalDate,
+							daysToFinish,
+							`group`,
+							turn,
+							scholarCicle,
+							active,
+							modality,
+							libro,
+							folio,
+							access,
+							dias,
+							horario,
+							apareceTabla,
+							listar,
+							tipo,
+							numero
+						)
+					VALUES (
+							'" . $this->subjectId . "',
+							'" . $this->initialDate . "',
+							'" . $this->finalDate . "',
+							'" . $this->daysToFinish . "',
+							'" . $this->group . "',
+							'" . $this->turn . "',
+							'" . $this->scholarCicle . "',
+							'" . $this->active . "',
+							'" . $this->modality . "',
+							'" . $this->libro . "',
+							'" . $this->folio . "',
+							'".$this->personalId."|".$this->teacherId."|".$this->tutorId."|".$this->extraId."',
+							'".$this->dias."',
+							'".$this->horario."',
+							'".$this->aparece."',
+							'".$this->listar."',
+							'".$this->tipoCuatri."',
+							'".$this->numero."'
+							)";
+
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->InsertData();
+			$sql = "INSERT INTO
+							course_module
+							( 	
+								courseId,
+								subjectModuleId,
+								initialDate,
+								finalDate
+							)
+						VALUES (
+								'" . $result . "',
+								'" . $subId . "',
+								'" . $this->initialDate . "',
+								'" . $this->finalDate . "'
+								)";
+				$this->Util()->DB()->setQuery($sql);
+				$this->Util()->DB()->InsertData();
+		
+		}	
+				
+
+			if($subId > 0)
+			{
+				$result = true;
+				$this->Util()->setError(90000, 'complete', "Se ha abierto un nuevo curso");
+			}
+			else
+			{
+				$result = false;
+				$this->Util()->setError(90010, 'error');
+			}
+			$this->Util()->PrintErrors();
+			return true;
+		}
+		
+		
+		public function Update()
+		{
+			if($this->Util()->PrintErrors())
+			{
+				// si hay errores regresa false
+				return false;
+			}
+
+			// $sql = '
+				// SELECT subjectId FROM course
+				// where courseId = '.$this->courseId.'';
+			// $this->Util()->DB()->setQuery($sql);
+			// $info = $this->Util()->DB()->GetRow();
+			
+			
+			 $sql = "UPDATE 
+						subject
+					SET
+						name='". $this->name."'
+						WHERE subjectId='".$_POST["courseId"]."'";
+						
+						// exit;
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->UpdateData();
+			
+			//
+
+			// $sql = "UPDATE 
+						// course
+					// SET
+						 
+						// initialDate='" 	. $this->initialDate . "',
+						// finalDate='" 	. $this->finalDate . "',
+						// daysToFinish='" 	. $this->daysToFinish . "',
+						// active='" 	. $this->active . "',
+						// `group`='" 	. $this->group . "',
+						// turn='" 	. $this->turn . "',
+						// scholarCicle='" 	. $this->scholarCicle . "',
+						// folio='" 	. $this->folio . "',
+						// libro='" 	. $this->libro . "',
+						// backDiploma='" 	. $this->backDiploma . "',
+						// modality='" 	. $this->modality . "',
+						// ponenteText='" 	. $this->ponenteText . "',
+						// fechaDiploma='" 	. $this->fechaDiploma . "',
+						// dias='".$this->dias."',
+						// horario='".$this->horario."',
+						// tipo='".$this->tipoCuatri."',
+						// apareceTabla='".$this->aparece."',
+						// listar='".$this->listar."',
+						// numero='".$this->numero."',
+						// access='".$this->personalId."|".$this->teacherId."|".$this->tutorId."|".$this->extraId."'
+						// WHERE courseId='" . utf8_decode($this->courseId) . "'";
+
+			// $this->Util()->DB()->setQuery($sql);
+			// $this->Util()->DB()->UpdateData();
 			$result = 1;
 			if($result > 0)
 			{
 				//si el resultado es mayor a cero, se actualizo el registro con exito
 				$result = true;
-				$this->Util()->setError(90002,'complete', 'El curso se ha actualizado correctamente');
+				// $this->Util()->setError(90002,'complete', 'El curso se ha actualizado correctamente');
 			}
 			else
 			{
 				//si el resultado es cero, no se pudo modificar el registro...se regresa false
-				$result = false;
-				$this->Util()->setError(90011,'error', "No se pudo modificar el curso");
+				// $result = false;
+				// $this->Util()->setError(90011,'error', "No se pudo modificar el curso");
 			}
-			$this->Util()->PrintErrors();
+			// $this->Util()->PrintErrors();
 			return $result;
 		}
 		
@@ -764,6 +1008,9 @@
 			$this->Util()->DB()->setQuery($sql);
 			//ejecutamos la consulta y obtenemos el resultado
 			$result = $this->Util()->DB()->GetRow();
+			
+			// echo "<pre>"; print_r($result);
+			// exit;
 			if($result)
 			{
 //				$result = $this->Util->EncodeRow($result);
@@ -1022,7 +1269,7 @@
 				LEFT JOIN subject_module ON subject_module.subjectModuleId = course_module.subjectModuleId
 				WHERE courseId = '".$info["courseId"]."'
 				ORDER BY semesterId ASC, initialDate ASC";
-			
+			// exit;
 			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
 			//print_r($result);exit;
@@ -1288,8 +1535,183 @@
 			return true;
 		}
 		
+		function reporteRegion()
+		{
+			
+			$filtro = "";
+			
+			if($_POST["tipo"]){
+				
+				$filtro.= " and s.subjectId = ".$_POST["tipo"]."";
+			}
+			
+			if($_POST["estatus"]){
+				$filtro.= " and mr.grupo = ".$_POST["estatus"]."";
+				
+			}
+			
+			if($_POST["region"]){
+				
+				$filtro.= " and mr.region = ".$_POST["region"]."";
+			}
+			
+			
+			
+		$sql = "
+				SELECT 
+					
+					m.nombre as municipio,
+					us.*,
+					s.name as certificacion,
+					mr.grupo,
+					mr.region
+				FROM 
+					user_subject as u
+				left join  course as c on c.courseId = u.courseId 
+				left join  user as us on us.userId = u.alumnoId 
+				left join  municipio_region as mr on mr.municipioId = us.ciudadt 
+				left join  municipio as m on m.municipioId = us.ciudadt 
+				left join  subject as s on s.subjectId = c.subjectId 
+
+				WHERE 1 ".$filtro." group by us.userId,c.courseId order by c.courseId";
+				// exit;
+				$this->Util()->DB()->setQuery($sql);
+				$cal = $this->Util()->DB()->GetResult();
+				
+				return $cal;
+		
+		}
 		
 		
-	
+		
+		function reporteB()
+		{
+			
+			$filtro = "";
+			$filtrog = "";
+			
+			if($_POST["tipo"]){
+				
+				$filtro.= " and us.ciudadt = ".$_POST["tipo"]."";
+				// $filtrog = "";
+			}
+			
+			if($_POST["grupos"]){
+				$filtro.= " and c.courseId = '".$_POST["grupos"]."'";
+				$filtrog .=  " and c2.courseId = '".$_POST["grupos"]."'";
+				
+			}
+			
+			if($_POST["region"]){
+				
+				$filtro.= " and mr.region = ".$_POST["region"]."";
+				// $filtrog = "";
+			}
+			
+			
+			
+		$sql = "
+				SELECT 
+					us.ciudadt as municipioId,
+					m.nombre as municipio,
+					us.*,
+					s.name as certificacion,
+					mr.grupo,
+					mr.region,
+					(SELECT 
+						count(*)
+					FROM 
+						user_subject as u2
+					left join  course as c2 on c2.courseId = u2.courseId 
+					left join  user as us2 on us2.userId = u2.alumnoId 
+					left join  municipio_region as mr2 on mr2.municipioId = us2.ciudadt 
+					where us2.ciudadt = m.municipioId ".$filtrog."
+					) as cantidad
+				FROM 
+					user_subject as u
+				left join  course as c on c.courseId = u.courseId 
+				left join  user as us on us.userId = u.alumnoId 
+				left join  municipio_region as mr on mr.municipioId = us.ciudadt 
+				left join  municipio as m on m.municipioId = us.ciudadt 
+				left join  subject as s on s.subjectId = c.subjectId 
+
+				WHERE 1 ".$filtro." group by m.municipioId order by (SELECT 
+						count(*)
+					FROM 
+						user_subject as u2
+					left join  course as c2 on c2.courseId = u2.courseId 
+					left join  user as us2 on us2.userId = u2.alumnoId 
+					left join  municipio_region as mr2 on mr2.municipioId = us2.ciudadt 
+					where us2.ciudadt = m.municipioId ".$filtrog."
+					) desc";
+				// exit;
+				$this->Util()->DB()->setQuery($sql);
+				$cal = $this->Util()->DB()->GetResult();
+				
+				return $cal;
+		
+		}
+		
+		function enumerateCer()
+		{
+			$sql = "
+				SELECT 
+					s.name as nombre,
+					s.subjectId
+				FROM 
+					course as c
+				left join subject as s on s.subjectId = c.subjectId
+
+				WHERE 1";		
+				// exit;
+				$this->Util()->DB()->setQuery($sql);
+				$cal = $this->Util()->DB()->GetResult();
+				
+				return $cal;
+		}
+		
+		function regiones()
+		{
+			$sql = "
+				SELECT 
+					region
+				FROM 
+					municipio_region
+				WHERE 1 group by region order by region";		
+				// exit;
+				$this->Util()->DB()->setQuery($sql);
+				$cal = $this->Util()->DB()->GetResult();
+				
+				return $cal;
+		}
+		
+		public function detalleReporteB($Id)
+		{
+			
+			$filtro = "";
+			if($_POST["grupos"]){
+				
+				$filtro .= " and c.courseId = ".$_POST["grupos"]."";
+			}
+			
+			$sql = "
+				SELECT 
+					u.*,
+					s.*
+				FROM 
+					user as u
+				left join user_subject as us on u.userId = us.alumnoId
+				left join course as c on c.courseId = us.courseId
+				left join subject as s on s.subjectId = c.subjectId
+				WHERE ciudadt = ".$Id." ".$filtro."";		
+// exit;
+				$this->Util()->DB()->setQuery($sql);
+				$cal = $this->Util()->DB()->GetResult();
+				
+				// echo "<pre>"; print_r($cal);
+				// exit;
+				
+				return $cal;
+		}
 }	
 ?>

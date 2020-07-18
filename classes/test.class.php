@@ -3,11 +3,21 @@
 	class Test extends Activity
 	{
 		private $testId;
+		private $usertId;
+		
+		
+		
 		public function setTestId($value)
 		{
 			$this->testId = $value;
 		}
 
+		
+		public function setUsertId($value)
+		{
+			 $this->usertId = $value;
+		}
+		
 		public function getTestId()
 		{
 			return $this->testId;
@@ -104,27 +114,62 @@
 			return $this->answer;
 		}
 		
-		public function Enumerate($tipo = null)
+		public function Enumerate($verResultado=false,$user=null)
 		{
+			
+			$filtro = "";
+			if($verResultado == true){
+				$filtro =  " and answer <>''";
+			}
 			
 			 $sql = "
 				SELECT * FROM activity_test
-				WHERE activityId = '".$this->getActivityId()."'
-				ORDER BY testId ASC";
-			
+				WHERE activityId = '".$this->getActivityId()."' ".$filtro."
+				ORDER BY numero ASC";
+		
 			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
-			
+
 			foreach($result as $key => $res)
 			{
+			
+				if($verResultado == true){
+					
+					
+					  $sql = "
+						SELECT respuesta FROM resultado
+						WHERE preguntaId = '".$res["testId"]."' and usuarioId = ".$user." limit 0,1";
+					// exit;
+					$this->Util()->DB()->setQuery($sql);
+					$resu = $this->Util()->DB()->GetRow();
+
+						// exit;
+					if($resu["respuesta"]==$res["answer"]){
+							$result[$key][$resu["respuesta"]] = "<b><font color='#73b760'>".$result[$key][$resu["respuesta"]]."</font></b>"; 
+					}
+					else{
+						$opciones = array("opcionA","opcionB","opcionC","opcionD","opcionE");
+						
+						foreach($opciones as $keyo=>$auxo){
+							if($auxo==$res["answer"])
+							$result[$key][$auxo] = "<font color='red'>".$result[$key][$auxo]."</font>";
+						
+						}						
+					}
+					
+					$result[$key]["res"] = $resu["respuesta"];
+				}
+				
+
 				$result[$key]["opcionAShort"] = substr($res["opcionA"], 0, 20);
 				$result[$key]["opcionBShort"] = substr($res["opcionB"], 0, 20);
 				$result[$key]["opcionCShort"] = substr($res["opcionC"], 0, 20);
 				$result[$key]["opcionDShort"] = substr($res["opcionD"], 0, 20);
 				$result[$key]["opcionEShort"] = substr($res["opcionE"], 0, 20);
 				$result[$key]["ponderation"] = $this->PonderationPerQuestion();
+				
 			}
-			//print_r($result);
+
 			return $result;
 		}
 		
@@ -187,28 +232,7 @@
 			return $result;	
 		}
 
-		public function PonderationPerQuestion()
-		{
-			//creamos la cadena de seleccion
-			$sql = "SELECT 
-						noQuestions
-					FROM
-						activity
-					WHERE
-							activityId='" . $this->getActivityId() . "'";
-			//configuramos la consulta con la cadena de actualizacion
-			$this->Util()->DB()->setQuery($sql);
-			//ejecutamos la consulta y obtenemos el resultado
-			$result = $this->Util()->DB()->GetSingle();
-			
-			if($result == 0)
-			{
-				$result = 1;
-			}
-			
-			$ponderation = 100/$result;
-			return $ponderation;	
-		}
+		
 
 		public function Edit()
 		{
@@ -235,95 +259,229 @@
 			return $result;			
 		}
 		
+		public function PonderationPerQuestion()
+		{
+
+			$sql = "SELECT 
+						noQuestions
+					FROM
+						activity
+					WHERE
+							activityId='" . $this->getActivityId() . "'";
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->GetSingle();
+			
+			if($result == 0)
+			{
+				$result = 1;
+			}
+			
+			$ponderation = 100/$result;
+			return $ponderation;	
+		}
+		
 		function SendTest($answers)
 		{
-			//print_r($this);
-			$questionScore = $this->PonderationPerQuestion();
 			
-			$score = 0;
-			
-			if(is_array($answers))
-			{
-				foreach($answers as $key => $option)
-				{
-					$sql = "SELECT answer FROM 
-								activity_test 
-							WHERE
-									testId='" .$key. "'";
-					$this->Util()->DB()->setQuery($sql);
-					$result = $this->Util()->DB()->GetSingle();
-					
-					if(!$result)
-					{
-						$result = "opcionA";
-					}
-					
-					if($option == $result)
-					{
-						$score += $questionScore;
-					}
-				}
+			if($answers==null){
+					echo "fail[#]";
+					echo "<font color='red'>Necesita responder todas las preguntas </font>";
+					exit;
 			}
 			
-			$this->Util()->DB()->setQuery("
-				SELECT COUNT(*)
-				FROM activity_score
-				WHERE activityId = '".$this->getActivityId()."' AND userId = '".$this->getUserId()."'");
-			$count = $this->Util()->DB()->GetSingle();
-						
-			if($count == 0)
-			{
-				$this->Util()->DB()->setQuery("
-					INSERT INTO  `activity_score` (
-						`userId` ,
-						`activityId` ,
-						`try` ,
-						`ponderation`
-						)
-						VALUES (
-						'".$this->getUserId()."',  
-						'".$this->getActivityId()."',  
-						'1',  
-						'".$score."');");
-				$result = $this->Util()->DB()->InsertData();					
+			foreach($_POST["preguntas"] as $key=>$aux){
+				if($answers[$key]==null){
+						echo "fail[#]";
+						echo "<font  color='red'>Necesita responder la pregunta numero ".($key)."</font>";
+						exit;
+					}
+				
 			}
-			else
-			{
-				$this->Util()->DB()->setQuery("
-					UPDATE `activity_score` SET
-						`ponderation` = '".$score."',
-						try = try + 1
+		
+			
+			 $sql = "UPDATE 
+						user_subject 
+					SET
+						evalDocenteCompleta = 'si'
 					WHERE
-						`userId` = '".$this->getUserId()."' AND activityId = '".$this->getActivityId()."' LIMIT 1");
-				$result = $this->Util()->DB()->UpdateData();					
-			}
+							alumnoId ='" . $_POST["userId"] . "' and courseId = ".$_POST["courseId"]."";
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->UpdateData();
+			
+			
+			foreach($answers as $key=>$aux){
+				
+				 $sql = "SELECT 
+						puntos,
+						answer
+					FROM
+						activity_test
+					WHERE
+							testId='".$key."'"; 
+				$this->Util()->DB()->setQuery($sql);
+				$puntos = $this->Util()->DB()->GetRow();
+				
+				
+				if($puntos["answer"]<>$aux){ 
+					$puntos["puntos"] = 0;
+				}
 
-			unset($_SESSION["timeLimit"]);
+					 $sql = 'INSERT INTO resultado (
+							preguntaId, 
+							respuesta, 
+							encuestaId, 
+							activityId, 
+							usuarioId,
+							puntos
+						)
+						VALUES(
+							"'.$key.'",
+							"'.$aux.'",
+							1,
+							"'.$_POST["activityId"].'",
+							'.$_POST["userId"].',
+							'.$puntos["puntos"].'
+						)';
+						$this->Util()->DB()->setQuery($sql);
+						$this->id = $this->Util()->DB()->InsertData(); 
+			}
+				
+			// firma
+			$sqlQuery = 'SELECT 
+					firma
+				FROM 
+					user
+				WHERE  userId = '.$_POST["userId"].'';
+			$this->Util()->DB()->setQuery($sqlQuery);
+			$firma = $this->Util()->DB()->GetRow();	
 			
-			$student=new Student;
-			$student->setUserId($this->getUserId);
-			$infoStudent=$student->GetInfo();
+			$sqlNot="insert into 
+				firma(
+				procesoId,
+				firma,
+				userId,
+				fecha,
+				tablaFirmada,
+				registroFirmado
+				)
+			   values(
+			            '2', 
+			            '".$firma["firma"]."', 
+			            '".$_POST["userId"]."',
+			            '".date("Y-m-d h:i:s")."',
+						'course',
+						'".$_POST["courseId"]."'
+			         )";
+
+			$this->Util()->DB()->setQuery($sqlNot);
+			$Id = $this->Util()->DB()->InsertData(); 		
+
+			return true;
+
+		}
+		
+		function estadisticas($Id,$userId =null)
+		{
+			$sql = "SELECT 
+						sum(puntos)
+					FROM
+						resultado
+					WHERE
+							activityId='" . $Id . "' and usuarioId = ".$userId."";
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->GetSingle();
 			
-			$mail = new PHPMailer(); // defaults to using php "mail()"
-			//contenido del correo
-			$body = "Has hecho realizado examen correctament <br/> Calificacion obtenida:  ".$score;
-			//asunto o tema
-			$subject ="Examen finalizado Correctamente";
-			//("quienloenvia@hotmail.com", "nombre de quien lo envia");
-			$mail->SetFrom("admin@iapchiapasonline.com", "Administrador del Sistema");
-			//correo y nombre del destinatario
-			$mail->AddAddress($infoStudent['email'], $infoStudent['names']);
+			$sql = "SELECT 
+						count(puntos)
+					FROM
+						resultado
+					WHERE
+							activityId='" . $Id . "' and puntos<>0 and usuarioId = ".$userId."";
+			$this->Util()->DB()->setQuery($sql);
+			$count = $this->Util()->DB()->GetSingle();
 			
-			$mail->Subject    = $subject;
-			$mail->MsgHTML($body);
+			$sql = "SELECT 
+						sum(puntos)
+					FROM
+						activity_test
+					WHERE
+							activityId='" . $Id . "' and answer <>'' ";
+			$this->Util()->DB()->setQuery($sql);
+			$results = $this->Util()->DB()->GetSingle();
 			
-			$mail->Send();
+			 $sql = "SELECT 
+						*
+					FROM
+						resultado as r
+					left join activity_test as a on a.testId = r.preguntaId
+					left join activity as ac on ac.activityId = a.activityId
+					WHERE
+							r.activityId='" . $Id . "' and r.puntos=0 and r.usuarioId = ".$userId." order by numero ";
+			// exit;
+			$this->Util()->DB()->setQuery($sql);
+			$lstRes = $this->Util()->DB()->GetResult();
 			
+			$data["puntosOk"] =number_format( $result,2);
+			$data["countOK"] = $count;
+			$data["totalPuntos"] = number_format($results,2);
+			$data["lstRes"] = $lstRes;
+			$data["limiteAprobatorio"] = $lstRes[0]["timeLimit"];
+			@$data["calificacion"] = number_format(($result/$results),2);
 			
+			return $data;
 			
+		}
+		
+		function sendInfo($name,$pass){
 			
-			$this->Util()->setError(90000, 'complete', "Has respondido el examen Satisfactoriamente. Tu resultado esta abajo.");
-			$this->Util()->PrintErrors();
+			 $sendmail = new SendMail;
+					
+			$sql = "SELECT 
+						*
+					FROM
+						user
+					WHERE
+							controlNumber='" . $name . "'";
+			$this->Util()->DB()->setQuery($sql);
+			$lstRes = $this->Util()->DB()->GetRow();
+			
+			// echo "<pre>"; print_r($lstRes);
+			// exit;
+			
+			$msj = "
+				 Instituto de Administración Publica del Estado de Chiapas, A. C.
+				<br>
+				<br>
+				Sus datos de acceso para nuestro Sistema de Educación en Línea son:<br>
+				Usuario: ".$name."<br>
+				Contraseña: ".$pass."<br>
+				<br>
+				<br>
+				
+				Cualquier duda, favor de contactarnos:<br>
+				Teléfonos: (961) 125-15-08, 125-15-09, 125-15-10 Ext. 106 o 114<br>
+				Correo: enlinea@iapchiapas.org.mx<br>
+				Saludos.<br>
+				IAP-Chiapas<br>
+				<img src='".WEB_ROOT."/images/logo_correo.jpg'>
+
+				<br>
+				<br>
+				<br>
+				
+				";
+				
+				// echo $msj ;
+				// exit;
+				// echo $lstRes["email"];
+		// exit;
+				
+				$sendmail->PrepareAttachment("IAP Chiapas | Recuperacion de datos de usuario", utf8_decode($msj), "","", $lstRes["email"], $name, $attachment, $fileName);
+				
+				// $this->Util()->setError(10030, "complete","Se ha enviado un correo con tus datos de acceso");
+				// $this->Util()->PrintErrors();	
+				
+				return true;
 
 		}
 		

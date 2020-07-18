@@ -14,6 +14,21 @@
 		private $usuarioId;
 		private $horaInicial;
 		private $verponderation;
+		private $comentario;
+		private $puntos;
+		
+		public function setComentario($value)
+		{
+			$this->Util()->ValidateString($value, 60, 0, 'Tipo de Actividad');
+			$this->comentario = $value;
+		}
+		
+		public function setPuntos($value)
+		{
+			$this->Util()->ValidateString($value, 60, 0, 'Puntos');
+			$this->puntos = $value;
+		}
+		
 		
 		public function setVerponderation($value)
 		{
@@ -129,7 +144,7 @@
 		public function setPregunta($value)
 		{
 			// if($this->Util()->ValidateRequireField($value, 'RFC')){
-			$this->Util()->ValidateString($value,10000,0);
+			$this->Util()->ValidateString($value,10000000000000000000000000000000,0);
 			$this->pregunta = $value;
 			// }
 		}
@@ -707,13 +722,24 @@
 			$questions = $this->Util()->DB()->GetSingle();
 			
 			//crear 2 preguntas para dar margen a examenes random
-			$extraQuestions = $this->noQuestions * 2;
+			$extraQuestions = $this->noQuestions ;
 			
-			$missing = $extraQuestions - $questions;
-			if($missing > 0)
-			{
-				for($ii = 0; $ii < $missing - 1; $ii++)
+			$sql = "SELECT MAX(numero) FROM `activity_test`
+					WHERE activityId = '".$this->activityId."'";
+			$this->Util()->DB()->setQuery($sql);
+			$maxTestId = $this->Util()->DB()->GetSingle();
+			
+			if($maxTestId ==null){
+				$maxTestId =0;
+			}
+			// $maxTestId
+			
+			// $missing = $extraQuestions - $questions;
+			// if($missing > 0)
+			// {
+				for($ii = 1; $ii <= $_POST["noQuestions"] ; $ii++)
 				{
+					$consecutivo = $maxTestId + $ii;
 					$sql = "
 					INSERT INTO  `activity_test` (
 						`activityId` ,
@@ -723,7 +749,8 @@
 						`opcionC` ,
 						`opcionD` ,
 						`opcionE` ,
-						`answer`
+						`answer`,
+						`numero`
 						)
 						VALUES (
 						'".$this->activityId."',  
@@ -733,32 +760,35 @@
 						'',  
 						'',  
 						'',  
-						'optionA')";
+						'optionA',
+						'".($consecutivo)."')";
 					//configuramos la consulta con la cadena de insercion
 					$this->Util()->DB()->setQuery($sql);
 					$questions = $this->Util()->DB()->InsertData();
 				}
-			}
+				
+				// exit;
+			// }
 
-			if($missing < 0)
-			{
-				for($ii = 0; $ii < abs($missing); $ii++)
-				{
-					$sql = "SELECT MAX(testId) FROM `activity_test`
-					WHERE activityId = '".$this->activityId."'";
-					$this->Util()->DB()->setQuery($sql);
-					$maxTestId = $this->Util()->DB()->GetSingle();
+			// if($missing < 0)
+			// {
+				// for($ii = 0; $ii < abs($missing); $ii++)
+				// {
+					// $sql = "SELECT MAX(testId) FROM `activity_test`
+					// WHERE activityId = '".$this->activityId."'";
+					// $this->Util()->DB()->setQuery($sql);
+					// $maxTestId = $this->Util()->DB()->GetSingle();
 
-					$sql = "
-					DELETE FROM `activity_test`
-					WHERE testId = '".$maxTestId."' LIMIT 1";
-					$this->Util()->DB()->setQuery($sql);
-					$questions = $this->Util()->DB()->DeleteData();
-				}
-			}
+					// $sql = "
+					// DELETE FROM `activity_test`
+					// WHERE testId = '".$maxTestId."' LIMIT 1";
+					// $this->Util()->DB()->setQuery($sql);
+					// $questions = $this->Util()->DB()->DeleteData();
+				// }
+			// }
 			
 			//ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
-			$result = $this->Util()->DB()->UpdateData();
+			// $result = $this->Util()->DB()->UpdateData();
 			$this->Util()->setError(90000, 'complete', "Se ha editado la actividad");
 			$this->Util()->PrintErrors();
 			return $result;
@@ -795,7 +825,9 @@
 								opcionC = '".$this->opcionC."',
 								opcionD = '".$this->opcionD."',
 								opcionE = '".$this->opcionE."',
-								answer = '".$this->respuesta."'
+								answer = '".$this->respuesta."',
+								comentario = '".$this->comentario."',
+								puntos = '".$this->puntos."'
 							WHERE testId = '".$this->testId."'";
 				//configuramos la consulta con la cadena de insercion
 				$this->Util()->DB()->setQuery($sql);
@@ -1022,6 +1054,53 @@
 			$result = $this->Util()->DB()->DeleteData();
 			
 			return true;
+		}
+		
+		public function crearActividad($Id)
+		{
+		 $sql ="
+				SELECT activityId,cm.courseModuleId from activity as a
+				left join course_module as cm on cm.courseModuleId = a.courseModuleId
+				left join course as c on c.courseId = cm.courseId
+				WHERE a.subjectId = ".$Id.""; 
+				// exit;
+			$this->Util()->DB()->setQuery($sql);
+			$count = $this->Util()->DB()->GetRow();	
+			
+			if($count["activityId"]==null){
+					
+				
+				$sql = "INSERT INTO
+						activity
+						( 	
+							subjectId 
+						)
+					VALUES (
+							'".$Id."'
+							)";
+				// exit;			
+				$this->Util()->DB()->setQuery($sql);
+				$Id = $this->Util()->DB()->InsertData();
+				
+			}else{
+				
+				$Id = $count["activityId"];
+			}
+
+			return $Id;
+		}
+		
+		public function verificaExamenRespuesta($Id)
+		{
+			$sql ="
+				SELECT count(*) from resultado as r
+				left join activity_test as a on a.testId = r.preguntaId
+				WHERE a.activityId = ".$Id.""; 
+			
+			$this->Util()->DB()->setQuery($sql);
+			$c = $this->Util()->DB()->GetSingle();
+			
+			return $c;
 		}
 	}	
 ?>

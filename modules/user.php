@@ -19,15 +19,18 @@ $smarty->assign("infoStudent", $infoStudent);
 if($_SESSION["User"]["type"] == "Docente"){
 	$personal->setPersonalId($_SESSION['User']['userId']);
 	$infoPj = $personal->Info();
-	if(file_exists(DOC_ROOT."/".$infoPj['foto'])){
-		$fotoPj = WEB_ROOT."/".$infoPj['foto'].'?'.rand();
+	if(file_exists(DOC_ROOT."/images/docente/fotografia/".$infoPj['foto'])){
+		$fotoPj = WEB_ROOT."/images/docente/fotografia/".$infoPj['foto'].'?'.rand();
+
 	}else{
-		$fotoPj = WEB_ROOT."/alumnos/no_foto.JPG";
+		$fotoPj = WEB_ROOT."/images/iap.jpg";
 	}
 	$smarty->assign('fotoPj', $fotoPj);
 }
 
 $info = $user->Info();
+// $lstModulosValidos = $user->modulosValidos();
+
 $smarty->assign("info", $info);
 
 	if(in_array(2, $info["roles"]))

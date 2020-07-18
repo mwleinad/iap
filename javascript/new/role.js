@@ -13,6 +13,12 @@ $( document ).ready(function() {
         var $id = $(this).attr('id');
         EditRolePopup($id);
     });
+	
+	 $(document).on("click",".spanActivar",function() {
+        var $id = $(this).attr('id');
+        ActivarRolePopup($id);
+    });
+	
 });
 
 
@@ -81,6 +87,34 @@ function DeleteRolePopup(id)
             url : WEB_ROOT+'/ajax/new/role.php',
             type: "POST",
             data : {type: "deleteRole", id: id},
+            success: function(data, textStatus, jqXHR)
+            {
+                var splitResponse = data.split("[#]");
+                ShowStatus(splitResponse[1]);
+                $('#tblContent').html(splitResponse[2]);
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Algo salio mal, compruebe su conexion a internet');
+            }
+        });
+
+    });
+}
+
+function ActivarRolePopup(id)
+{
+    var $message = "¿Esta seguro de habilitar este rol? ";
+    bootbox.confirm($message, function(result) {
+        if(result == false)
+        {
+            return;
+        }
+
+        $.ajax({
+            url : WEB_ROOT+'/ajax/new/role.php',
+            type: "POST",
+            data : {type: "ActivarRolePopup", id: id},
             success: function(data, textStatus, jqXHR)
             {
                 var splitResponse = data.split("[#]");

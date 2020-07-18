@@ -30,6 +30,8 @@ switch($_POST["type"])
 
     case "editPersonal":
 
+	// echo "<pre>"; print_r($_POST);
+	// exit;
         $states = $util->EnumerateStates();
         $personal->setPersonalId($_POST['id']);
         $info = $personal->Info();
@@ -66,47 +68,36 @@ switch($_POST["type"])
         $smarty->assign("positions",$positions);
         $smarty->assign("info", $info);
         $smarty->assign("DOC_ROOT", DOC_ROOT);
-        $smarty->display(DOC_ROOT.'/templates/forms/new/edit-personal.tpl');
+         $smarty->display(DOC_ROOT.'/templates/forms/new/add-personal.tpl');
 
         break;
 
     case "saveAddPersonal":
 
-	// echo '<pre>'; print_r($_POST);
+
+	// echo "<pre>"; print_r($_FILES);
+	// echo "<pre>"; print_r($_POST);
 	// exit;
 		if($_POST['mostrarP']=='on'){
 			$_POST['mostrarP'] = 'si';
 		}
 	
-        $personal->setPositionId($_POST['positionId']);
+	    $personal->setPersonalId($_POST['personalId']);
+        $personal->setCorreo($_POST['correo']);
         $personal->setName($_POST['name']);
         $personal->setLastnamePaterno($_POST['lastname_paterno']);
         $personal->setLastnameMaterno($_POST['lastname_materno']);
-        $personal->setStateId($_POST['stateId']);
         $personal->setUserName($_POST['username']);
         $personal->setPasswd($_POST['passwd']);
-        $personal->setDescription($_POST['description']);
-        $_POST['list_roles'] = implode(',', $_POST['role_from']);
 
-        $personal->setRolesId($_POST['list_roles']);
-
-        $personal->setCurp($_POST['curp']);
-        $personal->setRfc($_POST['rfc']);
-        $personal->setSexo($_POST['sexo']);
-        $personal->setFechaNacimiento($_POST['fecha_nacimiento']);
-        $personal->setFechaSep($_POST['fecha_sep']);
-        $personal->setFechaDgta($_POST['fecha_dgta']);
-        $personal->setClavesPresupuestales($_POST['claves_presupuestales']);
-        $personal->setCategoria($_POST['categoria']);
-        $personal->setPerfil('Docente');
-        $personal->setProf($_POST['prof']);
-		
-		$personal->setMostrar($_POST['mostrarP']);
-        $personal->setNumero($_POST['numeroP']);
 
         if(!$personal->Save())
         {
             echo "fail[#]";
+			// echo "no";
+			// exit;
+			
+			  $smarty->assign("auxMsj", 1);
             $smarty->display(DOC_ROOT.'/templates/boxes/status_on_popup.tpl');
         }
         else
@@ -551,6 +542,82 @@ switch($_POST["type"])
 				echo "fail[#]";
 				
 			}
+	
+	break;
+	
+	case "ActivarPersonalPopup":
+	
+	
+	// echo "<pre>"; print_r($_POST);
+	// exit;
+        $personal->setPersonalId($_POST['id']);
+
+        if(!$personal->Activar())
+        {
+            echo "fail[#]";
+            $smarty->display(DOC_ROOT.'/templates/boxes/status_on_popup.tpl');
+        }
+        else
+        {
+            echo "ok[#]";
+            $smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
+            echo "[#]";
+            $result = $personal->Enumerate();
+            $personals = $util->EncodeResult($result);
+            $smarty->assign("personals", $personals);
+            $smarty->assign("DOC_ROOT", DOC_ROOT);
+            $smarty->display(DOC_ROOT.'/templates/lists/personal.tpl');
+        }
+
+	break;
+	
+	case "AgregarCertificacion":
+	
+	
+		
+		$lstSub = $subject->EnumerateCertificacion();
+		
+		$smarty->assign('lstSub', $lstSub);					
+
+		// echo "<pre>"; print_r($_POST);
+		// exit;
+		$smarty->assign("id", $_POST["id"]);
+		$smarty->assign("DOC_ROOT", DOC_ROOT);
+		$smarty->display(DOC_ROOT.'/templates/new/add-certificacion.tpl');
+	
+	break;
+	
+	case "saveGuardarCertificacion":
+	
+		// echo "<pre>"; print_r($_POST);
+		 if(!$personal->saveGuardarCertificacion())
+        {
+            echo "fail[#]";
+            $smarty->display(DOC_ROOT.'/templates/boxes/status_on_popup.tpl');
+        }
+        else
+        {
+            echo "ok[#]";
+			echo "Las certificaciones se agregaron correctamente";
+            // $smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
+            echo "[#]";
+            $result = $personal->Enumerate();
+            $personals = $util->EncodeResult($result);
+            $smarty->assign("personals", $personals);
+            $smarty->assign("DOC_ROOT", DOC_ROOT);
+            $smarty->display(DOC_ROOT.'/templates/lists/personal.tpl');
+        }
+	
+	break;
+	
+	case "buscarPersonal":
+	
+		// echo "<pre>"; print_r($_POST);
+		 $result = $personal->Enumerate();
+            $personals = $util->EncodeResult($result);
+            $smarty->assign("personals", $personals);
+            $smarty->assign("DOC_ROOT", DOC_ROOT);
+            $smarty->display(DOC_ROOT.'/templates/lists/personal.tpl');
 	
 	break;
 }

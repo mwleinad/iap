@@ -43,7 +43,73 @@
 			$smarty->assign("semesterId", $_POST['semesterId']);
 			$smarty->display(DOC_ROOT.'/templates/new/confirma-reinscripcion.tpl');
 		break;
+		
+		case "onSendINE":
+		
+			// echo "<pre>"; print_r($_FILES);
+			// echo "<pre>"; print_r($_POST);
+			// echo "<pre>"; print_r($_GET);
+			// exit;
+			if ($solicitud->SaveINE($_POST["userId"])){
+				echo 'ok[#]';
+				echo '<br><div class="alert alert-info alert-dismissable">
+					  <button type="button" class="close" data-dismiss="alert">&times;</button>
+					  El documento se guardo correctamente
+					</div>';
+			}else{
+				echo 'fail[#]';
+			}
+		
+		break;
+		
+		case "onDeleteCarta":
+		
+			// echo "<pre>"; print_r($_POST);
+			// echo '<pre>'; print_r($_POST);
+			if($url = $student->onDeleteINE($_POST["id"],$_POST["ti"])){
+				echo "ok[#]";
+				echo '<br><div class="alert alert-info alert-dismissable">
+					  <button type="button" class="close" data-dismiss="alert">&times;</button>
+					  El documento se ha eliminado correctamente
+					</div>';
+			}else{
+				echo "fail[#]";
+				
+			}
+		
+		break;
 	
+	
+		case "onSendFoto":
+		
+			// echo "<pre>"; print_r($_POST);
+			if($url = $student->onSendFoto($_POST["id"])){
+				echo "ok[#]";
+				echo '<br><div class="alert alert-info alert-dismissable">
+					  <button type="button" class="close" data-dismiss="alert">&times;</button>
+					  La fotografia se guardo correctamente
+					</div>';
+			}else{
+				echo "fail[#]";
+				
+			}
+		
+		break;
+		
+		case "onDeleteFoto":
+			
+			if($url = $student->onDeleteFoto($_POST["id"])){
+				echo "ok[#]";
+				echo '<br><div class="alert alert-info alert-dismissable">
+					  <button type="button" class="close" data-dismiss="alert">&times;</button>
+					  El documento se ha eliminado correctamente
+					</div>';
+			}else{
+				echo "fail[#]";
+				
+			}
+		
+		break;
 	}
 
 ?>

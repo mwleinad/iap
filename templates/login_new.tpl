@@ -116,8 +116,8 @@ License: You must have a valid license purchased only from themeforest(the above
                 <a href="recuperacion"  style="color:#fff; text-decoration: underline"> aqui </a> para recuperarla. </p>
         </div>
         <div class="create-account">
-            <p> ¿Estás interesado en cursar un programa en línea?&nbsp;
-                <a href="{$WEB_ROOT}/register" style="color:#fff; text-decoration: underline"> Regístrate aquí </a>
+            <p> ¿Te interesa obtener una certificación?&nbsp;
+                <a href="{$WEB_ROOT}/register" style="color:#fff; text-decoration: underline">Crear Cuenta</a>
             </p>
         </div>
 

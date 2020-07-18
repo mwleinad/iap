@@ -11,17 +11,16 @@
 <div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
-            <i class="fa fa-bullhorm"></i>Alumnos
+            <i class="fa fa-bullhorm"></i>Solicitudes
         </div>
 
 
         
             {include file="boxes/status_no_ajax.tpl"}
            <div class="accions">
-            <table>
+           <!-- <table>
                 <tr>
-                    <td><!--
-                        <a href="javascript:;" class="btn green" id="btnAddPersonal">-->
+                    <td>
 						<a class="btn green" href="{$WEB_ROOT}/graybox.php?page=add-alumno-admin&id={$item.userId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
                             <i class="fa fa-plus"></i> Agregar
                         </a>
@@ -33,7 +32,7 @@
                         </form>
                     </td>
                 </tr>
-            </table>
+            </table>-->
 			</div>
       
     </div>
@@ -42,13 +41,14 @@
     <div class="portlet-body">
 		{include file="forms/search-student.tpl"}
         <div id="tblContent">{include file="lists/student.tpl"}</div>
-    </div>
-            <br />
-            {if $studentsCount}
+		{if $studentsCount}
                 <div id="pagination" class="lnkPages">
                     {include file="footer-pages-links.tpl"}
                 </div>
             {/if}
+    </div>
+        
+            
 
 
         <div id="loader2" > </div>

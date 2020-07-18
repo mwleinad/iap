@@ -95,9 +95,10 @@ class Role extends Main
 		$sql = "SELECT 
 					* 
 				FROM 
-					module				
+					module
+				where numero > 0
 				ORDER BY 
-					name ASC";
+					numero ASC";
 		
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
@@ -271,6 +272,38 @@ class Role extends Main
 			return false; 
 		}
 		
+		$sql = "UPDATE 
+					role SET estatus =  'eliminado'
+				WHERE 
+					roleId = ".$this->roleId;
+					
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->ExecuteQuery();
+		
+		$sql = "SELECT 
+					* 
+				FROM 
+					personal_role 
+				WHERE 
+					roleId = '".$this->roleId."'";
+	
+		$this->Util()->DB()->setQuery($sql);
+		$info = $this->Util()->DB()->GetResult();
+
+			
+		foreach($info as $key=>$aux){
+			
+			$sql = "UPDATE 
+					personal SET estatus =  'eliminado'
+				WHERE 
+					personalId = ".$aux["personalId"];	
+		
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->ExecuteQuery();
+		}
+					
+		
+		/*
 		$sql = "DELETE FROM 
 					role
 				WHERE 
@@ -283,7 +316,8 @@ class Role extends Main
 					role_modules
 				WHERE 
 					roleId = ".$this->roleId;
-							
+		*/
+		
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
 		
@@ -292,6 +326,50 @@ class Role extends Main
 		
 		return true;
 				
+	}
+	
+	public function activar(){
+		
+		if($this->Util()->PrintErrors()){ 
+			return false; 
+		}
+		
+		$sql = "UPDATE 
+					role SET estatus =  'activo'
+				WHERE 
+					roleId = ".$this->roleId;
+		
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->ExecuteQuery();
+		
+		
+		$sql = "SELECT 
+					* 
+				FROM 
+					personal_role 
+				WHERE 
+					roleId = '".$this->roleId."'";
+	
+		$this->Util()->DB()->setQuery($sql);
+		$info = $this->Util()->DB()->GetResult();
+
+			
+		foreach($info as $key=>$aux){
+			
+			$sql = "UPDATE 
+					personal SET estatus =  'activo'
+				WHERE 
+					personalId = ".$aux["personalId"];	
+		
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->ExecuteQuery();
+		}
+		
+		$this->Util()->setError(10045, "complete");
+		$this->Util()->PrintErrors();
+		
+		return true;
+		
 	}
 	
 	public function GetClaveById(){

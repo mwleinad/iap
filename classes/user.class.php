@@ -223,7 +223,7 @@ class User extends Main
 	    if($this->permiso==0)
 		    {
 			   if($value==0){
-			      return $this->Util()->setError(20003, "error", "", $field);
+			      return $this->Util()->setError(20003, "error", "", "Municipio");
 			   }
 			}
 		$this->city = $value;
@@ -270,7 +270,7 @@ class User extends Main
 	     if($this->permiso==0)
 		    {
 			   if($value==0){
-			      return $this->Util()->setError(20001, "error", "", $field);
+			      return $this->Util()->setError(20001, "error", "", "Municipio");
 			   }
 			}
 			//print_r($value);
@@ -986,6 +986,36 @@ class User extends Main
 			$row["roles"][] = $rol["roleId"];
 		}
 		
+		// echo "<pre>"; print_r($row); 
+		// exit;
+		
+		return $row;
+	}
+	
+	
+	
+	function modulosValidos()
+	{
+		
+		$this->userId = $_SESSION["User"]["userId"];
+		
+		$sql = "SELECT 
+				*
+			FROM 
+				personal_role as r 
+			left join role_modules as rm on rm.roleId = r.roleId
+			WHERE personalId = '".$this->userId."' group by rm.moduleId";
+		
+		$this->Util()->DB()->setQuery($sql);
+		$row = $this->Util()->DB()->GetResult();
+		
+		// echo "<pre>"; print_r($row );
+		// exit;
+		
+		// $array = array();
+		// $row 
+		
+		
 		return $row;
 	}
 	
@@ -1000,7 +1030,12 @@ class User extends Main
 		$this->Util()->DB()->setQuery($sql);
 		$row = $this->Util()->DB()->GetRow();
 		
+		if($row["rutaFoto"]==""){
+			$row["rutaFoto"] = "noexiste";
+		}
 		
+		// echo DOC_ROOT."/alumnos/".$row["rutaFoto"];
+		// exit;
 		if(file_exists(DOC_ROOT."/alumnos/".$row["rutaFoto"].""))
 			{
 				// echo DOC_ROOT."/alumnos/".$row["rutaFoto"]."";
@@ -1123,24 +1158,39 @@ class User extends Main
 	
 	public function allow_access_module($userId, $moduleId){
 		
-		$this->Util()->DB()->setQuery(
-			"SELECT 
-				m.roleId 
-		   FROM 
-		   		personal AS p,
-				personal_role AS r,
-				role_modules AS m 
-			WHERE 
-				p.personalId = '".$userId."' 
-			AND
-				p.personalId = r.personalId
-			AND
-				r.roleId = m.roleId
-			AND
-				m.moduleId = '".$moduleId."'
-		");
+		
+		// echo	$sql = "SELECT 
+				// m.roleId 
+		   // FROM 
+		   		// personal AS p,
+				// personal_role AS r,
+				// role_modules AS m 
+			// WHERE 
+				// p.personalId = '".$userId."' 
+			// AND
+				// p.personalId = r.personalId
+			// AND
+				// r.roleId = m.roleId
+			// AND
+				// m.moduleId = '".$moduleId."'
+		// ";
+		// exit;
+		
+		$sql ="
+		select m.roleId
+		
+		from
+		personal as p
+		left join personal_role as pr on pr.personalId = p.personalId
+		left join role_modules as m on m.roleId = pr.roleId
+		left join role as r on r.roleId = m.roleId
+		where p.personalId = '".$userId."' and m.moduleId = '".$moduleId."' and r.estatus <> 'eliminado'
+		";
+		
+		$this->Util()->DB()->setQuery($sql);
 		$allow = $this->Util()->DB()->GetSingle();
 		
+		// echo $allow;
 		return $allow;
 		
 	}
@@ -1194,11 +1244,15 @@ class User extends Main
 			
 		}
 		
+		
 		if($User["type"] == "student")
 		{
 				$card["32"] = 1;
 				$card["33"] = 1;
 		}
+		
+		// echo "<pre>"; print_r($card);
+		// exit;
 		return $card;
 	
 	}
@@ -1231,7 +1285,22 @@ class User extends Main
 			$card['type'] =  $row['perfil'];
 			$_SESSION['User'] = $card;
 			$_SESSION['empresaId'] = 15;
-			$_SESSION["lastClick"] = time();			
+			$_SESSION["lastClick"] = time();	
+
+			$sqlQuery = 'INSERT INTO 
+							log 
+							(
+								userId, 
+								tipo
+							)
+							VALUES
+							(
+								"'.$row['personalId'].'",
+								"personal"
+							)';
+			$this->Util()->DB()->setQuery($sqlQuery);
+			$this->Util()->DB()->InsertData();
+			
 			return true;
 			
 		}else{
@@ -1264,7 +1333,22 @@ class User extends Main
 						$card['activo'] = $row['activo'];
 						$card['isLogged'] = true;
 						$_SESSION['User'] = $card;
-						$_SESSION["lastClick"] = time();							
+						$_SESSION["lastClick"] = time();	
+
+							$sqlQuery = 'INSERT INTO 
+							log 
+							(
+								userId, 
+								tipo
+							)
+							VALUES
+							(
+								"'.$row['userId'].'",
+								"alumno"
+							)';
+			$this->Util()->DB()->setQuery($sqlQuery);
+			$this->Util()->DB()->InsertData();
+						
 						return $row['userId'];
 					}else{
 						$this->Util()->setError(10057, "error", "");

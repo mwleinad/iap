@@ -218,6 +218,7 @@
 		case "saveAddStudentRegister":
 				
 				
+				$_POST['password'] = date("His").rand(5,15);
 				
 				$status = $_POST['status'];
 				
@@ -227,50 +228,50 @@
 				$student->setNames($_POST['names']);
 				$student->setLastNamePaterno($_POST['lastNamePaterno']);
 				$student->setLastNameMaterno($_POST['lastNameMaterno']);
-				$student->setSexo($_POST['sexo']);
-				$student->setBirthdate($_POST['day'],$_POST['month'],$_POST['year']);
-				$student->setMaritalStatus($_POST['maritalStatus']);
+				// $student->setSexo($_POST['sexo']);
+				// $student->setBirthdate($_POST['day'],$_POST['month'],$_POST['year']);
+				// $student->setMaritalStatus($_POST['maritalStatus']);
 				$student->setPassword(trim($_POST['password']));
 
 				//domicilio
-				$student->setStreet($_POST['street']);
-				$student->setNumber($_POST['number']);
-				$student->setColony($_POST['colony']);
-				$student->setCity($_POST['ciudad']);
-				$student->setState($_POST['estado']);
-				$student->setCountry($_POST['pais']);
-				$student->setPostalCode($_POST['postalCode']);
-
+				// $student->setStreet($_POST['street']);
+				// $student->setNumber($_POST['number']);
+				// $student->setColony($_POST['colony']);
+				$student->setCiudadT($_POST['ciudad']);
+				// $student->setState($_POST['estado']);
+				// $student->setCountry($_POST['pais']);
+				// $student->setPostalCode($_POST['postalCode']);
+				$student->setTipoSolitante($_POST['tipoSolicitante']); 
 				//datos de contacto
 				$student->setEmail($_POST['email']);
-				$student->setPhone($_POST['phone']);
-				$student->setFax($_POST['fax']);
+				// $student->setPhone($_POST['phone']);
+				// $student->setFax($_POST['fax']);
 				$student->setMobile($_POST['mobile']);
 
 				//datos laborales
-				$student->setWorkplace($_POST['workplace']);
-				$student->setWorkplaceAddress($_POST['workplaceAddress']);
-				$student->setWorkplaceArea($_POST['workplaceArea']);
-				$student->setWorkplacePosition($_POST['workplacePosition']);
+				// $student->setWorkplace($_POST['workplace']);
+				// $student->setWorkplaceAddress($_POST['workplaceAddress']);
+				// $student->setWorkplaceArea($_POST['workplaceArea']);
+				// $student->setWorkplacePosition($_POST['workplacePosition']);
 				//$student->setWorkplaceCity($_POST['workplaceCity']);
-				$student->setPaisT($_POST['paist']);
-				$student->setEstadoT($_POST['estadot']);
-				$student->setCiudadT($_POST['ciudadt']); 
+				// $student->setPaisT($_POST['paist']);
+				// $student->setEstadoT($_POST['estadot']);
+				// $student->setCiudadT($_POST['ciudadt']); 
 				
 				
-				$student->setWorkplacePhone($_POST['workplacePhone']);
-				$student->setWorkplaceEmail($_POST['workplaceEmail']);
+				// $student->setWorkplacePhone($_POST['workplacePhone']);
+				// $student->setWorkplaceEmail($_POST['workplaceEmail']);
 				
 				//Estudios
-				$student->setAcademicDegree($_POST['academicDegree']);
-				$student->setSchool($_POST['school']);
-				$student->setHighSchool($_POST['highSchool']);
-				$student->setMasters($_POST['masters']);
-				$student->setMastersSchool($_POST['mastersSchool']);
-				$student->setWorkplaceOcupation($_POST['workplaceOcupation']);
-				$student->setProfesion($_POST['profesion']);
-				$student->setTipoBeca($_POST['tipo_beca']);
-				$student->setPorBeca($_POST['por_beca']);
+				// $student->setAcademicDegree($_POST['academicDegree']);
+				// $student->setSchool($_POST['school']);
+				// $student->setHighSchool($_POST['highSchool']);
+				// $student->setMasters($_POST['masters']);
+				// $student->setMastersSchool($_POST['mastersSchool']);
+				// $student->setWorkplaceOcupation($_POST['workplaceOcupation']);
+				// $student->setProfesion($_POST['profesion']);
+				// $student->setTipoBeca($_POST['tipo_beca']);
+				// $student->setPorBeca($_POST['por_beca']);
 				
 				
 				
@@ -965,6 +966,118 @@
 			}else{
 				echo "fail[#]";
 			}
+		
+		break;
+		
+		case "saveAddStudentCompleto":
+			
+			
+			
+				if(!isset($_POST["confirma"])){
+					$autorizo = "no";
+				}else{
+					$autorizo = "si";
+					
+				}
+				
+			$discapacidad = "";
+			
+			if($_POST["motriz"])
+				$discapacidad  .= "motriz-";
+			
+			if($_POST["visual"])
+				$discapacidad  .= "visual-";
+			
+			if($_POST["auditiva"])
+				$discapacidad  .= "auditiva-";
+			
+			if($_POST["lenguaje"])
+				$discapacidad  .= "lenguaje-";
+			
+			if($_POST["intelectual"])
+				$discapacidad  .= "intelectual-";
+			
+			if($_POST["otras"])
+				$discapacidad  .= "otras-";
+				
+				
+				//datos personales  
+				$student->setAutorizoj($autorizo);
+				$student->setUserId($_POST['userId']);
+				$student->setNames($_POST['names']);
+				$student->setLastNamePaterno($_POST['lastNamePaterno']);
+				$student->setLastNameMaterno($_POST['lastNameMaterno']);
+				$student->setSexo($_POST['genero']);
+				$student->setCurp($_POST['curp']);
+				$student->setBirthdate($_POST['day'],$_POST['month'],$_POST['year']);
+				$student->setNacionality($_POST['nacionality']);
+				$student->setAcademicDegree($_POST['academicDegree']);
+				$student->setstatusacademicDegree($_POST['statusacademicDegree']); 
+				$student->setTipoSolitante($_POST['tipoSolicitante']); 
+				$student->setCityBorn($_POST['cityBorn']);
+				$student->setLee($_POST['lee']);
+				$student->setEstudios($_POST['estudios']);
+				$student->setDEstudios($_POST['d_estudios']);
+				$student->setDiscapacidad($_POST['discapacidad']);
+				$student->setDiscapacidades($discapacidad);
+				$student->setIdiomas($_POST['idiomas']);
+				$student->setTrabaja($_POST['trabaja']);
+				$student->setExperienciaLaboral($_POST['experienciaLaboral']);
+				$student->setCertificacion($_POST['certificacion']);
+				$student->setCertificaciones($_POST['certificaciones']);
+				// echo "<pre>"; print_r($_POST);
+			// exit;
+
+				//domicilio
+				$student->setStreet($_POST['street']);
+				$student->setNumber($_POST['number']);
+				$student->setColony($_POST['colony']);
+				$student->setCity($_POST['municipioId']);
+				$student->setCiudadT($_POST['municipiotId']);
+				$student->setState($_POST['estado']);  
+				// $student->setCountry($_POST['pais']);
+				$student->setPostalCode($_POST['postalCode']);
+
+				//datos de contacto
+				$student->setEmail($_POST['email']);
+				$student->setPhone($_POST['mobile']);
+				// $student->setFax($_POST['fax']);
+				$student->setMobile($_POST['mobile']);
+
+				//datos laborales
+				
+				$student->setWorkplacePosition($_POST['workplacePosition']);
+				$student->setSectorId($_POST['sectorId']);
+				
+				
+				
+				// $student->setWorkplacePhone($_POST['workplacePhone']);
+				// $student->setWorkplaceEmail($_POST['workplaceEmail']);
+				
+				//Estudios
+						
+				
+				
+				if(!$student->Update())
+				{
+					echo "fail[#]";
+					$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
+				}
+				else
+				{
+					// exit;
+					echo "ok[#]";
+					$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
+				}	
+
+		break;
+		
+		case "ciudad_dependenciat":
+		
+			// echo "<pre>"; print_r($_POST);
+			$lst = $student->enumerateMunicipio($_POST["estadoId"]);
+			$smarty->assign("lst", $lst);	
+			$smarty->display(DOC_ROOT.'/templates/forms/new/municipio.tpl');
 		
 		break;
 	}

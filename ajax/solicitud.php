@@ -18,14 +18,35 @@ switch($_POST["type"])
 
 	case 'buscarSolicitud': 
 			
+			$result = $course->reporteRegion();
+			
+			// $solicitud->setNombre($_POST['alumnoId']);
+			// $solicitud->setTipoSolicitudId($_POST['tipo']);
+			// $solicitud->setStatus($_POST['estatus']);
+			// $registros = $solicitud->enumarateSolicitudesAdmin();
+			$smarty->assign("result", $result);
+			$smarty->display(DOC_ROOT.'/templates/lists/new/reporte-region.tpl');
 			
 			
-			$solicitud->setNombre($_POST['alumnoId']);
-			$solicitud->setTipoSolicitudId($_POST['tipo']);
-			$solicitud->setStatus($_POST['estatus']);
-			$registros = $solicitud->enumarateSolicitudesAdmin();
-			$smarty->assign("registros", $registros);
-			$smarty->display(DOC_ROOT.'/templates/lists/new/solicitud.tpl');
+			
+			
+	break;
+	
+	
+	case 'buscarSolicitudb': 
+			
+			$result = $course->reporteB();
+			
+			// $solicitud->setNombre($_POST['alumnoId']);
+			// $solicitud->setTipoSolicitudId($_POST['tipo']);
+			// $solicitud->setStatus($_POST['estatus']);
+			// $registros = $solicitud->enumarateSolicitudesAdmin();
+			$smarty->assign("result", $result);
+			$smarty->display(DOC_ROOT.'/templates/lists/new/reporte-b.tpl');
+			
+			
+			
+			
 	break;
 	
 	case 'enviarArchivo';
@@ -101,7 +122,7 @@ switch($_POST["type"])
 					   // }
 		   // }
 		// }
-		// echo '<pre>'; print_r($_POST);
+		
 		// echo '<pre>'; print_r($_FILES);
 		// echo 'llega';
 		// exit;
@@ -111,6 +132,15 @@ switch($_POST["type"])
 			echo 'fail[#]';
 		}
 			
+	break;
+	
+	case "ver":
+	// echo '<pre>'; print_r($_POST);
+	// exit;
+		$result = $course->detalleReporteB($_POST['Id']);
+		$smarty->assign("result", $result);	
+		$smarty->display(DOC_ROOT.'/templates/lists/new/reporte-b-detalle.tpl');
+		
 	break;
 		
 }

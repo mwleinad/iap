@@ -1,15 +1,28 @@
-<form id="editSubjectForm" name="editSubjectForm" method="post" class="form-horizontal" action="{$WEB_ROOT}/edit-course/id/{$post.courseId}">
-    <input type="hidden" id="courseId" name="courseId" value="{$post.courseId}"/>
+<form id="editSubjectForm" name="editSubjectForm" method="post" class="form-horizontal" action="{$WEB_ROOT}/edit-course/id/{$id}">
+    <input type="hidden" id="courseId" name="courseId" value="{$id}"/>
     <div class="form-body">
 
         <div class="form-group">
-            <label class="col-md-3 control-label">Selecciona Curso</label>
+            <label class="col-md-3 control-label">Selecciona Curricula:</label>
             <div class="col-md-8">
-                <select name="subjectId" id="subjectId" class="form-control">
-                    {foreach from=$cursos item=curso}
-                        <option value="{$curso.subjectId}" {if $post.subjectId == $curso.subjectId} selected="selected"{/if}>{$curso.name}</option>
+                <select name="subjectId" id="subjectId" style="width:350px" class="form-control">
+                    {foreach from=$rsubjects item=curso}
+                        <option value="{$curso.majorId}" {if $curso.majorId eq $post.tipo} selected{/if}>{$curso.name}</option>
                     {/foreach}
                 </select>
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="col-md-3 control-label">Nombre:</label>
+            <div class="col-md-8">
+                 <input type="text" name="nombre" id="nombre"  class="form-control" value="{$post.name}"/>
+            </div>
+        </div>
+		<!--
+		<div class="form-group">
+            <label class="col-md-3 control-label">Numero:</label>
+            <div class="col-md-8">
+                 <input type="text" name="numero" id="numero"  class="form-control" value="{$post.numero}"/>
             </div>
         </div>
 
@@ -158,7 +171,7 @@
                 </select >
             </div>
         </div>
-    </div>
+    </div>-->
     <div class="form-actions">
         <div class="row">
             <div class="col-md-offset-3 col-md-9">

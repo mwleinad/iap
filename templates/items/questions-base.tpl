@@ -1,6 +1,6 @@
 {foreach from=$tests item=subject}
     <tr>
-        <td align="center" class="id">{$subject.testId}</td>
+        <td align="center" class="id">{$subject.numero}</td>
         <td align="center">{$subject.question}</td>
         <td align="center">{$subject.opcionAShort}</td>
         <td align="center">{$subject.opcionBShort}</td>
@@ -11,9 +11,10 @@
         <td align="center">
 		<!--
 					 <a href="{$WEB_ROOT}/edit-question/id/{$subject.testId}" onclick="return parent.GB_show('Editar Pregunta', this.href,650,700) ">-->
-					  <a href="{$WEB_ROOT}/graybox.php?page=edit-question&id={$subject.testId}&auxTpl=admin&cId={$myModule.courseModuleId}" data-target="#ajax" data-toggle="modal">
+					 {if $countR <=0} <a href="{$WEB_ROOT}/graybox.php?page=edit-question&id={$subject.testId}&auxTpl=admin&cId={$myModule.courseModuleId}" data-target="#ajax" data-toggle="modal">
 					 <img src="{$WEB_ROOT}/images/icons/16/pencil.png" class="spanEdit" id="d-{$subject.subjectId}" name="d-{$subject.name}" title="Editar" />
-					 </a>            
+					 </a>      
+					 {/if}					 
         </td>
     </tr>
 {foreachelse}

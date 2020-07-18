@@ -209,7 +209,18 @@ $pages = array(
 	'aviso',
 	'add-activity-c',
 	'informe',
-	'add-resource-c'
+	'add-resource-c',
+	'add-ine',
+	'student-certificacion',
+	'envia-info',
+	'registro-add',
+	'foto',
+	'add-calificador',
+	'add-doc',
+	'add-evaluar',
+	'add-certificacion-alumno',
+	'add-grupos',
+	'ver-foto'
 
 );
 

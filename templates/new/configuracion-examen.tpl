@@ -5,7 +5,7 @@
         </div>
         <div class="actions">
 
-			<a href="{$WEB_ROOT}/edit-modules-course/id/{$activity.courseModuleId}" id="btnAddMajor" class="btn green" title="Editar Modulo" >Regresar a Modulo</a>
+			<a href="{$WEB_ROOT}/history-subject" id="btnAddMajor" class="btn green" title="Editar Modulo" >Regresar a Modulo</a>
         </div>
     </div>
     <div class="portlet-body">

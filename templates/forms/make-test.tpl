@@ -9,60 +9,69 @@
 	});
 </script>
 <!-- /TinyMCE -->
-{if $access == 1}
+{if $access = 1}
 <form id="addMajorForm" name="addMajorForm" method="post">
-<input type="hidden" name="modality" id="modality" value="{$actividad.modality}"
+<input type="hidden" name="courseId" id="courseId" value="{$id}">
+<input type="hidden" name="activityId" id="activityId" value="{$activityId}">
+<input type="hidden" name="modality" id="modality" value="{$actividad.modality}">
 <input type="hidden" id="type" name="type" value="saveAddMajor"/>
-<ul id="sort-box" class="sorts">
-  <li>              
+<input type="hidden" name="userId" id="userId" value="{$userId}">
+            
     <div class="content-in-small">
     
       <div class="content-settings-row">
-      	Tiempo Restante: <span id="countdownJobs" style="font-weight:bold">{$timeLeft}</span>
+      <!--	Tiempo Restante: <span id="countdownJobs" style="font-weight:bold">{$timeLeft}</span>-->
       </div>    
       <div class="content-settings-row">
-      	No cerrar esta pagina, de lo contrario tendras que volver a empezar.
+      	<!--No cerrar esta pagina, de lo contrario tendras que volver a empezar.-->
       </div>
-          
-			{foreach from=$myTest item=subject}
-      
-      <div class="content-settings-row">
-            <div style=""><b>{$subject.question} &raquo;Valor: {$subject.ponderation}%</b></div>
-            <div style="text-align:left">
-            	{if $subject.opcionA}
-              <input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionA" />{$subject.opcionA}
-              {/if}
-            	{if $subject.opcionB}
-              <div style="clear:both"></div>
-              <input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionB" />{$subject.opcionB}
-              {/if}
-            	{if $subject.opcionC}
-              <div style="clear:both"></div>
-              <input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionC" />{$subject.opcionC}
-              {/if}
-            	{if $subject.opcionD}
-              <div style="clear:both"></div>
-              <input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionD" />{$subject.opcionD}
-              {/if}
-            	{if $subject.opcionE}
-              <div style="clear:both"></div>
-              <input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionE" />{$subject.opcionE}<br />
-              {/if}
-            </div>
-            
-      </div>
-			{/foreach}
-      
-      <div style="float:left"><span class="reqField">*</span> Campo requerido</div>
+          <center>
+{foreach from=$myTest item=subject}
+			<table style="width:80%" class="tblGral table table-bordered table-striped table-condensed flip-content">
+			<tr><td><b>{$subject.numero}. {$subject.question} <!--&raquo;Valor: {$subject.ponderation}%--></b></td></tr>
+			<tr >
+			<td >
+				<input type="hidden" name="preguntas[{$subject.testId}]]">
+				{if $subject.opcionA}
+			  <input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionA" />{$subject.opcionA}
+			  {/if}
+				{if $subject.opcionB}
+			  <div style="clear:both"></div>
+			  <input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionB" />{$subject.opcionB}
+			  {/if}
+				{if $subject.opcionC}
+			  <div style="clear:both"></div>
+			  <input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionC" />{$subject.opcionC}
+			  {/if}
+				{if $subject.opcionD}
+			  <div style="clear:both"></div>
+			  <input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionD" />{$subject.opcionD}
+			  {/if}
+				{if $subject.opcionE}
+			  <div style="clear:both"></div>
+			  <input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionE" />{$subject.opcionE}<br />
+			  {/if}
+			</td>
+			</tr>
+			
+	  </table>
+{/foreach}
+       <center>
+	   </form>
+      <!--<div style="float:left"><span class="reqField">*</span> Campo requerido</div>-->
+	  <br>
+	  <br>
+	  <div id="msjError">
+	  </div>
       <div style="padding-right:60px">
 
-        <input type="submit" class="btn green submitForm" id="addMajor" name="addMajor" value="Enviar" onClick="return confirmSubmit()" />
+       <button type="button" class="btn green submitForm" onclick="send();" id="addStudent">Guardar</button>
       </div>
       
     </div>
-   </li>                              
- </ul>    
-</form>
+                            
+  
+
 {else}
 	Has agotado tus oportunidades para hacer este examen. Tu calificacion fue de: <b>{$score}%</b>
 {/if}

@@ -211,6 +211,7 @@ $property["error"][30135] = "El acta ha sido eliminada correctamente";
 $property["error"][40101] = "Debes introducir al menos un dato de busqueda";
 $property["error"][40102] = "No existen registros con los datos proporcionados";
 $property["error"][40103] = "Favor de elejir un alumno del listado";
+$property["error"][40104] = "El Personal se ha activado correctamente";
 
 // mensajes para los datos de prueba creados -- eliminar en cuanto este listo
 $property["error"][99100] = "Paso por codigo verificacion eliminacion Recuperacion R1";

@@ -208,20 +208,39 @@
 						c.tarifaDr as tarifaDr,
 						c.hora as hora,
 						course_module.subtotal as subtotal,
-						subject_module.clave as claveMateria
+						subject_module.clave as claveMateria 
 					FROM
 						course_module
 					LEFT JOIN course as c ON c.courseId = course_module.courseId
 					LEFT JOIN subject_module ON course_module.subjectModuleId = subject_module.subjectModuleId
 					LEFT JOIN	subject ON subject.subjectId = subject_module.subjectId	
 					LEFT JOIN	major ON major.majorId = subject.tipo	
+				
 					WHERE
 							courseModuleId='" . $this->courseModuleId . "'";
-							// exit;
-			//configuramos la consulta con la cadena de actualizacion
+							
+							
 			$this->Util()->DB()->setQuery($sql);
-			//ejecutamos la consulta y obtenemos el resultado
-			$result = $this->Util()->DB()->GetRow();
+			$result = $this->Util()->DB()->GetRow();				
+			$sql = "SELECT * 
+				FROM course c
+				LEFT JOIN subject AS s ON s.subjectId = c.subjectId
+				LEFT JOIN activity AS a ON a.subjectId = s.subjectId
+				WHERE c.courseId = '" . $this->courseModuleId . "'";
+											// exit;
+			$this->Util()->DB()->setQuery($sql);
+			$infoActivity = $this->Util()->DB()->GetRow();
+
+			$sql = "SELECT 
+						evalDocenteCompleta
+					FROM
+						user_subject
+					WHERE
+							courseId = '" . $result["courseId"]. "' and alumnoId = ".$_SESSION['User']['userId']."";
+							// exit;
+			$this->Util()->DB()->setQuery($sql);
+			$infoud = $this->Util()->DB()->GetRow();
+			
 
 			$explodedInitialDate = explode("-", $result["initialDate"]);
 			//$date = mktime(0, 0, 0, $explodedInitialDate[1], $explodedInitialDate[2], $explodedInitialDate[0]); 
@@ -248,6 +267,8 @@
 			$result["politicsDecoded"] = html_entity_decode($result["politics"]);
 			$result["evaluationDecoded"] = html_entity_decode($result["evaluation"]);
 			$result["bibliographyDecoded"] = html_entity_decode($result["bibliography"]);
+			$result["infoActivity"] = $infoActivity;
+			$result["evalOk"] = $infoud["evalDocenteCompleta"];
 			// $result["claveMateria"] = html_entity_decode($result["claveMateria"]);
 
 			//print_r($result);
@@ -1168,6 +1189,40 @@
 
 		}	
 		return true;
+	}
+	
+	public function moduloDeCurso($Id){
+		
+		
+		$sql = "SELECT 
+				*
+			FROM
+				course_module 
+			WHERE
+				courseId = ".$Id." limit 0,1";
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->GetRow();
+			
+		return $result;
+		
+	}
+	
+	
+	
+	public function infoUserSubject($courseId,$alumnoId){
+		
+		
+		$sql = "SELECT 
+				*
+			FROM
+				user_subject 
+			WHERE
+				courseId = ".$courseId." and alumnoId = ".$alumnoId." ";
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->GetRow();
+			
+		return $result;
+		
 	}
 	
 }	

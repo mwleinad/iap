@@ -70,31 +70,32 @@
                 <!-- SIDEBAR MENU -->
                 <div class="profile-usermenu">
                     <ul class="nav">
-                        <li class="">
+                        <!--<li class="">
                             <a href="{$WEB_ROOT}/info-docente">
                                 <i class="icon-settings"></i> Información Personal </a>
-                        </li>
+                        </li>-->
 
-						<li>
-						<a href="{$WEB_ROOT}/history-subject" ><!--onClick="verCalendario()"-->
-						  <i class="fa fa-file-text" aria-hidden="true"></i>Curricula
-						</a>
+						<li><!--
+						<a href="{$WEB_ROOT}/usuarios" >
+						  <i class="fa fa-file-text" aria-hidden="true"></i>Candidatos
+						</a>-->
 						</li>
-						<li>
+						<!--<li>
+						
 						<a href="{$WEB_ROOT}/doc-docente" >
-						   <i class="fa fa-files-o"></i>Documentos
+						   <i class="fa fa-files-o"></i>Dictamen
 						</a>
 						</li>
 						<li>
 						<a href="{$WEB_ROOT}/repositorio" >
-						   <i class="fa fa-files-o"></i>Repositorio
+						   <i class="fa fa-files-o"></i>Descargas
 						</a>
 						</li>
 						<li>
 						<a href="{$WEB_ROOT}/inbox/or/h" >
 						 <i class="fa fa-comments"></i>Inbox 
 						</a>
-						</li>
+						</li>-->
                     </ul>
                 </div>
                 <!-- END MENU -->
@@ -125,7 +126,7 @@
                     <span class="profile-desc-text"> El <b>Instituto de Administración Pública del Estado de Chiapas, A. C.</b><br />te da la mas cordial bienvenida a nuestro Sistema de Educación en Línea.</span>
                     <div class="margin-top-20 profile-desc-link">
                         <i class="fa fa-globe"></i>
-                        <a href="http://www.iapchiapas.org.mx">www.iapchiapas.org.mx</a>
+                        <a href="https://iapchiapas.org.mx/">iapchiapas.org.mx</a>
                     </div>
                     <div class="margin-top-20 profile-desc-link">
                         <i class="fa fa-facebook"></i>
@@ -141,102 +142,18 @@
             <div class="row">
                 <div class="col-md-12">
                     <!-- BEGIN PORTLET -->
-                    <div class="portlet light ">
-                        <div class="portlet-title tabbable-line">
-                            <div class="caption caption-md">
-                                <i class="icon-globe theme-font hide"></i>
-                                <span class="caption-subject font-blue-madison bold uppercase">Bitácora</span>
-                            </div>
-                            <ul class="nav nav-tabs">
-                                <li class="active">
-                                    <a href="#tab_1_1" data-toggle="tab"> Notificaciones </a>
-                                </li>
-								<!--
-                                <li >
-                                    <a href="#tab_1_2" data-toggle="tab"> Avisos </a>
-                                </li>-->
-                            </ul>
-                        </div>
-                        <div class="portlet-body">
-                            <!--BEGIN TABS-->
-                            <div class="tab-content">
-                               <!-- <div class="tab-pane " id="tab_1_2">
-                                    <div class="scroller" style="height: 320px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-                                        <ul class="feeds">
-
-                                            {foreach from=$announcements item=item}
-                                            <li>
-                                                <div class="col1">
-                                                    <div class="cont">
-                                                        <div class="cont-col1">
-                                                            <div class="label label-sm label-success">
-                                                                <i class="fa fa-bell-o"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="cont-col2">
-                                                            <div class="desc">
-                                                                <b>{$item.title}</b>: {$item.description}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col2">
-                                                    <div class="date"> {$item.date|date_format:"%d %b '%y"} </div>
-                                                </div>
-                                            </li>
-                                            {/foreach}
-
-                                        </ul>
-                                    </div>
-                                </div>-->
-                                <div class="tab-pane active" id="tab_1_1">
-                                    <div class="scroller" style="height: 337px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-                                        <ul class="feeds">
-										
-                                            {foreach from=$notificaciones item=reply}
-                                                {if $reply.vistaPermiso==1}
-
-                                                <li>
-                                                <a href="{$WEB_ROOT}{$reply.enlace}">
-                                                    <div class="col1">
-                                                        <div class="cont">
-                                                            <div class="cont-col1">
-                                                                <div class="label label-sm label-success">
-                                                                    <i class="fa fa-bell-o"></i>
-                                                                </div>
-                                                            </div>
-                                                            <div class="cont-col2">
-                                                                <div class="desc">
-                                                                    {$reply.actividad} por {$reply.nombre}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col2">
-                                                        <div class="date"> {$reply.fecha_aplicacion|date_format:"%d %b '%y"} </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                                {/if}
-                                            {/foreach}
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--END TABS-->
-                        </div>
-                    </div>
+                    
                     <!-- END PORTLET -->
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <!-- BEGIN PORTLET 
+                    <!-- BEGIN PORTLET -->
                     <div class="portlet light ">
                         <div class="portlet-title">
                             <div class="caption caption-md">
                                 <i class="icon-bar-chart theme-font hide"></i>
-                                <span class="caption-subject font-blue-madison bold uppercase">Curricula Activa</span>
+                                <span class="caption-subject font-blue-madison bold uppercase">Certificaciones</span>
                             </div>
                         </div>
                         <div class="portlet-body">
@@ -245,38 +162,22 @@
                                     <thead>
                                     <tr class="uppercase">
                                         
-                                        <th style="text-align: center"> Tipo </th>
                                         <th style="text-align: center"> Nombre </th>
-										 <th style="text-align: center"> Grupo </th>
-                                        <th style="text-align: center"> Modalidad </th>
-                                        <th style="text-align: center"> Fecha Inicial </th>
-                                        <th style="text-align: center"> Fecha Final </th>
-{*
-                                        <th style="text-align: center"> Pagos </th>
-*}
-                                        
-                                        <th style="text-align: center"> Modulos </th>
+
                                        
                                         <th style="text-align: center"> Acciones </th>
                                     </tr>
                                     </thead>
-                                    {foreach from=$activeCourses item=subject}
+                                    {foreach from=$resu item=subject}
                                     <tr>
                                        
-                                        <td align="center">{$subject.majorName}</td>
                                         <td align="center">{$subject.name}</td>
-										  <td align="center">{$subject.group}
-                                        <td align="center">{$subject.modality}</td>
-                                        <td align="center">{$subject.initialDate|date_format:"%d-%m-%Y"}</td>
-                                        <td align="center">{$subject.finalDate|date_format:"%d-%m-%Y"}</td>
-                                     
-{*
-                                        <td align="center">{$subject.payments}</td>
-*}
-                                        <td align="center">{$subject.courseModule}
-                                      
+
+
+
+                                    
                                         <td align="center">
-                                            <a href="{$WEB_ROOT}/graybox.php?page=view-modules-course-student&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
+                                            <a href="{$WEB_ROOT}/gps/id/{$subject.subjectId}" >
                                             <i class="fa fa-sign-in fa-lg"></i>
                                             </a>
                                         </td>
@@ -292,7 +193,7 @@
                             </div>
                         </div>
                     </div>
-                   -->
+                   
                 </div>
             </div>
 

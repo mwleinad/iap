@@ -1,3 +1,24 @@
+function comprueba_extension(archivo) { 
+   extensiones_permitidas = new Array(".png",".jpg");  
+      extension = (archivo.substring(archivo.lastIndexOf("."))).toLowerCase(); 
+      permitida = false; 
+      for (var i = 0; i < extensiones_permitidas.length; i++) { 
+         if (extensiones_permitidas[i] == extension) { 
+         permitida = true; 
+         break; 
+         } 
+      } 
+      if (!permitida) { 
+         return "no";
+      	}else{ 
+         return "si"; 
+      	} 
+   return 0; 
+}
+
+
+
+
 function desactivar(id,activo){
 	
 	
@@ -397,5 +418,107 @@ function generaSolicitud(alumnoId,courseId){
 		error:function(){
 			// alert(msgError);
 		}
+    });
+}
+
+
+
+function onSendINE(){
+	
+	
+	var ine = $("#ine").val();
+
+	var res = comprueba_extension(ine);
+	
+	if(res == "no"){
+		alert("Solo se permiten archivos con extencion PNG y JPG")
+		return ;
+	}
+	
+
+	// En esta var va incluido $_POST y $_FILES
+	var fd = new FormData(document.getElementById("frmGral"));
+	fd.append('type','onSendFoto');
+	$.ajax({
+		url: WEB_ROOT+'/ajax/homepage.php',
+		data: fd,
+		processData: false,
+		contentType: false,
+		type: 'POST',
+		xhr: function(){
+				var XHR = $.ajaxSettings.xhr();
+				XHR.upload.addEventListener('progress',function(e){
+					console.log(e)
+					var Progress = ((e.loaded / e.total)*100);
+					Progress = (Progress);
+					console.log(Progress)
+					$('#progress').val(Math.round(Progress));
+					$('#porcentaje').html(Math.round(Progress)+'%');
+
+
+				},false);
+			return XHR;
+		},
+		success: function(response){
+
+			console.log(response);
+			// var splitResp = response.split("[#]");
+			// $("#msjCourse").html(response);
+			var splitResp = response.split("[#]");
+
+			if($.trim(splitResp[0])=="ok"){
+				closeModal()
+				$('#msjHome').html(splitResp[1]);
+			}else if($.trim(splitResp[0])=="fail"){
+				alert(splitResp[1])
+			}else{
+				alert('Ocurrio un error....')
+			}
+			// alert('llega')
+			closeModal()
+		},
+	})
+
+}
+
+function closeModal(){
+	
+	$("#ajax").hide();
+	$("#ajax").modal("hide");
+	
+}
+
+
+function onDeleteCarta(id)
+{
+
+	var resp = confirm("Seguro de  eliminar el Documento?");
+
+		if(!resp)
+			return;
+
+    $.ajax({
+		url: WEB_ROOT+'/ajax/homepage.php',
+        type: "POST",
+        data : {type: "onDeleteFoto", id:id},
+        success: function(data)
+        {
+           console.log(data);
+		    var splitResp = data.split("[#]");
+			 if($.trim(splitResp[0]) == "ok")
+            {
+               closeModal();
+			   $('#msjHome').html(splitResp[1]);
+			   
+            }
+            else
+            {
+               alert('Ocurrio un error');
+            }
+        },
+        error: function ()
+        {
+            alert('Algo salio mal, compruebe su conexión a internet');
+        }
     });
 }
