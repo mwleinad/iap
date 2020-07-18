@@ -21,8 +21,6 @@ class SendMail extends Main
 
 	public function enviarCorreo($subject, $body, $details_body, $details_subject, $to, $toName, $attachment = array(), $fileName = array(), $from, $fromName)
 	{
-			$this->email = new PHPMailer(); // defaults to using php "mail()"
-
 			$body = nl2br($this->Util()->handle_mail_patterns($body,$details_body));
 			$subject = $this->Util()->handle_mail_patterns($subject,$details_subject);
 
@@ -42,8 +40,6 @@ class SendMail extends Main
 
 	public function PrepareAttachment($subject, $body, $details_body, $details_subject, $to, $toName, $attachment = array(), $fileName = array(), $from = "enlinea@iapchiapas.edu.mx", $fromName = "Administrador del Sistema")
 	{
-			$this->email = new PHPMailer(); // defaults to using php "mail()"
-
 			$body = nl2br($this->Util()->handle_mail_patterns($body,$details_body));
 			$subject = $this->Util()->handle_mail_patterns($subject,$details_subject);
 
@@ -64,8 +60,6 @@ class SendMail extends Main
 
 	public function Prepare($subject, $body, $details_body, $details_subject, $to, $toName, $attachment = "", $fileName = "", $from = "enlinea@iapchiapas.edu.mx", $fromName = "Administrador del Sistema")
 	{
-			$this->email = new PHPMailer(); // defaults to using php "mail()"
-
 			$body = nl2br($this->Util()->handle_mail_patterns($body,$details_body));
 			$subject = $this->Util()->handle_mail_patterns($subject,$details_subject);
 
@@ -85,8 +79,6 @@ class SendMail extends Main
 
 	public function PrepareMulti($subject, $body, $details_body, $details_subject, $to, $toName, $attachment = "", $fileName = "", $from = "enlinea@iapchiapas.edu.mx", $fromName = "Administrador del Sistema")
 	{
-			$this->email = new PHPMailer(); // defaults to using php "mail()"
-
 			$body = nl2br($this->Util()->handle_mail_patterns($body,$details_body));
 			$subject = utf8_decode($this->Util()->handle_mail_patterns($subject,$details_subject));
 
