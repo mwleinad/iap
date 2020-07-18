@@ -183,7 +183,7 @@ class Payments extends Course
 	function verificarInvoices(){
 
 	        $this->Util()->DB()->setQuery("SELECT  `userId` FROM  `user` where type='student'");
-			$result = $this->Util()->DB()->result();
+			$result = $this->Util()->DB()->GetResult();
 
 
 		$studen=new Student();
@@ -191,7 +191,7 @@ class Payments extends Course
 			foreach($result as $row){
 
 				   $this->Util()->DB()->setQuery("SELECT  `courseId`  FROM  `user_subject` where alumnoId='".$row[0]."'");
-			       $respuesta = $this->Util()->DB()->result();
+			       $respuesta = $this->Util()->DB()->GetResult();
 			                    if(count($respuesta)>0)
 			         		      {
 
@@ -199,7 +199,7 @@ class Payments extends Course
 								                 foreach($respuesta as $fila)
 								                   {
 												                    $this->Util()->DB()->setQuery("SELECT  `invoiceId`  FROM  `invoice` where userId='".$row[0]."'  and courseId='".$fila[0]."' ");
-	               									                $datos = $this->Util()->DB()->result();
+	               									                $datos = $this->Util()->DB()->GetResult();
                                                                        if(count($datos)==0)
 																	  $studen->AddInvoices($row[0],$fila[0]);
 
@@ -533,7 +533,7 @@ Se encuentra activo por lo que ya puedes acceder a la currícula que hayas elegi
 	{
 
 		$this->Util()->DB()->setQuery("SELECT * FROM payment  where invoiceId='".$id."'  ");
-		$result = $this->Util()->DB()->result();
+		$result = $this->Util()->DB()->GetResult();
 		return $result;
 
 
@@ -544,7 +544,7 @@ Se encuentra activo por lo que ya puedes acceder a la currícula que hayas elegi
 	{
 
 		$this->Util()->DB()->setQuery("SELECT registro(*) FROM payment  where invoiceId='".$id."' ");
-		$result = $this->Util()->DB()->result();
+		$result = $this->Util()->DB()->GetResult();
 		return $result;
 
 
