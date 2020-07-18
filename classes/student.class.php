@@ -1723,7 +1723,7 @@ class Student extends User
 
 
 	          $this->Util()->DB()->setQuery("SELECT  * FROM  `invoice` where userId='".$id."' and courseId='".$curricula."'  and  dueDate='".$initialYear."-".$initialMonth."-".$initialDay."'  and amount='".$valor."'   ");
-			  $info_invoice = $this->Util()->DB()->cons();
+			  $info_invoice = $this->Util()->DB()->result();
 
 
 	      if(count($info_invoice)==0)

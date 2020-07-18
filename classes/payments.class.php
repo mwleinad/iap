@@ -3,7 +3,7 @@
 class Payments extends Course
 {
 	public $invoiceId;
-	
+
 	public function setInvoiceId($value)
 	{
 		$this->Util()->ValidateInteger($value);
@@ -16,7 +16,7 @@ class Payments extends Course
 	}
 
 	public $paymentId;
-	
+
 	public function setPaymentId($value)
 	{
 		$this->Util()->ValidateInteger($value);
@@ -57,13 +57,13 @@ class Payments extends Course
 	}
 
 	/*****************************************************************************/
-	
-	
+
+
 	public function getComments()
 	{
 		return $this->comments;
 	}
-	
+
 	public $date;
 
 	public function setDate($value)
@@ -77,7 +77,7 @@ class Payments extends Course
 	{
 		return $this->date;
 	}
-	
+
 
 	public $debt;
 
@@ -143,13 +143,13 @@ class Payments extends Course
 	{
 		return $this->anticipo;
 	}
-	
-		
+
+
 	function InvoicesCount($desde, $hasta, $status, $courseId = NULL, $name = NULL, $control = NULL)
 	{
 		$desde = $this->Util()->FormatDateMySql($desde);
 		$hasta = $this->Util()->FormatDateMySql($hasta);
-		
+
 		if($status)
 		{
 			//$addStatus = "AND invoice.status = '".$status."'";
@@ -169,7 +169,7 @@ class Payments extends Course
 		{
 			$addControl = "AND user.controlNumber = '".$control."'";
 		}
-		
+
 		$this->Util()->DB()->setQuery("
 			SELECT COUNT(*) FROM invoice
 			LEFT JOIN user ON user.userId = invoice.userId
@@ -177,47 +177,47 @@ class Payments extends Course
 				dueDate > '".$desde."' AND dueDate < '".$hasta."' ".$addStatus." ".$addCourse." ".$addName." ".$addControl);
 		$result = $this->Util()->DB()->GetSingle();
 		return $result;
-			
+
 	}
-	
+
 	function verificarInvoices(){
-	
+
 	        $this->Util()->DB()->setQuery("SELECT  `userId` FROM  `user` where type='student'");
-			$result = $this->Util()->DB()->cons();
-			
-			
+			$result = $this->Util()->DB()->result();
+
+
 		$studen=new Student();
-			
+
 			foreach($result as $row){
-		       	
+
 				   $this->Util()->DB()->setQuery("SELECT  `courseId`  FROM  `user_subject` where alumnoId='".$row[0]."'");
-			       $respuesta = $this->Util()->DB()->cons();
+			       $respuesta = $this->Util()->DB()->result();
 			                    if(count($respuesta)>0)
 			         		      {
-								              
-								  
+
+
 								                 foreach($respuesta as $fila)
 								                   {
 												                    $this->Util()->DB()->setQuery("SELECT  `invoiceId`  FROM  `invoice` where userId='".$row[0]."'  and courseId='".$fila[0]."' ");
-	               									                $datos = $this->Util()->DB()->cons();
-                                                                       if(count($datos)==0)																     
-																	  $studen->AddInvoices($row[0],$fila[0]);    
-										   
+	               									                $datos = $this->Util()->DB()->result();
+                                                                       if(count($datos)==0)
+																	  $studen->AddInvoices($row[0],$fila[0]);
+
 										           }
 								  }
-			
-			
+
+
 			}
-			
-	
+
+
 	}
-	
-	
+
+
 	function Invoices($desde, $hasta, $status, $courseId = NULL, $name = NULL, $control = NULL)
 	{
 		$desde = $this->Util()->FormatDateMySql($desde);
 		$hasta = $this->Util()->FormatDateMySql($hasta);
-	        $this->verificarInvoices();	
+	        $this->verificarInvoices();
 		if($status)
 		{
 			//$addStatus = "AND invoice.status = '".$status."'";
@@ -237,7 +237,7 @@ class Payments extends Course
 		{
 			$addControl = "AND user.controlNumber = '".$control."'";
 		}
-		
+
 		$this->Util()->DB()->setQuery("
 			SELECT *, invoice.status AS status FROM invoice
 			LEFT JOIN user ON user.userId = invoice.userId
@@ -248,16 +248,16 @@ class Payments extends Course
 			ORDER BY dueDate ASC");
 		//	echo $this->Util()->DB()->query;
 		$result = $this->Util()->DB()->GetResult();
-		
+
 		foreach($result as $key => $res)
 		{
 //			print_r($res);
 			//cuantos pagos se van haciendo
 			$result[$key]["payment"] = $this->ActivePayments($res["invoiceId"]);
-			$result[$key]["payment"] = $this->Util()->DB()->GetSingle();		
+			$result[$key]["payment"] = $this->Util()->DB()->GetSingle();
 
 			$result[$key]["debt"] = $result[$key]["amount"] - $result[$key]["payment"];
-			
+
 			if($result[$key]["debt"] <= 0)
 			{
 				$result[$key]["status"] = "Pagada";
@@ -268,25 +268,25 @@ class Payments extends Course
 				WHERE
 					invoiceId = '".$res["invoiceId"]."' 
 				ORDER BY date ASC");
-			$result[$key]["credit"] = $this->Util()->DB()->GetSingle();		
+			$result[$key]["credit"] = $this->Util()->DB()->GetSingle();
 
 			$this->Util()->DB()->setQuery("
 				SELECT * FROM payment
 				WHERE
 					invoiceId = '".$res["invoiceId"]."' 
 				ORDER BY date ASC");
-			$result[$key]["payments"] = $this->Util()->DB()->GetResult();		
+			$result[$key]["payments"] = $this->Util()->DB()->GetResult();
 
-			$result[$key]["names"] = $this->Util()->DecodeTiny($result[$key]["names"]);		
-			$result[$key]["lastNamePaterno"] = $this->Util()->DecodeTiny($result[$key]["lastNamePaterno"]);		
-			$result[$key]["lastNameMaterno"] = $this->Util()->DecodeTiny($result[$key]["lastNameMaterno"]);		
+			$result[$key]["names"] = $this->Util()->DecodeTiny($result[$key]["names"]);
+			$result[$key]["lastNamePaterno"] = $this->Util()->DecodeTiny($result[$key]["lastNamePaterno"]);
+			$result[$key]["lastNameMaterno"] = $this->Util()->DecodeTiny($result[$key]["lastNameMaterno"]);
 
 		}
-		
-		
-		return $result;		
+
+
+		return $result;
 	}
-	
+
 	function InvoiceDelete()
 	{
 			$sql = "DELETE FROM 
@@ -320,7 +320,7 @@ class Payments extends Course
 	{
 			$sql = "SELECT MAX(paymentId) FROM 
 					payment";
-		 	$this->Util()->DB()->setQuery($sql);					
+		 	$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetSingle() + 1;
 
 			return $result;
@@ -333,10 +333,10 @@ class Payments extends Course
 			WHERE
 				invoiceId = '".$id."' 
 			ORDER BY date ASC");
-		$res["payment"] = $this->Util()->DB()->GetSingle();		
+		$res["payment"] = $this->Util()->DB()->GetSingle();
 		return $res["payment"];
 	}
-	
+
 	function InvoiceInfo()
 	{
 			$this->Util()->DB()->setQuery("SELECT *, invoice.status AS status FROM invoice
@@ -351,7 +351,7 @@ class Payments extends Course
 			$res["payment"] = $this->ActivePayments($res["invoiceId"]);
 			$res["debt"] = $res["amount"] - $res["payment"];
 			error_log($res["debt"]);
-			
+
 			if($res["debt"] <= 0)
 			{
 				$res["status"] = "Pagada";
@@ -368,14 +368,14 @@ class Payments extends Course
 				WHERE
 					invoiceId = '".$res["invoiceId"]."' 
 				ORDER BY date ASC");
-			$res["credit"] = $this->Util()->DB()->GetSingle();		
+			$res["credit"] = $this->Util()->DB()->GetSingle();
 
 			$this->Util()->DB()->setQuery("
 				SELECT * FROM payment
 				WHERE
 					invoiceId = '".$res["invoiceId"]."' 
 				ORDER BY date ASC");
-			$res["payments"] = $this->Util()->DB()->GetResult();		
+			$res["payments"] = $this->Util()->DB()->GetResult();
 
 			$this->Util()->DB()->setQuery("
 				SELECT anticipo FROM payment
@@ -383,12 +383,12 @@ class Payments extends Course
 				WHERE
 					userId = '".$res["userId"]."' 
 				ORDER BY paymentId DESC LIMIT 1");
-			$res["saldoFavor"] = $this->Util()->DB()->GetSingle();		
-			
-			$res["names"] = $this->Util()->DecodeTiny($res["names"]);		
-			$res["lastNamePaterno"] = $this->Util()->DecodeTiny($res["lastNamePaterno"]);		
-			$res["lastNameMaterno"] = $this->Util()->DecodeTiny($res["lastNameMaterno"]);		
-			
+			$res["saldoFavor"] = $this->Util()->DB()->GetSingle();
+
+			$res["names"] = $this->Util()->DecodeTiny($res["names"]);
+			$res["lastNamePaterno"] = $this->Util()->DecodeTiny($res["lastNamePaterno"]);
+			$res["lastNameMaterno"] = $this->Util()->DecodeTiny($res["lastNameMaterno"]);
+
 			return $res;
 	}
 
@@ -423,7 +423,7 @@ class Payments extends Course
 					'' ,  
 					'".$this->anticipo."',  
 					'".$this->autorize."')");
-		$this->Util()->DB()->InsertData();		
+		$this->Util()->DB()->InsertData();
 
 		$this->Util()->setError(90000, 'complete', "El pago se realizo exitosamente");
 		$this->Util()->PrintErrors();
@@ -435,17 +435,17 @@ class Payments extends Course
 			$this->Util()->DB()->setQuery("
 				UPDATE user_subject SET status = 'activo'
 					WHERE alumnoId = '".$invoice["userId"]."' AND courseId = '".$invoice["courseId"]."'");
-			$this->Util()->DB()->UpdateData();		
+			$this->Util()->DB()->UpdateData();
 		}
-		
+
 		$userId=$invoice['userId'];
 		$courseId=$invoice['courseId'];
-		
-		
+
+
 		$student=new Student();
         $result=$student->StudentCoursesU($userId,$courseId);
-		
-		//si el invoice ya esta pagado entonces activar al usuario		
+
+		//si el invoice ya esta pagado entonces activar al usuario
 		include_once(DOC_ROOT."/properties/messages.php");
 		//enviar correo
 		$sendmail = new SendMail;
@@ -460,20 +460,20 @@ class Payments extends Course
 
 Se encuentra activo por lo que ya puedes acceder a la currícula que hayas elegido.
 	";
-		
+
 		$email = $invoice["email"];
 		$nombre = $invoice["lastNamePaterno"]." ".$invoice["lastNameMaterno"]." ".$invoice["names"];
-//		$attachment = DOC_ROOT."/files/solicitudes/".$file;			
-		$sendmail->Prepare($message[2]["subject"], $this->Util()->ConvertStringToCSV($mensaje), $details_body, $details_subject, $email, $nombre); 		
-		
+//		$attachment = DOC_ROOT."/files/solicitudes/".$file;
+		$sendmail->Prepare($message[2]["subject"], $this->Util()->ConvertStringToCSV($mensaje), $details_body, $details_subject, $email, $nombre);
+
 		return true;
 	}
-	
+
 	function EnumeratePayments()
 	{
 			$sql = "SELECT * FROM payment 
 				WHERE invoiceId = '".$this->invoiceId."'";
-		 	$this->Util()->DB()->setQuery($sql);					
+		 	$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
 			//print_r($result);
 			return $result;
@@ -483,12 +483,12 @@ Se encuentra activo por lo que ya puedes acceder a la currícula que hayas elegi
 	{
 			$sql = "SELECT * FROM payment 
 				WHERE paymentId = '".$this->paymentId."'";
-		 	$this->Util()->DB()->setQuery($sql);					
+		 	$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetRow();
 			//print_r($result);
 			return $result;
 	}
-	
+
 	function PaymentDelete()
 	{
 			$sql = "DELETE FROM 
@@ -506,7 +506,7 @@ Se encuentra activo por lo que ya puedes acceder a la currícula que hayas elegi
 	function PaymentChangeStatus()
 	{
 		$info = $this->PaymentInfo();
-		
+
 		if($info["status"] == "activo")
 		{
 			$update = "cancelado";
@@ -515,7 +515,7 @@ Se encuentra activo por lo que ya puedes acceder a la currícula que hayas elegi
 		{
 			$update = "activo";
 		}
-		
+
 		$sql = "UPDATE  
 				payment SET status = '".$update."'
 				WHERE 
@@ -528,30 +528,30 @@ Se encuentra activo por lo que ya puedes acceder a la currícula que hayas elegi
 		return $result;
 
 	}
-	
+
 	function Config($id = null)
 	{
-		
+
 		$this->Util()->DB()->setQuery("SELECT * FROM payment  where invoiceId='".$id."'  ");
-		$result = $this->Util()->DB()->cons();
+		$result = $this->Util()->DB()->result();
 		return $result;
-			
-		
-		
-	}	
-	
+
+
+
+	}
+
 		function Config_cont($id)
 	{
-		
-		$this->Util()->DB()->setQuery("SELECT registro(*) FROM payment  where invoiceId='".$id."' ");
-		$result = $this->Util()->DB()->cons();
-		return $result;
-			
-		
-		
-	}	
-	
 
-	
-}	
+		$this->Util()->DB()->setQuery("SELECT registro(*) FROM payment  where invoiceId='".$id."' ");
+		$result = $this->Util()->DB()->result();
+		return $result;
+
+
+
+	}
+
+
+
+}
 ?>
