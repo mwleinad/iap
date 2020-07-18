@@ -2,42 +2,36 @@
 
 class SendMail extends Main
 {
-	
-	public function enviarCorreo($subject, $body, $details_body, $details_subject, $to, $toName, $attachment = array(), $fileName = array(), $from, $fromName) 
-	{
-			$mail = new PHPMailer(); // defaults to using php "mail()"
-			
-			$body = nl2br($this->Util()->handle_mail_patterns($body,$details_body));
-			$subject = $this->Util()->handle_mail_patterns($subject,$details_subject);
-			
-			$mail->AddReplyTo($from, $fromName);
-			$mail->SetFrom($from, $fromName);
-			
-			$mail->AddAddress($to, $toName);
-			$mail->Subject    = $subject;
-			$mail->MsgHTML($body);
-			
-			foreach($attachment as $key => $attach)
-			{
-				$mail->AddAttachment($attach, $fileName[$key]);
-			}
-			$mail->Send();
+	public function __construct() {
+		//this needs to be true to accept exceptions
+		$this->email = new PHPMailer();
+
+		$this->email->IsSMTP();
+		$this->email->SMTPAuth = true;
+		$this->email->Host       = EMAIL_HOST;
+		$this->email->Username   = EMAIL_USERNAME;
+		$this->email->Password   = EMAIL_PASSWORD;
+		$this->email->Port       = 465;
+		$this->email->SMTPSecure = 'ssl';
+		$this->email->SMTPDebug = EMAIL_DEBUG;
+		$this->email->CharSet = "UTF-8";
+		$this->email->Encoding = 'base64';
 	}
-	
-	public function PrepareAttachment($subject, $body, $details_body, $details_subject, $to, $toName, $attachment = array(), $fileName = array(), $from = "enlinea@iapchiapas.edu.mx", $fromName = "Administrador del Sistema") 
+
+	public function enviarCorreo($subject, $body, $details_body, $details_subject, $to, $toName, $attachment = array(), $fileName = array(), $from, $fromName)
 	{
 			$mail = new PHPMailer(); // defaults to using php "mail()"
-			
+
 			$body = nl2br($this->Util()->handle_mail_patterns($body,$details_body));
 			$subject = $this->Util()->handle_mail_patterns($subject,$details_subject);
-			
+
 			$mail->AddReplyTo($from, $fromName);
 			$mail->SetFrom($from, $fromName);
-			
+
 			$mail->AddAddress($to, $toName);
 			$mail->Subject    = $subject;
 			$mail->MsgHTML($body);
-			
+
 			foreach($attachment as $key => $attach)
 			{
 				$mail->AddAttachment($attach, $fileName[$key]);
@@ -45,17 +39,38 @@ class SendMail extends Main
 			$mail->Send();
 	}
 
-		
-	public function Prepare($subject, $body, $details_body, $details_subject, $to, $toName, $attachment = "", $fileName = "", $from = "enlinea@iapchiapas.edu.mx", $fromName = "Administrador del Sistema") 
+	public function PrepareAttachment($subject, $body, $details_body, $details_subject, $to, $toName, $attachment = array(), $fileName = array(), $from = "enlinea@iapchiapas.edu.mx", $fromName = "Administrador del Sistema")
 	{
 			$mail = new PHPMailer(); // defaults to using php "mail()"
-			
+
 			$body = nl2br($this->Util()->handle_mail_patterns($body,$details_body));
 			$subject = $this->Util()->handle_mail_patterns($subject,$details_subject);
-			
+
 			$mail->AddReplyTo($from, $fromName);
 			$mail->SetFrom($from, $fromName);
-			
+
+			$mail->AddAddress($to, $toName);
+			$mail->Subject    = $subject;
+			$mail->MsgHTML($body);
+
+			foreach($attachment as $key => $attach)
+			{
+				$mail->AddAttachment($attach, $fileName[$key]);
+			}
+			$mail->Send();
+	}
+
+
+	public function Prepare($subject, $body, $details_body, $details_subject, $to, $toName, $attachment = "", $fileName = "", $from = "enlinea@iapchiapas.edu.mx", $fromName = "Administrador del Sistema")
+	{
+			$mail = new PHPMailer(); // defaults to using php "mail()"
+
+			$body = nl2br($this->Util()->handle_mail_patterns($body,$details_body));
+			$subject = $this->Util()->handle_mail_patterns($subject,$details_subject);
+
+			$mail->AddReplyTo($from, $fromName);
+			$mail->SetFrom($from, $fromName);
+
 			$mail->AddAddress($to, $toName);
 			$mail->Subject    = $subject;
 			$mail->MsgHTML($body);
@@ -67,16 +82,16 @@ class SendMail extends Main
 			$mail->Send();
 	}
 
-	public function PrepareMulti($subject, $body, $details_body, $details_subject, $to, $toName, $attachment = "", $fileName = "", $from = "enlinea@iapchiapas.edu.mx", $fromName = "Administrador del Sistema") 
+	public function PrepareMulti($subject, $body, $details_body, $details_subject, $to, $toName, $attachment = "", $fileName = "", $from = "enlinea@iapchiapas.edu.mx", $fromName = "Administrador del Sistema")
 	{
 			$mail = new PHPMailer(); // defaults to using php "mail()"
-			
+
 			$body = nl2br($this->Util()->handle_mail_patterns($body,$details_body));
 			$subject = utf8_decode($this->Util()->handle_mail_patterns($subject,$details_subject));
-			
+
 			$mail->AddReplyTo($from, $fromName);
 			$mail->SetFrom($from, $fromName);
-			
+
 			$ids = explode(",", $to);
 			$student = new User;
 			foreach($ids as $id)
@@ -90,7 +105,7 @@ class SendMail extends Main
 				//$info["email"] = "dlopez@trazzos.com";
 				$mail->AddAddress($info["email"], $name." (".$info["controlNumber"].")");
 			}
-			
+
 			$mail->Subject    = $subject;
 			$mail->MsgHTML($body);
 
@@ -100,7 +115,7 @@ class SendMail extends Main
 			}
 			$mail->Send();
 	}
-	
+
 }
 
 
