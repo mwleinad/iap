@@ -1,0 +1,7 @@
+DOC_ROOT=C:/wamp/www/lms
+WEB_ROOT=http://localhost/lms
+
+SQL_HOST=localhost
+SQL_NAME=lms
+SQL_USER=root
+SQL_PASSWORD=

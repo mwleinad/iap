@@ -1,6 +1,6 @@
 <?php
 
-class Error
+class ErrorLms
 {
 	private $type = array();
 	private $errorField = array();

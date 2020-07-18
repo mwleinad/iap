@@ -760,7 +760,7 @@ class Producto extends Sucursal
 
 	
 
-	function GetTotalDesglosado()
+	function GetTotalDesglosado($data = null)
 	{
 		$values = explode("&", $_POST["form"]);
 		foreach($values as $key => $val)

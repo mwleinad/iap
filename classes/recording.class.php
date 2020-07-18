@@ -17,7 +17,7 @@
 			$this->embed = $value;
 		}
 		
-		public function Info($id)
+		public function Info($id = null)
 		{
 			if(!$id)
 			{
@@ -73,7 +73,7 @@
 
 		}
 		
-		public function Update($id)
+		public function Update($id = null)
 		{
 			if($this->Util()->PrintErrors())
 			{
@@ -94,7 +94,7 @@
 
 		}
 		
-		public function Delete($id)
+		public function Delete($id = null)
 		{
 			$this->Util()->DB()->setQuery("
 			DELETE FROM recording 

@@ -529,7 +529,7 @@ Se encuentra activo por lo que ya puedes acceder a la currícula que hayas elegi
 
 	}
 	
-	function Config($id)
+	function Config($id = null)
 	{
 		
 		$this->Util()->DB()->setQuery("SELECT * FROM payment  where invoiceId='".$id."'  ");

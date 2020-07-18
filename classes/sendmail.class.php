@@ -24,7 +24,7 @@ class SendMail extends Main
 			$mail->Send();
 	}
 	
-	public function PrepareAttachment($subject, $body, $details_body, $details_subject, $to, $toName, $attachment = array(), $fileName = array(), $from = "enlinea@iapchiapas.org.mx", $fromName = "Administrador del Sistema") 
+	public function PrepareAttachment($subject, $body, $details_body, $details_subject, $to, $toName, $attachment = array(), $fileName = array(), $from = "enlinea@iapchiapas.edu.mx", $fromName = "Administrador del Sistema") 
 	{
 			$mail = new PHPMailer(); // defaults to using php "mail()"
 			
@@ -46,7 +46,7 @@ class SendMail extends Main
 	}
 
 		
-	public function Prepare($subject, $body, $details_body, $details_subject, $to, $toName, $attachment = "", $fileName = "", $from = "enlinea@iapchiapas.org.mx", $fromName = "Administrador del Sistema") 
+	public function Prepare($subject, $body, $details_body, $details_subject, $to, $toName, $attachment = "", $fileName = "", $from = "enlinea@iapchiapas.edu.mx", $fromName = "Administrador del Sistema") 
 	{
 			$mail = new PHPMailer(); // defaults to using php "mail()"
 			
@@ -67,7 +67,7 @@ class SendMail extends Main
 			$mail->Send();
 	}
 
-	public function PrepareMulti($subject, $body, $details_body, $details_subject, $to, $toName, $attachment = "", $fileName = "", $from = "enlinea@iapchiapas.org.mx", $fromName = "Administrador del Sistema") 
+	public function PrepareMulti($subject, $body, $details_body, $details_subject, $to, $toName, $attachment = "", $fileName = "", $from = "enlinea@iapchiapas.edu.mx", $fromName = "Administrador del Sistema") 
 	{
 			$mail = new PHPMailer(); // defaults to using php "mail()"
 			

@@ -79,7 +79,7 @@
 			return $this->courseModuleId;
 		}
 		
-		public function EnumerateById($id)
+		public function EnumerateById($id = null)
 		{
 			$this->Util()->DB()->setQuery("
 				SELECT * FROM subject_module
@@ -162,7 +162,7 @@
 			return $result;
 		}
 		
-		public function Info()
+		public function Info($id = null)
 		{
 			//creamos la cadena de seleccion
 			$sql = "SELECT 
@@ -275,7 +275,7 @@
 			return $result;	
 		}
 
-		public function Update()
+		public function Update($id = null)
 		{
 			if($this->Util()->PrintErrors())
 			{
@@ -323,7 +323,7 @@
 			return $result;
 		}
 
-		public function Delete()
+		public function Delete($id = null)
 		{
 			if($this->Util()->PrintErrors())
 			{

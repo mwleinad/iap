@@ -187,7 +187,7 @@
 		}
 
 		
-	public function Delete(){
+	public function Delete($id = null){
 		
 		 $sql = "DELETE FROM 
 					announcement
@@ -204,7 +204,7 @@
 				
 	}
 	
-	public function Info($Id){
+	public function Info($Id = null){
 		
 		
 		$sql = "

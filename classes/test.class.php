@@ -212,7 +212,7 @@
 			return $score;
 		}
 		
-		public function Info()
+		public function Info($id = null)
 		{
 			//creamos la cadena de seleccion
 			$sql = "SELECT 

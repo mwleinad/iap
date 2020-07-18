@@ -106,7 +106,7 @@ class Main
 		return $result;
 	}
 
-	function Config()
+	function Config($id = null)
 	{
 		$this->Util()->DB()->setQuery("SELECT * FROM institution");
 		$result = $this->Util()->DB()->GetRow();
