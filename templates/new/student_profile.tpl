@@ -86,7 +86,7 @@
                     <ul class="nav">
 						<li>
                             <a href="{$WEB_ROOT}/perfil" >
-                               <i class="fa fa-user" aria-hidden="true"></i>Perfil 
+                               <i class="fa fa-user" aria-hidden="true"></i>Perfil
 							</a>
                         </li>
                         <li class="">
@@ -104,12 +104,12 @@
 						<!--
 						<li>
                             <a href="{$WEB_ROOT}/view-solicitud" >
-                               <i class="fa fa-folder-open" aria-hidden="true"></i>Solicitudes 
+                               <i class="fa fa-folder-open" aria-hidden="true"></i>Solicitudes
 							</a>
                         </li>-->
 						<li>
 						<a href="{$WEB_ROOT}/graybox.php?page=referencia-bancaria" data-target="#ajax" data-toggle="modal" data-width="1000px">
-						   <i class="fa fa-university" aria-hidden="true"></i>Referencia Bancaria 
+						   <i class="fa fa-university" aria-hidden="true"></i>Referencia Bancaria
 						</a>
 						</li>
 						<li>
@@ -134,7 +134,7 @@
 						</li>
 						<li>
 						<a href="{$WEB_ROOT}/inbox/or/h" >
-						 <i class="fa fa-comments"></i>Inbox 
+						 <i class="fa fa-comments"></i>Inbox
 						</a>
 						</li>
 						<li>
@@ -177,7 +177,7 @@
                     <span class="profile-desc-text"> El <b>Instituto de Administración Pública del Estado de Chiapas, A. C.</b><br />te da la mas cordial bienvenida a nuestro Sistema de Educación en Línea.</span>
                     <div class="margin-top-20 profile-desc-link">
                         <i class="fa fa-globe"></i>
-                        <a href="http://www.iapchiapas.org.mx">www.iapchiapas.org.mx</a>
+                        <a href="http://www.iapchiapas.org.mx">www.iapchiapas.edu.mx</a>
                     </div>
                     <div class="margin-top-20 profile-desc-link">
                         <i class="fa fa-facebook"></i>
@@ -294,7 +294,7 @@
                                 <table class="table table-hover table-light" >
                                     <thead>
                                     <tr class="uppercase">
-                                        
+
                                         <th style="text-align: center"> Tipo </th>
                                         <th style="text-align: center"> Nombre </th>
 										 <th style="text-align: center"> Grupo </th>
@@ -304,27 +304,27 @@
 {*
                                         <th style="text-align: center"> Pagos </th>
 *}
-                                        
+
                                         <th style="text-align: center"> Modulos </th>
-                                       
+
                                         <th style="text-align: center"> Acciones </th>
                                     </tr>
                                     </thead>
                                     {foreach from=$activeCourses item=subject}
                                     <tr>
-                                       
+
                                         <td align="center">{$subject.majorName}</td>
                                         <td align="center">{$subject.name}</td>
 										  <td align="center">{$subject.group}
                                         <td align="center">{$subject.modality}</td>
                                         <td align="center">{$subject.initialDate|date_format:"%d-%m-%Y"}</td>
                                         <td align="center">{$subject.finalDate|date_format:"%d-%m-%Y"}</td>
-                                     
+
 {*
                                         <td align="center">{$subject.payments}</td>
 *}
                                         <td align="center">{$subject.courseModule}
-                                      
+
                                         <td align="center">
                                             <a href="{$WEB_ROOT}/graybox.php?page=view-modules-course-student&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
                                             <i class="fa fa-sign-in fa-lg"></i>
