@@ -8,6 +8,7 @@
 
 <head>
 	<meta charset="utf-8" />
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
 	<title>Sistema de Educaci&oacute;n en Linea | IAP Chiapas</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta content="width=device-width, initial-scale=1" name="viewport" />
@@ -44,7 +45,7 @@
         <link href="{$WEB_ROOT}/assets/global/plugins/bootstrap-summernote/summernote.css" rel="stylesheet" type="text/css" />
 		<link href="{$WEB_ROOT}/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" rel="stylesheet" type="text/css" />-->
 	<!-- END THEME LAYOUT STYLES -->
-	<link rel="shortcut icon" href="favicon.ico" />
+	<link rel="shortcut icon" href="{$WEB_ROOT}/images/favicon_iap.ico" />
 
 	<link href="{$WEB_ROOT}/GreyBox/greybox/gb_styles.css" rel="stylesheet" type="text/css" />
 	<link href="{$WEB_ROOT}/css/inbox.css" rel="stylesheet" type="text/css"  />

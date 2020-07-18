@@ -10,5 +10,5 @@ define("SQL_PASSWORD", getenv('SQL_PASSWORD'));
 define("ITEMS_PER_PAGE", "20");
 define("MIN_YEAR", 2009);
 define("MAX_YEAR", 2030);
-define("DAYS_NOTIFICATION", 15);
+define("DAYS_NOTIFICATION", 5);
 

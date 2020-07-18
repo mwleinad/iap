@@ -1,4 +1,5 @@
 <?php
+use Dompdf\Dompdf;
 
 //language
 if(!$_SESSION['lang'])
