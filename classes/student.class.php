@@ -793,7 +793,7 @@ class Student extends User
 				$this->setLastNameMaterno($info['lastNameMaterno']);
 				$this->setSexo($info['sexo']);
 				$info['birthdate'] = explode("-", $info['birthdate']);
-				$this->setBirthdate($info['birthdate']);
+				$this->setBirthdate($info['birthdate'][0], $info['birthdate'][1], $info['birthdate'][2]);
 				$this->setMaritalStatus($info['maritalStatus']);
 				$this->setPassword(trim($info['password']));
 
