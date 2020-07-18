@@ -45,7 +45,7 @@
         <link href="{$WEB_ROOT}/assets/global/plugins/bootstrap-summernote/summernote.css" rel="stylesheet" type="text/css" />
 		<link href="{$WEB_ROOT}/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" rel="stylesheet" type="text/css" />-->
 	<!-- END THEME LAYOUT STYLES -->
-	<link rel="shortcut icon" href="favicon.ico" />
+	<link rel="shortcut icon" href="{$WEB_ROOT}/images/favicon_iap.ico" />
 
 	<link href="{$WEB_ROOT}/GreyBox/greybox/gb_styles.css" rel="stylesheet" type="text/css" />
 	<link href="{$WEB_ROOT}/css/inbox.css" rel="stylesheet" type="text/css"  />
