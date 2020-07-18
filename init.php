@@ -1,8 +1,6 @@
 <?php 
-    ini_set("display_errors", 0);
+    ini_set("display_errors", 1);
     $showErrors = E_ALL ^ (E_STRICT | E_NOTICE | E_DEPRECATED);
-    //$showErrors = E_ALL;
-	$showErrors = 0;
     error_reporting($showErrors);
 	
 	if(function_exists('xdebug_disable'))
@@ -19,4 +17,8 @@
 		mb_regex_encoding('UTF-8');
 		ob_start('mb_output_handler');
 	}
+
+	require 'vendor/autoload.php';
+	$dotenv = Dotenv\Dotenv::create(__DIR__);
+	$dotenv->load();
 ?>

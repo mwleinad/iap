@@ -23,7 +23,6 @@ require(DOC_ROOT.'/libs/Smarty.class.php');
 require_once(DOC_ROOT.'/phpmailer/class.phpmailer.php');
 
 include_once(DOC_ROOT."/classes/db.class.php");
-include_once(DOC_ROOT."/classes/dbfire.class.php");
 
 include_once(DOC_ROOT."/classes/error.class.php");
 include_once(DOC_ROOT."/classes/util.class.php");
@@ -89,7 +88,7 @@ include_once(DOC_ROOT.'/classes/docente.class.php');
 $docente = new Docente();
 
 $db = new DB;
-$error = new Error;
+$error = new ErrorLms;
 $util = new Util;
 $sendmail = new SendMail;
 $invoice = new Invoice;
@@ -141,7 +140,6 @@ $producto = new Producto;
 $notificacion= new Notificacion;
 $bank= new Bank;
 $solicitud= new Solicitud;
-$dbfire= new Dbfire;
 $encuesta= new Encuesta;
 
 $smarty = new Smarty;
@@ -179,6 +177,3 @@ define('TIT_DIR','DIRECTORA');
 //Obtenemos la version del horario
 $schV1 = $util->versionHorario();
 $smarty->assign('schV1', $schV1);
-
-require 'vendor/autoload.php';
-?>

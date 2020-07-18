@@ -14,7 +14,7 @@
 <script type="text/javascript" src="{$WEB_ROOT}/javascript/prototype.js"></script>
 <script src="{$WEB_ROOT}/javascript/scoluos/src/scriptaculous.js" type="text/javascript"></script>
 <script src="{$WEB_ROOT}/javascript/util.js" type="text/javascript"></script>
-<script src="{$WEB_ROOT}/javascript/config.js?{$timestamp}" type="text/javascript"></script>
+{include file="{$DOC_ROOT}/templates/config.tpl"}
 <script src="{$WEB_ROOT}/javascript/functions.js" type="text/javascript"></script>
 <script src="{$WEB_ROOT}/javascript/{$page}.js" type="text/javascript"></script>
 

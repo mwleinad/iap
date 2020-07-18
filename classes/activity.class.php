@@ -334,7 +334,7 @@
 			return $result;
 		}
 
-		public function Delete()
+		public function Delete($id = null)
 		{
 			if($this->Util()->PrintErrors())
 			{
@@ -637,7 +637,7 @@
 		}
 		
 		
-		public function Info()
+		public function Info($id = null)
 		{
 			//creamos la cadena de seleccion
 			 $sql = "SELECT 

@@ -779,7 +779,7 @@ class Comprobante extends Producto
 		return true;
 	}//GenerarComprobante
 	
-	function CancelarComprobante($data, $id_comprobante, $notaCredito = false, $recipient)
+	function CancelarComprobante($data = null, $id_comprobante = null, $notaCredito = false, $recipient = null)
 	{
 		$this->Util()->DBSelect($_SESSION["empresaId"])->setQuery("SELECT noCertificado, xml, rfc FROM comprobante
 			LEFT JOIN cliente ON cliente.userId = comprobante.userId
@@ -865,7 +865,7 @@ class Comprobante extends Producto
 	}//CancelarComprobante
 
 
-	function GetTotalDesglosado($data)
+	function GetTotalDesglosado($data = null)
 	{
 		if(!$_SESSION["conceptos"])
 		{
@@ -1680,7 +1680,7 @@ class PDF_ImageAlpha extends PDF{
 	*                               Public methods                                 * 
 	*                                                                              * 
 	*******************************************************************************/ 
-	function Image($file,$x,$y,$w=0,$h=0,$type='',$link='', $isMask=false, $maskImg=0) 
+	function Image($file,$x = null,$y = null,$w=0,$h=0,$type='',$link='', $isMask=false, $maskImg=0)
 	{ 
 			//Put an image on the page 
 			if(!isset($this->images[$file])) 

@@ -1,6 +1,6 @@
 <?php
 
-class Util extends Error
+class Util extends ErrorLms
 {
 
 	
@@ -190,85 +190,85 @@ class Util extends Error
 			$string = substr($string,0,$max_chars);
 		}
 
-/*		$string = str_replace("Ñ", "&Ntilde;", $string);
-		$string = str_replace("ñ", "&ntilde;", $string);
-		$string = str_replace("á", "&aacute;", $string);
-		$string = str_replace("é", "&eacute;", $string);
-		$string = str_replace("í", "&iacute;", $string);
-		$string = str_replace("ó", "&oacute;", $string);
-		$string = str_replace("ú", "&uacute;", $string);
-		$string = str_replace("Á", "&Aacute;", $string);
-		$string = str_replace("É", "&Eacute;", $string);
-		$string = str_replace("Í", "&Iacute;", $string);
-		$string = str_replace("Ó", "&Oacute;", $string);
-		$string = str_replace("Ú", "&Uacute;", $string);
+/*		$string = str_replace("ï¿½", "&Ntilde;", $string);
+		$string = str_replace("ï¿½", "&ntilde;", $string);
+		$string = str_replace("ï¿½", "&aacute;", $string);
+		$string = str_replace("ï¿½", "&eacute;", $string);
+		$string = str_replace("ï¿½", "&iacute;", $string);
+		$string = str_replace("ï¿½", "&oacute;", $string);
+		$string = str_replace("ï¿½", "&uacute;", $string);
+		$string = str_replace("ï¿½", "&Aacute;", $string);
+		$string = str_replace("ï¿½", "&Eacute;", $string);
+		$string = str_replace("ï¿½", "&Iacute;", $string);
+		$string = str_replace("ï¿½", "&Oacute;", $string);
+		$string = str_replace("ï¿½", "&Uacute;", $string);
 */
 //		$string = utf8_decode($string);
 	}	
 
 function acento($string){
 $string = utf8_decode($string);
-        $string = str_replace("Ñ", "NI", $string);  
-		$string = str_replace("’", "'", $string);
-		$string = str_replace("ñ", "ni", $string);
-		$string = str_replace("á", "a", $string);
-		$string = str_replace("à", "a", $string);
-		$string = str_replace("é", "e", $string);
-        $string = str_replace("è", "e", $string);
-		$string = str_replace("í", "i", $string);
-        $string = str_replace("ì", "i", $string);
-		$string = str_replace("ó", "o", $string);
-        $string = str_replace("ò", "o", $string);
-		$string = str_replace("ú", "u", $string);
-        $string = str_replace("ù", "u;", $string);
-        $string = str_replace("ü", "u", $string);
-		$string = str_replace("Á", "A", $string);
-		$string = str_replace("É", "E", $string);
-		$string = str_replace("Í", "I", $string);
-		$string = str_replace("Ó", "O", $string);
-		$string = str_replace("Ú", "U", $string);
-/*		$string = str_replace("Ñ", "&Ntilde;;", $string);  
-		$string = str_replace("’", "'", $string);
-		$string = str_replace("ñ", "&ntilde;", $string);
-		$string = str_replace("á", "&aacute;", $string);
-		$string = str_replace("à", "&aacute;", $string);
-        $string = str_replace("á", "&aacute;", $string);
-		$string = str_replace("é", "e", $string);
-        $string = str_replace("è", "e", $string);
-		$string = str_replace("é", "e", $string);
-		$string = str_replace("í", "&iacute;", $string);
-        $string = str_replace("ì", "&iacute;", $string);
-        $string = str_replace("í", "&iacute;", $string);
-		$string = str_replace("ó", "&oacute;", $string);
-        $string = str_replace("ò", "&oacute;", $string);
-        $string = str_replace("ó", "&oacute;", $string);
-		$string = str_replace("ú", "&uacute;", $string);
-        $string = str_replace("ù", "&uacute;", $string);
-		$string = str_replace("ú", "&uacute;", $string);
-        $string = str_replace("ü", "&uuml;", $string);
-		$string = str_replace("Á", "&Aacute;", $string);
-		$string = str_replace("É", "E", $string);
-		$string = str_replace("Í", "&Iacute;", $string);
-		$string = str_replace("Ó", "&Oacute;", $string);
-		$string = str_replace("Ú", "&Uacute;", $string);*/		
+        $string = str_replace("ï¿½", "NI", $string);  
+		$string = str_replace("ï¿½", "'", $string);
+		$string = str_replace("ï¿½", "ni", $string);
+		$string = str_replace("ï¿½", "a", $string);
+		$string = str_replace("ï¿½", "a", $string);
+		$string = str_replace("ï¿½", "e", $string);
+        $string = str_replace("ï¿½", "e", $string);
+		$string = str_replace("ï¿½", "i", $string);
+        $string = str_replace("ï¿½", "i", $string);
+		$string = str_replace("ï¿½", "o", $string);
+        $string = str_replace("ï¿½", "o", $string);
+		$string = str_replace("ï¿½", "u", $string);
+        $string = str_replace("ï¿½", "u;", $string);
+        $string = str_replace("ï¿½", "u", $string);
+		$string = str_replace("ï¿½", "A", $string);
+		$string = str_replace("ï¿½", "E", $string);
+		$string = str_replace("ï¿½", "I", $string);
+		$string = str_replace("ï¿½", "O", $string);
+		$string = str_replace("ï¿½", "U", $string);
+/*		$string = str_replace("ï¿½", "&Ntilde;;", $string);  
+		$string = str_replace("ï¿½", "'", $string);
+		$string = str_replace("ï¿½", "&ntilde;", $string);
+		$string = str_replace("ï¿½", "&aacute;", $string);
+		$string = str_replace("ï¿½", "&aacute;", $string);
+        $string = str_replace("ï¿½", "&aacute;", $string);
+		$string = str_replace("ï¿½", "e", $string);
+        $string = str_replace("ï¿½", "e", $string);
+		$string = str_replace("ï¿½", "e", $string);
+		$string = str_replace("ï¿½", "&iacute;", $string);
+        $string = str_replace("ï¿½", "&iacute;", $string);
+        $string = str_replace("ï¿½", "&iacute;", $string);
+		$string = str_replace("ï¿½", "&oacute;", $string);
+        $string = str_replace("ï¿½", "&oacute;", $string);
+        $string = str_replace("ï¿½", "&oacute;", $string);
+		$string = str_replace("ï¿½", "&uacute;", $string);
+        $string = str_replace("ï¿½", "&uacute;", $string);
+		$string = str_replace("ï¿½", "&uacute;", $string);
+        $string = str_replace("ï¿½", "&uuml;", $string);
+		$string = str_replace("ï¿½", "&Aacute;", $string);
+		$string = str_replace("ï¿½", "E", $string);
+		$string = str_replace("ï¿½", "&Iacute;", $string);
+		$string = str_replace("ï¿½", "&Oacute;", $string);
+		$string = str_replace("ï¿½", "&Uacute;", $string);*/		
 		return $string;
 }	
 	
 	function ConvertStringToCSV($string)
 	{
 		$string = utf8_decode($string);
-		$string = str_replace("Ñ", "N;", $string);
-		$string = str_replace("ñ", "n;", $string);
-		$string = str_replace("á", "a;", $string);
-		$string = str_replace("é", "e;", $string);
-		$string = str_replace("í", "i", $string);
-		$string = str_replace("ó", "o", $string);
-		$string = str_replace("ú", "u", $string);
-		$string = str_replace("Á", "A", $string);
-		$string = str_replace("É", "E", $string);
-		$string = str_replace("Í", "I", $string);
-		$string = str_replace("Ó", "O", $string);
-		$string = str_replace("Ú", "U", $string);		
+		$string = str_replace("ï¿½", "N;", $string);
+		$string = str_replace("ï¿½", "n;", $string);
+		$string = str_replace("ï¿½", "a;", $string);
+		$string = str_replace("ï¿½", "e;", $string);
+		$string = str_replace("ï¿½", "i", $string);
+		$string = str_replace("ï¿½", "o", $string);
+		$string = str_replace("ï¿½", "u", $string);
+		$string = str_replace("ï¿½", "A", $string);
+		$string = str_replace("ï¿½", "E", $string);
+		$string = str_replace("ï¿½", "I", $string);
+		$string = str_replace("ï¿½", "O", $string);
+		$string = str_replace("ï¿½", "U", $string);		
 		return $string;
 	}
 
@@ -286,18 +286,18 @@ $string = utf8_decode($string);
 			$string = substr($string,0,$max_chars);
 		}
 
-		$string = str_replace("Ñ", "&Ntilde;", $string);
-		$string = str_replace("ñ", "&ntilde;", $string);
-		$string = str_replace("á", "&aacute;", $string);
-		$string = str_replace("é", "&eacute;", $string);
-		$string = str_replace("í", "&iacute;", $string);
-		$string = str_replace("ó", "&oacute;", $string);
-		$string = str_replace("ú", "&uacute;", $string);
-		$string = str_replace("Á", "&Aacute;", $string);
-		$string = str_replace("É", "&Eacute;", $string);
-		$string = str_replace("Í", "&Iacute;", $string);
-		$string = str_replace("Ó", "&Oacute;", $string);
-		$string = str_replace("Ú", "&Uacute;", $string);
+		$string = str_replace("ï¿½", "&Ntilde;", $string);
+		$string = str_replace("ï¿½", "&ntilde;", $string);
+		$string = str_replace("ï¿½", "&aacute;", $string);
+		$string = str_replace("ï¿½", "&eacute;", $string);
+		$string = str_replace("ï¿½", "&iacute;", $string);
+		$string = str_replace("ï¿½", "&oacute;", $string);
+		$string = str_replace("ï¿½", "&uacute;", $string);
+		$string = str_replace("ï¿½", "&Aacute;", $string);
+		$string = str_replace("ï¿½", "&Eacute;", $string);
+		$string = str_replace("ï¿½", "&Iacute;", $string);
+		$string = str_replace("ï¿½", "&Oacute;", $string);
+		$string = str_replace("ï¿½", "&Uacute;", $string);
 		
 	}	
 
@@ -1061,17 +1061,17 @@ function HandleMultipages($page,$total,$link,$items_per_page=0,$pagevar="p"){
 		if($day == 29 && $month != 2)
 			return true;
 		
-		//si el dia es 29 y el mes es febrero, validar solo si es año bisiesto
+		//si el dia es 29 y el mes es febrero, validar solo si es aï¿½o bisiesto
 		if($day == 29 && $month == 2 &&
 		    ( ($year % 4 == 0) && (($year % 100 != 0) || ($year % 400 == 0)) )   )
 		{
-			//dia 29, mes Feb, año es bisiesto, fecha valida
+			//dia 29, mes Feb, aï¿½o es bisiesto, fecha valida
 			return true;
 		}
 		if($day == 29 && $month == 2 &&
 		    !( ($year % 4 == 0) && (($year % 100 != 0) || ($year % 400 == 0)) )   )
 		{
-			//dia 29, mes Feb, Año no es bisiesto, fecha no valida
+			//dia 29, mes Feb, Aï¿½o no es bisiesto, fecha no valida
 			return false;
 		}
 		// si el dia es mayor a 29 y es febrero, es fecha no valida

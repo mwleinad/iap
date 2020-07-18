@@ -648,7 +648,7 @@ class Empresa extends Main
 		return true;
 	}
 	
-	function CancelarComprobante()
+	function CancelarComprobante($data = null, $id_comprobante = null, $notaCredito = false, $recipient = null)
 	{
 		global $comprobante;
 	

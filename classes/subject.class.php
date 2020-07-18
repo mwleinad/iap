@@ -580,7 +580,7 @@ public function Enumerate_p(){
 			return $this->Util()->DB()->GetSingle();
 		}
 		
-		public function EnumerateById()
+		public function EnumerateById($id = null)
 		{
 			
 			$sql = 'SELECT 
