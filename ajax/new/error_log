@@ -153,3 +153,12 @@ Stack trace:
 [01-May-2017 23:35:44 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/ajax/new/dependencia-ciudadest.php on line 14
 [15-May-2017 16:46:20 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/ajax/new/dependencia-ciudades.php on line 14
 [15-May-2017 16:46:20 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiap/public_html/ajax/new/dependencia-ciudades.php on line 14
+[18-Jul-2020 13:31:05 America/Mexico_City] PHP Warning:  array_keys() expects parameter 1 to be array, string given in /home/iapchiapasedu/public_html/app/classes/util.class.php on line 698
+[18-Jul-2020 13:31:05 America/Mexico_City] PHP Warning:  Illegal string offset 'site_name' in /home/iapchiapasedu/public_html/app/classes/util.class.php on line 700
+[18-Jul-2020 13:31:05 America/Mexico_City] PHP Warning:  Cannot assign an empty string to a string offset in /home/iapchiapasedu/public_html/app/classes/util.class.php on line 700
+[18-Jul-2020 13:31:05 America/Mexico_City] PHP Warning:  Illegal string offset 'site_name' in /home/iapchiapasedu/public_html/app/classes/util.class.php on line 703
+[18-Jul-2020 13:31:05 America/Mexico_City] PHP Warning:  array_keys() expects parameter 1 to be array, string given in /home/iapchiapasedu/public_html/app/classes/util.class.php on line 698
+[18-Jul-2020 13:31:05 America/Mexico_City] PHP Warning:  Illegal string offset 'site_name' in /home/iapchiapasedu/public_html/app/classes/util.class.php on line 700
+[18-Jul-2020 13:31:05 America/Mexico_City] PHP Warning:  Cannot assign an empty string to a string offset in /home/iapchiapasedu/public_html/app/classes/util.class.php on line 700
+[18-Jul-2020 13:31:05 America/Mexico_City] PHP Warning:  Illegal string offset 'site_name' in /home/iapchiapasedu/public_html/app/classes/util.class.php on line 703
+[18-Jul-2020 13:31:05 America/Mexico_City] PHP Warning:  Invalid argument supplied for foreach() in /home/iapchiapasedu/public_html/app/classes/sendmail.class.php on line 41
