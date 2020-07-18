@@ -857,6 +857,7 @@ class Student extends User
 			$attachment[1] = DOC_ROOT."/manual_alumno.pdf";
 			$fileName[1] = "Manual_Alumno.pdf";
 
+			print_r($message);
 			$sendmail->PrepareAttachment($message[1]["subject"], $message[1]["body"], $details_body, $details_subject, $email, $nombre, $attachment, $fileName);
 
 			return $complete;
