@@ -54,6 +54,7 @@ class SendMail extends Main
 			{
 				$this->email->AddAttachment($attach, $fileName[$key]);
 			}
+			print_r($this->email);
 			$this->email->Send();
 	}
 
