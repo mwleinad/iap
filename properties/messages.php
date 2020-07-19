@@ -1,34 +1,34 @@
 <?php
 
-$message[1]["subject"] = "Estas oficialmente pre-inscrito al Programa de Alta Dirección del Instituto de Administración Pública del Estado de Chiapas";
+$message[1]["subject"] = "Estas oficialmente pre-inscrito al Programa de Alta DirecciÃ³n del Instituto de AdministraciÃ³n PÃºblica del Estado de Chiapas";
 $message[1]["body"] = "
-	Bienvenido al Programa de Alta Dirección del Instituto de Administración Pública del Estado de Chiapas. Estamos muy agradecidos que nos hayas elegido.
+	Bienvenido al Programa de Alta DirecciÃ³n del Instituto de AdministraciÃ³n PÃºblica del Estado de Chiapas. Estamos muy agradecidos que nos hayas elegido.
 	
-	El(la) |major| de tu elección es:
+	El(la) |major| de tu elecciÃ³n es:
 	<b>|course|</b>
 	
 	Tu datos para ingresar al sistema son los siguientes
 	<b>Matricula:</b> |email|
 	<b>Contrase&ntilde;a del Sistema:</b>	|password|
 	
-	Tu solicitud de pre-inscripción está siendo revisada por nuestro personal, por lo que en breve recibirás un correo con la confirmación de tu inscripción, esto te dará acceso total a la currícula elegida
+	Tu solicitud de pre-inscripciÃ³n estÃ¡ siendo revisada por nuestro personal, por lo que en breve recibirÃ¡s un correo con la confirmaciÃ³n de tu inscripciÃ³n, esto te darÃ¡ acceso total a la currÃ­cula elegida
 
 	Nota:
-	Si eres alumno presencial, se te adjuntó a este correo una cédula de inscripción, misma que tendrás que presentar en las oficinas del IAP-Chiapas, ubicadas en Libramiento Norte Poniente No 2718. Fraccionamiento Ladera de la Loma. Tgz, Chiapas.
+	Si eres alumno presencial, se te adjuntÃ³ a este correo una cï¿½dula de inscripciÃ³n, misma que tendrÃ¡s que presentar en las oficinas del IAP-Chiapas, ubicadas en Libramiento Norte Poniente No 2718. Fraccionamiento Ladera de la Loma. Tgz, Chiapas.
 	
-	Para mejor la experiencia de navegación en nuestro Sistema de Educación en Línea, te recomendamos utilizar el navegador Chrome así como también consultar el manual del alumno que se encuentra disponible en el siguiente enlace:
-	<a href='www.iapchiapasenlinea.mx/manual_alumno.pdf'>www.iapchiapasenlinea.mx/manual_alumno.pdf</a>
+	Para mejor la experiencia de navegaciÃ³n en nuestro Sistema de EducaciÃ³n en LÃ­nea, te recomendamos utilizar el navegador Chrome asÃ­ como tambiÃ©n consultar el manual del alumno que se encuentra disponible en el siguiente enlace:
+	<a href='https://iapchiapas.edu.mx/manual_alumno.pdf'>www.iapchiapas.edu.mx/manual_alumno.pdf</a>
 
 	";
 
 $message[2]["subject"] = "Pago autorizado";
 $message[2]["body"] = "
-	El Instituto de Administración Pública del Estado de Chiapas, A. C., agradece tu pago y te informa que este ha sido autorizado. El acceso a:
+	El Instituto de AdministraciÃ³n PÃºblica del Estado de Chiapas, A. C., agradece tu pago y te informa que este ha sido autorizado. El acceso a:
 
 	El(la) |major| <b>|course|</b>
 
-Se encuentra activo por lo que ya puedes acceder a la currícula que hayas elegido.
+Se encuentra activo por lo que ya puedes acceder a la currï¿½cula que hayas elegido.
 	";
-	
-	
+
+
 ?>

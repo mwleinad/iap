@@ -47,8 +47,8 @@ class SendMail extends Main
 			$this->email->SetFrom($from, $fromName);
 
 			$this->email->AddAddress($to, $toName);
-			$this->email->Subject    = utf8_decode($subject);
-			$this->email->MsgHTML(utf8_decode($body));
+			$this->email->Subject    = $subject;
+			$this->email->MsgHTML($body);
 
 			foreach($attachment as $key => $attach)
 			{
