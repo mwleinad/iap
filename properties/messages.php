@@ -14,7 +14,7 @@ $message[1]["body"] = "
 	Tu solicitud de pre-inscripción está siendo revisada por nuestro personal, por lo que en breve recibirás un correo con la confirmación de tu inscripción, esto te dará acceso total a la currícula elegida
 
 	Nota:
-	Si eres alumno presencial, se te adjuntó a este correo una c�dula de inscripción, misma que tendrás que presentar en las oficinas del IAP-Chiapas, ubicadas en Libramiento Norte Poniente No 2718. Fraccionamiento Ladera de la Loma. Tgz, Chiapas.
+	Si eres alumno presencial, se te adjuntó a este correo una cédula de inscripción, misma que tendrás que presentar en las oficinas del IAP-Chiapas, ubicadas en Libramiento Norte Poniente No 2718. Fraccionamiento Ladera de la Loma. Tgz, Chiapas.
 	
 	Para mejor la experiencia de navegación en nuestro Sistema de Educación en Línea, te recomendamos utilizar el navegador Chrome así como también consultar el manual del alumno que se encuentra disponible en el siguiente enlace:
 	<a href='https://iapchiapas.edu.mx/manual_alumno.pdf'>www.iapchiapas.edu.mx/manual_alumno.pdf</a>
