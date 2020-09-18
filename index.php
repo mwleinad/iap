@@ -201,11 +201,9 @@ $pages = array(
 	'perfil',
 	'grupo',
 	'aviso',
-    'calification'
-	
-	
-	
-	
+	'calification',
+	'cobranza-calendario',
+	'configurar-calendario'
 );
 
 if(!in_array($_GET['page'], $pages))

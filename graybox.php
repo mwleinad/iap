@@ -209,7 +209,8 @@ $pages = array(
 	'aviso',
 	'add-activity-c',
 	'informe',
-	'add-resource-c'
+    'add-resource-c',
+    'calendar-form'
 
 );
 
