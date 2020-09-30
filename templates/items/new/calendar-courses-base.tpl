@@ -28,14 +28,18 @@
             {/if}  
         </td>
         <td class="text-center">
-            <a href="{$WEB_ROOT}/configurar-calendario/id/{$subject.courseId}" target="_blank" title="Configurar Calendario">
-                <i class="material-icons">calendar_today</i>
-            </a>
-		</td>
+            {if $subject.totalPeriods > 0}
+                <a href="{$WEB_ROOT}/configurar-calendario/id/{$subject.courseId}" target="_blank" title="Configurar Calendario">
+                    <i class="material-icons">calendar_today</i>
+                </a>
+            {/if}
+        </td>
         <td class="text-center">
-            <a href="" target="_blank" title="Configurar Becas">
-                <i class="material-icons">verified</i>
-            </a>
+            {if $subject.totalPeriods > 0}
+                <a href="" target="_blank" title="Configurar Becas">
+                    <i class="material-icons">verified</i>
+                </a>
+            {/if}
 		</td>
     </tr>
     {foreachelse}

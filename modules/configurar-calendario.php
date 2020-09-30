@@ -6,8 +6,11 @@
 
     $course->setCourseId($_GET['id']);
     $info = $course->Info();
+    $calendar->setCourseId($_GET['id']);
+    $distribution = $calendar->Distribution();
     
     $smarty->assign('info', $info);
+    $smarty->assign('distribution', $distribution);
     $smarty->assign('mnuMain', 'cobranza');
 	$smarty->assign('mnuSubmain', 'calendario');
 ?>

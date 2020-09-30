@@ -203,7 +203,9 @@ $pages = array(
 	'aviso',
 	'calification',
 	'cobranza-calendario',
-	'configurar-calendario'
+	'configurar-calendario',
+	'calendar-form',
+	'edit-calendar-form'
 );
 
 if(!in_array($_GET['page'], $pages))

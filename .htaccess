@@ -1,12 +1,6 @@
 RewriteEngine on
-#Redirect 301 / https://app.iapchiapas.org.mx
-
-RewriteCond %{HTTPS} !=on
-RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
-
 RewriteRule ^([^/\.]+)/?$ index.php?page=$1 [L]
 RewriteRule ^([^/\.]+)/([^/\.]+)/([^/\.]+)?$ index.php?page=$1&$2=$3 [L]
-RewriteRule ^([^/\.]+)/([^/\.]+)/([^/\.]+)/([^/\.]+)/([^/\.]+)?$ index.php?page=$1&$2=$3&$4=$5 [L]
 RewriteRule ^([^/\.]+)/([^/\.]+)/?$ index.php?page=$1&section=$2 [L]
 
 RewriteRule ^([^/\.]+)/([^/\.]+)/([^/\.]+)/([^/\.]+)?$ index.php?page=$1&section=$2&$3=$4 [L]

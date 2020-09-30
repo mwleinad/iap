@@ -210,7 +210,8 @@ $pages = array(
 	'add-activity-c',
 	'informe',
     'add-resource-c',
-    'calendar-form'
+    'calendar-form',
+    'edit-calendar-form'
 
 );
 

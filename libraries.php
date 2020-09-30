@@ -86,6 +86,7 @@ include_once(DOC_ROOT."/classes/bank.class.php");
 include_once(DOC_ROOT."/classes/solicitud.class.php");
 include_once(DOC_ROOT.'/libs/pdf/dompdf_config.inc.php');
 include_once(DOC_ROOT.'/classes/docente.class.php');
+include_once(DOC_ROOT . '/classes/calendar.class.php');
 $docente = new Docente();
 
 $db = new DB;
@@ -142,6 +143,7 @@ $notificacion= new Notificacion;
 $bank= new Bank;
 $solicitud= new Solicitud;
 $encuesta= new Encuesta;
+$calendar = new Calendar;
 
 $smarty = new Smarty;
 
