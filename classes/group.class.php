@@ -648,11 +648,17 @@
 		public function DefaultGroup()
 		{
 	
-			$this->Util()->DB()->setQuery("
-				SELECT *, user_subject.status AS status FROM user_subject
-				LEFT JOIN user ON user_subject.alumnoId = user.userId
-				WHERE courseId = '".$this->getCourseId()."' and user.activo='1' and user_subject.status='activo'
-				ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC");
+			$sql = "SELECT *, 
+						us.status AS status,
+						cd.discount
+					FROM user_subject us
+						LEFT JOIN user u 
+							ON us.alumnoId = u.userId
+						LEFT JOIN calendar_discounts cd 
+							ON (us.alumnoId = cd.userId AND us.courseId = cd.courseId)
+					WHERE us.courseId = '" . $this->getCourseId() . "' AND u.activo='1' AND us.status='activo'
+					ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
+			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
 			
 			$student= new Student();

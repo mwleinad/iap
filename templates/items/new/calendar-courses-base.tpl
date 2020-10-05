@@ -36,7 +36,7 @@
         </td>
         <td class="text-center">
             {if $subject.totalPeriods > 0}
-                <a href="" target="_blank" title="Configurar Becas">
+                <a href="{$WEB_ROOT}/becas-calendario/id/{$subject.courseId}" target="_blank" title="Configurar Becas">
                     <i class="material-icons">verified</i>
                 </a>
             {/if}

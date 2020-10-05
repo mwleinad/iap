@@ -10,6 +10,8 @@ class Calendar extends Module
     private $date;
     private $isVisible;
     private $hasDiscount;
+    private $discount;
+    private $userId;
 
     public function setCourseId($value)
     {
@@ -34,6 +36,16 @@ class Calendar extends Module
     public function setAmount($value)
     {
         $this->amount = doubleval($value);
+    }
+
+    public function setDiscount($value)
+    {
+        $this->discount = intval($value);
+    }
+
+    public function setUserId($value)
+    {
+        $this->userId = intval($value);
     }
 
     public function setDate($value)
@@ -169,6 +181,26 @@ class Calendar extends Module
             $this->Util()->setError(90012,'error');
         }
         $this->Util()->PrintErrors();
+        return $result;
+    }
+
+    public function saveDiscount()
+    {
+        $sql = "SELECT COUNT(userId) FROM calendar_discounts WHERE userId = " . $this->userId . " AND  courseId = " . $this->courseId;
+        $this->Util()->DB()->setQuery($sql);
+        $countDiscounts = $this->Util()->DB()->GetSingle();
+        if($countDiscounts == 0)
+        {
+            $sql = "INSERT INTO calendar_discounts(courseId, userId, discount) VALUES(" . $this->courseId . ", " . $this->userId . ", " . $this->discount . ")";
+            $this->Util()->DB()->setQuery($sql);
+            $result = $this->Util()->DB()->InsertData();
+        }
+        else
+        {
+            $sql = "UPDATE calendar_discounts SET discount = " . $this->discount . " WHERE courseId = " . $this->courseId . " AND userId = " . $this->userId;
+            $this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->UpdateData();
+        }
         return $result;
     }
 }
