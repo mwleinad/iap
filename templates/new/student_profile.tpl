@@ -329,6 +329,11 @@
                                             <a href="{$WEB_ROOT}/graybox.php?page=view-modules-course-student&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
                                             <i class="fa fa-sign-in fa-lg"></i>
                                             </a>
+                                            {if $subject.totalPeriods > 0}
+                                                <a href="{$WEB_ROOT}/graybox.php?page=calendar-student&id={$subject.courseId}&user={$subject.alumnoId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Calendario de Pagos">
+                                                    <i class="fa fa-calendar fa-lg"></i>
+                                                </a>
+                                            {/if}
                                         </td>
                                      </tr>
                                         {foreachelse}

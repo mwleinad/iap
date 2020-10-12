@@ -211,7 +211,8 @@ $pages = array(
 	'informe',
     'add-resource-c',
     'calendar-form',
-    'edit-calendar-form'
+    'edit-calendar-form',
+    'calendar-student'
 
 );
 

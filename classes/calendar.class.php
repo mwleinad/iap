@@ -203,4 +203,42 @@ class Calendar extends Module
         }
         return $result;
     }
+
+    public function getCalendar()
+    {
+        /* $sql = "SELECT cd.*, 
+                        cc.concept,
+                        cdt.userId,
+                        cdt.discount
+                    FROM calendar_distribution cd
+                        INNER JOIN calendar_concepts cc
+                            ON cd.calendarConceptId = cc.calendarConceptId
+                        INNER JOIN calendar_discounts cdt
+                            ON cd.courseId = cdt.courseId
+                    WHERE cd.courseId = " . $this->courseId . " AND cdt.userId = " . $this->userId;
+        $this->Util()->DB()->setQuery($sql);
+        $result = $this->Util()->DB()->GetResult();
+        return $result; */
+        $sql = "SELECT MAX(period) FROM calendar_distribution WHERE courseId = " . $this->courseId;
+        $this->Util()->DB()->setQuery($sql);
+        $max_period = $this->Util()->DB()->GetSingle();
+        $distribution = null;
+        for($i = 1; $i <= $max_period; $i++)
+        {
+            $sql = "SELECT 
+                        cd.*,
+                        DATE_FORMAT(cd.date, '%d-%m-%Y') AS date_dmy,
+                        cc.concept,
+                        cdt.discount
+                    FROM calendar_distribution cd 
+                        INNER JOIN calendar_concepts cc
+                            ON cd.calendarConceptId = cc.calendarConceptId
+                        LEFT JOIN calendar_discounts cdt
+                            ON (cd.courseId = cdt.courseId AND cdt.userId = " . $this->userId . ")
+                    WHERE cd.courseId = " . $this->courseId . " AND cd.period = " . $i . " AND cd.isVisible = 1 ORDER BY cd.date";
+            $this->Util()->DB()->setQuery($sql);
+            $distribution[$i] =  $this->Util()->DB()->GetResult();
+        }
+        return $distribution;
+    }
 }
