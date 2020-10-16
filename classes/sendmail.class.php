@@ -110,6 +110,41 @@ class SendMail extends Main
 			$this->email->Send();
 	}
 
+	public function PrepareMailer($subject, $body, $details_body, $details_subject, $to, $toName, $attachment = array(), $fileName = array(), $from = "enlinea@iapchiapas.edu.mx", $fromName = "Administrador del Sistema") 
+	{
+			$mail = new PHPMailer();
+			$mail->IsSMTP();
+			$mail->SMTPDebug  = 1;
+			$mail->SMTPAuth   = true;
+			$mail->SMTPSecure = "ssl";
+			$mail->Host       = "smtp.gmail.com";
+			$mail->Port       = 465;
+			$mail->Username   = "enlinea@iapchiapas.edu.mx";
+			$mail->Password   = "IAP*2018_chis";
+
+			$body = nl2br($this->Util()->handle_mail_patterns($body,$details_body));
+			$subject = $this->Util()->handle_mail_patterns($subject,$details_subject);
+			
+			$mail->AddReplyTo($from, $fromName);
+			$mail->SetFrom($from, $fromName);
+			
+			$mail->AddAddress($to, $toName);
+			$mail->Subject    = $subject;
+			$mail->MsgHTML($body);
+			
+			if(is_array($attachment))
+			{
+				if(count($attachment) > 0)
+				{
+					foreach($attachment as $key => $attach)
+					{
+						$mail->AddAttachment($attach, $fileName[$key]);
+					}
+				}
+			}
+			$mail->Send();
+	}
+
 }
 
 

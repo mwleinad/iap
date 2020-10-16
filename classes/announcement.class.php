@@ -89,13 +89,16 @@
 				$message[3]["body"] = $this->Util()->DecodeTiny($this->description);
 				
 				$details_body = array();
-				$details_subject = array();
+                $details_subject = array();
+                $attachment = "";
+				$fileName = "";
 				$sendmail = new Sendmail;
-				 foreach($theGroup as $key => $value)
-				{
-                $nombremail=$this->Util()->acento($value["names"]);
-				 $sendmail->Prepare($message[3]["subject"], $message[3]["body"], $details_body, $details_subject, $value["email"], $nombremail); 		
-					
+				foreach($theGroup as $key => $value)
+				{	
+					$nombremail = $this->Util()->acento($value["names"]);
+					$correo = strtolower($value['email']);
+					if($correo != '')
+						$sendmail->PrepareMailer($message[3]["subject"], $message[3]["body"], $details_body, $details_subject, $correo, $nombremail, $attachment, $fileName);
 				}
 						
 			}
@@ -150,17 +153,20 @@
 				$modulo=$this->Util()->acento($myModule["name"]);
                 $titulo=$this->Util()->acento($this->title);
 				//echo $modulo;
-				$message[3]["subject"] = "Nuevo anuncio disponible en el modulo ".$modulo." | ".$titulo;
+				$message[3]["subject"] = "Se actualizo un anuncio en el modulo " . $modulo . " | " . $titulo;
 				$message[3]["body"] = $this->Util()->DecodeTiny($this->description);
 				
 				$details_body = array();
 				$details_subject = array();
+				$attachment = "";
+				$fileName = "";
 				$sendmail = new Sendmail;
-				 foreach($theGroup as $key => $value)
+				foreach($theGroup as $key => $value)
 				{
-                $nombremail=$this->Util()->acento($value["names"]);
-				 $sendmail->Prepare($message[3]["subject"], $message[3]["body"], $details_body, $details_subject, $value["email"], $nombremail); 		
-					
+					$nombremail = $this->Util()->acento($value["names"]);
+					$correo = strtolower($value['email']);
+					if($correo != '')
+						$sendmail->PrepareMailer($message[3]["subject"], $message[3]["body"], $details_body, $details_subject, $correo, $nombremail, $attachment, $fileName);
 				}
 						
 			}

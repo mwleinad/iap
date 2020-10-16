@@ -15,7 +15,7 @@
 // exit;	
 		// echo 'llega';
 			// exit;
-			$announcement->setCourseModuleId($_POST["courseModuleId"]);
+			$announcement->setCourseModuleId($_POST["courseModuleId2"]);
 			$announcement->setTitle($_POST["title"]);
 			$announcement->setDescription($_POST["description"]);
 			$announcement->Edit($_POST['announcementId']);
