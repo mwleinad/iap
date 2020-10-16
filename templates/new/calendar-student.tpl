@@ -35,9 +35,13 @@
                                                     <td>{$item['concept']} {$item['consecutive']}</td>
                                                     <td class="text-center">{$item['date_dmy']}</td>
                                                     <td class="text-center">${$item['amount']}</td>
-                                                    <td class="text-center">{$item['discount']}%</td>
+                                                    <td class="text-center">{($item['hasDiscount'] == 1) ? ($item['discount']|cat:'%') : 'No Aplica'}</td>
                                                     <td class="text-center">
-                                                        ${(((100-$item['discount'])/100) * $item['amount'])}
+                                                        {if $item['hasDiscount'] == 1}
+                                                            ${(((100-$item['discount'])/100) * $item['amount'])}
+                                                        {else}
+                                                            ${$item['amount']}
+                                                        {/if}
                                                     </td>
                                                 </tr>
                                             {foreachelse}
