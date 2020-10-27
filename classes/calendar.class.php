@@ -12,6 +12,7 @@ class Calendar extends Module
     private $hasDiscount;
     private $discount;
     private $userId;
+    private $paid;
 
     public function setCourseId($value)
     {
@@ -66,6 +67,11 @@ class Calendar extends Module
     public function setHasDiscount($value)
     {
         $this->hasDiscount = intval($value);
+    }
+
+    public function setPaid($value)
+    {
+        $this->paid = intval($value);
     }
 
     function EnumerateConcepts()
@@ -229,16 +235,39 @@ class Calendar extends Module
                         cd.*,
                         DATE_FORMAT(cd.date, '%d-%m-%Y') AS date_dmy,
                         cc.concept,
-                        cdt.discount
+                        cdt.discount,
+                        IFNULL(cp.paid, 0) AS paid
                     FROM calendar_distribution cd 
                         INNER JOIN calendar_concepts cc
                             ON cd.calendarConceptId = cc.calendarConceptId
                         LEFT JOIN calendar_discounts cdt
                             ON (cd.courseId = cdt.courseId AND cdt.userId = " . $this->userId . ")
+                        LEFT JOIN calendar_payments cp 
+                        	ON (cd.calendarDistributionId = cp.calendarDistributionId AND cp.userId = " . $this->userId . ")
                     WHERE cd.courseId = " . $this->courseId . " AND cd.period = " . $i . " AND cd.isVisible = 1 ORDER BY cd.date";
             $this->Util()->DB()->setQuery($sql);
             $distribution[$i] =  $this->Util()->DB()->GetResult();
         }
         return $distribution;
+    }
+
+    public function savePayment()
+    {
+        $sql = "SELECT COUNT(userId) FROM calendar_payments WHERE userId = " . $this->userId . " AND courseId = " . $this->courseId . " AND calendarDistributionId = " . $this->calendarDistributionId;
+        $this->Util()->DB()->setQuery($sql);
+        $countPayments = $this->Util()->DB()->GetSingle();
+        if($countPayments == 0)
+        {
+            $sql = "INSERT INTO calendar_payments(calendarDistributionId, userId, courseId, date, paid) VALUES(" . $this->calendarDistributionId . ", " . $this->userId . ", " . $this->courseId . ", CURDATE(), " . $this->paid . ")";
+            $this->Util()->DB()->setQuery($sql);
+            $result = $this->Util()->DB()->InsertData();
+        }
+        else
+        {
+            $sql = "UPDATE calendar_payments SET paid = " . $this->paid . ", date = CURDATE() WHERE courseId = " . $this->courseId . " AND userId = " . $this->userId . " AND calendarDistributionId = " . $this->calendarDistributionId;
+            $this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->UpdateData();
+        }
+        return $result;
     }
 }

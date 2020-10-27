@@ -206,7 +206,10 @@ $pages = array(
 	'configurar-calendario',
 	'calendar-form',
 	'edit-calendar-form',
-	'becas-calendario'
+	'becas-calendario',
+	'pagos-calendario',
+	'history-calendar',
+	'finanzas'
 );
 
 if(!in_array($_GET['page'], $pages))

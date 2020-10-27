@@ -212,8 +212,8 @@ $pages = array(
     'add-resource-c',
     'calendar-form',
     'edit-calendar-form',
-    'calendar-student'
-
+    'calendar-student',
+    'history-calendar'
 );
 
 if(!in_array($_GET['page'], $pages))

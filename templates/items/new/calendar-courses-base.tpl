@@ -41,6 +41,13 @@
                 </a>
             {/if}
 		</td>
+        <td class="text-center">
+            {if $subject.totalPeriods > 0}
+                <a href="{$WEB_ROOT}/pagos-calendario/id/{$subject.courseId}" target="_blank" title="Historial de Pagos">
+                    <i class="material-icons">attach_money</i>
+                </a>
+            {/if}
+		</td>
     </tr>
     {foreachelse}
     <tr>

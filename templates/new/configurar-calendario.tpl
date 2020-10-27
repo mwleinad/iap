@@ -29,39 +29,37 @@
                         <div class="panel-heading"><b>{$info.tipoCuatri} {$period}</b></div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                                {if array_key_exists($period, $distribution) > 0}
-                                    <table class="table table-sm">
-                                        <thead>
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Concepto</th>
+                                            <th class="text-center">Monto</th>
+                                            <th class="text-center">Fecha</th>
+                                            <th class="text-center">¿Es Visible?</th>
+                                            <th class="text-center">¿Aplica Beca?</th>
+                                            <th class="text-center">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {foreach from=$distribution[$period] item=item}
                                             <tr>
-                                                <th class="text-center">Concepto</th>
-                                                <th class="text-center">Monto</th>
-                                                <th class="text-center">Fecha</th>
-                                                <th class="text-center">¿Es Visible?</th>
-                                                <th class="text-center">¿Aplica Beca?</th>
-                                                <th class="text-center">Acciones</th>
+                                                <td>{$item['concept']} {$item['consecutive']}</td>
+                                                <td class="text-center">${$item['amount']}</td>
+                                                <td class="text-center">{$item['date']}</td>
+                                                <td class="text-center">{($item['isVisible'] == 1) ? 'Si' : 'No'}</td>
+                                                <td class="text-center">{($item['hasDiscount'] == 1) ? 'Si' : 'No'}</td>
+                                                <td class="text-center">
+                                                    <a href="{$WEB_ROOT}/graybox.php?page=edit-calendar-form&id={$item.calendarDistributionId}" title="Editar" data-target="#ajax" data-toggle="modal" class="btn btn-primary btn-sm">
+                                                        <i class="fa fa-pencil-square-o"></i>
+                                                    </a>
+                                                    <a class="btn btn-danger btn-sm btn-delete" title="Eliminar" data-id="{$item.calendarDistributionId}">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            {foreach from=$distribution[$period] item=item}
-                                                <tr>
-                                                    <td>{$item['concept']} {$item['consecutive']}</td>
-                                                    <td class="text-center">${$item['amount']}</td>
-                                                    <td class="text-center">{$item['date']}</td>
-                                                    <td class="text-center">{($item['isVisible'] == 1) ? 'Si' : 'No'}</td>
-                                                    <td class="text-center">{($item['hasDiscount'] == 1) ? 'Si' : 'No'}</td>
-                                                    <td class="text-center">
-                                                        <a href="{$WEB_ROOT}/graybox.php?page=edit-calendar-form&id={$item.calendarDistributionId}" title="Editar" data-target="#ajax" data-toggle="modal" class="btn btn-primary btn-sm">
-                                                            <i class="fa fa-pencil-square-o"></i>
-                                                        </a>
-                                                        <a class="btn btn-danger btn-sm btn-delete" title="Eliminar" data-id="{$item.calendarDistributionId}">
-                                                            <i class="fa fa-trash"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            {/foreach}
-                                        </tbody>
-                                    </table>
-                                {/if}
+                                        {/foreach}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

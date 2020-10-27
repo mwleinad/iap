@@ -123,8 +123,8 @@
 						</a>
 						</li>-->
 						<li>
-						<a href="{$WEB_ROOT}/estatus-financiero" ><!--onClick="verCalendario()"-->
-						  <i class="fa fa-file-text" aria-hidden="true"></i>Estatus Financiero
+						<a href="{$WEB_ROOT}/finanzas">
+						  <i class="fa fa-dollar"></i> Finanzas
 						</a>
 						</li>
 						<li>
@@ -331,7 +331,7 @@
                                             </a>
                                             {if $subject.totalPeriods > 0}
                                                 <a href="{$WEB_ROOT}/graybox.php?page=calendar-student&id={$subject.courseId}&user={$subject.alumnoId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Calendario de Pagos">
-                                                    <i class="fa fa-calendar fa-lg"></i>
+                                                    <i class="fa fa-dollar fa-lg"></i>
                                                 </a>
                                             {/if}
                                         </td>

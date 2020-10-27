@@ -9,4 +9,5 @@
     <th class="text-center">Fecha Final</th>
     <th class="text-center">Calendario</th>
     <th class="text-center">Becas</th>
+    <th class="text-center">Pagos</th>
 </tr>
