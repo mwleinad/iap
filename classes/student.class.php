@@ -1212,7 +1212,8 @@ class Student extends User
 
 		 $sql = "
 								SELECT 
-									* 
+									*,
+									(SELECT COUNT(userId) FROM accepted_regulations WHERE userId = user.userId) AS hasRGP
 								FROM 
 									user
 								WHERE 
@@ -2975,7 +2976,33 @@ class Student extends User
 	}
 
 
+	function hasAcceptedRegulation()
+	{
+		$sql = "SELECT COUNT(userId) FROM accepted_regulations WHERE userId = " . $this->userId;
+		$this->Util()->DB()->setQuery($sql);
+		$accepted = $this->Util()->DB()->GetSingle() == 1 ? true : false;
+		return $accepted;
+	}
 
+	function saveAcceptedRegulation()
+	{
+		$sql = "SELECT COUNT(userId) FROM accepted_regulations WHERE userId = " . $this->userId;
+		$hasAccepted = $this->Util()->DB()->setQuery($sql);
+		if($hasAccepted == 0)
+		{
+			$sql = "INSERT INTO accepted_regulations(userId, date) VALUES(" . $this->userId . ", CURDATE())";
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->InsertData();
+		}
+		return $accepted;
+	}
+
+	function getAcceptedRegulation()
+	{
+		$sql = "SELECT * FROM accepted_regulations WHERE userId = " . $this->userId;
+		$this->Util()->DB()->setQuery($sql);
+		return $this->Util()->DB()->GetRow();
+	}
 }
 
 ?>

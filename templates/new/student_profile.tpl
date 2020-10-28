@@ -146,6 +146,11 @@
 						<a href="{$WEB_ROOT}/personal-academico" >
 						   <i class="fa fa-sitemap"></i>Personal Academico
 						</a>
+                        </li>
+                        <li>
+                            <a href="{$WEB_ROOT}/reglamento">
+                                <i class="fa fa-balance-scale"></i> Reglamento General de Posgrado
+                            </a>
 						</li>
                     </ul>
                 </div>

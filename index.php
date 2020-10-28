@@ -209,7 +209,8 @@ $pages = array(
 	'becas-calendario',
 	'pagos-calendario',
 	'history-calendar',
-	'finanzas'
+	'finanzas',
+	'reglamento'
 );
 
 if(!in_array($_GET['page'], $pages))

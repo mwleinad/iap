@@ -70,7 +70,7 @@ use Dompdf\Exception;
 		<br>
 		<table align='center' width='100%' border='1' class='txtTicket'>
 			<tr>
-				<td style='width:34%'>Posgrado</td>
+				<td style='width:34%'>Materia</td>
 				<td>".$infoM['name']."</td>
 			</tr>
 			<tr>
@@ -78,7 +78,7 @@ use Dompdf\Exception;
 				<td>".$infoC['group']."</td>
 			</tr>
 			<tr>
-				<td>Materia</td>
+				<td>Posgrado</td>
 				<td>".$infoM['subjectName']."</td>
 			</tr>
 			<tr>
