@@ -123,9 +123,9 @@
 						</a>
 						</li>-->
 						<li>
-						<a href="{$WEB_ROOT}/finanzas">
+						{*<a href="{$WEB_ROOT}/finanzas">
 						  <i class="fa fa-dollar"></i> Finanzas
-						</a>
+						</a>*}
 						</li>
 						<li>
 						<a href="{$WEB_ROOT}/graybox.php?page=concepto-pago" data-target="#ajax" data-toggle="modal" data-width="1000px">
@@ -334,11 +334,11 @@
                                             <a href="{$WEB_ROOT}/graybox.php?page=view-modules-course-student&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
                                             <i class="fa fa-sign-in fa-lg"></i>
                                             </a>
-                                            {if $subject.totalPeriods > 0}
+                                            {*if $subject.totalPeriods > 0}
                                                 <a href="{$WEB_ROOT}/graybox.php?page=calendar-student&id={$subject.courseId}&user={$subject.alumnoId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Calendario de Pagos">
                                                     <i class="fa fa-dollar fa-lg"></i>
                                                 </a>
-                                            {/if}
+                                            {/if*}
                                         </td>
                                      </tr>
                                         {foreachelse}

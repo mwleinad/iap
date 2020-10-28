@@ -114,11 +114,11 @@
                             <span class="title">Consultar Facturas</span>
                         </a>
                     </li>
-                    <li class="nav-item {if $mnuSubmain == "calendario"} active {/if}">
+                    {*<li class="nav-item {if $mnuSubmain == "calendario"} active {/if}">
                         <a href="{$WEB_ROOT}/cobranza-calendario" class="nav-link ">
                             <span class="title">Calendario de Pagos</span>
                         </a>
-                    </li>
+                    </li>*}
                 </ul>
             </li>
         {/if}
