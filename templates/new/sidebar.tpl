@@ -97,25 +97,30 @@
 
         {if $AccessMod[34] == 1 || $User.positionId == 1}
 		{if $vistaPrevia ne 1}
-        <li class="nav-item  ">
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="fa fa-book" aria-hidden="true"></i>
-                <span class="title">Cobranza</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                <li class="nav-item  ">
-                    <a href="{$WEB_ROOT}/invoices" class="nav-link ">
-                        <span class="title">Recibos</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{$WEB_ROOT}/consultar-facturas" class="nav-link ">
-                        <span class="title">Consultar Facturas</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
+            <li class="nav-item {if $mnuMain == "cobranza"} active {/if}">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="fa fa-book" aria-hidden="true"></i>
+                    <span class="title">Cobranza</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item">
+                        <a href="{$WEB_ROOT}/invoices" class="nav-link ">
+                            <span class="title">Recibos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{$WEB_ROOT}/consultar-facturas" class="nav-link ">
+                            <span class="title">Consultar Facturas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item {if $mnuSubmain == "calendario"} active {/if}">
+                        <a href="{$WEB_ROOT}/cobranza-calendario" class="nav-link ">
+                            <span class="title">Calendario de Pagos</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         {/if}
         {/if}
 

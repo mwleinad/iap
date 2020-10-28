@@ -57,7 +57,11 @@
 			-->		
 				<img src="{$WEB_ROOT}/images/icons/16/document--arrow.png" title="Ficha de Registro" />
 			</a>      
-
+			{if $item.hasRGP > 0}
+				<a href="{$WEB_ROOT}/ajax/acuse_rgp.php?u={$item.userId}" target="_blank">
+					<img src="{$WEB_ROOT}/images/icons/16/pdf.gif" title="Acuse de Recibo del Reglamento General de Posgrado" />
+				</a>      
+			{/if}
 		{/if}
         </td>       
     </tr>

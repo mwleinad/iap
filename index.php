@@ -201,11 +201,16 @@ $pages = array(
 	'perfil',
 	'grupo',
 	'aviso',
-    'calification'
-	
-	
-	
-	
+	'calification',
+	'cobranza-calendario',
+	'configurar-calendario',
+	'calendar-form',
+	'edit-calendar-form',
+	'becas-calendario',
+	'pagos-calendario',
+	'history-calendar',
+	'finanzas',
+	'reglamento'
 );
 
 if(!in_array($_GET['page'], $pages))

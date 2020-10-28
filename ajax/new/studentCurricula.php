@@ -378,6 +378,26 @@ switch($_POST["type"])
 
 	
 	break;
+
+
+	case 'onBuscarCalendario':
+		$arrPage = array();		// ---- arreglo donde guarda los resultados de la paginacion...para usarse en footer-pages-links.tpl
+		$viewPage = 1;			// ---- por default se toma la primera pagina, por si aun no esta definidala en la variable GET
+		$rowsPerPage = 500;		//<<--- se podria tomar este valor de una variable o constante global, o especificarla para un caso particular
+		$pageVar = 'p';	// ---- el nombre de la variable en GET que trae la pagina a mostrar, en este caso se usa viewPage para pasar la pagina a visualizar
+		if(isset($_GET["$pageVar"]))
+			$viewPage = $_GET["$pageVar"];	//si ya esta definida la variable GET['viewPage'] tomar el valor de esta
+
+		$coursesCount = $course->EnumerateCount();
+		$lstMajor = $major->Enumerate();
+		
+		$course->setActivo($_POST['activo']);
+		$course->setModalidad($_POST['modalidad']);
+		$course->setCurricula($_POST['curricula']);
+		$result = $course->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/cobranza-calendario', $arrPage);
+		$smarty->assign('subjects', $result);
+		$smarty->display(DOC_ROOT.'/templates/lists/new/calendar-courses.tpl');
+	break;
 }
 
 ?>
