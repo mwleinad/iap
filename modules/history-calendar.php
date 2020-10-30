@@ -1,6 +1,6 @@
 <?php
 	/* For Session Control - Don't remove this */
-    $user->allow_access(8);
+    $user->allow_access(34);
     if($_POST)
     {
         $courseId = intval($_POST['courseId']);

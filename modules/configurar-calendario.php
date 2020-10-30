@@ -1,6 +1,6 @@
 <?php
 	/* For Session Control - Don't remove this */
-    $user->allow_access(8);
+    $user->allow_access(34);
     $_GET['id'] = intval($_GET['id']);
     $smarty->assign('courseId', $_GET['id']);
 

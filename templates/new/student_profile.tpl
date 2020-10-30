@@ -122,11 +122,11 @@
 						   <i class="fa fa-calendar"></i>Calendario de Pagos
 						</a>
 						</li>-->
-						<li>
-						{*<a href="{$WEB_ROOT}/finanzas">
+						{*<li>
+						<a href="{$WEB_ROOT}/finanzas">
 						  <i class="fa fa-dollar"></i> Finanzas
-						</a>*}
-						</li>
+						</a>
+						</li>*}
 						<li>
 						<a href="{$WEB_ROOT}/graybox.php?page=concepto-pago" data-target="#ajax" data-toggle="modal" data-width="1000px">
 						   <i class="fa fa-files-o"></i>Conceptos de Pago
@@ -147,11 +147,13 @@
 						   <i class="fa fa-sitemap"></i>Personal Academico
 						</a>
                         </li>
-                        <li>
-                            <a href="{$WEB_ROOT}/reglamento">
-                                <i class="fa fa-balance-scale"></i> Reglamento General de Posgrado
-                            </a>
-						</li>
+                        {if $showRegulation}
+                            <li>
+                                <a href="{$WEB_ROOT}/reglamento">
+                                    <i class="fa fa-balance-scale"></i> Reglamento General de Posgrado
+                                </a>
+                            </li>
+                        {/if}
                     </ul>
                 </div>
                 <!-- END MENU -->

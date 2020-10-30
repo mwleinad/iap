@@ -3003,6 +3003,31 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		return $this->Util()->DB()->GetRow();
 	}
+
+
+	function blockRegulation($status = NULL, $active = NULL, $arrayCourses = NULL)
+	{
+		if($status != NULL)
+			$status = " AND status = '".$status."'";
+
+		if($active != NULL)
+			$active = " AND course.active = '".$active."'";
+
+		if($arrayCourses != NULL)
+			$arrayCourses = " AND user_subject.courseId IN (" . $arrayCourses . ")";
+		
+		$sql = "SELECT
+					COUNT(alumnoId)
+				FROM
+					user_subject
+				LEFT JOIN course ON course.courseId = user_subject.courseId
+				LEFT JOIN subject ON subject.subjectId = course.subjectId	
+				LEFT JOIN major ON major.majorId = subject.tipo
+				WHERE alumnoId = '" . $this->getUserId() . "' " . $status . " " . $active . " " . $arrayCourses;
+		$this->Util()->DB()->setQuery($sql);
+		$accepted = $this->Util()->DB()->GetSingle() == 0 ? true : false;
+		return $accepted;
+	}
 }
 
 ?>

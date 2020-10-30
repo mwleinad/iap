@@ -38,7 +38,8 @@ $x=0;
 	$smarty->assign("courses", $activeCourses);	
 	
 	$activeCourses = $student->StudentCourses("activo", "si");
-//	print_r($activeCourses);
+	$showRegulation = $student->blockRegulation("activo", "si", "119, 129");
+	$smarty->assign("showRegulation", $showRegulation);	
 	$smarty->assign("activeCourses", $activeCourses);	
 
 	$inactiveCourses = $student->StudentCourses("inactivo", "si");

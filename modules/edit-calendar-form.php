@@ -1,5 +1,5 @@
 <?php
-	$user->allow_access(37);	
+	$user->allow_access(34);	
 	/* End Session Control */
     $calendarDistributionId = intval($_GET['id']);
     
