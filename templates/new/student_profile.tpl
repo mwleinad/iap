@@ -122,11 +122,11 @@
 						   <i class="fa fa-calendar"></i>Calendario de Pagos
 						</a>
 						</li>-->
-						{*<li>
+						<li>
 						<a href="{$WEB_ROOT}/finanzas">
 						  <i class="fa fa-dollar"></i> Finanzas
 						</a>
-						</li>*}
+						</li>
 						<li>
 						<a href="{$WEB_ROOT}/graybox.php?page=concepto-pago" data-target="#ajax" data-toggle="modal" data-width="1000px">
 						   <i class="fa fa-files-o"></i>Conceptos de Pago
