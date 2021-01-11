@@ -42,7 +42,7 @@ function DoLogin()
                 // }
                 // else if(splitResponse[1] == "empty")
                 // {
-                    $(".display-hide").show();
+                    $(".d-none").removeClass("d-none");
                 // }
             }
             else
