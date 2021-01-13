@@ -1,14 +1,13 @@
-<!-- BEGIN FOOTER -->
-<div class="page-footer">
-    <div class="page-footer-inner"> {$smarty.now|date_format:"%Y"} &copy; Instituto de Administraci&oacute;n P&uacute;blica del Estado de Chiapas, A.C.
+<footer class="footer">
+    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">
+            {$smarty.now|date_format:"%Y"} &copy; Instituto de Administraci&oacute;n P&uacute;blica del Estado de Chiapas, A.C.
+        </span>
+        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Desarrollo Tecnológico</span>
     </div>
-    <div class="scroll-to-top">
-        <i class="icon-arrow-up"></i>
-    </div>
-</div>
-<!-- END FOOTER -->
+</footer>
 
-<div class="modal fade" id="ajax" role="basic" aria-hidden="true" onClick="limipiarAjax()">
+{*<div class="modal fade" id="ajax" role="basic" aria-hidden="true" onClick="limipiarAjax()">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
@@ -33,4 +32,4 @@
         </div>
     </div>
 </div>
-<div style="position:relative" id="divStatus"></div>
+<div style="position:relative" id="divStatus"></div>*}

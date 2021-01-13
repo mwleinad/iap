@@ -1,47 +1,40 @@
-<!-- BEGIN HEADER -->
-<div class="page-header navbar navbar-fixed-top">
-    <!-- BEGIN HEADER INNER -->
-    <div class="page-header-inner ">
-        <!-- BEGIN LOGO -->
-        <div class="page-logo">
-            <a href="{$WEB_ROOT}">
-                <img src="{$WEB_ROOT}/images/logos/Logo_3.png" style="position:relative; top:-15px" alt="logo" class="logo-default" height="45" /> </a>
-            <div class="menu-toggler sidebar-toggler">
-                <span></span>
-            </div>
-        </div>
-        <!-- END LOGO -->
-        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-            <span></span>
+<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+    <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo" href="{$WEB_ROOT}">
+            <img src="{$WEB_ROOT}/images/logos/Logo_3.png" alt="logo"/>
         </a>
-        <!-- END RESPONSIVE MENU TOGGLER -->
-        <!-- BEGIN TOP NAVIGATION MENU -->
-        <div class="top-menu">
-            <ul class="nav navbar-nav pull-right">
-                <!-- BEGIN USER LOGIN DROPDOWN -->
-                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                <li class="dropdown dropdown-user">
-                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                        <img alt="" class="img-circle" src="{$infoStudent.imagen}?{$rand}">
-                        <span class="username username-hide-on-mobile"> {if $User.username}Bienvenido {$User.username} :: {/if}{$fechaHoy} </span>
-                        <i class="fa fa-angle-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-default">
-                        <li>
-                            <a href="{$WEB_ROOT}/logout">
-                                <i class="icon-key"></i> Log Out </a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- END USER LOGIN DROPDOWN -->
-            </ul>
-        </div>
-        <!-- END TOP NAVIGATION MENU -->
+        <a class="navbar-brand brand-logo-mini" href="{$WEB_ROOT}">
+            <img src="{$WEB_ROOT}/images/logos/iconIap.png" alt="logo"/>
+        </a>
     </div>
-    <!-- END HEADER INNER -->
-</div>
-<!-- END HEADER -->
-<!-- BEGIN HEADER & CONTENT DIVIDER -->
-<div class="clearfix"> </div>
-<!-- END HEADER & CONTENT DIVIDER -->
+    <div class="navbar-menu-wrapper d-flex align-items-stretch">
+        <button class="navbar-toggler navbar-toggler-right align-self-center" type="button" data-toggle="offcanvas">
+            <span class="fas fa-bars"></span>
+        </button>
+        <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item nav-profile dropdown">
+                <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                    <div class="nav-profile-img">
+                        <i class="fas fa-user-circle fa-3x text-white"></i>
+                        <span class="availability-status online"></span>             
+                    </div>
+                    <div class="nav-profile-text">
+                        <p class="mb-1 text-black">{if $User.username}Bienvenido {$User.username} :: {/if}{$fechaHoy}</p>
+                    </div>
+                </a>
+                <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{$WEB_ROOT}/logout">
+                        <i class="mdi mdi-logout mr-2 text-primary"></i>
+                        Cerrar Sesión
+                    </a>
+                </div>
+            </li>
+            <li class="nav-item d-none d-lg-block full-screen-link">
+                <a class="nav-link">
+                    <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
