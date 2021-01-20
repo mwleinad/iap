@@ -6,11 +6,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title>Sistema de Educaci&oacute;n en Linea | IAP Chiapas</title>
 
+		{*<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />*}
 		<link href="{$WEB_ROOT}/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 		<link href="{$WEB_ROOT}/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-		{*<link href="{$WEB_ROOT}/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-		<link href="{$WEB_ROOT}/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />*}
-		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		{*<link href="{$WEB_ROOT}/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />*}
+		<link href="{$WEB_ROOT}/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+		{*<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">*}
+		{* END GLOBAL MANDATORY STYLES *}
 		{* BEGIN THEME GLOBAL STYLES *}
 		<link href="{$WEB_ROOT}/assets/global/css/components-md.css" rel="stylesheet" id="style_components" type="text/css" />
 		<link href="{$WEB_ROOT}/assets/global/css/plugins-md.min.css" rel="stylesheet" type="text/css" />
@@ -21,18 +23,17 @@
 		{if $page == 'inbox' or $page == 'reply-inbox' or $page == 'view-inbox'}
 			<link href="{$WEB_ROOT}/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"  />
 		{/if}
-	
 		{* BEGIN THEME LAYOUT STYLES *}
 		<link href="{$WEB_ROOT}/assets/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />
 		<link href="{$WEB_ROOT}/assets/layouts/layout/css/themes/light2.css" rel="stylesheet" type="text/css" id="style_color" />
 		<link href="{$WEB_ROOT}/assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
 		<link href="{$WEB_ROOT}/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" rel="stylesheet" type="text/css" />
 		<link href="{$WEB_ROOT}/assets/global/plugins/jquery-multi-select/css/multi-select.css" rel="stylesheet" type="text/css" />
-
+		{* END THEME LAYOUT STYLES *}
+		<link rel="shortcut icon" href="{$WEB_ROOT}/images/favicon_iap.ico" />
 		<link href="{$WEB_ROOT}/GreyBox/greybox/gb_styles.css" rel="stylesheet" type="text/css" />
 		<link href="{$WEB_ROOT}/css/inbox.css" rel="stylesheet" type="text/css"  />
 		<link href="{$WEB_ROOT}/css/radiobutton.css" rel="stylesheet" type="text/css"  />
-	
 		<script type="text/javascript" src="{$WEB_ROOT}/tinymce/tiny_mce.js"></script>
 		<script type="text/javascript">
 			var GB_ROOT_DIR = "{$WEB_ROOT}/GreyBox/greybox/";
@@ -51,7 +52,15 @@
 		</style>
 		<script src="{$WEB_ROOT}/assets/jquery.multiple.select.js"></script>
 		<link href="{$WEB_ROOT}/assets/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
-		{if $page == 'reply-inbox' or $page == 'view-inbox' or $page == 'edit-modules-course' or $page == 'info-docente' or $page == 'lst-docentes' or $page == 'prog-materia' or $page == 'report-docentes' or $page == 'perfil' or $page == 'materias'}
+		{if $page == 'reply-inbox' or 
+			$page == 'view-inbox' or
+			$page == 'edit-modules-course' or
+			$page == 'info-docente' or 
+			$page == 'lst-docentes' or 
+			$page == 'prog-materia' or 
+			$page == 'report-docentes' or 
+			$page == 'perfil' or 
+			$page == 'materias'}
 			<style type="text/css">
 				.btn-file {
 					position: relative;
@@ -76,7 +85,6 @@
 				}
 			</style>
 		{/if}
-		{if $page == 'reply-inbox'}{/if}
 		<script>
 			$(function() {
 				$('#ms').change(function() {
@@ -92,7 +100,8 @@
 		<link rel="stylesheet" href="{$WEB_ROOT}/assets/vcz/vendor/iconfonts/mdi/css/materialdesignicons.min.css">
   		<link rel="stylesheet" href="{$WEB_ROOT}/assets/vcz/vendor/css/vendor.bundle.base.css">
         <link rel="stylesheet" href="{$WEB_ROOT}/assets/vcz/css/style.css">
-        <link rel="shortcut icon" href="{$WEB_ROOT}/images/logos/iconIap.png" />
+		<link rel="shortcut icon" href="{$WEB_ROOT}/images/logos/iconIap.png" />
+		{* End new styles *}
 	</head>
 	<body>
 		<div class="container-scroller">
@@ -107,24 +116,46 @@
 						{include file="new/sidebar.tpl"}
 					{/if}
 				{/if}
+				{* End sidebar *}
 				<div class="main-panel">
 					{* Container *}
 					<div class="content-wrapper">
 						{include file="new/container.tpl"}
 					</div>
+					{* End container *}
+					<div id="frmModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true"></div>
 					{* Footer *}
 					{include file="new/footer.tpl"}
+					{* End footer *}
 				</div>
 			</div>
 		</div>
 
+		{* New scripts *}
+		<script src="{$WEB_ROOT}/assets/vcz/vendor/js/vendor.bundle.base.js"></script>
+		<script src="{$WEB_ROOT}/assets/vcz/vendor/js/vendor.bundle.addons.js"></script>
+		<script src="{$WEB_ROOT}/assets/vcz/js/off-canvas.js"></script>
+		<script src="{$WEB_ROOT}/assets/vcz/js/hoverable-collapse.js"></script>
+		<script src="{$WEB_ROOT}/assets/vcz/js/misc.js"></script>
+		<script src="{$WEB_ROOT}/assets/vcz/vendor/fontawesome/js/all.min.js"></script>
+		<script src="{$WEB_ROOT}/assets/vcz/js/dashboard.js"></script>
+		{* End new scripts *}
+		{* BEGIN CORE PLUGINS *}
 		<script src="{$WEB_ROOT}/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+		{* END CORE PLUGINS *}
+		<script>
+			//$j = jQuery.noConflict();
+			//$.noConflict(true);
+		</script>
+		{* BEGIN THEME GLOBAL SCRIPTS *}
 		<script src="{$WEB_ROOT}/assets/global/scripts/app.js" type="text/javascript"></script>
+		{* END THEME GLOBAL SCRIPTS *}
+		{* BEGIN THEME LAYOUT SCRIPTS *}
 		<script src="{$WEB_ROOT}/assets/layouts/layout/scripts/layout.js" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/global/plugins/moment.min.js" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
@@ -144,17 +175,8 @@
 			<script src="{$WEB_ROOT}/assets/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
 			<script src="{$WEB_ROOT}/assets/fullcalendar/app.js" type="text/javascript"></script>
 		{/if}
-		{* Dynamic script *}
 		<script src="{$WEB_ROOT}/javascript/new/{$page}.js?{$timestamp}" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/pages/scripts/profile.min.js" type="text/javascript"></script>
-		{* New scripts *}
-		<script src="{$WEB_ROOT}/assets/vcz/vendor/js/vendor.bundle.base.js"></script>
-		<script src="{$WEB_ROOT}/assets/vcz/vendor/js/vendor.bundle.addons.js"></script>
-		<script src="{$WEB_ROOT}/assets/vcz/js/off-canvas.js"></script>
-		<script src="{$WEB_ROOT}/assets/vcz/js/hoverable-collapse.js"></script>
-		<script src="{$WEB_ROOT}/assets/vcz/js/misc.js"></script>
-		<script src="{$WEB_ROOT}/assets/vcz/vendor/fontawesome/js/all.min.js"></script>
-		<script src="{$WEB_ROOT}/assets/vcz/js/dashboard.js"></script>
 	</body>
 
 </html>

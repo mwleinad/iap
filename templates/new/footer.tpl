@@ -7,7 +7,7 @@
     </div>
 </footer>
 
-{*<div class="modal fade" id="ajax" role="basic" aria-hidden="true" onClick="limipiarAjax()">
+<div class="modal fade" id="ajax" role="basic" aria-hidden="true" onClick="limipiarAjax()">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
@@ -32,4 +32,4 @@
         </div>
     </div>
 </div>
-<div style="position:relative" id="divStatus"></div>*}
+<div style="position:relative" id="divStatus"></div>
