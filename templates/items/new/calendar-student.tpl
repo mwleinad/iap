@@ -4,13 +4,13 @@
                 {if $info.totalPeriods > 0}
                     <h4><b>Total {$info.tipoCuatri}: </b> {$info.totalPeriods}</h4>
                 {/if}
-                <p>Los datos para realizar PAGOS EN VENTANILLA son los siguientes:</p>
+                <p>Los datos para realizar <b>PAGOS EN VENTANILLA</b> son los siguientes:</p>
                 <ul>
                     <li>Banco: <b>BANORTE IXE</b></li>
                     <li>No. convenio: <b>148126</b></li>
                     <li>No. de referencia: <b>{$references[$usId]}</b></li>
                 </ul>
-                <p>Los datos para realizar TRANSFERENCIAS BANCARIAS son los siguientes:</p>
+                <p>Los datos para realizar <b>TRANSFERENCIAS BANCARIAS</b> son los siguientes:</p>
                 <ul>
                     <li>Banco: <b>BANORTE IXE</b></li>
                     <li>Clave interbancaria: <b>072100010313317272</b></li>
