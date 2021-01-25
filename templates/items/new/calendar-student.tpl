@@ -4,6 +4,19 @@
                 {if $info.totalPeriods > 0}
                     <h4><b>Total {$info.tipoCuatri}: </b> {$info.totalPeriods}</h4>
                 {/if}
+                <p>Los datos para realizar PAGOS EN VENTANILLA son los siguientes:</p>
+                <ul>
+                    <li>Banco: <b>BANORTE IXE</b></li>
+                    <li>No. convenio: <b>148126</b></li>
+                    <li>No. de referencia: <b>{$references[$usId]}</b></li>
+                </ul>
+                <p>Los datos para realizar TRANSFERENCIAS BANCARIAS son los siguientes:</p>
+                <ul>
+                    <li>Banco: <b>BANORTE IXE</b></li>
+                    <li>Clave interbancaria: <b>072100010313317272</b></li>
+                    <li>Cuenta a nombre de: <b>Instituto de Administración Pública del Estado de Chiapas A. C.</b></li>
+                    <li>Favor de colocar en el concepto su nombre o el No. de referencia bancaria, el cual es: <b>{$references[$usId]}</b></li>
+                </ul>
             </div>
             {for $period = 1 to $info.totalPeriods}
                 <div class="col-md-12">
