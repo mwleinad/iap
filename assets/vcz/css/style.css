@@ -13381,3 +13381,7 @@ dl {
 .nav-item > a.active {
   color: #fff !important;
 }
+
+.pointer {
+  cursor: pointer;
+}

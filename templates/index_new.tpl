@@ -141,7 +141,7 @@
 		<script src="{$WEB_ROOT}/assets/vcz/js/dashboard.js"></script>
 		{* End new scripts *}
 		{* BEGIN CORE PLUGINS *}
-		<script src="{$WEB_ROOT}/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+		{*<script src="{$WEB_ROOT}/assets/global/plugins/jquery.min.js" type="text/javascript"></script>*}
 		<script src="{$WEB_ROOT}/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>

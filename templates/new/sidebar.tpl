@@ -22,37 +22,37 @@
         {if $User.positionId == 1 || $AccessMod[38] == 1 || $AccessMod[38] == 1 || $AccessMod[1] == 1 || $AccessMod[2] == 1 || $AccessMod[3] == 1 || $AccessMod[4] == 1 || $AccessMod[5] == 1 || $AccessMod[6] == 1 || $AccessMod[7] == 1 || $AccessMod[9] == 1 || $AccessMod[10] == 1}
             {if !$docente}
                 {if $vistaPrevia ne 1}
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#m-catalogos" aria-expanded="false" aria-controls="m-catalogos">
+                    <li class="nav-item {if $page == "major" or $page == "personal1" or $page == "student" or $page == "position" or $page == "role" or $page == "profesion" or $page == "recording"}active{/if}">
+                    <a class="nav-link" data-toggle="collapse" href="#m-catalogos" aria-expanded="{if $page == "major" or $page == "personal1" or $page == "student" or $page == "position" or $page == "role" or $page == "profesion" or $page == "recording"}true{else}false{/if}" aria-controls="m-catalogos">
                             <span class="menu-title">Catálogos</span>
                             <i class="menu-arrow"></i>
                             <i class="mdi mdi-library-books menu-icon"></i>
                         </a>
-                        <div class="collapse" id="m-catalogos">
+                        <div class="collapse {if $page == "major" or $page == "personal1" or $page == "student" or $page == "position" or $page == "role" or $page == "profesion" or $page == "recording"}show{/if}" id="m-catalogos">
                             <ul class="nav flex-column sub-menu">
                                 {if $AccessMod[38] != 1}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/major">Programas Académicos</a>
+                                        <a class="nav-link {if $page == "major"}active{/if}" href="{$WEB_ROOT}/major">Programas Académicos</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/personal1">Personal</a>
+                                        <a class="nav-link {if $page == "personal1"}active{/if}" href="{$WEB_ROOT}/personal1">Personal</a>
                                     </li>
                                 {/if}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{$WEB_ROOT}/student">Alumnos</a>
+                                    <a class="nav-link {if $page == "student"}active{/if}" href="{$WEB_ROOT}/student">Alumnos</a>
                                 </li>
                                 {if $AccessMod[38] != 1}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/position">Puestos</a>
+                                        <a class="nav-link {if $page == "position"}active{/if}" href="{$WEB_ROOT}/position">Puestos</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/role">Roles</a>
+                                        <a class="nav-link {if $page == "role"}active{/if}" href="{$WEB_ROOT}/role">Roles</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/profesion">Profesiones</a>
+                                        <a class="nav-link {if $page == "profesion"}active{/if}" href="{$WEB_ROOT}/profesion">Profesiones</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/recording">Videoconferencias</a>
+                                        <a class="nav-link {if $page == "recording"}active{/if}" href="{$WEB_ROOT}/recording">Videoconferencias</a>
                                     </li>
                                 {/if}
                             </ul>
@@ -63,22 +63,22 @@
         {/if}
         {if $AccessMod[34] == 1 || $User.positionId == 1}
             {if $vistaPrevia ne 1}
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#m-cobranza" aria-expanded="false" aria-controls="m-cobranza">
+                <li class="nav-item {if $page == "invoices" or $page == "consultar-facturas" or $page == "cobranza-calendario"}active{/if}">
+                    <a class="nav-link" data-toggle="collapse" href="#m-cobranza" aria-expanded="{if $page == "invoices" or $page == "consultar-facturas" or $page == "cobranza-calendario"}true{else}false{/if}" aria-controls="m-cobranza">
                         <span class="menu-title">Cobranza</span>
                         <i class="menu-arrow"></i>
                         <i class="mdi mdi-cash-usd menu-icon"></i>
                     </a>
-                    <div class="collapse" id="m-cobranza">
+                    <div class="collapse {if $page == "invoices" or $page == "consultar-facturas" or $page == "cobranza-calendario"}show{/if}" id="m-cobranza">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item">
-                                <a class="nav-link" href="{$WEB_ROOT}/invoices">Recibos</a>
+                                <a class="nav-link {if $page == "invoices"}active{/if}" href="{$WEB_ROOT}/invoices">Recibos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{$WEB_ROOT}/consultar-facturas">Consultar Facturas</a>
+                                <a class="nav-link {if $page == "consultar-facturas"}active{/if}" href="{$WEB_ROOT}/consultar-facturas">Consultar Facturas</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{$WEB_ROOT}/cobranza-calendario">Calendario de Pagos</a>
+                                <a class="nav-link {if $page == "cobranza-calendario"}active{/if}" href="{$WEB_ROOT}/cobranza-calendario">Calendario de Pagos</a>
                             </li>
                         </ul>
                     </div>
@@ -88,21 +88,21 @@
         {if $AccessMod[11] == 1 || $User.positionId == 1 || $AccessMod[31] == 1 || $AccessMod[8] == 1 || $AccessMod[39] == 1}
             {if !$docente}
                 {if $vistaPrevia ne 1}
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#m-curricula" aria-expanded="false" aria-controls="m-curricula">
+                    <li class="nav-item {if $page == "subject" or $page == "history-subject"}active{/if}">
+                        <a class="nav-link" data-toggle="collapse" href="#m-curricula" aria-expanded="{if $page == "subject" or $page == "history-subject"}true{else}false{/if}" aria-controls="m-curricula">
                             <span class="menu-title">Currícula</span>
                             <i class="menu-arrow"></i>
                             <i class="mdi mdi-school menu-icon"></i>
                         </a>
-                        <div class="collapse" id="m-curricula">
+                        <div class="collapse {if $page == "subject" or $page == "history-subject"}show{/if}" id="m-curricula">
                             <ul class="nav flex-column sub-menu">
                                 {if $AccessMod[39] != 1}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/subject">Currícula</a>
+                                        <a class="nav-link {if $page == "subject"}active{/if}" href="{$WEB_ROOT}/subject">Currícula</a>
                                     </li>
                                 {/if}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{$WEB_ROOT}/history-subject">Historial</a>
+                                    <a class="nav-link {if $page == "history-subject"}active{/if}" href="{$WEB_ROOT}/history-subject">Historial</a>
                                 </li>
                             </ul>
                         </div>

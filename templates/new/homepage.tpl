@@ -50,7 +50,7 @@
     <div id="ac1" class="mb-4">
         <div class="card">
             <div class="card-header bg-primary text-white">
-                <i class="fa fa-bullhorm"></i> Notificaciones
+                <i class="fas fa-bell"></i> Notificaciones
                 <a class="card-link text-white float-right" data-toggle="collapse" href="#collapseOne">
                     <i class="fas fa-caret-down fa-lg"></i>
                 </a>
@@ -67,7 +67,7 @@
 <div id="ac2" class="mb-4">
     <div class="card">
         <div class="card-header bg-primary text-white">
-            <i class="fa fa-bullhorm"></i> Noticias
+            <i class="far fa-newspaper"></i> Noticias
             {if $User.positionId == "1"}
                 | <a href="{$WEB_ROOT}/add-noticia/id/0" class="btn btn-light btn-sm" onclick="return parent.GB_show('Agregar Noticia', this.href,650,700) ">
                     Agregar Noticia
