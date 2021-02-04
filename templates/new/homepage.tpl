@@ -5,72 +5,86 @@
 {else}
 
 
-<!-- BEGIN PAGE TITLE-->
-<h1 class="page-title">
-    <img src="{$WEB_ROOT}/images/icons/22/display.png" alt="" />
-    Inicio
-</h1>
-<!-- END PAGE TITLE-->
+{* BEGIN PAGE TITLE *}
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-home"></i>                 
+        </span>
+        Inicio
+    </h3>
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+                <span></span>Inicio
+                <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+            </li>
+        </ul>
+    </nav>
+</div>
+{* END PAGE TITLE *}
 
 
-<!-- BEGIN Portlet PORTLET-->
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            {if $User.type == "student"}
-                <img alt="" width="32px" class="img-circle" src="{$infoStudent.imagen}">
-            {else}
-                <i class="fa fa-gift"></i>
-            {/if}
-            Bienvenido(a) {$User.username}</div>
+{* BEGIN Portlet PORTLET *}
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        {if $User.type == "student"}
+            <img alt="" width="32px" class="img-circle" src="{$infoStudent.imagen}">
+        {else}
+            <i class="fa fa-gift"></i>
+        {/if}
+        Bienvenido(a) {$User.username}
     </div>
-    <div class="portlet-body">
-        <div class="scroller" style="" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#a1b2bd">
-            <p class="left">
-                El <b>Instituto de Administración Pública del Estado de Chiapas, A. C.</b><br />te da la mas cordial bienvenida a nuestro Sistema de Educación en Línea
-            </p>
-            <p class="right">
-                El <b>IAP Chiapas</b> coadyuva desde 1977 en el fortalecimiento de la gestión pública de los tres órdenes de gobierno, así como con la realización de investigación, consultoría y difusión del desarrollo de las ciencias administrativas, en beneficio de la sociedad
-            </p>
-        </div>
+    <div class="card-body">
+        <p>
+            El <b>Instituto de Administración Pública del Estado de Chiapas, A. C.</b><br />te da la mas cordial bienvenida a nuestro Sistema de Educación en Línea.
+        </p>
+        <p>
+            El <b>IAP Chiapas</b> coadyuva desde 1977 en el fortalecimiento de la gestión pública de los tres órdenes de gobierno, así como con la realización de investigación, consultoría y difusión del desarrollo de las ciencias administrativas, en beneficio de la sociedad.
+        </p>
     </div>
 </div>
-<!-- END Portlet PORTLET-->
+{* END Portlet PORTLET *}
 
 {if $User.type != "student"}
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorm"></i>Notificaciones
-        </div>
-        <div class="tools">
-            <a href="javascript:;" class="collapse"> </a>
+    <div id="ac1" class="mb-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <i class="fa fa-bullhorm"></i> Notificaciones
+                <a class="card-link text-white float-right" data-toggle="collapse" href="#collapseOne">
+                    <i class="fas fa-caret-down fa-lg"></i>
+                </a>
+            </div>
+            <div id="collapseOne" class="card-body collapse show" data-parent="#ac1">
+                <div class="table-responsive">
+                    {include file="{$DOC_ROOT}/templates/lists/notificacionesadmin.tpl"}
+                </div>
+            </div>
         </div>
     </div>
-    <div class="portlet-body">
-        <div class="table-responsive">
-            {include file="{$DOC_ROOT}/templates/lists/notificacionesadmin.tpl"}
-        </div>
-    </div>
-</div>
 {/if}
 
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorm"></i>Noticias
+<div id="ac2" class="mb-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <i class="fa fa-bullhorm"></i> Noticias
             {if $User.positionId == "1"}
-                | &raquo; <a style="color:#000000" href="{$WEB_ROOT}/add-noticia/id/0" onclick="return parent.GB_show('Agregar Noticia', this.href,650,700) ">Agregar Noticia</a>
+                | <a href="{$WEB_ROOT}/add-noticia/id/0" class="btn btn-light btn-sm" onclick="return parent.GB_show('Agregar Noticia', this.href,650,700) ">
+                    Agregar Noticia
+                </a>
             {/if}
+            <a class="card-link text-white float-right" data-toggle="collapse" href="#collapseTwo">
+                <i class="fas fa-caret-down fa-lg"></i>
+            </a>
         </div>
-        <div class="tools">
-            <a href="javascript:;" class="collapse"> </a>
+        <div id="collapseTwo" class="card-body collapse show" data-parent="#ac2">
+            <div class="table-responsive">
+                {include file="{$DOC_ROOT}/templates/lists/module-announcements.tpl"}
+            </div>
         </div>
-    </div>
-    <div class="portlet-body">
-        {include file="{$DOC_ROOT}/templates/lists/module-announcements.tpl"}
     </div>
 </div>
+
 
 {if $User.type == "student"}
     <div class="portlet box red">

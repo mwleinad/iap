@@ -328,6 +328,10 @@ $(document).ready(function() {
 	});
 });
 
+$(function () {
+	$('[data-toggle="tooltip"]').tooltip()
+});
+
 function set_optEstados(inner, url)
 {
 	$.get(url).done(function(response) {
