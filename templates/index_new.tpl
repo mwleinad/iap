@@ -14,7 +14,7 @@
 		{*<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">*}
 		{* END GLOBAL MANDATORY STYLES *}
 		{* BEGIN THEME GLOBAL STYLES *}
-		<link href="{$WEB_ROOT}/assets/global/css/components-md.css" rel="stylesheet" id="style_components" type="text/css" />
+		{*<link href="{$WEB_ROOT}/assets/global/css/components-md.css" rel="stylesheet" id="style_components" type="text/css" />*}
 		<link href="{$WEB_ROOT}/assets/global/css/plugins-md.min.css" rel="stylesheet" type="text/css" />
 		{* END THEME GLOBAL STYLES *}
 		{if ($page == 'homepage' && $User.type == 'student') || ($page == 'homepage' && $User.type == 'Docente') || $page == 'docente'}
@@ -24,33 +24,24 @@
 			<link href="{$WEB_ROOT}/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"  />
 		{/if}
 		{* BEGIN THEME LAYOUT STYLES *}
-		<link href="{$WEB_ROOT}/assets/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />
-		<link href="{$WEB_ROOT}/assets/layouts/layout/css/themes/light2.css" rel="stylesheet" type="text/css" id="style_color" />
-		<link href="{$WEB_ROOT}/assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
+		{*<link href="{$WEB_ROOT}/assets/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />*}
+		{*<link href="{$WEB_ROOT}/assets/layouts/layout/css/themes/light2.css" rel="stylesheet" type="text/css" id="style_color" />*}
+		{*<link href="{$WEB_ROOT}/assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />*}
 		<link href="{$WEB_ROOT}/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" rel="stylesheet" type="text/css" />
 		<link href="{$WEB_ROOT}/assets/global/plugins/jquery-multi-select/css/multi-select.css" rel="stylesheet" type="text/css" />
 		{* END THEME LAYOUT STYLES *}
 		<link rel="shortcut icon" href="{$WEB_ROOT}/images/favicon_iap.ico" />
 		<link href="{$WEB_ROOT}/GreyBox/greybox/gb_styles.css" rel="stylesheet" type="text/css" />
 		<link href="{$WEB_ROOT}/css/inbox.css" rel="stylesheet" type="text/css"  />
-		<link href="{$WEB_ROOT}/css/radiobutton.css" rel="stylesheet" type="text/css"  />
-		<script type="text/javascript" src="{$WEB_ROOT}/tinymce/tiny_mce.js"></script>
-		<script type="text/javascript">
-			var GB_ROOT_DIR = "{$WEB_ROOT}/GreyBox/greybox/";
-		</script>
-		<script type="text/javascript" src="{$WEB_ROOT}/GreyBox/greybox/AJS.js"></script>
-		<script type="text/javascript" src="{$WEB_ROOT}/GreyBox/greybox/AJS_fx.js"></script>
-		<script type="text/javascript" src="{$WEB_ROOT}/GreyBox/greybox/gb_scripts.js"></script>
-		<script type="text/javascript" src="{$WEB_ROOT}/javascript/inbox.js"></script>
-		<style>
+		{*<link href="{$WEB_ROOT}/css/radiobutton.css" rel="stylesheet" type="text/css"  />*}
+		{*<style>
 			.modal-dialog {
 				width: 70%;
 			}
 			i.icon-green {
 				color: #32c5d2;
 			}
-		</style>
-		<script src="{$WEB_ROOT}/assets/jquery.multiple.select.js"></script>
+		</style>*}
 		<link href="{$WEB_ROOT}/assets/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
 		{if $page == 'reply-inbox' or 
 			$page == 'view-inbox' or
@@ -85,15 +76,6 @@
 				}
 			</style>
 		{/if}
-		<script>
-			$(function() {
-				$('#ms').change(function() {
-					console.log($(this).val());
-				}).multipleSelect({
-					width: '100%'
-				});
-			});
-		</script>
 		{* New styles *}
         <link rel="stylesheet" href="{$WEB_ROOT}/assets/vcz/vendor/sweetalert2/dist/sweetalert2.min.css">
 		<link rel="stylesheet" href="{$WEB_ROOT}/assets/vcz/vendor/fontawesome/css/all.min.css">
@@ -138,11 +120,33 @@
 		<script src="{$WEB_ROOT}/assets/vcz/js/hoverable-collapse.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/js/misc.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/vendor/fontawesome/js/all.min.js"></script>
+		<script src="{$WEB_ROOT}/assets/vcz/js/bootbox.min.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/js/dashboard.js"></script>
 		{* End new scripts *}
+
+		{* Scripts headers *}
+		<script type="text/javascript" src="{$WEB_ROOT}/tinymce/tiny_mce.js"></script>
+		<script type="text/javascript">
+			var GB_ROOT_DIR = "{$WEB_ROOT}/GreyBox/greybox/";
+		</script>
+		<script type="text/javascript" src="{$WEB_ROOT}/GreyBox/greybox/AJS.js"></script>
+		<script type="text/javascript" src="{$WEB_ROOT}/GreyBox/greybox/AJS_fx.js"></script>
+		<script type="text/javascript" src="{$WEB_ROOT}/GreyBox/greybox/gb_scripts.js"></script>
+		<script type="text/javascript" src="{$WEB_ROOT}/javascript/inbox.js"></script>
+		<script src="{$WEB_ROOT}/assets/jquery.multiple.select.js"></script>
+		<script>
+			$(function() {
+				$('#ms').change(function() {
+					console.log($(this).val());
+				}).multipleSelect({
+					width: '100%'
+				});
+			});
+		</script>
+		{* End scripts headers *}
 		{* BEGIN CORE PLUGINS *}
 		{*<script src="{$WEB_ROOT}/assets/global/plugins/jquery.min.js" type="text/javascript"></script>*}
-		<script src="{$WEB_ROOT}/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+		{*<script src="{$WEB_ROOT}/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>*}
 		<script src="{$WEB_ROOT}/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
@@ -167,7 +171,7 @@
 		<script src="{$WEB_ROOT}/javascript/new/functions.js?{$timestamp}" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js" type="text/javascript"></script>
-		<script src="{$WEB_ROOT}/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+		{*<script src="{$WEB_ROOT}/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>*}
 		<script src="{$WEB_ROOT}/assets/global/plugins/bootstrap-growl/jquery.bootstrap-growl.min.js" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>

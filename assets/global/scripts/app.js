@@ -598,10 +598,10 @@ var App = function() {
             handleAlerts(); //handle closabled alerts
             handleDropdowns(); // handle dropdowns
             handleTabs(); // handle tabs
-            handleTooltips(); // handle bootstrap tooltips
+            //handleTooltips(); // handle bootstrap tooltips
             handlePopovers(); // handles bootstrap popovers
             handleAccordions(); //handles accordions 
-            handleModals(); // handle modals
+            //handleModals(); // handle modals
             handleBootstrapConfirmation(); // handle bootstrap confirmations
             handleTextareaAutosize(); // handle autosize textareas
             handleCounterup(); // handle counterup instances
@@ -610,7 +610,7 @@ var App = function() {
             this.addResizeHandler(handleHeight); // handle auto calculating height on window resize
 
             // Hacks
-            handleFixInputPlaceholderForIE(); //IE8 & IE9 input placeholder issue fix
+            //handleFixInputPlaceholderForIE(); //IE8 & IE9 input placeholder issue fix
         },
 
         //main function to initiate core javascript after ajax complete
