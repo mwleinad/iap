@@ -81,6 +81,8 @@
 		<link rel="stylesheet" href="{$WEB_ROOT}/assets/vcz/vendor/fontawesome/css/all.min.css">
 		<link rel="stylesheet" href="{$WEB_ROOT}/assets/vcz/vendor/iconfonts/mdi/css/materialdesignicons.min.css">
   		<link rel="stylesheet" href="{$WEB_ROOT}/assets/vcz/vendor/css/vendor.bundle.base.css">
+		<link rel="stylesheet" href="{$WEB_ROOT}/assets/vcz/vendor/jodit/build/jodit.css">
+		<link rel="stylesheet" href="{$WEB_ROOT}/assets/vcz/vendor/flatpickr/flatpickr.min.css">
         <link rel="stylesheet" href="{$WEB_ROOT}/assets/vcz/css/style.css">
 		<link rel="shortcut icon" href="{$WEB_ROOT}/images/logos/iconIap.png" />
 		{* End new styles *}
@@ -117,10 +119,12 @@
 		<script src="{$WEB_ROOT}/assets/vcz/vendor/js/vendor.bundle.base.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/vendor/js/vendor.bundle.addons.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/js/off-canvas.js"></script>
-		<script src="{$WEB_ROOT}/assets/vcz/js/hoverable-collapse.js"></script>
+		{*<script src="{$WEB_ROOT}/assets/vcz/js/hoverable-collapse.js"></script>*}
 		<script src="{$WEB_ROOT}/assets/vcz/js/misc.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/vendor/fontawesome/js/all.min.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/js/bootbox.min.js"></script>
+		<script src="{$WEB_ROOT}/assets/vcz/vendor/jodit/build/jodit.js"></script>
+		<script src="{$WEB_ROOT}/assets/vcz/vendor/flatpickr/flatpickr.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/js/dashboard.js"></script>
 		{* End new scripts *}
 
@@ -145,8 +149,8 @@
 		</script>
 		{* End scripts headers *}
 		{* BEGIN CORE PLUGINS *}
-		{*<script src="{$WEB_ROOT}/assets/global/plugins/jquery.min.js" type="text/javascript"></script>*}
-		{*<script src="{$WEB_ROOT}/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>*}
+		<script src="{$WEB_ROOT}/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+		<script src="{$WEB_ROOT}/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>

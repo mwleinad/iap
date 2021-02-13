@@ -11,9 +11,9 @@ $ciudades->code = $_POST["estadoId"];
 $tam=$_POST["tam"];
 $ciudades = $ciudades->cargarCiudades();
 if($tam==1)
-echo"<select id='ciudad' name='ciudad' style='width:300px'><option value='0'>Elige tu Ciudad</option>";
+echo"<select id='ciudad' name='ciudad' class='form-control'><option value='0'>Elige tu Ciudad</option>";
 else
-echo"<select id='ciudad' name='ciudad' style='width:350px'><option value='0'>Elige tu Ciudad</option>";
+echo"<select id='ciudad' name='ciudad' class='form-control'><option value='0'>Elige tu Ciudad</option>";
 foreach($ciudades as $key=>$value)
 {
 		echo "<option value=\"$key\">".acento($value)."</option>";
