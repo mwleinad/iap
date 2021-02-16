@@ -228,7 +228,8 @@
 				$student->setLastNamePaterno($_POST['lastNamePaterno']);
 				$student->setLastNameMaterno($_POST['lastNameMaterno']);
 				$student->setSexo($_POST['sexo']);
-				$student->setBirthdate($_POST['day'],$_POST['month'],$_POST['year']);
+				$birthday = explode('-', $_POST['birthday']);
+				$student->setBirthdate(intval($birthday[2]), intval($birthday[1]), intval($birthday[0]));
 				$student->setMaritalStatus($_POST['maritalStatus']);
 				$student->setPassword(trim($_POST['password']));
 
