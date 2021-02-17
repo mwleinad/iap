@@ -195,7 +195,7 @@
         </div>
         <div class="form-group col-md-6">
             <label for="profesion">Profesión:</label>
-            <select name="profesion" id="profesion" style="width:300px" class="form-control">
+            <select name="profesion" id="profesion" class="form-control">
                 {foreach from=$prof item=item}
                     <option value="{$item.profesionId}" {if $info.profesion == $item.profesionId} selected="selected" {/if}>{$item.profesionName}</option>
                     item{/foreach}

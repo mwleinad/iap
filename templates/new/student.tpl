@@ -21,8 +21,10 @@
         <i class="fas fa-users"></i> Alumnos
         {include file="boxes/status_no_ajax.tpl"}
         <form method="post" name="frmReport" id="frmReport" action="">
-            <input type="hidden" name="accion" value="export" />
-            <input type="image" src="images/excel.gif"  title="Exportar alumnos a Excel" alt="Exportar alumnos a Excel">
+            <input type="hidden" name="accion" value="export" /><br />
+            <label class="pointer" onclick="event.preventDefault();document.getElementById('frmReport').submit();">
+                <i class="fas fa-file-excel fa-lg" title="Exportar alumnos a Excel"></i> Exportar Alumnos a Excel
+            </label>
         </form>
         <a href="{$WEB_ROOT}/graybox.php?page=add-alumno-admin&id={$item.userId}" class="btn btn-info float-right" data-target="#ajax" data-toggle="modal" data-width="1000px">
             <i class="fas fa-plus"></i> Agregar

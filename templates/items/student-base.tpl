@@ -22,23 +22,23 @@
             {/if}		        
         {else} 
 		<div id="loader_{$item.userId}"></div>
-		{if $item.activo ==1}
-            <img src="{$WEB_ROOT}/images/icons/ok.png"  id="{$item.userId}" onclick="desactivar({$item.userId},{$item.activo});" title="Dar de Baja" />&nbsp;
-        {else}
-		    <img src="{$WEB_ROOT}/images/cancel.png"  id="{$item.userId}" title="Dar de Alta" onclick="activar({$item.userId},{$item.activo});" />
-		{/if}
+			{if $item.activo ==1}
+				<i class="fas fa-check-circle fa-2x text-success pointer" id="{$item.userId}" onclick="desactivar({$item.userId},{$item.activo});" data-toggle="tooltip" data-placement="top" title="Dar de Baja"></i>
+			{else}
+				<i class="fas fa-times-circle fa-2x text-danger pointer" id="{$item.userId}" data-toggle="tooltip" data-placement="top" title="Dar de Alta" onclick="activar({$item.userId},{$item.activo});"></i>
+			{/if}
 			<a href="{$WEB_ROOT}/graybox.php?page=edit-student&id={$item.userId}&auxImagen=1" data-target="#ajax" data-toggle="modal" data-width="1000px">
-				<img src="{$WEB_ROOT}/images/icons/16/pencil.png" class="spanEdit" id="{$item.userId}" title="Editar" />
+				<i class="fas fa-pen-square fa-2x pointer spanEdit" id="{$item.userId}" data-toggle="tooltip" data-placement="top" title="Editar"></i>
 			</a>
 			<a href="{$WEB_ROOT}/graybox.php?page=student-curricula&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px">
-				<img src="{$WEB_ROOT}/images/icons/16/subject.gif" title="Ver Curricula Estudiante" />
+				<i class="fas fa-book fa-2x text-dark pointer" data-toggle="tooltip" data-placement="top" title="Ver Curricula Estudiante"></i>
 			</a>   
 			<a href="{$WEB_ROOT}/files/solicitudes/{$item.userId}_{$item.courseId}.pdf" target="_blank">
-				<img src="{$WEB_ROOT}/images/icons/16/document--arrow.png" title="Ficha de Registro" />
+				<i class="fas fa-file-export fa-2x text-info pointer" data-toggle="tooltip" data-placement="top" title="Ficha de Registro"></i>
 			</a>
 			{if $item.hasRGP > 0}
 				<a href="{$WEB_ROOT}/ajax/acuse_rgp.php?u={$item.userId}" target="_blank">
-					<img src="{$WEB_ROOT}/images/icons/16/pdf.gif" title="Acuse de Recibo del Reglamento General de Posgrado" />
+					<i class="fas fa-file-pdf fa-2x text-danger pointer" data-toggle="tooltip" data-placement="top" title="Acuse de Recibo del Reglamento General de Posgrado"></i>
 				</a>      
 			{/if}
 		{/if}
