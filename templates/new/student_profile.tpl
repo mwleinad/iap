@@ -240,8 +240,12 @@
                                 <div class="tab-pane active" id="tab_1_1">
                                     <div class="scroller" style="height: {$div_height}px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
                                         {if $download}
-                                            <h2 class="text-center">Tú título electrónico estará disponible para la descarga el día <b>viernes 26 de febrero</b> al término de la ceremonia de entrega de títulos electrónicos.</h2>
-                                            <center><img src="{$WEB_ROOT}/images/downCer.png" class="img-responsive" /></center>
+                                            <h2 class="text-center">Tú título electrónico está disponible para la descarga.</h2>
+                                            <center>
+                                                <a href="{$WEB_ROOT}/files/titulos/{$fileCer}" target="_blank">
+                                                    <img src="{$WEB_ROOT}/images/downCer.png" class="img-responsive" />
+                                                </a>
+                                            </center>
                                         {/if}
                                         {*<ul class="feeds">
                                             {foreach from=$notificaciones item=reply}
