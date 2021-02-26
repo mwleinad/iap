@@ -23,7 +23,7 @@ function AddPositionDiv()
         data : {type: "addPosition"},
         success: function(data)
         {
-            showModal("Agregar Puesto", data);
+            showModal("Agregar Profesión", data);
             $('.submitForm').click(function() {
                 AddPosition();
             });

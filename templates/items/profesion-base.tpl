@@ -1,14 +1,14 @@
 {foreach from=$profesions item=position}
     <tr>
-        <td align="center" class="id">{$position.profesionId}</td>
-        <td>&nbsp;{$position.profesionName|truncate:50:"..."}</td>
-        <td align="center">
-            <img src="images/icons/16/delete.png" class="spanDelete" i id="{$position.profesionId}" name="{$position.profesionName}" title="Eliminar" />&nbsp;
-          	<img src="images/icons/16/pencil.png" class="spanEdit" id="{$position.profesionId}" name="{$position.profesionName}" title="Editar" />
+        <td class="id text-center">{$position.profesionId}</td>
+        <td>{$position.profesionName|truncate:50:"..."}</td>
+        <td class="text-center">
+            <i id="{$position.profesionId}" name="{$position.profesionName}" class="fas fa-times-circle fa-2x text-danger pointer spanDelete" data-toggle="tooltip" data-placement="top" title="Eliminar"></i>
+            <i id="{$position.profesionId}" name="{$position.profesionName}" class="fas fa-arrow-circle-right fa-2x text-success pointer spanEdit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
         </td>
     </tr>
 {foreachelse}
 	<tr>
-    	<td colspan="5" align="center">No se encontr&oacute; ning&uacute;n registro.</td>
+    	<td colspan="3" class="text-center">No se encontró ningún registro.</td>
 	</tr>
 {/foreach}
