@@ -19,6 +19,7 @@
 		private $curricula;
 		private $subtotal;
 		private $tipoCuatri;
+		private $totalPeriods;
 		
 		public function setTipoCuatri($value)
 		{
@@ -43,6 +44,11 @@
 		public function setCurricula($value)
 		{
 			$this->curricula = $value;	
+		}
+
+		public function setTotalPeriods($value)
+		{
+			$this->totalPeriods = $value;
 		}
 		
 		public function setId($value)
@@ -383,6 +389,10 @@
 			
 			if($this->curricula){
 				$filtro .= " and majorId ='".$this->curricula."'";
+			}
+
+			if($this->totalPeriods){
+				$filtro .= " AND totalPeriods > 0";
 			}
 			
 			//variable donde guardaremos los registros de la pagina actual y que se regresara para su visualizacion

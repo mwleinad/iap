@@ -3,8 +3,6 @@
         <i class="fas fa-bookmark"></i> Agregar Tópico
     </div>
     <div class="card-body">
-        <div id="tblContent" class="table-responsive">
-            {include file="forms/new/add-student-register.tpl"}
-        </div>
+        {include file="forms/new/add-student-register.tpl"}
     </div>
 </div>

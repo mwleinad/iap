@@ -27,6 +27,7 @@
 	$coursesCount = $course->EnumerateCount();
 	$lstMajor = $major->Enumerate();
 	
+	$course->setTotalPeriods(true);
 	$result = $course->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/cobranza-calendario', $arrPage);
 
 	// $result = $util->orderMultiDimensionalArray($result,'active',true);

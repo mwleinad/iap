@@ -5,7 +5,7 @@
         <td class="text-center">{$subject.clave}</td>
         <td class="text-center">{$subject.majorName}</td>
         <td class="text-center">{$subject.name}</td>
-		<td class="text-center">{$subject.group}</td>
+        <td class="text-center">{$subject.group}</td>
         <td class="text-center">
             {if $subject.modality eq 'Local'}
                 Presencial
@@ -28,29 +28,23 @@
             {/if}  
         </td>
         <td class="text-center">
-            {if $subject.totalPeriods > 0}
-                <a href="{$WEB_ROOT}/configurar-calendario/id/{$subject.courseId}" target="_blank" title="Configurar Calendario">
-                    <i class="material-icons">calendar_today</i>
-                </a>
-            {/if}
+            <a href="{$WEB_ROOT}/configurar-calendario/id/{$subject.courseId}" target="_blank" title="Configurar Calendario">
+                <i class="far fa-calendar-alt text-info fa-lg"></i>
+            </a>
         </td>
         <td class="text-center">
-            {if $subject.totalPeriods > 0}
-                <a href="{$WEB_ROOT}/becas-calendario/id/{$subject.courseId}" target="_blank" title="Configurar Becas">
-                    <i class="material-icons">verified</i>
-                </a>
-            {/if}
-		</td>
+            <a href="{$WEB_ROOT}/becas-calendario/id/{$subject.courseId}" target="_blank" title="Configurar Becas">
+                <i class="fas fa-check-circle text-dark fa-lg"></i>
+            </a>
+        </td>
         <td class="text-center">
-            {if $subject.totalPeriods > 0}
-                <a href="{$WEB_ROOT}/pagos-calendario/id/{$subject.courseId}" target="_blank" title="Historial de Pagos">
-                    <i class="material-icons">attach_money</i>
-                </a>
-            {/if}
-		</td>
+            <a href="{$WEB_ROOT}/pagos-calendario/id/{$subject.courseId}" target="_blank" title="Historial de Pagos">
+                <i class="fas fa-dollar-sign text-primary fa-lg"></i>
+            </a>
+        </td>
     </tr>
-    {foreachelse}
+{foreachelse}
     <tr>
-        <td colspan="10" class="text-center">No se encontr&oacute; ning&uacute;n registro.</td>
+        <td colspan="11" class="text-center">No se encontró ningún registro.</td>
     </tr>
 {/foreach}

@@ -63,20 +63,14 @@
         {/if}
         {if $AccessMod[34] == 1 || $User.positionId == 1}
             {if $vistaPrevia ne 1}
-                <li class="nav-item {if $page == "invoices" or $page == "consultar-facturas" or $page == "cobranza-calendario"}active{/if}">
-                    <a class="nav-link" data-toggle="collapse" href="#m-cobranza" aria-expanded="{if $page == "invoices" or $page == "consultar-facturas" or $page == "cobranza-calendario"}true{else}false{/if}" aria-controls="m-cobranza">
+                <li class="nav-item {if $page == "configurar-calendario" or $page == "cobranza-calendario"}active{/if}">
+                    <a class="nav-link" data-toggle="collapse" href="#m-cobranza" aria-expanded="{if $page == "configurar-calendario" or $page == "cobranza-calendario"}true{else}false{/if}" aria-controls="m-cobranza">
                         <span class="menu-title">Cobranza</span>
                         <i class="menu-arrow"></i>
                         <i class="mdi mdi-cash-usd menu-icon"></i>
                     </a>
-                    <div class="collapse {if $page == "invoices" or $page == "consultar-facturas" or $page == "cobranza-calendario"}show{/if}" id="m-cobranza">
+                    <div class="collapse {if $page == "configurar-calendario" or $page == "cobranza-calendario"}show{/if}" id="m-cobranza">
                         <ul class="nav flex-column sub-menu">
-                            <li class="nav-item">
-                                <a class="nav-link {if $page == "invoices"}active{/if}" href="{$WEB_ROOT}/invoices">Recibos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {if $page == "consultar-facturas"}active{/if}" href="{$WEB_ROOT}/consultar-facturas">Consultar Facturas</a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link {if $page == "cobranza-calendario"}active{/if}" href="{$WEB_ROOT}/cobranza-calendario">Calendario de Pagos</a>
                             </li>
