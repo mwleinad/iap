@@ -1,7 +1,7 @@
 <div class="page-header">
     <h3 class="page-title">
         <span class="page-title-icon bg-gradient-primary text-white mr-2">
-            <i class="mdi mdi-cash"></i>                 
+            <i class="mdi mdi-school"></i>                 
         </span>
         Currícula
     </h3>
@@ -17,7 +17,7 @@
 
 <div class="card mb-4">
     <div class="card-header bg-primary text-white">
-        <i class="fas fa-calendar-alt"></i> Currícula
+        <i class="fas fa-list"></i> Currícula
         <a href="{$WEB_ROOT}/graybox.php?page=new-subject" class="btn btn-info float-right" data-target="#ajax" data-toggle="modal">
             <i class="fas fa-plus"></i> Agregar
         </a>

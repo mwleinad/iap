@@ -28,6 +28,9 @@
 		$subject->setFechaRvoeLinea($_POST['fechaRvoeLinea']);
 		
 		$subject->Save();
+
+		header("Location:" . WEB_ROOT . "/subject");
+		exit;
 	}
 
 	$smarty->assign('mnuMain','cursos');

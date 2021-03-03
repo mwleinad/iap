@@ -28,6 +28,9 @@
 		$subject->setFechaRvoeLinea($_POST['fechaRvoeLinea']);
 		
 		$subject->Update();
+
+		header("Location:" . WEB_ROOT . "/subject");
+		exit;
 	}
 
 	$subject->setSubjectId($_GET['id']);

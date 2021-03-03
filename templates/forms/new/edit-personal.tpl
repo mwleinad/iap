@@ -53,7 +53,7 @@
         </div>
         <div class="form-group col-md-4">
             <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-            <input type="text" name="fecha_nacimiento" id="fecha_nacimiento" value="{$info.fecha_nacimiento}" maxlength="10" class="form-control" placeholder="dd-mm-AAAA" />
+            <input type="text" name="fecha_nacimiento" id="fecha_nacimiento" value="{$info.fecha_nacimiento}" maxlength="10" class="form-control i-calendar" placeholder="dd-mm-AAAA" />
         </div>
     </div>
     <div class="row">
@@ -148,6 +148,10 @@
             toolbarButtonSize: "small",
             autofocus: true,
             toolbarAdaptive: false
+        });
+
+        flatpickr('.i-calendar', {
+            dateFormat: "d-m-Y"
         });
     });
 </script>

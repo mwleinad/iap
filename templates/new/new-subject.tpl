@@ -1,12 +1,8 @@
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorm"></i>Agregar Instancias de Curricula
-        </div>
-        <div class="actions">
-        </div>
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <i class="fas fa-bookmark"></i> Agregar Instancias de Curricula
     </div>
-    <div class="portlet-body">
+    <div class="card-body">
         {include file="forms/new/add-subject.tpl"}
     </div>
 </div>
