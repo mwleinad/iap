@@ -7,7 +7,7 @@
     </div>
 </footer>
 
-<div class="modal fade" id="ajax" role="basic" aria-hidden="true" onClick="limipiarAjax()">
+<div class="modal fade" id="ajax" role="basic" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-body">

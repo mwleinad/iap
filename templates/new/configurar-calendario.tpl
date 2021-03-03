@@ -1,7 +1,7 @@
 <div class="page-header">
     <h3 class="page-title">
         <span class="page-title-icon bg-gradient-primary text-white mr-2">
-            <i class="mdi mdi-chas"></i>                 
+            <i class="mdi mdi-cash"></i>                 
         </span>
         Configurar Calendario
     </h3>

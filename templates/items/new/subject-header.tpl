@@ -1,10 +1,10 @@
-<tr>
-    <th width="30" height="28">ID</th>
-    <th width="100">Tipo</th>
-    <th width="100">Clave</th>
-    <th width="300">Nombre</th>
-    <th width="80">No. Modulos</th>
-    <th width="60">No. Pagos</th>
-    <th width="80">Costo Mensual</th>
-    <th width="60">Acciones</th>
+<tr class="text-center">
+    <th>ID</th>
+    <th>Tipo</th>
+    <th>Clave</th>
+    <th>Nombre</th>
+    <th>No. Modulos</th>
+    <th>No. Pagos</th>
+    <th>Costo Mensual</th>
+    <th>Acciones</th>
 </tr>
