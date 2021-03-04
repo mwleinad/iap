@@ -4,7 +4,7 @@
         <td>{$position.profesionName|truncate:50:"..."}</td>
         <td class="text-center">
             <i id="{$position.profesionId}" name="{$position.profesionName}" class="fas fa-times-circle fa-2x text-danger pointer spanDelete" data-toggle="tooltip" data-placement="top" title="Eliminar"></i>
-            <i id="{$position.profesionId}" name="{$position.profesionName}" class="fas fa-arrow-circle-right fa-2x text-success pointer spanEdit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
+            <i id="{$position.profesionId}" name="{$position.profesionName}" class="fas fa-pen-square fa-2x text-success pointer spanEdit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
         </td>
     </tr>
 {foreachelse}

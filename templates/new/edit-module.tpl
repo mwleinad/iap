@@ -1,17 +1,17 @@
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorm"></i>Editar información del módulo {$subject.name}
-            {if $docente}
-                | <a href="{$WEB_ROOT}/index_new.php?page=edit-modules-course&id={$courseId}" style="color:#000000">Regresar</a>
-            {else}
-                | <a href="{$WEB_ROOT}/index_new.php?page=subject" style="color:#000000">Regresar</a>
-            {/if}
-        </div>
-        <div class="actions">
-        </div>
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <i class="fas fa-edit"></i> Editar información del módulo {$subject.name}
+        {if $docente}
+            <a href="{$WEB_ROOT}/index_new.php?page=edit-modules-course&id={$courseId}" class="btn btn-info btn-sm float-right">
+                Regresar
+            </a>
+        {else}
+            <a href="{$WEB_ROOT}/index_new.php?page=subject" class="btn btn-info btn-sm float-right">
+                Regresar
+            </a>
+        {/if}
     </div>
-    <div class="portlet-body">
+    <div class="card-body">
         {include file="forms/new/edit-module.tpl"}
     </div>
 </div>

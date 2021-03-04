@@ -185,6 +185,21 @@
 		{/if}
 		<script src="{$WEB_ROOT}/javascript/new/{$page}.js?{$timestamp}" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/pages/scripts/profile.min.js" type="text/javascript"></script>
+		{if $page eq "edit-module"}
+			<script type="text/javascript">
+				$(function() {
+					$('textarea').each(function () {
+						new Jodit(this, {
+							language: "es",
+							toolbarButtonSize: "small",
+							autofocus: true,
+							toolbarAdaptive: false
+						});
+						console.log("Activado");
+					});
+				});
+			</script>
+		{/if}
 	</body>
 
 </html>

@@ -82,17 +82,17 @@
         {if $AccessMod[11] == 1 || $User.positionId == 1 || $AccessMod[31] == 1 || $AccessMod[8] == 1 || $AccessMod[39] == 1}
             {if !$docente}
                 {if $vistaPrevia ne 1}
-                    <li class="nav-item {if $page == "subject" or $page == "history-subject"}active{/if}">
+                    <li class="nav-item {if $page == "subject" or $page == "history-subject" or $page == "edit-module"}active{/if}">
                         <a class="nav-link" data-toggle="collapse" href="#m-curricula" aria-expanded="{if $page == "subject" or $page == "history-subject"}true{else}false{/if}" aria-controls="m-curricula">
                             <span class="menu-title">Currícula</span>
                             <i class="menu-arrow"></i>
                             <i class="mdi mdi-school menu-icon"></i>
                         </a>
-                        <div class="collapse {if $page == "subject" or $page == "history-subject"}show{/if}" id="m-curricula">
+                        <div class="collapse {if $page == "subject" or $page == "history-subject" or $page == "edit-module"}show{/if}" id="m-curricula">
                             <ul class="nav flex-column sub-menu">
                                 {if $AccessMod[39] != 1}
                                     <li class="nav-item">
-                                        <a class="nav-link {if $page == "subject"}active{/if}" href="{$WEB_ROOT}/subject">Currícula</a>
+                                        <a class="nav-link {if $page == "subject" or $page == "edit-module"}active{/if}" href="{$WEB_ROOT}/subject">Currícula</a>
                                     </li>
                                 {/if}
                                 <li class="nav-item">
@@ -116,52 +116,14 @@
 
         {if $User.positionId == 1 || $AccessMod[40] == 1 || $AccessMod[1] == 1 || $AccessMod[2] == 1 || $AccessMod[3] == 1 || $AccessMod[4] == 1 || $AccessMod[5] == 1 || $AccessMod[6] == 1 || $AccessMod[7] == 1 || $AccessMod[9] == 1 || $AccessMod[10] == 1}
             {if $vistaPrevia ne 1}
-                {if !$docente}
-                    {if $AccessMod[40] != 1}
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#m-videoconferencias" aria-expanded="false" aria-controls="m-videoconferencias">
-                                <span class="menu-title">Videoconferencias</span>
-                                <i class="menu-arrow"></i>
-                                <i class="mdi mdi-video menu-icon"></i>
-                            </a>
-                            <div class="collapse" id="m-videoconferencias">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/tv">Videoconferencias en Vivo</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/recorded">Grabaciones</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    {/if}
+                {*if !$docente}
                     <li class="nav-item">
                         <a class="nav-link" href="{$WEB_ROOT}/solicitud">
                             <span class="menu-title">Solicitudes</span>
                             <i class="mdi mdi-file-document menu-icon"></i>
                         </a>
                     </li>
-                    {if $AccessMod[40] != 1}
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#m-finanzas" aria-expanded="false" aria-controls="m-finanzas">
-                                <span class="menu-title">Finanzas</span>
-                                <i class="menu-arrow"></i>
-                                <i class="mdi mdi-cash-multiple menu-icon"></i>
-                            </a>
-                            <div class="collapse" id="m-finanzas">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/concepto">Conceptos</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/sincronizar">Sincronizar DB</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    {/if}
-                {/if}
+                {/if*}
                 <li class="nav-item">
                     <a class="nav-link" href="{$WEB_ROOT}/inbox/or/h">
                         <span class="menu-title">Inbox</span>

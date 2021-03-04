@@ -6,7 +6,7 @@
         <td>{$item.wrappedDescription}</td>
         <td class="text-center">
             <i id="{$item.personalId}" class="fas fa-times-circle fa-2x text-danger pointer spanDelete" data-toggle="tooltip" data-placement="top" title="Eliminar"></i>
-            <i id="{$item.personalId}" class="fas fa-edit fa-2x text-success pointer spanEdit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
+            <i id="{$item.personalId}" class="fas fa-pen-square fa-2x text-success pointer spanEdit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
 			{if $item.firmaConstancia eq 'si'}
 			    {*<img src="images/pointer.png?sd"   title="FIRMA CONSTANCIAS" />*}
                 <i class="fas fa-file-signature text-info fa-2x" data-toggle="tooltip" data-placement="top" title="Firma Constancias"></i>

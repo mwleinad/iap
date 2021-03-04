@@ -1,31 +1,31 @@
 {foreach from=$actividades item=subject}
     <tr>
-        <td align="center" class="id">{$subject.activityId}</td>
-        <td align="center">{$subject.activityType}</td>
-        <td align="center">{$subject.initialDate|date_format:"%d-%m-%Y"} {$subject.horaInicial}</td>
-        <td align="center">{$subject.finalDate|date_format:"%d-%m-%Y %H:%M:%S"}</td>
-        <td align="center">{$subject.modality}</td>
-        <td align="center">
+        <td class="id text-center">{$subject.activityId}</td>
+        <td class="text-center">{$subject.activityType}</td>
+        <td class="text-center">{$subject.initialDate|date_format:"%d-%m-%Y"} {$subject.horaInicial}</td>
+        <td class="text-center">{$subject.finalDate|date_format:"%d-%m-%Y %H:%M:%S"}</td>
+        <td class="text-center">{$subject.modality}</td>
+        <td class="text-center">
             {if $subject.requiredActivity != 0}
                 Id: {$subject.requiredActivity} Resumen: {$subject.requerida.resumen}
             {else}
                 N/A
-            {/if}  </td>
-        <td align="center">{$subject.score}%</td>
-        <td align="center">{$subject.resumen}</td>
-        <td align="center">
+            {/if}  
+        </td>
+        <td class="text-center">{$subject.score}%</td>
+        <td class="text-center">{$subject.resumen}</td>
+        <td class="text-center">
             {if $subject.activityType == "Examen"}
-			 
                 {if $majorModality == "Online"}
-                    <a href="{$WEB_ROOT}/configuracion-examen/id/{$subject.activityId}" style="background:#32c5d2; color:white">Configurar</a>
+                    <a href="{$WEB_ROOT}/configuracion-examen/id/{$subject.activityId}" class="btn btn-info btn-sm">Configurar</a>
                 {else}
-                     <a href="{$WEB_ROOT}/configuracion-examen/id/{$subject.activityId}" style="background:#32c5d2; color:white">Configurar</a>
+                     <a href="{$WEB_ROOT}/configuracion-examen/id/{$subject.activityId}" class="btn btn-info btn-sm">Configurar</a>
                 {/if}
             {else}
                 N/A
-            {/if}</td>
-        <td align="center">
-		
+            {/if}
+        </td>
+        <td class="text-center">
 			{if $configMateria ne 'si'}
             <img src="{$WEB_ROOT}/images/icons/16/delete.png" class="spanDelete" data-id="{$subject.activityId}" id="d-{$subject.activityId}" name="d-{$subject.name}" title="Eliminar" />&nbsp;
 
