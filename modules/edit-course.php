@@ -44,6 +44,9 @@
 		$course->setTipoCuatri($_POST["tipoCuatri"]);
 		$course->setListar($_POST["listar"]);
 		$course->Update();
+
+		header("Location:" . WEB_ROOT . "/history-subject");
+		exit;
 	}
 
 	$cursos = $subject->Enumerate();

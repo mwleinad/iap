@@ -1,14 +1,10 @@
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorm"></i>Modulos del Curso
-        </div>
-        <div class="actions">
-        </div>
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <i class="far fa-window-restore"></i> Modulos del Curso
     </div>
-    <div class="portlet-body">
+    <div class="card-body">
         {if $noModules == 1}
-            <div style="text-align:center">No hay mas modulos para agregar.</div>
+            <div class="alert alert-danger text-center" role="alert">No hay más módulos para agregar.</div>
         {else}
             {include file="{$DOC_ROOT}/templates/forms/new/add-modules-course.tpl"}
         {/if}

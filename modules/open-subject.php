@@ -42,9 +42,8 @@
 		$course->setTipoCuatri($_POST["tipoCuatri"]);
 
 		$course->Open();
-
-		//TODO add heeder location when we finish the template change
-
+		header("Location:" . WEB_ROOT . "/history-subject");
+		exit;
 	}
 
 	$cursos = $subject->Enumerate();
