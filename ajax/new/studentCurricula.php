@@ -341,16 +341,19 @@ switch($_POST["type"])
 	// exit;
 	
 	//checar a que curriculas tengo permiso
-	if(in_array(2, $info["roles"]))
+	if(is_array($info))
 	{
-		$smarty->assign('docente', 1);
-		$permisosDocente = $user->PermisosDocente();
-		
-		foreach($addedModules as $key => $value)
+		if(in_array(2, $info["roles"]))
 		{
-			if(!in_array($value["courseModuleId"], $permisosDocente["courseModule"]))
+			$smarty->assign('docente', 1);
+			$permisosDocente = $user->PermisosDocente();
+			
+			foreach($addedModules as $key => $value)
 			{
-				unset($addedModules[$key]);
+				if(!in_array($value["courseModuleId"], $permisosDocente["courseModule"]))
+				{
+					unset($addedModules[$key]);
+				}
 			}
 		}
 	}
