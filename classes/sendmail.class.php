@@ -50,11 +50,14 @@ class SendMail extends Main
 			$this->email->Subject    = $subject;
 			$this->email->MsgHTML($body);
 
-			foreach($attachment as $key => $attach)
+			if (is_array($attachment) || is_object($attachment))
 			{
-				$this->email->AddAttachment($attach, $fileName[$key]);
+				foreach($attachment as $key => $attach)
+				{
+					$this->email->AddAttachment($attach, $fileName[$key]);
+				}
 			}
-			print_r($this->email);
+			//print_r($this->email);
 			$this->email->Send();
 	}
 

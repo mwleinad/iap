@@ -9,7 +9,7 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=add-calificacion&id={$myModule.courseModuleId}&auxTpl=admin" data-target="#ajax" data-toggle="modal">
-                    <i class="fas fa-graduation-cap"></i>Acta de Calificaciones
+                    <i class="fas fa-graduation-cap"></i> Acta de Calificaciones
                 </a>
                 <a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=carta&id={$myModule.courseModuleId}&auxTpl=admin" data-target="#ajax" data-toggle="modal">
                     <i class="far fa-clone"></i> Carta Descriptiva
