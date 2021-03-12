@@ -34,7 +34,7 @@
 <div id="loader" class="text-center"></div>
 <div id="msjd" class="text-center"></div>
 <div class="col-md-12 text-center my-4">
-    <button class="btn btn-danger" onClick="closeModal()">Cerrar</button>
+    <button class="btn btn-danger" onClick="btnClose()">Cerrar</button>
     {if $info.habilitarCalificar eq 'si'}
         <button class="btn btn-success" onClick="SaveCalificacion({$id})" id="btnSave">Guardar</button>
     {/if}

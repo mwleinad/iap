@@ -7,8 +7,13 @@
     </div>
 </footer>
 
-<div class="modal fade" id="ajax" role="basic" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade" id="ajax" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-header">
+            <button type="button" id="btn-close" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
         <div class="modal-content">
             <div class="modal-body">
                 <i class="fas fa-spinner fa-pulse fa-lg"></i> Cargando...

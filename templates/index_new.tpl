@@ -125,7 +125,7 @@
 		<script src="{$WEB_ROOT}/assets/vcz/js/bootbox.min.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/vendor/jodit/build/jodit.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/vendor/flatpickr/flatpickr.js"></script>
-		<script src="{$WEB_ROOT}/assets/vcz/js/dashboard.js"></script>
+		<script src="{$WEB_ROOT}/assets/vcz/js/dashboard.js?v={$timestamp}"></script>
 		{* End new scripts *}
 
 		{* Scripts headers *}
@@ -185,6 +185,7 @@
 		{/if}
 		<script src="{$WEB_ROOT}/javascript/new/{$page}.js?{$timestamp}" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/pages/scripts/profile.min.js" type="text/javascript"></script>
+		<script src="{$WEB_ROOT}/assets/vcz/js/general.js?v={$timestamp}"></script>
 		{if $page eq "edit-module"}
 			<script type="text/javascript">
 				$(function() {
