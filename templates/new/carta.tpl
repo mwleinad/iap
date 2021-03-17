@@ -1,6 +1,6 @@
 <div class="card mb-4">
     <div class="card-header bg-primary text-white">
-		<i class="fas fa-file"></i> Carta Descriptiva
+		<i class="fas fa-clone"></i> Carta Descriptiva
     </div>
     <div class="card-body text-center">
 		{if $info.rutaCarta eq ''}
