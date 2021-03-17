@@ -1,63 +1,38 @@
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorn"></i>Grupo
-        </div>
-        <div class="actions">
-
-        </div>
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+		<i class="fas fa-users"></i> Grupo
     </div>
-    <div class="portlet-body">
-	
-		<div style="left:15% !important; position:relative">
-			
-		{foreach from=$lstGrupo item=item key=key}
-		
-   
-
-			<div  style=" float: left;
-			margin: 0 auto;
-			width: 9%;
-			height: 9%;
-			-webkit-border-radius: 10%!important;
-			-moz-border-radius: 10%!important;
-			border-radius: 10%!important;">
-
-				<a href="{$WEB_ROOT}/graybox.php?page=view-perfil&id={$item.userId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
-				{if $item.rutaFoto eq ''}
-				       <img src="{$WEB_ROOT}/alumnos/no_foto.JPG" class="img-responsive" alt="" style="border-radius: 60%;  width: 60%;height: 60%;"> 
-
-				{else}
-				       <img src="{$WEB_ROOT}/alumnos/{$item.rutaFoto}?{$rand}" class="img-responsive" alt="" style="border-radius: 60%;  width: 60%;height: 60%;"> 
-				{/if}
-				<font style="font-size:11px; color:#73b760 ">Ver Perfil</font>
-				</a>
-			</div>
-			<div style=" float:left; width: 194px;">
-			<br>
-			<font style="font-size:11px">{$item.names|upper} {$item.lastNamePaterno|upper}  {$item.lastNameMaterno|upper}</font>
-			</div>
-			
-			{if ($key+1) % 3  eq 0}
-				<div style="clear:both">
+    <div class="card-body text-center">
+		<div class="row">
+			{foreach from=$lstGrupo item=item key=key}
+				<div class="col-md-3 d-flex align-items-stretch mb-3">
+					<div class="card border border-primary w-100">
+						<div class="card-body">
+							<a href="{$WEB_ROOT}/graybox.php?page=view-perfil&id={$item.userId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
+								{if $item.rutaFoto eq ''}
+									<i class="fas fa-user-circle fa-5x"></i>
+								{else}
+									<img src="{$WEB_ROOT}/alumnos/{$item.rutaFoto}?{$rand}" class="rounded-circle" alt="" style="width: 80px"> 
+								{/if}
+							</a><br>
+							<p class="card-text">{$item.names|upper} {$item.lastNamePaterno|upper} {$item.lastNameMaterno|upper}</p>
+						</div>
+						<div class="card-footer">
+							<a href="{$WEB_ROOT}/graybox.php?page=view-perfil&id={$item.userId}" class="btn btn-outline-primary btn-sm" data-target="#ajax" data-toggle="modal">
+								Ver Perfil
+							</a>
+						</div>
+					</div>
 				</div>
-				
-					<br>	
-					<br>	
-					<br>	
-
-				{/if}
-			
-		{/foreach}
+			{/foreach}
 		</div>
     </div>
 </div>
 
 <script type="text/javascript">
     tinyMCE.init({
-        mode : "textareas",
-        theme : "advanced",
-        skin : "o2k7"
-
+        mode: "textareas",
+        theme: "advanced",
+        skin: "o2k7"
     });
 </script>
