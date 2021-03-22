@@ -79,7 +79,7 @@
                     {if $docente}
                         {$myModule.finalDate}
                     {else}
-                        <input type="text" name="finalDate" id="finalDate" size="10" class="form-control date-picker " value="{$myModule.finalDate}" required />
+                        <input type="text" name="finalDate" id="finalDate" size="10" class="form-control i-calendar" value="{$myModule.finalDate}" required />
                     {/if}
                 </div>
             </div>
