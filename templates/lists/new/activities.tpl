@@ -1,4 +1,4 @@
-<table class="table table-bordered table-striped">
+<table class="table table-sm table-bordered table-striped">
     <thead>
         {include file="{$DOC_ROOT}/templates/items/new/activities-header.tpl"}
     </thead>

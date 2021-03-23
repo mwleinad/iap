@@ -1,21 +1,17 @@
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorm"></i>Calificar Actividad
-        </div>
-        <div class="actions">
-		<a href="{$WEB_ROOT}/edit-modules-course/id/{$cId}" id="btnAddMajor" class="btn green" title="Editar Modulo" >Regresar a Modulo</a>
-        </div>
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <i class="fas fa-clipboard-check"></i> Calificar Actividad
+        <a href="{$WEB_ROOT}/edit-modules-course/id/{$cId}" class="btn btn-info float-right" id="btnAddMajor">
+            <i class="fas fa-arrow-left"></i> Regresar al Módulo
+        </a>
     </div>
-    <div class="portlet-body">
-        {if $actividad.modality == "Individual"}
-            <div id="tblContent">{include file="{$DOC_ROOT}/templates/lists/score.tpl"}</div>
-        {else}
-            <div id="tblContent">{include file="{$DOC_ROOT}/templates/lists/score-team.tpl"}</div>
-        {/if}
+    <div class="card-body">
+        <div id="tblContent" class="table-responsive">
+            {if $actividad.modality == "Individual"}
+                {include file="{$DOC_ROOT}/templates/lists/score.tpl"}
+            {else}
+                {include file="{$DOC_ROOT}/templates/lists/score-team.tpl"}
+            {/if}
+        </div>
     </div>
 </div>
-
-
-
-
