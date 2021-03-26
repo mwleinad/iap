@@ -230,13 +230,14 @@
         </a>
     </div>
     <div class="card-body">
-        <div style="text-align:left">Ponderaci&oacute;n Total del Modulo: <b>{$totalPonderation}%</b>
-        {if $totalPonderation < 100}
-            <span style="color:#C00"> La suma de las ponderaciones de las actividades es menor a 100%. Se recomienda que sea 100%</span>
-        {/if}
-        {if $totalPonderation > 100}
-            <span style="color:#C00"> La suma de las ponderaciones de las actividades es mayor a 100%. Se recomienda que sea 100%</span>
-        {/if}        </div>
+        <div class="text-left mb-2">Ponderación Total del Modulo: <b>{$totalPonderation}%</b>
+            {if $totalPonderation < 100}
+                <span class="badge badge-danger">La suma de las ponderaciones de las actividades es menor a 100%. Se recomienda que sea 100%</span>
+            {/if}
+            {if $totalPonderation > 100}
+                <span class="badge badge-danger">La suma de las ponderaciones de las actividades es mayor a 100%. Se recomienda que sea 100%</span>
+            {/if}        
+        </div>
         <a href="{$WEB_ROOT}/add-activity/id/{$myModule.courseModuleId}" onclick="return parent.GB_show('Agregar Actividad', this.href,650,700) "><div class="btnAdd" id="btnAddSubject"></div></a>
         <div id="tblContent-activities" class="table-responsive">
             {include file="lists/new/activities.tpl"}

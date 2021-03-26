@@ -1,6 +1,6 @@
-<tr>
-    <th width="300">Nombre</th>
-    <th width="500">Descripción</th>
-    <th width="50">Descargar</th>
-    <th width="60">Acciones</th>
+<tr class="text-center">
+    <th>Nombre</th>
+    <th>Descripción</th>
+    <th>Descargar</th>
+    <th>Acciones</th>
 </tr>
