@@ -2768,7 +2768,7 @@ class Student extends User
 				'".$this->statusjj."',
 				'".$this->usuariojjId."',
 				'".$this->yoId."',
-				'".$this->mensaje."',
+				'".$this->mensaje." - Enviado CZ',
 				'".$quien."',
 				'".$this->asunto."'
 				);";

@@ -1,48 +1,49 @@
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-comments-o"></i>
-        </div>
-
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+		<i class="fas fa-reply"></i> Inbox
     </div>
-    <div class="portlet-body">
-        <div id="tblContent">
-		<div class="row-fluid inbox">
-					<div class="span2">
-						<ul class="inbox-nav margin-bottom-10">
-							<!--<li class="compose-btn">
-								<a href="javascript:;" data-title="Compose" class="btn green"> 
-								<i class="icon-edit"></i> Redactar
-								</a>
-							</li>-->
-							<li class="inbox active" id="linkEntrada">
-								<a href="javascript:;" class="btn" data-title="Inbox" onClick="cargaInbox('entrada','{$courseMId}')">Entrada</a>
-								<b></b>
-							</li>
-							<li class="sent" id="linkEnviado"><a class="btn" href="javascript:;"  onClick="cargaInbox('enviados','{$courseMId}')" data-title="Sent">Enviados</a><b></b></li>
-							<li class="draft" id="linkBorrador"><a class="btn" href="javascript:;" onClick="cargaInbox('borrador','{$courseMId}')" data-title="Draft">Borrador</a><b></b></li>
-							<li class="trash" id="linkEliminado"><a class="btn" href="javascript:;" onClick="cargaInbox('eliminados','{$courseMId}')" data-title="Trash">Eliminados</a><b></b></li>
-						</ul>
-					</div>
-					<div class="span10">
-						<div class="inbox-header">
-							<h1 class="pull-left">Inbox</h1>
-							{if $page ne 'reply-inbox'}
-							<form action="#" class="form-search pull-right">
-								<div class="input-append">
-									<input class="form-control" style="float:left" type="text" placeholder="Search Mail">
-									<button class="btn green" type="button">Search</button>
-								</div>
-							</form>
-							{/if}
-						</div>
-						<div class="inbox-loading"></div>
-						<div class="inbox-content" id="contentInbox">
-							{include file="{$DOC_ROOT}/templates/lists/reply-inbox.tpl"}
-						</div>
-					</div>
+    <div class="card-body">
+        <div id="tblContent" class="row">
+			{* ASIDE *}
+			<div class="col-md-2">
+				<div class="list-group">
+					<a href="javascript:;" class="list-group-item list-group-item-action inbox active" id="linkEntrada" data-title="Inbox" onClick="cargaInbox('entrada','{$courseMId}')">
+						<small><i class="fas fa-inbox"></i> Recibidos</small>
+					</a>
+					<a href="javascript:;" class="list-group-item list-group-item-action send" id="linkEnviado" onClick="cargaInbox('enviados','{$courseMId}')" data-title="Sent">
+						<small><i class="fas fa-paper-plane"></i> Enviados</small>
+					</a>
+					<a href="javascript:;" class="list-group-item list-group-item-action draft" id="linkBorrador" onClick="cargaInbox('borrador','{$courseMId}')" data-title="Draft">
+						<small><i class="fas fa-file-signature"></i> Borradores</small>
+					</a>
+					<a href="javascript:;" class="list-group-item list-group-item-action trash" id="linkEliminado" onClick="cargaInbox('eliminados','{$courseMId}')" data-title="Trash">
+						<small><i class="fas fa-trash-alt"></i> Eliminados</small>
+					</a>
 				</div>
-		
+			</div>
+			{* CONTENT *}
+			<div class="col-md-10">
+				{* SEARCH *}
+				<div class="col-md-12 mb-4">
+					{if $page ne 'reply-inbox' and $page ne 'view-inbox'}
+						<form action="#" class="form-search">
+							<div class="form-row d-flex justify-content-center">
+								<div class="col-auto">
+									<input class="form-control" type="text" placeholder="Buscar Correo">
+								</div>
+								<div class="col-auto">
+									<button class="btn btn-info" type="button">Buscar</button>
+								</div>
+							</div>
+						</form>
+					{/if}
+				</div>
+				{* INBOX *}
+				<div class="col-md-12">
+					<div class="inbox-loading"></div>
+					<div class="inbox-content" id="contentInbox">{include file="{$DOC_ROOT}/templates/lists/reply-inbox.tpl"}</div>
+				</div>
+			</div>
 		</div>
     </div>
 </div>

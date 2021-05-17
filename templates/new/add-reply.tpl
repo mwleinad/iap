@@ -1,33 +1,30 @@
-
-
-<div class="portlet box " style="border-radius: 2px;
-    border: 2px solid #73AD21 ">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorm"></i><font color="#73b760">Topico {$topic.nombre}</font>
-        </div>
-        <div class="actions">
-            <a href="{$WEB_ROOT}/forumsub-modules-student/id/{$id}/topicId/{$topic.topicId}" class="btn btn-default btn-sm" style="background:#73AD21; color:white">Regresar</a>
-            <a href="javascript:void(0)" onClick="updateForo()" class="btn btn-default btn-sm" style="background:#1687ff; color:white">Actualizar</a>
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <i class="fas fa-bullhorn"></i> Topico {$topic.nombre}
+        <div class="col-md-12 text-right">
+            <a href="{$WEB_ROOT}/forumsub-modules-student/id/{$id}/topicId/{$topic.topicId}" class="btn btn-outline-light btn-sm">
+                <i class="fas fa-arrow-circle-left"></i> Regresar
+            </a>
+            <a href="javascript:void(0)" onClick="updateForo()" class="btn btn-outline-light btn-sm">
+                <i class="fas fa-sync-alt"></i> Actualizar
+            </a>
         </div>
     </div>
-    <div class="portlet-body">
-        <div id="tblContent" class="content-in">
+    <div class="card-body">
+        <div id="tblContent">
             {include file="boxes/status_no_ajax.tpl"}
-			<form id="frmForo">
-				<input type="hidden" name="topicsubId" value="{$topicsubId}">
-				<input type="hidden" name="positionId" value="{$positionId}">
-				<input type="hidden" name="id" value="{$id}">
-			</form>
-			<div id="divContenforo">
-            {include file="{$DOC_ROOT}/templates/lists/new/topic-replies.tpl"}
-			</div>
-			<br>
-			<br>
+            <form id="frmForo">
+                <input type="hidden" name="topicsubId" value="{$topicsubId}" />
+                <input type="hidden" name="positionId" value="{$positionId}" />
+                <input type="hidden" name="id" value="{$id}" />
+            </form>
+            <div id="divContenforo">
+                {include file="{$DOC_ROOT}/templates/lists/new/topic-replies.tpl"}
+            </div>
+            <br>
+            <br>
             {include file="{$DOC_ROOT}/templates/forms/new/add-reply.tpl"}
         </div>
     </div>
 </div>
 <input type="hidden" id="viewPage" name="viewPage" value="{$arrPage.currentPage}" />
-
-

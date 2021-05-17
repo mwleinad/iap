@@ -1,16 +1,10 @@
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorm"></i>Agregar Comentario
-        </div>
-        <div class="actions">
-        </div>
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <i class="far fa-comment-dots"></i> Agregar Comentario
     </div>
-    <div class="portlet-body">
-        <div id="tblContent" class="content-in">
+    <div class="card-body">
+        <div id="tblContent">
             {include file="{$DOC_ROOT}/templates/forms/new/add-comment.tpl"}
         </div>
     </div>
 </div>
-
-

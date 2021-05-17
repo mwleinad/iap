@@ -30,7 +30,7 @@
 						{if $subject.leido eq 'no' and $tipo eq 'entrada'}
 							<b>
 						{/if}
-						<label style="text-transform:lowercase;" class="text-muted">{$subject.nombre} {$subject.paterno} {$subject.materno}</label>
+						<label style="text-transform:capitalize;" class="text-muted">{$subject.nombre} {$subject.paterno} {$subject.materno}</label>
 						{if $subject.leido eq 'no' and $tipo eq 'entrada'}
 							</b>
 						{/if}
