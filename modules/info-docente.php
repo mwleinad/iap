@@ -45,7 +45,8 @@
 	$smarty->assign("registros", $registros);	
 	$smarty->assign("f1", $f1[0]);	
 	$smarty->assign("f2", $f1[1]);	
-	$smarty->assign("f3", $f1[2]);	
+	$smarty->assign("f3", $f1[2]);
+	$smarty->assign("nacimiento", $info['fecha_nacimiento']);	
 		
 	
 
