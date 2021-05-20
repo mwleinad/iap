@@ -1,83 +1,58 @@
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorm"></i>Editar
-        </div>
-        <div class="actions">
-        </div>
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+		<i class="fas fa-edit"></i> Editar
     </div>
-<div class="portlet-body">
-      
-		<form class="form-horizontal" id="frmGral" name="frmGral" method="post" onsubmit="return false;">
-			<input type="hidden" id="auxTpl" name="auxTpl" value="{$auxTpl}"/>
-			<input type="hidden" id="personalId" name="personalId" value="{$personalId}"/>
-			<input type="hidden" id="id" name="id" value="{$id}"/>
-			<input type="hidden" id="type" name="type" value="saveAddMajor"/>
-			<div class="form-body">
-			
-			<div class="form-group">
-					<label class="col-md-3 control-label">Fecha de Contrato:</label>
-					<div class="col-md-8">
-						<input type="text" name="fechaContrato" onClick="loadFecha(4)" id="fecha_4" class="form-control" 
-						{if $myModule.fechaContrato eq '0000-00-00'} value="{$hoy}" {else} value="{$myModule.fechaContrato}" {/if} >
-					</div>
+    <div class="card-body">
+		<form id="frmGral" name="frmGral" method="post" onsubmit="return false;">
+			<input type="hidden" id="auxTpl" name="auxTpl" value="{$auxTpl}" />
+			<input type="hidden" id="personalId" name="personalId" value="{$personalId}" />
+			<input type="hidden" id="id" name="id" value="{$id}" />
+			<input type="hidden" id="type" name="type" value="saveAddMajor" />
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label for="fecha_4">Fecha de Contrato:</label>
+					<input type="text" name="fechaContrato" id="fecha_4" class="form-control i-calendar" {if $myModule.fechaContrato eq '0000-00-00'} value="{$hoy}" {else} value="{$myModule.fechaContrato}" {/if} />
 				</div>
-			
-			{if $myModule.modality eq 'Online'}
-				<div class="form-group">
-					<label class="col-md-3 control-label">Fecha de Materia:</label>
-					<div class="col-md-8">
-						Inicio:<input type="text" name="fechaInicioMateria" onClick="loadFecha(3)" id="fecha_3" class="form-control" value="{$myModule.initialDate}">
-						Fin:<input type="text" onClick="loadFecha(4)" id="fecha_4" name="fechaFinMateria" class="form-control" value="{$myModule.finalDate}">
-
+			</div>
+			<span class="badge badge-dark my-3">Fecha de Materia</span>
+			<div class="row">
+				{if $myModule.modality eq 'Online'}
+					<div class="form-group col-md-6">
+						<label for="fecha_3">Inicio:</label>
+						<input type="text" name="fechaInicioMateria" id="fecha_3" class="form-control i-calendar" value="{$myModule.initialDate}" />
 					</div>
+					<div class="form-group col-md-6">
+						Fin:<input type="text" id="fecha_4" name="fechaFinMateria" class="form-control i-calendar" value="{$myModule.finalDate}" />
+					</div>
+				{else}
+					<div class="form-group col-md-12">
+						<label for="fechaMateria">Fecha de Materia:</label>
+						<input type="text" id="fechaMateria" name="fechaMateria" class="form-control i-calendar" value="{$myModule.fechaMateria}" />
+					</div>
+				{/if}
+			</div>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label for="noContrato">No. de Contrato:</label>
+					<input type="text" id="noContrato" name="noContrato" class="form-control" {if $myModule.noContrato eq ''} value="{$noContrato}" {else} value="{$myModule.noContrato}" {/if} />
 				</div>
-
-			{else}
-			
-				<div class="form-group">
-					<label class="col-md-3 control-label">Fecha de Materia:</label>
-					<div class="col-md-8">
-						<input type="text" id="fechaMateria" name="fechaMateria" class="form-control" value="{$myModule.fechaMateria}">
-
-					</div>
+				<div class="form-group col-md-6">
+					<label for="subtotal">Subtotal:</label>
+					<input type="text" id="subtotal" name="subtotal" class="form-control"  value="{$myModule.subtotal}" />
 				</div>
-			{/if}
-				
-				
-				<div class="form-group">
-					<label class="col-md-3 control-label">No. de Contrato:</label>
-					<div class="col-md-8">
-						<input type="text" name="noContrato" class="form-control"  
-						
-						{if $myModule.noContrato eq ''} value="{$noContrato}" {else} value="{$myModule.noContrato}" {/if}>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">Subtotal:</label>
-					<div class="col-md-8">
-						<input type="text" name="subtotal" class="form-control"  value="{$myModule.subtotal}">
-					</div>
-				</div>
-				<!--
-				<div class="form-group">
-					<label class="col-md-3 control-label">Habilitar:</label>
-					<div class="col-md-8">
-
-						<input type="checkbox"  name="habilitar" class="form-control" {if $myModule.habilitarDescargaContrato eq 'si'} checked {/if}>
-					</div>
-				</div>-->
+			</div>
 		</form>
+		<div class="row">
+			<div class="col-md-12"><div id="msjErr"></div></div>
+			<div class="col-md-12 text-center">
+				<button class="btn btn-primary submitForm" onClick="saveEditContrato()">Guardar</button>
+				<button type="button" class="btn btn-danger closeModal" onClick="closeModal()">Cancelar</button>
+			</div>
+		</div>
+    </div>
 </div>
-</div>
-</div>
-<div id='msjErr'>
-</div>
-<div class="form-actions">
-
-<center>
-	<button  class="btn green submitForm" onClick="saveEditContrato()">Guardar</button>
-	<button type="button" class="btn default closeModal" onClick="closeModal()" >Cancelar</button>
-</center>
-</div>
-
+<script>
+    flatpickr('.i-calendar', {
+        dateFormat: "d-m-Y"
+    });
+</script>
