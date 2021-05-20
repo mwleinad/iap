@@ -38,7 +38,7 @@
 					</li>
 				</ul>
 				<div class="tab-content">
-					<div class="tab-pane container active" id="portlet_tabp_1">
+					<div class="tab-pane container active pt-3" id="portlet_tabp_1">
 						{* BOTON FORMULARIO EDICION *}
 						<div class="row">
 							<div class="col-md-12">
@@ -169,16 +169,16 @@
 							</div>
 						</div>
 					</div>
-					<div class="tab-pane container fade" id="portlet_tabp_5">
+					<div class="tab-pane container fade pt-3" id="portlet_tabp_5">
 						{include file="{$DOC_ROOT}/templates/forms/informacion-acceso.tpl"}
 					</div>
-					<div class="tab-pane container fade" id="portlet_tabp_2">
+					<div class="tab-pane container fade pt-3" id="portlet_tabp_2">
 						{include file="{$DOC_ROOT}/templates/forms/informacion-escolar.tpl"}
 					</div>
-					<div class="tab-pane container fade" id="portlet_tabp_3">
+					<div class="tab-pane container fade pt-3" id="portlet_tabp_3">
 						{include file="{$DOC_ROOT}/templates/forms/informacion-bancaria.tpl"}
 					</div>
-					<div class="tab-pane container fade" id="portlet_tabp_4">
+					<div class="tab-pane container fade pt-3" id="portlet_tabp_4">
 						{include file="{$DOC_ROOT}/templates/forms/informacion-automovil.tpl"}
 					</div>
 				</div>
