@@ -23,12 +23,12 @@
 					<a href="{$WEB_ROOT}/materias&id={$subject.personalId}" title="Materias">
 						<i class="fas fa-book fa-lg"></i>
 					</a>
-					<a  href="javascript:void(0)" onClick="descargarAutoPdf('{$subject.personalId}')" target="_blank" title="Automovil">
+					{*<a  href="javascript:void(0)" onClick="descargarAutoPdf('{$subject.personalId}')" target="_blank" title="Automovil">
 						<i class="fas fa-car fa-lg"></i>
 					</a>
 					<a href="{$WEB_ROOT}/graybox.php?page=val&personalId={$subject.personalId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Valoración">
 						<i class="fas fa-chart-bar fa-lg"></i>
-					</a>	
+					</a>*}	
 					<a  href="javascript:void(0)" onClick="onDelete('{$subject.personalId}')"  title="Eliminar">
 						<i class="fas fa-trash-alt fa-lg"></i>
 					</a>	
