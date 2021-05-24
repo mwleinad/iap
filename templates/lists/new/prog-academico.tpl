@@ -1,47 +1,35 @@
-<table width="100%" class="tblGral table table-bordered table-striped table-condensed flip-content">
+<table class="table table-bordered table-striped">
     <thead>
-    <tr>
-		<th width="30" height="28">ID</th>
-		<th width="100" style="text-align:center">Clave</th>
-		<th width="100" style="text-align:center">Tipo</th>
-		<th width="200" style="text-align:center">Nombre</th>
-		<th width="80" style="text-align:center">Modalidad</th>
-		<th width="80" style="text-align:center">Grupo</th>
-		<!--
-		<th width="80" style="text-align:center">Tarifa</th>
-		<th width="80" style="text-align:center">Horas Materia</th>
-		-->
-		<th width="100">Materias</th>
-	</tr>
+		<tr class="text-center">
+			<th>ID</th>
+			<th>Clave</th>
+			<th>Tipo</th>
+			<th>Nombre</th>
+			<th>Modalidad</th>
+			<th>Grupo</th>
+			<th>Materias</th>
+		</tr>
     </thead>
     <tbody>
-		<input type="hidden" value="0" id="recarga" name="recarga">
+		<input type="hidden" value="0" id="recarga" name="recarga" />
 		{foreach from=$subjects item=subject}
-			<tr>
-				<td align="center" class="id">{$subject.courseId}</td>
-				<td align="center">{$subject.clave}</td>
-				<td align="center">{$subject.majorName}</td>
-				<td align="center">{$subject.name}</td>
-				<td align="center">{if $subject.modality eq 'Local'}Presencial{else}{$subject.modality}{/if}</td>
-				<td align="center">{$subject.group}</td>
-				<!--
-				<td align="center">{$subject.tarifa}</td>
-				<td align="center">{$subject.hora}</td>
-				-->
-				<td align="center">
-				
-					<a href="{$WEB_ROOT}/prog-materia/m/{$subject.courseId}"  title='MATERIAS'>
-						<i class="material-icons md-16">business_center</i>
+			<tr class="text-center">
+				<td class="id">{$subject.courseId}</td>
+				<td>{$subject.clave}</td>
+				<td>{$subject.majorName}</td>
+				<td>{$subject.name}</td>
+				<td>{if $subject.modality eq 'Local'}Presencial{else}{$subject.modality}{/if}</td>
+				<td>{$subject.group}</td>
+				<td>
+					<a href="{$WEB_ROOT}/prog-materia/m/{$subject.courseId}" title="Materias">
+						<i class="fas fa-briefcase fa-lg"></i>
 					</a>
 				</td>
-				
-
 			</tr>
-			{foreachelse}
+		{foreachelse}
 			<tr>
-				<td colspan="12" align="center">No se encontr&oacute; ning&uacute;n registro.</td>
+				<td colspan="7" class="text-center">No se encontró ningún registro.</td>
 			</tr>
 		{/foreach}
-
     </tbody>
 </table>
