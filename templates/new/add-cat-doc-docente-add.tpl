@@ -1,48 +1,34 @@
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorn"></i>Documentos del Docente
-        </div>
-        <div class="actions">
-
-        </div>
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <i class="far fa-folder"></i> Documentos del Docente
     </div>
-    <div class="portlet-body">
-	
-		
-	
-		<div id="msj">
-		</div>
-		<div id='container'>
-			<form  id='frmGral'>
-			<input type='hidden' name='docId' value='{$Info.catalogodocumentoId}'>
-					<table  >
-						<tr>
-							<td>Nombre</td><td>
-								<input type="text" name="nombre" class='form-control' value='{$Info.nombre}'></td>
-						</tr>	
-						<tr>	
-							<td>Descripcion</td>
-							<td>
-								<textarea  name="descripcion" class='form-control' >{$Info.descripcion}</textarea>
-							</td>
-						</tr>
-						
-					</table>
-				</form>
-		</div>
-		
-		<br>
-		<br>
-		
-<div id="msj_1">
+    <div class="card-body">
+		<div id="msj"></div>
+		<div id="container">
+			<form id="frmGral">
+				<input type="hidden" name="docId" value="{$Info.catalogodocumentoId}" />
+				<div class="row">
+					<div class="col-md-12">
+						<label for="nombre">Nombre</label>
+						<input type="text" id="nombre" name="nombre" class="form-control" value="{$Info.nombre}" />
 					</div>
-					<center>
-					<button onClick='onSave()' class="btn green" >
+				</div>	
+				<div class="row">	
+					<div class="col-md-12">
+						<label for="description">Descripcion</label>
+						<textarea id="description" name="descripcion" class="form-control">{$Info.descripcion}</textarea>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div id="msj_1"></div>
+		<div class="row mt-3">
+			<div class="col-md-12 text-center">
+				<button onClick="onSave()" class="btn btn-primary">
 					Guardar
-					</button>
-					<button type="button" class="btn default closeModal" onClick="cancelarSolicitud()">Cancelar</button>
-					</center>
-		
+				</button>
+				<button type="button" class="btn btn-danger closeModal" onClick="btnClose()">Cancelar</button>
+			</div>
+		</div>
     </div>
 </div>

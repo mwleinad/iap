@@ -15,7 +15,7 @@ function onSave(){
 			var splitResp = response.split("[#]");
 
 			if($.trim(splitResp[0]) == "ok"){
-					closeModal();
+					btnClose();
 					$("#msj").html(splitResp[1]);
 					$("#contenido").html(splitResp[2]);
 				}
