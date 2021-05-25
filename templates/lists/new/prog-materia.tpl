@@ -95,28 +95,26 @@
 				<td>
 					{if $subject.rutaActa ne ''}
 						<a href="{$WEB_ROOT}/docentes/calificaciones/{$subject.rutaActa}" target="_blank"  title="Ver Acta de Calificaciones">
-							<i class="material-icons md-16">description</i>
+							<i class="fas fa-file-alt fa-lg"></i>
 						</a>
 					{else}
-						<a href="{$WEB_ROOT}/graybox.php?page=up-acta&id={$subject.courseId}&cmId={$subject.courseModuleId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title='SUBIR'>
+						<a href="{$WEB_ROOT}/graybox.php?page=up-acta&id={$subject.courseId}&cmId={$subject.courseModuleId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Subir">
 							<i class="fas fa-cloud-upload-alt fa-lg"></i>
 						</a>
 						<span class="badge badge-danger">S/I</span>
 					{/if}
 				</td>
 				<td>
-					<a href="{$WEB_ROOT}/graybox.php?page=val&id={$subject.courseModuleId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title='VALORACION'>
-					<i class="material-icons md-16">insert_chart</i>
+					<a href="{$WEB_ROOT}/graybox.php?page=val&id={$subject.courseModuleId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Valoración">
+						<i class="fas fa-chart-bar fa-lg"></i>
 					</a>	
-					<a href="{$WEB_ROOT}/graybox.php?page=eval&id={$subject.courseModuleId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title='EVALUACIONES'>
-						<i class="material-icons md-16">star</i>
+					<a href="{$WEB_ROOT}/graybox.php?page=eval&id={$subject.courseModuleId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Evaluaciones">
+						<i class="fas fa-star fa-lg"></i>
 					</a>
-					<a href="{$WEB_ROOT}/graybox.php?page=down-contrato&id={$subject.courseModuleId}&personalId={$pId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title='CONTRATOS'>
-							<i class="material-icons md-16">featured_video</i>
+					<a href="{$WEB_ROOT}/graybox.php?page=down-contrato&id={$subject.courseModuleId}&personalId={$pId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Contratos">
+						<i class="fas fa-file-contract fa-lg"></i>
 					</a>
 				</td>
-				
-
 			</tr>
 		{foreachelse}
 			<tr>
