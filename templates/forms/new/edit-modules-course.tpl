@@ -205,12 +205,12 @@
         <i class="fas fa-users"></i> .:: Grupo ::.
     </div>
     <div class="card-body text-center">
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <a href="{$WEB_ROOT}/grupo/id/{$myModule.courseModuleId}" target="_blank" data-toggle="modal" class="btn btn-outline-info">
+        <div class="btn-group btn-group-toggle">
+            <a href="{$WEB_ROOT}/grupo/id/{$myModule.courseModuleId}" target="_blank" class="btn btn-outline-info">
                 <i class="fas fa-users"></i> Ver Alumnos
             </a>
 
-            <a href="{$WEB_ROOT}/calification/id/{$myModule.courseModuleId}" target="_blank" data-toggle="modal" class="btn btn-outline-success">
+            <a href="{$WEB_ROOT}/calification/id/{$myModule.courseModuleId}" target="_blank" class="btn btn-outline-success">
                 <i class="fas fa-tasks"></i> Ver Calificaciones
             </a>
 
