@@ -1,14 +1,14 @@
 {foreach from=$__institution item=item key=key}
-	<tr>
-		<td align="center">{$item.name}</td>
-		<td align="center">{$item.name_long}</td>
-		<td align="center">{$item.identifier}</td>
-		<td align="center">{$item.ubication}</td>
-		<td align="center">{$item.ubication_long}</td>
-		<td align="center">{$item.phone}</td>
-		<td align="center">{$item.fax}</td>
-		<td align="center">
-            <img src="images/icons/16/pencil.png" class="spanEdit" id="{$item.institutionId}" title="Editar" />
+	<tr class="text-center">
+		<td>{$item.name}</td>
+		<td>{$item.name_long}</td>
+		<td>{$item.identifier}</td>
+		<td>{$item.ubication}</td>
+		<td>{$item.ubication_long}</td>
+		<td>{$item.phone}</td>
+		<td>{$item.fax}</td>
+		<td>
+			<i class="fas fa-edit fa-lg text-success spanEdit pointer" id="{$item.institutionId}" title="Editar"></i>
 		</td>
 	</tr>
 {/foreach}

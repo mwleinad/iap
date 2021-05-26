@@ -182,21 +182,21 @@
                         <div class="collapse" id="m-reportes">
                             <ul class="nav flex-column sub-menu">
                                 {if !$docente}
-                                    <li class="nav-item">
+                                    {*<li class="nav-item">
                                         <a class="nav-link" href="{$WEB_ROOT}/vehiculos">Vehículos</a>
-                                    </li>
+                                    </li>*}
                                     <li class="nav-item">
                                         <a class="nav-link" href="{$WEB_ROOT}/report-materia">Materias</a>
                                     </li>
-                                    <li class="nav-item">
+                                    {*<li class="nav-item">
                                         <a class="nav-link" href="{$WEB_ROOT}/report-docentes">Docentes</a>
-                                    </li>
-                                    <li class="nav-item">
+                                    </li>*}
+                                    {*<li class="nav-item">
                                         <a class="nav-link" href="{$WEB_ROOT}/doc-mat">Docentes/Materias</a>
-                                    </li>
-                                    <li class="nav-item">
+                                    </li>*}
+                                    {*<li class="nav-item">
                                         <a class="nav-link" href="{$WEB_ROOT}/reporte-general">Reporte General</a>
-                                    </li>
+                                    </li>*}
                                 {/if}
                             </ul>
                         </div>
