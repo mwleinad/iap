@@ -174,7 +174,7 @@ use Dompdf\Exception;
 		<tr>
 			<td align='center' style='border: none'>
 				".$infoFirma['director']."<br>
-				Responsable de Dirección Académica
+				Direcctora Académica
 			</td>
 			<td align='center' style='border: none'> 
 				".$infoFirma['controlEscolar']."<br>
