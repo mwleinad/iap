@@ -8,9 +8,11 @@
         </a>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-stretch">
-        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-            <span class="mdi mdi-menu text-white"></span>
-        </button>
+        {if (($User.type ne "Docente") and ($User.type ne "student"))}
+            <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                <span class="fas fa-bars text-white"></span>
+            </button>
+        {/if}
         <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-profile dropdown">
                 <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">

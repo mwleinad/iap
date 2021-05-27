@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<title>Sistema de Educaci&oacute;n en Linea | IAP Chiapas</title>
+		<title>Sistema de Educación en Linea | IAP Chiapas</title>
 
 		{*<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />*}
 		<link href="{$WEB_ROOT}/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -96,12 +96,15 @@
 				{if $vistaPrevia eq 1}
 					{include file="new/sidebar_vp.tpl"}
 				{else}
-					{if ($User.type ne "Docente" or $page ne 'homepage')}
+					{if ((($User.type ne "Docente") and ($User.type ne "student")) or ($page ne 'homepage'))}
 						{include file="new/sidebar.tpl"}
 					{/if}
+					{*if (($User.type eq "Docente") or ($User.type eq "student"))}
+						{include file="new/sidebar_ds.tpl"}
+					{/if*}
 				{/if}
 				{* End sidebar *}
-				<div class="main-panel">
+				<div class="main-panel" {if (($User.type eq "Docente") or ($User.type eq "student"))} style="width:100% !important;" {/if}>
 					{* Container *}
 					<div class="content-wrapper">
 						{include file="new/container.tpl"}
