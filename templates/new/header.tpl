@@ -25,6 +25,18 @@
                     </div>
                 </a>
                 <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                    <a class="dropdown-item" href="{$WEB_ROOT}/perfil">
+                        <i class="mdi mdi-account mr-2 text-primary"></i>
+                        Perfil
+                    </a>
+                    <a class="dropdown-item" href="{$WEB_ROOT}/alumn-services">
+                        <i class="mdi mdi-information mr-2 text-primary"></i>
+                        Actualizar Información
+                    </a>
+                    <a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=contra" data-target="#ajax" data-toggle="modal" data-width="1000px">
+                        <i class="mdi mdi-key mr-2 text-primary"></i>
+                        Cambiar Contraseña
+                    </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{$WEB_ROOT}/logout">
                         <i class="mdi mdi-logout mr-2 text-primary"></i>
