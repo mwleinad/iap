@@ -8,45 +8,61 @@
         </a>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-stretch">
-        {if (($User.type ne "Docente") and ($User.type ne "student"))}
+        {if (($User.type ne "Docente") and ($User.type ne "student") and ($page ne "register"))}
             <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
                 <span class="fas fa-bars text-white"></span>
             </button>
         {/if}
         <ul class="navbar-nav navbar-nav-right">
-            <li class="nav-item nav-profile dropdown">
-                <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                    <div class="nav-profile-img">
-                        <i class="fas fa-user-circle fa-3x text-white"></i>
-                        <span class="availability-status online"></span>             
+            {if isset($User)}
+                <li class="nav-item nav-profile dropdown">
+                    <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                        <div class="nav-profile-img">
+                            <i class="fas fa-user-circle fa-3x text-white"></i>
+                            <span class="availability-status online"></span>             
+                        </div>
+                        <div class="nav-profile-text">
+                            <p class="mb-1 text-black">{if $User.username}Bienvenido {$User.username} {/if}<span class="badge badge-dark rounded">{$fechaHoy}</span></p>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                        {if $User.type == 'student'}
+                            <a class="dropdown-item" href="{$WEB_ROOT}">
+                                <i class="mdi mdi-view-dashboard mr-2 text-success"></i>
+                                Menú Principal
+                            </a>
+                            <a class="dropdown-item" href="{$WEB_ROOT}/perfil">
+                                <i class="mdi mdi-account mr-2 text-primary"></i>
+                                Perfil
+                            </a>
+                            <a class="dropdown-item" href="{$WEB_ROOT}/alumn-services">
+                                <i class="mdi mdi-information mr-2 text-primary"></i>
+                                Actualizar Información
+                            </a>
+                            <a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=contra" data-target="#ajax" data-toggle="modal" data-width="1000px">
+                                <i class="mdi mdi-key mr-2 text-primary"></i>
+                                Cambiar Contraseña
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="mdi mdi-close-circle mr-2 text-danger"></i>
+                                Currícula Inactiva
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="mdi mdi-checkbox-marked-circle mr-2 text-info"></i>
+                                Currícula Finalizada
+                            </a>
+                        {/if}
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{$WEB_ROOT}/logout">
+                            <i class="mdi mdi-logout mr-2 text-primary"></i>
+                            Cerrar Sesión
+                        </a>
                     </div>
-                    <div class="nav-profile-text">
-                        <p class="mb-1 text-black">{if $User.username}Bienvenido {$User.username} :: {/if}{$fechaHoy}</p>
-                    </div>
-                </a>
-                <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a class="dropdown-item" href="{$WEB_ROOT}/perfil">
-                        <i class="mdi mdi-account mr-2 text-primary"></i>
-                        Perfil
-                    </a>
-                    <a class="dropdown-item" href="{$WEB_ROOT}/alumn-services">
-                        <i class="mdi mdi-information mr-2 text-primary"></i>
-                        Actualizar Información
-                    </a>
-                    <a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=contra" data-target="#ajax" data-toggle="modal" data-width="1000px">
-                        <i class="mdi mdi-key mr-2 text-primary"></i>
-                        Cambiar Contraseña
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{$WEB_ROOT}/logout">
-                        <i class="mdi mdi-logout mr-2 text-primary"></i>
-                        Cerrar Sesión
-                    </a>
-                </div>
-            </li>
+                </li>
+            {/if}
             <li class="nav-item d-none d-lg-block full-screen-link">
                 <a class="nav-link">
-                    <i class="mdi mdi-fullscreen text-white" id="fullscreen-button"></i>
+                    <i class="mdi mdi-fullscreen text-white pointer" id="fullscreen-button"></i>
                 </a>
             </li>
         </ul>

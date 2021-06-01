@@ -1,45 +1,43 @@
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorm"></i>Personal Academico
-        </div>
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+            <i class="mdi mdi-account-multiple"></i>                 
+        </span>
+        Personal Académico
+    </h3>
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+                <span></span>IAP Chiapas
+                <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+            </li>
+        </ul>
+    </nav>
+</div>
 
-    </div>
-    <div class="portlet-body">
-        <div id="tblContent">
-			<div style="left:20%; position:relative">
-			{**include file="lists/new/resources.tpl"**}
-
-
-			 {foreach from=$docente item=item key=key}
-				
-				
-					<div style="float:left; width:285px">
-								<div style="width:215px; height:115px; text-align:center">
-									<img src='{$item.foto}' style='width: 100px !important'>
-								</div>
-								<br>
-								<div style="width:215px; height:115px; text-align:center; font-size:11px">
-								<font style="font-weight: bold; font-size:11px">
-								{$item.name|upper} {$item.lastname_paterno|upper} {$item.lastname_materno|upper} </font><br>
-								{if $item.correo eq ''}SIN INFORMACIÓN{else} {$item.correo|upper} {/if}<br>
-								{if $item.perfil eq ''}SIN INFORMACIÓN{else} {$item.perfil|upper} {/if}<br>
-								{$item.description|upper}<br>
-								</div>
+<div class="card mb-4">
+    {*<div class="card-header bg-primary text-white"></div>*}
+    <div class="card-body">
+		<div class="row text-center">
+			{foreach from=$docente item=item key=key}
+				<div class="col-md-3 d-flex align-items-stretch mb-3">
+					<div class="card border border-primary w-100">
+						<div class="card-body">
+							{if $item.foto eq ''}
+								<i class="fas fa-user-circle fa-5x"></i>
+							{else}
+								<img src="{$item.foto}" class="rounded-circle" alt="" style="width: 80px"> 
+							{/if}<br>
+							<p class="card-text mt-2">{$item.name|capitalize} {$item.lastname_paterno|capitalize} {$item.lastname_materno|capitalize}</p>
+						</div>
+						<div class="card-footer">
+							<p><small><i class="far fa-envelope"></i> {if $item.correo eq ''} Sin Información {else} {$item.correo|lower} {/if}</small></p>
+							<p><small><i class="fas fa-user-tag"></i> {if $item.perfil eq ''} Sin Información {else} {$item.perfil|capitalize} {/if}</small></p>
+							<p><small>{$item.description|capitalize}</small></p>
+						</div>
 					</div>
-					
-				{if ($key+1) % 3  eq 0}
-				<div style="clear:both">
 				</div>
-				
-					<br>	
-					<br>	
-					<br>	
-
-				{/if}
-			 {/foreach}
-			</div>
-			<div style="clear:both">
-				</div>
+			{/foreach}
 		</div>
-	</div>
+    </div>
+</div>

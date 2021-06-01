@@ -50,6 +50,34 @@
     </div>
     <div class="col-md-9">
         <div class="row">
+            <div class="col-md-12">
+                {if $msjC eq 'si'}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>El perfil se actualizo correctamente.</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {/if}
+                {if $msjCc eq 'si'}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>La contraseña se actualizó correctamente.</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {/if}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <h3 class="page-title">
+                    <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                        <i class="mdi mdi-school"></i>                 
+                    </span>
+                    Currícula Activa
+                </h3>
+            </div>
             {* CURRICULA ACTIVA *}
             {foreach from=$activeCourses item=subject}
                  <div class="col-md-4 stretch-card grid-margin">
@@ -80,7 +108,26 @@
                         </div>
                     </div>
                 </div>
+            {foreachelse}
+                <div class="col-md-12">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="far fa-frown fa-lg"></i> <strong>¡Lo sentimos!</strong> No cuentas con currícula activa.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
             {/foreach}
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <h3 class="page-title">
+                    <span class="page-title-icon bg-gradient-success text-white mr-2">
+                        <i class="mdi mdi-view-dashboard"></i>                 
+                    </span>
+                    Menú
+                </h3>
+            </div>
             {* FINANZAS *}
             <div class="col-md-4 stretch-card grid-margin">
                 <div class="card bg-gradient-success card-img-holder text-white">
@@ -244,8 +291,7 @@
 
 
 
-<!-- END PAGE BAR -->
-<!-- BEGIN PAGE TITLE-->
+{*
 <h1 class="page-title"> Bienvenido
     <small></small>
 </h1>
@@ -262,12 +308,8 @@
   <strong>La contrasela se actualizo correctamente</strong>
 </div>
 {/if}
-
-<!-- END PAGE TITLE-->
-<!-- END PAGE HEADER-->
 <div class="row">
     <div class="col-md-12">
-        <!-- BEGIN PROFILE SIDEBAR -->
         <div class="profile-sidebar">
             <div class="portlet light profile-sidebar-portlet ">
                 <div class="profile-userpic">
@@ -296,10 +338,7 @@
 						
                     </ul>
                 </div>
-                <!-- END MENU -->
             </div>
-            <!-- END PORTLET MAIN -->
-            <!-- PORTLET MAIN -->
             <div class="portlet light ">
                 <div>
                     <h4 class="profile-desc-title">Acerca del IAP Chiapas</h4>
@@ -314,14 +353,10 @@
                     </div>
                 </div>
             </div>
-            <!-- END PORTLET MAIN -->
         </div>
-        <!-- END BEGIN PROFILE SIDEBAR -->
-        <!-- BEGIN PROFILE CONTENT -->
         <div class="profile-content">
             <div class="row">
                 <div class="col-md-12">
-                    <!-- BEGIN PORTLET -->
                     <div class="portlet light ">
                         <div class="portlet-title tabbable-line">
                             <div class="caption caption-md">
@@ -338,7 +373,6 @@
                             </ul>
                         </div>
                         <div class="portlet-body">
-                            <!--BEGIN TABS-->
                             <div class="tab-content">
                                 <div class="tab-pane " id="tab_1_2">
                                     <div class="scroller" style="height: 320px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
@@ -402,15 +436,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--END TABS-->
                         </div>
                     </div>
-                    <!-- END PORTLET -->
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <!-- BEGIN PORTLET -->
                     <div class="portlet light ">
                         <div class="portlet-title">
                             <div class="caption caption-md">
@@ -430,10 +461,6 @@
                                         <th style="text-align: center"> Modalidad </th>
                                         <th style="text-align: center"> Fecha Inicial </th>
                                         <th style="text-align: center"> Fecha Final </th>
-{*
-                                        <th style="text-align: center"> Pagos </th>
-*}
-
                                         <th style="text-align: center"> Modulos </th>
 
                                         <th style="text-align: center"> Acciones </th>
@@ -448,21 +475,11 @@
                                         <td align="center">{$subject.modality}</td>
                                         <td align="center">{$subject.initialDate|date_format:"%d-%m-%Y"}</td>
                                         <td align="center">{$subject.finalDate|date_format:"%d-%m-%Y"}</td>
-
-{*
-                                        <td align="center">{$subject.payments}</td>
-*}
                                         <td align="center">{$subject.courseModule}
-
                                         <td align="center">
                                             <a href="{$WEB_ROOT}/graybox.php?page=view-modules-course-student&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
                                             <i class="fa fa-sign-in fa-lg"></i>
                                             </a>
-                                            {*if $subject.totalPeriods > 0}
-                                                <a href="{$WEB_ROOT}/graybox.php?page=calendar-student&id={$subject.courseId}&user={$subject.alumnoId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Calendario de Pagos">
-                                                    <i class="fa fa-dollar fa-lg"></i>
-                                                </a>
-                                            {/if*}
                                         </td>
                                      </tr>
                                         {foreachelse}
@@ -476,13 +493,11 @@
                             </div>
                         </div>
                     </div>
-                    <!-- END PORTLET -->
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-12">
-                    <!-- BEGIN PORTLET -->
                     <div class="portlet light ">
                         <div class="portlet-title">
                             <div class="caption caption-md">
@@ -501,14 +516,8 @@
                                         <th style="text-align: center"> Modalidad </th>
                                         <th style="text-align: center"> Fecha Inicial </th>
                                         <th style="text-align: center"> Fecha Final </th>
-                                        {*
-                                                                                <th> Pagos </th>
-                                        *}
                                         <th style="text-align: center"> Dias Activo </th>
                                         <th style="text-align: center"> Modulos </th>
-{*
-                                        <th> Acciones </th>
-*}
                                     </tr>
                                     </thead>
                                     {foreach from=$inactiveCourses item=subject}
@@ -521,17 +530,7 @@
                                         <td align="center">{$subject.initialDate|date_format:"%d-%m-%Y"}</td>
                                         <td align="center">{$subject.finalDate|date_format:"%d-%m-%Y"}</td>
                                         <td align="center">{$subject.daysToFinish}</td>
-                                        {*
-                                                                                <td align="center">{$subject.payments}</td>
-                                        *}
                                         <td align="center">{$subject.courseModule}
-{*
-                                        <td align="center">
-                                            <a href="{$WEB_ROOT}/graybox.php?page=view-modules-course-student&id={$subject.courseId}" data-target="#ajax" data-toggle="modal">
-                                                <i class="fa fa-sign-in fa-lg"></i>
-                                            </a>
-                                        </td>
-*}
                                         </tr>
                                         {foreachelse}
                                         <tr>
@@ -543,13 +542,11 @@
                             </div>
                         </div>
                     </div>
-                    <!-- END PORTLET -->
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-12">
-                    <!-- BEGIN PORTLET -->
                     <div class="portlet light ">
                         <div class="portlet-title">
                             <div class="caption caption-md">
@@ -568,9 +565,6 @@
                                         <th style="text-align: center"> Modalidad </th>
                                         <th style="text-align: center"> Fecha Inicial </th>
                                         <th style="text-align: center"> Fecha Final </th>
-                                        {*
-                                                                                <th> Pagos </th>
-                                        *}
                                         <th style="text-align: center"> Dias Activo </th>
                                         <th style="text-align: center"> Modulos </th>
                                         <th style="text-align: center"> Calificación </th>
@@ -586,9 +580,6 @@
                                         <td style="text-align: center">{$subject.initialDate|date_format:"%d-%m-%Y"}</td>
                                         <td style="text-align: center"style="text-align: center">{$subject.finalDate|date_format:"%d-%m-%Y"}</td>
                                         <td >{$subject.daysToFinish}</td>
-                                        {*
-                                                                                <td align="center">{$subject.payments}</td>
-                                        *}
                                         <td style="text-align: center">{$subject.courseModule}
                                         <td style="text-align: center">{$subject.mark}</td>
                                      </tr>
@@ -602,10 +593,9 @@
                             </div>
                         </div>
                     </div>
-                    <!-- END PORTLET -->
                 </div>
             </div>
         </div>
-        <!-- END PROFILE CONTENT -->
     </div>
 </div>
+*}

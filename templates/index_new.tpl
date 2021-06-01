@@ -96,7 +96,7 @@
 				{if $vistaPrevia eq 1}
 					{include file="new/sidebar_vp.tpl"}
 				{else}
-					{if ((($User.type ne "Docente") and ($User.type ne "student")) or ($page ne 'homepage'))}
+					{if (($User.type ne "Docente") and ($User.type ne "student") and ($page ne "register"))}
 						{include file="new/sidebar.tpl"}
 					{/if}
 					{*if (($User.type eq "Docente") or ($User.type eq "student"))}
@@ -104,7 +104,7 @@
 					{/if*}
 				{/if}
 				{* End sidebar *}
-				<div class="main-panel" {if (($User.type eq "Docente") or ($User.type eq "student"))} style="width:100% !important;" {/if}>
+				<div class="main-panel" {if (($User.type eq "Docente") or ($User.type eq "student") or ($page eq "register"))} style="width:100% !important;" {/if}>
 					{* Container *}
 					<div class="content-wrapper">
 						{include file="new/container.tpl"}
@@ -189,7 +189,7 @@
 		<script src="{$WEB_ROOT}/javascript/new/{$page}.js?{$timestamp}" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/pages/scripts/profile.min.js" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/js/general.js?v={$timestamp}"></script>
-		{if $page eq "edit-module"}
+		{if $page eq "edit-module" or $mJodit eq "active"}
 			<script type="text/javascript">
 				$(function() {
 					$('textarea').each(function () {

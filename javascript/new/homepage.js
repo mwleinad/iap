@@ -34,7 +34,7 @@ function onSavePass(){
 	  	url: WEB_ROOT+'/ajax/student.php',
 	  	data: $("#frmPass").serialize(true)+'&type=onSavePass',
 		beforeSend: function(){			
-			$("#res_").html('Cargando..');
+			$("#res_").html('<i class="fas fa-spinner fa-pulse fa-lg"></i> Cargando..');
 		},
 	  	success: function(response) {	
 			$("#res_").html('');
