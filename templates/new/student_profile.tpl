@@ -83,7 +83,7 @@
                  <div class="col-md-4 stretch-card grid-margin">
                     <div class="card bg-gradient-primary card-img-holder text-white">
                         <div class="text-center">
-                            <a href="{$WEB_ROOT}/graybox.php?page=view-modules-course-student&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
+                            <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula">
                                 {*if $item.rutaFoto eq ''*}
                                     {*<i class="far fa-image fa-6x text-white mt-4"></i>*}
                                 {*else*} 
@@ -101,7 +101,7 @@
                                 Periodo: {$subject.initialDate|date_format:"%d-%m-%Y"} - {$subject.finalDate|date_format:"%d-%m-%Y"}</small>
                             </p>
                             <div class="text-center">
-                                <a href="{$WEB_ROOT}/graybox.php?page=view-modules-course-student&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" data-width="1000px" class="btn btn-outline-light btn-fw btn-sm">
+                                <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
                                     <i class="fas fa-link"></i> Ver
                                 </a>
                             </div>

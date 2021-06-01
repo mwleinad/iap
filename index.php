@@ -210,7 +210,8 @@ $pages = array(
 	'pagos-calendario',
 	'history-calendar',
 	'finanzas',
-	'reglamento'
+	'reglamento',
+	'modulos-curricula'
 );
 
 if(!in_array($_GET['page'], $pages))
