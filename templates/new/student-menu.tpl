@@ -19,7 +19,7 @@
         <a href="{$WEB_ROOT}/information-modules-student/id/{$id}" class="list-group-item list-group-item-action text-white">
             <b>Información <i class="fas fa-info-circle float-right"></i></b>
         </a>
-        <a href="{$WEB_ROOT}/grupo/id/{$id}" class="list-group-item list-group-item-action text-white">
+        <a href="{$WEB_ROOT}/migrupo/id/{$id}" class="list-group-item list-group-item-action text-white">
             <b>Grupo <i class="fas fa-chalkboard float-right"></i></b>
         </a>
         <a href="{$WEB_ROOT}/docente/id/{$id}" class="list-group-item list-group-item-action text-white">

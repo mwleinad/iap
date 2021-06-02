@@ -211,7 +211,8 @@ $pages = array(
 	'history-calendar',
 	'finanzas',
 	'reglamento',
-	'modulos-curricula'
+	'modulos-curricula',
+	'migrupo'
 );
 
 if(!in_array($_GET['page'], $pages))
