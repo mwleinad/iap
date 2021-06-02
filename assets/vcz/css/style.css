@@ -10522,6 +10522,14 @@ code {
 .bg-gradient-dark {
   background: linear-gradient(89deg, #5e7188, #3e4b5b) !important; }
 
+.bg-gradient-iap, .bg-gradient-iap a {
+  background: -webkit-gradient(linear, left top, right top, from(#73b760), to(#abd39f)) !important;
+  background: linear-gradient(to right, #73b760, #abd39f) !important; }
+
+.bg-gradient-iap a:hover {
+  background: -webkit-gradient(linear, left top, right top, from(#abd39f), to(#73b760)) !important;
+  background: linear-gradient(to right, #abd39f, #73b760) !important; }
+
 /* Demo Styles */
 .template-demo .slider-wrap {
   height: 100px; }

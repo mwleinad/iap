@@ -88,6 +88,7 @@
                                     {*<i class="far fa-image fa-6x text-white mt-4"></i>*}
                                 {*else*} 
                                     <img class="card-img-top" src="https://picsum.photos/seed/student/286/180" alt="">
+                                    {*<img class="card-img-top" src="{$WEB_ROOT}/images/test.png" alt="">*}
                                 {*/if*}
                             </a>
                         </div>
