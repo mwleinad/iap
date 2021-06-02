@@ -33,7 +33,7 @@
                         <h5 class="card-title"><b>Fecha Inicio:</b> {$subject.initialDate|date_format:"%d-%m-%Y"}</h5>
                         <h5 class="card-title"><b>Fecha Fin:</b> {$subject.finalDate|date_format:"%d-%m-%Y"}</h5>
                         <p class="card-text">
-                            <b>Calificación Parcial:</b> <label class="{if $subject.totalScore < 70} text-danger {else} text-success {/if}">{$subject.totalScore}</label><br />
+                            <b>Calificación Parcial:</b> <span class="badge {if $subject.totalScore < 70} badge-danger {else} badge-success {/if} rounded-circle">{$subject.totalScore}</span><br />
                             <b>Calificación Final:</b> 
                             {if  $timestamp < $subject.initialDateStamp}
                                 No Disponible {* no iniciada *}
@@ -41,21 +41,27 @@
                                 {if $subject.finalDateStamp > 0 AND $timestamp > $subject.finalDateStamp}
                                     {* materia finalizada *}
                                     {if $subject.countEval >=1}
-                                        {$subject.calificacionFinal}
+                                        <span class="badge {if $subject.calificacionFinal < 7} badge-danger {else} badge-success {/if} rounded">
+                                            {$subject.calificacionFinal}
+                                        </span>
                                     {else}
                                         Contestar Evaluación
                                     {/if}
                                 {elseif $subject.active == "no"}
                                     {* materia finalizada *}
                                     {if $subject.countEval >=1}
-                                        {$subject.calificacionFinal}
+                                        <span class="badge {if $subject.calificacionFinal < 7} badge-danger {else} badge-success {/if} rounded">
+                                            {$subject.calificacionFinal}
+                                        </span>
                                     {else}
                                         Contestar Evaluación
                                     {/if}
                                 {elseif $subject.finalDateStamp <= 0 AND $initialDateStamp < $subject.daysToFinishStamp AND $timestamp > $subject.daysToFinishStamp}
                                     {* materia finalizada *}
                                     {if $subject.countEval >=1}
-                                        {$subject.calificacionFinal}
+                                        <span class="badge {if $subject.calificacionFinal < 7} badge-danger {else} badge-success {/if} rounded">
+                                            {$subject.calificacionFinal}
+                                        </span>
                                     {else}
                                         Contestar Evaluación
                                     {/if}

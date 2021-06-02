@@ -43,10 +43,10 @@
         </td>
         <td class="text-center">
             {if !$docente}
-                <span class="pointer spanActive" onclick="VerGrupoAdmin({$subject.courseId});" title="Alumnos" id="{$subject.courseId}">{$subject.alumnActive}</span>             /
-                <span class="pointer spanInactive" onclick="VerGrupoInactivoAdmin({$subject.courseId});"  id="{$subject.courseId}">{$subject.alumnInactive}</span>
+                <span class="pointer spanActive badge badge-success rounded-circle" onclick="VerGrupoAdmin({$subject.courseId});" title="Alumnos" id="{$subject.courseId}">{$subject.alumnActive}</span>             /
+                <span class="pointer spanInactive badge badge-danger rounded-circle" onclick="VerGrupoInactivoAdmin({$subject.courseId});"  id="{$subject.courseId}">{$subject.alumnInactive}</span>
             {else}
-				{$subject.alumnActive} / {$subject.alumnInactive}
+				<span class="badge badge-success rounded-circle">{$subject.alumnActive}</span> / <span class="badge badge-danger rounded-circle">{$subject.alumnInactive}</span>
             {/if}
         </td>
         <td class="text-center">{$subject.active}</td>
