@@ -134,11 +134,7 @@
                 <div class="card bg-gradient-success card-img-holder text-white">
                     <div class="text-center">
                         <a href="{$WEB_ROOT}/finanzas">
-                            {*if $item.rutaFoto eq ''*}
-                                {*<i class="far fa-image fa-6x text-white mt-4"></i>*}
-                            {*else*} 
-                                <img class="card-img-top" src="https://picsum.photos/seed/student/286/180" alt="">
-                            {*/if*}
+                            <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/finanzas.svg" alt="">
                         </a>
                     </div>
                     <div class="card-body">
@@ -159,11 +155,7 @@
                 <div class="card bg-gradient-success card-img-holder text-white">
                     <div class="text-center">
                         <a href="{$WEB_ROOT}/inbox/or/h">
-                            {*if $item.rutaFoto eq ''*}
-                                {*<i class="far fa-image fa-6x text-white mt-4"></i>*}
-                            {*else*} 
-                                <img class="card-img-top" src="https://picsum.photos/seed/student/286/180" alt="">
-                            {*/if*}
+                            <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/inbox.svg" alt="">
                         </a>
                     </div>
                     <div class="card-body">
@@ -184,11 +176,7 @@
                 <div class="card bg-gradient-success card-img-holder text-white">
                     <div class="text-center">
                         <a href="{$WEB_ROOT}/personal-academico">
-                            {*if $item.rutaFoto eq ''*}
-                                {*<i class="far fa-image fa-6x text-white mt-4"></i>*}
-                            {*else*} 
-                                <img class="card-img-top" src="https://picsum.photos/seed/student/286/180" alt="">
-                            {*/if*}
+                            <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/personal.svg" alt="">
                         </a>
                     </div>
                     <div class="card-body">
@@ -210,11 +198,7 @@
                     <div class="card bg-gradient-success card-img-holder text-white">
                         <div class="text-center">
                             <a href="{$WEB_ROOT}/reglamento">
-                                {*if $item.rutaFoto eq ''*}
-                                    {*<i class="far fa-image fa-6x text-white mt-4"></i>*}
-                                {*else*} 
-                                    <img class="card-img-top" src="https://picsum.photos/seed/student/286/180" alt="">
-                                {*/if*}
+                                <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/reglamento.svg" alt="">
                             </a>
                         </div>
                         <div class="card-body">
