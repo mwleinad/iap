@@ -742,14 +742,8 @@ class Student extends User
 			$this->Util()->DB()->setQuery($sql);
 			$payments = $this->Util()->DB()->GetSingle();
 
-			if($payments > 0)
-			{
-				$status = 'inactivo';
-			}
-			else
-			{
-				$status = 'activo';
-			}
+			$status = 'activo';
+				
 //print_r($count);
 			if($count > 0)
 			{
