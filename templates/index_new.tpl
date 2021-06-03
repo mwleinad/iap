@@ -128,6 +128,7 @@
 		<script src="{$WEB_ROOT}/assets/vcz/js/bootbox.min.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/vendor/jodit/build/jodit.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/vendor/flatpickr/flatpickr.js"></script>
+		<script src="{$WEB_ROOT}/assets/vcz/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/js/dashboard.js?v={$timestamp}"></script>
 		{* End new scripts *}
 

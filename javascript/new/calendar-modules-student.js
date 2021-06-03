@@ -28,9 +28,14 @@ function deleteActividad(Id){
 	
 }
 
-function verRetro(Id){
-	
-	$("#divRetro_"+Id).toggle();
+function verRetro(Id)
+{
+	let content = $("#divRetro_"+Id).html();
+	Swal.fire({
+		icon: "info",
+		title: "Retroalimentación",
+		html: content
+	});
 }
 
 function cancelarSolicitud(){
