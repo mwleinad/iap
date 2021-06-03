@@ -30,7 +30,9 @@
     {if $item.activityType == "Tarea"}
         {if $vistaPrevia==0}
             {if $item.homework.path eq ''}
-                <a href="{$WEB_ROOT}/graybox.php?page=upload-homework&id={$item.activityId}" title="Subir Tarea" data-target="#ajax" data-toggle="modal" style="color:#000" class="btn btn-xs green-jungle"> Subir Actividad al Sistema de Tareas <i class="fa fa-upload "></i></a>
+                <a href="{$WEB_ROOT}/graybox.php?page=upload-homework&id={$item.activityId}" title="Subir Tarea" data-target="#ajax" data-toggle="modal" class="btn btn-xs btn-primary">
+                    <i class="fas fa-file-upload"></i> Subir Actividad al Sistema de Tareas
+                </a>
             {/if}
         {else}
             Subir Tarea al Sistema de Tareas.
@@ -38,10 +40,10 @@
     {/if}
     {if $item.activityType == "Examen"}
         {if $vistaPrevia==0}
-            <a id="presentarExamen" style="display: none" class=" btn yellow btn-outline sbold" href="{$WEB_ROOT}/graybox.php?page=make-test&id={$item.activityId}" data-target="#ajax" data-toggle="modal">
+            <a id="presentarExamen" style="display: none" class=" btn btn-outline-warning sbold" href="{$WEB_ROOT}/graybox.php?page=make-test&id={$item.activityId}" data-target="#ajax" data-toggle="modal">
                 Presentar examen
             </a>
-            <a style="cursor:pointer; color:#000" onclick="DoTest({$item.activityId})">
+            <a class="pointer text-primary" onclick="DoTest({$item.activityId})">
                 Presentar Examen.
             </a>
         {else} 

@@ -3,7 +3,7 @@
         <span class="page-title-icon bg-gradient-primary text-white mr-2">
             <i class="mdi mdi-home"></i>                 
         </span>
-        {$myModule.majorName}: {$myModule.name}
+        MÓDULO: {$myModule.name}
     </h3>
     <nav aria-label="breadcrumb">
         <ul class="breadcrumb">

@@ -3,7 +3,7 @@
         <span class="page-title-icon bg-gradient-primary text-white mr-2">
             <i class="mdi mdi-home"></i>                 
         </span>
-        {$myModule.majorName}: {$myModule.name}
+        MÓDULO: {$myModule.name}
     </h3>
     <nav aria-label="breadcrumb">
         <ul class="breadcrumb">
@@ -79,14 +79,14 @@
                                                     <span class="badge badge-success">Tarea entregada</span>
                                                     {if $item.homework.path ne ''}
                                                         <br><br>
-                                                        <button class="btn btn-outline-info btn-sm" onclick="window.location.href='{$WEB_ROOT}/download.php?file=homework/{$item.homework.path}&mime={$item.homework.mime}'" class="bb">
+                                                        <button class="btn btn-outline-info btn-xs" onclick="window.location.href='{$WEB_ROOT}/download.php?file=homework/{$item.homework.path}&mime={$item.homework.mime}'" class="bb">
                                                             <i class="far fa-file-alt"></i> Ver Tarea
                                                         </button>
                                                         {if $timestamp < $item.finalDateTimestamp}  
                                                             {if $item.homework.countUpdate ne 1}
                                                                 {if $item.modality eq 'Individual'}
                                                                     <br><br>
-                                                                    <button class="btn btn-ouline-danger btn-sm" onclick="deleteActividad('{$item.activityId}')" class="bb">
+                                                                    <button class="btn btn-outline-danger btn-xs" onclick="deleteActividad('{$item.activityId}')" class="bb">
                                                                         <i class="fas fa-trash-alt"></i> Eliminar
                                                                     </button>
                                                                 {/if}
@@ -96,13 +96,13 @@
                                                 {/if}
                                             </td>
                                             <td class="text-center">
-                                                <a href="{$WEB_ROOT}/graybox.php?page=view-description-activity&id={$item.activityId};" class="btn btn-info btn-sm" data-target="#ajax" data-toggle="modal" >
+                                                <a href="{$WEB_ROOT}/graybox.php?page=view-description-activity&id={$item.activityId};" class="btn btn-info btn-xs" data-target="#ajax" data-toggle="modal" >
                                                     <i class="fas fa-info-circle"></i> Descripción
                                                 </a>
                                                 {* RETROALIMENTACION *}
                                                 {if $item.retro}
                                                     <br>
-                                                    <a href="javascript:void(0)" onClick="verRetro('{$item.activityId}')" class="btn btn-info btn-sm my-2" title="Ver Retroalimentación">
+                                                    <a href="javascript:void(0)" onClick="verRetro('{$item.activityId}')" class="btn btn-info btn-xs my-2" title="Ver Retroalimentación">
                                                         <i class="far fa-comment"></i> Ver Retroalimentación
                                                     </a>
                                                     <div style="display:none;" id="divRetro_{$item.activityId}">{$item.retro}</div>

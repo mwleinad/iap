@@ -1,13 +1,10 @@
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorm"></i>{$actividad.resumen}
-        </div>
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <i class="fas fa-info-circle"></i> {$actividad.resumen}
     </div>
-    <div class="portlet-body">
+    <div class="card-body">
         <div id="tblContent">
             {$actividad.description}
         </div>
     </div>
 </div>
-
