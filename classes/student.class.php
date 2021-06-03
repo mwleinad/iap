@@ -1776,7 +1776,7 @@ class Student extends User
 			$active = " AND course.active = '".$active."'";
 		}
 		 $sql = "SELECT
-					*, subject.name AS name, major.name AS majorName
+					*, subject.name AS name, major.name AS majorName, subject.icon
 				FROM
 					user_subject
 				LEFT JOIN course ON course.courseId = user_subject.courseId

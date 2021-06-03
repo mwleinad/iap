@@ -84,12 +84,11 @@
                     <div class="card bg-gradient-primary card-img-holder text-white">
                         <div class="text-center">
                             <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula">
-                                {*if $item.rutaFoto eq ''*}
-                                    {*<i class="far fa-image fa-6x text-white mt-4"></i>*}
-                                {*else*} 
-                                    <img class="card-img-top" src="https://picsum.photos/seed/student/286/180" alt="">
-                                    {*<img class="card-img-top" src="{$WEB_ROOT}/images/test.png" alt="">*}
-                                {*/if*}
+                                {if $subject.icon eq ''}
+                                    <i class="far fa-image fa-6x text-white mt-4"></i>
+                                {else} 
+                                    <img class="card-img-top" src="{$WEB_ROOT}/images/new/curricula/{$subject.icon}" alt="">
+                                {/if}
                             </a>
                         </div>
                         <div class="card-body">

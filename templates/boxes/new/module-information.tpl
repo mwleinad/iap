@@ -1,9 +1,9 @@
 <div id="accordion">
     {if $myModule.welcomeTextDecoded != ""}
         <div class="card">
-            <div class="card-header" id="headingOne">
+            <div class="card-header bg-dark" id="headingOne">
                 <h5 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <button class="btn btn-link text-white" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         Bienvenida
                     </button>
                 </h5>
@@ -15,9 +15,9 @@
     {/if}
     {if $myModule.introductionDecoded != ""}
         <div class="card">
-            <div class="card-header" id="headingTwo">
+            <div class="card-header bg-dark" id="headingTwo">
                 <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <button class="btn btn-link collapsed text-white" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                         Introducción
                     </button>
                 </h5>
@@ -29,9 +29,9 @@
     {/if}
     {if $myModule.intentionsDecoded != ""}
         <div class="card">
-            <div class="card-header" id="headingThree">
+            <div class="card-header bg-dark" id="headingThree">
                 <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <button class="btn btn-link collapsed text-white" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                         Intenciones del Curso
                     </button>
                 </h5>
@@ -43,9 +43,9 @@
     {/if}
     {if $myModule.objectivesDecoded != ""}
         <div class="card">
-            <div class="card-header" id="headingFour">
+            <div class="card-header bg-dark" id="headingFour">
                 <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    <button class="btn btn-link collapsed text-white" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                         Objetivos del Curso
                     </button>
                 </h5>
@@ -57,9 +57,9 @@
     {/if}
     {if $myModule.themesDecoded != ""}
         <div class="card">
-            <div class="card-header" id="headingFive">
+            <div class="card-header bg-dark" id="headingFive">
                 <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    <button class="btn btn-link collapsed text-white" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                         Temas
                     </button>
                 </h5>
@@ -71,9 +71,9 @@
     {/if}
     {if $myModule.schemeDecoded != ""}
         <div class="card">
-            <div class="card-header" id="headingSix">
+            <div class="card-header bg-dark" id="headingSix">
                 <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    <button class="btn btn-link collapsed text-white" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
                         Esquema
                     </button>
                 </h5>
@@ -85,9 +85,9 @@
     {/if}
     {if $myModule.methodologyDecoded != ""}
         <div class="card">
-            <div class="card-header" id="headingSeven">
+            <div class="card-header bg-dark" id="headingSeven">
                 <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                    <button class="btn btn-link collapsed text-white" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
                         Metodología
                     </button>
                 </h5>
@@ -99,9 +99,9 @@
     {/if}
     {if $myModule.politicsDecoded != ""}
         <div class="card">
-            <div class="card-header" id="headingEight">
+            <div class="card-header bg-dark" id="headingEight">
                 <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                    <button class="btn btn-link collapsed text-white" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
                         Políticas
                     </button>
                 </h5>
@@ -113,9 +113,9 @@
     {/if}
     {if $myModule.evaluationDecoded != ""}
         <div class="card">
-            <div class="card-header" id="headingNine">
+            <div class="card-header bg-dark" id="headingNine">
                 <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                    <button class="btn btn-link collapsed text-white" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
                         Evaluación
                     </button>
                 </h5>
@@ -127,9 +127,9 @@
     {/if}
     {if $myModule.bibliography != ""}
         <div class="card">
-            <div class="card-header" id="headingTen">
+            <div class="card-header bg-dark" id="headingTen">
                 <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                    <button class="btn btn-link collapsed text-white" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
                         Bibliografía
                     </button>
                 </h5>

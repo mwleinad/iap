@@ -49,9 +49,6 @@
         <a href="{$WEB_ROOT}/team-modules-student/id/{$id}" class="list-group-item list-group-item-action text-white">
             <b>Mi Equipo <i class="fas fa-users float-right"></i></b>
         </a>
-        <a href="{$WEB_ROOT}/wiki/index.php/Página_principal" class="list-group-item list-group-item-action text-white">
-            <b>Wiki <i class="fab fa-wikipedia-w float-right"></i></b>
-        </a>
     </ul>
     <div class="card-footer text-center">
         <a href="https://www.iapchiapas.edu.mx" target="_blank">
