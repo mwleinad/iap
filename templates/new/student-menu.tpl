@@ -1,10 +1,8 @@
 <div class="card border border-primary">
-    {if $infoStudent.imagen ne ''}
-        <img class="card-img-top" src="{$infoStudent.imagen}" alt="" />
+    {if $myModule.icon ne ''}
+        <img src="{$WEB_ROOT}/images/new/modulos/{$myModule.icon}" class="card-img-top" alt="" />
     {else}
-        <div class="text-center mt-3">
-            <i class="fas fa-user-circle fa-6x"></i>
-        </div>
+        <img src="{$WEB_ROOT}/images/logos/Logo_3.png" class="card-img-top" alt="" />
     {/if}
     {*<div class="card-header text-center">
         {$User['nombreCompleto']}
@@ -30,9 +28,6 @@
         </a>
         <a href="{$WEB_ROOT}/calendar-modules-student/id/{$id}" class="list-group-item list-group-item-action text-white">
             <b>Actividades <i class="fas fa-clipboard-list float-right"></i></b>
-        </a>
-        <a href="{$WEB_ROOT}/presentation-modules-student/id/{$id}" class="list-group-item list-group-item-action text-white">
-            <b>Clase <i class="fas fa-user-friends float-right"></i></b>
         </a>
         <a href="{$WEB_ROOT}/examen-modules-student/id/{$id}" class="list-group-item list-group-item-action text-white">
             <b>Exámenes <i class="fas fa-tasks float-right"></i></b>

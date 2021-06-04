@@ -72,7 +72,11 @@
                         </p>
                     </div>
                     <div class="col-md-8 text-center">
-                        <img src="{$WEB_ROOT}/images/logos/Logo_3.png" alt="IAP Chiapas" style="width: 250px !important; height: auto !important; border-radius: 0 !important;" /><br />
+                        {if $subject.icon eq ''}
+                            <img src="{$WEB_ROOT}/images/logos/Logo_3.png" alt="IAP Chiapas" style="width: 250px !important; height: auto !important; border-radius: 0 !important;" />
+                        {else} 
+                            <img src="{$WEB_ROOT}/images/new/modulos/{$subject.icon}" alt="IAP Chiapas" style="width: 300px !important; height: auto !important; border-radius: 0 !important;">
+                        {/if}<br />
                         {* EVALUACION DOCENTE *}
                         {if $subject.countEval >=1}
                             <span class="badge badge-success my-1 mx-1"><i class="fas fa-check-circle"></i> Evaluación Docente Contestada</span>

@@ -201,6 +201,7 @@
 						subject_module.bibliography as bibliography,
 						subject_module.subjectModuleId as Id,
 						subject_module.semesterId as semesId,
+						subject_module.icon as icon,
 						c.courseId as courseId,
 						c.modality as modality,
 						c.group as groupA,

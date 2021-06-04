@@ -118,7 +118,7 @@ $pages = array(
 
 	"view-modules-course-student",
 	"view-modules-student",
-	"presentation-modules-student",
+	//"presentation-modules-student",
 	"information-modules-student",
 	"calendar-modules-student",
 	"examen-modules-student",
