@@ -18,7 +18,7 @@
 <div class="card mb-4">
     {*<div class="card-header bg-primary text-white"></div>*}
     <div class="card-body">
-        <h3 class="text-center">{$infoCourses.majorName|upper}: {$infoCourses.name|upper}</h3>
+        <h3 class="text-center">{$infoCourses.majorName|upper}: {$infoCourses.name|upper} - GRUPO: {$infoCourses.group}</h3>
     {foreach from=$subjects item=subject}
         <div class="card border-secondary mb-2 border border-info">
             <div class="card-header bg-info text-white">
