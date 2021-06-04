@@ -7,9 +7,15 @@
         <td><a href="mailto:{$item.email}">{$item.email}</a></td>
         <td>{$item.password}</td>
         <td>
-            <a href="#" onclick="DeleteStudentCurricula({$item.userId},{$courseId});" title="Eliminar Alumno de esta Curricula">
-                <i class="fas fa-minus-circle fa-lg text-danger"></i>
-            </a>
+            {if $tip eq 'Inactivo'}
+                <a href="javascript:;" onclick="EnableStudentCurricula({$item.alumnoId},{$courseId})" title="Activar Alumno de esta Curricula">
+                    <i class="fas fa-undo fa-lg text-success"></i>
+                </a>
+            {else}
+                <a href="javascript:;" onclick="DeleteStudentCurricula({$item.alumnoId},{$courseId})" title="Eliminar Alumno de esta Curricula">
+                    <i class="fas fa-minus-circle fa-lg text-danger"></i>
+                </a>    
+            {/if}
         </td>
     </tr>
 {foreachelse}

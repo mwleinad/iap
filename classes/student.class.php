@@ -580,44 +580,27 @@ class Student extends User
 		$courseId=$this->getCourseId();
 		$userId=$this->getUserId();
 
-		$sql="SELECT * FROM invoice where userId='".$userId."'  and courseId='".$courseId."'";
-		//print_r($sql);
+		$sql="UPDATE user_subject SET status='inactivo' where alumnoId='".$userId."' and courseId='".$courseId."' ";
 		$this->Util()->DB()->setQuery($sql);
-		$invoices = $this->Util()->DB()->GetResult();
-		$x=0;
-		if(count($invoices)>0)
-		{
-			foreach($invoices as $key=>$res){
-				$sqlPayment="SELECT * FROM payment WHERE invoiceId='".$invoices[$key]['invoiceId']."' AND status = 'activo'";
-				$this->Util()->DB()->setQuery($sqlPayment);
-				$payments = $this->Util()->DB()->GetResult();
-				if(count($payments)>0){
-					$x++;
-				}
-			}
-	 	}
+		$this->Util()->DB()->ExecuteQuery();
+		$this->Util()->setError(10028, "complete","Alumno eliminado con éxito de esta curricula.");
+		$this->Util()->PrintErrors();
 
-		if($x>0){
-	    $this->Util()->setError(10028, "complete","No se puede Eliminar Alumno de Curricula porque ya existen Pagos Realizados");
-			$this->Util()->PrintErrors();
+		return true;
+	}
 
-			return false;
-		}
+	function EnableStudentCurricula()
+	{
+		$courseId = $this->getCourseId();
+		$userId = $this->getUserId();
 
-    if((count($invoices)>0 && $x==0) || count($invoices)==0){
-		  if(count($invoices)>0){
-		     $sql="DELETE FROM invoice WHERE userId='".$userId."'  and courseId='".$courseId."' ";
-		     $this->Util()->DB()->setQuery($sql);
-		     $this->Util()->DB()->ExecuteQuery();
-    	}
-			$sql="DELETE FROM user_subject where alumnoId='".$userId."' and courseId='".$courseId."' ";
-			$this->Util()->DB()->setQuery($sql);
-			$this->Util()->DB()->ExecuteQuery();
-			$this->Util()->setError(10028, "complete","Alumno eliminado con exito de esta curricula");
-			$this->Util()->PrintErrors();
+		$sql="UPDATE user_subject SET status='activo' where alumnoId='".$userId."' and courseId='".$courseId."' ";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->ExecuteQuery();
+		$this->Util()->setError(10028, "complete","Alumno activado con éxito.");
+		$this->Util()->PrintErrors();
 
-			return true;
-  	}
+		return true;
 	}
 
 

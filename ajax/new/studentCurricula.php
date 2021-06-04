@@ -132,11 +132,30 @@ switch($_POST["type"])
 
         }else{
             echo "ok[#]";
-            $util->setError(10028, "complete","Alumno eliminado con exito de esta curricula");
+            $util->setError(10028, "complete","Alumno eliminado con exito de esta curricula.");
             $util->PrintErrors();
             $smarty->display(DOC_ROOT.'/templates/boxes/status_on_popup.tpl');
 
         }
+		break;
+
+    case "enableStudentCurricula":
+
+        $student->setUserId($_POST['userId']);
+        $student->setCourseId($_POST['courseId']);
+
+        if(!$student->EnableStudentCurricula())
+        {
+            echo "fail[#]";
+            $smarty->display(DOC_ROOT.'/templates/boxes/status_on_popup.tpl');
+        }else{
+            echo "ok[#]";
+            $util->setError(10028, "complete", "Alumno activado con exito.");
+            $util->PrintErrors();
+            $smarty->display(DOC_ROOT.'/templates/boxes/status_on_popup.tpl');
+
+        }
+		break;
 
 
 
@@ -155,7 +174,8 @@ switch($_POST["type"])
 
         $group->setCourseId($_POST['id']);
         $students=$group->DefaultGroupInactivo();
-		 $smarty->assign("tip",$_POST['tip']);
+		$smarty->assign("tip", $_POST['tip']);
+		$smarty->assign("courseId", $_POST['id']);
         $smarty->assign("DOC_ROOT", DOC_ROOT);
         $smarty->assign("students", $students);
         $smarty->display(DOC_ROOT.'/templates/boxes/view-studentadmin.tpl');
