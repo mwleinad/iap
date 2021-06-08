@@ -41,10 +41,10 @@
     {if $item.activityType == "Examen"}
         {if $vistaPrevia==0}
             <a id="presentarExamen" style="display: none" class=" btn btn-outline-warning sbold" href="{$WEB_ROOT}/graybox.php?page=make-test&id={$item.activityId}" data-target="#ajax" data-toggle="modal">
-                Presentar examen
+                <i class="fas fa-spell-check"></i> Presentar examen
             </a>
-            <a class="pointer text-primary" onclick="DoTest({$item.activityId})">
-                Presentar Examen.
+            <a class="pointer btn btn-outline-info btn-xs mb-3" onclick="DoTest({$item.activityId})">
+                <i class="fas fa-spell-check"></i> Presentar Examen.
             </a>
         {else} 
             Presentar Examen.
