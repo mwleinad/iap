@@ -30,7 +30,7 @@
 		<link href="{$WEB_ROOT}/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" rel="stylesheet" type="text/css" />
 		<link href="{$WEB_ROOT}/assets/global/plugins/jquery-multi-select/css/multi-select.css" rel="stylesheet" type="text/css" />
 		{* END THEME LAYOUT STYLES *}
-		<link rel="shortcut icon" href="{$WEB_ROOT}/images/favicon_iap.ico" />
+		<link rel="shortcut icon" href="{$WEB_ROOT}/images/iconIap.png" />
 		<link href="{$WEB_ROOT}/GreyBox/greybox/gb_styles.css" rel="stylesheet" type="text/css" />
 		<link href="{$WEB_ROOT}/css/inbox.css" rel="stylesheet" type="text/css"  />
 		{*<link href="{$WEB_ROOT}/css/radiobutton.css" rel="stylesheet" type="text/css"  />*}

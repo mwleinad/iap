@@ -18,7 +18,11 @@
                 <li class="nav-item nav-profile dropdown">
                     <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                         <div class="nav-profile-img">
-                            <i class="fas fa-user-circle fa-3x text-white"></i>
+                            {if $User.photo}
+                                <img src="{$WEB_ROOT}/alumnos/{$User.photo}" alt="Profile">
+                            {else}
+                                <i class="fas fa-user-circle fa-3x text-white"></i>
+                            {/if}
                             <span class="availability-status online"></span>             
                         </div>
                         <div class="nav-profile-text">
@@ -43,11 +47,15 @@
                                 <i class="mdi mdi-key mr-2 text-primary"></i>
                                 Cambiar Contraseña
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{$WEB_ROOT}">
+                                <i class="mdi mdi-play-circle mr-2 text-success"></i>
+                                Currícula Activa
+                            </a>
+                            <a class="dropdown-item" href="{$WEB_ROOT}/homepage/cur/2">
                                 <i class="mdi mdi-close-circle mr-2 text-danger"></i>
                                 Currícula Inactiva
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{$WEB_ROOT}/homepage/cur/3">
                                 <i class="mdi mdi-checkbox-marked-circle mr-2 text-info"></i>
                                 Currícula Finalizada
                             </a>

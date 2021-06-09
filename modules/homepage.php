@@ -9,6 +9,21 @@ $x=0;
 		$announcement->setAnnouncementId($_GET['id']);
    		$announcement->Delete();
 		}
+	
+	$tipo_curricula = 'Activa';
+	switch($_GET['cur'])
+	{
+		case 2:
+			$tipo_curricula = 'Inactiva';
+			break;
+
+		case 3:
+			$tipo_curricula = 'Finalizada';
+			break;
+		default:
+			$tipo_curricula = 'Activa';
+			break;
+	}
 
 	 //if($_POST['courseId']){
 	 
@@ -37,22 +52,30 @@ $x=0;
 	$activeCourses = $student->StudentCourses();
 	$smarty->assign("courses", $activeCourses);	
 	
-	$activeCourses = $student->StudentCourses("activo", "si");
+	if($tipo_curricula == 'Activa')
+	{
+		$activeCourses = $student->StudentCourses("activo", "si");
+		$smarty->assign("activeCourses", $activeCourses);
+	}	
 	$showRegulation = $student->blockRegulation("activo", "si", "119, 129");
 	$smarty->assign("showRegulation", $showRegulation);	
-	$smarty->assign("activeCourses", $activeCourses);	
 
-	$inactiveCourses = $student->StudentCourses("inactivo", "si");
-	$smarty->assign("inactiveCourses", $inactiveCourses);	
+	if($tipo_curricula == 'Inactiva')
+	{
+		$inactiveCourses = $student->StudentCourses("inactivo", "si");
+		$smarty->assign("activeCourses", $inactiveCourses);	
+	}
 
-	$finishedCourses = $student->StudentCourses("finalizado");
-	
-	
-	
-	$smarty->assign("finishedCourses", $finishedCourses);	
+	if($tipo_curricula == 'Finalizada') 
+	{
+		$finishedCourses = $student->StudentCourses("finalizado");
+		$smarty->assign("activeCourses", $finishedCourses);	
+	}
 	
 	$announcements = $announcement->Enumerate(0, 0);
 	$smarty->assign('announcements', $announcements);
+
+	$smarty->assign("tipo_curricula", $tipo_curricula);
 	
 	
 	

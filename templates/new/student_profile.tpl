@@ -75,13 +75,13 @@
                     <span class="page-title-icon bg-gradient-primary text-white mr-2">
                         <i class="mdi mdi-school"></i>                 
                     </span>
-                    Currícula Activa
+                    Currícula {$tipo_curricula}
                 </h3>
             </div>
             {* CURRICULA ACTIVA *}
             {foreach from=$activeCourses item=subject}
-                 <div class="col-md-4 stretch-card grid-margin">
-                    <div class="card bg-gradient-primary card-img-holder text-white">
+                <div class="col-md-4 stretch-card grid-margin">
+                    <div class="card card-img-holder text-white {if $tipo_curricula eq 'Activa'} bg-gradient-primary {/if} {if $tipo_curricula eq 'Inactiva'} bg-gradient-danger {/if} {if $tipo_curricula eq 'Finalizada'} bg-gradient-info {/if}">
                         <div class="text-center">
                             <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula">
                                 {if $subject.icon eq ''}
@@ -111,7 +111,7 @@
             {foreachelse}
                 <div class="col-md-12">
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <i class="far fa-frown fa-lg"></i> <strong>¡Lo sentimos!</strong> No cuentas con currícula activa.
+                        <i class="far fa-frown fa-lg"></i> <strong>¡Lo sentimos!</strong> No Cuentas Con Currícula {$tipo_curricula}.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
