@@ -1,4 +1,4 @@
-<div class="card border border-primary">
+<div class="card">
     {if $myModule.icon ne ''}
         <img src="{$WEB_ROOT}/images/new/modulos/{$myModule.icon}" class="card-img-top" alt="" />
     {else}
