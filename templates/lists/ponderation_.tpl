@@ -2,10 +2,10 @@
 <table class="table table-bordered table-striped table-sm table-hover">
 	<thead>      
 		<tr>
-			{if $tipo==1}<th>Actividad</th>{else}<th>Examen</th>{/if}
-			<th>Calificación</th>
-			<th>Puntos</th>
-			<th>Retroalimentación</th>
+			{if $tipo==1}<th class="font-weight-bold">Actividad</th>{else}<th class="font-weight-bold">Examen</th>{/if}
+			<th class="font-weight-bold">Calificación</th>
+			<th class="font-weight-bold">Puntos</th>
+			<th class="font-weight-bold">Retroalimentación</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -14,7 +14,7 @@
 				<td>{$home.resumen}</td>
 				<td>{$home.ponderation}</td>
 				<td>{$home.ponderation*($home.score/100)}</td>
-				<td>
+				<td class="break-line">
 					{$home.retro}
 					{if $home.retroFile ne ""}
 						<b>Archivo Adjunto:</b>
@@ -34,10 +34,10 @@
 <table class="table table-bordered table-striped table-sm table-hover">
 	<thead>
 		<tr>
-			{if $tipo==1}<th>Actividad</th>{else}<th>Examen</th>{/if}
-			<th>Calificación</th>
-			<th>Puntos</th>
-			<th>Retroalimentación</th>
+			{if $tipo==1}<th class="font-weight-bold">Actividad</th>{else}<th class="font-weight-bold">Examen</th>{/if}
+			<th class="font-weight-bold">Calificación</th>
+			<th class="font-weight-bold">Puntos</th>
+			<th class="font-weight-bold">Retroalimentación</th>
 		</tr>
 	</thead>
 	<tbody>

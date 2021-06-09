@@ -1743,6 +1743,7 @@ class Student extends User
 
 	function StudentCourses($status = NULL, $active = NULL){
 
+		$tmp_status = $status;
 		if($status != NULL)
 		{
 			$status = " AND status = '".$status."'";
@@ -1752,6 +1753,17 @@ class Student extends User
 		{
 			$active = " AND course.active = '".$active."'";
 		}
+
+		if($tmp_status == 'finalizado')
+		{
+			$status = '';
+			$finalizado = " AND CURDATE() > course.finalDate";
+		}
+		elseif($tmp_status == 'activo')
+		{
+			$finalizado = " AND CURDATE() <= course.finalDate";
+		}
+
 		 $sql = "SELECT
 					*, subject.name AS name, major.name AS majorName, subject.icon
 				FROM
@@ -1763,6 +1775,7 @@ class Student extends User
 					alumnoId = '".$this->getUserId()."'
 					".$status."
 					".$active." 
+					".$finalizado." 
 				ORDER BY status ASC";
 
 		$this->Util()->DB()->setQuery($sql);
