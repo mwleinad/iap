@@ -1,5 +1,5 @@
-<tr>
-    <th width="200">Asunto</th>
-    <th width="400">Descripci&oacute;n</th>						
-  	<th width="100">Entrar</th>
+<tr class="text-center">
+	<th class="font-weight-bold">Asunto</th>
+    <th class="font-weight-bold">Descripción</th>						
+  	<th class="font-weight-bold">Entrar</th>
 </tr>

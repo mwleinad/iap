@@ -13393,3 +13393,31 @@ dl {
 .pointer {
   cursor: pointer;
 }
+
+/* CURSOR STYLE */
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+ }
+ ::-webkit-scrollbar-thumb {
+	background: linear-gradient(13deg, #006E00 14%,#73b760 64%);
+	border-radius: 10px;
+ }
+ ::-webkit-scrollbar-thumb:hover{
+ 	background: linear-gradient(13deg, #006E00 14%,#73b760 64%);
+ }
+ ::-webkit-scrollbar-track{
+	background: #ffffff;
+	border-radius: 10px;
+	box-shadow: inset 7px 10px 12px #f0f0f0;
+ }
+
+ /* BREAK LINE */
+ .break-line {
+	white-space: pre-wrap !important;
+	word-wrap: break-word !important;
+ }
+
+ .text-bold {
+	 font-weight: bold !important;
+ }

@@ -35,7 +35,7 @@
         <a href="{$WEB_ROOT}/resources-modules-student/id/{$id}" class="list-group-item list-group-item-action text-white">
             <b>Recursos de Apoyo <i class="fas fa-folder-open float-right"></i></b>
         </a>
-        <a href="{$WEB_ROOT}/reply-inbox/id/{$id}/cId/0" class="list-group-item list-group-item-action text-white">
+        <a href="{$WEB_ROOT}/reply-inbox/id/{$id}/cId/0" target="_blank" class="list-group-item list-group-item-action text-white">
             <b>Inbox <i class="fas fa-inbox float-right"></i></b>
         </a>
         <a href="{$WEB_ROOT}/forum-modules-student/id/{$id}" class="list-group-item list-group-item-action text-white">

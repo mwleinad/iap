@@ -1,7 +1,7 @@
 {foreach from=$resources item=subject}
 <tr class="text-center">
-	<td>{$subject.name}</td>
-	<td>{$subject.description}</td>
+	<td class="break-line">{$subject.name}</td>
+	<td class="break-line">{$subject.description}</td>
 	<td>
 		{if $configMateria eq 'si'}
 			<a href="{$WEB_ROOT}/download.php?file=resources/config/{$subject.path}"><i class="fas fa-download fa-lg text-info"></i></a>

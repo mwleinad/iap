@@ -42,10 +42,10 @@
                             <table class="table table-bordered table-sm">
                                 <thead>
                                     <tr class="text-center">
-                                        <th width="5%"><b>#</b></th>
-                                        <th width="40%"><b>Actividad</b></th>
-                                        <th width="20%"><b>Progreso</b></th>
-                                        <th width="16%"><b>Entregable</b></th>
+                                        <th class="font-weight-bold" width="5%">#</th>
+                                        <th class="font-weight-bold" width="40%">Actividad</th>
+                                        <th class="font-weight-bold" width="20%">Progreso</th>
+                                        <th class="font-weight-bold" width="16%">Entregable</th>
                                         <th width="19%"></th>
                                     </tr>
                                 </thead>
