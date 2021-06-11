@@ -21,28 +21,31 @@
                             <i class="far fa-bell fa-lg text-white"></i>
                             <span class="count-symbol bg-danger"></span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown" style="height:250px; overflow: scroll;">
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown" style="max-height:250px; overflow: scroll;">
                             <h6 class="p-3 mb-0">Notificaciones</h6>
                             <div class="dropdown-divider"></div>
-                            {foreach from=$notificaciones item=reply}
-                                <a class="dropdown-item preview-item data-alert" data-alert="{$reply.actividad}">
+                            {foreach from=$announcements item=item}
+                                <a class="dropdown-item preview-item data-alert" data-title="{$item.title}" data-text="{$item.description}">
                                     <div class="preview-thumbnail">
                                         <div class="preview-icon bg-success">
                                             <i class="fas fa-dot-circle"></i>
                                         </div>
                                     </div>
                                     <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                        <p class="preview-subject font-weight-normal mb-1" style="font-size: 8pt;">
+                                            {$item.title}
+                                        </p>
                                         <p class="preview-subject font-weight-normal mb-1" style="font-size: 6pt;">
-                                            {$reply.actividad|truncate:65}
+                                            {$item.date|date_format:"%d-%b-%y"}
                                         </p>
                                     </div>
                                 </a>
                                 <div class="dropdown-divider"></div>
                             {/foreach}
                             <div class="dropdown-divider"></div>
-                            <a href="{$WEB_ROOT}/notificaciones">
+                            {*<a href="{$WEB_ROOT}/notificaciones">
                                 <h6 class="p-3 mb-0 text-center">Ver todas las notificaciones</h6>
-                            </a>
+                            </a>*}
                         </div>
                     </li>
                 {/if}

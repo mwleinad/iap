@@ -12,9 +12,10 @@ function btnClose() {
 
 $(function() {
     $('body').on('click', '.data-alert', function() {
-        let text = $(this).data('alert');
+        let title = $(this).data('title');
+        let text = $(this).data('text');
         Swal.fire({
-            html: text,
+            html: '<h3>' + title + '</h3>' + '<br><br>' + text,
             width: 800,
             icon: 'info'
         });
