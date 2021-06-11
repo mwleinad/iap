@@ -1,16 +1,16 @@
 <tr class="text-center">
-    <th>ID</th>
-    <th>Clave</th>
-    <th>Tipo</th>
-    <th>Nombre</th>
-    <th>Grupo</th>
-    <th>Modalidad</th>
-    <th>Fecha Inicial</th>
-    <th>Fecha Final</th>
-    <th>Modulos (A/T)</th>
-    <th>Alumnos (A/I)</th>
-    <th>Activo</th>
+    <th class="font-weight-bold">ID</th>
+    <th class="font-weight-bold">Clave</th>
+    <th class="font-weight-bold">Tipo</th>
+    <th class="font-weight-bold">Nombre</th>
+    <th class="font-weight-bold">Grupo</th>
+    <th class="font-weight-bold">Modalidad</th>
+    <th class="font-weight-bold">Fecha Inicial</th>
+    <th class="font-weight-bold">Fecha Final</th>
+    <th class="font-weight-bold break-line">Modulos (A/T)</th>
+    <th class="font-weight-bold">Alumnos (A/I)</th>
+    <th class="font-weight-bold">Activo</th>
     {if !$docente}
-        <th>Acciones</th>
+        <th class="font-weight-bold">Acciones</th>
     {/if}
 </tr>

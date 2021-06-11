@@ -212,7 +212,8 @@ $pages = array(
 	'finanzas',
 	'reglamento',
 	'modulos-curricula',
-	'migrupo'
+	'migrupo',
+	'notificaciones'
 );
 
 if(!in_array($_GET['page'], $pages))

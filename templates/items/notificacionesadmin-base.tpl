@@ -2,7 +2,7 @@
    {if $reply.vistaPermiso==1}
 		<tr>
 			<td class="text-center">{$reply.fecha_aplicacion|date_format:"%d-%m-%Y %H:%M:%S"}</td>
-			<td class="text-left">{$reply.actividad}</td>
+			<td class="text-left break-line">{$reply.actividad}</td>
 			<td class="text-center">{$reply.nombre}</td>
 			{if $reply.enlace != "NO"}
 				<td class="text-center">

@@ -15,6 +15,37 @@
         {/if}
         <ul class="navbar-nav navbar-nav-right">
             {if isset($User)}
+                {if ($page eq 'homepage') and (($User.type eq 'Docente') or ($User.type eq 'student'))}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+                            <i class="far fa-bell fa-lg text-white"></i>
+                            <span class="count-symbol bg-danger"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown" style="height:250px; overflow: scroll;">
+                            <h6 class="p-3 mb-0">Notificaciones</h6>
+                            <div class="dropdown-divider"></div>
+                            {foreach from=$notificaciones item=reply}
+                                <a class="dropdown-item preview-item data-alert" data-alert="{$reply.actividad}">
+                                    <div class="preview-thumbnail">
+                                        <div class="preview-icon bg-success">
+                                            <i class="fas fa-dot-circle"></i>
+                                        </div>
+                                    </div>
+                                    <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                        <p class="preview-subject font-weight-normal mb-1" style="font-size: 6pt;">
+                                            {$reply.actividad|truncate:65}
+                                        </p>
+                                    </div>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                            {/foreach}
+                            <div class="dropdown-divider"></div>
+                            <a href="{$WEB_ROOT}/notificaciones">
+                                <h6 class="p-3 mb-0 text-center">Ver todas las notificaciones</h6>
+                            </a>
+                        </div>
+                    </li>
+                {/if}
                 <li class="nav-item nav-profile dropdown">
                     <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                         <div class="nav-profile-img">
@@ -96,7 +127,7 @@
             {/if}
             <li class="nav-item d-none d-lg-block full-screen-link">
                 <a class="nav-link">
-                    <i class="mdi mdi-fullscreen text-white pointer" id="fullscreen-button"></i>
+                    <i class="fas fa-expand fa-lg text-white pointer" id="fullscreen-button"></i>
                 </a>
             </li>
         </ul>

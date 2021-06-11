@@ -64,7 +64,7 @@
     </div>
 {/if}
 
-<div id="ac2" class="mb-4">
+{*<div id="ac2" class="mb-4">
     <div class="card">
         <div class="card-header bg-primary text-white">
             <i class="far fa-newspaper"></i> Noticias
@@ -83,7 +83,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*}
 
 
 {if $User.type == "student"}
