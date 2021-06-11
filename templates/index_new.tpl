@@ -122,7 +122,7 @@
 		<script src="{$WEB_ROOT}/assets/vcz/vendor/js/vendor.bundle.base.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/vendor/js/vendor.bundle.addons.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/js/off-canvas.js"></script>
-		{*<script src="{$WEB_ROOT}/assets/vcz/js/hoverable-collapse.js"></script>*}
+		<script src="{$WEB_ROOT}/assets/vcz/js/hoverable-collapse.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/js/misc.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/vendor/fontawesome/js/all.min.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/js/bootbox.min.js"></script>
