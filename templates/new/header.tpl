@@ -19,16 +19,56 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
                             <i class="far fa-bell fa-lg text-white"></i>
-                            <span class="count-symbol bg-danger"></span>
+                            {if (count($announcements) > 0) or ($download) or (count($notificaciones) > 0)}
+                                <span class="count-symbol bg-danger"></span>
+                            {/if}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown" style="max-height:250px; overflow: scroll;">
                             <h6 class="p-3 mb-0">Notificaciones</h6>
                             <div class="dropdown-divider"></div>
+                            {if $User.type == 'student'}
+                                {if $download}
+                                    <a href="{$WEB_ROOT}/files/titulos/{$fileCer}" target="_blank" class="dropdown-item preview-item">
+                                        <div class="preview-thumbnail">
+                                            <div class="preview-icon bg-success">
+                                                <i class="fas fa-graduation-cap"></i>
+                                            </div>
+                                        </div>
+                                        <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                            <p class="preview-subject font-weight-normal mb-1" style="font-size: 8pt;">
+                                                Tú título electrónico está <b>disponible</b> para la descarga.
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                {/if}
+                            {/if}
+                            {foreach from=$notificaciones item=reply}
+                                {if $reply.vistaPermiso==1}
+                                    <a href="{$WEB_ROOT}{$reply.enlace}" target="_blank" class="dropdown-item preview-item">
+                                        <div class="preview-thumbnail">
+                                            <div class="preview-icon bg-success">
+                                                <i class="fas fa-bell"></i>
+                                            </div>
+                                        </div>
+                                        <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                            <p class="preview-subject font-weight-normal mb-1" style="font-size: 8pt;">
+                                                {$reply.actividad}<br>
+                                                <small><b>Por: {$reply.nombre}</b></small>
+                                            </p>
+                                            <p class="preview-subject font-weight-normal mb-1" style="font-size: 6pt;">
+                                                {$reply.fecha_aplicacion|date_format:"%d-%b-%y"}
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                {/if}
+                            {/foreach}
                             {foreach from=$announcements item=item}
                                 <a class="dropdown-item preview-item data-alert" data-title="{$item.title}" data-text="{$item.description}">
                                     <div class="preview-thumbnail">
                                         <div class="preview-icon bg-success">
-                                            <i class="fas fa-dot-circle"></i>
+                                            <i class="fas fa-bullhorn"></i>
                                         </div>
                                     </div>
                                     <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
