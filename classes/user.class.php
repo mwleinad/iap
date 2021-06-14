@@ -1229,6 +1229,7 @@ class User extends Main
 			$card['nombreCompleto'] = $row['name'].' '.$row['lastname_materno'].' '.$row['lastname_paterno'];
 			$card['isLogged'] = true;
 			$card['type'] =  $row['perfil'];
+			$card['photo'] =  $row['foto'];
 			$_SESSION['User'] = $card;
 			$_SESSION['empresaId'] = 15;
 			$_SESSION["lastClick"] = time();			

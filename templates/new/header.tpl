@@ -64,28 +64,30 @@
                                     <div class="dropdown-divider"></div>
                                 {/if}
                             {/foreach}
-                            {foreach from=$announcements item=item}
-                                <a class="dropdown-item preview-item data-alert" data-title="{$item.title}" data-text="{$item.description}">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-success">
-                                            <i class="fas fa-bullhorn"></i>
+                            {if $type eq 'student'}
+                                {foreach from=$announcements item=item}
+                                    <a class="dropdown-item preview-item data-alert" data-title="{$item.title}" data-text="{$item.description}">
+                                        <div class="preview-thumbnail">
+                                            <div class="preview-icon bg-success">
+                                                <i class="fas fa-bullhorn"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <p class="preview-subject font-weight-normal mb-1" style="font-size: 8pt;">
-                                            {$item.title}
-                                        </p>
-                                        <p class="preview-subject font-weight-normal mb-1" style="font-size: 6pt;">
-                                            {$item.date|date_format:"%d-%b-%y"}
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                            {/foreach}
+                                        <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                            <p class="preview-subject font-weight-normal mb-1" style="font-size: 8pt;">
+                                                {$item.title}
+                                            </p>
+                                            <p class="preview-subject font-weight-normal mb-1" style="font-size: 6pt;">
+                                                {$item.date|date_format:"%d-%b-%y"}
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                {/foreach}
+                            {/if}
                             <div class="dropdown-divider"></div>
-                            {*<a href="{$WEB_ROOT}/notificaciones">
+                            <a href="{$WEB_ROOT}/notificaciones">
                                 <h6 class="p-3 mb-0 text-center">Ver todas las notificaciones</h6>
-                            </a>*}
+                            </a>
                         </div>
                     </li>
                 {/if}
@@ -93,7 +95,12 @@
                     <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                         <div class="nav-profile-img">
                             {if $User.photo}
-                                <img src="{$WEB_ROOT}/alumnos/{$User.photo}" alt="Profile">
+                                {if $User.type eq 'student'}
+                                    <img src="{$WEB_ROOT}/alumnos/{$User.photo}" alt="Profile">
+                                {/if}
+                                {if $User.type eq 'Docente'}
+                                    <img src="{$WEB_ROOT}/{$User.photo}" alt="Profile">
+                                {/if}
                             {else}
                                 <i class="fas fa-user-circle fa-3x text-white"></i>
                             {/if}
