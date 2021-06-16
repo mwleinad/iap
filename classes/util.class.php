@@ -683,6 +683,18 @@ function HandleMultipages($page,$total,$link,$items_per_page=0,$pagevar="p"){
 
     }//hs_eregi
 
+	function str_replace_mail($text, $data)
+	{
+		if(is_array($data))
+		{
+			foreach($data as $key => $value)
+			{
+				$text = str_replace("|" . $key . "|", $value, $text);
+			}
+		}
+		return $text;
+	}
+
 
     function hs_ereg_replace($var1,$var2,$var3){
         return preg_replace('/'.$var1.'/', $var2, $var3);

@@ -141,30 +141,45 @@ new Ajax.Request(WEB_ROOT+'/ajax/student.php',
    
 }
 
-function borrarNot(id){
-new Ajax.Request(WEB_ROOT+'/ajax/notificacion.php', 
-	{
-		method:'post',
-		parameters: {type: "deleteNot",id : id},
-    onSuccess: function(transport){
+function borrarNot(id)
+{
+	$.ajax({
+		url : WEB_ROOT + '/ajax/notificacion.php',
+		type: "POST",
+		data: {type: "deleteNotificacion", id: id},
+		beforeSend: function(){			 
+		},
+		success: function(transport)
+		{
 			var response = transport.responseText || "no response text";
-			alert(response)
+			console.log(response)
 			var splitResponse = response.split("[#]");
 			if(splitResponse[0] == "fail")
 			{
-				ShowStatus(splitResponse[1])
+				Swal.fire({
+					icon: 'error',
+					title: 'Error',
+					text: 'La notificación no fue eliminada, intenta más tarde..'
+				});
 			}
 			else
 			{
-				ShowStatus(splitResponse[1])
-				$('tblNot').innerHTML = splitResponse[2];
-				CloseFview();
+				Swal.fire({
+					icon: 'success',
+					title: 'Notificación Eliminada'
+				});
+				$("#not-" + id).remove();
 			}
-
 		},
-    onFailure: function(){ alert('Something went wrong...') }
-  });
-
+		error: function (err){ 
+			console.log(err);
+			Swal.fire({
+				icon: 'error',
+				title: 'Error',
+				text: 'La notificación no fue eliminada, intenta más tarde..'
+			});
+		}
+	});
 }//CalificacionesAct
 
 

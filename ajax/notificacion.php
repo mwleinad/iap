@@ -8,12 +8,8 @@ session_start();
 
 switch($_POST["type"])
 {
-
-	
 	case 'deleteNot':
-		
 		$forum->setNotificacionId($_POST['id']);	
-				
 		if(!$forum->DeleteNotificacion())
 		{
 			echo "fail[#]";
@@ -24,17 +20,19 @@ switch($_POST["type"])
 			echo "ok[#]";
 			$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
 			
-	echo "[#]";
-	$notificaciones=$forum->EnumerateNotificacion();
-	$smarty->assign('notificaciones', $notificaciones);
-	
-		
-		
-		$smarty->display(DOC_ROOT.'/templates/lists/notificacionesadmin.tpl');
-		
-		}
-			
+			echo "[#]";
+			$notificaciones=$forum->EnumerateNotificacion();
+			$smarty->assign('notificaciones', $notificaciones);
+			$smarty->display(DOC_ROOT.'/templates/lists/notificacionesadmin.tpl');
+		}			
+		break;
+
+	case 'deleteNotificacion':
+		$forum->setNotificacionId($_POST['id']);
+		if($forum->DeleteNotificacion())
+			echo "ok[#]";
+		else
+			echo "fail[#]";
 		break;
 }
-
 ?>

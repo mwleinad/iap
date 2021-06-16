@@ -1,12 +1,12 @@
 {foreach from=$notificaciones item=reply}
    {if $reply.vistaPermiso==1}
-		<tr>
+		<tr id="not-{$reply.notificacionId}">
 			<td class="text-center">{$reply.fecha_aplicacion|date_format:"%d-%m-%Y %H:%M:%S"}</td>
 			<td class="text-left break-line">{$reply.actividad}</td>
 			<td class="text-center">{$reply.nombre}</td>
 			{if $reply.enlace != "NO"}
 				<td class="text-center">
-					<i class="fas fa-times-circle fa-2x text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar Notificación"  onclick="borrarNot({$reply.notificacionId})"></i>
+					<i class="fas fa-times-circle fa-2x text-danger pointer" data-toggle="tooltip" data-placement="top" title="Eliminar Notificación"  onclick="borrarNot({$reply.notificacionId})"></i>
 					<a href="{$WEB_ROOT}{$reply.enlace}">
 						<i id="d-{$subject.subjectId}" name="d-{$subject.name}" data-toggle="tooltip" data-placement="top" title="Ver" class="fas fa-arrow-circle-right fa-2x text-success"></i>
 					</a>

@@ -239,7 +239,7 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-        <a href="{$WEB_ROOT}/graybox.php?page=aviso" data-target="#ajax" data-toggle="modal" data-width="1000px" title="AVISO DE PRIVACIDAD">
+        <a href="https://iapchiapas.edu.mx/aviso_privacidad" target="_blank" title="Aviso de Privacidad">
             Aviso de Privacidad
         </a>
     </div>
