@@ -1,8 +1,10 @@
 <input type="hidden" value="0" id="recarga" name="recarga">
 {foreach from=$subjects item=subject}
     <tr>
-        <td class="id text-center">{$subject.courseId}</td>
-        <td class="text-center">{$subject.clave}</td>
+		{if $User.type ne 'Docente'}
+        	<td class="id text-center">{$subject.courseId}</td>
+        {/if}			
+		<td class="text-center">{$subject.clave}</td>
         <td class="text-center">{$subject.majorName}</td>
         <td class="text-center break-line">{$subject.name}</td>
 		<td class="text-center">{$subject.group}</td>

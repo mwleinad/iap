@@ -51,9 +51,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link {if $page == "profesion"}active{/if}" href="{$WEB_ROOT}/profesion">Profesiones</a>
                                     </li>
-                                    <li class="nav-item">
+                                    {*<li class="nav-item">
                                         <a class="nav-link {if $page == "recording"}active{/if}" href="{$WEB_ROOT}/recording">Videoconferencias</a>
-                                    </li>
+                                    </li>*}
                                 {/if}
                             </ul>
                         </div>

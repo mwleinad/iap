@@ -3,7 +3,7 @@
 		<i class="fas fa-info-circle"></i> Información Personal
 		<div class="col-md-12 text-right">
 			{if $docente}
-				<a class="btn btn-primary" href="{$WEB_ROOT}/graybox.php?page=aviso" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Aviso de Privacidad">
+				<a class="btn btn-primary" href="https://iapchiapas.edu.mx/aviso_privacidad" target="_blank" title="Aviso de Privacidad">
 					<i class ="fas fa-user-secret"></i> Aviso de Privacidad
 				</a>
 			{/if}

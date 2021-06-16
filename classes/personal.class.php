@@ -522,8 +522,8 @@ class Personal extends Main
 					(						
 						positionId, 
 						name,
-						lastname_materno,
 						lastname_paterno,
+						lastname_materno,
 						stateId, 
 						username,
 						passwd,

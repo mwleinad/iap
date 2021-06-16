@@ -146,7 +146,6 @@ $pages = array(
 	"add-noticia",
 	"tv",
 	"recorded",
-	"recording",
 
 	"profesion",
 

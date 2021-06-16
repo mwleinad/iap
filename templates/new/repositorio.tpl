@@ -18,9 +18,11 @@
 <div class="card mb-4">
     <div class="card-header bg-primary text-white">
 		<i class="fas fa-folder-open"></i> Repositorio Docente
-        <a href="{$WEB_ROOT}/graybox.php?page=add-repositorio" class="btn btn-info float-right" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Agregar Documento">
-            <i class="fas fa-plus"></i> Agregar
-        </a>
+        {if $User.type ne 'Docente'}
+            <a href="{$WEB_ROOT}/graybox.php?page=add-repositorio" class="btn btn-info float-right" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Agregar Documento">
+                <i class="fas fa-plus"></i> Agregar
+            </a>
+        {/if}
     </div>
     <div class="card-body">
         <div id="msj"></div>

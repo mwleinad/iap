@@ -65,7 +65,7 @@
 			</form>
 		{/if}
         <div id="tblContent" class="table-responsive">
-			{include file="lists/new/courses.tpl"}+
+			{include file="lists/new/courses.tpl"}
 		</div>
         {if $coursesCount}
             <div class="row">
