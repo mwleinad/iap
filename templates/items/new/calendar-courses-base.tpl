@@ -4,7 +4,7 @@
         <td class="id text-center">{$subject.courseId}</td>
         <td class="text-center">{$subject.clave}</td>
         <td class="text-center">{$subject.majorName}</td>
-        <td class="text-center">{$subject.name}</td>
+        <td class="text-center break-line">{$subject.name}</td>
         <td class="text-center">{$subject.group}</td>
         <td class="text-center">
             {if $subject.modality eq 'Local'}

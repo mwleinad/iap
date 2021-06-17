@@ -43,6 +43,7 @@
 		$course->setAparece($_POST["apareceT"]);
 		$course->setTipoCuatri($_POST["tipoCuatri"]);
 		$course->setListar($_POST["listar"]);
+		$course->setTemporalGroup($_POST["temporalGroup"]);
 		$course->Update();
 
 		header("Location:" . WEB_ROOT . "/history-subject");
@@ -65,5 +66,7 @@
 	// echo '<pre>'; print_r($post);
 	// exit;
 	$smarty->assign('post', $post);
+	$activeCourses = $course->EnumerateActive();
+	$smarty->assign('activeCourses', $activeCourses);
 	
 ?>

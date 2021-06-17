@@ -20,13 +20,13 @@
     <div class="card-header bg-primary text-white">
         <i class="fas fa-users"></i> Alumnos
         {include file="boxes/status_no_ajax.tpl"}
-        <form method="post" name="frmReport" id="frmReport" action="">
+        <form method="post" name="frmReport" id="frmReport" action="" class="float-right mx-2" style="display:inline;">
             <input type="hidden" name="accion" value="export" /><br />
-            <label class="pointer" onclick="event.preventDefault();document.getElementById('frmReport').submit();">
-                <i class="fas fa-file-excel fa-lg" title="Exportar alumnos a Excel"></i> Exportar Alumnos a Excel
+            <label class="btn btn-info btn-sm pointer" onclick="event.preventDefault();document.getElementById('frmReport').submit();">
+                <i class="fas fa-file-excel" title="Exportar alumnos a Excel"></i> Exportar Alumnos a Excel
             </label>
         </form>
-        <a href="{$WEB_ROOT}/graybox.php?page=add-alumno-admin&id={$item.userId}" class="btn btn-info float-right" data-target="#ajax" data-toggle="modal" data-width="1000px">
+        <a href="{$WEB_ROOT}/graybox.php?page=add-alumno-admin&id={$item.userId}" class="btn btn-info btn-sm float-right" data-target="#ajax" data-toggle="modal" data-width="1000px" style="margin-top: 20px;">
             <i class="fas fa-plus"></i> Agregar
         </a>
     </div>

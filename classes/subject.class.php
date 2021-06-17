@@ -26,6 +26,7 @@
 		private $payments;
 		private $fechaRvoe;
 		private $fechaRvoeLinea;
+		private $totalPeriods;
 		
 		//new
 		public function setFechaRvoe($value)
@@ -303,6 +304,11 @@
 		public function setUserId($value)
 		{
 			$this->userId = $value;	
+		}
+
+		public function setTotalPeriods($value)
+		{
+			$this->totalPeriods = intval($value);
 		}
 
 		public function getUserId()
@@ -653,6 +659,8 @@ public function Enumerate_p(){
 						 	clave,
 						 	rvoe,
 						 	fechaRvoe,
+						 	rvoeLinea,
+						 	fechaRvoeLinea,
 							name,
 							welcomeText,
 							introduction,
@@ -666,12 +674,15 @@ public function Enumerate_p(){
 							bibliography,							
 							cost,							
 							payments,							
-							tipo
+							tipo,
+							totalPeriods
 						)
 					VALUES (
-							'" . $this->rvoe . "', 
 							'" . $this->clave . "', 
+							'" . $this->rvoe . "', 
 							'" . $this->fechaRvoe . "', 
+							'" . $this->rvoeLinea . "', 
+							'" . $this->fechaRvoeLinea . "', 
 							'" . $this->name . "',
 							'" . $this->welcomeText . "',
 							'" . $this->introduction . "',
@@ -685,7 +696,8 @@ public function Enumerate_p(){
 							'" . $this->bibliography . "',
 							'" . $this->cost . "',
 							'" . $this->payments . "',
-							'" . $this->tipo . "'
+							'" . $this->tipo . "',
+							" . $this->totalPeriods . "
 							)";
 			//configuramos la consulta con la cadena de insercion
 			$this->Util()->DB()->setQuery($sql);
@@ -944,7 +956,8 @@ public function Enumerate_p(){
 						bibliography='" 	. $this->bibliography . "',
 						cost='" 	. $this->cost . "',
 						payments='" 	. $this->payments . "',
-						tipo = '".$this->tipo."'
+						tipo = '".$this->tipo."',
+						totalPeriods = ".$this->totalPeriods."
 						WHERE subjectId='" . $this->subjectId . "'";
 			//configuramos la consulta con la cadena de actualizacion
 			$this->Util()->DB()->setQuery($sql);

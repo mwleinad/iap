@@ -107,22 +107,39 @@
         </div>
     </div>
 
+    <span class="badge badge-dark">Información para Configuración</span>
+    <hr />
+
     <div class="row">
-		<div class="form-group col-md-4">
-            <label for="apareceT">Aparece en Tabla:</label>
-            <input type="checkbox" name="apareceT" id="apareceT" {if $post.apareceTabla eq 'si'} checked {/if} class="form-control"/>
+        <div class="form-group col-md-6">
+            <label for="temporalGroup">Grupo Temporal <small>(Seleccione si se trata de un grupo oficial)</small>:</label>
+            <select name="temporalGroup" id="temporalGroup" class="form-control">
+                <option value="0" {if $post.temporalGroup == 0} selected {/if}>SIN GRUPO TEMPORAL</option>
+                {foreach from=$activeCourses item=course}
+                    <option value="{$course.courseId}" {if $post.temporalGroup == $course.courseId} selected {/if}>
+                        {$course.majorName} - {$course.name} - {$course.group}
+                    </option>
+                {/foreach}
+            </select>
         </div>
-		<div class="form-group col-md-4">
-            <label for="listar">Listar:</label>
-            <input type="checkbox" name="listar" id="listar" {if $post.listar eq 'si'} checked {/if} class="form-control"/>
-        </div>
-		<div class="form-group col-md-4">
+        <div class="form-group col-md-6">
             <label for="tipoCuatri">Tipo:</label>
             <select type="checkbox" name="tipoCuatri" id="tipoCuatri"   class="form-control">
                 <option></option>
                 <option {if $post.tipoCuatri == "Cuatrimestre"} selected="selected"{/if}>Cuatrimestre</option>
                 <option {if $post.tipoCuatri == "Semestre"} selected="selected"{/if}>Semestre</option>
             </select >
+        </div>
+    </div>
+
+    <div class="row">
+		<div class="form-group col-md-6">
+            <label for="apareceT">Aparece en Tabla:</label>
+            <input type="checkbox" name="apareceT" id="apareceT" {if $post.apareceTabla eq 'si'} checked {/if} class="form-control"/>
+        </div>
+		<div class="form-group col-md-6">
+            <label for="listar">Listar:</label>
+            <input type="checkbox" name="listar" id="listar" {if $post.listar eq 'si'} checked {/if} class="form-control"/>
         </div>
     </div>
 

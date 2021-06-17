@@ -26,6 +26,7 @@
 		$subject->setPayments($_POST['payments']);
 		$subject->setFechaRvoe($_POST['fechaRvoe']);
 		$subject->setFechaRvoeLinea($_POST['fechaRvoeLinea']);
+		$subject->setTotalPeriods($_POST['totalPeriods']);
 		
 		$subject->Update();
 

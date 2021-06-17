@@ -791,6 +791,28 @@ class Personal extends Main
 
 		return $path;
 	}
+
+
+	public function UpdateFotoPost()
+	{
+		$ext = end(explode('.', basename($_FILES['foto']['name'])));
+		if(strtolower($ext) != "jpg" && strtolower($ext) != "jepg")
+		{
+			$this->Util()->setError(10028, "error", "La extension solo puede ser jpg");
+			$this->Util()->PrintErrors();
+			return;
+		}
+		$filename = $_POST["personalId"] . ".jpg";
+		$sql = "UPDATE personal SET foto = 'personal_foto/" . $filename . "' WHERE personalId = " . $_POST["personalId"];
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->ExecuteQuery();
+		$target_path = DOC_ROOT . "/personal_foto/" . $filename;
+		if(move_uploaded_file($_FILES['foto']['tmp_name'], $target_path)) 
+		{
+			$this->Util()->setError(10028, "complete", "Has cambiado la foto satisfactoriamente.");
+			$this->Util()->PrintErrors();
+		}
+	}
 	
 	
 	

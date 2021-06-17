@@ -20,6 +20,7 @@
 		private $subtotal;
 		private $tipoCuatri;
 		private $totalPeriods;
+		private $temporalGroup;
 		
 		public function setTipoCuatri($value)
 		{
@@ -48,7 +49,12 @@
 
 		public function setTotalPeriods($value)
 		{
-			$this->totalPeriods = $value;
+			$this->totalPeriods = intval($value);
+		}
+
+		public function setTemporalGroup($value)
+		{
+			$this->temporalGroup = intval($value);
 		}
 		
 		public function setId($value)
@@ -587,7 +593,8 @@
 							horario,
 							apareceTabla,
 							listar,
-							tipo
+							tipo,
+							temporalGroup
 						)
 					VALUES (
 							'" . $this->getSubjectId() . "',
@@ -606,7 +613,8 @@
 							'".$this->horario."',
 							'".$this->aparece."',
 							'".$this->listar."',
-							'".$this->tipoCuatri."'
+							'".$this->tipoCuatri."',
+							" . $this->temporalGroup . "
 							)";
 			//configuramos la consulta con la cadena de insercion
 			$this->Util()->DB()->setQuery($sql);
@@ -661,7 +669,8 @@
 						tipo='".$this->tipoCuatri."',
 						apareceTabla='".$this->aparece."',
 						listar='".$this->listar."',
-						access='".$this->personalId."|".$this->teacherId."|".$this->tutorId."|".$this->extraId."'
+						access='".$this->personalId."|".$this->teacherId."|".$this->tutorId."|".$this->extraId."',
+						temporalGroup = " . $this->temporalGroup . "
 						WHERE courseId='" . utf8_decode($this->courseId) . "'";
 			//configuramos la consulta con la cadena de actualizacion
 			$this->Util()->DB()->setQuery($sql);

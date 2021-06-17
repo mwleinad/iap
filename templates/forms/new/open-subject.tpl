@@ -90,27 +90,42 @@
             <input type="text" name="dias" id="dias" value="{$post.dias}" class="form-control"/>
         </div>
         <div class="form-group col-md-6">
-            <label for=""> Horario:</label>
+            <label for="horario"> Horario:</label>
             <input type="text" name="horario" id="horario" value="{$post.horario}" class="form-control"/>
         </div>
     </div>
 
+    <span class="badge badge-dark">Información para Configuración</span>
+    <hr />
+
     <div class="row">
-		<div class="form-group col-md-4">
-            <label for="apareceT">Aparece en Tabla:</label>
-            <input type="checkbox" name="apareceT" id="apareceT" class="form-control"/>
+        <div class="form-group col-md-6">
+            <label for="temporalGroup">Grupo Temporal <small>(Seleccione si se trata de un grupo oficial)</small>:</label>
+            <select name="temporalGroup" id="temporalGroup" class="form-control">
+                <option value="0">SIN GRUPO TEMPORAL</option>
+                {foreach from=$activeCourses item=course}
+                    <option value="{$course.courseId}">{$course.majorName} - {$course.name} - {$course.group}</option>
+                {/foreach}
+            </select>
         </div>
-		<div class="form-group col-md-4">
-            <label for="listar">Listar:</label>
-            <input type="checkbox" name="listar" id="listar" class="form-control"/>
-        </div>
-		<div class="form-group col-md-4">
+        <div class="form-group col-md-6">
             <label for="tipoCuatri">Tipo:</label>
             <select type="checkbox" name="tipoCuatri" id="tipoCuatri" class="form-control">
                 <option></option>
                 <option>Cuatrimestre</option>
                 <option>Semestre</option>
             </select >
+        </div>
+    </div>
+
+    <div class="row">
+		<div class="form-group col-md-6">
+            <label for="apareceT">Aparece en Tabla:</label>
+            <input type="checkbox" name="apareceT" id="apareceT" class="form-control"/>
+        </div>
+		<div class="form-group col-md-6">
+            <label for="listar">Listar:</label>
+            <input type="checkbox" name="listar" id="listar" class="form-control"/>
         </div>
     </div>
     

@@ -37,19 +37,24 @@
     </div>
 
     <div class="row">
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-6">
             <label for="">Fecha de RVOE en Linea:</label>
-            <div class="col-md-8">
-                <input type="text" name="fechaRvoeLinea" id="fechaRvoeLinea"  value="{$post.fechaRvoeLinea}"  class="form-control i-calendar" />
-            </div>
+            <input type="text" name="fechaRvoeLinea" id="fechaRvoeLinea" value="{$post.fechaRvoeLinea}" class="form-control i-calendar" />
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-6">
             <label for="cost">Costo Mensual:</label>
             <input type="text" name="cost" id="cost" class="form-control" value="{$post.cost}" />
         </div>
-        <div class="form-group col-md-4">
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-6">
             <label for="payments">Numero de Pagos Totales:</label>
             <input type="text" name="payments" id="payments" class="form-control" value="{$post.payments}" />
+        </div>
+        <div class="form-group col-md-6">
+            <label for="totalPeriods">Total de Periodos:</label>
+            <input type="text" name="totalPeriods" id="totalPeriods" class="form-control" value="{$post.totalPeriods}" />
         </div>
     </div>
 
