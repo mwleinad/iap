@@ -84,6 +84,7 @@
 		<link rel="stylesheet" href="{$WEB_ROOT}/assets/vcz/vendor/jodit/build/jodit.css">
 		<link rel="stylesheet" href="{$WEB_ROOT}/assets/vcz/vendor/flatpickr/flatpickr.min.css">
         <link rel="stylesheet" href="{$WEB_ROOT}/assets/vcz/css/style.css">
+        <link rel="stylesheet" href="{$WEB_ROOT}/assets/vcz/vendor/fancybox/dist/jquery.fancybox.min.css">
 		<link rel="shortcut icon" href="{$WEB_ROOT}/images/logos/iconIap.png" />
 		{* End new styles *}
 	</head>
@@ -129,6 +130,7 @@
 		<script src="{$WEB_ROOT}/assets/vcz/vendor/jodit/build/jodit.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/vendor/flatpickr/flatpickr.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
+		<script src="{$WEB_ROOT}/assets/vcz/vendor/fancybox/dist/jquery.fancybox.min.js"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/js/dashboard.js?v={$timestamp}"></script>
 		{* End new scripts *}
 

@@ -2,9 +2,11 @@
     <tr>
         <td class="id text-center">{$item.personalId}</td>    
         <td>
-            <a href="#">
-				<img src="{$WEB_ROOT}/{$item.foto}" max-width="60px" class="img-fluid" />
-			</a>
+            {if $item.foto ne ''}
+                <a data-fancybox="personal" href="{$WEB_ROOT}/{$item.foto}">
+                    <img src="{$WEB_ROOT}/{$item.foto}" class="img-fluid" />
+                </a>
+            {/if}
         </td>   
         <td class="break-line">{$item.lastname_paterno} {$item.lastname_materno} {$item.name}</td>
         <td class="text-center">{$item.position}</td>        
