@@ -31,7 +31,9 @@ $(function() {
     $('body').on('click', '.input-loading', function() {
         let input = $(this);
         let id = input.data('id');
+        let formId = input.data('form');
 		input.attr('disabled', true);
 		$('#' + id).html('<h3><i class="fas fa-spinner fa-pulse"></i> Espere por favor...</h3>');
+        $('#' + formId).submit();
     });
 });

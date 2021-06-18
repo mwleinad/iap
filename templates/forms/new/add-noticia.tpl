@@ -19,9 +19,10 @@
     </div>
     <div class="row">
         <div class="form-group col-md-12 text-center">
-            <input type="submit" class="btn btn-success submitForm" id="addMajor" name="addMajor" />
+            <input type="submit" class="btn btn-success input-loading submitForm" data-id="input-loading" data-form="addNoticia" id="addMajor" name="addMajor" />
             <button type="button" class="btn btn-danger closeModal">Cancelar</button>
         </div>
+        <div id="input-loading" class="col-md-12 text-center"></div>
     </div>
 </form>
 <script>
