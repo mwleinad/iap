@@ -16,10 +16,10 @@
     </nav>
 </div>
 
+{include file="boxes/status_no_ajax.tpl"}
 <div class="card mb-4">
     <div class="card-header bg-primary text-white">
         <i class="fas fa-users"></i> Alumnos
-        {include file="boxes/status_no_ajax.tpl"}
         <form method="post" name="frmReport" id="frmReport" action="" class="float-right mx-2" style="display:inline;">
             <input type="hidden" name="accion" value="export" /><br />
             <label class="btn btn-info btn-sm pointer" onclick="event.preventDefault();document.getElementById('frmReport').submit();">

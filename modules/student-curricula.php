@@ -35,7 +35,7 @@
 	$activeCourses = $student->StudentCourses();
 	$smarty->assign("courses", $activeCourses);	
 
-	$curricula = $course->EnumerateActive();
+	$curricula = $course->EnumerateOfficial();
 	$smarty->assign("curricula", $curricula);	
 
 	$smarty->assign("id", $_GET["id"]);	

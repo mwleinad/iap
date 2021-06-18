@@ -140,29 +140,23 @@ class Student extends User
 
 	public function UpdateFoto()
 	{
-			$ext = end(explode('.', basename($_FILES['foto']['name'])));
-			if(strtolower($ext) != "jpg" && strtolower($ext) != "jepg")
-			{
-				$this->Util()->setError(10028, "error", "La extension solo puede ser jpg");
-				$this->Util()->PrintErrors();
-				return;
-			}
-			$target_path = DOC_ROOT."/alumnos/".$_POST["userId"].".jpg";
-
-			if(move_uploaded_file($_FILES['foto']['tmp_name'], $target_path)) {
-/*				$sql = "UPDATE
-							resource
-							SET
-								path = '".$relative_path."'
-							WHERE resourceId = '".$id."'";
-				$this->Util()->DB()->setQuery($sql);
-				$this->Util()->DB()->UpdateData();
-*/
-				$this->Util()->setError(10028, "complete", "Has cambiado la foto satisfactoriamente.");
-				$this->Util()->PrintErrors();
-
-			}
-
+		$ext = end(explode('.', basename($_FILES['foto']['name'])));
+		if(strtolower($ext) != "jpg" && strtolower($ext) != "jepg")
+		{
+			$this->Util()->setError(10028, "error", "La extension solo puede ser jpg");
+			$this->Util()->PrintErrors();
+			return;
+		}
+		$filename = $_POST["userId"] . ".jpg";
+		$target_path = DOC_ROOT."/alumnos/".$filename;
+		if(move_uploaded_file($_FILES['foto']['tmp_name'], $target_path)) 
+		{
+			$sql = "UPDATE user SET rutaFoto = '" . $filename . "' WHERE userId = " . $_POST["userId"];
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->ExecuteQuery();
+			$this->Util()->setError(10028, "complete", "Has cambiado la foto satisfactoriamente.");
+			$this->Util()->PrintErrors();
+		}
 	}
 
 	public function desactivar(){
@@ -1239,10 +1233,12 @@ class Student extends User
 				max-width: 80px; 
 				max-height: 80px;"/>
 				</a>';
+				$card['photo'] = $res["userId"].".jpg";
 			}
 			else
 			{
 				$card["foto"] = '';
+				$card['photo'] = $res['rutaFoto'];
 			}
 
 			$result[$key] = $card;

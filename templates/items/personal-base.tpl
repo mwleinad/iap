@@ -3,7 +3,7 @@
         <td class="id text-center">{$item.personalId}</td>    
         <td>
             {if $item.foto ne ''}
-                <a data-fancybox="personal" href="{$WEB_ROOT}/{$item.foto}">
+                <a data-fancybox="p{$item.personalId}" href="{$WEB_ROOT}/{$item.foto}">
                     <img src="{$WEB_ROOT}/{$item.foto}" class="img-fluid" />
                 </a>
             {/if}

@@ -1,19 +1,25 @@
 {foreach from=$students item=item key=key}
-<tr>
-    <td class="id text-center">{$item.userId}</td>       
-    <td class="id text-center">{$item.foto}</td>       
-    <td class="text-center">{$item.lastNamePaterno|upper}</td>
-    <td class="text-center">{$item.lastNameMaterno|upper}</td>
-    <td class="text-center">{$item.names|upper}</td>
-    <td class="text-center">{$item.controlNumber}</td>
-    <td class="text-left">
+<tr class="text-center">
+    <td class="id">{$item.userId}</td>       
+    <td class="id">
+		{if $item.photo ne ''}
+			<a data-fancybox="p{$item.userId}" href="{$WEB_ROOT}/alumnos/{$item.photo}">
+				<img src="{$WEB_ROOT}/alumnos/{$item.photo}" class="img-fluid" />
+			</a>
+		{/if}
+	</td>       
+    <td>{$item.lastNamePaterno|upper}</td>
+    <td>{$item.lastNameMaterno|upper}</td>
+    <td>{$item.names|upper}</td>
+    <td>{$item.controlNumber}</td>
+    <td>
         <form name="{$item.userId}" method="post" enctype="multipart/form-data">
         	<input type="hidden" name="userId" id="userId" value="{$item.userId}" />
-        	<input type="file" name="foto" id="foto" /><br>
-        	<input type="submit" value="Cambiar Foto" />
+        	<input type="file" name="foto" id="foto" class="form-control mt-3" /><br>
+        	<input type="submit" value="Cambiar Foto" class="btn btn-success btn-sm mt-2" />
         </form>
     </td>
-    <td class="text-center">   
+    <td>   
         {if $page == "course-student"}
 			{if $status == "inactivo"}
                 <a href="{$WEB_ROOT}/invoices/id/{$item.userId}/course/{$course}"><img src="http://trazzos.com/sie/admin/images/edit.gif" title="Realizar Pagos" /></a>
@@ -46,6 +52,6 @@
 </tr>
 {foreachelse}
 	<tr>
-    	<td colspan="11" class="text-center">No se encontró ningún registro.</td>
+    	<td colspan="11">No se encontró ningún registro.</td>
     </tr>				
 {/foreach}

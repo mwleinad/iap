@@ -835,6 +835,25 @@
 			}
 			return $result;
 		}
+
+		public function EnumerateOfficial()
+		{
+			$sql = "SELECT *, major.name AS majorName, subject.name AS name FROM course
+						LEFT JOIN subject ON course.subjectId = subject.subjectId 
+						LEFT JOIN major ON major.majorId = subject.tipo
+					WHERE course.active = 'si' AND course.apareceTabla = 'si'
+					ORDER BY subject.tipo, subject.name, course.group";
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->GetResult();
+			foreach($result as $key => $res)
+			{
+				$result[$key]["initialDateStamp"] = strtotime($result[$key]["initialDate"]);
+				$result[$key]["finalDateStamp"] = strtotime($result[$key]["finalDate"]);
+				$toFinishSeconds = $result[$key]["daysToFinish"] * 3600 * 24;
+				$result[$key]["daysToFinishStamp"] = strtotime($result[$key]["initialDate"]) + $toFinishSeconds;
+			}
+			return $result;
+		}
 		
 		function EnumerateAlumn($courseId, $status)
 		{
