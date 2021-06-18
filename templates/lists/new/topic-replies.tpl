@@ -29,25 +29,25 @@
 				<tr><td colspan="2"></td></tr>
 				{foreach from=$replies item=item key=key}
 					<tr {if $key%2==0}style="background:rgba(239, 239, 239, 0.37)"{/if}>
-						<td style="width:115px">
+						<td style="width:115px" class="text-center">
 							{$item.foto}
+							<br>
+							<small class="font-weight-bold">
+								{if $item.positionId == NULL || $item.positionId == 0}
+									{$item.names} {$item.lastNamePaterno} {$item.lastNameMaterno}
+								{else}
+									{$item.name} {$item.lastname_paterno} {$item.lastname_materno}
+								{/if}
 								<br>
-								<font style="font-size:9px; color:gray" >
-									{if $item.positionId == NULL || $item.positionId == 0}
-										{$item.names} {$item.lastNamePaterno} {$item.lastNameMaterno}
-									{else}
-										{$item.name} {$item.lastname_paterno} {$item.lastname_materno}
-									{/if}
-									<br>
-									Fecha: {$item.replyDate|date_format:"%d-%m-%Y %H:%M"}
-									{if $positionId == 1}
-										<form id="deleteReplay" name="deleteReplay" method="post">
-											<input type="hidden" id="moduleId" name="moduleId" value="{$moduleId}">
-											<input type="hidden"  id="replyId" name="replyId" value="{$item.replyId}" />
-											<input value="Eliminar" type="submit" class="btn-70-delete"  onClick="return confirmando();" style="border:none; height:24px;" name="eliminar" id="eliminar" >
-										</form>
-									{/if}
-								</font>
+								Fecha: {$item.replyDate|date_format:"%d-%m-%Y %H:%M"}
+							</small>
+							{if $positionId == 1}
+								<form id="deleteReplay" name="deleteReplay" method="post">
+									<input type="hidden" id="moduleId" name="moduleId" value="{$moduleId}">
+									<input type="hidden"  id="replyId" name="replyId" value="{$item.replyId}" />
+									<input value="Eliminar" type="submit" class="btn-70-delete btn btn-danger btn-xs mt-2"  onClick="return confirmando();" style="border:none; height:24px;" name="eliminar" id="eliminar" >
+								</form>
+							{/if}
 						</td>
 						<td valign="bottom">
 							<font style="font-size:12px; color:#585858" >
@@ -89,43 +89,39 @@
 								<table class="table">
 									{foreach from=$item.replies item=reply key=key2}
 										<tr {if $key2%2==0}style="background:rgba(239, 239, 239, 0.37)"{/if}>
-											<td style="width:250px">
+											<td style="width:100px" class="text-center">
 												{$reply.foto}
 												<br>
-												<font style="font-size:9px; color:gray">
-													{if $reply.positionId == NULL || $reply.positionId == 0}
-														{$reply.names}  {$reply.lastNamePaterno} {$reply.lastNameMaterno}
-													{else}
-														{$reply.names} {$reply.lastname_paterno} {$reply.lastname_materno}
-													{/if}
-												</font>
-												<br>
-												<font style="font-size:9px; color:gray">
-													{$reply.replyDate|date_format:"%d-%m-%Y %H:%M"}
-												</font>
+												<small class="font-weight-bold">
+												{if $reply.positionId == NULL || $reply.positionId == 0}
+													{$reply.names}  {$reply.lastNamePaterno} {$reply.lastNameMaterno}
+												{else}
+													{$reply.names} {$reply.lastname_paterno} {$reply.lastname_materno}
+												{/if}<br>
+												{$reply.replyDate|date_format:"%d-%m-%Y %H:%M"}</small>
 												{if $positionId == 1}
 													<form id="deleteReplay" name="deleteReplay" method="post">
 														<input type="hidden" id="moduleId" name="moduleId" value="{$moduleId}">
 														<input type="hidden"  id="replyId" name="replyId" value="{$reply.replyId}" />
-														<input value="Eliminar" type="submit" class="btn-70-delete"  onClick="return confirmando();" style="border:none; height:24px;" name="eliminar" id="eliminar" >
+														<input value="Eliminar" type="submit" class="btn-70-delete btn btn-danger btn-xs mt-2"  onClick="return confirmando();" style="border:none; height:24px;" name="eliminar" id="eliminar" >
 													</form>
 												{/if}
 											</td>
 											<td>
-												<div>{$reply.content}</div>
-												{if $reply.formato eq "imagen"}
-													<hr>
-													<a href="{$WEB_ROOT}/graybox.php?page=zoom&id={$WEB_ROOT}/forofiles/{$item.path}" data-target="#ajax" data-toggle="modal">
-														<img src="{$WEB_ROOT}/forofiles/{$item.path}" style="max-width: 200px;height: auto;" title="Ver Archivo Adjunto">
-													</a>			
-												{/if}
-												<br><hr>
+												<div>{$reply.content}</div><br><hr>
 												<div>
 													{if $reply.existeArchivo eq "si"}
-														{if $reply.path}
-															<a href="{$WEB_ROOT}/forofiles/{$reply.path}" target="_black" title="Ver Archivo Adjunto"> 
-																<i class="far fa-file-alt"></i>
+														{if $reply.formato eq "imagen"}
+															<hr>
+															<a href="{$WEB_ROOT}/forofiles/{$reply.path}" data-fancybox="{$reply.path}">
+																<img src="{$WEB_ROOT}/forofiles/{$reply.path}" style="max-width: 200px;height: auto;" title="Ver Archivo Adjunto">
 															</a>
+														{else}
+															{if $reply.path}
+																<a href="{$WEB_ROOT}/forofiles/{$reply.path}" target="_blank" title="Ver Archivo Adjunto"> 
+																	<i class="far fa-file-alt fa-2x"></i> Ver Archivo
+																</a>
+															{/if}			
 														{/if}
 													{/if}
 												</div>

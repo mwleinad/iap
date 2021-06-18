@@ -20,4 +20,18 @@ $(function() {
             icon: 'info'
         });
     });
+
+    $('body').on('click', '.btn-loading', function() {
+        let btn = $(this);
+        // let btn_text = btn.html();
+		btn.attr('disabled', true);
+		btn.html('<i class="fas fa-spinner fa-pulse"></i> Espere por favor...');
+    });
+
+    $('body').on('click', '.input-loading', function() {
+        let input = $(this);
+        let id = input.data('id');
+		input.attr('disabled', true);
+		$('#' + id).html('<h3><i class="fas fa-spinner fa-pulse"></i> Espere por favor...</h3>');
+    });
 });
