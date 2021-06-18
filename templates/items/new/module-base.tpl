@@ -5,10 +5,10 @@
         <td class="text-center">{$subject.semesterId}</td>
         <td>{$subject.name}</td>
         <td class="text-center">
-            <a href="{$WEB_ROOT}/index_new.php?page=subject&delete={$subject.subjectModuleId}">
+            <a href="{$WEB_ROOT}/index_new.php?page=subject&delete={$subject.subjectModuleId}" onclick="return confirmationDelete(event)">
                 <i class="fas fa-times-circle fa-2x text-danger spanModuleDelete" id="{$subject.subjectId}" name="{$subject.name}" data-toggle="tooltip" data-placement="top" title="Eliminar"></i>
             </a>
-            <a href="{$WEB_ROOT}/index_new.php?page=edit-module&id={$subject.subjectModuleId}">
+            <a href="{$WEB_ROOT}/graybox.php?page=edit-module&id={$subject.subjectModuleId}" data-target="#ajax" data-toggle="modal" onclick="CloseFview()">
                 <i class="fas fa-pen-square fa-2x text-success spanEdit" id="{$subject.subjectId}" name="{$subject.name}" data-toggle="tooltip" data-placement="top" title="Editar"></i>
             </a>
         </td>

@@ -23,6 +23,9 @@
 		$module->setSemesterId($_POST['semesterId']);
 		
 		$module->Update();
+		
+		header("Location:" . WEB_ROOT . "/subject");
+		exit;
 	}
 
 	$module->setSubjectModuleId($_GET['id']);

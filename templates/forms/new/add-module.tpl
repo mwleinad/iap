@@ -1,112 +1,96 @@
-<form class="form-horizontal" id="addSubjectForm" name="addSubjectForm" method="post" action="{$WEB_ROOT}/new-module/id/{$id}">
+<form id="addSubjectForm" name="addSubjectForm" method="post" action="{$WEB_ROOT}/new-module/id/{$id}">
     <input type="hidden" name="subjectId" id="subjectId" value="{$id}" />
-    <div class="form-body">
-        <div class="form-group">
-            <label class="col-md-3 control-label">Nombre:</label>
-            <div class="col-md-8">
-                <input type="text" name="frmName" id="frmName" class="form-control" value="" />
-            </div>
+    <div class="row">
+        <div class="form-group col-md-4">
+            <label for="frmName">Nombre:</label>
+            <input type="text" name="frmName" id="frmName" class="form-control" />
         </div>
-
-        <div class="form-group">
-            <label class="col-md-3 control-label">Clave:</label>
-            <div class="col-md-8">
-                <input type="text" name="frmClave" id="frmClave" class="form-control" value="" />
-            </div>
+        <div class="form-group col-md-4">
+            <label for="frmClave">Clave:</label>
+            <input type="text" name="frmClave" id="frmClave" class="form-control" />
         </div>
-
-        <div class="form-group">
-            <label class="col-md-3 control-label">Cuatrimestre/Semestre:</label>
-            <div class="col-md-8">
-                <input type="text" name="semesterId" id="semesterId" class="form-control" value="1" maxlength="2" />
-            </div>
+        <div class="form-group col-md-4">
+            <label for="semesterId">Cuatrimestre/Semestre:</label>
+            <input type="text" name="semesterId" id="semesterId" class="form-control" value="1" maxlength="2" />
         </div>
-
-        <div class="form-group">
-            <label class="col-md-3 control-label">Texto de Bienvenida:</label>
-            <div class="col-md-8">
-                <textarea id="welcomeText" name="welcomeText" rows="15" cols="80" style=""  ></textarea>
-            </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <label for="welcomeText">Texto de Bienvenida:</label>
+            <textarea id="welcomeText" name="welcomeText" rows="15" cols="80"></textarea>
         </div>
-
-        <div class="form-group">
-            <label class="col-md-3 control-label">Introducción:</label>
-            <div class="col-md-8">
-                <textarea id="introduction" name="introduction" rows="15" cols="80" style=""  ></textarea>
-            </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <label for="introduction">Introducción:</label>
+            <textarea id="introduction" name="introduction" rows="15" cols="80"></textarea>
         </div>
-        <div class="form-group">
-            <label class="col-md-3 control-label">Intenciones:</label>
-            <div class="col-md-8">
-                <textarea id="intentions" name="intentions" rows="15" cols="80" style=""  ></textarea>
-            </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <label for="intentions">Intenciones:</label>
+            <textarea id="intentions" name="intentions" rows="15" cols="80"></textarea>
         </div>
-        <div class="form-group">
-            <label class="col-md-3 control-label">Objetivos:</label>
-            <div class="col-md-8">
-                <textarea id="objectives" name="objectives" rows="15" cols="80" style=""  ></textarea>
-            </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <label for="objectives">Objetivos:</label>
+            <textarea id="objectives" name="objectives" rows="15" cols="80"></textarea>
         </div>
-        <div class="form-group">
-            <label class="col-md-3 control-label">Temario:</label>
-            <div class="col-md-8">
-                <textarea id="themes" name="themes" rows="15" cols="80" style=""  ></textarea>
-            </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <label for="themes">Temario:</label>
+            <textarea id="themes" name="themes" rows="15" cols="80"></textarea>
         </div>
-        <div class="form-group">
-            <label class="col-md-3 control-label">Esquema:</label>
-            <div class="col-md-8">
-                <textarea id="scheme" name="scheme" rows="15" cols="80" style="" ></textarea>
-            </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <label for="scheme">Esquema:</label>
+            <textarea id="scheme" name="scheme" rows="15" cols="80"></textarea>
         </div>
-
-        <div class="form-group">
-            <label class="col-md-3 control-label">Metodología:</label>
-            <div class="col-md-8">
-                <textarea id="methodology" name="methodology" rows="15" cols="80" style="" ></textarea>
-            </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <label for="methodology">Metodología:</label>
+            <textarea id="methodology" name="methodology" rows="15" cols="80"></textarea>
         </div>
-        <div class="form-group">
-            <label class="col-md-3 control-label">Políticas:</label>
-            <div class="col-md-8">
-                <textarea id="politics" name="politics" rows="15" cols="80" style="" ></textarea>
-            </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <label for="politics">Políticas:</label>
+            <textarea id="politics" name="politics" rows="15" cols="80"></textarea>
         </div>
-        <div class="form-group">
-            <label class="col-md-3 control-label">Evaluación:</label>
-            <div class="col-md-8">
-                <textarea id="evaluation" name="evaluation" rows="15" cols="80" style="" ></textarea>
-            </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <label for="evaluation">Evaluación:</label>
+            <textarea id="evaluation" name="evaluation" rows="15" cols="80"></textarea>
         </div>
-        <div class="form-group">
-            <label class="col-md-3 control-label">Bibliografía:</label>
-            <div class="col-md-8">
-                <textarea id="bibliography" name="bibliography" rows="15" cols="80" style="" ></textarea>
-            </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <label for="bibliography">Bibliografía:</label>
+            <textarea id="bibliography" name="bibliography" rows="15" cols="80"></textarea>
         </div>
-
-
-        <div class="form-actions">
-            <div class="row">
-                <div class="col-md-offset-3 col-md-9">
-                    <button type="submit" class="btn green submitForm">Guardar</button>
-                    <button type="button" class="btn default closeModal">Cancelar</button>
-                </div>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-success submitForm">Guardar</button>
+            <button type="button" class="btn btn-danger" onclick="btnClose()">Cancelar</button>
         </div>
-
-
-
-
     </div>
 </form>
-
-
 <script type="text/javascript">
-    tinyMCE.init({
-        mode : "textareas",
-        theme : "advanced",
-        skin : "o2k7"
-
+    $(function() {
+        $('textarea').each(function () {
+            new Jodit(this, {
+                language: "es",
+                toolbarButtonSize: "small",
+                autofocus: true,
+                toolbarAdaptive: false
+            });
+            console.log("Activado");
+        });
     });
 </script>

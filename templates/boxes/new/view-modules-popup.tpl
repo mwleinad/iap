@@ -1,6 +1,6 @@
 <div class="card mb-4">
     <div class="card-header bg-primary text-white">
-        <a href="{$WEB_ROOT}/index_new.php?page=new-module&id={$id}" class="text-white">
+        <a href="{$WEB_ROOT}/graybox.php?page=new-module&id={$id}" class="btn btn-info btn-sm float-right second-modal" data-target="#ajax" data-toggle="modal" onclick="CloseFview()">
             <i class="fas fa-plus-circle"></i> Click para agregar módulos a Currícula
         </a>
     </div>

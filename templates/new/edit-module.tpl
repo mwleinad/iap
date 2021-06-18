@@ -11,7 +11,7 @@
             </a>
         {/if}
     </div>
-    <div class="card-body">
+    <div class="card-body" style="max-height: 700px; overflow: scroll;">
         {include file="forms/new/edit-module.tpl"}
     </div>
 </div>

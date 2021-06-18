@@ -22,6 +22,9 @@
 		$module->setSemesterId($_POST['semesterId']);
 		
 		$module->Save();
+
+		header("Location:" . WEB_ROOT . "/subject");
+		exit;
 	}
 
 	$smarty->assign('mnuMain','cursos');

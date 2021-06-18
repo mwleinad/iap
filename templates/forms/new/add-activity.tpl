@@ -36,15 +36,15 @@
     </div>
     <div class="row">
         <div class="form-group col-md-6">
+            <label for="resumen">Titulo:</label>
+            <input type="text" name="resumen" id="resumen" maxlength="30" class="form-control" />
+        </div>
+        <div class="form-group col-md-6">
             <label for="modality">Modalidad:</label>
             <select id="modality" name="modality" class="form-control">
                 <option value="Individual">Individual</option>
                 <option value="Por Equipo">Por Equipo</option>
             </select>
-        </div>
-        <div class="form-group col-md-6">
-            <label for="resumen">Titulo:</label>
-            <input type="text" name="resumen" id="resumen" maxlength="30" class="form-control" />
         </div>
     </div>
     <div class="row">

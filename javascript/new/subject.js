@@ -169,3 +169,21 @@ function EditSubject()
 
 
 
+function confirmationDelete(ev) {
+    ev.preventDefault();
+    var urlToRedirect = ev.currentTarget.getAttribute('href');
+    console.log(urlToRedirect);
+    Swal.fire({
+        title: "¿Estás seguro?",
+        text: "Realmente deseas eliminar el módulo, no podrás revertir esta acción",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#58ff85',
+        cancelButtonColor: '#ff4545',
+        confirmButtonText: 'Confirmar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href=urlToRedirect;
+        }
+    });
+}
