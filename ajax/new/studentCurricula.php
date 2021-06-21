@@ -210,7 +210,7 @@ switch($_POST["type"])
 			  <button type="button" class="close" data-dismiss="alert">&times;</button>
 			 Los datos se guardaron correctamente
 			</div>';
-			echo $_SESSION['msj']='si';
+			$_SESSION['msj']='si';
 		 }else{
 			 echo 'fail[#]';
 		 }

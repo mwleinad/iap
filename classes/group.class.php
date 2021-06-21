@@ -650,7 +650,8 @@
 	
 			$sql = "SELECT *, 
 						us.status AS status,
-						cd.discount
+						cd.discount,
+						u.userId
 					FROM user_subject us
 						LEFT JOIN user u 
 							ON us.alumnoId = u.userId

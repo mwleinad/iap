@@ -213,8 +213,7 @@ function validarCal(Id){
 				$('#btnSave').show();
 				$('#loader').html('');
 				$('#msj').html(splitResp[1]);
-				$("#ajax").hide();
-				$("#ajax").modal("hide");
+				btnClose();
 			}else if($.trim(splitResp[0])=="fail"){
 				alert(splitResp[1])
 			}

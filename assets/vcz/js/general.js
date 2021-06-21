@@ -36,4 +36,8 @@ $(function() {
 		$('#' + id).html('<h3><i class="fas fa-spinner fa-pulse"></i> Espere por favor...</h3>');
         $('#' + formId).submit();
     });
+
+    $('body').on('click', 'a[href="#"]', function(e) {
+        e.preventDefault ? e.preventDefault() : e.returnValue = false;
+    });
 });

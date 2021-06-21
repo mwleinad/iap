@@ -40,13 +40,17 @@
 				<div class="tab-content">
 					<div class="tab-pane container active pt-3" id="portlet_tabp_1">
 						{* BOTON FORMULARIO EDICION *}
-						<div class="row">
+						<div class="row mb-3">
 							<div class="col-md-12">
 								<form id="frmFoto">
 									<input type="hidden" name="personalId" class="form-control" value="{$info.personalId}" />
 									<div>
-										{if $foto ne ''}
-											<img src="{$foto}" style="width: 100px !important" alt="">
+										{if $info.foto ne ''}
+											<a href="{$WEB_ROOT}/{$info.foto}" data-fancybox="{$info.personalId}">
+												<img src="{$WEB_ROOT}/{$info.foto}" style="width: 100px !important" alt="">
+											</a>
+										{else}
+											<i class="fas fa-user-circle fa-5x text-primary"></i>
 										{/if}
 										<div style="position: relative; bottom: 0px; width: 100%; margin-right: -100px;">
 											<span class="btn btn-info btn-file">
