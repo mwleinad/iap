@@ -46,7 +46,7 @@
 			<div class="col-md-12"><div id="msj_1"></div></div>
 			<div class="col-md-12 text-center">
 				<button onClick="onSave()" class="btn btn-success" >Guardar</button>
-				<button type="button" class="btn btn-danger closeModal" onClick="cancelarSolicitud()">Cancelar</button>
+				<button type="button" class="btn btn-danger closeModal" onClick="btnClose()">Cancelar</button>
 			</div>
 		</div>
     </div>

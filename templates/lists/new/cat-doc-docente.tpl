@@ -1,8 +1,8 @@
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped table-sm">
 	<thead>
-    	<tr> 
-			<th>Documento</th>
-			<th>Descripcion</th>
+    	<tr class="text-center"> 
+			<th class="font-weight-bold break-line">Documento</th>
+			<th class="font-weight-bold break-line">Descripcion</th>
 			<th></th>
 		</tr>
     </thead>
@@ -12,10 +12,10 @@
 				<td>{$subject.nombre}</td>
 				<td>{$subject.descripcion}</td>
 				<td>
-					<a href="{$WEB_ROOT}/graybox.php?page=add-docdocente&id={$subject.catalogodocumentoId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Enviar Comprobante De Pago">
-						<i class="fas fa-paper-plane fa-lg"></i>
+					<a href="{$WEB_ROOT}/graybox.php?page=add-cat-doc-docente-add&id={$subject.catalogodocumentoId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Editar Información" class="text-success">
+						<i class="fas fa-edit fa-lg"></i>
 					</a>
-					<a href="#" onClick="loadTR('{$subject.catalogodocumentoId}')" title="Subir Documento">
+					<a href="#" onClick="onDelete('{$subject.catalogodocumentoId}')" title="Eliminar Documento" class="text-danger">
 						<i class="fas fa-trash-alt fa-lg"></i>
 					</a>
 				</td>

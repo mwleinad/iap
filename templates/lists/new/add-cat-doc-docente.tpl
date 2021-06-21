@@ -1,30 +1,25 @@
 <table width="100%" class="tblGral table table-bordered table-striped table-condensed flip-content">
 	<thead>
     	<tr>
-
-			<th width="">Documento</th>	 
-			<th width="">Descripcion</th>	 	 
-			<th width=""></th>		 
+			<th class="font-weight-bold break-line">Documento</th>	 
+			<th class="font-weight-bold break-line">Descripción</th>	 	 
+			<th></th>		 
 		</tr>
     </thead>
     <tbody>
     	{foreach from=$registros item=subject}
-		<tr>
-		   
-
-			<td align="center">{$subject.nombre}</td>
-			<td align="center">{$subject.descripcion}</td>
-
-			<td align="center">
-	            <a   id="" href="{$WEB_ROOT}/graybox.php?page=add-cat-doc-docente-add&id={$subject.catalogodocumentoId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title='EDITAR INFORMACION'>
-					<i class="material-icons md-16">create</i>
-				</a>
-				<a  href="javascript:void(0)" onClick='onDelete("{$subject.catalogodocumentoId}")'  title='ELIMINAR'>
-					<i class="material-icons md-16">delete_forever</i>
-				</a>
-			</td>
-		 </tr>
-		
+			<tr class="text-center">
+				<td>{$subject.nombre}</td>
+				<td>{$subject.descripcion}</td>
+				<td>
+					<a href="{$WEB_ROOT}/graybox.php?page=add-cat-doc-docente-add&id={$subject.catalogodocumentoId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Editar Información" class="text-success">
+						<i class="fas fa-edit fa-lg"></i>
+					</a>
+					<a  href="javascript:void(0)" onClick="onDelete('{$subject.catalogodocumentoId}'')" title="Eliminar Documento" class="text-danger">
+						<i class="fas fa-trash-alt fa-lg"></i>
+					</a>
+				</td>
+			</tr>
 		 {/foreach}
 	</tbody>
 </table>
