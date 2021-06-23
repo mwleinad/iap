@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-md-12 text-center">
             <input type="submit" class="btn btn-success submitForm" id="addMajor" name="addMajor" />
-            <button type="button" class="btn btn-danger closeModal" onClick="closeModal()">Cancelar</button>
+            <button type="button" class="btn btn-danger closeModal" onClick="btnClose()">Cancelar</button>
         </div>
     </div>
 </form>

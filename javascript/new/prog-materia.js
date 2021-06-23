@@ -42,7 +42,7 @@ function enviarArchivo(Id){
 			if($.trim(splitResp[0]) == "ok"){
 				$("#msj").html(splitResp[1]);
 				$("#tblContent").html(splitResp[2]);
-				closeModal()
+				btnClose();
 			}else if($.trim(splitResp[0]) == "fail"){
 				$("#txtErrMsg").show();
 	
@@ -91,7 +91,7 @@ function enviarArchivoActa(Id){
 			if($.trim(splitResp[0]) == "ok"){
 				$("#msj").html(splitResp[1]);
 				$("#tblContent").html(splitResp[2]);
-				closeModal()
+				btnClose();
 			}else if($.trim(splitResp[0]) == "fail"){
 				$("#txtErrMsg").show();
 	
@@ -334,7 +334,7 @@ function onSendContrato(){
 			var splitResp = response.split("[#]");
 
 			if($.trim(splitResp[0]) == "ok"){
-					closeModal()
+					btnClose();
 					$("#msj").html(splitResp[1]);
 					$("#contenido").html(splitResp[2]);
 				}
@@ -381,7 +381,7 @@ function onSendContratoFirmado(){
 			var splitResp = response.split("[#]");
 
 			if($.trim(splitResp[0]) == "ok"){
-					closeModal()
+					btnClose();
 					$("#msj").html(splitResp[1]);
 					$("#contenido").html(splitResp[2]);
 				}
@@ -434,8 +434,7 @@ function onSendInforme(Id){
 			}else{
 				alert('Ocurrio un error....')
 			}
-			// alert('llega')
-			closeModal()
+			btnClose();
 		},
 	})
 

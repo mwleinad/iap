@@ -1,6 +1,6 @@
 <div class="card mb-4">
     <div class="card-header bg-primary text-white">
-        <i class="fas fa-bullhorn"></i> Topico {$topic.nombre}
+        <i class="fas fa-bullhorn"></i> Tópico {$topic.nombre}
         <div class="col-md-12 text-right">
             <a href="{$WEB_ROOT}/forumsub-modules-student/id/{$id}/topicId/{$topic.topicId}" class="btn btn-outline-light btn-sm">
                 <i class="fas fa-arrow-circle-left"></i> Regresar

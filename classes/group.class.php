@@ -857,11 +857,11 @@
 		
 		public function NoTeam()
 		{
-			$this->Util()->DB()->setQuery("
-				SELECT *, user_subject.status AS status FROM user_subject
-				LEFT JOIN user ON user_subject.alumnoId = user.userId
-				WHERE courseId = '".$this->getCourseId()."'
-				ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC");
+			$sql = "SELECT *, user_subject.status AS status FROM user_subject
+						LEFT JOIN user ON user_subject.alumnoId = user.userId
+					WHERE courseId = '".$this->getCourseId()."' AND user_subject.status = 'activo'
+					ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
+			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
 			
 			foreach($result as $key => $res)
@@ -1020,9 +1020,8 @@
 
 		function DeleteTeam($id)
 		{
-			$this->Util()->DB()->setQuery("
-					DELETE FROM team
-					WHERE courseModuleId = '".$this->getCourseModuleId()."' AND teamNumber = '".$id."'");
+			$sql = "DELETE FROM team WHERE courseModuleId = " . $this->coursemoduleId . " AND teamNumber = " . $id;
+			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->DeleteData();
 			$this->Util()->setError(90000, 'complete', "Se ha borrado el equipo");
 			$this->Util()->PrintErrors();

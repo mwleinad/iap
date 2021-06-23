@@ -49,19 +49,19 @@
 								</form>
 							{/if}
 						</td>
-						<td valign="bottom">
-							<font style="font-size:12px; color:#585858" >
-								<div  style="width:95%; height:155px;  overflow:scroll" class="showScroll lion">{$item.content}</div>
-							</font>
-							<div style="clear: both"></div>
-							{if $item.formato eq "imagen"}
+						<td>
+							<div class="row">
+								<div class="col-md-11 break-line" style="font-size: 8pt; overflow:scroll; height:200px;">{$item.content}</div>
+								<div class="col-md-12">
+									{if $item.formato eq "imagen"}
+										<hr>
+										<a href="{$WEB_ROOT}/forofiles/{$item.path}" data-fancybox="{$item.path}">
+											<img src="{$WEB_ROOT}/forofiles/{$item.path}" style="max-width: 200px;height: auto;" title="Ver Archivo Adjunto">
+										</a>	
+									{/if}
+								</div>
 								<hr>
-								<a href="{$WEB_ROOT}/graybox.php?page=zoom&id={$WEB_ROOT}/forofiles/{$item.path}" data-target="#ajax" data-toggle="modal" >
-									<img src="{$WEB_ROOT}/forofiles/{$item.path}" style="max-width: 200px;height: auto;" title="Ver Archivo Adjunto">
-								</a>	
-							{/if}
-							<hr>
-							<div>
+							<div class="col-md-12">
 								<a href="{$WEB_ROOT}/graybox.php?page=add-comment&id={$item.replyId}&moduleId={$moduleId}&topicsubId={$topicsubId}" data-target="#ajax" data-toggle="modal" title="Agregar Comentario" class="text-primary">
 									<i class="fas fa-comment-medical fa-2x pointer"></i>
 								</a>
@@ -74,11 +74,12 @@
 								{/if}
 								{if $item.existeArchivo eq "si"}
 									{if $item.path}
-										<a href="{$WEB_ROOT}/forofiles/{$item.path}" target="_black" title="VER ARCHIVO ADJUNTO">
+										<a href="{$WEB_ROOT}/forofiles/{$item.path}" target="_black" title="Ver Archivo Adjunto">
 											<i class="fa fa-file" aria-hidden="true"></i>
 										</a>
 									{/if}
 								{/if}
+							</div>
 							</div>
 						</td>
 					</tr>

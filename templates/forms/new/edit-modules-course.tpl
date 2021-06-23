@@ -69,7 +69,7 @@
                 <div class="form-group col-md-6">
                     <label for="initialDate">Fecha Inicial</label>
                     {if $docente}
-                        {$myModule.initialDate}
+                        <input type="text" class="form-control" value="{$myModule.initialDate}" disabled />
                     {else}
                         <input type="text" name="initialDate" id="initialDate" size="10" class="form-control i-calendar" value="{$myModule.initialDate}" required />
                     {/if}
@@ -77,7 +77,7 @@
                 <div class="form-group col-md-6">
                     <label for="finalDate">Fecha Final</label>
                     {if $docente}
-                        {$myModule.finalDate}
+                        <input type="text" class="form-control" value="{$myModule.finalDate}" disabled />
                     {else}
                         <input type="text" name="finalDate" id="finalDate" size="10" class="form-control i-calendar" value="{$myModule.finalDate}" required />
                     {/if}
@@ -88,7 +88,7 @@
                 <div class="form-group col-md-6">
                     <label for="daysToFinish">Dias para Terminar</label>
                     {if $docente}
-                        {$myModule.daysToFinish}
+                        <input type="text" class="form-control" value="{$myModule.daysToFinish}" disabled />
                     {else}
                         <input type="text" name="daysToFinish" id="daysToFinish" value="{$myModule.daysToFinish}"  class="form-control"/>
                     {/if}
@@ -96,7 +96,7 @@
                 <div class="form-group col-md-6">
                     <label for="active">Activo</label>
                     {if $docente}
-                        {$myModule.active}
+                        <input type="text" class="form-control" value="{$myModule.active}" disabled />
                     {else}
                         <select id="active" name="active" class="form-control">
                             <option value="si" {if $myModule.active == "si"} selected="selected"{/if}>Si</option>
@@ -111,7 +111,8 @@
                     <label for="personalId">Personal Administrativo Asignado</label>
                     {if $docente}
                         {foreach from=$empleados item=personal}
-                            {if $myModule.access.0 == $personal.personalId} {$personal.lastname_paterno} {$personal.lastname_materno} {$personal.name}
+                            {if $myModule.access.0 == $personal.personalId} 
+                                <input type="text" class="form-control" value="{$personal.lastname_paterno} {$personal.lastname_materno} {$personal.name}" disabled />
                             {/if}
                         {/foreach}
                     {else}
@@ -127,7 +128,8 @@
                     <label for="teacherId">Docente Asignado:</label>
                     {if $docente}
                         {foreach from=$empleados item=personal}
-                            {if $myModule.access.1 == $personal.personalId} {$personal.lastname_paterno} {$personal.lastname_materno} {$personal.name}
+                            {if $myModule.access.1 == $personal.personalId} 
+                                <input type="text" class="form-control" value="{$personal.lastname_paterno} {$personal.lastname_materno} {$personal.name}" disabled />
                             {/if}
                         {/foreach}
                     {else}
@@ -143,7 +145,8 @@
                     <label for="tutorId">Tutor Asignado:</label>
                     {if $docente}
                         {foreach from=$empleados item=personal}
-                            {if $myModule.access.2 == $personal.personalId} {$personal.lastname_paterno} {$personal.lastname_materno} {$personal.name}
+                            {if $myModule.access.2 == $personal.personalId} 
+                                <input type="text" class="form-control" value="{$personal.lastname_paterno} {$personal.lastname_materno} {$personal.name}" disabled />
                             {/if}
                         {/foreach}
                     {else}
@@ -162,7 +165,8 @@
                     <label for="extraId">Extra Asignado:</label>
                     {if $docente}
                         {foreach from=$empleados item=personal}
-                            {if $myModule.access.3 == $personal.personalId} {$personal.lastname_paterno} {$personal.lastname_materno} {$personal.name}
+                            {if $myModule.access.3 == $personal.personalId} 
+                                <input type="text" class="form-control" value="{$personal.lastname_paterno} {$personal.lastname_materno} {$personal.name}" disabled />
                             {/if}
                         {/foreach}
                     {else}

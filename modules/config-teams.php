@@ -7,6 +7,7 @@
 	{
 		$group->setCourseModuleId($_GET["id"]);
 		$group->DeleteTeam($_GET["delete"]);
+		header("Location:".WEB_ROOT."/edit-modules-course/id/".$_GET["id"]);
 	}
 
 	if($_POST)
