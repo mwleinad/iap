@@ -26,10 +26,13 @@
     </div>
 </form>
 <script>
-    var editor = new Jodit('#description', {
-        language: "es",
-        toolbarButtonSize: "small",
-        autofocus: true,
-        toolbarAdaptive: false
+    $(function() {
+        var editor = new Jodit('#description', {
+            language: "es",
+            toolbarButtonSize: "small",
+            autofocus: true,
+            toolbarAdaptive: false
+        });
+        $('.modal').removeAttr('tabindex');
     });
 </script>

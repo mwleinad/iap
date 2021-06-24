@@ -31,4 +31,5 @@
 		autofocus: true,
 		toolbarAdaptive: false
 	});
+	$('.modal').removeAttr('tabindex');
 </script>

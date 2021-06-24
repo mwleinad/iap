@@ -1,11 +1,11 @@
-<tr>
-	<th width="30" height="28">ID</th>
-    <th width="100">Pregunta</th>
-    <th width="100">Opcion A</th>
-    <th width="100">Opcion B</th>
-    <th width="100">Opcion C</th>
-    <th width="100">Opcion D</th>
-    <th width="100">Opcion E</th>
-    <th width="80">Respuesta</th>
-  	<th width="60">Acciones</th>
+<tr class="text-center">
+	<th class="font-weight-bold">ID</th>
+    <th class="font-weight-bold">Pregunta</th>
+    <th class="font-weight-bold">Opcion A</th>
+    <th class="font-weight-bold">Opcion B</th>
+    <th class="font-weight-bold">Opcion C</th>
+    <th class="font-weight-bold">Opcion D</th>
+    <th class="font-weight-bold">Opcion E</th>
+    <th class="font-weight-bold">Respuesta</th>
+  	<th class="font-weight-bold">Acciones</th>
 </tr>

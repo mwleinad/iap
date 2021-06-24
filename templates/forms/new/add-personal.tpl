@@ -116,6 +116,7 @@
             autofocus: true,
             toolbarAdaptive: false
         });
+        $('.modal').removeAttr('tabindex');
 
         flatpickr('.i-calendar', {
             dateFormat: "d-m-Y"
