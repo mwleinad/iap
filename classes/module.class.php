@@ -905,7 +905,7 @@
 				$result['envio'] = $infouu['names'].' '.$infouu['lastNamePaterno'].' '.$infouu['lastNameMaterno'];
 				$result['recibe'] = $inforr['name'].' '.$inforr['lastname_paterno'].' '.$inforr['lastname_materno'];
 			}else{
-				$personal->setPersonalId($result['yopId']);
+				$personal->setPersonalId($result['yoId']);
 				$infouu = $personal->Info();
 				$inforr = $student->InfoEstudiate($result['usuarioId']);
 				$result['envio'] = $infouu['name'].' '.$infouu['lastname_paterno'].' '.$infouu['lastname_materno'];

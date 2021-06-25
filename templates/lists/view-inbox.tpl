@@ -1,13 +1,13 @@
 <div class="col-md-12 text-center mb-3">
 	<a class="btn btn-outline-primary submitForm" href="{$WEB_ROOT}/reply-inbox/id/{$courseMId}/cId/{$chatId}&or={$or}" data-title="Trash">
-		<i class="fas fa-reply"></i> Responder
+		<i class="fas fa-share"></i> Responder
 	</a>
 	<a class="btn btn-outline-info" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','borrador','{$chatId}')" data-title="Trash">
 		<i class="fas fa-minus-circle"></i> Descartar
 	</a>
-	<a class="btn btn-outline-danger" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','borrar','{$chatId}')" data-title="Trash">
+	{*<a class="btn btn-outline-danger" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','borrar','{$chatId}')" data-title="Trash">
 		<i class="fas fa-trash-alt"></i> Borrar
-	</a>
+	</a>*}
 </div>
 <div class="col-md-12">
 	<form id="frmGral" name="frmGral" method="POST"> 

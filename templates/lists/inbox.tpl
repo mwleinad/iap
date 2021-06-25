@@ -1,15 +1,15 @@
 <table class="table table-sm table-bordered table-hover">
 	<thead>
 		<tr>
-			<th colspan="4">
+			<th colspan="3">
 				<div class="btn-group">
 					<button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<i class="far fa-list-alt"></i> Acciones
 					</button>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="javascript:;" onclick="accionesEliminar()">
+						{*<a class="dropdown-item" href="javascript:;" onclick="accionesEliminar()">
 							<i class="fas fa-minus-circle"></i> Eliminar Mensajes
-						</a>
+						</a>*}
 						<a class="dropdown-item" href="javascript:;" onclick="accionesFavoritos()">
 							<i class="fas fa-star"></i> Agregar a Favoritos
 						</a>
@@ -66,11 +66,11 @@
 					{$subject.fechaEnvio}
 					</label>
 				</td>
-				<td>
+				{*<td>
 					<a href="javascript:void(0)" onClick='deleteInbox("{$subject.chatId}","{$courseMId}")'  title="ELIMINAR INBOX">			
 						<i class="far fa-trash-alt"></i>
 					</a> 
-				</td>
+				</td>*}
 			</tr>
 		{foreachelse}
 			<tr>

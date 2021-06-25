@@ -11,7 +11,7 @@
 							<tr>
 								<td>{$itemPregunta.incr+1}</td>
 								<td>{$itemPregunta.pregunta}</td>
-								<td>
+								<td class="text-right">
 									{foreach from=$itemPregunta.opciones item=item2 key=key}  
 										<input type="radio" name="check_{$itemPregunta.preguntaId}" id="check_{$itemPregunta.preguntaId}" value="{$item2}" class="option-input checkbox" /> {$item2}
 									{/foreach}

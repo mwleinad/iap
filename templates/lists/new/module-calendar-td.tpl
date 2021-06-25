@@ -1,13 +1,4 @@
-<p>{$item.resumen}</p>
-{if $timestamp > $item.initialDateTimestamp && $timestamp < $item.finalDateTimestamp}
-    <span class="badge badge-success">Esta actividad se encuentra disponible</span>
-{/if}
-{if $timestamp > $item.finalDateTimestamp}
-    <span class="badge badge-danger">El tiempo de esta actividad ha terminado</span>
-{/if}
-{if $timestamp < $item.initialDateTimestamp}
-    <span class="badge badge-warning">Esta actividad aun no ha iniciado</span>
-{/if}
+<p class="font-weight-bold">{$item.resumen|capitalize}</p>
 <p><small>
     <b>Fecha Inicial:</b> {$item.initialDate|date_format:"%d-%m-%Y"} {$item.horaInicial}<br />
     <b>Fecha Final:  </b> {$item.finalDate|date_format:"%d-%m-%Y %H:%M:%S"}<br />
@@ -40,12 +31,14 @@
     {/if}
     {if $item.activityType == "Examen"}
         {if $vistaPrevia==0}
-            <a id="presentarExamen" style="display: none" class=" btn btn-outline-warning sbold" href="{$WEB_ROOT}/graybox.php?page=make-test&id={$item.activityId}" data-target="#ajax" data-toggle="modal">
-                <i class="fas fa-spell-check"></i> Presentar examen
-            </a>
-            <a class="pointer btn btn-outline-info btn-xs mb-3" onclick="DoTest({$item.activityId})">
-                <i class="fas fa-spell-check"></i> Presentar Examen.
-            </a>
+            {if $item.realScore eq ''}
+                <a id="presentarExamen" style="display: none" class=" btn btn-outline-warning sbold" href="{$WEB_ROOT}/graybox.php?page=make-test&id={$item.activityId}" data-target="#ajax" data-toggle="modal">
+                    <i class="fas fa-spell-check"></i> Presentar examen
+                </a>
+                <a class="pointer btn btn-outline-info btn-xs mb-3" onclick="DoTest({$item.activityId})">
+                    <i class="fas fa-spell-check"></i> Presentar Examen.
+                </a>
+            {/if}
         {else} 
             Presentar Examen.
         {/if}

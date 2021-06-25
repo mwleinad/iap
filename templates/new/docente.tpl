@@ -15,7 +15,7 @@
     </nav>
 </div>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
         {include file="new/student-menu.tpl"}
     </div>
     <div class="col-md-9">
@@ -31,17 +31,19 @@
         </div>
         <div class="row d-flex justify-content-center">
             <div class="col-md-4 text-center">
-                {if $subject.icon eq ''}
+                {if $docente.foto eq ''}
                     <i class="fas fa-chalkboard-teacher fa-6x mt-4"></i>
                 {else} 
-                    <img src="{$WEB_ROOT}/{{$docente.foto}}" class="img-responsive" alt="" />
+                    <a href="{$WEB_ROOT}/{$docente.foto}" data-fancybox="Docente">
+                        <img src="{$WEB_ROOT}/{$docente.foto}" class="img-fluid" alt="" />
+                    </a>
                 {/if}
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name"> {$docente.name} {$docente.lastname_paterno} {$docente.lastname_materno} </div>
                     <div class="profile-usertitle-job"> Asesor </div>
                 </div>
                 <a href="{$WEB_ROOT}/reply-inbox/id/{$id}/cId/0" target="_blank" class="btn btn-outline-info my-3">
-                    <i class="far fa-envelope"></i>  Enviar Inbox
+                    <i class="far fa-envelope"></i> Enviar Inbox
                 </a>
             </div>
             <div class="col-md-12">

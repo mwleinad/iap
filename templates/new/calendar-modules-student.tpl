@@ -15,7 +15,7 @@
     </nav>
 </div>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
         {include file="new/student-menu.tpl"}
     </div>
     <div class="col-md-9">
@@ -52,9 +52,11 @@
                                 <thead>
                                     <tr class="text-center">
                                         <th class="font-weight-bold" width="5%">#</th>
-                                        <th class="font-weight-bold" width="40%">Actividad</th>
+                                        <th class="font-weight-bold" width="30%">Actividad</th>
                                         <th class="font-weight-bold" width="20%">Progreso</th>
+                                        <th class="font-weight-bold" width="5%">Estatus de la Actividad</th>
                                         <th class="font-weight-bold" width="16%">Entregable</th>
+                                        <th class="font-weight-bold" width="5%">Estatus del Entregable</th>
                                         <th width="19%"></th>
                                     </tr>
                                 </thead>
@@ -70,15 +72,24 @@
                                                         <b>Porcentaje obtenido: </b>{$item.realScore}%
                                                     </p>
                                                     <div class="progress">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: {$item.realScore}%" aria-valuenow="{$item.realScore}" aria-valuemin="0" aria-valuemax="100">{$item.realScore}%</div>
+                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: {$item.ponderation}%" aria-valuenow="{$item.ponderation}" aria-valuemin="0" aria-valuemax="100">{$item.ponderation}%</div>
                                                     </div>
                                                 {/if}
                                             </td>
                                             <td class="text-center">
+                                                {if $timestamp > $item.initialDateTimestamp && $timestamp < $item.finalDateTimestamp}
+                                                    <span class="badge badge-success break-line">Esta actividad se encuentra disponible</span>
+                                                {/if}
+                                                {if $timestamp > $item.finalDateTimestamp}
+                                                    <span class="badge badge-danger break-line">El tiempo de esta actividad ha terminado</span>
+                                                {/if}
+                                                {if $timestamp < $item.initialDateTimestamp}
+                                                    <span class="badge badge-warning break-line">Esta actividad aun no ha iniciado</span>
+                                                {/if}
+                                            </td>
+                                            <td class="text-center">
                                                 {if $item.homework.path ne ''}
-                                                    <span class="badge badge-success">Tarea entregada</span>
                                                     {if $item.homework.path ne ''}
-                                                        <br><br>
                                                         <button class="btn btn-outline-info btn-xs" onclick="window.location.href='{$WEB_ROOT}/download.php?file=homework/{$item.homework.path}&mime={$item.homework.mime}'" class="bb">
                                                             <i class="far fa-file-alt"></i> Ver Tarea
                                                         </button>
@@ -93,6 +104,11 @@
                                                             {/if}
                                                         {/if}
                                                     {/if}
+                                                {/if}
+                                            </td>
+                                            <td class="text-center">
+                                                {if $item.homework.path ne ''}
+                                                    <span class="badge badge-success">Tarea entregada</span>
                                                 {/if}
                                             </td>
                                             <td class="text-center">

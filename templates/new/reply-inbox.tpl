@@ -16,9 +16,9 @@
 					<a href="javascript:;" class="list-group-item list-group-item-action draft" id="linkBorrador" onClick="cargaInbox('borrador','{$courseMId}')" data-title="Draft">
 						<small><i class="fas fa-file-signature"></i> Borradores</small>
 					</a>
-					<a href="javascript:;" class="list-group-item list-group-item-action trash" id="linkEliminado" onClick="cargaInbox('eliminados','{$courseMId}')" data-title="Trash">
+					{*<a href="javascript:;" class="list-group-item list-group-item-action trash" id="linkEliminado" onClick="cargaInbox('eliminados','{$courseMId}')" data-title="Trash">
 						<small><i class="fas fa-trash-alt"></i> Eliminados</small>
-					</a>
+					</a>*}
 				</div>
 			</div>
 			{* CONTENT *}

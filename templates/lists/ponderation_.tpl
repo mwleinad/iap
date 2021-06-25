@@ -14,11 +14,14 @@
 				<td>{$home.resumen}</td>
 				<td>{$home.ponderation}</td>
 				<td>{$home.ponderation*($home.score/100)}</td>
-				<td class="break-line">
-					{$home.retro}
+				<td>
+					<div class="break-line">{$home.retro}</div>
 					{if $home.retroFile ne ""}
-						<b>Archivo Adjunto:</b>
-						<a href="{$WEB_ROOT}/file_retro/{$home.retroFile}" target="_blank">Descargar</a>
+						<div class="mt-2">
+							<a href="{$WEB_ROOT}/file_retro/{$home.retroFile}" target="_blank" class="btn btn-info btn-xs">
+								<i class="fas fa-download"></i> Descargar Archivo Adjunto
+							</a>
+						</div>
 					{/if}
 				</td>
 			</tr>

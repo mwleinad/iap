@@ -1,13 +1,13 @@
 <div class="col-md-12 text-center mb-4">
 	<a class="btn btn-outline-primary submitForm" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','activo','{$chatId}')" data-title="Trash">
-		<i class="fas fa-reply"></i> Enviar
+		<i class="fas fa-share"></i> Enviar
 	</a>
 	<a class="btn btn-outline-info" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','borrador','{$chatId}')" data-title="Trash">
 		<i class="fas fa-minus-circle"></i> Descartar
 	</a>
-	<a class="btn btn-outline-danger" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','borrar','{$chatId}')" data-title="Trash">
+	{*<a class="btn btn-outline-danger" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','borrar','{$chatId}')" data-title="Trash">
 		<i class="fas fa-trash-alt"></i> Borrar
-	</a>
+	</a>*}
 </div>
 <div class="col-md-12 mb-3">
 	<div class="table-responsive">
@@ -46,13 +46,13 @@
 	</form>
 </div>
 <div class="col-md-12 text-center">
-	<a class="btn btn-outline-primary submitForm" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','activo','{$chatId}')" data-title="Trash">
-		<i class="fas fa-reply"></i> Enviar
+	<a class="btn btn-outline-primary submitForm btn-loading" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','activo','{$chatId}')" data-title="Trash">
+		<i class="fas fa-share"></i> Enviar
 	</a>
 	<a class="btn btn-outline-info" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','borrador','{$chatId}')" data-title="Trash">
 		<i class="fas fa-minus-circle"></i> Descartar
 	</a>
-	<a class="btn btn-outline-danger" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','borrar','{$chatId}')" data-title="Trash">
+	{*<a class="btn btn-outline-danger" href="javascript:;" onClick="SaveMsj('{$infoC.courseModuleId}','borrar','{$chatId}')" data-title="Trash">
 		<i class="fas fa-trash-alt"></i> Borrar
-	</a>
+	</a>*}
 </div>

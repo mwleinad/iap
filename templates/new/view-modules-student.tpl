@@ -15,10 +15,10 @@
     </nav>
 </div>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
         {include file="new/student-menu.tpl"}
     </div>
-    <div class="col-md-9">
+    <div class="col-md-10">
         <div class="row">
             <div class="col-md-12 mb-3">
                 <h3 class="page-title">

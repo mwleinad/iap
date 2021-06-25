@@ -34,39 +34,41 @@
                         <h5 class="card-title"><b>Fecha Fin:</b> {$subject.finalDate|date_format:"%d-%m-%Y"}</h5>
                         <p class="card-text">
                             <b>Calificación Parcial:</b> <span class="badge {if $subject.totalScore < 70} badge-danger {else} badge-success {/if} rounded-circle">{$subject.totalScore}</span><br />
-                            <b>Calificación Final:</b> 
-                            {if  $timestamp < $subject.initialDateStamp}
-                                No Disponible {* no iniciada *}
-                            {else}
-                                {if $subject.finalDateStamp > 0 AND $timestamp > $subject.finalDateStamp}
-                                    {* materia finalizada *}
-                                    {if $subject.countEval >=1}
-                                        <span class="badge {if $subject.calificacionFinal < 7} badge-danger {else} badge-success {/if} rounded">
-                                            {$subject.calificacionFinal}
-                                        </span>
-                                    {else}
-                                        Contestar Evaluación
-                                    {/if}
-                                {elseif $subject.active == "no"}
-                                    {* materia finalizada *}
-                                    {if $subject.countEval >=1}
-                                        <span class="badge {if $subject.calificacionFinal < 7} badge-danger {else} badge-success {/if} rounded">
-                                            {$subject.calificacionFinal}
-                                        </span>
-                                    {else}
-                                        Contestar Evaluación
-                                    {/if}
-                                {elseif $subject.finalDateStamp <= 0 AND $initialDateStamp < $subject.daysToFinishStamp AND $timestamp > $subject.daysToFinishStamp}
-                                    {* materia finalizada *}
-                                    {if $subject.countEval >=1}
-                                        <span class="badge {if $subject.calificacionFinal < 7} badge-danger {else} badge-success {/if} rounded">
-                                            {$subject.calificacionFinal}
-                                        </span>
-                                    {else}
-                                        Contestar Evaluación
-                                    {/if}
+                            {if ($subject.finalDateStamp > 0) AND ($timestamp > $subject.finalDateStamp)}
+                                <b>Calificación Final:</b> 
+                                {if  $timestamp < $subject.initialDateStamp}
+                                    No Disponible {* no iniciada *}
                                 {else}
-                                    Contestar Evaluación {* materia activa *}
+                                    {if $subject.finalDateStamp > 0 AND $timestamp > $subject.finalDateStamp}
+                                        {* materia finalizada *}
+                                        {if $subject.countEval >=1}
+                                            <span class="badge {if $subject.calificacionFinal < 7} badge-danger {else} badge-success {/if} rounded">
+                                                {$subject.calificacionFinal}
+                                            </span>
+                                        {else}
+                                            <a href="{$WEB_ROOT}/test-docente/id/{$subject.courseModuleId}">Contestar Evaluación</a>
+                                        {/if}
+                                    {elseif $subject.active == "no"}
+                                        {* materia finalizada *}
+                                        {if $subject.countEval >=1}
+                                            <span class="badge {if $subject.calificacionFinal < 7} badge-danger {else} badge-success {/if} rounded">
+                                                {$subject.calificacionFinal}
+                                            </span>
+                                        {else}
+                                            <a href="{$WEB_ROOT}/test-docente/id/{$subject.courseModuleId}">Contestar Evaluación</a>
+                                        {/if}
+                                    {elseif $subject.finalDateStamp <= 0 AND $initialDateStamp < $subject.daysToFinishStamp AND $timestamp > $subject.daysToFinishStamp}
+                                        {* materia finalizada *}
+                                        {if $subject.countEval >=1}
+                                            <span class="badge {if $subject.calificacionFinal < 7} badge-danger {else} badge-success {/if} rounded">
+                                                {$subject.calificacionFinal}
+                                            </span>
+                                        {else}
+                                            <a href="{$WEB_ROOT}/test-docente/id/{$subject.courseModuleId}">Contestar Evaluación</a>
+                                        {/if}
+                                    {else}
+                                        <a href="{$WEB_ROOT}/test-docente/id/{$subject.courseModuleId}">Contestar Evaluación</a> {* materia activa *}
+                                    {/if}
                                 {/if}
                             {/if}
                         </p>
@@ -81,30 +83,18 @@
                         {if $subject.countEval >=1}
                             <span class="badge badge-success my-1 mx-1"><i class="fas fa-check-circle"></i> Evaluación Docente Contestada</span>
                         {else}
-                            {if  $timestamp < $subject.initialDateStamp}
-                                <span class="badge badge-danger my-1 mx-1"><i class="fas fa-ban"></i> Evaluación Docente No Disponible</span>
-                            {else}
-                                {if $subject.finalDateStamp > 0 AND $timestamp > $subject.finalDateStamp}
-                                    <a href="{$WEB_ROOT}/test-docente/id/{$subject.courseModuleId}" class="btn btn-outline-info btn-sm my-1 mx-1">
-                                        <i class="fas fa-spell-check"></i> Evaluación Docente
-                                    </a>
-                                {elseif $subject.active == "no"}
-                                    <a href="{$WEB_ROOT}/test-docente/id/{$subject.courseModuleId}" class="btn btn-outline-info btn-sm my-1 mx-1">
-                                        <i class="fas fa-spell-check"></i> Evaluación Docente
-                                    </a>
-                                {elseif $subject.finalDateStamp <= 0 AND $initialDateStamp < $subject.daysToFinishStamp AND $timestamp > $subject.daysToFinishStamp}
-                                    <a href="{$WEB_ROOT}/test-docente/id/{$subject.courseModuleId}" class="btn btn-outline-info btn-sm my-1 mx-1">
-                                        <i class="fas fa-spell-check"></i> Evaluación Docente
-                                    </a>
-                                {else}
-                                    <span class="badge badge-danger my-1 mx-1"><i class="fas fa-ban"></i> Evaluación Docente No Disponible</span>
-                                {/if}
+                            {if ($subject.finalDateStamp > 0) AND ($timestamp > $subject.finalDateStamp)}
+                                <a href="{$WEB_ROOT}/test-docente/id/{$subject.courseModuleId}" class="btn btn-outline-info btn-sm my-1 mx-1">
+                                    <i class="fas fa-spell-check"></i> Evaluación Docente
+                                </a>
                             {/if}
                         {/if}
                         {* ACTIVIDADES *}
-                        <a href="javascript:void(0)" onclick="CalificacionesAct({$subject.courseModuleId});" class="btn btn-outline-success btn-sm my-1 mx-1">
-                            <i class="fas fa-tasks"></i> Actividades
-                        </a>
+                        {if  $timestamp >= $subject.initialDateStamp}
+                            <a href="javascript:void(0)" onclick="CalificacionesAct({$subject.courseModuleId});" class="btn btn-outline-success btn-sm my-1 mx-1">
+                                <i class="fas fa-tasks"></i> Actividades
+                            </a>
+                        {/if}
                         {* INGRESAR AL MODULO *}
                         {if $User.type == "student"}
                             {if  $timestamp < $subject.initialDateStamp}

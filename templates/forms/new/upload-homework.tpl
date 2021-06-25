@@ -17,10 +17,8 @@
         </div>
     {/if}
     <div class="row">
-        <div class="form-group col-md-6">
-            <label><b>Actividad:</b> {$actividad.modality}</label>
-        </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-12">
+            <label><b>Actividad:</b> {$actividad.modality}</label><br>
             <label><b>Fecha Limite:</b> {$actividad.finalDateNoFormat}</label>
         </div>
     </div>

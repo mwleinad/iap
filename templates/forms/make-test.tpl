@@ -55,7 +55,14 @@
 	</div>  
 </form>
 {else}
-	Has agotado tus oportunidades para hacer este examen. Tu calificacion fue de: <b>{$score}%</b>
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<p>Has agotado tus oportunidades para hacer este examen. Tu calificacion fue de: <b>{$score}%</b></p>
+			<a href="{$WEB_ROOT}/view-modules-student/id/{$actividad.courseModuleId}" class="btn btn-primary">
+				<i class="fas fa-undo"></i> Regresar al Módulo
+			</a>
+		</div>
+	</div>
 {/if}
 
 <script language="javascript">
