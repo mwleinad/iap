@@ -62,6 +62,7 @@ class SendMail extends Main
 			}
 			//print_r($this->email);
 			$this->email->Send();
+			//$this->email->ErrorInfo; exit;
 	}
 
 

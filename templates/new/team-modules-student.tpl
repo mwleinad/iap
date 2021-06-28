@@ -79,7 +79,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="4" height="10" class="text-center">
-                                        <button type="button" class="btn btn-success submitForm" onclick="SubmitForm()">
+                                        <button type="button" class="btn btn-success submitForm btn-loading" onclick="SubmitForm()">
                                             Enviar Correo
                                         </button>
                                     </td>
