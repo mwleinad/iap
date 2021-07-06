@@ -39,6 +39,9 @@
 			<a href="{$WEB_ROOT}/graybox.php?page=student-curricula&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px">
 				<i class="fas fa-book fa-2x text-dark pointer" data-toggle="tooltip" data-placement="top" title="Ver Curricula Estudiante"></i>
 			</a>   
+			<a href="{$WEB_ROOT}/graybox.php?page=student-repeat&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px">
+				<i class="fas fa-book fa-2x text-danger pointer" data-toggle="tooltip" data-placement="top" title="Recursar Materia"></i>
+			</a>   
 			<a href="{$WEB_ROOT}/files/solicitudes/{$item.userId}_{$item.courseId}.pdf" target="_blank">
 				<i class="fas fa-file-export fa-2x text-info pointer" data-toggle="tooltip" data-placement="top" title="Ficha de Registro"></i>
 			</a>
