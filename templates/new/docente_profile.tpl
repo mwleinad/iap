@@ -53,7 +53,7 @@
                 <div class="card bg-gradient-success card-img-holder text-white">
                     <div class="text-center">
                         <a href="{$WEB_ROOT}/history-subject">
-                            <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/" alt="">
+                            <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/curricula.svg" alt="">
                         </a>
                     </div>
                     <div class="card-body">
@@ -74,7 +74,7 @@
                 <div class="card bg-gradient-success card-img-holder text-white">
                     <div class="text-center">
                         <a href="{$WEB_ROOT}/doc-docente">
-                            <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/" alt="">
+                            <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/documentos.svg" alt="">
                         </a>
                     </div>
                     <div class="card-body">
@@ -96,7 +96,7 @@
                     <div class="card bg-gradient-success card-img-holder text-white">
                         <div class="text-center">
                             <a href="{$WEB_ROOT}/repositorio">
-                                <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/" alt="">
+                                <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/repositorio.svg" alt="">
                             </a>
                         </div>
                         <div class="card-body">

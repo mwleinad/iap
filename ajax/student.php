@@ -969,6 +969,21 @@
 			}
 		
 		break;
+
+		case "addCourseModuleStudent":
+			$complete = $student->AddUserToCourseModuleFromCatalog($_POST["userId"], $_POST["curricula"], $_POST["modulo"]);
+			if($complete == "no" || $complete == "Este alumno ya esta registrado en este modulo. Favor de Seleccionar otro Modulo")
+			{
+				echo "fail[#]";
+				$util->PrintErrors();
+				$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
+			}
+			else
+			{	
+				echo "ok[#]";
+				$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
+			}
+			break;
 	}
 
 ?>

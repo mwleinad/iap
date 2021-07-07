@@ -719,6 +719,11 @@ class Student extends User
 			$this->Util()->DB()->setQuery($sql);
 			$payments = $this->Util()->DB()->GetSingle();
 
+			// Curricula temporal
+			$sql = "SELECT temporalGroup FROM course WHERE courseId = " . $curricula;
+			$this->Util()->DB()->setQuery($sql);
+			$temporalGroup = $this->Util()->DB()->GetSingle();
+
 			$status = 'activo';
 				
 //print_r($count);
@@ -727,29 +732,25 @@ class Student extends User
 				return $complete = "Este alumno ya esta registrado en esta curricula. Favor de Seleccionar otra Curricula";
 			}
 
-			$sqlQuery = "
-			INSERT INTO  `user_subject` (
-				`alumnoId` ,
-				`status` ,
-				`courseId`,
-				`tipo_beca`,
-				`por_beca`,
-                `matricula`
-				)
-				VALUES 
-				(
-				'".$id."',  
-				'".$status."',  
-				'".$curricula."',  
-				'".$tipo_beca."',  
-				'".$por_beca."',
-				'".$matricula."'
-			)";
-			$this->Util()->DB()->setQuery($sqlQuery);
-
-			if($this->Util()->DB()->InsertData()){
-			   $complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico para continuar con el proceso de inscripcion";}
-            else  {$complete="no";}
+			if(intval($temporalGroup) > 0)
+			{
+				// Actualiza la curricula temporal por la oficial
+				$sql = "UPDATE user_subject SET courseId = " . $curricula . " WHERE alumnoId = " . $id . " AND courseId = " . $temporalGroup;
+				$this->Util()->DB()->setQuery($sql);
+				$this->Util()->DB()->UpdateData();
+				$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico para continuar con el proceso de inscripcion";
+			}
+			else
+			{
+				// Se inscribe a curricula 
+				$sqlQuery = "INSERT INTO user_subject(alumnoId, status, courseId, tipo_beca, por_beca, matricula) VALUES('".$id."', '".$status."', '".$curricula."', '".$tipo_beca."', '".$por_beca."', '".$matricula."')";
+				$this->Util()->DB()->setQuery($sqlQuery);
+				if($this->Util()->DB()->InsertData())
+					$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico para continuar con el proceso de inscripcion";
+				else
+					$complete="no";
+			}
+			
 			// if($this->getNames() == "")
 			// {
 				$this->setUserId($id);
@@ -3013,6 +3014,63 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		$accepted = $this->Util()->DB()->GetSingle() == 0 ? true : false;
 		return $accepted;
+	}
+
+	function AddUserToCourseModuleFromCatalog($userId, $courseId, $courseModuleId)
+	{
+		$module = new Module();
+		$module->setCourseModuleId($courseModuleId);
+		$moduleInfo = $module->InfoCourseModule();
+		$module->setSubjectModuleId($moduleInfo["subjectModuleId"]);
+		$subjectModuleInfo = $module->Info();
+
+		$user = new User();
+		$this->setUserId($userId);
+		$info = $this->GetInfo();
+
+		$complete = $this->AddUserToCourseModule($userId, $courseId, $courseModuleId, $info["names"], $info["email"], $info["password"], $subjectModuleInfo["name"]);
+
+		$this->Util()->setError(40104, "complete", $complete);
+		$this->Util()->PrintErrors();
+		return $complete;
+	}
+
+	public function AddUserToCourseModule($id, $curricula, $modulo, $nombre, $email, $password, $moduleName)
+	{
+		include_once(DOC_ROOT."/properties/messages.php");
+		$sql = "SELECT COUNT(*) FROM user_subject_repeat WHERE alumnoId = " . $id . " AND courseId = " . $curricula . " AND courseModuleId = " . $modulo;
+		$this->Util()->DB()->setQuery($sql);
+		$count = $this->Util()->DB()->GetSingle();
+
+		/* $sql = "SELECT subjectId FROM course WHERE courseId = '".$curricula."'";
+		$this->Util()->DB()->setQuery($sql);
+		$subjectId = $this->Util()->DB()->GetSingle(); */
+
+		$status = "activo";
+		if($count > 0)
+			return $complete = "Este alumno ya esta registrado en este modulo. Favor de Seleccionar otro Modulo";
+
+		// Se inscribe a modulo 
+		$sqlQuery = "INSERT INTO user_subject_repeat(alumnoId, courseId, courseModuleId, status) VALUES(" . $id . ", " . $curricula . ", " . $modulo . ", '" . $status . "')";
+		$this->Util()->DB()->setQuery($sqlQuery);
+		if($this->Util()->DB()->InsertData())
+			$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico";
+		else
+			$complete="no";
+			
+		$sendmail = new SendMail;
+		$details_body = array(
+			"email" => $info["controlNumber"],
+			"password" => $password,
+			"module" => utf8_decode($moduleName)
+		);
+		$details_subject = array();
+		$attachment = array();
+		$fileName = array();
+
+		$sendmail->PrepareAttachment($message[3]["subject"], $message[3]["body"], $details_body, $details_subject, $email, $nombre, $attachment, $fileName);
+
+		return $complete;
 	}
 }
 

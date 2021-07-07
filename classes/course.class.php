@@ -1327,7 +1327,17 @@
 			return true;
 		}
 		
-		
+		function ListModules()
+		{
+			$sql = "SELECT cm.courseModuleId, sm.name AS subjectModuleName 
+						FROM course_module cm 
+							INNER JOIN subject_module sm 
+								ON cm.subjectModuleId = sm.subjectModuleId
+						WHERE cm.courseId = " . $this->courseId . " ORDER BY sm.name";
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->GetResult();
+			return $result;
+		}
 		
 	
 }	

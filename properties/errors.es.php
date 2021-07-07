@@ -29,7 +29,7 @@ $property["error"][20003] = "Debes elegir tu Ciudad";
 $property["error"][20002] = "Debes elegir tu Estado";
 $property["error"][20001] = "Debes elegir tu Pais";
 
-$property["error"][21001] = "No es posible recuperar contraseña intente más tarde ";
+$property["error"][21001] = "No es posible recuperar contraseï¿½a intente mï¿½s tarde ";
 $property["error"][21002] = "Recuperacion con exito En breve recibiras tu informacion por email ";
 
 
@@ -211,6 +211,8 @@ $property["error"][30135] = "El acta ha sido eliminada correctamente";
 $property["error"][40101] = "Debes introducir al menos un dato de busqueda";
 $property["error"][40102] = "No existen registros con los datos proporcionados";
 $property["error"][40103] = "Favor de elejir un alumno del listado";
+
+$property["error"][40104] = "El modulo se agrego correctamente";
 
 // mensajes para los datos de prueba creados -- eliminar en cuanto este listo
 $property["error"][99100] = "Paso por codigo verificacion eliminacion Recuperacion R1";
