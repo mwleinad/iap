@@ -13421,3 +13421,8 @@ dl {
  .text-bold {
 	 font-weight: bold !important;
  }
+
+ /* FONT TRANSFORM */
+ .text-capitalize {
+   text-transform: capitalize !important;
+ }

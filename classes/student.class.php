@@ -3072,6 +3072,38 @@ class Student extends User
 
 		return $complete;
 	}
+
+
+	function StudentModulesRepeat($status = NULL){
+
+		$tmp_status = $status;
+		if($status != NULL)
+		{
+			$status = " AND status = '" . $status . "'";
+		}
+
+		 $sql = "SELECT
+					usr.*, s.name AS subjectName, m.name AS majorName, s.icon, c.group, cm.initialDate, cm.finalDate, sm.name AS subjectModuleName
+				FROM
+					user_subject_repeat usr
+				LEFT JOIN course c 
+					ON c.courseId = usr.courseId
+				LEFT JOIN subject s 
+					ON s.subjectId = c.subjectId	
+				LEFT JOIN major m 
+					ON m.majorId = s.tipo
+				LEFT JOIN course_module cm 
+					ON usr.courseModuleId = cm.courseModuleId 
+				LEFT JOIN subject_module sm 
+					ON cm.subjectModuleId = sm.subjectModuleId
+				WHERE
+					usr.alumnoId = " . $this->getUserId() . "
+				ORDER BY sm.name ASC";
+
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		return $result;
+	}
 }
 
 ?>

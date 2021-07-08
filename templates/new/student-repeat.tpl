@@ -32,6 +32,11 @@
                 <button  class="btn btn-success submitForm" onClick="addCourseModule()">Asignar Módulo</button>
             </div>	
         </div>
+        <div class="row">
+            <div id="tblContentGray" class="col-md-12">
+                {include file="{$DOC_ROOT}/templates/lists/student-repeat.tpl"}
+            </div>
+        </div>
     </div>
 </div>
     

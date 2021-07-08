@@ -981,7 +981,10 @@
 			else
 			{	
 				echo "ok[#]";
-				$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
+				$student->setUserId($_POST["userId"]);
+				$modulesRepeat = $student->StudentModulesRepeat();
+				$smarty->assign('modulesRepeat', $modulesRepeat);
+				$smarty->display(DOC_ROOT.'/templates/lists/student-repeat.tpl');
 			}
 			break;
 	}

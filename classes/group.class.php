@@ -1585,11 +1585,26 @@
 				WHERE courseModuleId = '".$Id."'");
 			$info = $this->Util()->DB()->GetRow();
 			
-			$this->Util()->DB()->setQuery("
-				SELECT *, user_subject.status AS status FROM user_subject
-				LEFT JOIN user ON user_subject.alumnoId = user.userId
-				WHERE user_subject.status = 'activo' and courseId = '".$info['courseId']."'
-				ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC");
+			$sql = "SELECT 
+						user.*, 
+						user_subject.status AS status,
+						'Ordinario' AS situation
+					FROM user_subject
+						LEFT JOIN user 
+							ON user_subject.alumnoId = user.userId
+					WHERE user_subject.status = 'activo' AND courseId = " . $info['courseId'] . "
+					UNION 
+					SELECT 
+						user.*, 
+						usr.status,
+						'Recursador' AS situation
+					FROM user_subject_repeat usr 
+						LEFT JOIN user 
+							ON usr.alumnoId = user.userId
+					WHERE usr.status = 'activo' AND usr.courseModuleId = " . $Id . "
+					ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
+			//echo $sql; exit;
+			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
 			
 			return $result;

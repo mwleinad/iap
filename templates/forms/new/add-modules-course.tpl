@@ -66,7 +66,7 @@
 
     <div class="row" >
         <div class="form-group col-md-6">
-            <label for="extraId">Extra Asignad:</label>
+            <label for="extraId">Extra Asignado:</label>
             <select name="extraId" id="extraId" class="form-control">
                 <option value="-1">Seleccione...</option>
                 {foreach from=$empleados item=personal}

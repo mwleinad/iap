@@ -16,6 +16,9 @@
 								{/if}
 							</a><br>
 							<p class="card-text">{$item.names|upper} {$item.lastNamePaterno|upper} {$item.lastNameMaterno|upper}</p>
+							{if $item.situation eq 'Recursador'} 
+								<span class="badge badge-danger">Alumno Recursador</span>
+							{/if}
 						</div>
 						<div class="card-footer">
 							<a href="{$WEB_ROOT}/graybox.php?page=view-perfil&id={$item.userId}" class="btn btn-outline-primary btn-sm" data-target="#ajax" data-toggle="modal">
