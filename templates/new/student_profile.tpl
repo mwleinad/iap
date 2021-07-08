@@ -80,13 +80,22 @@
                                 {if $tipo_curricula eq 'Inactiva'} <small>Clave: {$subject.clave}</small><br> {/if}
                                 <small>Grupo: {$subject.group} ({$subject.modality})<br>
                                 Periodo: {$subject.initialDate|date_format:"%d-%m-%Y"} - {$subject.finalDate|date_format:"%d-%m-%Y"}</small><br>
-                                <small>Módulos: {$subject.courseModule}</small>
+                                {if $subject.situation eq 'Ordinario'}
+                                    <small>Módulos: {$subject.courseModule}</small>
+                                {/if}
                                 {if $tipo_curricula ne 'Activa'} <br><small>Días Activo: {$subject.daysToFinish}</small> {/if}
                             </p>
                             <div class="text-center">
-                                <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
-                                    <i class="fas fa-link"></i> Ver
-                                </a>
+                                {if $subject.situation eq 'Ordinario'}
+                                    <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
+                                        <i class="fas fa-link"></i> Ver
+                                    </a>
+                                {/if}
+                                {if $subject.situation eq 'Recursador'}
+                                    <a href="{$WEB_ROOT}/modulos-recursar/id/{$subject.courseId}" title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
+                                        <i class="fas fa-link"></i> Ver
+                                    </a>
+                                {/if}
                             </div>
                         </div>
                     </div>

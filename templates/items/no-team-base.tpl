@@ -1,7 +1,9 @@
 {foreach from=$noTeam item=item key=key}
     <tr id="1">
         <td class="text-center">{$item.controlNumber}</td>
-        <td>{$item.lastNamePaterno} {$item.lastNameMaterno} {$item.names}</td>
+        <td>
+            {if $item.situation eq 'Recursador'} <small class="text-danger">[Recursador]</small> {/if} {$item.lastNamePaterno} {$item.lastNameMaterno} {$item.names}
+        </td>
         <td class="text-center">
             <input type="checkbox" name="inTeam[]" name="inTeam[]" value="{$item.alumnoId}" />
         </td>

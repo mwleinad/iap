@@ -1,7 +1,9 @@
 {foreach from=$theGroup item=item key=key}
 <tr id="1">
     <td class="text-center">{$item.controlNumber}</td>
-    <td>{$item.lastNamePaterno} {$item.lastNameMaterno} {$item.names}</td>
+    <td class="text-capitalize">
+        {if $item.situation eq 'Recursador'} <small class="text-danger">[Recursador]</small> {/if} {$item.lastNamePaterno} {$item.lastNameMaterno} {$item.names}
+    </td>
     <td class="text-center">
         {if $item.homework.path ne ''}
             {assign var="entrega" value="1"}

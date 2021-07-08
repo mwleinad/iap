@@ -4,7 +4,9 @@
 		{if $cursos=="ESPECIALIDAD" || $cursos=="MAESTRIA"}
 			<td class="text-center">{$item.matricula}</td>
 		{/if}
-        <td>{$item.lastNamePaterno|upper} {$item.lastNameMaterno|upper} {$item.names|upper}</td>
+        <td>
+		{if $item.situation eq 'Recursador'} <small class="text-danger">[Recursador]</small> {/if} {$item.lastNamePaterno|upper} {$item.lastNameMaterno|upper} {$item.names|upper}
+		</td>
         <td class="text-center">
         	{if !$item.equipo}
         		N/A

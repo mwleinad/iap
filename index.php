@@ -212,7 +212,8 @@ $pages = array(
 	'reglamento',
 	'modulos-curricula',
 	'migrupo',
-	'notificaciones'
+	'notificaciones',
+	'modulos-recursar'
 );
 
 if(!in_array($_GET['page'], $pages))

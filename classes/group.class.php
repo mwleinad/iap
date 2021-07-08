@@ -376,11 +376,20 @@
 			switch($modality)
 			{
 				case "Individual":
-				 	 $sql = "
-						SELECT *, user_subject.status AS status FROM user_subject
-						LEFT JOIN user ON user_subject.alumnoId = user.userId
-						WHERE courseId = '".$this->getCourseId()."' and user_subject.status = 'activo'
-						ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
+				 	$sql = "SELECT 
+					 			user_subject.alumnoId, user.*, user_subject.status AS status, 'Ordinario' AS situation 
+							FROM user_subject
+								LEFT JOIN user 
+									ON user_subject.alumnoId = user.userId
+							WHERE courseId = " . $this->getCourseId() . " AND user_subject.status = 'activo'
+							UNION
+							SELECT 
+								usr.alumnoId, user.*, usr.status, 'Recursador' AS situation
+							FROM user_subject_repeat usr
+								LEFT JOIN user
+									ON usr.alumnoId = user.userId 
+							WHERE usr.courseId = " . $this->getCourseId() . " AND usr.status = 'activo'
+							ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
 					// exit
 					$this->Util()->DB()->setQuery($sql);
 					$result = $this->Util()->DB()->GetResult();
@@ -648,16 +657,31 @@
 		public function DefaultGroup()
 		{
 	
-			$sql = "SELECT *, 
+			$sql = "SELECT 
+						u.*, 
+						us.alumnoId,
 						us.status AS status,
 						cd.discount,
-						u.userId
+						'Ordinario' AS situation
 					FROM user_subject us
 						LEFT JOIN user u 
 							ON us.alumnoId = u.userId
 						LEFT JOIN calendar_discounts cd 
 							ON (us.alumnoId = cd.userId AND us.courseId = cd.courseId)
-					WHERE us.courseId = '" . $this->getCourseId() . "' AND u.activo='1' AND us.status='activo'
+					WHERE us.courseId = " . $this->getCourseId() . " AND u.activo = '1' AND us.status = 'activo'
+					UNION
+					SELECT 
+						u.*,
+						usr.alumnoId,
+						usr.status,
+						cd.discount,
+						'Recursador' AS situation
+					FROM user_subject_repeat usr 
+						LEFT JOIN user u 
+							ON usr.alumnoId = u.userId 
+						LEFT JOIN calendar_discounts cd 
+							ON (usr.alumnoId = cd.userId AND usr.courseId = cd.courseId)
+					WHERE usr.courseId = " . $this->getCourseId() . " AND u.activo = '1' AND usr.status = 'activo'
 					ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
 			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
@@ -857,9 +881,25 @@
 		
 		public function NoTeam()
 		{
-			$sql = "SELECT *, user_subject.status AS status FROM user_subject
-						LEFT JOIN user ON user_subject.alumnoId = user.userId
-					WHERE courseId = '".$this->getCourseId()."' AND user_subject.status = 'activo'
+			$sql = "SELECT 
+						user_subject.alumnoId,
+						user.*, 
+						user_subject.status AS status,
+						'Ordinario' AS situation 
+					FROM user_subject
+						LEFT JOIN user 
+							ON user_subject.alumnoId = user.userId
+					WHERE courseId = " . $this->getCourseId() . " AND user_subject.status = 'activo'
+					UNION 
+					SELECT 
+						usr.alumnoId,
+						u.*,
+						usr.status,
+						'Recursador' AS situation
+					FROM user_subject_repeat usr 
+						LEFT JOIN user u 
+							ON usr.alumnoId = u.userId 
+					WHERE usr.courseId = " . $this->getCourseId() . " AND usr.status = 'activo'
 					ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
 			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();

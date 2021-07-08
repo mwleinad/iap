@@ -1762,7 +1762,7 @@ class Student extends User
 		}
 
 		 $sql = "SELECT
-					*, subject.name AS name, major.name AS majorName, subject.icon
+					user_subject.courseId, user_subject.alumnoId, user_subject.status, subject.name AS name, major.name AS majorName, subject.icon, course.group, course.modality, course.initialDate, course.finalDate, 'Ordinario' AS situation
 				FROM
 					user_subject
 				LEFT JOIN course ON course.courseId = user_subject.courseId
@@ -1772,7 +1772,20 @@ class Student extends User
 					alumnoId = '".$this->getUserId()."'
 					".$status."
 					".$active." 
-					".$finalizado." 
+					".$finalizado."
+				UNION
+				SELECT 
+					usr.courseId, usr.alumnoId, usr.status, subject.name AS name, major.name AS majorName, subject.icon, course.group, course.modality, course.initialDate, course.finalDate, 'Recursador' AS situation
+				FROM user_subject_repeat usr
+					LEFT JOIN course
+						ON course.courseId = usr.courseId 
+					LEFT JOIN subject 
+						ON subject.subjectId = course.subjectId 
+					LEFT JOIN major 
+						ON major.majorId = subject.tipo 
+				WHERE 
+					alumnoId = " . $this->getUserId() . "
+					" . $status . " 
 				ORDER BY status ASC";
 
 		$this->Util()->DB()->setQuery($sql);
