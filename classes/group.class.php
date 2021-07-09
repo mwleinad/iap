@@ -388,7 +388,7 @@
 							FROM user_subject_repeat usr
 								LEFT JOIN user
 									ON usr.alumnoId = user.userId 
-							WHERE usr.courseId = " . $this->getCourseId() . " AND usr.status = 'activo'
+							WHERE usr.courseId = " . $this->getCourseId() . " AND usr.status = 'activo' AND usr.courseModuleId = " . $this->coursemoduleId . "
 							ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
 					// exit
 					$this->Util()->DB()->setQuery($sql);
@@ -681,7 +681,7 @@
 							ON usr.alumnoId = u.userId 
 						LEFT JOIN calendar_discounts cd 
 							ON (usr.alumnoId = cd.userId AND usr.courseId = cd.courseId)
-					WHERE usr.courseId = " . $this->getCourseId() . " AND u.activo = '1' AND usr.status = 'activo'
+					WHERE usr.courseId = " . $this->getCourseId() . " AND u.activo = '1' AND usr.status = 'activo' AND usr.courseModuleId = " . $this->coursemoduleId . "
 					ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
 			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
@@ -899,7 +899,7 @@
 					FROM user_subject_repeat usr 
 						LEFT JOIN user u 
 							ON usr.alumnoId = u.userId 
-					WHERE usr.courseId = " . $this->getCourseId() . " AND usr.status = 'activo'
+					WHERE usr.courseId = " . $this->getCourseId() . " AND usr.status = 'activo' AND usr.courseModuleId = " . $this->coursemoduleId . "
 					ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
 			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
@@ -1701,7 +1701,7 @@
 				FROM user_subject_repeat usr
 					LEFT JOIN user u 
 						ON usr.alumnoId = u.userId
-				WHERE usr.status = 'activo' AND usr.courseId = " . $this->getCourseId() . "
+				WHERE usr.status = 'activo' AND usr.courseId = " . $this->getCourseId() . " AND usr.courseModuleId = " . $this->coursemoduleId . "
 				ORDER BY u.lastNamePaterno, u.lastNameMaterno, u.names";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();

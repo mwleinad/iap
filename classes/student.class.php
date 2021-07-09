@@ -1787,7 +1787,6 @@ class Student extends User
 					alumnoId = " . $this->getUserId() . "
 					" . $status . " 
 				ORDER BY status ASC";
-
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 
