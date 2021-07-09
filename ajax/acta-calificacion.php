@@ -36,6 +36,7 @@ use Dompdf\Exception;
 	$group->setCourseId($info["courseId"]);
 	$group->setTipoMajor($info["majorName"]);
 	$noTeam = $group->actaCalificacion();
+	$studentsRepeat = $group->actaCalificacionRepeat();
 	
 
 	$infoFirma = $personal->extraeFirmaActa();
@@ -81,109 +82,222 @@ use Dompdf\Exception;
 		border: 1px solid black;
 		 border-collapse: collapse;
 	}
+	.wrapper-page {
+		page-break-after: always;
+	}
+	
+	.wrapper-page:last-child {
+		page-break-after: avoid;
+	}
 	</head>
 	<body>
-	<img src='".DOC_ROOT."/images/logo_correo.jpg'>
-	<center>	
-	<b>INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, A.C.</b>
-	<br>
-	<b>".$info['majorName'].": ".$info['subjectName']."</b><br>
-	<b>ACTA DE CALIFICACIÓN FINAL</b><br>
-	</center>	
-	<br>
-	
-	<table class='txtTicket' width='100%'>
-	<tr>
-		<td>Acuerdo: No.: </td>
-		<td>".$rov." de fecha ".$fecharov."</td>
-	</tr>
-	<tr>
-		<td>Ciclo: </td>
-		<td>".$infoCo["scholarCicle"]."</td>
-	</tr>
-	<tr>
-		<td>Materia:</td>
-		<td>".$info['claveMateria']." ".$info['name']."</td>
-	</tr>	
-	<tr>
-		<td>Cuatrimestre:</td>
-		<td>".$info['semesId']."</td>
-	</tr>
-	<tr>
-		<td>Grupo:</td>
-		<td>".$info['groupA']."</td>
-	</tr>
-	<tr>
-		<td>Periodo:</td>
-		<td>".$info['initialDate']." - ".$info['finalDate']."</td>
-	</tr>
-	
-	</table>
-	<br>
-
-	";
-
-	$html .= "<table  width='100%' class='txtTicket'>";
-	$html .= "<tr>";
-	$html .= "<td style='width:11px'><center>Num.</center></td>";
-	$html .= "<td ><center>Nombre</center></td>";
-	$html .= "<td style='width:100px'><center>Calificación Final</center></td>";
-	$html .= "<td style='width:100px'><center>Letra</center></td>";
-	$html .= "</tr>";
-	foreach($noTeam as $key=>$aux){
-		$html .= "<tr>";
-		$html .= "<td>".($key+1)."</td>";
-		$html .= "<td>".$aux['lastNamePaterno']." ".$aux['lastNameMaterno']." ".$aux['names']."</td>";
-		$h =  $util->num2letras($aux['score']);
-		
-		if($aux['score'] < 7  and $info['majorName'] == 'MAESTRIA'){
-			$html .= "<td><center><font color='red'>".$aux['score']."</font></center></td>";
-			$html .= "<td><center><font color='red'>".$h."</font></center></td>";
-		}
-		else if($aux['score'] < 8  and $info['majorName'] == 'DOCTORADO'){
-			$html .= "<td><center><font color='red'>".$aux['score']."</font></center></td>";
-			$html .= "<td><center><font color='red'>".$h."</font></center></td>";
-		}
-		else{
-			$html .= "<td><center>".$aux['score']."</center></td>";
-			$html .= "<td><center>".$h."</center></td>";
-		}
-		$html .= "</tr>";
-	}  
-	$html .= "</table>";
-	
-	$html .= "
-		
-	<br>
-	<br>
-	<br>
-	<center>
-		
-	
-	<table width=100% align='center' style='border: none' class='txtTicket'>	
-		<tr>
-			<td colspan='2' align='center' style='border: none'>
-			".$infoPersonal['profesion']." ".$infoPersonal['name']." ".$infoPersonal['lastname_paterno']." ".$infoPersonal['lastname_materno']."<br>
-			Catedratico
+		<div class='wrapper-page'>
+			<img src='".DOC_ROOT."/images/logo_correo.jpg'>
+			<center>	
+			<b>INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, A.C.</b>
+			<br>
+			<b>".$info['majorName'].": ".$info['subjectName']."</b><br>
+			<b>ACTA DE CALIFICACIÓN FINAL</b><br>
+			</center>	
+			<br>
 			
+			<table class='txtTicket' width='100%'>
+			<tr>
+				<td>Acuerdo: No.: </td>
+				<td>".$rov." de fecha ".$fecharov."</td>
+			</tr>
+			<tr>
+				<td>Ciclo: </td>
+				<td>".$infoCo["scholarCicle"]."</td>
+			</tr>
+			<tr>
+				<td>Materia:</td>
+				<td>".$info['claveMateria']." ".$info['name']."</td>
+			</tr>	
+			<tr>
+				<td>Cuatrimestre:</td>
+				<td>".$info['semesId']."</td>
+			</tr>
+			<tr>
+				<td>Grupo:</td>
+				<td>".$info['groupA']."</td>
+			</tr>
+			<tr>
+				<td>Periodo:</td>
+				<td>".$info['initialDate']." - ".$info['finalDate']."</td>
+			</tr>
+			
+			</table>
+			<br>
+
+			";
+
+			$html .= "<table  width='100%' class='txtTicket'>";
+			$html .= "<tr>";
+			$html .= "<td style='width:11px'><center>Num.</center></td>";
+			$html .= "<td ><center>Nombre</center></td>";
+			$html .= "<td style='width:100px'><center>Calificación Final</center></td>";
+			$html .= "<td style='width:100px'><center>Letra</center></td>";
+			$html .= "</tr>";
+			foreach($noTeam as $key=>$aux){
+				$html .= "<tr>";
+				$html .= "<td>".($key+1)."</td>";
+				$html .= "<td>".$aux['lastNamePaterno']." ".$aux['lastNameMaterno']." ".$aux['names']."</td>";
+				$h =  $util->num2letras($aux['score']);
+				
+				if($aux['score'] < 7  and $info['majorName'] == 'MAESTRIA'){
+					$html .= "<td><center><font color='red'>".$aux['score']."</font></center></td>";
+					$html .= "<td><center><font color='red'>".$h."</font></center></td>";
+				}
+				else if($aux['score'] < 8  and $info['majorName'] == 'DOCTORADO'){
+					$html .= "<td><center><font color='red'>".$aux['score']."</font></center></td>";
+					$html .= "<td><center><font color='red'>".$h."</font></center></td>";
+				}
+				else{
+					$html .= "<td><center>".$aux['score']."</center></td>";
+					$html .= "<td><center>".$h."</center></td>";
+				}
+				$html .= "</tr>";
+			}  
+			$html .= "</table>";
+			
+			$html .= "
+				
 			<br>
 			<br>
 			<br>
-			</td>
-		</tr>
-		<tr>
-			<td align='center' style='border: none'>
-				".$infoFirma['director']."<br>
-				Director Academico
-			</td>
-			<td align='center' style='border: none'> 
-				".$infoFirma['controlEscolar']."<br>
-				Servicios Escolares
-			</td>
-		</tr>
-	</table>	
-		
-	</center>
+			<center>
+				
+			
+			<table width=100% align='center' style='border: none' class='txtTicket'>	
+				<tr>
+					<td colspan='2' align='center' style='border: none'>
+					".$infoPersonal['profesion']." ".$infoPersonal['name']." ".$infoPersonal['lastname_paterno']." ".$infoPersonal['lastname_materno']."<br>
+					Catedratico
+					
+					<br>
+					<br>
+					<br>
+					</td>
+				</tr>
+				<tr>
+					<td align='center' style='border: none'>
+						".$infoFirma['director']."<br>
+						Director Academico
+					</td>
+					<td align='center' style='border: none'> 
+						".$infoFirma['controlEscolar']."<br>
+						Servicios Escolares
+					</td>
+				</tr>
+			</table>	
+				
+			</center>
+		</div>
+
+		<div class='wrapper-page'>
+			<img src='".DOC_ROOT."/images/logo_correo.jpg'>
+			<center>	
+			<b>INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, A.C.</b>
+			<br>
+			<b>".$info['majorName'].": ".$info['subjectName']."</b><br>
+			<b>ACTA DE CALIFICACIÓN FINAL</b><br>
+			</center>	
+			<br>
+			
+			<table class='txtTicket' width='100%'>
+			<tr>
+				<td>Acuerdo: No.: </td>
+				<td>".$rov." de fecha ".$fecharov."</td>
+			</tr>
+			<tr>
+				<td>Ciclo: </td>
+				<td>".$infoCo["scholarCicle"]."</td>
+			</tr>
+			<tr>
+				<td>Materia:</td>
+				<td>".$info['claveMateria']." ".$info['name']."</td>
+			</tr>	
+			<tr>
+				<td>Cuatrimestre:</td>
+				<td>".$info['semesId']."</td>
+			</tr>
+			<tr>
+				<td>Grupo:</td>
+				<td>".$info['groupA']."</td>
+			</tr>
+			<tr>
+				<td>Periodo:</td>
+				<td>".$info['initialDate']." - ".$info['finalDate']."</td>
+			</tr>
+			
+			</table>
+			<br>
+
+			";
+
+			$html .= "<table  width='100%' class='txtTicket'>";
+			$html .= "<tr>";
+			$html .= "<td style='width:11px'><center>Num.</center></td>";
+			$html .= "<td ><center>Nombre</center></td>";
+			$html .= "<td style='width:100px'><center>Calificación Final</center></td>";
+			$html .= "<td style='width:100px'><center>Letra</center></td>";
+			$html .= "</tr>";
+			foreach($studentsRepeat as $key=>$aux){
+				$html .= "<tr>";
+				$html .= "<td>".($key+1)."</td>";
+				$html .= "<td>".$aux['lastNamePaterno']." ".$aux['lastNameMaterno']." ".$aux['names']."</td>";
+				$h =  $util->num2letras($aux['score']);
+				
+				if($aux['score'] < 7  and $info['majorName'] == 'MAESTRIA'){
+					$html .= "<td><center><font color='red'>".$aux['score']."</font></center></td>";
+					$html .= "<td><center><font color='red'>".$h."</font></center></td>";
+				}
+				else if($aux['score'] < 8  and $info['majorName'] == 'DOCTORADO'){
+					$html .= "<td><center><font color='red'>".$aux['score']."</font></center></td>";
+					$html .= "<td><center><font color='red'>".$h."</font></center></td>";
+				}
+				else{
+					$html .= "<td><center>".$aux['score']."</center></td>";
+					$html .= "<td><center>".$h."</center></td>";
+				}
+				$html .= "</tr>";
+			}  
+			$html .= "</table>";
+			
+			$html .= "
+				
+			<br>
+			<br>
+			<br>
+			<center>
+				
+			
+			<table width=100% align='center' style='border: none' class='txtTicket'>	
+				<tr>
+					<td colspan='2' align='center' style='border: none'>
+					".$infoPersonal['profesion']." ".$infoPersonal['name']." ".$infoPersonal['lastname_paterno']." ".$infoPersonal['lastname_materno']."<br>
+					Catedratico
+					
+					<br>
+					<br>
+					<br>
+					</td>
+				</tr>
+				<tr>
+					<td align='center' style='border: none'>
+						".$infoFirma['director']."<br>
+						Director Academico
+					</td>
+					<td align='center' style='border: none'> 
+						".$infoFirma['controlEscolar']."<br>
+						Servicios Escolares
+					</td>
+				</tr>
+			</table>	
+				
+			</center>
+		</div>
 	</body>
 	</html>
 

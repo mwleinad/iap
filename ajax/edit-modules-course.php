@@ -87,6 +87,7 @@ switch($_POST["type"])
 			$group->setCourseModuleId($_POST["id"]);
 			$group->setCourseId($info["courseId"]);
 			$noTeam = $group->actaCalificacion();
+			$studentsRepeat = $group->actaCalificacionRepeat();
 			
 			$numberTeams = $group->GetNumberOfTeams();
 			
@@ -99,6 +100,7 @@ switch($_POST["type"])
 			$smarty->assign('teams', $teams);
 			$smarty->assign('noTeam', $noTeam);
 			$smarty->assign('majorName', $info["majorName"]);
+			$smarty->assign('studentsRepeat', $studentsRepeat);
 			$smarty->display(DOC_ROOT.'/templates/lists/add-calificacion.tpl');
 		
 		break;

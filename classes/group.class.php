@@ -1688,6 +1688,79 @@
 		imagejpeg($tmp,$ruta.$nombreN,$calidad);
     
 	}
+
+
+
+
+	public function actaCalificacionRepeat()
+	{
+		$sql = "SELECT 
+					*, 
+					usr.status AS status,
+					'Recursador' AS situation 
+				FROM user_subject_repeat usr
+					LEFT JOIN user u 
+						ON usr.alumnoId = u.userId
+				WHERE usr.status = 'activo' AND usr.courseId = " . $this->getCourseId() . "
+				ORDER BY u.lastNamePaterno, u.lastNameMaterno, u.names";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		$student = New Student;
+		foreach($result as $key => $res)
+		{
+			$sql = "SELECT *
+					FROM course_module_score
+					WHERE courseModuleId = " . $this->coursemoduleId . " AND userId = " . $res["alumnoId"] . " AND courseId = " . $res["courseId"];
+			$this->Util()->DB()->setQuery($sql);
+			$infoCc = $this->Util()->DB()->GetRow();
+	
+			// CALCULA ACUMULADO
+			$activity = new Activity;
+			$activity->setCourseModuleId($this->coursemoduleId);
+			$actividades = $activity->Enumerate();
+			$sql = "SELECT teamNumber
+					FROM team
+					WHERE courseModuleId = " . $this->coursemoduleId . " AND userId = " . $res["alumnoId"];
+			$this->Util()->DB()->setQuery($sql);
+			$result[$key]["equipo"] = $this->Util()->DB()->GetSingle();	
+			$result[$key]{"addepUp"} = 0;
+			foreach($actividades as $activity)
+			{
+				if($activity["score"] <= 0)
+					continue;
+				$sqlca = "SELECT ponderation
+							FROM activity_score
+							WHERE activityId = " . $activity["activityId"] . " AND userId = " . $res["alumnoId"];
+				$this->Util()->DB()->setQuery($sqlca);
+				$score = $this->Util()->DB()->GetSingle();
+				$result[$key]{"score"}[] = $score;
+				$realScore = $score * $activity["score"] / 100;
+				$result[$key]{"realScore"}[] = $realScore;
+				$result[$key]{"addepUp"} += $realScore;
+			}
+			
+			if($infoCc["calificacion"] == null or $infoCc["calificacion"] == 0)
+			{	
+				$at = $result[$key]{"addepUp"} / 10;
+				if($this->tipoMajor == "MAESTRIA" and $at < 7)
+					$at= floor ($at);
+				else if($this->tipoMajor == "DOCTORADO" and $at < 8)
+					$at= floor ($at);
+				else
+					$at= round($at, 0, PHP_ROUND_HALF_DOWN);
+				$infoCc["calificacion"] = $at ;
+			}else
+				$infoCc["calificacion"] = $infoCc["calificacion"];
+			
+			if($this->tipoMajor == "MAESTRIA" and $infoCc["calificacion"] < 7)
+				$result[$key]["score"] = 6;
+			else if($this->tipoMajor == "DOCTORADO" and $infoCc["calificacion"] < 8)
+				$result[$key]["score"] = 7;
+			else
+				$result[$key]["score"] = $infoCc["calificacion"];
+		}
+		return $result;
+	}
 		
-	}	
+}	
 ?>

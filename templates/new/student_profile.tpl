@@ -83,6 +83,9 @@
                                 {if $subject.situation eq 'Ordinario'}
                                     <small>Módulos: {$subject.courseModule}</small>
                                 {/if}
+                                {if $subject.situation eq 'Recursador'}
+                                    <small>Recursando Materia(s)</small>
+                                {/if}
                                 {if $tipo_curricula ne 'Activa'} <br><small>Días Activo: {$subject.daysToFinish}</small> {/if}
                             </p>
                             <div class="text-center">
