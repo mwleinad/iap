@@ -15,14 +15,19 @@
     <body>
         <div class="container-scroller">
             <div class="container-fluid page-body-wrapper full-page-wrapper">
-                <div class="content-wrapper d-flex align-items-center auth">
+                <div class="content-wrapper d-flex align-items-center auth bg-white">
                     <div class="row w-100">
                         <div class="col-lg-4 mx-auto">
-                            <div class="auth-form-light text-left p-5">
+                            <div class="row d-flex justify-content-center">
+                                <div class="brand-logo">
+                                    <img src="{$WEB_ROOT}/images/logos/Logo_3.png" width="300px">
+                                </div>
+                            </div>
+                            <div class="auth-form-light text-left p-5" style="box-shadow: 0px 2px 7px 7px #D2D2D2;">
                                 <div class="row d-flex justify-content-center">
-                                    <div class="brand-logo">
+                                    {*<div class="brand-logo">
                                         <img src="{$WEB_ROOT}/images/logos/Logo_3.png" width="200px">
-                                    </div>
+                                    </div>*}
                                     <h4>Sistema de Educación en Línea</h4>
                                     <h6 class="font-weight-light">Ingresa a tu cuenta.</h6>
                                     <div class="alert alert-danger d-none">
@@ -54,6 +59,12 @@
                                 </form>
                             </div>
                         </div>
+                        {*<div class="col-lg-12">
+                            <div class="row d-flex justify-content-between">*}
+                                <img src="{$WEB_ROOT}/images/new/curricula/de-bg.svg" class="img-fluid img-login" style="max-width: 300px; position: absolute; bottom: 0; left: 0;" />
+                                <img src="{$WEB_ROOT}/images/new/curricula/dap-bg.svg" class="img-fluid img-login" style="max-width: 300px; position: absolute; bottom: 0; right: 0;" />
+                            {*</div>
+                        </div>*}
                     </div>
                 </div>
             </div>

@@ -12620,7 +12620,7 @@ dl {
 .auth .brand-logo {
   margin-bottom: 2rem; }
   .auth .brand-logo img {
-    width: 150px; }
+    width: 250px; }
 
 .auth form .form-group {
   margin-bottom: 1.5rem; }
@@ -13426,3 +13426,9 @@ dl {
  .text-capitalize {
    text-transform: capitalize !important;
  }
+
+ @media only screen and (max-width: 995px) {
+  .img-login {
+    display: none !important;
+  }
+}
