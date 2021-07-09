@@ -1,4 +1,4 @@
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped table-sm">
     <thead>
 		<tr class="text-center">
 			<th>ID</th>
@@ -20,7 +20,7 @@
 				<td class="id">{$subject.courseId}</td>
 				<td>{$subject.clave}</td>
 				<td>{$subject.majorName}</td>
-				<td>{$subject.name}</td>
+				<td class="break-line">{$subject.name}</td>
 				<td>{if $subject.modality eq 'Local'}Presencial{else}{$subject.modality}{/if}</td>
 				<td>{$subject.group}</td>
 				<td>{$subject.tarifaMtro}</td>

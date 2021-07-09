@@ -1412,6 +1412,36 @@
 			return $result;
 		}
 		
-	
+		public function EnumerateSubjectByPage()
+		{
+			$filtro = "";
+			if($this->activo)
+				$filtro .= " and course.active ='".$this->activo."'";
+			
+			if($this->modalidad)
+				$filtro .= " and course.modality ='".$this->modalidad."'";
+			
+			if($this->curricula)
+				$filtro .= " and majorId ='".$this->curricula."'";
+
+			if($this->totalPeriods)
+				$filtro .= " AND totalPeriods > 0";
+			
+			$sql = 'SELECT 
+						DISTINCT(subject.subjectId), 
+						major.name AS majorName, 
+						subject.name AS name  FROM course
+					LEFT JOIN subject 
+						ON course.subjectId = subject.subjectId 
+					LEFT JOIN major 
+						ON major.majorId = subject.tipo
+					WHERE 1 ' . $filtro . '
+					ORDER BY 
+					FIELD (major.name,"MAESTRIA","DOCTORADO","CURSO","ESPECIALIDAD") asc, subject.name, modality desc, initialDate desc,  active';
+			// exit;
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->GetResult();
+			return $result;
+		}
 }	
 ?>

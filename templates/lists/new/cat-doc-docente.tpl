@@ -10,7 +10,7 @@
     	{foreach from=$registros item=subject}
 			<tr class="text-center">
 				<td>{$subject.nombre}</td>
-				<td>{$subject.descripcion}</td>
+				<td class="break-line">{$subject.descripcion}</td>
 				<td>
 					<a href="{$WEB_ROOT}/graybox.php?page=add-cat-doc-docente-add&id={$subject.catalogodocumentoId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Editar Información" class="text-success">
 						<i class="fas fa-edit fa-lg"></i>
