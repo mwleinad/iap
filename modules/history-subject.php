@@ -45,6 +45,14 @@
 				unset($result[$key]);
 			}
 		}
+		//var_dump($permisosDocente["subject"]); exit;
+		foreach($uniqueSubjects as $key => $value)
+		{
+			if(!in_array($value["subjectId"], $permisosDocente["subject"]))
+			{
+				unset($uniqueSubjects[$key]);
+			}
+		}
 	}
 	
 	if($_SESSION['msj']=='si'){

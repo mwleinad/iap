@@ -656,7 +656,23 @@
 		
 		public function DefaultGroup()
 		{
-	
+			$students_repeat = "";
+			if($this->coursemoduleId > 0)
+			{
+				$students_repeat = "UNION
+							SELECT 
+								u.*,
+								usr.alumnoId,
+								usr.status,
+								cd.discount,
+								'Recursador' AS situation
+							FROM user_subject_repeat usr 
+								LEFT JOIN user u 
+									ON usr.alumnoId = u.userId 
+								LEFT JOIN calendar_discounts cd 
+									ON (usr.alumnoId = cd.userId AND usr.courseId = cd.courseId)
+							WHERE usr.courseId = " . $this->getCourseId() . " AND u.activo = '1' AND usr.status = 'activo' AND usr.courseModuleId = " . $this->coursemoduleId;
+			}
 			$sql = "SELECT 
 						u.*, 
 						us.alumnoId,
@@ -669,19 +685,7 @@
 						LEFT JOIN calendar_discounts cd 
 							ON (us.alumnoId = cd.userId AND us.courseId = cd.courseId)
 					WHERE us.courseId = " . $this->getCourseId() . " AND u.activo = '1' AND us.status = 'activo'
-					UNION
-					SELECT 
-						u.*,
-						usr.alumnoId,
-						usr.status,
-						cd.discount,
-						'Recursador' AS situation
-					FROM user_subject_repeat usr 
-						LEFT JOIN user u 
-							ON usr.alumnoId = u.userId 
-						LEFT JOIN calendar_discounts cd 
-							ON (usr.alumnoId = cd.userId AND usr.courseId = cd.courseId)
-					WHERE usr.courseId = " . $this->getCourseId() . " AND u.activo = '1' AND usr.status = 'activo' AND usr.courseModuleId = " . $this->coursemoduleId . "
+					" . $students_repeat . "
 					ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
 			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
