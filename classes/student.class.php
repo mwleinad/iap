@@ -3116,6 +3116,85 @@ class Student extends User
 		$result = $this->Util()->DB()->GetResult();
 		return $result;
 	}
+
+
+	public function GetMatricula($courseId)
+	{
+		$sql = "SELECT matricula FROM user_subject WHERE alumnoId = " . $this->userId . " AND courseId = " . $courseId;
+		$this->Util()->DB()->setQuery($sql);
+		$matricula = $this->Util()->DB()->GetSingle();
+		return $matricula;
+	}
+
+
+	public function BoletaCalificacion($courseId, $period = 0)
+	{
+		$condition = "";
+		if($period > 0)
+			$condition = " AND subject_module.semesterId = " . $period;
+		$sql = "SELECT * 
+					FROM course_module
+						LEFT JOIN subject_module 
+							ON subject_module.subjectModuleId = course_module.subjectModuleId
+					WHERE courseId = " . $courseId . " " . $condition . "
+					ORDER BY semesterId ASC, initialDate ASC";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		foreach($result as $key => $value)
+		{
+			$sql = "SELECT *
+						FROM course_module_score
+						WHERE courseModuleId = " . $value['courseModuleId'] . " AND userId = " . $this->userId . " AND courseId = " . $courseId;
+			$this->Util()->DB()->setQuery($sql);
+			$infoCc = $this->Util()->DB()->GetRow();
+			// CALCULA ACUMULADO
+			$activity = new Activity;
+			$activity->setCourseModuleId($value['coursemoduleId']);
+			$actividades = $activity->Enumerate();
+			$sql = "SELECT teamNumber
+						FROM team
+						WHERE courseModuleId = " . $value['courseModuleId'] . " AND userId = " . $this->userId;
+			$this->Util()->DB()->setQuery($sql);
+			$result[$key]["equipo"] = $this->Util()->DB()->GetSingle();
+			$result[$key]{"addepUp"} = 0;
+			foreach($actividades as $activity)
+			{
+				if($activity["score"] <= 0)
+					continue;
+				$sqlca = "SELECT ponderation
+							FROM activity_score
+							WHERE activityId = " . $activity["activityId"] . " AND userId = " . $this->userId;
+				$this->Util()->DB()->setQuery($sqlca);
+				$score = $this->Util()->DB()->GetSingle();
+				$result[$key]{"score"}[] = $score;
+				$realScore = $score * $activity["score"] / 100;
+				$result[$key]{"realScore"}[] = $realScore;
+				$result[$key]{"addepUp"} += $realScore;
+			}
+			if($infoCc["calificacion"]==null or $infoCc["calificacion"]==0)
+			{		
+				$at = $result[$key]{"addepUp"} / 10;
+				if($this->tipoMajor == "MAESTRIA" and $at < 7)
+					$at= floor ($at);
+				else if($this->tipoMajor == "DOCTORADO" and $at < 8)
+					$at= floor ($at);
+				else
+					$at= round($at, 0, PHP_ROUND_HALF_DOWN);
+				$infoCc["calificacion"] = $at;	
+			}
+			else
+				$infoCc["calificacion"] = $infoCc["calificacion"];
+			if($this->tipoMajor == "MAESTRIA" and $infoCc["calificacion"] < 7)
+				$result[$key]["score"] = 6;
+			else if($this->tipoMajor == "DOCTORADO" and $infoCc["calificacion"] < 8)
+				$result[$key]["score"] = 7;
+			else
+				$result[$key]["score"] = $infoCc["calificacion"];
+		}
+		return $result;
+	}
+
+	
 }
 
 ?>

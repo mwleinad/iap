@@ -6,7 +6,7 @@
         <td>{$item.controlNumber}</td>
         <td>
 			{if $tipo eq 'matricula'}
-				<input type="text" name="num_{$item.userId}" id="num_{$item.userId}" value="{$item.controlNumber}" class="form-control">
+				<input type="text" name="students[{$item.userId}]" id="students[{$item.userId}]" value="{$item.matricula}" class="form-control">
 			{else}
 				<input type="text" name="num_{$item.userId}" id="num_{$item.userId}" value="{$item.referenciaBancaria}" class="form-control">
 			{/if}

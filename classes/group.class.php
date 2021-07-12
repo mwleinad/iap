@@ -662,6 +662,7 @@
 				$students_repeat = "UNION
 							SELECT 
 								u.*,
+								u.controlNumber AS matricula,
 								usr.alumnoId,
 								usr.status,
 								cd.discount,
@@ -675,6 +676,7 @@
 			}
 			$sql = "SELECT 
 						u.*, 
+						us.matricula,
 						us.alumnoId,
 						us.status AS status,
 						cd.discount,
@@ -1353,23 +1355,14 @@
 		
 		function saveMatricula()
 		{
-			
-			foreach ($_POST as $key=>$aux){
-				
-				$k = explode('_',$key);
-				if($k[0]=='num'){
-					$this->Util()->DB()->setQuery("
-						UPDATE `user` SET
-							`controlNumber` = '".$aux."'
-						WHERE
-							`userId` = '".$k[1]."'");
-						$this->Util()->DB()->UpdateData();
-				}
+			$courseId = $_POST['course'];
+			foreach ($_POST['students'] as $key => $aux)
+			{
+				$sql = "UPDATE user_subject SET matricula = '" . $aux . "' WHERE alumnoId = " . $key . " AND courseId = " . $courseId;
+				$this->Util()->DB()->setQuery($sql);
+				$this->Util()->DB()->UpdateData();
 			}
-				
-			
 			return true;
-		
 		}
 		
 		function upFile($Id)

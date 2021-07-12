@@ -1,4 +1,5 @@
 <form id="frmGral">
+	<input type="hidden" name="course" value="{$courseId}" />
 	<table class="table table-bordered table-striped">
 		<thead>      
 			{include file="{$DOC_ROOT}/templates/items/student-header1.tpl"}

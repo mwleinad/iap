@@ -68,6 +68,11 @@
 							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=edit-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Editar">
 								<i class="fas fa-pen"></i> Editar
 							</a>
+							{* Boleta de Calificaciones *}
+							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=qualifications-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Boleta de Calificaciones">
+								<i class="fas fa-file-signature"></i> Boleta de Calificaciones
+							</a>
+							{* Sabana de Calificaciones *}
 							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=ver-sabana-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Sabana de Calificaciones">
 								<i class="fas fa-tasks"></i> Sabana de Calificaciones
 							</a>

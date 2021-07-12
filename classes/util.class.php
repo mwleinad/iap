@@ -1366,6 +1366,21 @@ function HandleMultipages($page,$total,$link,$items_per_page=0,$pagevar="p"){
 
 	}//HandleMultipagesAjax
 
+	function num2order($number)
+	{
+		$order[1] = "Primero";
+		$order[2] = "Segundo";
+		$order[3] = "Tercero";
+		$order[4] = "Cuarto";
+		$order[5] = "Quinto";
+		$order[6] = "Sexto";
+		$order[7] = "Septimo";
+		$order[8] = "Octavo";
+		$order[9] = "Noveno";
+		$order[10] = "Decimo";
+		return $order[$number];
+	}
+
 }
 
 
