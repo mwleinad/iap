@@ -14,12 +14,12 @@ $infoCourse = $course->Info();
 
 $student->setUserId($_GET['al']);
 $infoStudent = $student->GetInfo();
-$modules = $student->BoletaCalificacion($_GET['co'], $_GET['cu']);
+$modules = $student->BoletaCalificacion($_GET['co'], $_GET['cu'], false);
 
 $institution->setInstitutionId(1);
 $myInstitution = $institution->Info();
 /* echo "<pre>";
-print_r($myInstitution); 
+print_r($modules); 
 exit; */
 
 $html_modules = "";
@@ -28,9 +28,9 @@ foreach($modules as $item)
 {
     $html_modules .= "<tr>
                         <td class='text-center'>" . $i . "</td>
-                        <td>" . $item['name'] . "</td>
+                        <td style='text-transform: capitalize;'>" . mb_strtolower($item['name']) . "</td>
                         <td class='text-center'>" . $item['score'] . "</td>
-                        <td class='text-center'>" . $util->num2letras($item['score']) . "</td>
+                        <td class='text-center' style='text-transform: uppercase;'><i>" . $util->num2letras($item['score']) . "</i></td>
                     </tr>";
     $i++;
 }
@@ -43,21 +43,14 @@ $html .="<html>
                         font-family: sans-serif;
                     }
 	                .txtTicket {
-			            font-size:12px;
+			            font-size: 9pt;
 			            font-family: sans-serif;
-			            text-transform: uppercase;
 			            /*font:bold 12px 'Trebuchet MS';*/ 
 		            }
 		            table,td {
 		                border: 1px solid black;
 		                border-collapse: collapse;
 	                }
-	                .notas {
-			            font-size:10px;
-			            font-family: sans-serif;
-			            text-transform: uppercase;
-			            /*font:bold 12px 'Trebuchet MS';*/ 
-		            }
 		            table,td {
 		                border: 1px solid black;
 		                border-collapse: collapse;
@@ -91,7 +84,7 @@ $html .="<html>
                     <p>
                         <b>INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS</b><br>
                         Incorporada a la Secreatria de Educación Pública del Estado<br>
-                        CLAVE: <br>
+                        CLAVE: " . $myInstitution['identifier'] . "<br>
                         Libramiento Norte Pte. No. 2718, Col. Ladera de la Loma, Tuxtla Gutiérrez, Chiapas.
                     </p>
                     <p><b class='txtTicket'>BOLETA DE CALIFICACIONES</b></p>
@@ -99,31 +92,31 @@ $html .="<html>
 		        <table align='center' width='100%' border='1' class='txtTicket'>
                     <tr>
                         <td class='text-center'><b>Nombre del Alumno:</b> </td>
-                        <td colspan='2'>" . $infoStudent['names'] . " " . $infoStudent['lastNamePaterno'] . " " . $infoStudent['lastNameMaterno'] . "</td>
+                        <td colspan='2' style='text-transform: capitalize;'>" . $infoStudent['names'] . " " . $infoStudent['lastNamePaterno'] . " " . $infoStudent['lastNameMaterno'] . "</td>
                         <td class='text-center'><b>Matrícula:</b> " . $student->GetMatricula($infoCourse['courseId']) . "</td>
                     </tr>
                     <tr>
                         <td class='text-center'><b>Posgrado:</b> </td>
-                        <td colspan='2'>" . $infoCourse['majorName'] . " " . $infoCourse['name'] . "</td>
-                        <td class='text-center'><b>Ciclo:</b> </td>
+                        <td colspan='2' style='text-transform: capitalize;'>" . mb_strtolower($infoCourse['majorName'] . " " . $infoCourse['name']) . "</td>
+                        <td class='text-center'><b>Ciclo:</b> " . $infoCourse['scholarCicle'] . "</td>
                     </tr>
                     <tr>
                         <td class='text-center'><b>Cuatrimestre:</b></td>
                         <td> " . $util->num2order($_GET['cu']) . "</td>
-                        <td class='text-center'><b>Periodo:</b> " . $infoCourse['scholarCicle'] . "</td>
+                        <td class='text-center'><b>Periodo:</b> " . $util->DeterminePeriod($modules[0]['initialDate'], 'quarter') . "</td>
                         <td class='text-center'><b>Grupo:</b> " . $infoCourse['group'] . "</td>
                     </tr>
 			    </table>
                 <table align='center' width='100%' border='1' class='txtTicket'>
                     <tr>
-                        <td rowspan='2' class='text-center'>No.</td>
+                        <td rowspan='2' class='text-center'><b>No.</b></td>
                         <td rowspan='2' class='text-center'><b>Materias</b></td>
-                        <td class='text-center'>Calificación</td>
-                        <td class='text-center'>Calificación</td>
+                        <td class='text-center'><b>Calificación</b></td>
+                        <td class='text-center'><b>Calificación</b></td>
                     </tr>
                     <tr>
-                        <td class='text-center'>En Número</td>
-                        <td class='text-center'>En Letra</td>
+                        <td class='text-center'><b>En Número</b></td>
+                        <td class='text-center'><b>En Letra</b></td>
                     </tr>
                     " . $html_modules . "
                 </table><br>

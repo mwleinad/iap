@@ -1381,6 +1381,29 @@ function HandleMultipages($page,$total,$link,$items_per_page=0,$pagevar="p"){
 		return $order[$number];
 	}
 
+	function DeterminePeriod($date, $type)
+	{
+		$period['quarter'] = [
+			['im' => 1, 'fm' => 4, 'period' => 'Enero - Abril'],
+			['im' => 5, 'fm' => 8, 'period' => 'Mayo - Agosto'],
+			['im' => 9, 'fm' => 12, 'period' => 'Septiembre - Diciembre']
+		];
+		$period['semester'] = [
+			['im' => 1, 'fm' => 6, 'period' => 'Enero - Junio'],
+			['im' => 7, 'fm' => 12, 'period' => 'Julio - Diciembre']
+		];
+		// 0 => Year, 1 => Month, 2 => Day
+		$arrayDate = explode('-', $date);
+		$response = '';
+		foreach($period[$type] as $item)
+		{
+			$month = intval($arrayDate[1]);
+			if(($item['im'] >= $month) && ($arrayDate['fm'] <= $month))
+				$response = $item['period'];
+		}
+		return $response . ' ' . $arrayDate[0];
+	}
+
 }
 
 

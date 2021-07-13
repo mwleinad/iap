@@ -3127,11 +3127,13 @@ class Student extends User
 	}
 
 
-	public function BoletaCalificacion($courseId, $period = 0)
+	public function BoletaCalificacion($courseId, $period = 0, $english = true)
 	{
 		$condition = "";
 		if($period > 0)
-			$condition = " AND subject_module.semesterId = " . $period;
+			$condition .= " AND subject_module.semesterId = " . $period;
+		if(!$english)
+			$condition .= " AND subject_module.subjectModuleId NOT IN (246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257)";
 		$sql = "SELECT * 
 					FROM course_module
 						LEFT JOIN subject_module 
