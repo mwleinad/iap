@@ -16,6 +16,9 @@ if($infoCourse['tipoCuatri'] == 'Semestre')
     $typeCourse = 'semester';
 if($infoCourse['tipoCuatri'] == 'Cuatrimestre')
     $typeCourse = 'quarter';
+$minCal = 7;
+if($infoCourse['majorId'] == 18)
+    $minCal = 8;
 
 $student->setUserId($_GET['al']);
 $infoStudent = $student->GetInfo();
@@ -31,11 +34,14 @@ $html_modules = "";
 $i = 1;
 foreach($modules as $item)
 {
+    $text_color = '';
+    if($item['score'] < $minCal)
+        $text_color = 'text-danger';
     $html_modules .= "<tr>
                         <td class='text-center'>" . $i . "</td>
                         <td style='text-transform: capitalize;'>" . mb_strtolower($item['name']) . "</td>
-                        <td class='text-center'>" . $item['score'] . "</td>
-                        <td class='text-center' style='text-transform: uppercase;'><i>" . $util->num2letras($item['score']) . "</i></td>
+                        <td class='text-center " . $text_color . "'>" . $item['score'] . "</td>
+                        <td class='text-center " . $text_color . "' style='text-transform: uppercase;'><i>" . $util->num2letras($item['score']) . "</i></td>
                     </tr>";
     $i++;
 }
@@ -79,6 +85,9 @@ $html .="<html>
                         bottom: 20px;
                         left: -50px;
                         right: 0px;
+                    }
+                    .text-danger {
+                        color: red;
                     }
 		        </style>
 	        </head>
