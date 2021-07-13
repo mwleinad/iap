@@ -8,9 +8,14 @@ use Dompdf\Dompdf;
 use Dompdf\Exception;
 
 session_start();
+$user->allow_access(37);
 
 $course->setCourseId($_GET['co']);
 $infoCourse = $course->Info();
+if($infoCourse['tipoCuatri'] == 'Semestre')
+    $typeCourse = 'semester';
+if($infoCourse['tipoCuatri'] == 'Cuatrimestre')
+    $typeCourse = 'quarter';
 
 $student->setUserId($_GET['al']);
 $infoStudent = $student->GetInfo();
@@ -19,7 +24,7 @@ $modules = $student->BoletaCalificacion($_GET['co'], $_GET['cu'], false);
 $institution->setInstitutionId(1);
 $myInstitution = $institution->Info();
 /* echo "<pre>";
-print_r($modules); 
+print_r($infoCourse); 
 exit; */
 
 $html_modules = "";
@@ -101,9 +106,9 @@ $html .="<html>
                         <td class='text-center'><b>Ciclo:</b> " . $infoCourse['scholarCicle'] . "</td>
                     </tr>
                     <tr>
-                        <td class='text-center'><b>Cuatrimestre:</b></td>
+                        <td class='text-center' style='text-transform: capitalize;'><b>" . $infoCourse['tipoCuatri'] . ":</b></td>
                         <td> " . $util->num2order($_GET['cu']) . "</td>
-                        <td class='text-center'><b>Periodo:</b> " . $util->DeterminePeriod($modules[0]['initialDate'], 'quarter') . "</td>
+                        <td class='text-center'><b>Periodo:</b> " . $util->DeterminePeriod($modules[0]['initialDate'], $typeCourse) . "</td>
                         <td class='text-center'><b>Grupo:</b> " . $infoCourse['group'] . "</td>
                     </tr>
 			    </table>
