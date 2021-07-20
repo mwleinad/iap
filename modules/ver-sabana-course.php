@@ -1,10 +1,15 @@
 <?php
-		
-	/* For Session Control - Don't remove this */
-	$user->allow_access(37);	
+	$user->allow_access(37);
+	
+	$course->setCourseId($_GET["id"]);
+	$courseInfo = $course->Info();
+	$smarty->assign('courseInfo', $courseInfo);
+	/* echo "<pre>";
+	print_r($courseInfo['totalPeriods']);
+	exit; */
 
 	//modulos conformando el curso
-	$course->setCourseId($_GET["id"]);
+	/* $course->setCourseId($_GET["id"]);
 	$addedModules = $course->AddedCourseModules();
 	
 	$cuatrimesters = $course->HowManyCuatrimesters();
@@ -41,6 +46,6 @@
 
 	$smarty->assign('addedModules', $addedModules);
 	$smarty->assign('marks', $marks);
-	$smarty->assign('id', $_GET["id"]);
+	$smarty->assign('id', $_GET["id"]); */
 	
 ?>

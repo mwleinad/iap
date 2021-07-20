@@ -1327,13 +1327,18 @@
 			return true;
 		}
 		
-		function ListModules()
+		function ListModules($period = 0, $ignoreEnglish = false, $order = " ORDER BY sm.name")
 		{
-			$sql = "SELECT cm.courseModuleId, sm.name AS subjectModuleName 
+			$condition = "";
+			if($period > 0)
+				$condition = " AND sm.semesterId = " . $period;
+			if($ignoreEnglish)
+				$condition .= " AND sm.subjectModuleId NOT IN (246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257)";
+			$sql = "SELECT cm.courseModuleId, sm.name AS subjectModuleName, cm.initialDate, cm.finalDate 
 						FROM course_module cm 
 							INNER JOIN subject_module sm 
 								ON cm.subjectModuleId = sm.subjectModuleId
-						WHERE cm.courseId = " . $this->courseId . " ORDER BY sm.name";
+						WHERE cm.courseId = " . $this->courseId . $condition . $order;
 			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
 			return $result;
