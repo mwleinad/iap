@@ -22,6 +22,10 @@ $typeCourse = '';
 $course->setCourseId($courseId);
 $courseInfo = $course->Info();
 $courseModules = $course->ListModules($period, true, " ORDER BY cm.initialDate");
+$students = $course->SabanaCalificacionesFrontal($period, true, " ORDER BY cm.initialDate", $type = 'final');
+/* echo "<pre>";
+var_dump($students);
+exit; */
 if($courseInfo['modality'] == 'Online')
     $modality = 'ESCOLAR';
 if($courseInfo['modality'] == 'Local')
@@ -35,8 +39,8 @@ if($courseInfo['tipoCuatri'] == 'Cuatrimestre')
 $institution->setInstitutionId(1);
 $myInstitution = $institution->Info();
 // Prueba Grupo Temporal
-$group->setCourseId($courseId);
-$students = $group->DefaultGroup();
+/* $group->setCourseId($courseId);
+$students = $group->DefaultGroup(); */
 $totalStudents = count($students);
 $totalPages = intval(ceil($totalStudents/25));
 /* echo "<pre>";
@@ -400,12 +404,14 @@ for($iteration = 1; $iteration <= $totalPages; $iteration++)
         $lastNamePaterno = '';
         $lastNameMaterno = '';
         $names = '';
+        $modulesScore = [];
         if($indexStudent < $totalStudents)
         {
             $lastNamePaterno = mb_strtoupper($students[$indexStudent]['lastNamePaterno']);
             $lastNameMaterno = mb_strtoupper($students[$indexStudent]['lastNameMaterno']);
             $names = mb_strtoupper($students[$indexStudent]['names']);
             $sexo = ($students[$indexStudent]['sexo'] == 'm' ? 'H' : 'M');
+            $modulesScore = $students[$indexStudent]['modules'];
         }
         if($indexStudent >= $totalStudents && $firstEmptyRow == 0)
             $firstEmptyRow = $noRow;
@@ -432,6 +438,15 @@ for($iteration = 1; $iteration <= $totalPages; $iteration++)
         // Nombre(s)
         $sheet->setCellValue(++$column . $noRow, $sexo);
         $sheet->getStyle($column . $noRow)->applyFromArray(CellStyle(7, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
+        for($is = 0; $is < count($courseModules); $is++) 
+        {
+            $calificacion = 0;
+            if(array_key_exists($is, $modulesScore))
+                $calificacion = $modulesScore[$is]['calificacion'];
+            // Calificacion
+            $sheet->setCellValue(++$column . $noRow, $calificacion);
+            $sheet->getStyle($column . $noRow)->applyFromArray(CellStyle(7, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
+        }
         $noRow++;
         $indexStudent++;
         $numberStudent++;

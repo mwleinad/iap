@@ -1448,5 +1448,40 @@
 			$result = $this->Util()->DB()->GetResult();
 			return $result;
 		}
+
+
+		function SabanaCalificacionesFrontal($period = 0, $ignoreEnglish = false, $order = " ORDER BY sm.name", $type = 'initial')
+		{
+			$sql = "SELECT u.userId, u.curp, u.lastNamePaterno, u.lastNameMaterno, u.names, us.matricula, u.sexo
+						FROM user_subject us
+							INNER JOIN user u
+								ON us.alumnoId = u.userId
+						WHERE us.status = 'activo' AND courseId = " . $this->courseId . "
+					ORDER BY u.lastNamePaterno, u.lastNameMaterno, u.names";
+			$this->Util()->DB()->setQuery($sql);
+			$students = $this->Util()->DB()->GetResult();
+			if($type == 'final')
+			{
+				$condition = "";
+				if($period > 0)
+					$condition = " AND sm.semesterId = " . $period;
+				if($ignoreEnglish)
+					$condition .= " AND sm.subjectModuleId NOT IN (246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257)";
+				foreach($students as $key => $value)
+				{
+					$sql = "SELECT cm.courseModuleId, sm.name AS subjectModuleName, cm.initialDate, cm.finalDate, cms.calificacion 
+						FROM course_module cm 
+							INNER JOIN subject_module sm 
+								ON cm.subjectModuleId = sm.subjectModuleId
+							LEFT JOIN course_module_score cms 
+								ON (cm.courseId = cms.courseId AND cm.courseModuleId = cms.courseModuleId)
+						WHERE cm.courseId = " . $this->courseId . " AND cms.userId = " . $value['userId'] . $condition . $order;
+					$this->Util()->DB()->setQuery($sql);
+					$result = $this->Util()->DB()->GetResult();
+					$students[$key]['modules'] = $result;
+				}
+			}
+			return $students;
+		}
 }	
 ?>
