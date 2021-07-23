@@ -138,6 +138,37 @@ class Student extends User
 		$this->por_beca = $value;
 	}
 
+
+	public function AddAcademicHistory($type)
+	{
+		if($type == 'baja')
+		{
+			$sql = "SELECT sm.semesterId FROM course_module_score cms
+					INNER JOIN course_module cm
+						ON cms.courseModuleId = cm.courseModuleId 
+					INNER JOIN subject_module sm
+						ON cm.subjectModuleId = sm.subjectModuleId 
+				WHERE cms.userId = " . $this->userId . " AND cms.courseId = " . $this->courseId . "
+				ORDER BY sm.semesterId DESC LIMIT 1";
+			$this->Util()->DB()->setQuery($sql);
+			$semesterId = intval($this->Util()->DB()->GetSingle());
+		}
+		if($type == 'alta')
+		{
+			$sql = "SELECT semesterId 
+						FROM academic_history 
+					WHERE subjectId = " . $this->subjectId . " AND userId = " . $this->userId . "
+					ORDER BY academicHistoryId DESC LIMIT 1";
+			$this->Util()->DB()->setQuery($sql);
+			$semesterId = intval($this->Util()->DB()->GetSingle());
+			$semesterId++;
+		}
+		$sql = "INSERT INTO academic_history(subjectId, courseId, userId, semesterId, dateHistory, type) VALUE(" . $this->subjectId . ", " . $this->courseId . ", " . $this->userId . ", " . $semesterId . ", CURDATE(), '" . $type . "')";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->InsertData();
+		return true;
+	}
+
 	public function UpdateFoto()
 	{
 		$ext = end(explode('.', basename($_FILES['foto']['name'])));
@@ -571,12 +602,14 @@ class Student extends User
 
 	function DeleteStudentCurricula()
 	{
-		$courseId=$this->getCourseId();
-		$userId=$this->getUserId();
+		$courseId = $this->getCourseId();
+		$subjectId = $this->subjectId;
+		$userId = $this->getUserId();
 
-		$sql="UPDATE user_subject SET status='inactivo' where alumnoId='".$userId."' and courseId='".$courseId."' ";
+		$sql = "UPDATE user_subject SET status = 'inactivo' where alumnoId = " . $userId . " AND courseId = " . $courseId;
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
+		$this->AddAcademicHistory('baja');
 		$this->Util()->setError(10028, "complete","Alumno eliminado con éxito de esta curricula.");
 		$this->Util()->PrintErrors();
 
@@ -618,9 +651,9 @@ class Student extends User
 			else
 			$matricula="";
 
-
+			// $info['email'] = 'carloszh04@gmail.com';
 			$complete = $this->AddUserToCurricula($userId, $courseId, $info["names"], $info["email"], $info["password"], $courseInfo["majorName"], $courseInfo["name"],$tipo_beca,$por_beca,$matricula);
-
+			$this->AddAcademicHistory('alta');
 			$this->Util()->setError(10028, "complete", $complete);
 			$this->Util()->PrintErrors();
 		return $complete;

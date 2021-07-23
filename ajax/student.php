@@ -755,7 +755,11 @@
 			
 				// echo "<pre>"; print_r($_POST);
 				// exit;
-				
+				$course->setCourseId($_POST['courseId']);
+				$courseInfo = $course->Info();
+				$student->setUserId($_POST['userId']);
+				$student->setCourseId($_POST['courseId']);
+				$student->setSubjectId($courseInfo['subjectId']);
 				$complete=$student->AddUserToCurriculaFromCatalog($_POST["userId"], $_POST["courseId"],"Ninguno",0);
 			   if($complete=="no" || $complete=="Este alumno ya esta registrado en esta curricula. Favor de Seleccionar otra Curricula"){
 						echo "fail[#]";

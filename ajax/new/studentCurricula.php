@@ -120,8 +120,11 @@ switch($_POST["type"])
 
     case "deleteStudentCurricula":
 
+		$course->setCourseId($_POST['courseId']);
+		$courseInfo = $course->Info();
         $student->setUserId($_POST['userId']);
         $student->setCourseId($_POST['courseId']);
+		$student->setSubjectId($courseInfo['subjectId']);
 
         if(!$student->DeleteStudentCurricula())
         {
