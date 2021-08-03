@@ -49,7 +49,7 @@ $totalStudents = count($students);
 $totalPages = intval(ceil($totalStudents/25));
 
 // Funcion para generar estilos
-function CellStyle($fontSize, $fontName, $fontBold, $borderType, $borderStyle, $vAlignment, $hAlignment, $textRotation, $wrapText = true)
+function CellStyle($fontSize, $fontName, $fontBold, $borderType, $borderStyle, $vAlignment, $hAlignment, $textRotation, $wrapText = true, $fontColor = '000000')
 {
     /**
      * $fontBold = true | false
@@ -108,7 +108,8 @@ function CellStyle($fontSize, $fontName, $fontBold, $borderType, $borderStyle, $
         'font' => [
             'size' => $fontSize,
             'name' => $fontName,
-            'bold' => $fontBold
+            'bold' => $fontBold,
+            'color' => ['rgb' => $fontColor]
         ],
         'borders' => [
             $borderType => [
@@ -470,9 +471,9 @@ if($typeXlsx == 1 || $typeXlsx == 3)
                 {
                     $sheet->mergeCells($column . $noRow . ':AC' . $noRow);
                     $sheet->setCellValue($column . $noRow, 'BAJA TEMPORAL');
-                    $sheet->getStyle($column . $noRow . ':AC' . $noRow)->applyFromArray(CellStyle(7, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
+                    $sheet->getStyle($column . $noRow . ':AC' . $noRow)->applyFromArray(CellStyle(7, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0, true, 'FF0000'));
                     $sheet->setCellValue('AD' . $noRow, 'BT');
-                    $sheet->getStyle('AD' . $noRow)->applyFromArray(CellStyle(7, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
+                    $sheet->getStyle('AD' . $noRow)->applyFromArray(CellStyle(7, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0, true, 'FF0000'));
                 }
                 else
                 {
@@ -482,9 +483,9 @@ if($typeXlsx == 1 || $typeXlsx == 3)
                         {
                             $sheet->mergeCells($column . $noRow . ':AC' . $noRow);
                             $sheet->setCellValue($column . $noRow, 'BAJA POR DESERCIÓN');
-                            $sheet->getStyle($column . $noRow . ':AC' . $noRow)->applyFromArray(CellStyle(7, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
+                            $sheet->getStyle($column . $noRow . ':AC' . $noRow)->applyFromArray(CellStyle(7, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0, true, 'FF0000'));
                             $sheet->setCellValue('AD' . $noRow, 'BD');
-                            $sheet->getStyle('AD' . $noRow)->applyFromArray(CellStyle(7, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
+                            $sheet->getStyle('AD' . $noRow)->applyFromArray(CellStyle(7, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0, true, 'FF0000'));
                         }
                         else
                         {
