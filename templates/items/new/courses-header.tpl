@@ -1,17 +1,18 @@
-<tr>
-    <th width="30" height="28">ID</th>
-    <th width="100" style="text-align:center">Clave</th>
-    <th width="100" style="text-align:center">Tipo</th>
-    <th width="200" style="text-align:center">Nombre</th>
-    <th width="200" style="text-align:center">Grupo</th>
-    <th width="80" style="text-align:center">Modalidad</th>
-    <th width="80" style="text-align:center">Fecha Inicial</th>
-    <th width="80" style="text-align:center">Fecha Final</th>
-   <!-- <th width="50" style="text-align:center">Dias Activo</th>-->
-    <th width="100 " style="text-align:center">Modulos (A/T)</th>
-    <th width="60" style="text-align:center">Alumnos (A/I)</th>
-    <th width="50" style="text-align:center">Activo</th>
+<tr class="text-center">
+    {if $User.type ne 'Docente'}
+        <th class="font-weight-bold">ID</th>
+    {/if}
+    <th class="font-weight-bold">Clave</th>
+    <th class="font-weight-bold">Tipo</th>
+    <th class="font-weight-bold">Nombre</th>
+    <th class="font-weight-bold">Grupo</th>
+    <th class="font-weight-bold">Modalidad</th>
+    <th class="font-weight-bold">Fecha Inicial</th>
+    <th class="font-weight-bold">Fecha Final</th>
+    <th class="font-weight-bold break-line">Modulos (A/T)</th>
+    <th class="font-weight-bold">Alumnos (A/I)</th>
+    <th class="font-weight-bold">Activo</th>
     {if !$docente}
-        <th width="100">Acciones</th>
+        <th class="font-weight-bold">Acciones</th>
     {/if}
 </tr>

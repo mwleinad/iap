@@ -683,6 +683,18 @@ function HandleMultipages($page,$total,$link,$items_per_page=0,$pagevar="p"){
 
     }//hs_eregi
 
+	function str_replace_mail($text, $data)
+	{
+		if(is_array($data))
+		{
+			foreach($data as $key => $value)
+			{
+				$text = str_replace("|" . $key . "|", $value, $text);
+			}
+		}
+		return $text;
+	}
+
 
     function hs_ereg_replace($var1,$var2,$var3){
         return preg_replace('/'.$var1.'/', $var2, $var3);
@@ -1353,6 +1365,44 @@ function HandleMultipages($page,$total,$link,$items_per_page=0,$pagevar="p"){
 		return $data;
 
 	}//HandleMultipagesAjax
+
+	function num2order($number)
+	{
+		$order[1] = "Primero";
+		$order[2] = "Segundo";
+		$order[3] = "Tercero";
+		$order[4] = "Cuarto";
+		$order[5] = "Quinto";
+		$order[6] = "Sexto";
+		$order[7] = "Septimo";
+		$order[8] = "Octavo";
+		$order[9] = "Noveno";
+		$order[10] = "Decimo";
+		return $order[$number];
+	}
+
+	function DeterminePeriod($date, $type)
+	{
+		$period['quarter'] = [
+			['im' => 1, 'fm' => 4, 'period' => 'Enero - Abril'],
+			['im' => 5, 'fm' => 8, 'period' => 'Mayo - Agosto'],
+			['im' => 9, 'fm' => 12, 'period' => 'Septiembre - Diciembre']
+		];
+		$period['semester'] = [
+			['im' => 1, 'fm' => 6, 'period' => 'Enero - Junio'],
+			['im' => 7, 'fm' => 12, 'period' => 'Julio - Diciembre']
+		];
+		// 0 => Year, 1 => Month, 2 => Day
+		$arrayDate = explode('-', $date);
+		$response = '';
+		foreach($period[$type] as $item)
+		{
+			$month = intval($arrayDate[1]);
+			if(($item['im'] >= $month) && ($arrayDate['fm'] <= $month))
+				$response = $item['period'];
+		}
+		return $response . ' ' . $arrayDate[0];
+	}
 
 }
 

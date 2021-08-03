@@ -216,7 +216,7 @@ function onSave(){
 			var splitResp = response.split("[#]");
 			$('#msj_1').html('');
 			if($.trim(splitResp[0]) == "ok"){
-					closeModal();
+					btnClose();
 					$("#msj").html(splitResp[1]);
 					$("#container").html(splitResp[2]);
 				}

@@ -16,6 +16,9 @@
 		$module->setExtraId($_POST["extraId"]);
 		$module->setActive($_POST["active"]);
 		$module->AddModuleToCourse();
+		
+		header("Location:" . WEB_ROOT . "/history-subject");
+		exit;
 	}
 
 	$course->setCourseId($_GET["id"]);

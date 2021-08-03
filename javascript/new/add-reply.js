@@ -1,3 +1,14 @@
+var editor = null;
+
+$(function() {
+	editor = new Jodit('#reply', {
+		language: "es",
+		toolbarButtonSize: "small",
+		autofocus: true,
+		toolbarAdaptive: false
+	});
+});
+
 function verComentario(Id)
 {
    $("#divCom_"+Id).toggle();

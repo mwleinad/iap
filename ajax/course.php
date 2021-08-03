@@ -78,6 +78,13 @@ switch($_POST["type"])
 		
 	
 	break;
+
+	case 'getModules':
+		$course->setCourseId($_POST['courseId']);
+		$modules = $course->ListModules();
+		$smarty->assign("modules", $modules);
+		$smarty->display(DOC_ROOT . '/templates/boxes/modulos.tpl');
+		break;
 		
 }
 ?>

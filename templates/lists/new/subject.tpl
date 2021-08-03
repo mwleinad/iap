@@ -1,4 +1,4 @@
-<table width="100%" class="tblGral table table-bordered table-striped table-condensed flip-content">
+<table class="table table-bordered table-striped table-sm">
     <thead>
         {include file="{$DOC_ROOT}/templates/items/new/subject-header.tpl"}
     </thead>

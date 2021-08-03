@@ -114,6 +114,19 @@ public function saveNotificacion(){
 			$this->Util()->DB()->InsertData();
 }
 
+	function deleteNotificacion()
+	{
+		if($this->Util()->PrintErrors())
+			return false;
+		
+		$sql = "DELETE FROM notificacion WHERE notificacionId = " . $this->notificacionId;	
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->ExecuteQuery();
+		$this->Util()->setError(10074, "complete");
+		$this->Util()->PrintErrors();
+		return true;
+	}
+
 
 
 }

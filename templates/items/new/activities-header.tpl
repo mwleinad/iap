@@ -1,12 +1,12 @@
-<tr>
-    <th width="30" height="28">ID</th>
-    <th width="100">Tipo de Actividad</th>
-    <th width="80">Fecha Inicial</th>
-    <th width="80">Fecha Final</th>
-    <th width="80">Modalidad</th>
-    <th width="200">Actividad Requerida</th>
-    <th width="60">Ponderaci&oacute;n</th>
-    <th width="200">Resumen</th>
-    <th width="80">Examen</th>
-    <th width="60">Acciones</th>
+<tr class="text-center">
+    <th>ID</th>
+    <th>Tipo de Actividad</th>
+    <th>Fecha Inicial</th>
+    <th>Fecha Final</th>
+    <th>Modalidad</th>
+    <th>Actividad Requerida</th>
+    <th>Ponderación</th>
+    <th>Resumen</th>
+    <th>Examen</th>
+    <th>Acciones</th>
 </tr>

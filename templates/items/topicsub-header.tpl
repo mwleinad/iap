@@ -1,7 +1,7 @@
-<tr>
-    <th width="200">Asunto</th>
-    <th width="100">Fecha</th>						
-  	<th width="300">Por</th>
-  	<th width="100">Respuestas</th>
-  	<th width="100">Acciones</th>
+<tr class="text-center">
+    <th class="font-weight-bold">Asunto</th>
+    <th class="font-weight-bold">Fecha</th>						
+  	<th class="font-weight-bold">Por</th>
+  	<th class="font-weight-bold">Respuestas</th>
+  	<th class="font-weight-bold">Acciones</th>
 </tr>

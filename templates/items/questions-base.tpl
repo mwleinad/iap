@@ -1,23 +1,21 @@
 {foreach from=$tests item=subject}
-    <tr>
-        <td align="center" class="id">{$subject.testId}</td>
-        <td align="center">{$subject.question}</td>
-        <td align="center">{$subject.opcionAShort}</td>
-        <td align="center">{$subject.opcionBShort}</td>
-        <td align="center">{$subject.opcionCShort}</td>
-        <td align="center">{$subject.opcionDShort}</td>
-        <td align="center">{$subject.opcionEShort}</td>
-        <td align="center">{$subject.answer}</td>
-        <td align="center">
-		<!--
-					 <a href="{$WEB_ROOT}/edit-question/id/{$subject.testId}" onclick="return parent.GB_show('Editar Pregunta', this.href,650,700) ">-->
-					  <a href="{$WEB_ROOT}/graybox.php?page=edit-question&id={$subject.testId}&auxTpl=admin&cId={$myModule.courseModuleId}" data-target="#ajax" data-toggle="modal">
-					 <img src="{$WEB_ROOT}/images/icons/16/pencil.png" class="spanEdit" id="d-{$subject.subjectId}" name="d-{$subject.name}" title="Editar" />
-					 </a>            
+    <tr class="text-center">
+        <td class="id">{$subject.testId}</td>
+        <td class="break-line">{$subject.question}</td>
+        <td>{$subject.opcionAShort}</td>
+        <td>{$subject.opcionBShort}</td>
+        <td>{$subject.opcionCShort}</td>
+        <td>{$subject.opcionDShort}</td>
+        <td>{$subject.opcionEShort}</td>
+        <td>{$subject.answer}</td>
+        <td>
+            <a href="{$WEB_ROOT}/graybox.php?page=edit-question&id={$subject.testId}&auxTpl=admin&cId={$myModule.courseModuleId}" data-target="#ajax" data-toggle="modal">
+                <i class="fas fa-edit fa-lg spanEdit" id="d-{$subject.subjectId}" name="d-{$subject.name}" title="Editar"></i>
+            </a>            
         </td>
     </tr>
 {foreachelse}
 	<tr>
-    	<td colspan="12" align="center">No se encontr&oacute; ning&uacute;n registro.</td>
+    	<td colspan="9" class="text-center">No se encontró ningún registro.</td>
 	</tr>
 {/foreach}

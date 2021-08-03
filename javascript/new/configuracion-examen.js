@@ -18,8 +18,7 @@ function EditTest(){
 			 if($.trim(splitResponse[0])=="ok"){
 
 				 $("#tblContent2").html(splitResponse[1]);
-				 $("#ajax").hide();
-				$("#ajax").modal("hide");
+				 btnClose();
 			 }else{
 				 $("#msj").html(splitResponse[1]);
 			 }

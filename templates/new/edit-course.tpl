@@ -1,12 +1,8 @@
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorm"></i>Instancias de Curricula
-        </div>
-        <div class="actions">
-        </div>
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <i class="far fa-edit"></i> Instancias de Curricula
     </div>
-    <div class="portlet-body">
-        <div id="tblContent">{include file="forms/new/edit-course.tpl"}</div>
+    <div class="card-body">
+        {include file="forms/new/edit-course.tpl"}
     </div>
 </div>

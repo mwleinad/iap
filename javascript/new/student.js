@@ -399,3 +399,43 @@ function generaSolicitud(alumnoId,courseId){
 		}
     });
 }
+
+
+function getModules()
+{
+	let curricula = $('#curricula').val();
+	$.ajax({
+	  	type: "POST",
+	  	url: WEB_ROOT + '/ajax/course.php',
+	  	data: {"type": "getModules", "courseId": curricula},
+		beforeSend: function() { },
+	  	success: function(response) {	
+			console.log(response);
+			$("#divModules").html(response);
+		},
+		error: function() {
+			alert(msgError);
+		}
+    });
+}
+
+function addCourseModule()
+{
+	$.ajax({
+		type: "POST",
+		url: WEB_ROOT+'/ajax/student.php', 
+		data: $("#frmAddCourseModule").serialize(true),
+		beforeSend: function() {			
+			$('#tblContentGray').html(LOADER3);
+		},
+		success: function(response) {
+		   	$('divLoading').hide();
+			console.log(response)
+			var splitResp = response.split("[#]");
+			$('#tblContentGray').html(splitResp[1]);	   
+		},
+		error:function() {
+			alert(msgError);
+		}
+	});	   
+}

@@ -19,6 +19,8 @@
 		private $curricula;
 		private $subtotal;
 		private $tipoCuatri;
+		private $totalPeriods;
+		private $temporalGroup;
 		
 		public function setTipoCuatri($value)
 		{
@@ -43,6 +45,16 @@
 		public function setCurricula($value)
 		{
 			$this->curricula = $value;	
+		}
+
+		public function setTotalPeriods($value)
+		{
+			$this->totalPeriods = intval($value);
+		}
+
+		public function setTemporalGroup($value)
+		{
+			$this->temporalGroup = intval($value);
 		}
 		
 		public function setId($value)
@@ -384,6 +396,10 @@
 			if($this->curricula){
 				$filtro .= " and majorId ='".$this->curricula."'";
 			}
+
+			if($this->totalPeriods){
+				$filtro .= " AND totalPeriods > 0";
+			}
 			
 			//variable donde guardaremos los registros de la pagina actual y que se regresara para su visualizacion
 			$result = NULL;
@@ -577,7 +593,8 @@
 							horario,
 							apareceTabla,
 							listar,
-							tipo
+							tipo,
+							temporalGroup
 						)
 					VALUES (
 							'" . $this->getSubjectId() . "',
@@ -596,7 +613,8 @@
 							'".$this->horario."',
 							'".$this->aparece."',
 							'".$this->listar."',
-							'".$this->tipoCuatri."'
+							'".$this->tipoCuatri."',
+							" . $this->temporalGroup . "
 							)";
 			//configuramos la consulta con la cadena de insercion
 			$this->Util()->DB()->setQuery($sql);
@@ -651,7 +669,8 @@
 						tipo='".$this->tipoCuatri."',
 						apareceTabla='".$this->aparece."',
 						listar='".$this->listar."',
-						access='".$this->personalId."|".$this->teacherId."|".$this->tutorId."|".$this->extraId."'
+						access='".$this->personalId."|".$this->teacherId."|".$this->tutorId."|".$this->extraId."',
+						temporalGroup = " . $this->temporalGroup . "
 						WHERE courseId='" . utf8_decode($this->courseId) . "'";
 			//configuramos la consulta con la cadena de actualizacion
 			$this->Util()->DB()->setQuery($sql);
@@ -812,6 +831,25 @@
 				
 				$toFinishSeconds = $result[$key]["daysToFinish"] * 3600 * 24;
 				
+				$result[$key]["daysToFinishStamp"] = strtotime($result[$key]["initialDate"]) + $toFinishSeconds;
+			}
+			return $result;
+		}
+
+		public function EnumerateOfficial()
+		{
+			$sql = "SELECT *, major.name AS majorName, subject.name AS name FROM course
+						LEFT JOIN subject ON course.subjectId = subject.subjectId 
+						LEFT JOIN major ON major.majorId = subject.tipo
+					WHERE course.active = 'si' AND course.apareceTabla = 'si'
+					ORDER BY subject.tipo, subject.name, course.group";
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->GetResult();
+			foreach($result as $key => $res)
+			{
+				$result[$key]["initialDateStamp"] = strtotime($result[$key]["initialDate"]);
+				$result[$key]["finalDateStamp"] = strtotime($result[$key]["finalDate"]);
+				$toFinishSeconds = $result[$key]["daysToFinish"] * 3600 * 24;
 				$result[$key]["daysToFinishStamp"] = strtotime($result[$key]["initialDate"]) + $toFinishSeconds;
 			}
 			return $result;
@@ -1289,8 +1327,161 @@
 			return true;
 		}
 		
+		function ListModules($period = 0, $ignoreEnglish = false, $order = " ORDER BY sm.name")
+		{
+			$condition = "";
+			if($period > 0)
+				$condition = " AND sm.semesterId = " . $period;
+			if($ignoreEnglish)
+				$condition .= " AND sm.subjectModuleId NOT IN (246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257)";
+			$sql = "SELECT cm.courseModuleId, sm.name AS subjectModuleName, cm.initialDate, cm.finalDate 
+						FROM course_module cm 
+							INNER JOIN subject_module sm 
+								ON cm.subjectModuleId = sm.subjectModuleId
+						WHERE cm.courseId = " . $this->courseId . $condition . $order;
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->GetResult();
+			return $result;
+		}
+
+		function StudentCourseModulesRepeat()
+		{
+			$info = $this->Info();
+			$sql = "SELECT * 
+						FROM user_subject_repeat usr
+							LEFT JOIN course_module cm 
+								ON usr.courseModuleId = cm.courseModuleId  
+							LEFT JOIN subject_module sm  
+								ON sm.subjectModuleId = cm.subjectModuleId
+						WHERE usr.courseId = " . $info["courseId"] . " AND usr.alumnoId = " . $_SESSION["User"]["userId"] . " 
+					ORDER BY sm.semesterId ASC, cm.initialDate ASC";
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->GetResult();
+			//print_r($result);exit;
+			foreach($result as $key => $res)
+			{
+				
+				//verifica si el alumno ya completo la encuesta
+				$sql = "
+					SELECT count(*)
+					FROM eval_alumno_docente
+					WHERE courseModuleId = '".$res['courseModuleId']."' and alumnoId = ".$_SESSION["User"]["userId"]."";
+				$this->Util()->DB()->setQuery($sql);
+				$countEval = $this->Util()->DB()->GetSingle();
+					
+				$sql = "
+					SELECT 
+						*
+					FROM 
+						course_module_score as c
+					LEFT JOIN course_module as cm on cm.courseModuleId = c.courseModuleId
+					WHERE 
+						c.courseModuleId = '".$res['courseModuleId']."' 
+						and c.userId = ".$_SESSION["User"]["userId"]." 
+						and c.courseId = ".$info["courseId"]."
+						and cm.calificacionValida = 'si' ";
+
+				$this->Util()->DB()->setQuery($sql);
+				$infoCc = $this->Util()->DB()->GetRow();
+				
+				// $infoCc['calificacion'] = 8;
+				// echo $info['majorName'];
+				// exit;
+				
+				if($infoCc['calificacion']==''){
+					$infoCc['calificacion']='En proceso';
+				}else if ($infoCc['calificacion'] < 7 and $info['majorName'] == 'MAESTRIA'){
+					$infoCc['calificacion'] = '<font color="red">'.$infoCc['calificacion'].'</font>';
+				}else if ($infoCc['calificacion'] < 8 and $info['majorName'] == 'DOCTORADO'){
+					$infoCc['calificacion'] = '<font color="red">'.$infoCc['calificacion'].'</font>';
+				}else if ($infoCc['calificacion'] <= 6){
+					$infoCc['calificacion'] = '<font color="red">'.$infoCc['calificacion'].'</font>';
+				}				
+				
+				 
+				
+				$result[$key]["finalDate"]=$result[$key]["finalDate"]." 23:59:59";
+				$result[$key]["initialDateStamp"] = strtotime($result[$key]["initialDate"]);
+				$result[$key]["finalDateStamp"] = strtotime($result[$key]["finalDate"]);
+				
+				$toFinishSeconds = $result[$key]["daysToFinish"] * 3600 * 24;
+				
+				$result[$key]["daysToFinishStamp"] = strtotime($result[$key]["initialDate"]) + $toFinishSeconds;
+				//echo $result[$key]["finalDateStamp"]."+".$toFinishSeconds."=".$result[$key]["daysToFinishStamp"]."<br/>" ;
+				$student = new Student;
+				$result[$key]["totalScore"] = $student->GetAcumuladoCourseModule($res["courseModuleId"]);
+				$result[$key]["calificacionFinal"] = $infoCc['calificacion'];
+				$result[$key]["countEval"] = $countEval;
+			}
+			
+			return $result;
+		}
 		
-		
-	
+		public function EnumerateSubjectByPage()
+		{
+			$filtro = "";
+			if($this->activo)
+				$filtro .= " and course.active ='".$this->activo."'";
+			
+			if($this->modalidad)
+				$filtro .= " and course.modality ='".$this->modalidad."'";
+			
+			if($this->curricula)
+				$filtro .= " and majorId ='".$this->curricula."'";
+
+			if($this->totalPeriods)
+				$filtro .= " AND totalPeriods > 0";
+			
+			$sql = 'SELECT 
+						DISTINCT(subject.subjectId), 
+						major.name AS majorName, 
+						subject.name AS name  FROM course
+					LEFT JOIN subject 
+						ON course.subjectId = subject.subjectId 
+					LEFT JOIN major 
+						ON major.majorId = subject.tipo
+					WHERE 1 ' . $filtro . '
+					ORDER BY 
+					FIELD (major.name,"MAESTRIA","DOCTORADO","CURSO","ESPECIALIDAD") asc, subject.name, modality desc, initialDate desc,  active';
+			// exit;
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->GetResult();
+			return $result;
+		}
+
+
+		function SabanaCalificacionesFrontal($period = 0, $ignoreEnglish = false, $order = " ORDER BY sm.name", $type = 'initial')
+		{
+			$sql = "SELECT u.userId, u.curp, u.lastNamePaterno, u.lastNameMaterno, u.names, us.matricula, u.sexo
+						FROM user_subject us
+							INNER JOIN user u
+								ON us.alumnoId = u.userId
+						WHERE us.status = 'activo' AND courseId = " . $this->courseId . "
+					ORDER BY u.lastNamePaterno, u.lastNameMaterno, u.names";
+			$this->Util()->DB()->setQuery($sql);
+			$students = $this->Util()->DB()->GetResult();
+			if($type == 'final')
+			{
+				$condition = "";
+				if($period > 0)
+					$condition = " AND sm.semesterId = " . $period;
+				if($ignoreEnglish)
+					$condition .= " AND sm.subjectModuleId NOT IN (246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257)";
+				foreach($students as $key => $value)
+				{
+					$sql = "SELECT cm.courseModuleId, sm.name AS subjectModuleName, cm.initialDate, cm.finalDate, cms.calificacion 
+						FROM course_module cm 
+							INNER JOIN subject_module sm 
+								ON cm.subjectModuleId = sm.subjectModuleId
+							LEFT JOIN course_module_score cms 
+								ON (cm.courseId = cms.courseId AND cm.courseModuleId = cms.courseModuleId)
+						WHERE cm.courseId = " . $this->courseId . " AND cms.userId = " . $value['userId'] . $condition . $order;
+					$this->Util()->DB()->setQuery($sql);
+					$result = $this->Util()->DB()->GetResult();
+					$students[$key]['modules'] = $result;
+				}
+			}
+			return $students;
+		}
 }	
 ?>

@@ -1,38 +1,27 @@
 {foreach from=$subjects item=subject}
     <tr>
-        <td align="center" class="id">{$subject.subjectId}</td>
-        <td align="center">{$subject.majorName}</td>
-        <td align="center">{$subject.clave}</td>
-        <td align="left">{$subject.name}</td>
-        <td align="left">{$subject.modules}
-		<br>
-			<a  class="spanViewModule" id="{$subject.subjectId}" name="{$subject.name}">
-			<i class="fa fa-plus-circle" aria-hidden="true" ></i>
+        <td class="text-center">{$subject.subjectId}</td>
+        <td class="text-center">{$subject.majorName}</td>
+        <td class="text-center">{$subject.clave}</td>
+        <td class="break-line">{$subject.name}</td>
+        <td class="text-center">
+			<a class="spanViewModule btn btn-dark btn-sm text-white" id="{$subject.subjectId}" name="{$subject.name}">
+                {$subject.modules} <i class="fas fa-plus-circle"></i>
 			</a>
-            <!--<img src="{$WEB_ROOT}/images/add_small.png" style="width:16px" title="Ver Módulos" />
-			</a>-->
         </td>
-        <td align="left">{$subject.payments}</td>
-        <td align="left">{$subject.cost}</td>
-        <td align="center">
-		
-			<a class="spanDelete"  id="{$subject.subjectId}" name="{$subject.name}" title="Eliminar">
-				<i class="fa fa-trash" aria-hidden="true"></i>
+        <td>{$subject.payments}</td>
+        <td>{$subject.cost}</td>
+        <td class="text-center">
+			<a class="btn btn-danger btn-sm text-white spanDelete" id="{$subject.subjectId}" name="{$subject.name}" title="Eliminar">
+                <i class="fas fa-trash-alt"></i>
 			</a>
-			<!--
-			<a class="spanEdit" id="{$subject.subjectId}" name="{$subject.name}" title="Editar">
-				<i class="fa fa-pencil" aria-hidden="true"></i>
-			</a>-->
-			
-            <!--<img src="{$WEB_ROOT}/images/del.png" class="spanDelete" style="width:16px" id="{$subject.subjectId}" name="{$subject.name}" title="Eliminar" />&nbsp;-->
-           <a href="{$WEB_ROOT}/graybox.php?page=edit-subject&id={$subject.subjectId}" title="Editar Currícula" data-target="#ajax" data-toggle="modal" style="color:#000; " >
-               <!-- <img src="{$WEB_ROOT}/images/pencil.png" style="width:16px" class="spanEdit" id="{$subject.subjectId}" name="{$subject.name}" title="Editar"  />-->
-				<i class="fa fa-pencil" aria-hidden="true"></i>
+           <a href="{$WEB_ROOT}/graybox.php?page=edit-subject&id={$subject.subjectId}" title="Editar Currícula" data-target="#ajax" data-toggle="modal" class="btn btn-info btn-sm text-white">
+                <i class="fas fa-edit"></i>
             </a>
         </td>
     </tr>
-    {foreachelse}
+{foreachelse}
     <tr>
-        <td colspan="12" align="center">No se encontr&oacute; ning&uacute;n registro.</td>
+        <td colspan="8" class="text-center">No se encontró ningún registro.</td>
     </tr>
 {/foreach}

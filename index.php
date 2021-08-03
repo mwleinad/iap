@@ -118,7 +118,7 @@ $pages = array(
 
 	"view-modules-course-student",
 	"view-modules-student",
-	"presentation-modules-student",
+	//"presentation-modules-student",
 	"information-modules-student",
 	"calendar-modules-student",
 	"examen-modules-student",
@@ -146,7 +146,6 @@ $pages = array(
 	"add-noticia",
 	"tv",
 	"recorded",
-	"recording",
 
 	"profesion",
 
@@ -210,7 +209,11 @@ $pages = array(
 	'pagos-calendario',
 	'history-calendar',
 	'finanzas',
-	'reglamento'
+	'reglamento',
+	'modulos-curricula',
+	'migrupo',
+	'notificaciones',
+	'modulos-recursar'
 );
 
 if(!in_array($_GET['page'], $pages))

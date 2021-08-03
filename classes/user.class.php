@@ -945,8 +945,14 @@ class User extends Main
 	
 	function PermisosDocente()
 	{
-	 
-		$this->Util()->DB()->setQuery("SELECT * FROM course_module");
+		$sql = "SELECT course_module.*,
+						subject.subjectId
+					FROM course_module
+						LEFT JOIN subject_module
+							ON course_module.subjectModuleId = subject_module.subjectModuleId
+						LEFT JOIN subject
+							ON subject_module.subjectId = subject.subjectId";
+		$this->Util()->DB()->setQuery($sql);
 		$modulos = $this->Util()->DB()->GetResult();
 		
 		$accesos = array();
@@ -959,6 +965,7 @@ class User extends Main
 				$accesos["course"][] = $modulo["courseId"];
 				$accesos["subjectModule"][] = $modulo["subjectModuleId"];
 				$accesos["courseModule"][] = $modulo["courseModuleId"];
+				$accesos["subject"][] = $modulo["subjectId"];
 			}
 		}
 		//print_r($accesos);
@@ -1229,6 +1236,7 @@ class User extends Main
 			$card['nombreCompleto'] = $row['name'].' '.$row['lastname_materno'].' '.$row['lastname_paterno'];
 			$card['isLogged'] = true;
 			$card['type'] =  $row['perfil'];
+			$card['photo'] =  $row['foto'];
 			$_SESSION['User'] = $card;
 			$_SESSION['empresaId'] = 15;
 			$_SESSION["lastClick"] = time();			
@@ -1263,6 +1271,7 @@ class User extends Main
 						$card['type'] = 'student';
 						$card['activo'] = $row['activo'];
 						$card['isLogged'] = true;
+						$card['photo'] = $row['rutaFoto'];
 						$_SESSION['User'] = $card;
 						$_SESSION["lastClick"] = time();							
 						return $row['userId'];

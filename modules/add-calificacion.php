@@ -18,6 +18,8 @@
 	$group->setCourseId($info["courseId"]);
 	$noTeam = $group->actaCalificacion();
 	$smarty->assign('noTeam', $noTeam);
+	$studentsRepeat = $group->actaCalificacionRepeat();
+	$smarty->assign('studentsRepeat', $studentsRepeat);
 	
 	$numberTeams = $group->GetNumberOfTeams();
 	$smarty->assign('numberTeams', $numberTeams);

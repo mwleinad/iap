@@ -16,7 +16,7 @@ function saveEditContrato(){
 			var splitResp = response.split("[#]");
 
 			if($.trim(splitResp[0]) == "ok"){
-					closeModal()
+					btnClose()
 					$("#msj").html(splitResp[1]);
 					$("#tblContent").html(splitResp[2]);
 				}

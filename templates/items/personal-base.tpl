@@ -1,18 +1,32 @@
 {foreach from=$personals item=item key=key}
-        <tr>
-        <td align="center" class="id">{$item.personalId}</td>       
-        <td>&nbsp;{$item.lastname_paterno} {$item.lastname_materno} {$item.name}</td>
-        <td align="center">{$item.position}</td>        
-        <td>&nbsp;{$item.wrappedDescription}</td>
-        <td align="center">           
-            <img src="images/icons/16/delete.png" class="spanDelete" id="{$item.personalId}" title="Eliminar" />&nbsp;
-          	<img src="images/icons/16/pencil.png" class="spanEdit" id="{$item.personalId}" title="Editar" />
-			
+    <tr>
+        <td class="id text-center">{$item.personalId}</td>    
+        <td>
+            {if $item.foto ne ''}
+                <a data-fancybox="p{$item.personalId}" href="{$WEB_ROOT}/{$item.foto}">
+                    <img src="{$WEB_ROOT}/{$item.foto}" class="img-fluid" />
+                </a>
+            {/if}
+        </td>   
+        <td class="break-line">{$item.lastname_paterno} {$item.lastname_materno} {$item.name}</td>
+        <td class="text-center">{$item.position}</td>        
+        <td class="text-center">
+            <form name="{$item.personalId}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="personalId" id="personalId" value="{$item.personalId}" />
+                <input type="file" name="foto" id="foto" class="form-control mt-3" /><br>
+                <input type="submit" value="Cambiar Foto" class="btn btn-success btn-sm mt-2" />
+            </form>
+        </td>
+        <td class="break-line">{$item.wrappedDescription}</td>
+        <td class="text-center">
+            <i id="{$item.personalId}" class="fas fa-times-circle fa-2x text-danger pointer spanDelete" data-toggle="tooltip" data-placement="top" title="Eliminar"></i>
+            <i id="{$item.personalId}" class="fas fa-pen-square fa-2x text-success pointer spanEdit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
 			{if $item.firmaConstancia eq 'si'}
-			<img src="images/pointer.png?sd"   title="FIRMA CONSTANCIAS" />
+			    {*<img src="images/pointer.png?sd"   title="FIRMA CONSTANCIAS" />*}
+                <i class="fas fa-file-signature text-info fa-2x" data-toggle="tooltip" data-placement="top" title="Firma Constancias"></i>
 			{/if}
         </td>
     </tr>
 {foreachelse}
-<tr><td colspan="5" align="center">No se encontr&oacute; ning&uacute;n registro.</td></tr>				
+    <tr><td colspan="5" class="text-center">No se encontró ningún registro.</td></tr>				
 {/foreach}

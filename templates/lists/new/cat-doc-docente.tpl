@@ -1,33 +1,25 @@
-<table width="100%" class="tblGral table table-bordered table-striped table-condensed flip-content">
+<table class="table table-bordered table-striped table-sm">
 	<thead>
-    	<tr> 
-			<th width="">Documento</th>	 
-			<th width="">Descripcion</th>	 
-		 
-			<th width=""></th>		 
+    	<tr class="text-center"> 
+			<th class="font-weight-bold break-line">Documento</th>
+			<th class="font-weight-bold break-line">Descripcion</th>
+			<th></th>
 		</tr>
     </thead>
     <tbody>
     	{foreach from=$registros item=subject}
-		<tr>
-		   
-
-			<td align="center">{$subject.nombre}</td>
-			<td align="center">{$subject.descripcion}</td>
-
-			<td align="center">
-			
-			
-						<a  href="{$WEB_ROOT}/graybox.php?page=add-docdocente&id={$subject.catalogodocumentoId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title='ENVIAR COMPROBANTE DE PAGO'>
-							<i class="material-icons md-16">create</i>
-						</a>
-		
-						<a  href="#"  onClick="loadTR('{$subject.catalogodocumentoId}')" title='SUBIR DOCUMENTO'>
-							<i class="material-icons md-16">delete_forever</i>
-						</a>
-				
-			</td>
-		 </tr>
+			<tr class="text-center">
+				<td>{$subject.nombre}</td>
+				<td class="break-line">{$subject.descripcion}</td>
+				<td>
+					<a href="{$WEB_ROOT}/graybox.php?page=add-cat-doc-docente-add&id={$subject.catalogodocumentoId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Editar Información" class="text-success">
+						<i class="fas fa-edit fa-lg"></i>
+					</a>
+					<a href="#" onClick="onDelete('{$subject.catalogodocumentoId}')" title="Eliminar Documento" class="text-danger">
+						<i class="fas fa-trash-alt fa-lg"></i>
+					</a>
+				</td>
+			</tr>
 		 {/foreach}
 	</tbody>
 </table>

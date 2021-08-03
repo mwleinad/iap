@@ -82,7 +82,7 @@ function enviarArchivo(){
 			if($.trim(splitResp[0]) == "ok"){
 				$("#msj").html(splitResp[1]);
 				$("#contenido").html(splitResp[2]);
-				closeModal()
+				btnClose();
 			}else if($.trim(splitResp[0]) == "fail"){
 				$("#txtErrMsg").show();
 	

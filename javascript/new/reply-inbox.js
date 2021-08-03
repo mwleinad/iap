@@ -1,3 +1,17 @@
+var editor = null;
+
+$(function() {
+	editor = new Jodit('#mensaje', {
+		language: "es",
+		toolbarButtonSize: "small",
+		autofocus: true,
+		toolbarAdaptive: false
+	});
+});
+
+
+
+
 function cargaInbox(tipo,courseMId){  
 	
 	// alert(tipo)
@@ -51,7 +65,7 @@ function cargaInbox(tipo,courseMId){
 function SaveMsj(courseMId,status,chatId){
 	
 	
-	$('#mensaje').html(tinymce.get('mensaje').getContent());
+	$('#mensaje').html(editor.value);
 	//$("#type").val("saveReply")
 	
 	if(status=='borrar'){

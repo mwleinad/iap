@@ -201,6 +201,7 @@
 						subject_module.bibliography as bibliography,
 						subject_module.subjectModuleId as Id,
 						subject_module.semesterId as semesId,
+						subject_module.icon as icon,
 						c.courseId as courseId,
 						c.modality as modality,
 						c.group as groupA,
@@ -904,7 +905,7 @@
 				$result['envio'] = $infouu['names'].' '.$infouu['lastNamePaterno'].' '.$infouu['lastNameMaterno'];
 				$result['recibe'] = $inforr['name'].' '.$inforr['lastname_paterno'].' '.$inforr['lastname_materno'];
 			}else{
-				$personal->setPersonalId($result['yopId']);
+				$personal->setPersonalId($result['yoId']);
 				$infouu = $personal->Info();
 				$inforr = $student->InfoEstudiate($result['usuarioId']);
 				$result['envio'] = $infouu['name'].' '.$infouu['lastname_paterno'].' '.$infouu['lastname_materno'];

@@ -28,6 +28,7 @@
 	$lstMajor = $major->Enumerate();
 	
 	$result = $course->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/history-subject', $arrPage);
+	$uniqueSubjects = $course->EnumerateSubjectByPage();
 
 	// $result = $util->orderMultiDimensionalArray($result,'active',true);
 	
@@ -44,6 +45,14 @@
 				unset($result[$key]);
 			}
 		}
+		//var_dump($permisosDocente["subject"]); exit;
+		foreach($uniqueSubjects as $key => $value)
+		{
+			if(!in_array($value["subjectId"], $permisosDocente["subject"]))
+			{
+				unset($uniqueSubjects[$key]);
+			}
+		}
 	}
 	
 	if($_SESSION['msj']=='si'){
@@ -55,6 +64,7 @@
 	$smarty->assign('perfil', $_SESSION['User']['perfil']);
 	$smarty->assign('lstMajor', $lstMajor);
 	$smarty->assign('subjects', $result);
+	$smarty->assign('uniqueSubjects', $uniqueSubjects);
 	$smarty->assign('arrPage', $arrPage);
 	$smarty->assign('coursesCount', $coursesCount);
 	// -------------------------------------------------------------------------------------------------

@@ -1,48 +1,31 @@
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorm"></i>Evaluaciones
-        </div>
-        <div class="actions">
-		<!--
-			<a class="btn red" href="#" title="IMPRIMIR" onClick="onImprimirVal('{$mId}','admin')">
-			Imprimir
-			</a>
-			-->
-        </div>
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+		<i class="fas fa-star"></i> Evaluaciones
     </div>
-	
-    <div class="portlet-body" style='text-align:justify'>
-	
-		
-		<br>
-		<br>
-        <div id="tblContentActa">
-		
-			
-				
-						<table width="100%" class="tblGral table table-bordered table-striped table-condensed flip-content">
-							<thead>
-								<tr>
-									
-									<th style="text-align:center"><b>Alumno</b></th>
-									<th style="text-align:center"><b>Evaluacion </b></th>	 
-								</tr>
-							</thead>
-							<tbody>
-								{foreach from=$ls item=subject}
-								<tr>
-									
-									<td align="center">{$subject.lastNamePaterno|upper} {$subject.lastNameMaterno|upper} {$subject.names|upper} </td>
-									<td align="center">{if $subject.eval >= 1}<font color="green"> Contestada </font>{else}<font color="red"> No Contestada</font>{/if}</td>
-									
-								</tr>
-								{/foreach}
-							</tbody>
-						</table>
-				
-           
-		   
-        </div>
+    <div class="card-body">
+		<div id="tblContentActa" class="table-responsive">		
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr class="text-center">
+						<th><b>Alumno</b></th>
+						<th><b>Evaluacion</b></th>	 
+					</tr>
+				</thead>
+				<tbody>
+					{foreach from=$ls item=subject}
+						<tr class="text-center">
+							<td>{$subject.lastNamePaterno|upper} {$subject.lastNameMaterno|upper} {$subject.names|upper}</td>
+							<td>
+								{if $subject.eval >= 1}
+									<span class="badge badge-success">Contestada</span>
+								{else}
+									<span class="badge badge-danger">No Contestada</span>
+								{/if}
+							</td>
+						</tr>
+					{/foreach}
+				</tbody>
+			</table>
+		</div>
     </div>
 </div>

@@ -1,4 +1,20 @@
-<form class="form-horizontal" id="addMajorForm" name="addMajorForm" method="post">
+<form id="addMajorForm" name="addMajorForm" method="post">
+    <input type="hidden" id="type" name="type" value="saveAddMajor"/>
+        <div class="form-group">
+            <label for="name">Nombre:</label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="Nombre">
+        </div>
+        <div class="form-group">
+            <label for="description">Descripción:</label>
+            <textarea class="form-control" name="description" id="description" cols="50" rows="6"></textarea>
+        </div>
+    <div class="form-group text-center">
+        <button type="button" class="btn btn-primary submitForm">Guardar</button>
+        <button type="button" class="btn btn-danger closeModal">Cancelar</button>
+    </div>
+</form>
+
+{*<form class="form-horizontal" id="addMajorForm" name="addMajorForm" method="post">
     <input type="hidden" id="type" name="type" value="saveAddMajor"/>
     <div class="form-body">
         <div class="form-group">
@@ -22,4 +38,4 @@
             </div>
         </div>
     </div>
-</form>
+</form>*}

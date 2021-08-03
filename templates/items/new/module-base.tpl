@@ -1,16 +1,20 @@
 {foreach from=$subjects item=subject}
     <tr>
-        <td align="center" class="id">{$subject.subjectModuleId}</td>
-        <td align="center">{$subject.clave}</td>
-        <td align="center">{$subject.semesterId}</td>
-        <td align="left">{$subject.name}</td>
-        <td align="center">
-            <a href="{$WEB_ROOT}/index_new.php?page=subject&delete={$subject.subjectModuleId}"><img src="images/icons/16/delete.png" class="spanModuleDelete" id="{$subject.subjectId}" name="{$subject.name}" title="Eliminar" /></a>
-            <a href="{$WEB_ROOT}/index_new.php?page=edit-module&id={$subject.subjectModuleId}"><img src="images/icons/16/pencil.png" class="spanEdit" id="{$subject.subjectId}" name="{$subject.name}" title="Editar" /></a>
+        <td class="id text-center">{$subject.subjectModuleId}</td>
+        <td class="text-center">{$subject.clave}</td>
+        <td class="text-center">{$subject.semesterId}</td>
+        <td>{$subject.name}</td>
+        <td class="text-center">
+            <a href="{$WEB_ROOT}/index_new.php?page=subject&delete={$subject.subjectModuleId}" onclick="return confirmationDelete(event)">
+                <i class="fas fa-times-circle fa-2x text-danger spanModuleDelete" id="{$subject.subjectId}" name="{$subject.name}" data-toggle="tooltip" data-placement="top" title="Eliminar"></i>
+            </a>
+            <a href="{$WEB_ROOT}/graybox.php?page=edit-module&id={$subject.subjectModuleId}" data-target="#ajax" data-toggle="modal" onclick="CloseFview()">
+                <i class="fas fa-pen-square fa-2x text-success spanEdit" id="{$subject.subjectId}" name="{$subject.name}" data-toggle="tooltip" data-placement="top" title="Editar"></i>
+            </a>
         </td>
     </tr>
-    {foreachelse}
+{foreachelse}
     <tr>
-        <td colspan="12" align="center">No se encontr&oacute; ning&uacute;n registro.</td>
+        <td colspan="5" class="text-center">No se encontró ningún registro.</td>
     </tr>
 {/foreach}

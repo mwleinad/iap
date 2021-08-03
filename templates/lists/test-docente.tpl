@@ -1,42 +1,31 @@
-<table width="80% !important" class="tblGral table table-bordered table-striped table-condensed flip-content">
-	<thead>
-    	<tr>	 
-		</tr>
-    </thead>
+<table class="table table-bordered table-striped table-condensed flip-content table-sm">
     <tbody>
 		{foreach from=$lstPreguntas item=item}
-    	<tr>
-			
-			<td align="center"><b>{$item.nombre}</b></td>
-			</td>
-		</tr>
-		<tr>
-			
-			<td align="center">
-				<table width="100%" class="tblGral table table-bordered table-striped table-condensed flip-content">
-				{foreach from=$item.preguntas item=itemPregunta}
-				<tr>
-					<td width="">{$itemPregunta.incr+1}</td>
-					<td width="70%">{$itemPregunta.pregunta}</td>
-					<td>
-						{foreach from=$itemPregunta.opciones item=item2 key=key}  
-							<input type='radio' name='check_{$itemPregunta.preguntaId}' id='check_{$itemPregunta.preguntaId}' value='{$item2}' class="option-input checkbox" /><font style='font-size:18px'>{$item2}</font>
-						 {/foreach}
-					</td>
-				</tr>
-				{/foreach}
-				</table>
-			</td>
-		</tr>
+			<tr class="text-center">
+				<td><b>{$item.nombre}</b></td>
+			</tr>
+			<tr>	
+				<td>
+					<table class="table table-bordered table-striped table-condensed flip-content table-sm">
+						{foreach from=$item.preguntas item=itemPregunta}
+							<tr>
+								<td>{$itemPregunta.incr+1}</td>
+								<td>{$itemPregunta.pregunta}</td>
+								<td class="text-right">
+									{foreach from=$itemPregunta.opciones item=item2 key=key}  
+										<input type="radio" name="check_{$itemPregunta.preguntaId}" id="check_{$itemPregunta.preguntaId}" value="{$item2}" class="option-input checkbox" /> {$item2}
+									{/foreach}
+								</td>
+							</tr>
+						{/foreach}
+					</table>
+				</td>
+			</tr>
 		{/foreach}
 	</tbody>
 </table>
-<b>Comentario:</b><br>
-<center>
 
-<textarea name='comentario' style='width:900px; height:100px' class='form-control'></textarea>
-<br>
-<br>
-
-
-</center>
+<div class="form-group col-md-12 mt-3">
+	<label>Comentario:</label>
+	<textarea name="comentario" class="form-control"></textarea>
+</div>

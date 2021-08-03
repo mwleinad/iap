@@ -228,7 +228,8 @@
 				$student->setLastNamePaterno($_POST['lastNamePaterno']);
 				$student->setLastNameMaterno($_POST['lastNameMaterno']);
 				$student->setSexo($_POST['sexo']);
-				$student->setBirthdate($_POST['day'],$_POST['month'],$_POST['year']);
+				$birthday = explode('-', $_POST['birthday']);
+				$student->setBirthdate(intval($birthday[2]), intval($birthday[1]), intval($birthday[0]));
 				$student->setMaritalStatus($_POST['maritalStatus']);
 				$student->setPassword(trim($_POST['password']));
 
@@ -590,7 +591,8 @@
 				$student->setLastNamePaterno($_POST['lastNamePaterno']);
 				$student->setLastNameMaterno($_POST['lastNameMaterno']);
 				$student->setSexo($_POST['sexo']);
-				$student->setBirthdate($_POST['day'],$_POST['month'],$_POST['year']);
+				$birthday = explode('-', $_POST['birthday']);
+				$student->setBirthdate(intval($birthday[2]), intval($birthday[1]), intval($birthday[0]));
 				$student->setMaritalStatus($_POST['maritalStatus']);
 				$student->setPassword(trim($_POST['password']));
 
@@ -753,7 +755,11 @@
 			
 				// echo "<pre>"; print_r($_POST);
 				// exit;
-				
+				$course->setCourseId($_POST['courseId']);
+				$courseInfo = $course->Info();
+				$student->setUserId($_POST['userId']);
+				$student->setCourseId($_POST['courseId']);
+				$student->setSubjectId($courseInfo['subjectId']);
 				$complete=$student->AddUserToCurriculaFromCatalog($_POST["userId"], $_POST["courseId"],"Ninguno",0);
 			   if($complete=="no" || $complete=="Este alumno ya esta registrado en esta curricula. Favor de Seleccionar otra Curricula"){
 						echo "fail[#]";
@@ -959,7 +965,7 @@
 			$student->setAnterior($_POST["anterior"]);
 			$student->setNuevo($_POST["nuevo"]);
 			$student->setRepite($_POST["repite"]);
-				if($url = $student->onSavePass()){
+				if($url = $student->onSavePass($_SESSION["User"]["userId"])){
 				$_SESSION['msjCc'] = 'si';
 				echo "ok[#]";
 			}else{
@@ -967,6 +973,24 @@
 			}
 		
 		break;
+
+		case "addCourseModuleStudent":
+			$complete = $student->AddUserToCourseModuleFromCatalog($_POST["userId"], $_POST["curricula"], $_POST["modulo"]);
+			if($complete == "no" || $complete == "Este alumno ya esta registrado en este modulo. Favor de Seleccionar otro Modulo")
+			{
+				echo "fail[#]";
+				$util->PrintErrors();
+				$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
+			}
+			else
+			{	
+				echo "ok[#]";
+				$student->setUserId($_POST["userId"]);
+				$modulesRepeat = $student->StudentModulesRepeat();
+				$smarty->assign('modulesRepeat', $modulesRepeat);
+				$smarty->display(DOC_ROOT.'/templates/lists/student-repeat.tpl');
+			}
+			break;
 	}
 
 ?>

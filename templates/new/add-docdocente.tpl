@@ -1,45 +1,24 @@
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorn"></i>Adjuntar Documento
-        </div>
-        <div class="actions">
-
-        </div>
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <i class="far fa-folder"></i> Agregar Documento
     </div>
-    <div class="portlet-body">
-         <div class="form-body">
-					<form class="form-horizontal" id="frmGral" method="post"  >
-					<input type="hidden" id="type" name="type" value="adjuntarDocDocente"/>
-					<input type="hidden"  name="personalId" value="{$personalId}"/>
-					<input type="hidden" id="solicitudId" name="catId" value="{$catId}"/>
-						<div class="form-group">
-							<label class="col-md-3 control-label">Archivo:</label>
-							<div class="col-md-8">
-							   <input type="file" name="comprobante">
-							   <br>
-							   <br>
-							</div>
-						</div>
-					</form>
-					<div class="form-actions">
-						<div class="row">
-							<div class="col-md-offset-3 col-md-9">
-								<button  class="btn green" id="addMajor" name="addMajor" onClick="enviarArchivo()">Enviar</button>
-								<button type="button" class="btn default closeModal" onClick="closeModal()">Cancelar</button>
-							</div>
-						</div>
-					</div>
+    <div class="card-body">
+		<form id="frmGral" method="post">
+			<input type="hidden" id="type" name="type" value="adjuntarDocDocente" />
+			<input type="hidden" name="personalId" value="{$personalId}" />
+			<input type="hidden" id="solicitudId" name="catId" value="{$catId}" />
+			<div class="row">
+				<div class="col-md-12">
+					<label for="comprobante">Archivo:</label>
+					<input type="file" id="comprobante" name="comprobante">
 				</div>
-
-
-			<script type="text/javascript">
-				tinyMCE.init({
-					mode : "textareas",
-					theme : "advanced",
-					skin : "o2k7"
-
-				});
-			</script>
+			</div>
+		</form>
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<button class="btn btn-primary" id="addMajor" name="addMajor" onClick="enviarArchivo()">Enviar</button>
+				<button type="button" class="btn btn-danger closeModal" onClick="btnClose()">Cancelar</button>
+			</div>
+		</div>
     </div>
 </div>

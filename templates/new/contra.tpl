@@ -1,45 +1,34 @@
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorm"></i><b>Actualizar Contraseña</b> {$myModule.name|truncate:65:"..."} &raquo;
-        </div>
-        <div class="actions">
-		
-		
-		</div>
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <i class="fas fa-save"></i> <b>Actualizar Contraseña</b> {$myModule.name|truncate:65:"..."} &raquo;
     </div>
-    <div class="portlet-body">
-		<br>
-		<br>
-
+    <div class="card-body">
 		<form id="frmPass" onsubmit="return false;">
-			<table>
-				<tr>
-					<td>Contraseña Anterior</td>
-					<td><input name='anterior' type="password" class="form-control" style="width:188px"></td>
-				</tr>
-				<tr>
-					<td>Nueva Contraseña</td>
-					<td><input name='nuevo' id='nuevo' type="password" class="form-control" style="width:188px">
-					<!--<input type="checkbox" name="show" id="show" onClick="onVerPass()">-->
-					</td>
-				</tr>
-					<tr>
-					<td>Repite la nueva contraseña</td>
-					<td><input name='repite' type="password" class="form-control" style="width:188px"></td>
-				</tr>
-			</table>
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label for="anterior">Contraseña Anterior</label>
+					<input id="anterior" name="anterior" type="password" class="form-control" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label for="nuevo">Nueva Contraseña</label>
+					<input name="nuevo" id="nuevo" type="password" class="form-control" />
+				</div>
+				<div class="form-group col-md-6">
+					<label for="repite">Repite la nueva contraseña</label>
+					<input id="repite" name="repite" type="password" class="form-control" />
+				</div>
+			</div>
 		</form>
-		<center>
-		<div id="res_"></div>
-		<button class="btn green" type="button" onClick="onSavePass()">Actualizar</button>
-		 <button type="button" class="btn default closeModal" onClick="closeModal()">Cancelar</button>
-		</center>
-		<br>
-		<br>
-	
-	<div id="load"></div>
-		<div id="msj5"></div>
-	
+		<div class="row">
+			<div class="col-md-12 text-center"><div id="res_"></div></div>
+			<div class="col-md-12 text-center"><div id="load"></div></div>
+			<div class="col-md-12 text-center"><div id="msj5"></div></div>
+			<div class="col-md-12 mt-3 text-center">
+				<button class="btn btn-success" type="button" onClick="onSavePass()">Actualizar</button>
+				<button type="button" class="btn btn-danger closeModal" onClick="btnClose()">Cancelar</button>
+			</div>
+		</div>
     </div>
 </div>

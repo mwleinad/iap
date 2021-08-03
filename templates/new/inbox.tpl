@@ -1,56 +1,58 @@
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-comments-o"></i>
-        </div>
-
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+		<i class="far fa-envelope"></i> Inbox
     </div>
-    <div class="portlet-body">
-        <div id="tblContent">
-		<div class="row-fluid inbox">
-					<div class="span2">
-						<ul class="inbox-nav margin-bottom-10">
-						{if $userType eq 'student'}
-							{if $countCourses >= 1}
-							
-							<li class="compose-btn">
-							
-								<a data-target="#ajax" data-toggle="modal" href="{$WEB_ROOT}/graybox.php?page=nuevo-inbox" data-title="Compose" class="btn green"> 
-								<i class="icon-edit"></i>Nuevo
-								</a>
-							</li>
-							{/if}
+    <div class="card-body">
+        <div id="tblContent" class="row">
+			{* ASIDE *}
+			<div class="col-md-2">
+				<div class="list-group">
+					{if $userType eq 'student'}
+						{if $countCourses >= 1}
+							<a data-target="#ajax" data-toggle="modal" href="{$WEB_ROOT}/graybox.php?page=nuevo-inbox" data-title="Compose"> 
+								<i class="icon-edit"></i> Nuevo
+							</a>
 						{/if}
-							<li class="inbox active" id="linkEntrada">
-								<a href="javascript:;" class="btn" data-title="Inbox" onClick="cargaInbox('entrada','{$courseMId}')">Entrada</a>
-								<b></b>
-							</li>
-							<li class="sent" id="linkEnviado"><a class="btn" href="javascript:;"  onClick="cargaInbox('enviados','{$courseMId}')" data-title="Sent">Enviados</a><b></b></li>
-							<li class="draft" id="linkBorrador"><a class="btn" href="javascript:;" onClick="cargaInbox('borrador','{$courseMId}')" data-title="Draft">Borrador</a><b></b></li>
-							<li class="trash" id="linkEliminado"><a class="btn" href="javascript:;" onClick="cargaInbox('eliminados','{$courseMId}')" data-title="Trash">Eliminados</a><b></b></li>
-						</ul>
-					</div>
-					<div class="span10">
-						<div class="inbox-header">
-							<h1 class="pull-left">Inbox</h1>
-							<form action="#" class="form-search pull-right">
-								<div class="input-append">
-									<input class="form-control" style="float:left" type="text" placeholder="Buscar Correo">
-									<button class="btn green" type="button">Buscar</button>
-								</div>
-							</form>
+					{/if}
+					<a href="javascript:;" class="list-group-item list-group-item-action inbox active" id="linkEntrada" data-title="Inbox" onClick="cargaInbox('entrada','{$courseMId}')">
+						<small><i class="fas fa-inbox"></i> Recibidos</small>
+					</a>
+					<a href="javascript:;" class="list-group-item list-group-item-action send" id="linkEnviado" onClick="cargaInbox('enviados','{$courseMId}')" data-title="Sent">
+						<small><i class="fas fa-paper-plane"></i> Enviados</small>
+					</a>
+					<a href="javascript:;" class="list-group-item list-group-item-action draft" id="linkBorrador" onClick="cargaInbox('borrador','{$courseMId}')" data-title="Draft">
+						<small><i class="fas fa-file-signature"></i> Borradores</small>
+					</a>
+					<a href="javascript:;" class="list-group-item list-group-item-action trash" id="linkEliminado" onClick="cargaInbox('eliminados','{$courseMId}')" data-title="Trash">
+						<small><i class="fas fa-trash-alt"></i> Eliminados</small>
+					</a>
+				</div>
+			</div>
+			{* CONTENT *}
+			<div class="col-md-10">
+				{* SEARCH *}
+				<div class="col-md-12 mb-4">
+					<form action="#" class="form-search">
+						<div class="form-row d-flex justify-content-center">
+							<div class="col-auto">
+								<input class="form-control" type="text" placeholder="Buscar Correo">
+							</div>
+							<div class="col-auto">
+								<button class="btn btn-info" type="button">Buscar</button>
+							</div>
 						</div>
-						<br>
-						<div class="inbox-loading"></div>
-						
-						<form id="frmGral" onsubmit="return false;">
-						<div class="inbox-content" id="contentInbox">
+					</form>
+				</div>
+				{* INBOX *}
+				<div class="col-md-12">
+					<div class="inbox-loading"></div>
+					<form id="frmGral" onsubmit="return false;">
+						<div class="inbox-content table-responsive" id="contentInbox">
 							{include file="{$DOC_ROOT}/templates/lists/inbox.tpl"}
 						</div>
-						  </form>
-					</div>
+					</form>
 				</div>
-		
+			</div>
 		</div>
     </div>
 </div>

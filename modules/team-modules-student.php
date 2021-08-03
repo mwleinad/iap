@@ -5,7 +5,17 @@
 
 	if($_POST)
 	{
-		
+		$list_users = explode(",", $_POST["list_roles"]);
+		$mails = '';
+		$last_key = end(array_keys($list_users));
+		foreach($list_users as $key => $value) {
+			$student->setUserId($value);
+			$data = $student->InfoUser();
+			$mails .= $data['email'];
+			if (next($list_users)==true)
+				$mails .= ',';
+		}
+		$_POST["list_roles"] = $mails;
 		// echo "<pre>"; print_r($_FILES);
 		// exit;
 		$group->SendMailTeam();

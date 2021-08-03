@@ -1,10 +1,8 @@
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorm"></i>Editar Información
-        </div>
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <i class="fas fa-user-edit"></i> Editar Información
     </div>
-    <div class="portlet-body">
+    <div class="card-body">
         <div id="tblContent">{include file="boxes/edit-student-popup-alumn.tpl"}</div>
     </div>
 </div>

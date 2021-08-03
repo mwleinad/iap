@@ -1,14 +1,16 @@
 {foreach from=$roles item=item key=key}
-        <tr>
-        <td align="center" class="id">{$item.roleId}</td>
-        <td align="center">{$item.clave}</td>       
-        <td align="center">{$item.name}</td>        
-        <td id="etitl1">&nbsp;{$item.wrappedDescription}</td>        
-        <td align="center">                        
-            <img src="images/icons/16/delete.png" class="spanDelete" id="{$item.roleId}" title="Eliminar" />&nbsp;
-          	<img src="images/icons/16/pencil.png" class="spanEdit" id="{$item.roleId}" title="Editar" />
+    <tr>
+        <td class="id text-center">{$item.roleId}</td>
+        <td class="text-center">{$item.clave}</td>       
+        <td class="text-center">{$item.name}</td>        
+        <td id="etitl1">{$item.wrappedDescription}</td>        
+        <td class="text-center">
+            <i id="{$item.roleId}" class="fas fa-times-circle fa-2x text-danger pointer spanDelete" data-toggle="tooltip" data-placement="top" title="Eliminar"></i>
+            <i id="{$item.roleId}" class="fas fa-pen-square fa-2x text-success pointer spanEdit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
         </td>
     </tr>
 {foreachelse}
-<tr><td colspan="5" align="center">No se encontró ningún registro.</td></tr>				
+    <tr>
+        <td colspan="5" class="text-center">No se encontrÃ³ ningÃºn registro.</td>
+    </tr>				
 {/foreach}

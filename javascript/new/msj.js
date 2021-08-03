@@ -9,7 +9,8 @@ function closeModal(){
 function onEnviaMsj(id,activo){
 	
 	
-	$('#description').html(tinymce.get('description').getContent());
+	var editor = new Jodit('#description');
+	$('#description').html(editor.value);
 	
 	
 	

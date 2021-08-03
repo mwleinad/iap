@@ -28,7 +28,8 @@ function showModal(title, data)
     bootbox.dialog({
         message: data,
         title: title,
-        buttons: {}
+        buttons: {},
+        size: 'large'
     });
 }
 

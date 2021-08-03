@@ -15,7 +15,7 @@ function onSave(){
 			var splitResp = response.split("[#]");
 
 			if($.trim(splitResp[0]) == "ok"){
-					closeModal();
+					btnClose();
 					$("#msj").html(splitResp[1]);
 					$("#contenido").html(splitResp[2]);
 				}
@@ -36,35 +36,38 @@ function closeModal(){
 }
 
 
-function onDelete(Id){
-	
-	var resp = confirm("Esta seguro de eliminar el Documento?");
-	
-	if(!resp)
-		return;
-	
-	$.ajax({
-	  	type: "POST",
-	  	url: WEB_ROOT+'/ajax/new/personal.php',
-	  	data: $("#frmGral").serialize(true)+'&Id='+Id+'&type=onDeleteDocumento',
-		beforeSend: function(){			
-			// $('#tblContent').html(LOADER3);
-		},
-	  	success: function(response) {	
-		
-			console.log(response)
-			var splitResp = response.split("[#]");
-
-			if($.trim(splitResp[0]) == "ok"){
-					$("#msj").html(splitResp[1]);
-					$("#contenido").html(splitResp[2]);
-				}
-			else if($.trim(splitResp[0]) == "fail"){
-				$("#msj").html(splitResp[1]);
-			}
-		}
+function onDelete(Id)
+{
+	Swal.fire({
+        title: '¿Estas seguro que deseas eliminar este alumno de esta curricula?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#58ff85',
+        cancelButtonColor: '#ff4545',
+        confirmButtonText: 'Confirmar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url : WEB_ROOT+'/ajax/new/personal.php',
+                type: "POST",
+                data: $("#frmGral").serialize(true)+'&Id='+Id+'&type=onDeleteDocumento',
+                beforeSend: function(){	},
+                success: function(response)
+                {
+                    console.log(response)
+					var splitResp = response.split("[#]");
+					if($.trim(splitResp[0]) == "ok")
+					{
+						$("#msj").html(splitResp[1]);
+						$("#contenido").html(splitResp[2]);
+					}
+					else if($.trim(splitResp[0]) == "fail")
+						$("#msj").html(splitResp[1]);
+                },
+                error: function (){ alert('Something went wrong...'); }
+            });
+        }
     });
-	
 }
 
 

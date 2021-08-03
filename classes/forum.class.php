@@ -271,111 +271,72 @@
 		
 		public function Replies()
 		{
-			$this->Util()->DB()->setQuery("
-				SELECT * FROM reply
-				LEFT JOIN user ON user.userId = reply.userId
-				LEFT JOIN personal ON personal.personalId = reply.personalId
-				WHERE topicId = ".$this->topicsubId." AND son = 0
-				ORDER BY replyDate ASC");
+			$sql = "SELECT * FROM reply
+						LEFT JOIN user ON user.userId = reply.userId
+						LEFT JOIN personal ON personal.personalId = reply.personalId
+					WHERE topicId = ".$this->topicsubId." AND son = 0
+					ORDER BY replyDate ASC";
+			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
-			
-			// echo "<pre>"; print_r($result);
-			// exit;
 			
 			foreach($result as $key => $res)
 			{
-				
-				
-				
-				
-				
 				$result[$key]["content"] = $this->Util()->DecodeTiny($result[$key]["content"]);
-				if(file_exists(DOC_ROOT."/forofiles/".$res["path"])){
+				if(file_exists(DOC_ROOT."/forofiles/".$res["path"]))
+				{
 					$result[$key]["existeArchivo"] = "si";
-					$ext = explode(".",$res["path"]);
-					if($ext[1]=="png" or $ext[1]=="jpg" or $ext[1]=="jpeg"){
+					$ext = explode(".", $res["path"]);
+					if($ext[1] == "png" or $ext[1] == "jpg" or $ext[1] == "jpeg")
 						$result[$key]["formato"] = "imagen";
-					}
-				}else{
+				}else
 					$result[$key] ["existeArchivo"] = "no";
+				
+				if(file_exists(DOC_ROOT . "/alumnos/" . $res["userId"] . ".jpg"))
+				{
+					$result[$key]["foto"] = '<img src="'.WEB_ROOT.'/alumnos/'.$res["userId"].'.jpg" width="40" height="40" style="height:auto; 
+					width: auto; max-width: 80px; max-height: 80px;" />';
+				}else
+				{
+					$result[$key]["foto"] ='<i class="fas fa-user-circle fa-4x text-primary"></i>';
 				} 
 				
-				if(file_exists(DOC_ROOT."/alumnos/".$res["userId"])){
-					$result[$key]["foto"] = '
-						<img src="'.WEB_ROOT.'/alumnos/'.$res["userId"].'.jpg" width="40" height="40" style=" height: auto; 
-					width: auto; 
-					max-width: 80px; 
-					max-height: 80px;"/>
-					</a>';
-				}else{
-					$result[$key]["foto"] ='
-						<img src="'.WEB_ROOT.'/images/new/user.png" width="40" height="40" style=" height: auto; 
-					width: auto; 
-					max-width: 80px; 
-					max-height: 80px;"/>
-					</a>';
-				} 
-				
-				 $sql = "
-				SELECT count(*) FROM reply
-				LEFT JOIN user ON user.userId = reply.userId
-				LEFT JOIN personal ON personal.personalId = reply.personalId
-				WHERE son = '".$res["replyId"]."'
-				ORDER BY replyDate DESC";
+				$sql = "SELECT count(*) FROM reply
+							LEFT JOIN user ON user.userId = reply.userId
+							LEFT JOIN personal ON personal.personalId = reply.personalId
+						WHERE son = " . $res["replyId"] . " ORDER BY replyDate DESC";
 				$this->Util()->DB()->setQuery($sql);
 				$countComen = $this->Util()->DB()->GetSingle();
 				$result[$key]["numComentarios"] = $countComen;
-// echo "<br>";
-// echo "<br>";
-// echo "<br>";
-// echo "<br>";
-			
 				
-				$this->Util()->DB()->setQuery("
-				SELECT * FROM reply
-				LEFT JOIN user ON user.userId = reply.userId
-				LEFT JOIN personal ON personal.personalId = reply.personalId
-				WHERE son = '".$res["replyId"]."'
-				ORDER BY replyDate ASC");
-
-				
+				$sql = "SELECT * FROM reply
+							LEFT JOIN user ON user.userId = reply.userId
+							LEFT JOIN personal ON personal.personalId = reply.personalId
+						WHERE son = " . $res["replyId"] . " ORDER BY replyDate ASC";
+				$this->Util()->DB()->setQuery($sql);
 				
 				$result[$key]["replies"] = $this->Util()->DB()->GetResult();
 				foreach($result[$key]["replies"] as $keyReply => $reply)
 				{
-					if(file_exists(DOC_ROOT."/forofiles/".$reply["path"])){
+					if(file_exists(DOC_ROOT . "/forofiles/" . $reply["path"] . ".jpg") || file_exists(DOC_ROOT . "/forofiles/" . $reply["path"]))
+					{
 						$result[$key]["replies"][$keyReply]["existeArchivo"] = "si";
-						$ext2 = explode(".",$reply["path"]);
-						if($ext2[1]=="png" or $ext2[1]=="jpg" or $ext2[1]=="jpeg"){
+						$ext2 = explode(".", $reply["path"]);
+						if($ext2[1] == "png" or $ext2[1] == "jpg" or $ext2[1] == "jpeg")
 							$result[$key]["replies"][$keyReply]["formato"]= "imagen";
-						}
-					}else{
+					}else
 						$result[$key]["replies"][$keyReply]["existeArchivo"] = "no";
-					} 
 					
-					if(file_exists(DOC_ROOT."/alumnos/".$reply["userId"])){
-						$result[$key]["replies"][$keyReply]["foto"] = '
-							<img src="'.WEB_ROOT.'/alumnos/'.$reply["userId"].'.jpg" width="40" height="40" style=" height: auto; 
-						width: auto; 
-						max-width: 80px; 
-						max-height: 80px;"/>
-						</a>';
-					}else{
-						$result[$key]["replies"][$keyReply]["foto"] ='
-							<img src="'.WEB_ROOT.'/images/new/user.png" width="40" height="40" style=" height: auto; 
-						width: auto; 
-						max-width: 80px; 
-						max-height: 80px;"/>
-						</a>';
+					if(file_exists(DOC_ROOT . "/alumnos/" . $reply["userId"] . ".jpg"))
+					{
+						$result[$key]["replies"][$keyReply]["foto"] = '<img src="'.WEB_ROOT.'/alumnos/'.$reply["userId"].'.jpg" width="40" height="40" style=" height: auto; width: auto; max-width: 80px; max-height: 80px;"/>';
+					}else
+					{
+						$result[$key]["replies"][$keyReply]["foto"] ='<i class="fas fa-user-circle fa-4x text-info"></i>';
 					} 
-					
 					$result[$key]["replies"][$keyReply]["content"] = $this->Util()->DecodeTiny($reply["content"]);
 				}
 
 			}
-			
-				// echo "<pre>"; print_r($result);
-			// exit;
 			return $result;
 		}
 

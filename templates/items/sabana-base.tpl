@@ -1,16 +1,18 @@
 {foreach from=$marks item=item key=key}
-        <tr id="1">
-        <td align="center">{$item.info.userId}</td>
-        <td align="center">{$item.info.controlNumber}</td>
-        <td align="center">{$item.info.lastNamePaterno} {$item.info.lastNameMaterno} {$item.info.names}</td>
-        {foreach from=$addedModules item=modules} 
-          <td width="60">{$item.marks.{$modules.courseModuleId}}</td> 
-        {/foreach}
-          <td width="60">{$item.marks.finalMark}</td> 
-        <td align="center">
-           <a style="color:#000000" target="_blank" href="{$WEB_ROOT}/certificado.php?id={$item.info.userId}&courseId={$id}">&raquo; Generar Certificado</a>
-        </td>
-    </tr>
+<tr id="1">
+	<td class="text-center">{$item.info.userId}</td>
+	<td class="text-center">{$item.info.controlNumber}</td>
+	<td class="text-center">{$item.info.lastNamePaterno} {$item.info.lastNameMaterno} {$item.info.names}</td>
+	{foreach from=$addedModules item=modules} 
+		<td>{$item.marks.{$modules.courseModuleId}}</td> 
+	{/foreach}
+	<td>{$item.marks.finalMark}</td> 
+	<td class="text-center">
+		<a href="{$WEB_ROOT}/certificado.php?id={$item.info.userId}&courseId={$id}" target="_blank" class="text-dark">
+			<i class="fas fa-link"></i> Generar Certificado
+		</a>
+	</td>
+</tr>
 {foreachelse}
-	<tr><td colspan="4" align="center">No se encontr&oacute; ning&uacute;n registro.</td></tr>
+	<tr><td colspan="5" class="text-center">No se encontró ningún registro.</td></tr>
 {/foreach}

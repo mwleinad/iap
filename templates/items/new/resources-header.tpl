@@ -1,6 +1,8 @@
-<tr>
-    <th width="300">Nombre</th>
-    <th width="500">Descripción</th>
-    <th width="50">Descargar</th>
-    <th width="60">Acciones</th>
+<tr class="text-center">
+    <th class="font-weight-bold">Nombre</th>
+    <th class="font-weight-bold">Descripción</th>
+    <th class="font-weight-bold">Descargar</th>
+    {if $User.type ne 'student'}
+        <th class="font-weight-bold">Acciones</th>
+    {/if}
 </tr>

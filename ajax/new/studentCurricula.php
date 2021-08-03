@@ -120,8 +120,11 @@ switch($_POST["type"])
 
     case "deleteStudentCurricula":
 
+		$course->setCourseId($_POST['courseId']);
+		$courseInfo = $course->Info();
         $student->setUserId($_POST['userId']);
         $student->setCourseId($_POST['courseId']);
+		$student->setSubjectId($courseInfo['subjectId']);
 
         if(!$student->DeleteStudentCurricula())
         {
@@ -132,11 +135,30 @@ switch($_POST["type"])
 
         }else{
             echo "ok[#]";
-            $util->setError(10028, "complete","Alumno eliminado con exito de esta curricula");
+            $util->setError(10028, "complete","Alumno eliminado con exito de esta curricula.");
             $util->PrintErrors();
             $smarty->display(DOC_ROOT.'/templates/boxes/status_on_popup.tpl');
 
         }
+		break;
+
+    case "enableStudentCurricula":
+
+        $student->setUserId($_POST['userId']);
+        $student->setCourseId($_POST['courseId']);
+
+        if(!$student->EnableStudentCurricula())
+        {
+            echo "fail[#]";
+            $smarty->display(DOC_ROOT.'/templates/boxes/status_on_popup.tpl');
+        }else{
+            echo "ok[#]";
+            $util->setError(10028, "complete", "Alumno activado con exito.");
+            $util->PrintErrors();
+            $smarty->display(DOC_ROOT.'/templates/boxes/status_on_popup.tpl');
+
+        }
+		break;
 
 
 
@@ -155,7 +177,8 @@ switch($_POST["type"])
 
         $group->setCourseId($_POST['id']);
         $students=$group->DefaultGroupInactivo();
-		 $smarty->assign("tip",$_POST['tip']);
+		$smarty->assign("tip", $_POST['tip']);
+		$smarty->assign("courseId", $_POST['id']);
         $smarty->assign("DOC_ROOT", DOC_ROOT);
         $smarty->assign("students", $students);
         $smarty->display(DOC_ROOT.'/templates/boxes/view-studentadmin.tpl');
@@ -190,7 +213,7 @@ switch($_POST["type"])
 			  <button type="button" class="close" data-dismiss="alert">&times;</button>
 			 Los datos se guardaron correctamente
 			</div>';
-			echo $_SESSION['msj']='si';
+			$_SESSION['msj']='si';
 		 }else{
 			 echo 'fail[#]';
 		 }
@@ -245,7 +268,9 @@ switch($_POST["type"])
 		$course->setModalidad($_POST['modalidad']);
 		$course->setCurricula($_POST['curricula']);
 		$result = $course->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/history-subject', $arrPage);
+		$uniqueSubjects = $course->EnumerateSubjectByPage();
 		$smarty->assign('subjects', $result);
+		$smarty->assign('uniqueSubjects', $uniqueSubjects);
 		$smarty->display(DOC_ROOT.'/templates/lists/new/courses.tpl');
 	
 	break;
@@ -341,16 +366,19 @@ switch($_POST["type"])
 	// exit;
 	
 	//checar a que curriculas tengo permiso
-	if(in_array(2, $info["roles"]))
+	if(is_array($info))
 	{
-		$smarty->assign('docente', 1);
-		$permisosDocente = $user->PermisosDocente();
-		
-		foreach($addedModules as $key => $value)
+		if(in_array(2, $info["roles"]))
 		{
-			if(!in_array($value["courseModuleId"], $permisosDocente["courseModule"]))
+			$smarty->assign('docente', 1);
+			$permisosDocente = $user->PermisosDocente();
+			
+			foreach($addedModules as $key => $value)
 			{
-				unset($addedModules[$key]);
+				if(!in_array($value["courseModuleId"], $permisosDocente["courseModule"]))
+				{
+					unset($addedModules[$key]);
+				}
 			}
 		}
 	}

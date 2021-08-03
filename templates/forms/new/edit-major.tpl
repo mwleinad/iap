@@ -1,4 +1,23 @@
-<form class="form-horizontal" id="editMajorForm" name="editMajorForm" method="post">
+<form id="editMajorForm" name="editMajorForm" method="post">
+    <input type="hidden" id="type" name="type" value="saveEditMajor"/>
+    <input type="hidden" id="majorId" name="majorId" value="{$post.majorId}"/>
+    <div class="form-body">
+        <div class="form-group">
+            <label for="name">Nombre:</label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="Nombre" value="{$post.name}">
+        </div>
+        <div class="form-group">
+            <label for="description">Descripcion:</label>
+            <textarea class="form-control" name="description" id="description" cols="50" rows="6">{$post.description}</textarea>
+        </div>
+    </div>
+    <div class="form-group text-center">
+        <button type="button" class="btn btn-primary submitForm">Guardar</button>
+        <button type="button" class="btn btn-danger closeModal">Cancelar</button>
+    </div>
+</form>
+
+{*<form class="form-horizontal" id="editMajorForm" name="editMajorForm" method="post">
     <input type="hidden" id="type" name="type" value="saveEditMajor"/>
     <input type="hidden" id="majorId" name="majorId" value="{$post.majorId}"/>
     <div class="form-body">
@@ -23,4 +42,4 @@
             </div>
         </div>
     </div>
-</form>
+</form>*}

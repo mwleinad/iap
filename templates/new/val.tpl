@@ -1,109 +1,92 @@
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorm"></i>Valoración
-        </div>
-        <div class="actions">
-			<a class="btn red" href="#" title="IMPRIMIR" onClick="onImprimirVal('{$mId}','admin')">
-			Imprimir
-			</a>
-        </div>
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+		<i class="fas fa-chart-line"></i> Valoración
+        <a href="#" class="btn btn-info float-right" title="IMPRIMIR" onClick="onImprimirVal('{$mId}','admin')">
+			<i class="fas fa-print"></i> Imprimir
+        </a>
     </div>
-	
-    <div class="portlet-body" style='text-align:justify'>
-	
-		<center><h1>Avance {$lstPreguntas.totalAlumnos} / {$lstPreguntas.totalGrupo}  </h1>
-
-	
-			<table width="80% !important" class="tblGral table table-bordered table-striped table-condensed flip-content">
-				<tr><td width="20%"><b>(6)</b> Deficiente</td>
-				<td width="20%"><b>(7)</b> Apenas aceptable</td>
-				<td width="20%"><b>(8)</b> Aceptable</td>
-				<td width="20%"><b>(9)</b> Satisfactorio</td>
-				<td width="20%"><b>(10)</b> Muy Satisfactorio</td></tr>
+    <div class="card-body">
+		<h1 class="text-center">Avance {$lstPreguntas.totalAlumnos} / {$lstPreguntas.totalGrupo}</h1>
+		<div class="table-responsive">
+			<table class="table table-sm table-bordered table-striped">
+				<tr>
+					<td><b>(6)</b> Deficiente</td>
+					<td><b>(7)</b> Apenas aceptable</td>
+					<td><b>(8)</b> Aceptable</td>
+					<td><b>(9)</b> Satisfactorio</td>
+					<td><b>(10)</b> Muy Satisfactorio</td>
+				</tr>
 			</table>
-		
-		</center>
+		</div>
 
-        <div id="tblContentActa">
-		
-			<div class="tabbable portlet-tabs">
-				<ul class="nav nav-tabs">
-					<li class="active">
-						<a href="#portlet_tabp_1" data-toggle="tab">Resultados</a>
-					</li>
-					<li >
-						<a href="#portlet_tabp_2" data-toggle="tab">Comentarios</a>
-					</li>
-				</ul>
-				<div class="tab-content">
-					<div class="tab-pane active" id="portlet_tabp_1">
-						<table width="100%" class="tblGral table table-bordered table-striped table-condensed flip-content">
+		<div id="tblContentActa" class="mt-4 border border-success rounded">
+			<ul class="nav nav-tabs">
+				<li class="nav-item">
+					<a class="nav-link active" data-toggle="tab" href="#results">Resultados</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#comments">Comentarios</a>
+				</li>
+			</ul>
+			
+			<div class="tab-content">
+				<div class="tab-pane container active py-2" id="results">
+					<div class="table-responsive">
+						<table class="table table-sm table-bordered">
 							<thead>
-								<tr>
-									
-									<th style="text-align:center"><b></b></th>
-									<th style="text-align:center"><b>Rubro</b></th>
-									<!--<th align="center">Total de Puntos </th>-->	 
-									<th style="text-align:center"><b>Promedio </b></th>	 
+								<tr class="text-center">
+									<th></th>
+									<th><b>Rubro</b></th>
+									<th><b>Promedio</b></th>	 
 								</tr>
 							</thead>
 							<tbody>
 								{foreach from=$lstPreguntas.result item=subject}
-								<tr>
-									
-									<td align="center"><a href="javascript:void(0)" onClick="verTr('{$subject.categoriapreguntaId}')">[+]</a></td>
-									<td align="center">{$subject.nombre}</td>
-									<!--<td align="center">{$subject.sumR}</td>-->
-									<td align="center">{$subject.promedio}</td>
-									
-								</tr>
-								<tr style="display:none" id="tr_{$subject.categoriapreguntaId}">
-									<td colspan="3">
-										<table width="100%" class="tblGral table table-bordered table-striped table-condensed flip-content">
-											<tr>
-												<td><b>Pregunta</b></td>
-												<td><b>Promedio</b></td>
-											</tr>
-											{foreach from=$subject.lstPreguntas item=item}
-											<tr>
-												<td>{$item.pregunta}</td>
-												<td>{$item.totalPp}</td>
-											</tr>
-											{/foreach}
-										</table>
-									</td>
-								</tr>
+									<tr class="text-center">
+										<td><a href="javascript:void(0)" onClick="verTr('{$subject.categoriapreguntaId}')">[+]</a></td>
+										<td>{$subject.nombre}</td>
+										<td>{$subject.promedio}</td>
+									</tr>
+									<tr style="display:none" id="tr_{$subject.categoriapreguntaId}">
+										<td colspan="3">
+											<table class="table table-sm table-bordered table-striped">
+												<tr>
+													<td><b>Pregunta</b></td>
+													<td><b>Promedio</b></td>
+												</tr>
+												{foreach from=$subject.lstPreguntas item=item}
+													<tr>
+														<td>{$item.pregunta}</td>
+														<td>{$item.totalPp}</td>
+													</tr>
+												{/foreach}
+											</table>
+										</td>
+									</tr>
 								{/foreach}
 							</tbody>
 						</table>
 					</div>
-					<div class="tab-pane " id="portlet_tabp_2" >
-
-						<table width="100%" class="tblGral table table-bordered table-striped table-condensed flip-content">
+				</div>
+				<div class="tab-pane container fade py-2" id="comments">
+					<div class="table-responsive">
+						<table class="table table-sm table-bordered table-striped">
 							<thead>
 								<tr>
-									
-									<th style="text-align:center">Comentario </th>
- 
+									<th class="text-center">Comentario </th>
 								</tr>
 							</thead>
 							<tbody>
 								{foreach from=$lstPreguntas.lstComentarios item=subject}
-								<tr>
-									
-									<td align="center">{$subject.comentario}</td>
-
-									
-								</tr>
+									<tr>
+										<td class="text-center">{$subject.comentario}</td>
+									</tr>
 								{/foreach}
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
-           
-		   
-        </div>
+		</div>
     </div>
 </div>

@@ -51,11 +51,7 @@ function onChangePicture(Id){
 
 
 function onSavePerfil()
-{
-	
-	
-	$('#desc').html(tinymce.get('desc').getContent());
-	
+{	
     $.ajax({
         url : WEB_ROOT+'/ajax/student.php',
         type: "POST",

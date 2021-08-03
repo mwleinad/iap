@@ -1,5 +1,5 @@
-<tr>
-      <th width="80">Usuario</th>
-      <th width="300">Nombre</th>
-      <th width="100">Acciones</th>
+<tr class="text-center">
+    <th>Usuario</th>
+    <th>Nombre</th>
+    <th>Acciones</th>
 </tr>

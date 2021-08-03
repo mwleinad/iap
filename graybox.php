@@ -213,7 +213,9 @@ $pages = array(
     'calendar-form',
     'edit-calendar-form',
     'calendar-student',
-    'history-calendar'
+    'history-calendar',
+    'student-repeat',
+    'qualifications-course'
 );
 
 if(!in_array($_GET['page'], $pages))

@@ -40,11 +40,11 @@
 		$course->setAparece($_POST["apareceT"]);
 		$course->setListar($_POST["listar"]);
 		$course->setTipoCuatri($_POST["tipoCuatri"]);
+		$course->setTemporalGroup($_POST["temporalGroup"]);
 
 		$course->Open();
-
-		//TODO add heeder location when we finish the template change
-
+		header("Location:" . WEB_ROOT . "/history-subject");
+		exit;
 	}
 
 	$cursos = $subject->Enumerate();
@@ -56,6 +56,8 @@
 	$subject->setSubjectId($_GET['id']);
 	$smarty->assign('post', $subject->Info());
 	$smarty->assign('mnuMain','cursos');
+	$activeCourses = $course->EnumerateActive();
+	$smarty->assign('activeCourses', $activeCourses);
 
 
 ?>

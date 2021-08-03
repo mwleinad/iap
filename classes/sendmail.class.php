@@ -41,6 +41,9 @@ class SendMail extends Main
 	public function PrepareAttachment($subject, $body, $details_body, $details_subject, $to, $toName, $attachment = array(), $fileName = array(), $from = "enlinea@iapchiapas.edu.mx", $fromName = "Administrador del Sistema")
 	{
 			$body = nl2br($this->Util()->handle_mail_patterns($body,$details_body));
+			$tmp_body = nl2br($this->Util()->handle_mail_patterns($body,$details_body));
+			if($tmp_body == '')
+				$tmp_body = nl2br($this->Util()->str_replace_mail($body, $details_body));
 			$subject = $this->Util()->handle_mail_patterns($subject,$details_subject);
 
 			$this->email->AddReplyTo($from, $fromName);
@@ -48,14 +51,18 @@ class SendMail extends Main
 
 			$this->email->AddAddress($to, $toName);
 			$this->email->Subject    = $subject;
-			$this->email->MsgHTML($body);
+			$this->email->MsgHTML($tmp_body);
 
-			foreach($attachment as $key => $attach)
+			if (is_array($attachment) || is_object($attachment))
 			{
-				$this->email->AddAttachment($attach, $fileName[$key]);
+				foreach($attachment as $key => $attach)
+				{
+					$this->email->AddAttachment($attach, $fileName[$key]);
+				}
 			}
-			print_r($this->email);
+			//print_r($this->email);
 			$this->email->Send();
+			//$this->email->ErrorInfo; exit;
 	}
 
 

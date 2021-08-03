@@ -1,13 +1,13 @@
-<tr>
-    <th class="text-center">ID</th>
-    <th class="text-center">Clave</th>
-    <th class="text-center">Tipo</th>
-    <th class="text-center">Nombre</th>
-    <th class="text-center">Grupo</th>
-    <th class="text-center">Modalidad</th>
-    <th class="text-center">Fecha Inicial</th>
-    <th class="text-center">Fecha Final</th>
-    <th class="text-center">Calendario</th>
-    <th class="text-center">Becas</th>
-    <th class="text-center">Pagos</th>
+<tr class="text-center">
+    <th>ID</th>
+    <th>Clave</th>
+    <th>Tipo</th>
+    <th>Nombre</th>
+    <th>Grupo</th>
+    <th>Modalidad</th>
+    <th>Fecha Inicial</th>
+    <th>Fecha Final</th>
+    <th>Calendario</th>
+    <th>Becas</th>
+    <th>Pagos</th>
 </tr>

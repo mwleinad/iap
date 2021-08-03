@@ -1,15 +1,14 @@
 {foreach from=$majors item=item key=key}    
     <tr>
-      <td align="center" height="28">{$item.majorId}</td>
-      <td>&nbsp;&nbsp;{$item.name}</td>
-      <td align="center">
-          <img src="images/icons/16/delete.png" class="spanDelete" id="{$item.majorId}" title="Eliminar" />&nbsp;
-          <img src="images/icons/16/pencil.png" class="spanEdit" id="{$item.majorId}" title="Editar" /> 
-         
-      </td>                        
+        <td class="text-center">{$item.majorId}</td>
+        <td>{$item.name}</td>
+        <td class="text-center">
+            <i id="{$item.majorId}" class="fas fa-times-circle fa-2x text-danger pointer spanDelete" data-toggle="tooltip" data-placement="top" title="Eliminar"></i>
+			<i id="{$item.majorId}" class="fas fa-pen-square fa-2x text-success pointer spanEdit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
+        </td>                        
    </tr>
 {foreachelse}
     <tr>
-    	<td colspan="5" align="center">Ning&uacute;n registro encontrado.</td>
+        <td colspan="5" class="text-center">Ningún registro encontrado.</td>
     </tr>
 {/foreach}

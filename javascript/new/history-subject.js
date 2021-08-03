@@ -409,3 +409,104 @@ function savePeriodos(){
         }
     });
 }
+
+
+function DeleteStudentCurricula(userId, courseId)
+{
+    Swal.fire({
+        title: '¿Estas seguro que deseas eliminar este alumno de esta curricula?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#58ff85',
+        cancelButtonColor: '#ff4545',
+        confirmButtonText: 'Confirmar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url : WEB_ROOT + '/ajax/new/studentCurricula.php',
+                type: "POST",
+                data: {type: "deleteStudentCurricula", courseId: courseId, userId : userId},
+                beforeSend: function(){			 
+                },
+                success: function(transport)
+                {
+                    var response = transport.responseText || "no response text";
+                    console.log(response);
+        
+                    var splitResponse = response.split("[#]");
+                    
+                    //alert(splitResponse[2])
+                    if(splitResponse[0] == "fail")
+                    {
+                        ShowStatusPopUp(splitResponse[1])
+                        CloseFview();
+                        
+                    }
+                    else
+                    {
+                        Swal.fire(
+                            'Exito',
+                            'El alumno se elimino correctamente',
+                            'success'
+                        );
+                        //ShowStatusPopUp(splitResponse[1])
+                        CloseFview();
+                    }
+                    grayOut(false);
+                    setInterval('window.location.reload()',3000);
+                },
+                error: function (){ alert('Something went wrong...'); }
+            });
+        }
+    });
+}
+
+function EnableStudentCurricula(userId, courseId)
+{
+    Swal.fire({
+        title: '¿Estas seguro que deseas activar al alumno?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '	#58ff85',
+        cancelButtonColor: '#ff4545',
+        confirmButtonText: 'Confirmar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url : WEB_ROOT + '/ajax/new/studentCurricula.php',
+                type: "POST",
+                data: {type: "enableStudentCurricula", courseId: courseId, userId : userId},
+                beforeSend: function(){			 
+                },
+                success: function(transport)
+                {
+                    var response = transport.responseText || "no response text";
+                    console.log(response);
+        
+                    var splitResponse = response.split("[#]");
+                    
+                    //alert(splitResponse[2])
+                    if(splitResponse[0] == "fail")
+                    {
+                        ShowStatusPopUp(splitResponse[1])
+                        CloseFview();
+                        
+                    }
+                    else
+                    {
+                        Swal.fire(
+                            'Exito',
+                            'El alumno se activo correctamente.',
+                            'success'
+                        );
+                        //ShowStatusPopUp(splitResponse[1])
+                        CloseFview();
+                    }
+                    grayOut(false);
+                    setInterval('window.location.reload()',3000);
+                },
+                error: function (){ alert('Something went wrong...'); }
+            });
+        }
+    });
+}

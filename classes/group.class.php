@@ -376,11 +376,20 @@
 			switch($modality)
 			{
 				case "Individual":
-				 	 $sql = "
-						SELECT *, user_subject.status AS status FROM user_subject
-						LEFT JOIN user ON user_subject.alumnoId = user.userId
-						WHERE courseId = '".$this->getCourseId()."' and user_subject.status = 'activo'
-						ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
+				 	$sql = "SELECT 
+					 			user_subject.alumnoId, user.*, user_subject.status AS status, 'Ordinario' AS situation 
+							FROM user_subject
+								LEFT JOIN user 
+									ON user_subject.alumnoId = user.userId
+							WHERE courseId = " . $this->getCourseId() . " AND user_subject.status = 'activo'
+							UNION
+							SELECT 
+								usr.alumnoId, user.*, usr.status, 'Recursador' AS situation
+							FROM user_subject_repeat usr
+								LEFT JOIN user
+									ON usr.alumnoId = user.userId 
+							WHERE usr.courseId = " . $this->getCourseId() . " AND usr.status = 'activo' AND usr.courseModuleId = " . $this->coursemoduleId . "
+							ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
 					// exit
 					$this->Util()->DB()->setQuery($sql);
 					$result = $this->Util()->DB()->GetResult();
@@ -647,16 +656,38 @@
 		
 		public function DefaultGroup()
 		{
-	
-			$sql = "SELECT *, 
+			$students_repeat = "";
+			if($this->coursemoduleId > 0)
+			{
+				$students_repeat = "UNION
+							SELECT 
+								u.*,
+								u.controlNumber AS matricula,
+								usr.alumnoId,
+								usr.status,
+								cd.discount,
+								'Recursador' AS situation
+							FROM user_subject_repeat usr 
+								LEFT JOIN user u 
+									ON usr.alumnoId = u.userId 
+								LEFT JOIN calendar_discounts cd 
+									ON (usr.alumnoId = cd.userId AND usr.courseId = cd.courseId)
+							WHERE usr.courseId = " . $this->getCourseId() . " AND u.activo = '1' AND usr.status = 'activo' AND usr.courseModuleId = " . $this->coursemoduleId;
+			}
+			$sql = "SELECT 
+						u.*, 
+						us.matricula,
+						us.alumnoId,
 						us.status AS status,
-						cd.discount
+						cd.discount,
+						'Ordinario' AS situation
 					FROM user_subject us
 						LEFT JOIN user u 
 							ON us.alumnoId = u.userId
 						LEFT JOIN calendar_discounts cd 
 							ON (us.alumnoId = cd.userId AND us.courseId = cd.courseId)
-					WHERE us.courseId = '" . $this->getCourseId() . "' AND u.activo='1' AND us.status='activo'
+					WHERE us.courseId = " . $this->getCourseId() . " AND u.activo = '1' AND us.status = 'activo'
+					" . $students_repeat . "
 					ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
 			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
@@ -856,11 +887,27 @@
 		
 		public function NoTeam()
 		{
-			$this->Util()->DB()->setQuery("
-				SELECT *, user_subject.status AS status FROM user_subject
-				LEFT JOIN user ON user_subject.alumnoId = user.userId
-				WHERE courseId = '".$this->getCourseId()."'
-				ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC");
+			$sql = "SELECT 
+						user_subject.alumnoId,
+						user.*, 
+						user_subject.status AS status,
+						'Ordinario' AS situation 
+					FROM user_subject
+						LEFT JOIN user 
+							ON user_subject.alumnoId = user.userId
+					WHERE courseId = " . $this->getCourseId() . " AND user_subject.status = 'activo'
+					UNION 
+					SELECT 
+						usr.alumnoId,
+						u.*,
+						usr.status,
+						'Recursador' AS situation
+					FROM user_subject_repeat usr 
+						LEFT JOIN user u 
+							ON usr.alumnoId = u.userId 
+					WHERE usr.courseId = " . $this->getCourseId() . " AND usr.status = 'activo' AND usr.courseModuleId = " . $this->coursemoduleId . "
+					ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
+			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
 			
 			foreach($result as $key => $res)
@@ -1019,9 +1066,8 @@
 
 		function DeleteTeam($id)
 		{
-			$this->Util()->DB()->setQuery("
-					DELETE FROM team
-					WHERE courseModuleId = '".$this->getCourseModuleId()."' AND teamNumber = '".$id."'");
+			$sql = "DELETE FROM team WHERE courseModuleId = " . $this->coursemoduleId . " AND teamNumber = " . $id;
+			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->DeleteData();
 			$this->Util()->setError(90000, 'complete', "Se ha borrado el equipo");
 			$this->Util()->PrintErrors();
@@ -1309,23 +1355,14 @@
 		
 		function saveMatricula()
 		{
-			
-			foreach ($_POST as $key=>$aux){
-				
-				$k = explode('_',$key);
-				if($k[0]=='num'){
-					$this->Util()->DB()->setQuery("
-						UPDATE `user` SET
-							`controlNumber` = '".$aux."'
-						WHERE
-							`userId` = '".$k[1]."'");
-						$this->Util()->DB()->UpdateData();
-				}
+			$courseId = $_POST['course'];
+			foreach ($_POST['students'] as $key => $aux)
+			{
+				$sql = "UPDATE user_subject SET matricula = '" . $aux . "' WHERE alumnoId = " . $key . " AND courseId = " . $courseId;
+				$this->Util()->DB()->setQuery($sql);
+				$this->Util()->DB()->UpdateData();
 			}
-				
-			
 			return true;
-		
 		}
 		
 		function upFile($Id)
@@ -1585,11 +1622,26 @@
 				WHERE courseModuleId = '".$Id."'");
 			$info = $this->Util()->DB()->GetRow();
 			
-			$this->Util()->DB()->setQuery("
-				SELECT *, user_subject.status AS status FROM user_subject
-				LEFT JOIN user ON user_subject.alumnoId = user.userId
-				WHERE user_subject.status = 'activo' and courseId = '".$info['courseId']."'
-				ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC");
+			$sql = "SELECT 
+						user.*, 
+						user_subject.status AS status,
+						'Ordinario' AS situation
+					FROM user_subject
+						LEFT JOIN user 
+							ON user_subject.alumnoId = user.userId
+					WHERE user_subject.status = 'activo' AND courseId = " . $info['courseId'] . "
+					UNION 
+					SELECT 
+						user.*, 
+						usr.status,
+						'Recursador' AS situation
+					FROM user_subject_repeat usr 
+						LEFT JOIN user 
+							ON usr.alumnoId = user.userId
+					WHERE usr.status = 'activo' AND usr.courseModuleId = " . $Id . "
+					ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
+			//echo $sql; exit;
+			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
 			
 			return $result;
@@ -1633,6 +1685,79 @@
 		imagejpeg($tmp,$ruta.$nombreN,$calidad);
     
 	}
+
+
+
+
+	public function actaCalificacionRepeat()
+	{
+		$sql = "SELECT 
+					*, 
+					usr.status AS status,
+					'Recursador' AS situation 
+				FROM user_subject_repeat usr
+					LEFT JOIN user u 
+						ON usr.alumnoId = u.userId
+				WHERE usr.status = 'activo' AND usr.courseId = " . $this->getCourseId() . " AND usr.courseModuleId = " . $this->coursemoduleId . "
+				ORDER BY u.lastNamePaterno, u.lastNameMaterno, u.names";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		$student = New Student;
+		foreach($result as $key => $res)
+		{
+			$sql = "SELECT *
+					FROM course_module_score
+					WHERE courseModuleId = " . $this->coursemoduleId . " AND userId = " . $res["alumnoId"] . " AND courseId = " . $res["courseId"];
+			$this->Util()->DB()->setQuery($sql);
+			$infoCc = $this->Util()->DB()->GetRow();
+	
+			// CALCULA ACUMULADO
+			$activity = new Activity;
+			$activity->setCourseModuleId($this->coursemoduleId);
+			$actividades = $activity->Enumerate();
+			$sql = "SELECT teamNumber
+					FROM team
+					WHERE courseModuleId = " . $this->coursemoduleId . " AND userId = " . $res["alumnoId"];
+			$this->Util()->DB()->setQuery($sql);
+			$result[$key]["equipo"] = $this->Util()->DB()->GetSingle();	
+			$result[$key]{"addepUp"} = 0;
+			foreach($actividades as $activity)
+			{
+				if($activity["score"] <= 0)
+					continue;
+				$sqlca = "SELECT ponderation
+							FROM activity_score
+							WHERE activityId = " . $activity["activityId"] . " AND userId = " . $res["alumnoId"];
+				$this->Util()->DB()->setQuery($sqlca);
+				$score = $this->Util()->DB()->GetSingle();
+				$result[$key]{"score"}[] = $score;
+				$realScore = $score * $activity["score"] / 100;
+				$result[$key]{"realScore"}[] = $realScore;
+				$result[$key]{"addepUp"} += $realScore;
+			}
+			
+			if($infoCc["calificacion"] == null or $infoCc["calificacion"] == 0)
+			{	
+				$at = $result[$key]{"addepUp"} / 10;
+				if($this->tipoMajor == "MAESTRIA" and $at < 7)
+					$at= floor ($at);
+				else if($this->tipoMajor == "DOCTORADO" and $at < 8)
+					$at= floor ($at);
+				else
+					$at= round($at, 0, PHP_ROUND_HALF_DOWN);
+				$infoCc["calificacion"] = $at ;
+			}else
+				$infoCc["calificacion"] = $infoCc["calificacion"];
+			
+			if($this->tipoMajor == "MAESTRIA" and $infoCc["calificacion"] < 7)
+				$result[$key]["score"] = 6;
+			else if($this->tipoMajor == "DOCTORADO" and $infoCc["calificacion"] < 8)
+				$result[$key]["score"] = 7;
+			else
+				$result[$key]["score"] = $infoCc["calificacion"];
+		}
+		return $result;
+	}
 		
-	}	
+}	
 ?>

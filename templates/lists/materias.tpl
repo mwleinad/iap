@@ -1,92 +1,77 @@
-<table width="100%" class="tblGral table table-bordered table-striped table-condensed flip-content">
+<table class="table table-bordered table-striped">
 	<thead>
-    	<tr>
-			
-			<th width="">Materia </th>
-			<th width="">Estatus </th>
-			<th width="">Posgrado </th>
-			<th width="">Grupo</th>
-			<th width="">Modalidad </th>
-			<th width="">Fecha Materia </th>
-			<th width="">Fecha Contrato </th>
-			<th width="233px">Desglose </th>
-			<!--<th width="">Importe</th>
-			<th width="">IVA</th>
-			<th width="">Subtotal</th>
-			<th width="">ISR</th>
-			<th width="">RET. IVA </th>
-			<th width="">Total a Pagar </th>-->
-			<th width="">No. de Contrato </th>	 
-			<th width=""></th>	 
+    	<tr class="text-center">	
+			<th>Materia</th>
+			<th>Estatus</th>
+			<th>Posgrado</th>
+			<th>Grupo</th>
+			<th>Modalidad</th>
+			<th>Fecha Materia</th>
+			<th>Fecha Contrato</th>
+			<th>Desglose</th>
+			<th>No. de Contrato</th>	 
+			<th></th>	 
 		</tr>
     </thead>
     <tbody>
 		{foreach from=$registros item=subject}
-    	<tr>
-			
-			<td align="center">{$subject.name}</td>
-			<td align="center">{$subject.estatusFin}</td>
-			<td align="center">{$subject.nameCar}</td>
-			<td align="center">{$subject.group9}</td>
-			<td align="center">{$subject.modality}</td>
-			<td align="center">{if $subject.modality eq 'Online'} {$subject.initialDate} - {$subject.finalDate} {else} {$subject.fechaMateria} {/if}</td>
-			<td align="center">{$subject.fechaContrato}</td>
-			<td align="center">
-			{if $subject.totalPagar ne '0.00'}
-			<table>
-				<tr>
-					<td><b>Importe:</b></td>
-					<td>$ {$subject.importe}</td>
-				</tr>
-				<tr>
-					<td><b>IVA:</b></td>
-					<td>$ {$subject.iva}</td>
-				</tr>
-				<tr>
-					<td><b>Subtotal:</b></td>
-					<td><b>$  {$subject.subtotal|number_format:2:'.':','}</b></td>
-				</tr>
-				<tr>
-					<td><b>ISR:</b></td>
-					<td>$ {$subject.isr}</td>
-				</tr>
-				<tr>
-					<td><b>RET. IVA:</b></td>
-					<td>$ {$subject.retIva}</td>
-				</tr>
-				<tr>
-					<td><b>Total a Pagar: </b></td>
-					<td><b>${$subject.totalPagar}</b></td>
-				</tr>
-			</table>
-			{/if}
-			
-			</td>
-			<!--<td align="center">{$subject.importe}</td>
-			<td align="center">{$subject.iva}</td>
-			<td align="center">{$subject.subtotal}</td>
-			<td align="center">{$subject.isr}</td>
-			<td align="center">{$subject.retIva}</td>
-			<td align="center">{$subject.totalPagar}</td>-->
-			<td align="center">{$subject.noContrato}</td>
-			<td align="center">
-				<a href="{$WEB_ROOT}/graybox.php?page=val&id={$subject.courseModuleId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title='VALORACION'>
-					<i class="material-icons md-16">insert_chart</i>
-				</a>	
-				<a href="{$WEB_ROOT}/graybox.php?page=eval&id={$subject.courseModuleId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title='EVALUACIONES'>
-					<i class="material-icons md-16">star</i>
-				</a>
-				<a href="{$WEB_ROOT}/graybox.php?page=editar-contra&id={$subject.courseModuleId}&personalId={$pId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title='EDITAR INFORMACION'>
-						<i class="material-icons md-16">create</i>
-				</a>
-				<a href="{$WEB_ROOT}/graybox.php?page=cedula-contra&id={$subject.courseModuleId}&personalId={$pId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title='CEDULA CONTRATO'>
-						<i class="material-icons md-16">featured_play_list</i>
-				</a>
-				<a href="{$WEB_ROOT}/graybox.php?page=down-contrato&id={$subject.courseModuleId}&personalId={$pId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title='CONTRATOS'>
-						<i class="material-icons md-16">featured_video</i>
-				</a>
-			</td>
-		</tr>
+    		<tr  class="text-center">
+				<td>{$subject.name}</td>
+				<td>{$subject.estatusFin}</td>
+				<td>{$subject.nameCar}</td>
+				<td>{$subject.group9}</td>
+				<td>{$subject.modality}</td>
+				<td>{if $subject.modality eq 'Online'} {$subject.initialDate} - {$subject.finalDate} {else} {$subject.fechaMateria} {/if}</td>
+				<td>{$subject.fechaContrato}</td>
+				<td>
+					{if $subject.totalPagar ne '0.00'}
+						<table class="table table-sm">
+							<tr>
+								<td><b>Importe:</b></td>
+								<td>$ {$subject.importe}</td>
+							</tr>
+							<tr>
+								<td><b>IVA:</b></td>
+								<td>$ {$subject.iva}</td>
+							</tr>
+							<tr>
+								<td><b>Subtotal:</b></td>
+								<td><b>$  {$subject.subtotal|number_format:2:'.':','}</b></td>
+							</tr>
+							<tr>
+								<td><b>ISR:</b></td>
+								<td>$ {$subject.isr}</td>
+							</tr>
+							<tr>
+								<td><b>RET. IVA:</b></td>
+								<td>$ {$subject.retIva}</td>
+							</tr>
+							<tr>
+								<td><b>Total a Pagar: </b></td>
+								<td><b>${$subject.totalPagar}</b></td>
+							</tr>
+						</table>
+					{/if}
+				</td>
+				<td>{$subject.noContrato}</td>
+				<td>
+					<a href="{$WEB_ROOT}/graybox.php?page=val&id={$subject.courseModuleId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Valoración">
+						<i class="fas fa-chart-bar fa-lg"></i>
+					</a>	
+					<a href="{$WEB_ROOT}/graybox.php?page=eval&id={$subject.courseModuleId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Evaluaciones">
+						<i class="fas fa-star fa-lg"></i>
+					</a>
+					<a href="{$WEB_ROOT}/graybox.php?page=editar-contra&id={$subject.courseModuleId}&personalId={$pId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Editar Información">
+						<i class="fas fa-edit fa-lg"></i>
+					</a>
+					<a href="{$WEB_ROOT}/graybox.php?page=cedula-contra&id={$subject.courseModuleId}&personalId={$pId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Cédula Contrato">
+						<i class="fas fa-id-card fa-lg"></i>
+					</a>
+					<a href="{$WEB_ROOT}/graybox.php?page=down-contrato&id={$subject.courseModuleId}&personalId={$pId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Contratos">
+						<i class="fas fa-file-contract fa-lg"></i>
+					</a>
+				</td>
+			</tr>
 		{/foreach}
 	</tbody>
 </table>

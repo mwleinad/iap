@@ -1,17 +1,15 @@
 {foreach from=$forum item=topic}
-    <tr>
-        <td align="center" class="id">{$topic.subject|truncate:30:"..."}</td>
-        <td align="left">{$topic.descripcion}</td>
-      <!--  <td align="center" id="etitl1">{$topic.names} {$topic.lastNamePaterno} {$topic.lastNameMaterno}</td>-->
-      <!--  <td align="center" id="etitl1">{*$topic.answers*}</td>-->
-        <td align="center">
-		  {**if $docente || $typeUser==1 || $typeUser==4**}
-		     <a href="{$WEB_ROOT}/forumsub-modules-student/id/{$id}/topicId/{$topic.topicId}"><img src="{$WEB_ROOT}/images/arrow.png" class="spanEdit" id="e-{$position.positionId}" name="e-{$position.name}" title="Entrar al Foro" /></a>
-		 {**/if**}
+	<tr>
+    	<td class="id text-center">{$topic.subject|truncate:30:"..."}</td>
+        <td class="break-line">{$topic.descripcion}</td>
+        <td class="text-center">
+			<a href="{$WEB_ROOT}/forumsub-modules-student/id/{$id}/topicId/{$topic.topicId}">
+				<i class="fas fa-sign-in-alt fa-2x text-success spanEdit" id="e-{$position.positionId}" name="e-{$position.name}" title="Entrar al Foro"></i>
+			</a>
 		</td>
-    </tr>
+	</tr>
 {foreachelse}
 	<tr>
-    	<td colspan="5" align="center">No se encontr&oacute; ning&uacute;n registro.</td>
+    	<td colspan="3" class="text-center">No se encontró ningún registro.</td>
 	</tr>
 {/foreach}

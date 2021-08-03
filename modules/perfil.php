@@ -12,6 +12,7 @@
 	
 	$smarty->assign("rand", rand());
 	$smarty->assign("info", $info);
+	$smarty->assign("mJodit", "active");
 	
 	
 ?>

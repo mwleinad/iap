@@ -138,31 +138,56 @@ class Student extends User
 		$this->por_beca = $value;
 	}
 
+
+	public function AddAcademicHistory($type)
+	{
+		if($type == 'baja')
+		{
+			$sql = "SELECT sm.semesterId FROM course_module_score cms
+					INNER JOIN course_module cm
+						ON cms.courseModuleId = cm.courseModuleId 
+					INNER JOIN subject_module sm
+						ON cm.subjectModuleId = sm.subjectModuleId 
+				WHERE cms.userId = " . $this->userId . " AND cms.courseId = " . $this->courseId . "
+				ORDER BY sm.semesterId DESC LIMIT 1";
+			$this->Util()->DB()->setQuery($sql);
+			$semesterId = intval($this->Util()->DB()->GetSingle());
+		}
+		if($type == 'alta')
+		{
+			$sql = "SELECT semesterId 
+						FROM academic_history 
+					WHERE subjectId = " . $this->subjectId . " AND userId = " . $this->userId . "
+					ORDER BY academicHistoryId DESC LIMIT 1";
+			$this->Util()->DB()->setQuery($sql);
+			$semesterId = intval($this->Util()->DB()->GetSingle());
+			$semesterId++;
+		}
+		$sql = "INSERT INTO academic_history(subjectId, courseId, userId, semesterId, dateHistory, type) VALUE(" . $this->subjectId . ", " . $this->courseId . ", " . $this->userId . ", " . $semesterId . ", CURDATE(), '" . $type . "')";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->InsertData();
+		return true;
+	}
+
 	public function UpdateFoto()
 	{
-			$ext = end(explode('.', basename($_FILES['foto']['name'])));
-			if(strtolower($ext) != "jpg" && strtolower($ext) != "jepg")
-			{
-				$this->Util()->setError(10028, "error", "La extension solo puede ser jpg");
-				$this->Util()->PrintErrors();
-				return;
-			}
-			$target_path = DOC_ROOT."/alumnos/".$_POST["userId"].".jpg";
-
-			if(move_uploaded_file($_FILES['foto']['tmp_name'], $target_path)) {
-/*				$sql = "UPDATE
-							resource
-							SET
-								path = '".$relative_path."'
-							WHERE resourceId = '".$id."'";
-				$this->Util()->DB()->setQuery($sql);
-				$this->Util()->DB()->UpdateData();
-*/
-				$this->Util()->setError(10028, "complete", "Has cambiado la foto satisfactoriamente.");
-				$this->Util()->PrintErrors();
-
-			}
-
+		$ext = end(explode('.', basename($_FILES['foto']['name'])));
+		if(strtolower($ext) != "jpg" && strtolower($ext) != "jepg")
+		{
+			$this->Util()->setError(10028, "error", "La extension solo puede ser jpg");
+			$this->Util()->PrintErrors();
+			return;
+		}
+		$filename = $_POST["userId"] . ".jpg";
+		$target_path = DOC_ROOT."/alumnos/".$filename;
+		if(move_uploaded_file($_FILES['foto']['tmp_name'], $target_path)) 
+		{
+			$sql = "UPDATE user SET rutaFoto = '" . $filename . "' WHERE userId = " . $_POST["userId"];
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->ExecuteQuery();
+			$this->Util()->setError(10028, "complete", "Has cambiado la foto satisfactoriamente.");
+			$this->Util()->PrintErrors();
+		}
 	}
 
 	public function desactivar(){
@@ -577,47 +602,32 @@ class Student extends User
 
 	function DeleteStudentCurricula()
 	{
-		$courseId=$this->getCourseId();
-		$userId=$this->getUserId();
+		$courseId = $this->getCourseId();
+		$subjectId = $this->subjectId;
+		$userId = $this->getUserId();
 
-		$sql="SELECT * FROM invoice where userId='".$userId."'  and courseId='".$courseId."'";
-		//print_r($sql);
+		$sql = "UPDATE user_subject SET status = 'inactivo' where alumnoId = " . $userId . " AND courseId = " . $courseId;
 		$this->Util()->DB()->setQuery($sql);
-		$invoices = $this->Util()->DB()->GetResult();
-		$x=0;
-		if(count($invoices)>0)
-		{
-			foreach($invoices as $key=>$res){
-				$sqlPayment="SELECT * FROM payment WHERE invoiceId='".$invoices[$key]['invoiceId']."' AND status = 'activo'";
-				$this->Util()->DB()->setQuery($sqlPayment);
-				$payments = $this->Util()->DB()->GetResult();
-				if(count($payments)>0){
-					$x++;
-				}
-			}
-	 	}
+		$this->Util()->DB()->ExecuteQuery();
+		$this->AddAcademicHistory('baja');
+		$this->Util()->setError(10028, "complete","Alumno eliminado con éxito de esta curricula.");
+		$this->Util()->PrintErrors();
 
-		if($x>0){
-	    $this->Util()->setError(10028, "complete","No se puede Eliminar Alumno de Curricula porque ya existen Pagos Realizados");
-			$this->Util()->PrintErrors();
+		return true;
+	}
 
-			return false;
-		}
+	function EnableStudentCurricula()
+	{
+		$courseId = $this->getCourseId();
+		$userId = $this->getUserId();
 
-    if((count($invoices)>0 && $x==0) || count($invoices)==0){
-		  if(count($invoices)>0){
-		     $sql="DELETE FROM invoice WHERE userId='".$userId."'  and courseId='".$courseId."' ";
-		     $this->Util()->DB()->setQuery($sql);
-		     $this->Util()->DB()->ExecuteQuery();
-    	}
-			$sql="DELETE FROM user_subject where alumnoId='".$userId."' and courseId='".$courseId."' ";
-			$this->Util()->DB()->setQuery($sql);
-			$this->Util()->DB()->ExecuteQuery();
-			$this->Util()->setError(10028, "complete","Alumno eliminado con exito de esta curricula");
-			$this->Util()->PrintErrors();
+		$sql="UPDATE user_subject SET status='activo' where alumnoId='".$userId."' and courseId='".$courseId."' ";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->ExecuteQuery();
+		$this->Util()->setError(10028, "complete","Alumno activado con éxito.");
+		$this->Util()->PrintErrors();
 
-			return true;
-  	}
+		return true;
 	}
 
 
@@ -641,9 +651,9 @@ class Student extends User
 			else
 			$matricula="";
 
-
+			// $info['email'] = 'carloszh04@gmail.com';
 			$complete = $this->AddUserToCurricula($userId, $courseId, $info["names"], $info["email"], $info["password"], $courseInfo["majorName"], $courseInfo["name"],$tipo_beca,$por_beca,$matricula);
-
+			$this->AddAcademicHistory('alta');
 			$this->Util()->setError(10028, "complete", $complete);
 			$this->Util()->PrintErrors();
 		return $complete;
@@ -742,43 +752,38 @@ class Student extends User
 			$this->Util()->DB()->setQuery($sql);
 			$payments = $this->Util()->DB()->GetSingle();
 
-			if($payments > 0)
-			{
-				$status = 'inactivo';
-			}
-			else
-			{
-				$status = 'activo';
-			}
+			// Curricula temporal
+			$sql = "SELECT temporalGroup FROM course WHERE courseId = " . $curricula;
+			$this->Util()->DB()->setQuery($sql);
+			$temporalGroup = $this->Util()->DB()->GetSingle();
+
+			$status = 'activo';
+				
 //print_r($count);
 			if($count > 0)
 			{
 				return $complete = "Este alumno ya esta registrado en esta curricula. Favor de Seleccionar otra Curricula";
 			}
 
-			$sqlQuery = "
-			INSERT INTO  `user_subject` (
-				`alumnoId` ,
-				`status` ,
-				`courseId`,
-				`tipo_beca`,
-				`por_beca`,
-                `matricula`
-				)
-				VALUES 
-				(
-				'".$id."',  
-				'".$status."',  
-				'".$curricula."',  
-				'".$tipo_beca."',  
-				'".$por_beca."',
-				'".$matricula."'
-			)";
-			$this->Util()->DB()->setQuery($sqlQuery);
-
-			if($this->Util()->DB()->InsertData()){
-			   $complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico para continuar con el proceso de inscripcion";}
-            else  {$complete="no";}
+			if(intval($temporalGroup) > 0)
+			{
+				// Actualiza la curricula temporal por la oficial
+				$sql = "UPDATE user_subject SET courseId = " . $curricula . " WHERE alumnoId = " . $id . " AND courseId = " . $temporalGroup;
+				$this->Util()->DB()->setQuery($sql);
+				$this->Util()->DB()->UpdateData();
+				$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico para continuar con el proceso de inscripcion";
+			}
+			else
+			{
+				// Se inscribe a curricula 
+				$sqlQuery = "INSERT INTO user_subject(alumnoId, status, courseId, tipo_beca, por_beca, matricula) VALUES('".$id."', '".$status."', '".$curricula."', '".$tipo_beca."', '".$por_beca."', '".$matricula."')";
+				$this->Util()->DB()->setQuery($sqlQuery);
+				if($this->Util()->DB()->InsertData())
+					$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico para continuar con el proceso de inscripcion";
+				else
+					$complete="no";
+			}
+			
 			// if($this->getNames() == "")
 			// {
 				$this->setUserId($id);
@@ -1262,10 +1267,12 @@ class Student extends User
 				max-width: 80px; 
 				max-height: 80px;"/>
 				</a>';
+				$card['photo'] = $res["userId"].".jpg";
 			}
 			else
 			{
 				$card["foto"] = '';
+				$card['photo'] = $res['rutaFoto'];
 			}
 
 			$result[$key] = $card;
@@ -1766,6 +1773,7 @@ class Student extends User
 
 	function StudentCourses($status = NULL, $active = NULL){
 
+		$tmp_status = $status;
 		if($status != NULL)
 		{
 			$status = " AND status = '".$status."'";
@@ -1775,8 +1783,19 @@ class Student extends User
 		{
 			$active = " AND course.active = '".$active."'";
 		}
+
+		if($tmp_status == 'finalizado')
+		{
+			$status = '';
+			$finalizado = " AND CURDATE() > course.finalDate";
+		}
+		elseif($tmp_status == 'activo')
+		{
+			$finalizado = " AND CURDATE() <= course.finalDate";
+		}
+
 		 $sql = "SELECT
-					*, subject.name AS name, major.name AS majorName
+					user_subject.courseId, user_subject.alumnoId, user_subject.status, subject.name AS name, major.name AS majorName, subject.icon, course.group, course.modality, course.initialDate, course.finalDate, 'Ordinario' AS situation
 				FROM
 					user_subject
 				LEFT JOIN course ON course.courseId = user_subject.courseId
@@ -1786,8 +1805,21 @@ class Student extends User
 					alumnoId = '".$this->getUserId()."'
 					".$status."
 					".$active." 
+					".$finalizado."
+				UNION
+				SELECT 
+					usr.courseId, usr.alumnoId, usr.status, subject.name AS name, major.name AS majorName, subject.icon, course.group, course.modality, course.initialDate, course.finalDate, 'Recursador' AS situation
+				FROM user_subject_repeat usr
+					LEFT JOIN course
+						ON course.courseId = usr.courseId 
+					LEFT JOIN subject 
+						ON subject.subjectId = course.subjectId 
+					LEFT JOIN major 
+						ON major.majorId = subject.tipo 
+				WHERE 
+					alumnoId = " . $this->getUserId() . "
+					" . $status . " 
 				ORDER BY status ASC";
-
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 
@@ -3028,6 +3060,176 @@ class Student extends User
 		$accepted = $this->Util()->DB()->GetSingle() == 0 ? true : false;
 		return $accepted;
 	}
+
+	function AddUserToCourseModuleFromCatalog($userId, $courseId, $courseModuleId)
+	{
+		$module = new Module();
+		$module->setCourseModuleId($courseModuleId);
+		$moduleInfo = $module->InfoCourseModule();
+		$module->setSubjectModuleId($moduleInfo["subjectModuleId"]);
+		$subjectModuleInfo = $module->Info();
+
+		$user = new User();
+		$this->setUserId($userId);
+		$info = $this->GetInfo();
+
+		$complete = $this->AddUserToCourseModule($userId, $courseId, $courseModuleId, $info["names"], $info["email"], $info["password"], $subjectModuleInfo["name"]);
+
+		$this->Util()->setError(40104, "complete", $complete);
+		$this->Util()->PrintErrors();
+		return $complete;
+	}
+
+	public function AddUserToCourseModule($id, $curricula, $modulo, $nombre, $email, $password, $moduleName)
+	{
+		include_once(DOC_ROOT."/properties/messages.php");
+		$sql = "SELECT COUNT(*) FROM user_subject_repeat WHERE alumnoId = " . $id . " AND courseId = " . $curricula . " AND courseModuleId = " . $modulo;
+		$this->Util()->DB()->setQuery($sql);
+		$count = $this->Util()->DB()->GetSingle();
+
+		/* $sql = "SELECT subjectId FROM course WHERE courseId = '".$curricula."'";
+		$this->Util()->DB()->setQuery($sql);
+		$subjectId = $this->Util()->DB()->GetSingle(); */
+
+		$status = "activo";
+		if($count > 0)
+			return $complete = "Este alumno ya esta registrado en este modulo. Favor de Seleccionar otro Modulo";
+
+		// Se inscribe a modulo 
+		$sqlQuery = "INSERT INTO user_subject_repeat(alumnoId, courseId, courseModuleId, status) VALUES(" . $id . ", " . $curricula . ", " . $modulo . ", '" . $status . "')";
+		$this->Util()->DB()->setQuery($sqlQuery);
+		if($this->Util()->DB()->InsertData())
+			$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico";
+		else
+			$complete="no";
+			
+		$sendmail = new SendMail;
+		$details_body = array(
+			"email" => $info["controlNumber"],
+			"password" => $password,
+			"module" => utf8_decode($moduleName)
+		);
+		$details_subject = array();
+		$attachment = array();
+		$fileName = array();
+
+		$sendmail->PrepareAttachment($message[3]["subject"], $message[3]["body"], $details_body, $details_subject, $email, $nombre, $attachment, $fileName);
+
+		return $complete;
+	}
+
+
+	function StudentModulesRepeat($status = NULL){
+
+		$tmp_status = $status;
+		if($status != NULL)
+		{
+			$status = " AND status = '" . $status . "'";
+		}
+
+		 $sql = "SELECT
+					usr.*, s.name AS subjectName, m.name AS majorName, s.icon, c.group, cm.initialDate, cm.finalDate, sm.name AS subjectModuleName
+				FROM
+					user_subject_repeat usr
+				LEFT JOIN course c 
+					ON c.courseId = usr.courseId
+				LEFT JOIN subject s 
+					ON s.subjectId = c.subjectId	
+				LEFT JOIN major m 
+					ON m.majorId = s.tipo
+				LEFT JOIN course_module cm 
+					ON usr.courseModuleId = cm.courseModuleId 
+				LEFT JOIN subject_module sm 
+					ON cm.subjectModuleId = sm.subjectModuleId
+				WHERE
+					usr.alumnoId = " . $this->getUserId() . "
+				ORDER BY sm.name ASC";
+
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		return $result;
+	}
+
+
+	public function GetMatricula($courseId)
+	{
+		$sql = "SELECT matricula FROM user_subject WHERE alumnoId = " . $this->userId . " AND courseId = " . $courseId;
+		$this->Util()->DB()->setQuery($sql);
+		$matricula = $this->Util()->DB()->GetSingle();
+		return $matricula;
+	}
+
+
+	public function BoletaCalificacion($courseId, $period = 0, $english = true)
+	{
+		$condition = "";
+		if($period > 0)
+			$condition .= " AND subject_module.semesterId = " . $period;
+		if(!$english)
+			$condition .= " AND subject_module.subjectModuleId NOT IN (246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257)";
+		$sql = "SELECT * 
+					FROM course_module
+						LEFT JOIN subject_module 
+							ON subject_module.subjectModuleId = course_module.subjectModuleId
+					WHERE courseId = " . $courseId . " " . $condition . "
+					ORDER BY semesterId ASC, initialDate ASC";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		foreach($result as $key => $value)
+		{
+			$sql = "SELECT *
+						FROM course_module_score
+						WHERE courseModuleId = " . $value['courseModuleId'] . " AND userId = " . $this->userId . " AND courseId = " . $courseId;
+			$this->Util()->DB()->setQuery($sql);
+			$infoCc = $this->Util()->DB()->GetRow();
+			// CALCULA ACUMULADO
+			$activity = new Activity;
+			$activity->setCourseModuleId($value['coursemoduleId']);
+			$actividades = $activity->Enumerate();
+			$sql = "SELECT teamNumber
+						FROM team
+						WHERE courseModuleId = " . $value['courseModuleId'] . " AND userId = " . $this->userId;
+			$this->Util()->DB()->setQuery($sql);
+			$result[$key]["equipo"] = $this->Util()->DB()->GetSingle();
+			$result[$key]{"addepUp"} = 0;
+			foreach($actividades as $activity)
+			{
+				if($activity["score"] <= 0)
+					continue;
+				$sqlca = "SELECT ponderation
+							FROM activity_score
+							WHERE activityId = " . $activity["activityId"] . " AND userId = " . $this->userId;
+				$this->Util()->DB()->setQuery($sqlca);
+				$score = $this->Util()->DB()->GetSingle();
+				$result[$key]{"score"}[] = $score;
+				$realScore = $score * $activity["score"] / 100;
+				$result[$key]{"realScore"}[] = $realScore;
+				$result[$key]{"addepUp"} += $realScore;
+			}
+			if($infoCc["calificacion"]==null or $infoCc["calificacion"]==0)
+			{		
+				$at = $result[$key]{"addepUp"} / 10;
+				if($this->tipoMajor == "MAESTRIA" and $at < 7)
+					$at= floor ($at);
+				else if($this->tipoMajor == "DOCTORADO" and $at < 8)
+					$at= floor ($at);
+				else
+					$at= round($at, 0, PHP_ROUND_HALF_DOWN);
+				$infoCc["calificacion"] = $at;	
+			}
+			else
+				$infoCc["calificacion"] = $infoCc["calificacion"];
+			if($this->tipoMajor == "MAESTRIA" and $infoCc["calificacion"] < 7)
+				$result[$key]["score"] = 6;
+			else if($this->tipoMajor == "DOCTORADO" and $infoCc["calificacion"] < 8)
+				$result[$key]["score"] = 7;
+			else
+				$result[$key]["score"] = $infoCc["calificacion"];
+		}
+		return $result;
+	}
+
+	
 }
 
 ?>

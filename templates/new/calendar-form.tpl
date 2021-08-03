@@ -1,11 +1,8 @@
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorm"></i> Agregar Concepto
-        </div>
-        <div class="actions"></div>
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <i class="fas fa-tag"></i> Agregar Concepto
     </div>
-    <div class="portlet-body">
+    <div class="card-body">
         {include file="boxes/status_no_ajax.tpl"}
         {include file="forms/new/calendar-form.tpl"}
     </div>

@@ -1,12 +1,48 @@
-<div class="portlet box red">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-bullhorn"></i>Agregar 
-        </div>
-        <div class="actions">
-
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <i class="far fa-folder"></i> Agregar
+    </div>
+    <div class="card-body">
+        <form id="frmDoc_" name="frmDoc_" method="post" enctype="multipart/form-data">
+            <input type="hidden" id="type" name="type" value="enviarArchivoRepo" />
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" class="form-control" />
+                </div>
+            </div>
+            <input type="hidden" id="solicitudId" name="solicitudId" value="{$id}" />
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <label for="comprobante">Documento:</label>
+                    <input type="file" id="comprobante" name="comprobante" />
+                </div>
+            </div>
+        </form>
+        <div id="loader3" class="my-3"></div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button class="btn btn-primary" id="addMajor" name="addMajor" onClick="enviarArchivo()">Enviar</button>
+                <button type="button" class="btn btn-danger closeModal" onClick="btnClose()">Cancelar</button>
+            </div>
         </div>
     </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="portlet box red">
     <div class="portlet-body">
 
 <!-- TinyMCE
@@ -15,34 +51,7 @@
 
 
     
-    <div class="form-body">
-	<form class="form-horizontal" id="frmDoc_" name="frmDoc_" method="post"  enctype="multipart/form-data">
-	<input type="hidden" id="type" name="type" value="enviarArchivoRepo"/>
-	
-	<b>Nombre</b><br>
-	<input type="text" name="nombre" class="form-control">
-	<br>
-    <input type="hidden" id="solicitudId" name="solicitudId" value="{$id}"/>
-
-         <b>Documento:</b>
-      
-               <input type="file" name="comprobante">
-			   <br>
-			   <br>
-          
-  
-</form>
-<div id="loader3" >
-</div>
-        <div class="form-actions">
-            <div class="row">
-                <div class="col-md-offset-3 col-md-9">
-                    <button  class="btn green" id="addMajor" name="addMajor" onClick="enviarArchivo()">Enviar</button>
-                    <button type="button" class="btn default closeModal" onClick="closeModal()">Cancelar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
 
 <script type="text/javascript">

@@ -166,14 +166,6 @@ function SaveCalificacion(Id){
 }
 
 
-function closeModal(){
-
-	$("#ajax").hide();
-	$("#ajax").modal("hide");
-
-}
-
-
 function habilitarEdicion(Id){
 	$.ajax({
 	  	type: "POST",
@@ -221,8 +213,7 @@ function validarCal(Id){
 				$('#btnSave').show();
 				$('#loader').html('');
 				$('#msj').html(splitResp[1]);
-				$("#ajax").hide();
-				$("#ajax").modal("hide");
+				btnClose();
 			}else if($.trim(splitResp[0])=="fail"){
 				alert(splitResp[1])
 			}
@@ -336,7 +327,7 @@ function onSaveCarta(){
 			var splitResp = response.split("[#]");
 
 			if($.trim(splitResp[0])=="ok"){
-				closeModal()
+				btnClose()
 				$('#msjCourse').html(splitResp[1]);
 			}else if($.trim(splitResp[0])=="fail"){
 				alert(splitResp[1])
@@ -358,14 +349,6 @@ function onSaveCarta(){
 function onImprimirCarta(Id){
 	url=WEB_ROOT+"/ajax/carta.php?"+$('#frmfiltro').serialize(true)+'&Id='+Id+'';
 	open(url,"voucher","toolbal=0,width=800,resizable=1");
-}
-
-
-function closeModal(){
-
-	$("#ajax").hide();
-	$("#ajax").modal("hide");
-
 }
 
 
@@ -404,7 +387,7 @@ function onSendCarta(Id){
 			var splitResp = response.split("[#]");
 
 			if($.trim(splitResp[0])=="ok"){
-				closeModal()
+				btnClose()
 				$('#msjCourse').html(splitResp[1]);
 			}else if($.trim(splitResp[0])=="fail"){
 				alert(splitResp[1])
@@ -412,7 +395,7 @@ function onSendCarta(Id){
 				alert('Ocurrio un error....')
 			}
 			// alert('llega')
-			closeModal()
+			btnClose()
 		},
 	})
 
@@ -453,7 +436,7 @@ function onSendInforme(Id){
 			var splitResp = response.split("[#]");
 
 			if($.trim(splitResp[0])=="ok"){
-				closeModal()
+				btnClose()
 				$('#msjCourse').html(splitResp[1]);
 			}else if($.trim(splitResp[0])=="fail"){
 				alert(splitResp[1])
@@ -461,7 +444,7 @@ function onSendInforme(Id){
 				alert('Ocurrio un error....')
 			}
 			// alert('llega')
-			closeModal()
+			btnClose()
 		},
 	})
 
@@ -487,7 +470,7 @@ function onDeleteCarta(id,courseId)
 		    var splitResp = data.split("[#]");
 			 if($.trim(splitResp[0]) == "ok")
             {
-               closeModal()
+               btnClose()
             }
             else
             {
@@ -520,7 +503,7 @@ function onDeleteInforme(id,courseId)
 		    var splitResp = data.split("[#]");
 			 if($.trim(splitResp[0]) == "ok")
             {
-               closeModal()
+               btnClose()
             }
             else
             {
@@ -552,7 +535,7 @@ function onDeleteRubrica(id,courseId)
 		    var splitResp = data.split("[#]");
 			 if($.trim(splitResp[0]) == "ok")
             {
-               closeModal()
+               btnClose()
             }
             else
             {
@@ -587,7 +570,7 @@ function onDeleteEncuadre(id,courseId)
 		    var splitResp = data.split("[#]");
 			 if($.trim(splitResp[0]) == "ok")
             {
-               closeModal()
+               btnClose()
             }
             else
             {
@@ -634,7 +617,7 @@ function onSendEncuadre(Id){
 			var splitResp = response.split("[#]");
 
 			if($.trim(splitResp[0])=="ok"){
-				closeModal()
+				btnClose()
 				$('#msjCourse').html(splitResp[1]);
 			}else if($.trim(splitResp[0])=="fail"){
 				alert(splitResp[1])
@@ -642,7 +625,7 @@ function onSendEncuadre(Id){
 				alert('Ocurrio un error....')
 			}
 			// alert('llega')
-			closeModal()
+			btnClose()
 		},
 	})
 
@@ -683,7 +666,7 @@ function onSendRubrica(Id){
 			var splitResp = response.split("[#]");
 
 			if($.trim(splitResp[0])=="ok"){
-				closeModal()
+				btnClose()
 				$('#msjCourse').html(splitResp[1]);
 			}else if($.trim(splitResp[0])=="fail"){
 				alert(splitResp[1])
@@ -691,7 +674,7 @@ function onSendRubrica(Id){
 				alert('Ocurrio un error....')
 			}
 			// alert('llega')
-			closeModal()
+			btnClose()
 		},
 	})
 
