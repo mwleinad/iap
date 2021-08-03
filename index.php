@@ -15,7 +15,7 @@ if (!isset($_SESSION))
 //		unset($_SESSION['lastClick']);
 //last click
 //print_r($_SESSION);
-if(time() > $_SESSION["lastClick"] + 90000 && $_GET["page"] != "login"  && $_GET["page"] != "register" && $_GET["page"] != "recuperacion"  && $_GET["page"] != "tv"  && $_GET["page"] != "make-test")
+if(time() > $_SESSION["lastClick"] + 90000 && $_GET["page"] != "login"  && $_GET["page"] != "register" && $_GET["page"] != "recuperacion"  && $_GET["page"] != "tv"  && $_GET["page"] != "make-test" && $_GET["page"] != "mantenimiento")
 {
 	unset($_SESSION['User']);
 	unset($_SESSION['lastClick']);
@@ -213,7 +213,8 @@ $pages = array(
 	'modulos-curricula',
 	'migrupo',
 	'notificaciones',
-	'modulos-recursar'
+	'modulos-recursar',
+	'mantenimiento'
 );
 
 if(!in_array($_GET['page'], $pages))
@@ -265,6 +266,9 @@ if($includedTpl == 'login'){
 }
 else if($includedTpl == 'recuperacion'){
 	$smarty->display(DOC_ROOT.'/templates/recuperacion.tpl');
+}
+else if($includedTpl == 'mantenimiento'){
+	$smarty->display(DOC_ROOT.'/templates/mantenimiento.tpl');
 }
 else
 {
