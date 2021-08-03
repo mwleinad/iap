@@ -101,31 +101,4 @@ $x=0;
 	$smarty->assign('replyforum', $respuestasforos);
 	
  */
-	$diplomas = [
-		'20161016',
-		'20161015',
-		'20213345',
-		'20160985',
-		'20160951',
-		'20160938',
-		'20213346',
-		'20213347',
-		'20150767',
-		'20182705',
-		'20213348',
-		'20150766',
-		'20161000'
-	];
-	$div_height = 340;
-	$download = false;
-	if(in_array($_SESSION['User']['numControl'], $diplomas))
-	{
-		$div_height = 500;
-		$download = true;
-	}
-	$smarty->assign("div_height", $div_height);
-	$smarty->assign("download", $download);
-	$smarty->assign("fileCer", $_SESSION['User']['numControl'] . '.pdf');
-	// echo "User: " . $_SESSION["User"]["userId"]; exit;
-
 ?>
