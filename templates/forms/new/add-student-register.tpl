@@ -117,7 +117,7 @@
     <div class="row">
         <div class="form-group col-md-4">
             <label for="workplaceOcupation">Ocupacion:</label>
-            <select name="workplaceOcupation" id="workplaceOcupation" style="width:300px"  class="form-control">
+            <select name="workplaceOcupation" id="workplaceOcupation"  class="form-control">
                 <option value="FUNCIONARIO PUBLICO MUNICIPAL" {if $info.workplaceOcupation == "FUNCIONARIO PUBLICO MUNICIPAL"} selected="selected" {/if}>FUNCIONARIO PUBLICO MUNICIPAL</option>
                 <option value="FUNCIONARIO PUBLICO ESTATAL" {if $info.workplaceOcupation == "FUNCIONARIO PUBLICO ESTATAL"} selected="selected" {/if}>FUNCIONARIO PUBLICO ESTATAL</option>
                 <option value="FUNCIONARIO PUBLICO FEDERAL" {if $info.workplaceOcupation == "FUNCIONARIO PUBLICO FEDERAL"} selected="selected" {/if}>FUNCIONARIO PUBLICO FEDERAL</option>

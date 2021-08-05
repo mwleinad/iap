@@ -16,9 +16,9 @@ $estados=$student->EnumerateEstados();
 
 //print_r($estados);
 if($tam==1)
-    echo"<select id='estadot' name='estadot' onChange='ciudad_dependenciat();' style='width:300px' class=\"form-control\"><option value='0'>Elige tu Estado</option>";
+    echo"<select id='estadot' name='estadot' onChange='ciudad_dependenciat();' class=\"form-control\"><option value='0'>Elige tu Estado</option>";
 else
-    echo"<select id='estadot' name='estadot' onChange='ciudad_dependenciat();' style='width:350px' class=\"form-control\"><option value='0'>Elige tu Estado</option>";
+    echo"<select id='estadot' name='estadot' onChange='ciudad_dependenciat();' class=\"form-control\"><option value='0'>Elige tu Estado</option>";
 
 //echo "<option value='0' >Selecciona tu Estado</option>";
 

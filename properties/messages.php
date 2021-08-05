@@ -8,7 +8,7 @@ $message[1]["body"] = "
 	<b>|course|</b>
 	
 	Tu datos para ingresar al sistema son los siguientes
-	<b>Matricula:</b> |email|
+	<b>Usuario:</b> |email|
 	<b>Contrase&ntilde;a del Sistema:</b>	|password|
 	
 	Tu solicitud de pre-inscripción está siendo revisada por nuestro personal, por lo que en breve recibirás un correo con la confirmación de tu inscripción, esto te dará acceso total a la currícula elegida
@@ -39,7 +39,7 @@ $message[3]["body"] = "
 	<b>|module|</b>
 	
 	Tu datos para ingresar al sistema son los siguientes
-	<b>Matricula:</b> |email|
+	<b>Usuario:</b> |email|
 	<b>Contrase&ntilde;a del Sistema:</b>	|password|
 
 	Nota:

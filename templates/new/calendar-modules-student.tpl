@@ -52,11 +52,10 @@
                                 <thead>
                                     <tr class="text-center">
                                         <th class="font-weight-bold" width="5%">#</th>
-                                        <th class="font-weight-bold" width="30%">Actividad</th>
+                                        <th class="font-weight-bold" width="35%">Actividad</th>
                                         <th class="font-weight-bold" width="20%">Progreso</th>
                                         <th class="font-weight-bold" width="5%">Estatus de la Actividad</th>
-                                        <th class="font-weight-bold" width="16%">Entregable</th>
-                                        <th class="font-weight-bold" width="5%">Estatus del Entregable</th>
+                                        <th class="font-weight-bold" width="16%">Estatus del Entregable</th>
                                         <th width="19%"></th>
                                     </tr>
                                 </thead>
@@ -89,25 +88,6 @@
                                             </td>
                                             <td class="text-center">
                                                 {if $item.homework.path ne ''}
-                                                    {if $item.homework.path ne ''}
-                                                        <button class="btn btn-outline-info btn-xs" onclick="window.location.href='{$WEB_ROOT}/download.php?file=homework/{$item.homework.path}&mime={$item.homework.mime}'" class="bb">
-                                                            <i class="far fa-file-alt"></i> Ver Tarea
-                                                        </button>
-                                                        {if $timestamp < $item.finalDateTimestamp}  
-                                                            {if $item.homework.countUpdate ne 1}
-                                                                {if $item.modality eq 'Individual'}
-                                                                    <br><br>
-                                                                    <button class="btn btn-outline-danger btn-xs" onclick="deleteActividad('{$item.activityId}')" class="bb">
-                                                                        <i class="fas fa-trash-alt"></i> Eliminar
-                                                                    </button>
-                                                                {/if}
-                                                            {/if}
-                                                        {/if}
-                                                    {/if}
-                                                {/if}
-                                            </td>
-                                            <td class="text-center">
-                                                {if $item.homework.path ne ''}
                                                     <span class="badge badge-success">Tarea entregada</span>
                                                 {/if}
                                             </td>
@@ -122,6 +102,25 @@
                                                         <i class="far fa-comment"></i> Ver Retroalimentación
                                                     </a>
                                                     <div style="display:none;" id="divRetro_{$item.activityId}">{$item.retro}</div>
+                                                {/if}
+                                                {* Tarea *}
+                                                {if $item.homework.path ne ''}
+                                                    {if $item.homework.path ne ''}
+                                                        <br>
+                                                        <button class="btn btn-outline-info btn-xs" onclick="window.location.href='{$WEB_ROOT}/download.php?file=homework/{$item.homework.path}&mime={$item.homework.mime}'" class="bb">
+                                                            <i class="far fa-file-alt"></i> Ver Tarea
+                                                        </button>
+                                                        {if $timestamp < $item.finalDateTimestamp}  
+                                                            {if $item.homework.countUpdate ne 1}
+                                                                {if $item.modality eq 'Individual'}
+                                                                    <br>
+                                                                    <button class="btn btn-outline-danger btn-xs" onclick="deleteActividad('{$item.activityId}')" class="bb">
+                                                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                                                    </button>
+                                                                {/if}
+                                                            {/if}
+                                                        {/if}
+                                                    {/if}
                                                 {/if}
                                             </td>
                                         </tr>

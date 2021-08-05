@@ -26,7 +26,7 @@
 							{if $item.foto eq ''}
 								<i class="fas fa-user-circle fa-5x"></i>
 							{else}
-								<img src="{$item.foto}" class="rounded-circle" alt="" style="width: 80px"> 
+								<img src="{$item.foto}" class="img-thumbnail img-fluid" alt=""> 
 							{/if}<br>
 							<p class="card-text mt-2">{$item.name|capitalize} {$item.lastname_paterno|capitalize} {$item.lastname_materno|capitalize}</p>
 						</div>
