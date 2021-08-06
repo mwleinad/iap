@@ -166,6 +166,10 @@
                                 <i class="mdi mdi-checkbox-marked-circle mr-2 text-info"></i>
                                 Currícula Finalizada
                             </a>
+                            <a class="dropdown-item" href="https://youtu.be/oiaW2gl57Fk" data-fancybox="Tutorial">
+                                <i class="mdi mdi-comment-account-outline mr-2 text-info"></i>
+                                Tutorial
+                            </a>
                         {/if}
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{$WEB_ROOT}/logout">
