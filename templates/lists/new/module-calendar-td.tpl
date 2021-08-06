@@ -1,16 +1,16 @@
 <p class="font-weight-bold">{$item.resumen|capitalize}</p>
 <p><small>
-    <b>Fecha Inicial:</b> {$item.initialDate|date_format:"%d-%m-%Y"} {$item.horaInicial}<br />
-    <b>Fecha Final:  </b> {$item.finalDate|date_format:"%d-%m-%Y %H:%M:%S"}<br />
-    <b>Modalidad: </b> {$item.modality}
+    <b>Fecha Inicial:</b> <br>{$item.initialDate|date_format:"%d-%m-%Y"} {$item.horaInicial}<br />
+    <b>Fecha Final:  </b> <br>{$item.finalDate|date_format:"%d-%m-%Y %H:%M:%S"}<br />
+    <b>Modalidad: </b> <br>{$item.modality}
 </small></p>
 {if $item.requerida.activityId}
     <p><small>
         {if $item.activityType == "Tarea"}
-            <b>Tarea Requerida:</b> Para realizar esta Actividad necesitas terminar la Actividad {$item.numreq}
+            <b>Tarea Requerida:</b> <br>Para realizar esta Actividad necesitas terminar la Actividad {$item.numreq}
         {/if}
         {if $item.activityType == "Examen"}
-            <b>Tarea Requerida:</b> Para realizar este Examen necesitas terminar la Actividad {$item.numreq}
+            <b>Tarea Requerida:</b> <br>Para realizar este Examen necesitas terminar la Actividad {$item.numreq}
         {/if}
     </small></p>
 {/if}
@@ -49,12 +49,6 @@
     {if $item.activityType == "Otro"}
         Ninguno.
     {/if}
-{/if}
-{* ARCHIVO ADJUNTO *}
-{if $item.retroFile ne ""}
-    <br />
-    <b>Archivo Adjunto Disponible:</b>
-    <a href='{$WEB_ROOT}/file_retro/{$item.retroFile}' target="_blank" class="bb" style="background: #73b760; color:white">Descargar</a>
 {/if}
 
 

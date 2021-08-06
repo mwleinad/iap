@@ -55,6 +55,7 @@
                                         <th class="font-weight-bold" width="35%">Actividad</th>
                                         <th class="font-weight-bold" width="20%">Progreso</th>
                                         <th class="font-weight-bold" width="5%">Estatus de la Actividad</th>
+                                        <th class="font-weight-bold" width="16%">Entregable</th>
                                         <th class="font-weight-bold" width="16%">Estatus del Entregable</th>
                                         <th width="19%"></th>
                                     </tr>
@@ -77,18 +78,37 @@
                                             </td>
                                             <td class="text-center">
                                                 {if $timestamp > $item.initialDateTimestamp && $timestamp < $item.finalDateTimestamp}
-                                                    <span class="badge badge-success break-line">Esta actividad se encuentra disponible</span>
+                                                    <span class="badge badge-pill badge-success break-line">Esta actividad se encuentra disponible</span>
                                                 {/if}
                                                 {if $timestamp > $item.finalDateTimestamp}
-                                                    <span class="badge badge-danger break-line">El tiempo de esta actividad ha terminado</span>
+                                                    <span class="badge badge-pill badge-danger break-line">El tiempo de esta actividad ha terminado</span>
                                                 {/if}
                                                 {if $timestamp < $item.initialDateTimestamp}
-                                                    <span class="badge badge-warning break-line">Esta actividad aun no ha iniciado</span>
+                                                    <span class="badge badge-pill badge-warning break-line">Esta actividad aun no ha iniciado</span>
                                                 {/if}
                                             </td>
                                             <td class="text-center">
                                                 {if $item.homework.path ne ''}
-                                                    <span class="badge badge-success">Tarea entregada</span>
+                                                    {if $item.homework.path ne ''}
+                                                        <button class="btn btn-outline-info btn-xs" onclick="window.location.href='{$WEB_ROOT}/download.php?file=homework/{$item.homework.path}&mime={$item.homework.mime}'" class="bb">
+                                                            <i class="far fa-file-alt"></i> Ver Tarea
+                                                        </button>
+                                                        {if $timestamp < $item.finalDateTimestamp}  
+                                                            {if $item.homework.countUpdate ne 1}
+                                                                {if $item.modality eq 'Individual'}
+                                                                    <br><br>
+                                                                    <button class="btn btn-outline-danger btn-xs" onclick="deleteActividad('{$item.activityId}')" class="bb">
+                                                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                                                    </button>
+                                                                {/if}
+                                                            {/if}
+                                                        {/if}
+                                                    {/if}
+                                                {/if}
+                                            </td>
+                                            <td class="text-center">
+                                                {if $item.homework.path ne ''}
+                                                    <span class="badge badge-pill badge-success">Tarea entregada</span>
                                                 {/if}
                                             </td>
                                             <td class="text-center">
@@ -103,24 +123,11 @@
                                                     </a>
                                                     <div style="display:none;" id="divRetro_{$item.activityId}">{$item.retro}</div>
                                                 {/if}
-                                                {* Tarea *}
-                                                {if $item.homework.path ne ''}
-                                                    {if $item.homework.path ne ''}
-                                                        <br>
-                                                        <button class="btn btn-outline-info btn-xs" onclick="window.location.href='{$WEB_ROOT}/download.php?file=homework/{$item.homework.path}&mime={$item.homework.mime}'" class="bb">
-                                                            <i class="far fa-file-alt"></i> Ver Tarea
-                                                        </button>
-                                                        {if $timestamp < $item.finalDateTimestamp}  
-                                                            {if $item.homework.countUpdate ne 1}
-                                                                {if $item.modality eq 'Individual'}
-                                                                    <br>
-                                                                    <button class="btn btn-outline-danger btn-xs" onclick="deleteActividad('{$item.activityId}')" class="bb">
-                                                                        <i class="fas fa-trash-alt"></i> Eliminar
-                                                                    </button>
-                                                                {/if}
-                                                            {/if}
-                                                        {/if}
-                                                    {/if}
+                                                {* ARCHIVO ADJUNTO *}
+                                                {if $item.retroFile ne ""}
+                                                    <br />
+                                                    <b class="break-line">Archivo Adjunto Disponible:</b><br><br>
+                                                    <a href='{$WEB_ROOT}/file_retro/{$item.retroFile}' target="_blank" class="bb" style="background: #73b760; color:white">Descargar</a>
                                                 {/if}
                                             </td>
                                         </tr>
