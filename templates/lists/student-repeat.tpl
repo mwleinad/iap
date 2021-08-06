@@ -22,8 +22,8 @@
 							<td>{$item.subjectName}</td>
 							<td>{$item.group}</td>
 							<td class="text-center text-capitalize">{$item.status}</td>
-							<td></td>
-							<td></td>
+							<td class="text-center">{$item.addepUp}</td>
+							<td class="text-center">{$item.score}</td>
 						</tr>
 					{foreachelse}
 						<tr>
