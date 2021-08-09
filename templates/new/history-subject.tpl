@@ -37,12 +37,21 @@
 			<form id="frmFlt1">
 				<div class="row">
 					<div class="form-group col-md-4">
-					<label for="activo">Activo</label>
-					<select class="form-control" onClick="onBuscar()" name="activo" id="activo">
-						<option></option>
-						<option>si</option>
-						<option>no</option>
-					</select>
+						<label for="curricula">Tipo Curricula</label>
+						<select class="form-control" onClick="onBuscar()" name="curricula" id="curricula">
+							<option></option>
+							{foreach from=$lstMajor item=subject}
+								<option value="{$subject.majorId}">{$subject.name}</option>
+							{/foreach}
+						</select>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="activo">Activo</label>
+						<select class="form-control" onClick="onBuscar()" name="activo" id="activo">
+							<option></option>
+							<option>si</option>
+							<option>no</option>
+						</select>
 					</div>
 					<div class="form-group col-md-4">
 						<label for="modalidad">Modalidad</label>
@@ -50,15 +59,6 @@
 							<option></option>
 							<option>Online</option>
 							<option value="Local">Presencial</option>
-						</select>
-					</div>
-					<div class="form-group col-md-4">
-						<label for="curricula">Tipo Curricula</label>
-						<select class="form-control" onClick="onBuscar()" name="curricula" id="curricula">
-							<option></option>
-							{foreach from=$lstMajor item=subject}
-								<option value="{$subject.majorId}">{$subject.name}</option>
-							{/foreach}
 						</select>
 					</div>
 				</div>

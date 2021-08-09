@@ -28,12 +28,12 @@
 	$lstMajor = $major->Enumerate();
 	
 	$result = $course->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/history-subject', $arrPage);
-	$uniqueSubjects = $course->EnumerateSubjectByPage();
+	// $uniqueSubjects = $course->EnumerateSubjectByPage();
 
 	// $result = $util->orderMultiDimensionalArray($result,'active',true);
 	
 	//checar a que curriculas tengo permiso
-	if(in_array(2, $info["roles"]))
+	/* if(in_array(2, $info["roles"]))
 	{
 		$smarty->assign('docente', 1);
 		$permisosDocente = $user->PermisosDocente();
@@ -53,7 +53,7 @@
 				unset($uniqueSubjects[$key]);
 			}
 		}
-	}
+	} */
 	
 	if($_SESSION['msj']=='si'){
 		unset($_SESSION['msj']);
@@ -64,7 +64,7 @@
 	$smarty->assign('perfil', $_SESSION['User']['perfil']);
 	$smarty->assign('lstMajor', $lstMajor);
 	$smarty->assign('subjects', $result);
-	$smarty->assign('uniqueSubjects', $uniqueSubjects);
+	//$smarty->assign('uniqueSubjects', $uniqueSubjects);
 	$smarty->assign('arrPage', $arrPage);
 	$smarty->assign('coursesCount', $coursesCount);
 	// -------------------------------------------------------------------------------------------------
