@@ -39,7 +39,8 @@
 					<div class="form-group col-md-4">
 						<label for="curricula">Tipo Curricula</label>
 						<select class="form-control" onClick="onBuscar()" name="curricula" id="curricula">
-							<option></option>
+							<option value="0" disabled selected>-- Seleccionar --</option>
+							<option value="">Todo el Historial</option>
 							{foreach from=$lstMajor item=subject}
 								<option value="{$subject.majorId}">{$subject.name}</option>
 							{/foreach}
