@@ -25,7 +25,7 @@
 	$module->setRecibeId($_SESSION['User']['userId']);
 	$module->setCMId($_GET["id"]);
 	
-	if ($_SESSION['User']['perfil'] == 'Administrador'){
+	if ($_SESSION['User']['perfil'] == 'Administrador' || $_SESSION['User']['perfil'] == 'Departamento de Publicaciones'){
 		$module->setQuienEnviaId('alumno');
 		$lstMsj = $module->EnumerateInboxAdmin();
 	}else{
