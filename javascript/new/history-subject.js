@@ -413,19 +413,28 @@ function savePeriodos(){
 
 function DeleteStudentCurricula(userId, courseId)
 {
+    CloseFview();
     Swal.fire({
         title: '¿Estas seguro que deseas eliminar este alumno de esta curricula?',
+        html: '<p><small>Para dar de baja al alumno, debes ingresar el último cuatrimestre o semestre cursado por el alumno.</small></p><input type="text" id="period" class="swal2-input" placeholder="Último cuatrimestre/semestre cursado">',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#58ff85',
         cancelButtonColor: '#ff4545',
-        confirmButtonText: 'Confirmar'
+        confirmButtonText: 'Confirmar',
+        preConfirm: () => {
+            const period = Swal.getPopup().querySelector('#period').value
+            if (!period ) {
+              Swal.showValidationMessage('Por favor, ingresa cuatrimestre/semestre')
+            }
+            return { period: period }
+        }
       }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
                 url : WEB_ROOT + '/ajax/new/studentCurricula.php',
                 type: "POST",
-                data: {type: "deleteStudentCurricula", courseId: courseId, userId : userId},
+                data: {type: "deleteStudentCurricula", courseId: courseId, userId : userId, period: result.value.period},
                 beforeSend: function(){			 
                 },
                 success: function(transport)

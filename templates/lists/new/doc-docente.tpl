@@ -19,7 +19,7 @@
 					{/if}
 				</td>
 				<td>{$subject.nombre}</td>
-				<td>{$subject.descripcion}</td>
+				<td class="break-line">{$subject.descripcion}</td>
 				<td>
 					{if $subject.existArchivo eq 'si'}
 						<a href="{$WEB_ROOT}/docentes/documentos/{$subject.ruta}" title="Descargar Documento" target="_blank">

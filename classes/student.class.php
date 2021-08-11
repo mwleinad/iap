@@ -139,20 +139,8 @@ class Student extends User
 	}
 
 
-	public function AddAcademicHistory($type)
+	public function AddAcademicHistory($type, $semesterId = 0)
 	{
-		if($type == 'baja')
-		{
-			$sql = "SELECT sm.semesterId FROM course_module_score cms
-					INNER JOIN course_module cm
-						ON cms.courseModuleId = cm.courseModuleId 
-					INNER JOIN subject_module sm
-						ON cm.subjectModuleId = sm.subjectModuleId 
-				WHERE cms.userId = " . $this->userId . " AND cms.courseId = " . $this->courseId . "
-				ORDER BY sm.semesterId DESC LIMIT 1";
-			$this->Util()->DB()->setQuery($sql);
-			$semesterId = intval($this->Util()->DB()->GetSingle());
-		}
 		if($type == 'alta')
 		{
 			$sql = "SELECT semesterId 
@@ -161,7 +149,6 @@ class Student extends User
 					ORDER BY academicHistoryId DESC LIMIT 1";
 			$this->Util()->DB()->setQuery($sql);
 			$semesterId = intval($this->Util()->DB()->GetSingle());
-			$semesterId++;
 		}
 		$sql = "INSERT INTO academic_history(subjectId, courseId, userId, semesterId, dateHistory, type) VALUE(" . $this->subjectId . ", " . $this->courseId . ", " . $this->userId . ", " . $semesterId . ", CURDATE(), '" . $type . "')";
 		$this->Util()->DB()->setQuery($sql);
@@ -600,7 +587,7 @@ class Student extends User
 	}
 
 
-	function DeleteStudentCurricula()
+	function DeleteStudentCurricula($period)
 	{
 		$courseId = $this->getCourseId();
 		$subjectId = $this->subjectId;
@@ -609,7 +596,7 @@ class Student extends User
 		$sql = "UPDATE user_subject SET status = 'inactivo' where alumnoId = " . $userId . " AND courseId = " . $courseId;
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
-		$this->AddAcademicHistory('baja');
+		$this->AddAcademicHistory('baja', $period);
 		$this->Util()->setError(10028, "complete","Alumno eliminado con éxito de esta curricula.");
 		$this->Util()->PrintErrors();
 
@@ -622,6 +609,9 @@ class Student extends User
 		$userId = $this->getUserId();
 
 		$sql="UPDATE user_subject SET status='activo' where alumnoId='".$userId."' and courseId='".$courseId."' ";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->ExecuteQuery();
+		$sql = "DELETE FROM academic_history WHERE userId = " . $userId . " AND courseId = " . $courseId;
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
 		$this->Util()->setError(10028, "complete","Alumno activado con éxito.");
@@ -3073,6 +3063,7 @@ class Student extends User
 		$this->setUserId($userId);
 		$info = $this->GetInfo();
 
+		// $info['email'] = 'carloszh04@gmail.com';
 		$complete = $this->AddUserToCourseModule($userId, $courseId, $courseModuleId, $info["names"], $info["email"], $info["password"], $subjectModuleInfo["name"]);
 
 		$this->Util()->setError(40104, "complete", $complete);
