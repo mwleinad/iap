@@ -758,7 +758,7 @@ class Student extends User
 			if(intval($temporalGroup) > 0)
 			{
 				// Actualiza la curricula temporal por la oficial
-				$sql = "UPDATE user_subject SET courseId = " . $curricula . " WHERE alumnoId = " . $id . " AND courseId = " . $temporalGroup;
+				$sql = "UPDATE user_subject SET courseId = " . $curricula . ", status = 'activo' WHERE alumnoId = " . $id . " AND courseId = " . $temporalGroup;
 				$this->Util()->DB()->setQuery($sql);
 				$this->Util()->DB()->UpdateData();
 				$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico para continuar con el proceso de inscripcion";
