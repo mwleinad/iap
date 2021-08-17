@@ -3,7 +3,10 @@
         <h4><b>Curricula:</b> [{$info.majorName}] {$info.name}</h4>
         {if $info.totalPeriods > 0}
             <h4><b>Total {$info.tipoCuatri}: </b> {$info.totalPeriods}</h4>
-        {/if}
+        {/if}<br>
+        <p class="text-justify">
+            <b>NOTA:</b> Estimados alumnos, por este medio hago de su conocimiento que a partir del día 17 de agosto 2021 la emisión  de los Comprobantes Fiscales Digitales realizados por este instituto relativo  a los pagos por concepto de materias, constancias, pago de titulación y pago de certificado, se facturarán a más tardar el último día de cada mes. Asimismo, todos aquellos alumnos que realicen pagos por los conceptos antes señalados y no soliciten la factura correspondiente en el plazo establecido, ya no se les podrán expedir el comprobante fiscal correspondiente.
+        </p>
     </div>
     {for $period = 1 to $info.totalPeriods}
         <div class="col-md-12">
