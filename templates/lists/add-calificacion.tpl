@@ -59,7 +59,7 @@
     {if $info.habilitarCalificar eq 'si'}
         <button class="btn btn-success" onClick="SaveCalificacion({$id})" id="btnSave">Guardar</button>
     {/if}
-    {if $infoUser.perfil eq 'Administrador' or $infoUser.personalId eq 1}
+    {if $infoUser.perfil eq 'Administrador' or $infoUser.personalId eq 1 or $infoUser.positionId eq 2 or $infoUser.positionId eq 3 or $infoUser.positionId eq 5}
         <button class="btn btn-warning" onClick="habilitarEdicion({$id})" id="btnSave">
             Habilitar Edición
         </button>
