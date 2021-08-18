@@ -848,7 +848,7 @@ class Student extends User
 				"course" => utf8_decode($course),
 			);
 			$details_subject = array();
-			$email = "carloszh04@gmail.com";
+			//$email = "carloszh04@gmail.com";
 
 			$attachment[0] = DOC_ROOT."/files/solicitudes/".$file;
 			$fileName[0] = "Solicitud_de_Inscripcion.pdf";
