@@ -745,8 +745,12 @@ class Student extends User
 			// Curricula temporal
 			$sql = "SELECT temporalGroup FROM course WHERE courseId = " . $curricula;
 			$this->Util()->DB()->setQuery($sql);
-			$temporalGroup = $this->Util()->DB()->GetSingle();
-
+			$temporalGroup = intval($this->Util()->DB()->GetSingle());
+			// Preinscrito
+			$sql = "SELECT registrationId FROM user_subject WHERE courseId = " . $temporalGroup . " AND alumnoId = " . $id;
+			$this->Util()->DB()->setQuery($sql);
+			$registrationId = intval($this->Util()->DB()->GetSingle());
+			
 			$status = 'activo';
 				
 //print_r($count);
@@ -755,7 +759,7 @@ class Student extends User
 				return $complete = "Este alumno ya esta registrado en esta curricula. Favor de Seleccionar otra Curricula";
 			}
 
-			if(intval($temporalGroup) > 0)
+			if($temporalGroup > 0 && $registrationId > 0)
 			{
 				// Actualiza la curricula temporal por la oficial
 				$sql = "UPDATE user_subject SET courseId = " . $curricula . ", status = 'activo' WHERE alumnoId = " . $id . " AND courseId = " . $temporalGroup;
@@ -844,7 +848,7 @@ class Student extends User
 				"course" => utf8_decode($course),
 			);
 			$details_subject = array();
-			//$email = "dlopez@trazzos.com";
+			$email = "carloszh04@gmail.com";
 
 			$attachment[0] = DOC_ROOT."/files/solicitudes/".$file;
 			$fileName[0] = "Solicitud_de_Inscripcion.pdf";

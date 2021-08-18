@@ -56,9 +56,9 @@ if($courseInfo['tipoCuatri'] == 'Cuatrimestre')
 $institution->setInstitutionId(1);
 $myInstitution = $institution->Info();
 $studentKeys = array_keys($students);
-echo "<pre>";
+/* echo "<pre>";
 var_dump($studentKeys);
-exit;
+exit; */
 // Prueba Grupo Temporal
 /* $group->setCourseId($courseId);
 $students = $group->DefaultGroup(); */
@@ -392,7 +392,7 @@ if($typeXlsx == 1 || $typeXlsx == 3)
             $modulesScore = [];
             if($indexStudent < $totalStudents)
             {
-                $clave_se = $claveSE;
+                $clave_se = $students[$indexStudent]['matricula'];
                 $lastNamePaterno = mb_strtoupper($students[$indexStudent]['lastNamePaterno']);
                 $lastNameMaterno = mb_strtoupper($students[$indexStudent]['lastNameMaterno']);
                 $names = mb_strtoupper($students[$indexStudent]['names']);

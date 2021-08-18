@@ -1487,6 +1487,7 @@
 					unset($students[$key]);
 			}
 		}
+		$students = array_values($students);
 		return $students;
 	}
 
