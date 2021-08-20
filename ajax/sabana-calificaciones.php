@@ -32,9 +32,9 @@ if($typeXlsx == 2 || $typeXlsx == 4)
         $modulesRepeat[] .= $item['courseModuleId']; 
     $students = $course->SabanaCalificacionesTrasera($period, true, " ORDER BY cm.initialDate", 'final', $modulesRepeat);
 }
-echo "<pre>";
+/* echo "<pre>";
 var_dump($students);
-exit;
+exit; */
 
 $minCal = 7;
 $claveSE = 5036;
@@ -822,13 +822,26 @@ if($typeXlsx == 2 || $typeXlsx == 4)
             for($is = 0; $is < count($courseModules); $is++) 
             {
                 $calificacion = $minCal - 1;
-                if(array_key_exists($is, $modulesScore))
+                $color = '000000';
+                if($modulesScore != null)
+                {
+                    if(array_key_exists($is, $modulesScore))
                     $calificacion = $modulesScore[$is]['calificacion'];
-                if($lastNamePaterno == '')
+                    else
+                        $calificacion = 0;
+                }
+                else
+                    $calificacion = 0;
+                if($calificacion < $minCal)
+                {
+                    $color = 'FF0000';
+                    $fails++;
+                }
+                if($calificacion == 0 || $lastNamePaterno == '')
                     $calificacion = '';
                 // Calificacion
                 $sheet->setCellValue(++$column . $row, $calificacion);
-                $sheet->getStyle($column . $row)->applyFromArray(CellStyle(7, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
+                $sheet->getStyle($column . $row)->applyFromArray(CellStyle(7, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0, false, $color));
             }
             ++$column;
         }
@@ -885,7 +898,7 @@ if($typeXlsx == 2 || $typeXlsx == 4)
     $sheet->mergeCells('C34:F34');
     $sheet->getStyle('C34:F34')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
     $sheet->mergeCells('C35:F35');
-    $sheet->setCellValue('C35', mb_strtoupper($myInstitution['directorAcademico']));
+    $sheet->setCellValue('C35', 'LIC. ' . mb_strtoupper($myInstitution['directorAcademico']));
     $sheet->getStyle('C35:F35')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
     $sheet->mergeCells('C36:F36');
     $sheet->setCellValue('C36', 'DIRECTORA ACADÉMICA');
@@ -895,7 +908,7 @@ if($typeXlsx == 2 || $typeXlsx == 4)
     $sheet->mergeCells('G28:G31');
     $sheet->getStyle('G28:G31')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
     $sheet->setCellValue('G32', 'FECHA: ');
-    $sheet->getStyle('G32')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
+    $sheet->getStyle('G32')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'left', 0));
     $sheet->setCellValue('G33', 'FECHA Y SELLO DE VALIDACIÓN');
     $sheet->getStyle('G33')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
     $sheet->getStyle('G34')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
@@ -916,7 +929,7 @@ if($typeXlsx == 2 || $typeXlsx == 4)
     $sheet->mergeCells('J34:O34');
     $sheet->getStyle('J34:O34')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
     $sheet->mergeCells('J35:O35');
-    $sheet->setCellValue('J35', mb_strtoupper($myInstitution['directorAcademico']));
+    $sheet->setCellValue('J35', 'LIC. ' . mb_strtoupper($myInstitution['directorAcademico']));
     $sheet->getStyle('J35:O35')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
     $sheet->mergeCells('J36:O36');
     $sheet->setCellValue('J36', 'DIRECTORA ACADÉMICA');
@@ -926,7 +939,7 @@ if($typeXlsx == 2 || $typeXlsx == 4)
     $sheet->mergeCells('P28:P31');
     $sheet->getStyle('P28:P31')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
     $sheet->setCellValue('P32', 'FECHA: ');
-    $sheet->getStyle('P32')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
+    $sheet->getStyle('P32')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'left', 0));
     $sheet->setCellValue('P33', 'FECHA Y SELLO DE VALIDACIÓN');
     $sheet->getStyle('P33')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
     $sheet->getStyle('P34')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
@@ -943,7 +956,7 @@ if($typeXlsx == 2 || $typeXlsx == 4)
     $sheet->setCellValue('W27', 'DEPARTAMENTO DE SERVICIOS ESCOLARES');
     $sheet->getStyle('W27:AD27')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
     $sheet->mergeCells('W28:AD28');
-    $sheet->setCellValue('W28', 'PERIODO LEGALIZADO: ');
+    $sheet->setCellValue('W28', 'PERIODO LEGALIZADO: ' . $util->DeterminePeriod($courseModules[0]['initialDate'], $typeCourse));
     $sheet->getStyle('W28:AD28')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
     $sheet->mergeCells('W29:AD31');
     $sheet->getStyle('W29:AD31')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
@@ -957,10 +970,12 @@ if($typeXlsx == 2 || $typeXlsx == 4)
     $sheet->getStyle('W34:AC34')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
     $sheet->getStyle('AD34')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
     $sheet->mergeCells('W35:AC35');
+    $sheet->setCellValue('W35', 'MTRO. MANUEL CASTILLEJOS LÓPEZ');
     $sheet->getStyle('W35:AC35')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
+    $sheet->setCellValue('AD35', 'ING. MARTHA MARLENE ESTRADA ESTRADA');
     $sheet->getStyle('AD35')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
     $sheet->mergeCells('W36:AC36');
-    $sheet->setCellValue('W36', 'JEFE DE LA OFICINA');
+    $sheet->setCellValue('W36', 'JEFE DE OFICINA');
     $sheet->getStyle('W36:AC36')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
     $sheet->setCellValue('AD36', 'JEFE DEL DEPARTAMENTO DE SERVICIOS ESCOLARES');
     $sheet->getStyle('AD36')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
