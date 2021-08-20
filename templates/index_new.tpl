@@ -212,7 +212,7 @@
 				Swal.fire({
 					icon: 'info',
 					title: 'Importante',
-					html: '<p><b>Estimados alumnos, por este medio hago de su conocimiento que a partir del día 17 de agosto 2021 la emisión  de los Comprobantes Fiscales Digitales realizados por este instituto relativo  a los pagos por concepto de materias, constancias, pago de titulación y pago de certificado, se facturarán a más tardar el último día de cada mes. Asimismo, todos aquellos alumnos que realicen pagos por los conceptos antes señalados y no soliciten la factura correspondiente en el plazo establecido, ya no se les podrán expedir el comprobante fiscal correspondiente.</b></p>'
+					html: '<p><b>Estimados alumnos, por este medio se les hace de su conocimiento que a partir del día 17 de agosto 2021 la emisión  de los Comprobantes Fiscales Digitales realizados por este instituto relativo  a los pagos por concepto de materias, constancias, pago de titulación y pago de certificado, se facturarán a más tardar el último día de cada mes. Asimismo, todos aquellos alumnos que realicen pagos por los conceptos antes señalados y no soliciten la factura correspondiente en el plazo establecido, ya no se les podrán expedir el comprobante fiscal correspondiente.</b></p>'
 				});
 			</script>
 		{/if}

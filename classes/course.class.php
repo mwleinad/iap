@@ -1494,12 +1494,14 @@
 	function SabanaCalificacionesTrasera($period = 0, $ignoreEnglish = false, $order = " ORDER BY sm.name", $type = 'initial', $modules = [])
 	{
 		$modules = implode(',', $modules);
-		$sql = "SELECT u.userId, u.lastNamePaterno, u.lastNameMaterno, u.names, u.sexo
+		$sql = "SELECT u.userId, u.lastNamePaterno, u.lastNameMaterno, u.names, u.sexo,
+						(SELECT matricula FROM user_subject WHERE alumnoId = u.userId AND courseId = " . $this->courseId . ") AS matricula
 				FROM user_subject_repeat usr
 					INNER JOIN user u
 						ON usr.alumnoId = u.userId
 				WHERE usr.courseId = " . $this->courseId . " AND usr.courseModuleId IN (" . $modules . ") 
 			GROUP BY usr.alumnoId ORDER BY u.lastNamePaterno, u.lastNameMaterno, u.names";
+		echo $sql; 
 		$this->Util()->DB()->setQuery($sql);
 		$students = $this->Util()->DB()->GetResult();
 		if($type == 'final')

@@ -32,9 +32,9 @@ if($typeXlsx == 2 || $typeXlsx == 4)
         $modulesRepeat[] .= $item['courseModuleId']; 
     $students = $course->SabanaCalificacionesTrasera($period, true, " ORDER BY cm.initialDate", 'final', $modulesRepeat);
 }
-/* echo "<pre>";
+echo "<pre>";
 var_dump($students);
-exit; */
+exit;
 
 $minCal = 7;
 $claveSE = 5036;
@@ -689,10 +689,10 @@ if($typeXlsx == 2 || $typeXlsx == 4)
     $sheet->getStyle('D1:E2')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
     $sheet->mergeCells('D3:D4');
     $sheet->setCellValue('D3', 'ASIGNATURAS NO ACREDITADAS');
-    $sheet->getStyle('D3:D4')->applyFromArray(CellStyle(10, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 90));
+    $sheet->getStyle('D3:D4')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 90));
     $sheet->mergeCells('E3:E4');
     $sheet->setCellValue('E3', 'SITUACIÓN ESCOLAR');
-    $sheet->getStyle('E3:E4')->applyFromArray(CellStyle(10, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 90));
+    $sheet->getStyle('E3:E4')->applyFromArray(CellStyle(5, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 90));
     $sheet->mergeCells('F1:F3');
     $sheet->setCellValue('F1', 'NÚMERO DE CONTROL');
     $sheet->getStyle('F1:F3')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
@@ -783,6 +783,7 @@ if($typeXlsx == 2 || $typeXlsx == 4)
     $indexStudent = 0;
     for($row = 7; $row <= 13; $row++)
     {
+        $matricula = '';
         $lastNamePaterno = '';
         $lastNameMaterno = '';
         $names = '';
@@ -790,6 +791,7 @@ if($typeXlsx == 2 || $typeXlsx == 4)
         $modulesScore = [];
         if($indexStudent < $totalStudents)
         {
+            $matricula = $students[$indexStudent]['matricula'];
             $lastNamePaterno = mb_strtoupper($students[$indexStudent]['lastNamePaterno']);
             $lastNameMaterno = mb_strtoupper($students[$indexStudent]['lastNameMaterno']);
             $names = mb_strtoupper($students[$indexStudent]['names']);
@@ -801,6 +803,7 @@ if($typeXlsx == 2 || $typeXlsx == 4)
         $sheet->getStyle('C' . $row)->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
         $sheet->getStyle('D' . $row)->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
         $sheet->getStyle('E' . $row)->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
+        $sheet->setCellValue('F' . $row, $matricula);
         $sheet->getStyle('F' . $row)->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
         $sheet->mergeCells('G' . $row . ':' . 'I' . $row);
         $sheet->setCellValue('G' . $row, $lastNamePaterno . ' ' . $lastNameMaterno . ' ' . $names);
