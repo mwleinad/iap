@@ -76,6 +76,10 @@
 							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=ver-sabana-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Sabana de Calificaciones">
 								<i class="fas fa-tasks"></i> Sabana de Calificaciones
 							</a>
+							{* Certificados *}
+							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=certificates&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Certificados">
+								<i class="fas fa-certificate"></i> Certificados
+							</a>
 							<a class="dropdown-item" href="{$WEB_ROOT}/diplomas.php?id={$subject.courseId}" target="_blank" title="Diplomas">
 								<i class="fas fa-clipboard-check"></i> Diplomas
 							</a>

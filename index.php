@@ -214,7 +214,8 @@ $pages = array(
 	'migrupo',
 	'notificaciones',
 	'modulos-recursar',
-	'mantenimiento'
+	'mantenimiento',
+	'certificates'
 );
 
 if(!in_array($_GET['page'], $pages))

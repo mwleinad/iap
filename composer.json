@@ -2,6 +2,7 @@
     "require": {
         "dompdf/dompdf": "^0.8.2",
         "vlucas/phpdotenv": "^3.4",
-        "phpoffice/phpspreadsheet": "^1.18"
+        "phpoffice/phpspreadsheet": "^1.18",
+        "phpoffice/phpword": "^0.18.2"
     }
 }
