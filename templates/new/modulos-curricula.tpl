@@ -23,7 +23,7 @@
             {for $cuatrimestre = 1 to $infoCourses.totalPeriods}
                 <div class="card">
                     <div class="card-header collapsed card-link pointer text-white bg-primary" data-toggle="collapse" href="#collapse{$cuatrimestre}">
-                        Cuatrimestre {$cuatrimestre} <i class="fas fa-chevron-circle-down float-right"></i>
+                        {$infoCourses.tipoCuatri} {$cuatrimestre} <i class="fas fa-chevron-circle-down float-right"></i>
                     </div>
                     <div id="collapse{$cuatrimestre}" class="collapse" data-parent="#accordion">
                         <div class="card-body">
