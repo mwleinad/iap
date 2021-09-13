@@ -173,7 +173,7 @@ use Dompdf\Exception;
 				<tr>
 					<td colspan='2' align='center' style='border: none'>
 					".$infoPersonal['profesion']." ".$infoPersonal['name']." ".$infoPersonal['lastname_paterno']." ".$infoPersonal['lastname_materno']."<br>
-					Catedratico
+					Catedrático (a)
 					
 					<br>
 					<br>
@@ -183,7 +183,7 @@ use Dompdf\Exception;
 				<tr>
 					<td align='center' style='border: none'>
 						".$infoFirma['director']."<br>
-						Director Academico
+						Directora Academica
 					</td>
 					<td align='center' style='border: none'> 
 						".$infoFirma['controlEscolar']."<br>
