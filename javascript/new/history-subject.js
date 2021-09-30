@@ -519,3 +519,26 @@ function EnableStudentCurricula(userId, courseId)
         }
     });
 }
+
+
+function additional() {
+    let course = document.getElementById('co').value;
+    let cuatri = document.getElementById('cu').value;
+    console.log('[Prueba - OK]');
+    $.ajax({
+        url : WEB_ROOT+'/ajax/new/studentCurricula.php',
+        type: "POST",
+            data: {type: "additional", course: course, cuatri: cuatri},
+        beforeSend: function() {
+        },
+        success: function(data)
+        {
+           console.log(data);
+            $('#additional').html(data);
+        },
+        error: function ()
+        {
+           alert('Algo salio mal, compruebe su conexion a internet');
+        }
+    });
+}

@@ -112,12 +112,12 @@ $html .="<html>
                     <tr>
                         <td class='text-center'><b>Posgrado:</b> </td>
                         <td colspan='2' style='text-transform: capitalize;'>" . mb_strtolower($infoCourse['majorName'] . " " . $infoCourse['name']) . "</td>
-                        <td class='text-center'><b>Ciclo:</b> " . $infoCourse['scholarCicle'] . "</td>
+                        <td class='text-center'><b>Ciclo:</b> " . $_GET['ci'] . "</td>
                     </tr>
                     <tr>
                         <td class='text-center' style='text-transform: capitalize;'><b>" . $infoCourse['tipoCuatri'] . ":</b></td>
                         <td> " . $util->num2order($_GET['cu']) . "</td>
-                        <td class='text-center'><b>Periodo:</b> " . $util->DeterminePeriod($modules[0]['initialDate'], $typeCourse) . "</td>
+                        <td class='text-center'><b>Periodo:</b> " . $_GET['pe'] . ' ' . $_GET['year'] . "</td>
                         <td class='text-center'><b>Grupo:</b> " . $infoCourse['group'] . "</td>
                     </tr>
 			    </table>
@@ -150,8 +150,8 @@ $html .="<html>
                 <img src='" . DOC_ROOT . "/images/new/docs/doc_footer.png' class='img-footer'>
 	        </body>
 	    </html>";
-	//echo $html;
-	//exit;
+	/* echo $html;
+	exit; */
 	# Instanciamos un objeto de la clase DOMPDF.
 	$mipdf = new DOMPDF();
 	 

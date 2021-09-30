@@ -426,6 +426,26 @@ switch($_POST["type"])
 		$smarty->assign('subjects', $result);
 		$smarty->display(DOC_ROOT.'/templates/lists/new/calendar-courses.tpl');
 	break;
+
+	case 'additional':
+		$courseId = intval($_POST['course']);
+		$semesterId = intval($_POST['cuatri']);
+		$modules = $course->AddedCourseModulesCuatri($courseId, $semesterId);
+		$arrayDate = explode('-', $modules[0]['initialDate']);
+		$year = intval($arrayDate[0]);
+		$c1 = strval($year - 1) . " - " . $year;
+		$c2 = $year . " - " . strval($year + 1);
+		$ciclos = [$c1, $c2];
+		$course->setCourseId($courseId);
+		$infoCourse = $course->Info();
+		$periodos = ['Enero - Abril', 'Mayo - Agosto', 'Septiembre - Diciembre'];
+		if($infoCourse['tipoCuatri'] == 'Semestre')
+			$periodos = ['Enero - Junio', 'Julio - Diciembre'];
+		$smarty->assign('ciclos', $ciclos);
+		$smarty->assign('periodos', $periodos);
+		$smarty->assign('year', $year);
+		$smarty->display(DOC_ROOT.'/templates/boxes/new/qualifications-course.tpl');
+		break;
 }
 
 ?>

@@ -1,5 +1,5 @@
 <form action="{$WEB_ROOT}/ajax/boleta-calificaciones.php" method="GET" target="_blank">
-    <input type="hidden" name="co" value="{$info.courseId}" />
+    <input type="hidden" id="co" name="co" value="{$info.courseId}" />
 
     <div class="row">
         <div class="form-group col-md-6">
@@ -15,7 +15,7 @@
         </div>
         <div class="form-group col-md-6">
             <label for="cu">Cuatrimestre/Semestre</label>
-            <select name="cu" id="cu" class="form-control">
+            <select name="cu" id="cu" class="form-control" onchange="additional()">
                 <option value="">-- Seleccionar --</option>
                 {for $period=1 to $info.totalPeriods}
                     <option value="{$period}">{$period}</option>
@@ -23,6 +23,8 @@
             </select>
         </div>
     </div>
+
+    <div id="additional" class="row"></div>
 
     <div class="row d-flex justify-content-center">
         {*<div class="form-group col-md-6">

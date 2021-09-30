@@ -1527,5 +1527,18 @@
 		}
 		return $students;
 	}
+
+	function AddedCourseModulesCuatri($cId, $sId)
+	{
+		$sql = "SELECT * 
+					FROM course_module
+						LEFT JOIN subject_module 
+							ON subject_module.subjectModuleId = course_module.subjectModuleId
+						WHERE courseId = " . $cId . " AND subject_module.semesterId = " . $sId . "
+						ORDER BY name ASC";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		return $result;
+	}
 }	
 ?>
