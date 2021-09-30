@@ -440,7 +440,7 @@ switch($_POST["type"])
 		$infoCourse = $course->Info();
 		$periodos = ['Enero - Abril', 'Mayo - Agosto', 'Septiembre - Diciembre'];
 		if($infoCourse['tipoCuatri'] == 'Semestre')
-			$periodos = ['Enero - Junio', 'Julio - Diciembre'];
+			$periodos = ['Febrero - Julio', 'Agosto - Enero'];
 		$smarty->assign('ciclos', $ciclos);
 		$smarty->assign('periodos', $periodos);
 		$smarty->assign('year', $year);
