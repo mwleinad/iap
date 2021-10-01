@@ -51,7 +51,7 @@
 						</td>
 						<td>
 							<div class="row">
-								<div class="col-md-11 new-break-line" style="font-size: 8pt; overflow:scroll; height:200px;">{$item.content}</div>
+								<div class="col-md-11 break-line" style="font-size: 8pt; overflow:scroll; height:200px;">{$item.content}</div>
 								<div class="col-md-12">
 									{if $item.formato eq "imagen"}
 										<hr>
