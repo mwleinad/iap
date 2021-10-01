@@ -97,7 +97,7 @@ $html .="<html>
 		        <center>
                     <p>
                         <b>INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS</b><br>
-                        Incorporada a la Secreatria de Educación Pública del Estado<br>
+                        Incorporada a la Secretaría de Educación Pública del Estado<br>
                         CLAVE: " . $myInstitution['identifier'] . "<br>
                         Libramiento Norte Pte. No. 2718, Col. Ladera de la Loma, Tuxtla Gutiérrez, Chiapas.
                     </p>
@@ -106,12 +106,12 @@ $html .="<html>
 		        <table align='center' width='100%' border='1' class='txtTicket'>
                     <tr>
                         <td class='text-center'><b>Nombre del Alumno:</b> </td>
-                        <td colspan='2' style='text-transform: capitalize;'>" . $infoStudent['names'] . " " . $infoStudent['lastNamePaterno'] . " " . $infoStudent['lastNameMaterno'] . "</td>
+                        <td colspan='2'>" . mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']) . "</td>
                         <td class='text-center'><b>Matrícula:</b> " . $student->GetMatricula($infoCourse['courseId']) . "</td>
                     </tr>
                     <tr>
                         <td class='text-center'><b>Posgrado:</b> </td>
-                        <td colspan='2' style='text-transform: capitalize;'>" . mb_strtolower($infoCourse['majorName'] . " " . $infoCourse['name']) . "</td>
+                        <td colspan='2'>" . mb_strtolower($infoCourse['majorName'] . " " . $infoCourse['name']) . "</td>
                         <td class='text-center'><b>Ciclo:</b> " . $_GET['ci'] . "</td>
                     </tr>
                     <tr>
@@ -150,8 +150,8 @@ $html .="<html>
                 <img src='" . DOC_ROOT . "/images/new/docs/doc_footer.png' class='img-footer'>
 	        </body>
 	    </html>";
-	/* echo $html;
-	exit; */
+	echo $html;
+	exit;
 	# Instanciamos un objeto de la clase DOMPDF.
 	$mipdf = new DOMPDF();
 	 
