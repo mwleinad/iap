@@ -150,8 +150,8 @@ $html .="<html>
                 <img src='" . DOC_ROOT . "/images/new/docs/doc_footer.png' class='img-footer'>
 	        </body>
 	    </html>";
-	echo $html;
-	exit;
+	/* echo $html;
+	exit; */
 	# Instanciamos un objeto de la clase DOMPDF.
 	$mipdf = new DOMPDF();
 	 
