@@ -15,12 +15,12 @@ if (!isset($_SESSION))
 //		unset($_SESSION['lastClick']);
 //last click
 //print_r($_SESSION);
-if(time() > $_SESSION["lastClick"] + 90000 && $_GET["page"] != "login"  && $_GET["page"] != "register" && $_GET["page"] != "recuperacion"  && $_GET["page"] != "tv"  && $_GET["page"] != "make-test" && $_GET["page"] != "mantenimiento")
+/* if(time() > $_SESSION["lastClick"] + 90000 && $_GET["page"] != "login"  && $_GET["page"] != "register" && $_GET["page"] != "recuperacion"  && $_GET["page"] != "tv"  && $_GET["page"] != "make-test" && $_GET["page"] != "mantenimiento")
 {
 	unset($_SESSION['User']);
 	unset($_SESSION['lastClick']);
 	header("Location: ".WEB_ROOT."/login");
-}
+} */
 
 if($_SESSION["User"])
 {

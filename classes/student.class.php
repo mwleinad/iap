@@ -2894,8 +2894,8 @@ class Student extends User
 						$foto_name=$Id.".".$extencion;
 						if(move_uploaded_file($temporal,$url."/alumnos/".$foto_name)){
 
-							$minFoto = $foto_name;
-							$this->resizeImagen($url.'/alumnos/', $foto_name, 340, 340,$minFoto,$extencion);
+							/* $minFoto = $foto_name;
+							$this->resizeImagen($url.'/alumnos/', $foto_name, 340, 340,$minFoto,$extencion); */
 
 							$sql = 'UPDATE 		
 								user SET 		

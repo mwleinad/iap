@@ -13418,6 +13418,12 @@ dl {
 	word-wrap: break-word !important;
  }
 
+ .new-break-line {
+  display: block !important; 
+  word-wrap:break-word !important; 
+  white-space: normal !important;
+ }
+
  .text-bold {
 	 font-weight: bold !important;
  }
