@@ -111,7 +111,7 @@ $html .="<html>
                     </tr>
                     <tr>
                         <td class='text-center'><b>Posgrado:</b> </td>
-                        <td colspan='2'>" . mb_strtolower($infoCourse['majorName'] . " " . $infoCourse['name']) . "</td>
+                        <td colspan='2'>" . $infoCourse['majorName'] . " " . $infoCourse['name'] . "</td>
                         <td class='text-center'><b>Ciclo:</b> " . $_GET['ci'] . "</td>
                     </tr>
                     <tr>
