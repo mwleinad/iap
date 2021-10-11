@@ -66,7 +66,7 @@
                                             <td class="text-center">{$item.count}</td>
                                             <td>{include file="{$DOC_ROOT}/templates/lists/new/module-calendar-td.tpl"}</td>
                                             <td>
-                                                <p><b>Ponderación:</b> {$item.activityScore}%</p>
+                                                <p><b>Valor de la Actividad:</b> {$item.activityScore}%</p>
                                                 {if $item.ponderation}
                                                     <p>
                                                         <b>Calificación:</b> {$item.ponderation}<br />
