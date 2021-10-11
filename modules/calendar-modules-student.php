@@ -57,5 +57,7 @@
 	$smarty->assign('id', $_GET["id"]);
 	
 	$smarty->assign('mnuMain', "modulo");
-
+	/* echo "<pre>";
+	print_r($actividades);
+	exit; */
 ?>
