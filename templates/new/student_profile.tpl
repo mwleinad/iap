@@ -78,7 +78,7 @@
                             <p class="mb-3">
                                 {$subject.name}<br>
                                 {if $tipo_curricula eq 'Inactiva'} <small>Clave: {$subject.clave}</small><br> {/if}
-                                <small>Grupo: {$subject.group} ({$subject.modality})<br>
+                                <small>Grupo: {$subject.group} ({if $subject.modality eq 'Local'}Escolar{else}No Escolar{/if})<br>
                                 Periodo: {$subject.initialDate|date_format:"%d-%m-%Y"} - {$subject.finalDate|date_format:"%d-%m-%Y"}</small><br>
                                 {if $subject.situation eq 'Ordinario'}
                                     <small>Módulos: {$subject.courseModule}</small>
