@@ -14,7 +14,7 @@
 	los correctos.
 	<br>
 	<br>
-	<li><b>Modalidad Presencial:</b> Después de finalizar el proceso, descargue e imprima el formato de re-inscripción que se genera y llévelo al área de Control Escolar del IAP-Chiapas para recabar las firmas correspondientes.
+	<li><b>Modalidad Escolar:</b> Después de finalizar el proceso, descargue e imprima el formato de re-inscripción que se genera y llévelo al área de Control Escolar del IAP-Chiapas para recabar las firmas correspondientes.
 	<br>
 	<br>
 	<li><b>Modalidad En Línea:</b> NO será necesario imprimir el formato.

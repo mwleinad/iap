@@ -9,7 +9,7 @@
 			<td class="text-center">{$subject.majorName}</td>
 			<td class="text-center break-line">{$subject.name}</td>
 			<td class="text-center">{$subject.group}</td>
-			<td class="text-center">{if $subject.modality eq 'Local'}Presencial{else}{$subject.modality}{/if}</td>
+			<td class="text-center">{if $subject.modality eq 'Local'}Escolar{else}{$subject.modality}{/if}</td>
 			<td class="text-center">
 				{if $subject.initialDate != "0000-00-00"} 
 					{$subject.initialDate|date_format:"%d-%m-%Y"}

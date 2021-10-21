@@ -8,7 +8,7 @@
         <td class="text-center">{$subject.group}</td>
         <td class="text-center">
             {if $subject.modality eq 'Local'}
-                Presencial
+                Escolar
             {else}
                 {$subject.modality}
             {/if}

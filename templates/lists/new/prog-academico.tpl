@@ -18,7 +18,7 @@
 				<td>{$subject.clave}</td>
 				<td>{$subject.majorName}</td>
 				<td>{$subject.name}</td>
-				<td>{if $subject.modality eq 'Local'}Presencial{else}{$subject.modality}{/if}</td>
+				<td>{if $subject.modality eq 'Local'}Escolar{else}{$subject.modality}{/if}</td>
 				<td>{$subject.group}</td>
 				<td>
 					<a href="{$WEB_ROOT}/prog-materia/m/{$subject.courseId}" title="Materias">

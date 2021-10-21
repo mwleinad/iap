@@ -13,8 +13,8 @@
         <div class="form-group col-md-6">
             <label for="modality">Modalidad</label>
             <select name="modality" id="modality"  class="form-control">
-                <option value="Local" {if $post.modality == "Local"} selected="selected"{/if}>Presencial</option>
-                <option value="Online" {if $post.modality == "Online"} selected="selected"{/if}>Online</option>
+                <option value="Local" {if $post.modality == "Local"} selected="selected"{/if}>Escolar</option>
+                <option value="Online" {if $post.modality == "Online"} selected="selected"{/if}>No Escolar</option>
             </select>
         </div>
     </div>

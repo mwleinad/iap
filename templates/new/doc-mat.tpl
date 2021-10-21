@@ -22,8 +22,8 @@
 				</tr>
 				<tr>
 					<td><b>Tipo</b></td>
-					<td><input type='checkbox' name='linea' >En Linea</td>
-					<td><input type='checkbox' name='presencial'>Presencial</td>
+					<td><input type='checkbox' name='linea' >No Escolar</td>
+					<td><input type='checkbox' name='presencial'>Escolar</td>
 				</tr>
 			</table>
 

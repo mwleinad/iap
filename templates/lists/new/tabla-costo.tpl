@@ -21,7 +21,7 @@
 				<td>{$subject.clave}</td>
 				<td>{$subject.majorName}</td>
 				<td class="break-line">{$subject.name}</td>
-				<td>{if $subject.modality eq 'Local'}Presencial{else}{$subject.modality}{/if}</td>
+				<td>{if $subject.modality eq 'Local'}Escolar{else}{$subject.modality}{/if}</td>
 				<td>{$subject.group}</td>
 				<td>{$subject.tarifaMtro}</td>
 				<td>{$subject.tarifaDr}</td>

@@ -20,8 +20,8 @@
         <td align="left">
         	<select id="modality" name="modality" class="frmSelect" style="width:100%" >
             <option value="0">Todos</option>
-            <option value="1">En linea</option>
-			<option value="2">Presenciales</option>
+            <option value="1">No Escolares</option>
+			<option value="2">Escolares</option>
             
             </select>
         </td>

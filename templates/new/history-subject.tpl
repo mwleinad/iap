@@ -58,8 +58,8 @@
 						<label for="modalidad">Modalidad</label>
 						<select class="form-control" onClick="onBuscar()" name="modalidad" id="modalidad">
 							<option></option>
-							<option>Online</option>
-							<option value="Local">Presencial</option>
+							<option>No Escolar</option>
+							<option value="Local">Escolar</option>
 						</select>
 					</div>
 				</div>

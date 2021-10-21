@@ -13,8 +13,8 @@
         <div class="form-group col-md-6">
             <label for="modality">Modalidad:</label>
             <select name="modality" id="modality" class="form-control">
-                <option value="Local">Presencial</option>
-                <option value="Online">Online</option>
+                <option value="Local">Escolar</option>
+                <option value="Online">No Escolar</option>
             </select>
         </div>
     </div>

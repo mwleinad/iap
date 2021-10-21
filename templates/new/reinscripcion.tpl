@@ -6,7 +6,7 @@
     <div class="card-body">
 		{if $descargaAchivo eq 'si'}
 			<ul>
-				<li>Modalidad Presencial: Es necesario que descargue e imprima el formato de re-inscripción que se generó y que también puede encontrar en el menú principal y llevarlo al área de Control Escolar del IAP-Chiapas para recabar las firmas correspondientes.</li>
+				<li>Modalidad Escolar: Es necesario que descargue e imprima el formato de re-inscripción que se generó y que también puede encontrar en el menú principal y llevarlo al área de Control Escolar del IAP-Chiapas para recabar las firmas correspondientes.</li>
 				<li>Modalidad en Línea: NO es necesario imprimir este formato</li>
 			</ul>
 			<div class="col-md-12">
