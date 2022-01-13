@@ -850,11 +850,12 @@ class Student extends User
 			$details_subject = array();
 			//$email = "carloszh04@gmail.com";
 
-			$attachment[0] = DOC_ROOT."/files/solicitudes/".$file;
+			/* $attachment[0] = DOC_ROOT."/files/solicitudes/".$file;
 			$fileName[0] = "Solicitud_de_Inscripcion.pdf";
-
 			$attachment[1] = DOC_ROOT."/manual_alumno.pdf";
-			$fileName[1] = "Manual_Alumno.pdf";
+			$fileName[1] = "Manual_Alumno.pdf"; */
+
+			$attachment = '';
 
 			$sendmail->PrepareAttachment($message[1]["subject"], $message[1]["body"], $details_body, $details_subject, $email, $nombre, $attachment, $fileName);
 
