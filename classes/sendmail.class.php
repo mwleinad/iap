@@ -127,7 +127,7 @@ class SendMail extends Main
 			$mail->Host       = "smtp.gmail.com";
 			$mail->Port       = 465;
 			$mail->Username   = "enlinea@iapchiapas.edu.mx";
-			$mail->Password   = "IAP*2018_chis";
+			$mail->Password   = "IAP*chis_2022";
 
 			$body = nl2br($this->Util()->handle_mail_patterns($body,$details_body));
 			$subject = $this->Util()->handle_mail_patterns($subject,$details_subject);
