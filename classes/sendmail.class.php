@@ -124,10 +124,10 @@ class SendMail extends Main
 			$mail->SMTPDebug  = 1;
 			$mail->SMTPAuth   = true;
 			$mail->SMTPSecure = "ssl";
-			$mail->Host       = "smtp.gmail.com";
+			$mail->Host       = $this->email->Host;
 			$mail->Port       = 465;
-			$mail->Username   = "enlinea@iapchiapas.edu.mx";
-			$mail->Password   = "s2s$7WEs6WSX";
+			$mail->Username   = $this->email->Username;
+			$mail->Password   = $this->email->Password;
 
 			$body = nl2br($this->Util()->handle_mail_patterns($body,$details_body));
 			$subject = $this->Util()->handle_mail_patterns($subject,$details_subject);
