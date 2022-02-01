@@ -28,66 +28,8 @@
             </select>
         </div>
         <div class="form-group col-md-6">
-            {* day-month-year *}
-            <label for="birthday">Fecha de Nacimiento:</label>
-            <input type="text" id="birthday" name="birthday" class="form-control i-calendar" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-md-6">
-            <label for="maritalStatus">Estado Civil:</label>
-            {include file="forms/maritalStatus.tpl" selected=$info.maritalStatus}
-        </div>
-        <div class="form-group col-md-6">
             <label for="password">Contraseña del Sistema (Minimo 6 caracteres):</label>
             <input type="password" name="password" id="password" class="form-control" autocomplete="new-password" />
-        </div>
-    </div>
-
-    <span class="badge badge-dark"><i class="fas fa-map-marked-alt"></i> Domicilio</span><hr />
-    <div class="row">
-        <div class="form-group col-md-4">
-            <label for="street">Calle:</label>
-            <input type="text" name="street" id="street" class="form-control" />
-        </div>
-        <div class="form-group col-md-4">
-            <label for="number">Número:</label>
-            <input type="text" name="number" id="number" class="form-control" />
-        </div>
-        <div class="form-group col-md-4">
-            <label for="colony">Colonia:</label>
-            <input type="text" name="colony" id="colony" class="form-control" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-md-3">
-            <label for="pais">País:</label>
-            <select id="pais" name="pais" onChange="estado_dependencia();" class="form-control">
-                <option value="0">Selecciona Tu Pa&iacute;s</option>
-                {foreach from=$paises item=pais}
-                    <option value="{$pais.paisId}">{$pais.nombre} </option>
-                {/foreach}
-            </select>
-        </div>
-        <div class="form-group col-md-3">
-            <label for="estado">Estado:</label>
-            <div id="Stateposition">
-                <select id="estado" name="estado" onChange="ciudad_dependencia();" class="form-control">
-                    <option value="0">Selecciona tu Estado</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group col-md-3">
-            <label for="ciudad">Municipio:</label>
-            <div id="Cityposition">
-                <select id="ciudad" name="ciudad" class="form-control">
-                    <option value="0">Selecciona tu Ciudad</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group col-md-3">
-            <label for="postalCode">Código Postal:</label>
-            <input type="text" name="postalCode" id="postalCode" class="form-control" />
         </div>
     </div>
 
@@ -100,16 +42,6 @@
         <div class="form-group col-md-6">
             <label for="mobile">Celular:</label>
             <input type="text" name="mobile" id="mobile" class="form-control" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-md-6">
-            <label for="phone">Teléfono Local:</label>
-            <input type="text" name="phone" id="phone" class="form-control" />
-        </div>
-        <div class="form-group col-md-6">
-            <label for="fax">Teléfono Alternativo:</label>
-            <input type="text" name="fax" id="fax" class="form-control" />
         </div>
     </div>
 
@@ -129,8 +61,8 @@
             <input type="text" name="workplace" id="workplace" class="form-control" />
         </div>
         <div class="form-group col-md-4">
-            <label for="workplaceAddress">Domicilio de Trabajo:</label>
-            <input type="text" name="workplaceAddress" id="workplaceAddress" class="form-control" />
+            <label for="workplacePosition">Puesto:</label>
+            <input type="text" name="workplacePosition" id="workplacePosition" class="form-control" />
         </div>
     </div>
     <div class="row">
@@ -160,26 +92,6 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="form-group col-md-6">
-            <label for="workplaceArea">Área:</label>
-            <input type="text" name="workplaceArea" id="workplaceArea" class="form-control" />
-        </div>
-        <div class="form-group col-md-6">
-            <label for="workplacePosition">Puesto:</label>
-            <input type="text" name="workplacePosition" id="workplacePosition" class="form-control" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-md-6">
-            <label for="workplacePhone">Telefono Oficina:</label>
-            <input type="text" name="workplacePhone" id="workplacePhone" class="form-control" />
-        </div>
-        <div class="form-group col-md-6">
-            <label for="workplaceEmail">Correo Electrónico Oficial:</label>
-            <input type="text" name="workplaceEmail" id="workplaceEmail" class="form-control" />
-        </div>
-    </div>
 
     <span class="badge badge-dark"><i class="fas fa-graduation-cap"></i> Estudios</span><hr />
     <div class="row">
@@ -194,34 +106,6 @@
             </select>
         </div>
         <div class="form-group col-md-6">
-            <label for="profesion">Profesión:</label>
-            <select name="profesion" id="profesion" class="form-control">
-                {foreach from=$prof item=item}
-                    <option value="{$item.profesionId}" {if $info.profesion == $item.profesionId} selected="selected" {/if}>{$item.profesionName}</option>
-                    item{/foreach}
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-md-6">
-            <label for="school">Escuela o Institución Universitaria:</label>
-            <input type="text" name="school" id="school" class="form-control" />
-        </div>
-        <div class="form-group col-md-6">
-            <label for="masters">Maestría en:</label>
-            <input type="text" name="masters" id="masters" class="form-control" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-md-4">
-            <label for="mastersSchool">Escuela o Institución Maestría:</label>
-            <input type="text" name="mastersSchool" id="mastersSchool" class="form-control" />
-        </div>
-        <div class="form-group col-md-4">
-            <label for="highSchool">Escuela o Institución Bachillerato:</label>
-            <input type="text" name="highSchool" id="highSchool" class="form-control" />
-        </div>
-        <div class="form-group col-md-4">
             <label for="curricula">Selecciona el programa académico al que te quieres registrar:</label>
             <select name="curricula" id="curricula" class="form-control">
                 {foreach from=$activeCourses item=course}

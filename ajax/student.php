@@ -221,58 +221,29 @@
 				
 				$status = $_POST['status'];
 				
-				//datos personales
+				// Información Personal
 				$student->setPermiso($_POST['permiso']);
 				$student->setControlNumber();
 				$student->setNames($_POST['names']);
 				$student->setLastNamePaterno($_POST['lastNamePaterno']);
 				$student->setLastNameMaterno($_POST['lastNameMaterno']);
 				$student->setSexo($_POST['sexo']);
-				$birthday = explode('-', $_POST['birthday']);
-				$student->setBirthdate(intval($birthday[2]), intval($birthday[1]), intval($birthday[0]));
-				$student->setMaritalStatus($_POST['maritalStatus']);
 				$student->setPassword(trim($_POST['password']));
 
-				//domicilio
-				$student->setStreet($_POST['street']);
-				$student->setNumber($_POST['number']);
-				$student->setColony($_POST['colony']);
-				$student->setCity($_POST['ciudad']);
-				$student->setState($_POST['estado']);
-				$student->setCountry($_POST['pais']);
-				$student->setPostalCode($_POST['postalCode']);
-
-				//datos de contacto
+				// Datos de Contacto
 				$student->setEmail($_POST['email']);
-				$student->setPhone($_POST['phone']);
-				$student->setFax($_POST['fax']);
 				$student->setMobile($_POST['mobile']);
 
-				//datos laborales
+				// Datos Laborales
+				$student->setWorkplaceOcupation($_POST['workplaceOcupation']);
 				$student->setWorkplace($_POST['workplace']);
-				$student->setWorkplaceAddress($_POST['workplaceAddress']);
-				$student->setWorkplaceArea($_POST['workplaceArea']);
 				$student->setWorkplacePosition($_POST['workplacePosition']);
-				//$student->setWorkplaceCity($_POST['workplaceCity']);
 				$student->setPaisT($_POST['paist']);
 				$student->setEstadoT($_POST['estadot']);
-				$student->setCiudadT($_POST['ciudadt']); 
+				$student->setCiudadT($_POST['ciudadt']);
 				
-				
-				$student->setWorkplacePhone($_POST['workplacePhone']);
-				$student->setWorkplaceEmail($_POST['workplaceEmail']);
-				
-				//Estudios
-				$student->setAcademicDegree($_POST['academicDegree']);
-				$student->setSchool($_POST['school']);
-				$student->setHighSchool($_POST['highSchool']);
-				$student->setMasters($_POST['masters']);
-				$student->setMastersSchool($_POST['mastersSchool']);
-				$student->setWorkplaceOcupation($_POST['workplaceOcupation']);
-				$student->setProfesion($_POST['profesion']);
-				$student->setTipoBeca($_POST['tipo_beca']);
-				$student->setPorBeca($_POST['por_beca']);
-				
+				// Estudios
+				$student->setAcademicDegree($_POST['academicDegree']);	
 				
 				
 				if(!$student->Save("createCurricula"))

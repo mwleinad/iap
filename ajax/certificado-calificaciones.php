@@ -152,8 +152,22 @@ $html .="<html>
                                 POR ACUERDO DEL SECRETARIO GENERAL DE GOBIERNO Y CON FUNDAMENTO EN EL ARTÍCULO 29, FRACCIÓN X DE LA LEY ORGÁNICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS.
                             </p>
                             <p style='font-size: 5pt;'>
-                                SE <br>LAGALIZA,</br> PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO, LA FIRMA QUE ANTECEDE CORRESPONDIENTE AL DIRECTOR DE EDUCACIÓN SUPERIOR:
+                                SE <b>LAGALIZA,</b> PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO, LA FIRMA QUE ANTECEDE CORRESPONDIENTE AL DIRECTOR DE EDUCACIÓN SUPERIOR:
                             </p>
+                            <div style='text-decoration: underline;'>
+                                <p style='font-size: 5pt;'>
+                                    DR. ANTONIO MAGDIEL VELÁZQUEZ MÉNDEZ
+                                </p>
+                                <p style='font-size: 5pt;'>
+                                    TUXTLA GUTIÉRREZ, CHIAPAS A: 
+                                </p>
+                                <p style='font-size: 5pt;'>
+                                    COORDINADOR DE ASUNTOS JURÍDICOS DE GOBIERNO 
+                                </p>
+                                <p style='font-size: 5pt;'>
+                                    MARÍA GUADALUPE SÁNCHEZ ZENTENO 
+                                </p>
+                            </div>
                         </td>
                     </tr>
                 </table>

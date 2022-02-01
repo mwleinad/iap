@@ -22,7 +22,6 @@ class Student extends User
 	private $nuevo;
 	private $repite;
 
-
 	public function setAnterior($value)
 	{
 		$this->anterior = $value;
@@ -73,7 +72,6 @@ class Student extends User
 	{
 		$this->cmId = $value;
 	}
-
 
 	public function setSubjectId($value)
 	{
@@ -177,113 +175,72 @@ class Student extends User
 		}
 	}
 
-	public function desactivar(){
+	public function desactivar()
+	{
+		$sql="UPDATE user SET activo='0' WHERE userId='" . $this->getUserId() . "' ";
+		$this->Util()->DB()->setQuery($sql);
+	     if(!$this->Util()->DB()->ExecuteQuery())
+		 {
+		  	$infoStudent = $this->GetInfo();
+			$fecha_aplicacion = date("Y-m-d H:i:s");
+			$hecho = $_SESSION['User']['userId']."p";
+			$actividad = "Se ha dado de Baja un Alumno(".$infoStudent['controlNumber']."-".$infoStudent['names']." ".$infoStudent['lastNamePaterno']." ".$infoStudent['lastNameMaterno'].") desde el panel de Administración ";
+			$visto = "1p,".$_SESSION['User']['userId']."p";
+			$enlace = "/student";
 
-	$sql="update user set activo='0' where userId='".$this->getUserId()."' ";
-	$this->Util()->DB()->setQuery($sql);
-
-	     if(!$this->Util()->DB()->ExecuteQuery()){
-
-            // $sql="delete from user_subjet where alumnoId ='".$this->getUserId()."' "; //Agregado por JRosales 29/09/2014
-	        // $this->Util()->DB()->setQuery($sql);                                      //Agregado por JRosales 29/09/2014
-	        // $this->Util()->DB()->DeleteData();                                        //Agregado por JRosales 29/09/2014
-
-		 	// $this->Util()->setError(10030, "complete","El Alumno fue dado de Baja Correctamente");
-            // $this->Util()->PrintErrors();
-
-
-		  $infoStudent=$this->GetInfo();
-		//print_r($infoStudent); exit;
-					$fecha_aplicacion=date("Y-m-d H:i:s");
-					$hecho=$_SESSION['User']['userId']."p";
-				    $actividad="Se ha dado de Baja un Alumno(".$infoStudent['controlNumber']."-".$infoStudent['names']." ".$infoStudent['lastNamePaterno']." ".$infoStudent['lastNameMaterno'].") desde el panel de Administración ";
-					$visto="1p,".$_SESSION['User']['userId']."p";
-					$enlace="/student";
-
-
-					$sqlNot="insert into notificacion(notificacionId,actividad,vista,hecho,fecha_aplicacion,tablas,enlace)
-			   values(
-			              '',
-			            '".$actividad."', 
-			            '".$visto."',
-			            '".$hecho."',
-			            '".$fecha_aplicacion."',
-			            'reply',
-						'".$enlace."'
-			     
-			         )";
-
+			$sqlNot = "INSERT INTO notificacion(notificacionId,actividad,vista,hecho,fecha_aplicacion,tablas,enlace)
+			   			VALUES('', '".$actividad."', '".$visto."', '".$hecho."', '".$fecha_aplicacion."', 'reply', '".$enlace."')";
 			$this->Util()->DB()->setQuery($sqlNot);
-			//ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
+			// Ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
 			$this->Util()->DB()->InsertData();
+		 	return true;
+		}
+		else
+		{
+		 	$this->Util()->setError(10030, "complete","No ne pudo desactivar al Alumno intente mas tarde");
+			$this->Util()->PrintErrors();
+		 	return false;
+		}
+	}
 
-
-
-
-		 return true;
-		 }else{
-		 $this->Util()->setError(10030, "complete","No ne pudo desactivar al Alumno intente mas tarde");
-		$this->Util()->PrintErrors();
-		 return false;
-		 }}
-
-		 	public function Activar(){
-	 $sql="update user set activo='1' where userId='".$this->getUserId()."' ";
-	$this->Util()->DB()->setQuery($sql);
-
-	     if(!$this->Util()->DB()->ExecuteQuery()){
-
-		 	$this->Util()->setError(10030, "complete","El Alumno fue dado de Alta Correctamente");
-		$this->Util()->PrintErrors();
-
-
-		  $infoStudent=$this->GetInfo();
-		//print_r($infoStudent); exit;
-					$fecha_aplicacion=date("Y-m-d H:i:s");
-					$hecho=$_SESSION['User']['userId']."p";
-				    $actividad="Se ha dado de Alta un Alumno(".$infoStudent['controlNumber']."-".$infoStudent['names']." ".$infoStudent['lastNamePaterno']." ".$infoStudent['lastNameMaterno'].") desde el panel de Administración ";
-					$visto="1p,".$_SESSION['User']['userId']."p";
-					$enlace="/student";
-
-
-					$sqlNot="insert into notificacion(notificacionId,actividad,vista,hecho,fecha_aplicacion,tablas,enlace)
-			   values(
-			              '',
-			            '".$actividad."', 
-			            '".$visto."',
-			            '".$hecho."',
-			            '".$fecha_aplicacion."',
-			            'reply',
-						'".$enlace."'
-			     
-			         )";
-
+	public function Activar()
+	{
+	 	$sql = "UPDATE user SET activo='1' WHERE userId='" . $this->getUserId() . "'";
+		$this->Util()->DB()->setQuery($sql);
+	    if(!$this->Util()->DB()->ExecuteQuery())
+		{
+			$this->Util()->setError(10030, "complete", "El Alumno fue dado de Alta Correctamente");
+			$this->Util()->PrintErrors();
+		  	$infoStudent = $this->GetInfo();
+			$fecha_aplicacion = date("Y-m-d H:i:s");
+			$hecho = $_SESSION['User']['userId']."p";
+			$actividad = "Se ha dado de Alta un Alumno(".$infoStudent['controlNumber']."-".$infoStudent['names']." ".$infoStudent['lastNamePaterno']." ".$infoStudent['lastNameMaterno'].") desde el panel de Administración ";
+			$visto = "1p,".$_SESSION['User']['userId']."p";
+			$enlace = "/student";
+			$sqlNot = "INSERT INTO notificacion(notificacionId, actividad, vista, hecho, fecha_aplicacion, tablas, enlace)
+			   			VALUES('', '".$actividad."',  '".$visto."', '".$hecho."', '".$fecha_aplicacion."', 'reply', '".$enlace."')";
 			$this->Util()->DB()->setQuery($sqlNot);
-			//ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
+			// Ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
 			$this->Util()->DB()->InsertData();
-
-
-
-
-
-
-		return true;
-		 }else{
-		 $this->Util()->setError(10030, "complete","No ne pudo Activar al Alumno intente mas tarde");
-		$this->Util()->PrintErrors();
-		 return false;
-		 }}
-
+			return true;
+		}
+		else
+		{
+		 	$this->Util()->setError(10030, "complete","No ne pudo Activar al Alumno intente mas tarde");
+			$this->Util()->PrintErrors();
+		 	return false;
+		}
+	}
 
 	public function GetInfo()
-	{ //print_r($this->userId);exit;
-
-			$sql = "
-		SELECT u.*,m.nombre as nombreciudad FROM user as u 
-		left join municipio as m on m.municipioId = u.ciudadt
+	{ 
+		$sql = "SELECT u.*, 
+						m.nombre AS nombreciudad 
+				FROM user AS u 
+					LEFT JOIN municipio AS m 
+						ON m.municipioId = u.ciudadt
 		WHERE userId = '".$this->userId."'";
 		$this->Util()->DB()->setQuery($sql);
-
 		$row = $this->Util()->DB()->GetRow();
 		$row["names"] = $this->Util()->DecodeTiny($row["names"]);
 		$row["lastNamePaterno"] = $this->Util()->DecodeTiny($row["lastNamePaterno"]);
@@ -291,48 +248,47 @@ class Student extends User
 		return $row;
 	}
 
-	public function EnumerateTotal(){
-
-	   $sql ="select * from user";
-	   $this->Util()->DB()->setQuery($sql);
-	   $result = $this->Util()->DB()->GetResult();
-	return $result;
+	public function EnumerateTotal()
+	{
+	   	$sql = "SELECT * FROM user";
+	   	$this->Util()->DB()->setQuery($sql);
+	   	$result = $this->Util()->DB()->GetResult();
+		return $result;
 	}
 
-	public function EnumeratePaises(){
-
-	   $sql ="select * from pais";
-	   $this->Util()->DB()->setQuery($sql);
-	   $result = $this->Util()->DB()->GetResult();
-	return $result;
+	public function EnumeratePaises()
+	{
+		$sql = "SELECT * FROM pais";
+	   	$this->Util()->DB()->setQuery($sql);
+	   	$result = $this->Util()->DB()->GetResult();
+		return $result;
 	}
 
-		public function EnumerateEstados(){
-
-	   $sql ="select * from estado where paisId='".$this->getCountry()."'";
-	   $this->Util()->DB()->setQuery($sql);
-	   $result = $this->Util()->DB()->GetResult();
-	return $result;
+	public function EnumerateEstados()
+	{
+		$sql = "SELECT * FROM estado WHERE paisId='" . $this->getCountry() . "'";
+	   	$this->Util()->DB()->setQuery($sql);
+	   	$result = $this->Util()->DB()->GetResult();
+		return $result;
 	}
 
-		public function EnumerateCiudades(){
-
-	   $sql ="select * from municipio where estadoId='".$this->getState()."' ";
-	   $this->Util()->DB()->setQuery($sql);
-	   $result = $this->Util()->DB()->GetResult();
-	return $result;
+	public function EnumerateCiudades()
+	{
+	   	$sql ="SELECT * FROM municipio WHERE estadoId='" . $this->getState() . "'";
+	   	$this->Util()->DB()->setQuery($sql);
+	   	$result = $this->Util()->DB()->GetResult();
+		return $result;
 	}
 
-	public function EnumerateStudent($sql){
-
+	public function EnumerateStudent($sql)
+	{
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
-
-		foreach($result as $key => $res){
+		foreach($result as $key => $res)
+		{
 			$card = $res;
 			$result2[$key] = $card;
 		}
-
 		return $result2;
 	}
 
@@ -340,82 +296,45 @@ class Student extends User
 	{
 		global $semester;
 		global $group;
-
-		$sql = "SELECT 
-					* 
-				FROM 
-					user 
-				WHERE 
-					1".$sqlSearch."
-				AND
-					type = 'student'
-				ORDER BY 
-					".$orderSemester."
-					lastNamePaterno ASC, 
-					lastNameMaterno ASC,  
-					`names` ASC";
-
-					//print_r($sql);
-
+		$sql = "SELECT * 
+					FROM user 
+					WHERE 1" . $sqlSearch . "
+						AND type = 'student'
+						ORDER BY " . $orderSemester . " lastNamePaterno ASC, lastNameMaterno ASC, `names` ASC";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
-
-		foreach($result as $key => $res){
+		foreach($result as $key => $res)
+		{
 			$card = $res;
 			$result2[$key] = $card;
 		}
-
 		return $result2;
 	}
 
 	public function EnumerateCount($sqlSearch = '')
 	{
-
-		$this->Util()->DB()->setQuery("
-							SELECT 
-								COUNT(*) 
-							FROM 
-								user 
-							WHERE 
-								1".$sqlSearch."
-							AND
-								type = 'student'
-							"
-						);
+		$sql = "SELECT COUNT(*) FROM user WHERE 1" . $sqlSearch . " AND type = 'student'";
+		$this->Util()->DB()->setQuery($sql);
 		$total = $this->Util()->DB()->GetSingle();
-
 		return $total;
 	}
 
-	public function Save($option=""){
-
-		if($this->Util()->PrintErrors()){
+	public function Save($option="")
+	{
+		if($this->Util()->PrintErrors())
 			return false;
-		}
 
-
-
-		//Verificando que no se duplique el correo electronico
-		$this->Util()->DB()->setQuery("
-							SELECT 
-								COUNT(*) 
-							FROM 
-								user 
-							WHERE 
-								email = '".$this->getEmail()."'
-							"
-						);
+		$sql = "SELECT COUNT(*) FROM user WHERE email = '" . $this->getEmail() . "'";
+		// Verificando que no se duplique el correo electronico
+		$this->Util()->DB()->setQuery($sql);
 		$total = $this->Util()->DB()->GetSingle();
-
-
-
 		if($total > 0)
 		{
 			$this->Util()->setError(10028, "error", "Este e-mail ya ha sido registrado previamente");
 			$this->Util()->PrintErrors();
 			return false;
 		}
-                   //Validando contraseña de minimo 6 caracteres
+        // Validando contraseña de minimo 6 caracteres
 		if(strlen($this->getPassword()) < 6)
 		{
 			$this->Util()->setError(10028, "error", "El password debe de contener al menos 6 caracteres.");
@@ -423,7 +342,7 @@ class Student extends User
 			return false;
 		}
 
-		 $sqlQuery = "INSERT INTO 
+		$sqlQuery = "INSERT INTO 
 						user 
 						(
 							type,
@@ -505,101 +424,163 @@ class Student extends User
 							'".$this->getHighSchool()."' 
 							
 						)";
-
 		$this->Util()->DB()->setQuery($sqlQuery);
 
+		if($id = $this->Util()->DB()->InsertData())
+		{
+			$fecha_aplicacion = date("Y-m-d H:i:s");
+			$enlace = "/student";
 
-		if($id = $this->Util()->DB()->InsertData()){
-				  $fecha_aplicacion=date("Y-m-d H:i:s");
-				  $enlace="/student";
+			if($this->getRegister()==0)
+			{
+				$hecho=$id."u";
+				$actividad="Se ha Registrado un nuevo Alumno";
+				$visto=$id."u,1p";
+			}
+			else
+			{
+				$hecho=$_SESSION['User']['userId']."p";
+				$actividad="Se ha registrado un Alumno(".$this->getNames()." ".$this->getLastNamePaterno()." ".$this->getLastNameMaterno().") desde el panel de Administración ";
+				$visto="1p,".$_SESSION['User']['userId']."p";
+			}
 
-		               if($this->getRegister()==0){
-					      //$hecho=$this->getNames()." ".$this->getLastNamePaterno()." ".$this->getLastNameMaterno();
-					      $hecho=$id."u";
-					$actividad="Se ha Registrado un nuevo Alumno";
-					 $visto=$id."u,1p";
-					}else{
-					     $hecho=$_SESSION['User']['userId']."p";
-				      $actividad="Se ha registrado un Alumno(".$this->getNames()." ".$this->getLastNamePaterno()." ".$this->getLastNameMaterno().") desde el panel de Administración ";
-					$visto="1p,".$_SESSION['User']['userId']."p";
-					}
-
-
-					$sqlNot="insert into notificacion(notificacionId,actividad,vista,hecho,fecha_aplicacion,tablas,enlace)
-			   values(
-			              '',
-			            '".$actividad."', 
-			            '".$visto."',
-			            '".$hecho."',
-			            '".$fecha_aplicacion."',
-			            'reply',
-						'".$enlace."'
-			     
-			         )";
-
+			$sqlNot="INSERT INTO notificacion(notificacionId,actividad,vista,hecho,fecha_aplicacion,tablas,enlace)
+			   		VALUES('', '" . $actividad . "', '" . $visto . "', '" . $hecho . "', '" . $fecha_aplicacion . "', 'reply', '" . $enlace . "')";
 			$this->Util()->DB()->setQuery($sqlNot);
-			//ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
+			// Ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
 			$this->Util()->DB()->InsertData();
-
 		}
 
 		if($option == "createCurricula")
 		{
 			$course = new Course();
-
 			$course->setCourseId($_POST["curricula"]);
 			$courseInfo = $course->Info();
-              if($this->tipo_beca=="Ninguno")
+            if($this->tipo_beca=="Ninguno")
 			    $this->por_beca=0;
 
-			$this->AddUserToCurricula($id, $_POST["curricula"], $this->getNames(), $this->getEmail(), $this->getPassword(), $courseInfo["majorName"], $courseInfo["name"],$this->tipo_beca,$this->por_beca, "");
+			$this->AddUserToCurriculaRegister($id, $_POST["curricula"], $this->getNames(), $this->getEmail(), $this->getPassword(), $courseInfo["majorName"], $courseInfo["name"], $this->tipo_beca, $this->por_beca, "");
 
-			if($this->getRegister()==0){
-			$complete1 = "Te has registrado exitosamente. Te hemos enviado un correo electronico con los datos de ingreso al sistema";
-			$this->Util()->setError(10028, "complete", $complete1);
-			$complete2 = "En caso de no estar en tu bandeja de entrada, verifica en correos no deseados";
-			$this->Util()->setError(10028, "complete", $complete2);
-			$complete4 = "Cualquier problema que llegaras a tener, escribenos a enlinea@iapchiapas.org.mx";
-			$this->Util()->setError(10028, "complete", $complete4);
-
-			$complete3 = "Bienvenido";
-			$this->Util()->setError(10028, "complete", $complete3);
-
-
-
+			if($this->getRegister()==0)
+			{
+				$complete1 = "Te has registrado exitosamente. Te hemos enviado un correo electronico con los datos de ingreso al sistema";
+				$this->Util()->setError(10028, "complete", $complete1);
+				$complete2 = "En caso de no estar en tu bandeja de entrada, verifica en correos no deseados";
+				$this->Util()->setError(10028, "complete", $complete2);
+				$complete4 = "Cualquier problema que llegaras a tener, escribenos a enlinea@iapchiapas.org.mx";
+				$this->Util()->setError(10028, "complete", $complete4);
+				$complete3 = "Bienvenido";
+				$this->Util()->setError(10028, "complete", $complete3);
 			}
-            else{
-			$complete="Has ingresado al Alumno exitosamente, Se ha enviado un correo electronico para continuar con su proceso de inscripción";
-	        $this->Util()->setError(10028, "complete", $complete);
-		   }
-	}
-
-	// echo "fail[#]";
-				// print_r($_POST);
-				// exit;
-//print_r($_POST); EXIT;
-
-	/*    */
-
+            else
+			{
+				$complete="Has ingresado al Alumno exitosamente, Se ha enviado un correo electronico para continuar con su proceso de inscripción";
+	        	$this->Util()->setError(10028, "complete", $complete);
+		   	}
+		}
 		$this->Util()->PrintErrors();
-
 		return true;
 	}
 
+	public function AddUserToCurriculaRegister($id, $curricula, $nombre, $email, $password, $major, $course,$tipo_beca,$por_beca,$matricula)
+	{
+		include_once(DOC_ROOT."/properties/messages.php");
+		$sql = "SELECT COUNT(*) FROM user_subject WHERE alumnoId = '" . $id . "' AND courseId = '" . $curricula . "'";
+		$this->Util()->DB()->setQuery($sql);
+		$count = $this->Util()->DB()->GetSingle();
+
+		$sql = "SELECT subjectId FROM course WHERE courseId = '" . $curricula . "'";
+		$this->Util()->DB()->setQuery($sql);
+		$subjectId = $this->Util()->DB()->GetSingle();
+
+		$sql = "SELECT payments FROM subject WHERE subjectId = '" . $subjectId . "'";
+		$this->Util()->DB()->setQuery($sql);
+		$payments = $this->Util()->DB()->GetSingle();
+
+		// Curricula Temporal
+		$sql = "SELECT temporalGroup FROM course WHERE courseId = " . $curricula;
+		$this->Util()->DB()->setQuery($sql);
+		$temporalGroup = intval($this->Util()->DB()->GetSingle());
+		// Preinscrito
+		$sql = "SELECT registrationId FROM user_subject WHERE courseId = " . $temporalGroup . " AND alumnoId = " . $id;
+		$this->Util()->DB()->setQuery($sql);
+		$registrationId = intval($this->Util()->DB()->GetSingle());
+			
+		$status = 'activo';
+		
+		if($count > 0)
+			return $complete = "Este alumno ya esta registrado en esta curricula. Favor de Seleccionar otra Curricula";
+
+		if($temporalGroup > 0 && $registrationId > 0)
+		{
+			// Actualiza la curricula temporal por la oficial
+			$sql = "UPDATE user_subject SET courseId = " . $curricula . ", status = 'activo' WHERE alumnoId = " . $id . " AND courseId = " . $temporalGroup;
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->UpdateData();
+			$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico para continuar con el proceso de inscripcion";
+		}
+		else
+		{
+			// Se inscribe a curricula 
+			$sqlQuery = "INSERT INTO user_subject(alumnoId, status, courseId, tipo_beca, por_beca, matricula) VALUES('".$id."', '".$status."', '".$curricula."', '".$tipo_beca."', '".$por_beca."', '".$matricula."')";
+			$this->Util()->DB()->setQuery($sqlQuery);
+			if($this->Util()->DB()->InsertData())
+				$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico para continuar con el proceso de inscripcion";
+			else
+				$complete="no";
+		}
+		$this->setUserId($id);
+		$info = $this->GetInfo();
+		// Informacion Personal
+		$this->setControlNumber();
+		$this->setNames($info['names']);
+		$this->setLastNamePaterno($info['lastNamePaterno']);
+		$this->setLastNameMaterno($info['lastNameMaterno']);
+		$this->setSexo($info['sexo']);
+		$this->setPassword(trim($info['password']));
+
+		// Datos de Contacto
+		$this->setEmail($info['email']);
+		$this->setMobile($info['mobile']);
+
+		// Datos Laborales
+		$this->setWorkplaceOcupation($info['workplaceOcupation']);
+		$this->setWorkplace($info['workplace']);
+		$this->setWorkplacePosition($info['workplacePosition']);
+		$this->setWorkplaceCity($info['nombreciudad']);
+
+		// Estudios
+		$this->setAcademicDegree($info['academicDegree']);
+		// Crear Vencimientos
+		$this->AddInvoices($id, $curricula);
+		// Create File to Attach
+		$files  = new Files;
+		$file = $files->CedulaInscripcion($id, $curricula, $this, $major, $course);
+		// Enviar Correo
+		$sendmail = new SendMail;
+		$details_body = array(
+			"email" => $info["controlNumber"],
+			"password" => $password,
+			"major" => utf8_decode($major),
+			"course" => utf8_decode($course),
+		);
+		$details_subject = array();
+		$attachment = '';
+		$sendmail->PrepareAttachment($message[1]["subject"], $message[1]["body"], $details_body, $details_subject, $email, $nombre, $attachment, $fileName);
+		return $complete;
+	}
 
 	function DeleteStudentCurricula($period)
 	{
 		$courseId = $this->getCourseId();
 		$subjectId = $this->subjectId;
 		$userId = $this->getUserId();
-
 		$sql = "UPDATE user_subject SET status = 'inactivo' where alumnoId = " . $userId . " AND courseId = " . $courseId;
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
 		$this->AddAcademicHistory('baja', $period);
 		$this->Util()->setError(10028, "complete","Alumno eliminado con éxito de esta curricula.");
 		$this->Util()->PrintErrors();
-
 		return true;
 	}
 
@@ -607,7 +588,6 @@ class Student extends User
 	{
 		$courseId = $this->getCourseId();
 		$userId = $this->getUserId();
-
 		$sql="UPDATE user_subject SET status='activo' where alumnoId='".$userId."' and courseId='".$courseId."' ";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
@@ -616,259 +596,194 @@ class Student extends User
 		$this->Util()->DB()->ExecuteQuery();
 		$this->Util()->setError(10028, "complete","Alumno activado con éxito.");
 		$this->Util()->PrintErrors();
-
 		return true;
 	}
 
-
-
 	function AddUserToCurriculaFromCatalog($userId, $courseId,$tipo_beca,$por_beca)
 	{
-			$course = new Course();
+		$course = new Course();
+		$course->setCourseId($courseId);
+		$courseInfo = $course->Info();
 
-			$course->setCourseId($courseId);
-			$courseInfo = $course->Info();
-
-			$user = new User();
-			$this->setUserId($userId);
-			//print_r($userId); exit;
- 		    $info = $this->GetInfo();
-			//echo "<pre>".print_r($info)."</pre>";
-			//echo "<pre>".print_r($courseInfo)."</pre>";
-			//exit;
-			if($courseInfo['majorName']=="ESPECIALIDAD" || $courseInfo['majorName']=="MAESTRIA")
-			  $matricula=$this->generaMatricula($info['majorName'],$courseId);
-			else
+		$user = new User();
+		$this->setUserId($userId);
+		$info = $this->GetInfo();
+		if($courseInfo['majorName']=="ESPECIALIDAD" || $courseInfo['majorName']=="MAESTRIA")
+			$matricula=$this->generaMatricula($info['majorName'],$courseId);
+		else
 			$matricula="";
-
-			// $info['email'] = 'carloszh04@gmail.com';
-			$complete = $this->AddUserToCurricula($userId, $courseId, $info["names"], $info["email"], $info["password"], $courseInfo["majorName"], $courseInfo["name"],$tipo_beca,$por_beca,$matricula);
-			$this->AddAcademicHistory('alta');
-			$this->Util()->setError(10028, "complete", $complete);
-			$this->Util()->PrintErrors();
+			
+		$complete = $this->AddUserToCurricula($userId, $courseId, $info["names"], $info["email"], $info["password"], $courseInfo["majorName"], $courseInfo["name"],$tipo_beca,$por_beca,$matricula);
+		$this->AddAcademicHistory('alta');
+		$this->Util()->setError(10028, "complete", $complete);
+		$this->Util()->PrintErrors();
 		return $complete;
 	}
 
-	public function generaMatricula($major,$courseId){
-
-	switch($major)
+	public function generaMatricula($major,$courseId)
 	{
-		case 'MAESTRIA':
-								$year=date('Y');
-								//print_r($year);
-								$year = substr($year, -2);
-
-						$this->Util()->DB()->setQuery("
-				SELECT *, user_subject.status AS status FROM user_subject
-				LEFT JOIN user ON user_subject.alumnoId = user.userId
-				WHERE matricula like '5036%'
-				ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC");
-
+		switch($major)
+		{
+			case 'MAESTRIA':
+				$year = date('Y');
+				$year = substr($year, -2);
+				$sql = "SELECT *, user_subject.status AS status FROM user_subject
+							LEFT JOIN user 
+								ON user_subject.alumnoId = user.userId
+							WHERE matricula LIKE '5036%'
+							ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
+				$this->Util()->DB()->setQuery($sql);
 				$maestrias = $this->Util()->DB()->GetResult();
+				foreach($maestrias as $fila)
+					$num=$fila['matricula'];
 
-				      foreach($maestrias as $fila){
-					     $num=$fila['matricula'];
-					  }
+				$num = substr($num, -3);    // devuelve "ef"
+				$num = $num +1;
+				if(strlen($num)==2)
+					$num="0".$num;
+				$matricula = "5036101" . $year . $num;
+				return $matricula;
+			break;
 
-					  $num = substr($num, -3);    // devuelve "ef"
-						$num=$num +1;
-
-						 if(strlen($num)==2){
-			              $num="0".$num;
-			            }
-
-
-							$matricula="5036101".$year.$num;
-
-							return $matricula;
-
-		break;
-
-		case 'ESPECIALIDAD':
-
-		$year=date('Y');
-								//print_r($year);
-								$year = substr($year, -2);
-
-						$this->Util()->DB()->setQuery("
-				SELECT *, user_subject.status AS status FROM user_subject
-				LEFT JOIN user ON user_subject.alumnoId = user.userId
-				WHERE matricula like '5046%'
-				ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC");
-
+			case 'ESPECIALIDAD':
+				$year = date('Y');
+				$year = substr($year, -2);
+				$sql = "SELECT *, user_subject.status AS status 
+							FROM user_subject
+								LEFT JOIN user 
+									ON user_subject.alumnoId = user.userId
+							WHERE matricula LIKE '5046%'
+							ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
+				$this->Util()->DB()->setQuery($sql);
 				$maestrias = $this->Util()->DB()->GetResult();
-
-				      foreach($maestrias as $fila){
-					     $num=$fila['matricula'];
-					  }
-
-					  $num = substr($num, -3);    // devuelve "ef"
-						$num=$num +1;
-
-						 if(strlen($num)==2){
-			              $num="0".$num;
-			            }
-
-
-							$matricula="5046101".$year.$num;
-
-							return $matricula;
-
-
-
-
-
-		break;
-
-	}
-
+				foreach($maestrias as $fila)
+					$num=$fila['matricula'];
+				$num = substr($num, -3);    // devuelve "ef"
+				$num = $num + 1;
+				if(strlen($num)==2)
+			        $num = "0" . $num;
+				$matricula = "5046101" . $year . $num;
+				return $matricula;
+			break;
+		}
 	}
 
 	public function AddUserToCurricula($id, $curricula, $nombre, $email, $password, $major, $course,$tipo_beca,$por_beca,$matricula)
 	{
-
-
 		include_once(DOC_ROOT."/properties/messages.php");
+		$sql = "SELECT COUNT(*) FROM user_subject WHERE alumnoId = '".$id."' AND courseId = '".$curricula."'";
+		$this->Util()->DB()->setQuery($sql);
+		$count = $this->Util()->DB()->GetSingle();
 
-			$sql = "SELECT COUNT(*) FROM user_subject WHERE alumnoId = '".$id."' AND courseId = '".$curricula."'";
-			$this->Util()->DB()->setQuery($sql);
-			$count = $this->Util()->DB()->GetSingle();
+		$sql = "SELECT subjectId FROM course WHERE courseId = '".$curricula."'";
+		$this->Util()->DB()->setQuery($sql);
+		$subjectId = $this->Util()->DB()->GetSingle();
 
-			$sql = "SELECT subjectId FROM course WHERE courseId = '".$curricula."'";
-			$this->Util()->DB()->setQuery($sql);
-			$subjectId = $this->Util()->DB()->GetSingle();
+		$sql = "SELECT payments FROM subject WHERE subjectId = '".$subjectId."'";
+		$this->Util()->DB()->setQuery($sql);
+		$payments = $this->Util()->DB()->GetSingle();
 
-			$sql = "SELECT payments FROM subject WHERE subjectId = '".$subjectId."'";
-			$this->Util()->DB()->setQuery($sql);
-			$payments = $this->Util()->DB()->GetSingle();
-
-			// Curricula temporal
-			$sql = "SELECT temporalGroup FROM course WHERE courseId = " . $curricula;
-			$this->Util()->DB()->setQuery($sql);
-			$temporalGroup = intval($this->Util()->DB()->GetSingle());
-			// Preinscrito
-			$sql = "SELECT registrationId FROM user_subject WHERE courseId = " . $temporalGroup . " AND alumnoId = " . $id;
-			$this->Util()->DB()->setQuery($sql);
-			$registrationId = intval($this->Util()->DB()->GetSingle());
-			
-			$status = 'activo';
+		// Curricula temporal
+		$sql = "SELECT temporalGroup FROM course WHERE courseId = " . $curricula;
+		$this->Util()->DB()->setQuery($sql);
+		$temporalGroup = intval($this->Util()->DB()->GetSingle());
+		// Preinscrito
+		$sql = "SELECT registrationId FROM user_subject WHERE courseId = " . $temporalGroup . " AND alumnoId = " . $id;
+		$this->Util()->DB()->setQuery($sql);
+		$registrationId = intval($this->Util()->DB()->GetSingle());
+		$status = 'activo';
 				
-//print_r($count);
-			if($count > 0)
-			{
-				return $complete = "Este alumno ya esta registrado en esta curricula. Favor de Seleccionar otra Curricula";
-			}
+		if($count > 0)
+			return $complete = "Este alumno ya esta registrado en esta curricula. Favor de Seleccionar otra Curricula";
 
-			if($temporalGroup > 0 && $registrationId > 0)
-			{
-				// Actualiza la curricula temporal por la oficial
-				$sql = "UPDATE user_subject SET courseId = " . $curricula . ", status = 'activo' WHERE alumnoId = " . $id . " AND courseId = " . $temporalGroup;
-				$this->Util()->DB()->setQuery($sql);
-				$this->Util()->DB()->UpdateData();
+		if($temporalGroup > 0 && $registrationId > 0)
+		{
+			// Actualiza la curricula temporal por la oficial
+			$sql = "UPDATE user_subject SET courseId = " . $curricula . ", status = 'activo' WHERE alumnoId = " . $id . " AND courseId = " . $temporalGroup;
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->UpdateData();
+			$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico para continuar con el proceso de inscripcion";
+		}
+		else
+		{
+			// Se inscribe a curricula 
+			$sqlQuery = "INSERT INTO user_subject(alumnoId, status, courseId, tipo_beca, por_beca, matricula) VALUES('".$id."', '".$status."', '".$curricula."', '".$tipo_beca."', '".$por_beca."', '".$matricula."')";
+			$this->Util()->DB()->setQuery($sqlQuery);
+			if($this->Util()->DB()->InsertData())
 				$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico para continuar con el proceso de inscripcion";
-			}
 			else
-			{
-				// Se inscribe a curricula 
-				$sqlQuery = "INSERT INTO user_subject(alumnoId, status, courseId, tipo_beca, por_beca, matricula) VALUES('".$id."', '".$status."', '".$curricula."', '".$tipo_beca."', '".$por_beca."', '".$matricula."')";
-				$this->Util()->DB()->setQuery($sqlQuery);
-				if($this->Util()->DB()->InsertData())
-					$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico para continuar con el proceso de inscripcion";
-				else
-					$complete="no";
-			}
-			
-			// if($this->getNames() == "")
-			// {
-				$this->setUserId($id);
-				$info = $this->GetInfo();
+				$complete="no";
+		}
+		$this->setUserId($id);
+		$info = $this->GetInfo();
+		
+		$this->setControlNumber();
+		$this->setNames($info['names']);
+		$this->setLastNamePaterno($info['lastNamePaterno']);
+		$this->setLastNameMaterno($info['lastNameMaterno']);
+		$this->setSexo($info['sexo']);
+		$info['birthdate'] = explode("-", $info['birthdate']);
+		$this->setBirthdate($info['birthdate'][0], $info['birthdate'][1], $info['birthdate'][2]);
+		$this->setMaritalStatus($info['maritalStatus']);
+		$this->setPassword(trim($info['password']));
 
-				// echo ""
-				// exit;
-				//datos personales
-				$this->setControlNumber();
-				$this->setNames($info['names']);
-				$this->setLastNamePaterno($info['lastNamePaterno']);
-				$this->setLastNameMaterno($info['lastNameMaterno']);
-				$this->setSexo($info['sexo']);
-				$info['birthdate'] = explode("-", $info['birthdate']);
-				$this->setBirthdate($info['birthdate'][0], $info['birthdate'][1], $info['birthdate'][2]);
-				$this->setMaritalStatus($info['maritalStatus']);
-				$this->setPassword(trim($info['password']));
+		// Domicilio
+		$this->setStreet($info['street']);
+		$this->setNumber($info['number']);
+		$this->setColony($info['colony']);
+		$this->setCity($info['ciudad']);
+		$this->setState($info['estado']);
+		$this->setCountry($info['pais']);
+		$this->setPostalCode($info['postalCode']);
 
-				//domicilio
-				//print_r($info);
-				$this->setStreet($info['street']);
-				$this->setNumber($info['number']);
-				$this->setColony($info['colony']);
-				$this->setCity($info['ciudad']);
-				$this->setState($info['estado']);
-				$this->setCountry($info['pais']);
-				$this->setPostalCode($info['postalCode']);
+		// Datos de Contacto
+		$this->setEmail($info['email']);
+		$this->setPhone($info['phone']);
+		$this->setFax($info['fax']);
+		$this->setMobile($info['mobile']);
 
-				//datos de contacto
-				$this->setEmail($info['email']);
-				$this->setPhone($info['phone']);
-				$this->setFax($info['fax']);
-				$this->setMobile($info['mobile']);
+		// Datos Laborales
+		$this->setWorkplace($info['workplace']);
+		$this->setWorkplaceOcupation($info['workplaceOcupation']);
+		$this->setWorkplaceAddress($info['workplaceAddress']);
+		$this->setWorkplaceArea($info['workplaceArea']);
+		$this->setWorkplacePosition($info['workplacePosition']);
+		$this->setWorkplaceCity($info['nombreciudad']);
+		$this->setWorkplacePhone($info['workplacePhone']);
+		$this->setWorkplaceEmail($info['workplaceEmail']);
 
-				//datos laborales
-				$this->setWorkplace($info['workplace']);
-				$this->setWorkplaceOcupation($info['workplaceOcupation']);
-				$this->setWorkplaceAddress($info['workplaceAddress']);
-				$this->setWorkplaceArea($info['workplaceArea']);
-				$this->setWorkplacePosition($info['workplacePosition']);
-				$this->setWorkplaceCity($info['nombreciudad']);
-				$this->setWorkplacePhone($info['workplacePhone']);
-				$this->setWorkplaceEmail($info['workplaceEmail']);
+		// Estudios
+		$this->setAcademicDegree($info['academicDegree']);
+		$this->setSchool($info['school']);
+		$this->setHighSchool($info['highSchool']);
+		$this->setMasters($info['masters']);
+		$this->setMastersSchool($info['mastersSchool']);
+		$this->setProfesion($info['profesion']);
 
-				//Estudios
-				$this->setAcademicDegree($info['academicDegree']);
-				$this->setSchool($info['school']);
-				$this->setHighSchool($info['highSchool']);
-				$this->setMasters($info['masters']);
-				$this->setMastersSchool($info['mastersSchool']);
-				$this->setProfesion($info['profesion']);
-
-			// }
-
-			//crear vencimientos
-			$this->AddInvoices($id, $curricula);
-			//create file to attach
-			$files  = new Files;
-			//print_r($this);        //pdf del correo electronico
-			$file = $files->CedulaInscripcion($id, $curricula, $this, $major, $course);
-			//enviar correo
-			$sendmail = new SendMail;
-
-			$details_body = array(
-				"email" => $info["controlNumber"],
-				"password" => $password,
-				"major" => utf8_decode($major),
-				"course" => utf8_decode($course),
-			);
-			$details_subject = array();
-			//$email = "carloszh04@gmail.com";
-
-			/* $attachment[0] = DOC_ROOT."/files/solicitudes/".$file;
-			$fileName[0] = "Solicitud_de_Inscripcion.pdf";
-			$attachment[1] = DOC_ROOT."/manual_alumno.pdf";
-			$fileName[1] = "Manual_Alumno.pdf"; */
-
-			$attachment = '';
-
-			$sendmail->PrepareAttachment($message[1]["subject"], $message[1]["body"], $details_body, $details_subject, $email, $nombre, $attachment, $fileName);
-
-			return $complete;
-
+		// Crear Vencimientos
+		$this->AddInvoices($id, $curricula);
+		// Create File to Attach
+		$files  = new Files;
+		$file = $files->CedulaInscripcion($id, $curricula, $this, $major, $course);
+		// Enviar correo
+		$sendmail = new SendMail;
+		$details_body = array(
+			"email" => $info["controlNumber"],
+			"password" => $password,
+			"major" => utf8_decode($major),
+			"course" => utf8_decode($course),
+		);
+		$details_subject = array();
+		$attachment = '';
+		$sendmail->PrepareAttachment($message[1]["subject"], $message[1]["body"], $details_body, $details_subject, $email, $nombre, $attachment, $fileName);
+		return $complete;
 	}
 
 
-	public function Update(){
-
-		if($this->Util()->PrintErrors()){
+	public function Update()
+	{
+		if($this->Util()->PrintErrors())
 			return false;
-		}
 
 		$sqlQuery = "UPDATE user				
 						SET 
@@ -908,13 +823,10 @@ class Student extends User
 							highSchool = '".$this->getHighSchool()."'						
 						WHERE 
 							userId = ".$this->getUserId();
-
 		$this->Util()->DB()->setQuery($sqlQuery);
 		$this->Util()->DB()->ExecuteQuery();
-
 		$this->Util()->setError(10030, "complete");
 		$this->Util()->PrintErrors();
-
 		return true;
 	}
 
