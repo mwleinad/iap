@@ -381,7 +381,8 @@ class Student extends User
 							school,
 							masters,
 							mastersSchool,
-							highSchool
+							highSchool,
+							actualizado
 						)
 							VALUES
 						(
@@ -421,8 +422,8 @@ class Student extends User
 							'".$this->getSchool()."', 
 							'".$this->getMasters()."', 
 							'".$this->getMastersSchool()."', 
-							'".$this->getHighSchool()."' 
-							
+							'".$this->getHighSchool()."',
+							'no'
 						)";
 		$this->Util()->DB()->setQuery($sqlQuery);
 
@@ -565,7 +566,10 @@ class Student extends User
 			"course" => utf8_decode($course),
 		);
 		$details_subject = array();
-		$attachment = '';
+		$attachment[0] = DOC_ROOT."/files/solicitudes/".$file;
+		$fileName[0] = "Solicitud_de_Inscripcion.pdf";
+		$attachment[1] = DOC_ROOT."/manual_alumno.pdf";
+		$fileName[1] = "Manual_Alumno.pdf";
 		$sendmail->PrepareAttachment($message[1]["subject"], $message[1]["body"], $details_body, $details_subject, $email, $nombre, $attachment, $fileName);
 		return $complete;
 	}
@@ -774,7 +778,10 @@ class Student extends User
 			"course" => utf8_decode($course),
 		);
 		$details_subject = array();
-		$attachment = '';
+		$attachment[0] = DOC_ROOT."/files/solicitudes/".$file;
+		$fileName[0] = "Solicitud_de_Inscripcion.pdf";
+		$attachment[1] = DOC_ROOT."/manual_alumno.pdf";
+		$fileName[1] = "Manual_Alumno.pdf";
 		$sendmail->PrepareAttachment($message[1]["subject"], $message[1]["body"], $details_body, $details_subject, $email, $nombre, $attachment, $fileName);
 		return $complete;
 	}
