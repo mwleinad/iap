@@ -49,167 +49,185 @@
                 {/if}
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12 mb-3">
-                <h3 class="page-title">
-                    <span class="page-title-icon bg-gradient-primary text-white mr-2">
-                        <i class="mdi mdi-school"></i>                 
-                    </span>
-                    Currícula {$tipo_curricula}
-                </h3>
-            </div>
-            {* CURRICULA ACTIVA *}
-            {foreach from=$activeCourses item=subject}
-                <div class="col-md-4 stretch-card grid-margin">
-                    <div class="card card-img-holder text-white {if $tipo_curricula eq 'Activa'} bg-gradient-primary {/if} {if $tipo_curricula eq 'Inactiva'} bg-gradient-danger {/if} {if $tipo_curricula eq 'Finalizada'} bg-gradient-info {/if}">
-                        <div class="text-center">
-                            <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula">
-                                {if $subject.icon eq ''}
-                                    <i class="far fa-image fa-6x text-white mt-4"></i>
-                                {else} 
-                                    <img class="card-img-top" src="{$WEB_ROOT}/images/new/curricula/{$subject.icon}" alt="">
-                                {/if}
-                            </a>
+        {* If Actualizado *}
+        {if $User.actualizado eq "no"}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            Actualización de Datos
                         </div>
                         <div class="card-body">
-                            <h4 class="font-weight-normal mb-3">{$subject.majorName}
-                                <i class="fas fa-chalkboard float-right fa-lg"></i>
-                            </h4>
-                            <p class="mb-3">
-                                {$subject.name}<br>
-                                {if $tipo_curricula eq 'Inactiva'} <small>Clave: {$subject.clave}</small><br> {/if}
-                                <small>Grupo: {$subject.group} ({if $subject.modality eq 'Local'}Escolar{else}No Escolar{/if})<br>
-                                Periodo: {$subject.initialDate|date_format:"%d-%m-%Y"} - {$subject.finalDate|date_format:"%d-%m-%Y"}</small><br>
-                                {if $subject.situation eq 'Ordinario'}
-                                    <small>Módulos: {$subject.courseModule}</small>
-                                {/if}
-                                {if $subject.situation eq 'Recursador'}
-                                    <small>Recursando Materia(s)</small>
-                                {/if}
-                                {if $tipo_curricula ne 'Activa'} <br><small>Días Activo: {$subject.daysToFinish}</small> {/if}
-                            </p>
+                            <h5 class="card-title">Por favor realiza la actualización de tus datos para poder ingresar a todos los módulos de la Plataforma de Educación En Línea...</h5>
+                            {include file="{$DOC_ROOT}/templates/forms/new/completo.tpl"}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {else}
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <h3 class="page-title">
+                        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                            <i class="mdi mdi-school"></i>                 
+                        </span>
+                        Currícula {$tipo_curricula}
+                    </h3>
+                </div>
+                {* CURRICULA ACTIVA *}
+                {foreach from=$activeCourses item=subject}
+                    <div class="col-md-4 stretch-card grid-margin">
+                        <div class="card card-img-holder text-white {if $tipo_curricula eq 'Activa'} bg-gradient-primary {/if} {if $tipo_curricula eq 'Inactiva'} bg-gradient-danger {/if} {if $tipo_curricula eq 'Finalizada'} bg-gradient-info {/if}">
                             <div class="text-center">
-                                {if $subject.situation eq 'Ordinario'}
-                                    <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
-                                        <i class="fas fa-link"></i> Ver
-                                    </a>
-                                {/if}
-                                {if $subject.situation eq 'Recursador'}
-                                    <a href="{$WEB_ROOT}/modulos-recursar/id/{$subject.courseId}" title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
-                                        <i class="fas fa-link"></i> Ver
-                                    </a>
-                                {/if}
+                                <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula">
+                                    {if $subject.icon eq ''}
+                                        <i class="far fa-image fa-6x text-white mt-4"></i>
+                                    {else} 
+                                        <img class="card-img-top" src="{$WEB_ROOT}/images/new/curricula/{$subject.icon}" alt="">
+                                    {/if}
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="font-weight-normal mb-3">{$subject.majorName}
+                                    <i class="fas fa-chalkboard float-right fa-lg"></i>
+                                </h4>
+                                <p class="mb-3">
+                                    {$subject.name}<br>
+                                    {if $tipo_curricula eq 'Inactiva'} <small>Clave: {$subject.clave}</small><br> {/if}
+                                    <small>Grupo: {$subject.group} ({if $subject.modality eq 'Local'}Escolar{else}No Escolar{/if})<br>
+                                    Periodo: {$subject.initialDate|date_format:"%d-%m-%Y"} - {$subject.finalDate|date_format:"%d-%m-%Y"}</small><br>
+                                    {if $subject.situation eq 'Ordinario'}
+                                        <small>Módulos: {$subject.courseModule}</small>
+                                    {/if}
+                                    {if $subject.situation eq 'Recursador'}
+                                        <small>Recursando Materia(s)</small>
+                                    {/if}
+                                    {if $tipo_curricula ne 'Activa'} <br><small>Días Activo: {$subject.daysToFinish}</small> {/if}
+                                </p>
+                                <div class="text-center">
+                                    {if $subject.situation eq 'Ordinario'}
+                                        <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
+                                            <i class="fas fa-link"></i> Ver
+                                        </a>
+                                    {/if}
+                                    {if $subject.situation eq 'Recursador'}
+                                        <a href="{$WEB_ROOT}/modulos-recursar/id/{$subject.courseId}" title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
+                                            <i class="fas fa-link"></i> Ver
+                                        </a>
+                                    {/if}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {foreachelse}
-                <div class="col-md-12">
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <i class="far fa-frown fa-lg"></i> <strong>¡Lo sentimos!</strong> No Cuentas Con Currícula {$tipo_curricula}.
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                </div>
-            {/foreach}
-        </div>
-        <div class="row">
-            <div class="col-md-12 mb-3">
-                <h3 class="page-title">
-                    <span class="page-title-icon bg-gradient-success text-white mr-2">
-                        <i class="mdi mdi-view-dashboard"></i>                 
-                    </span>
-                    Menú
-                </h3>
-            </div>
-            {* FINANZAS *}
-            <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-success card-img-holder text-white">
-                    <div class="text-center">
-                        <a href="{$WEB_ROOT}/finanzas">
-                            <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/finanzas.svg" alt="">
-                        </a>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="font-weight-normal mb-3">IAP Chiapas
-                            <i class="fas fa-dollar-sign float-right fa-lg"></i>
-                        </h4>
-                        <h2 class="mb-5">Finanzas</h2>
-                        <div class="text-center">
-                            <a href="{$WEB_ROOT}/finanzas" class="btn btn-outline-light btn-fw btn-sm">
-                                <i class="fas fa-link"></i> Ver
-                            </a>
+                {foreachelse}
+                    <div class="col-md-12">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="far fa-frown fa-lg"></i> <strong>¡Lo sentimos!</strong> No Cuentas Con Currícula {$tipo_curricula}.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                     </div>
-                </div>
+                {/foreach}
             </div>
-            {* INBOX *}
-            <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-success card-img-holder text-white">
-                    <div class="text-center">
-                        <a href="{$WEB_ROOT}/inbox/or/h">
-                            <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/inbox.svg" alt="">
-                        </a>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="font-weight-normal mb-3">IAP Chiapas
-                            <i class="fas fa-envelope float-right fa-lg"></i>
-                        </h4>
-                        <h2 class="mb-5">Inbox</h2>
-                        <div class="text-center">
-                            <a href="{$WEB_ROOT}/inbox/or/h" class="btn btn-outline-light btn-fw btn-sm">
-                                <i class="fas fa-link"></i> Ver
-                            </a>
-                        </div>
-                    </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <h3 class="page-title">
+                        <span class="page-title-icon bg-gradient-success text-white mr-2">
+                            <i class="mdi mdi-view-dashboard"></i>                 
+                        </span>
+                        Menú
+                    </h3>
                 </div>
-            </div>
-            {* PERSONAL ACADEMICO *}
-            <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-success card-img-holder text-white">
-                    <div class="text-center">
-                        <a href="{$WEB_ROOT}/personal-academico">
-                            <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/personal.svg" alt="">
-                        </a>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="font-weight-normal mb-3">IAP Chiapas
-                            <i class="fas fa-users float-right fa-lg"></i>
-                        </h4>
-                        <h2 class="mb-5">Personal Académico</h2>
-                        <div class="text-center">
-                            <a href="{$WEB_ROOT}/personal-academico" class="btn btn-outline-light btn-fw btn-sm">
-                                <i class="fas fa-link"></i> Ver
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {* REGLAMENTO GENERAL DE POSGRADO *}
-            {if $showRegulation}
+                {* FINANZAS *}
                 <div class="col-md-4 stretch-card grid-margin">
                     <div class="card bg-gradient-success card-img-holder text-white">
                         <div class="text-center">
-                            <a href="{$WEB_ROOT}/reglamento">
-                                <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/reglamento.svg" alt="">
+                            <a href="{$WEB_ROOT}/finanzas">
+                                <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/finanzas.svg" alt="">
                             </a>
                         </div>
                         <div class="card-body">
                             <h4 class="font-weight-normal mb-3">IAP Chiapas
-                                <i class="fas fa-balance-scale float-right fa-lg"></i>
+                                <i class="fas fa-dollar-sign float-right fa-lg"></i>
                             </h4>
-                            <h2 class="mb-5">Reglamento General de Posgrado</h2>
+                            <h2 class="mb-5">Finanzas</h2>
                             <div class="text-center">
-                                <a href="{$WEB_ROOT}/reglamento" class="btn btn-outline-light btn-fw btn-sm">
+                                <a href="{$WEB_ROOT}/finanzas" class="btn btn-outline-light btn-fw btn-sm">
                                     <i class="fas fa-link"></i> Ver
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
-            {/if}
-        </div>
+                {* INBOX *}
+                <div class="col-md-4 stretch-card grid-margin">
+                    <div class="card bg-gradient-success card-img-holder text-white">
+                        <div class="text-center">
+                            <a href="{$WEB_ROOT}/inbox/or/h">
+                                <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/inbox.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="font-weight-normal mb-3">IAP Chiapas
+                                <i class="fas fa-envelope float-right fa-lg"></i>
+                            </h4>
+                            <h2 class="mb-5">Inbox</h2>
+                            <div class="text-center">
+                                <a href="{$WEB_ROOT}/inbox/or/h" class="btn btn-outline-light btn-fw btn-sm">
+                                    <i class="fas fa-link"></i> Ver
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {* PERSONAL ACADEMICO *}
+                <div class="col-md-4 stretch-card grid-margin">
+                    <div class="card bg-gradient-success card-img-holder text-white">
+                        <div class="text-center">
+                            <a href="{$WEB_ROOT}/personal-academico">
+                                <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/personal.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="font-weight-normal mb-3">IAP Chiapas
+                                <i class="fas fa-users float-right fa-lg"></i>
+                            </h4>
+                            <h2 class="mb-5">Personal Académico</h2>
+                            <div class="text-center">
+                                <a href="{$WEB_ROOT}/personal-academico" class="btn btn-outline-light btn-fw btn-sm">
+                                    <i class="fas fa-link"></i> Ver
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {* REGLAMENTO GENERAL DE POSGRADO *}
+                {if $showRegulation}
+                    <div class="col-md-4 stretch-card grid-margin">
+                        <div class="card bg-gradient-success card-img-holder text-white">
+                            <div class="text-center">
+                                <a href="{$WEB_ROOT}/reglamento">
+                                    <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/reglamento.svg" alt="">
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="font-weight-normal mb-3">IAP Chiapas
+                                    <i class="fas fa-balance-scale float-right fa-lg"></i>
+                                </h4>
+                                <h2 class="mb-5">Reglamento General de Posgrado</h2>
+                                <div class="text-center">
+                                    <a href="{$WEB_ROOT}/reglamento" class="btn btn-outline-light btn-fw btn-sm">
+                                        <i class="fas fa-link"></i> Ver
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {/if}
+            </div>
+        {/if}
+        {* End if actualizado *}
     </div>
 </div>
 

@@ -1270,6 +1270,7 @@ class User extends Main
 						$card['nombreCompleto'] =  $row['names'].' '.$row['lastNamePaterno'].' '.$row['lastNameMaterno'];
 						$card['type'] = 'student';
 						$card['activo'] = $row['activo'];
+						$card['actualizado'] = $row['actualizado'];
 						$card['isLogged'] = true;
 						$card['photo'] = $row['rutaFoto'];
 						$_SESSION['User'] = $card;
