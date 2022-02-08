@@ -962,6 +962,65 @@
 				$smarty->display(DOC_ROOT.'/templates/lists/student-repeat.tpl');
 			}
 			break;
+
+		case 'updateStudentRegister':
+			$student->setUserId($_POST['id']);
+
+			// Información Personal
+			$student->setNames($_POST['names']);
+			$student->setLastNamePaterno($_POST['lastNamePaterno']);
+			$student->setLastNameMaterno($_POST['lastNameMaterno']);
+			$student->setSexo($_POST['sexo']);
+			$birthday = explode('-', $_POST['birthday']);
+			$student->setBirthdate(intval($birthday[2]), intval($birthday[1]), intval($birthday[0]));
+			$student->setMaritalStatus($_POST['maritalStatus']);
+
+			// Domicilio
+			$student->setStreet($_POST['street']);
+			$student->setNumber($_POST['number']);
+			$student->setColony($_POST['colony']);
+			$student->setCountry($_POST['pais']);
+			$student->setState($_POST['estado']);
+			$student->setCity($_POST['ciudad']);
+			$student->setPostalCode($_POST['postalCode']);
+
+			// Datos De Contacto
+			$student->setEmail($_POST['email']);
+			$student->setMobile($_POST['mobile']);
+			$student->setPhone($_POST['phone']);
+			$student->setFax($_POST['fax']);
+
+			// Datos Laborales
+			$student->setWorkplaceOcupation($_POST['workplaceOcupation']);
+			$student->setWorkplace($_POST['workplace']);
+			$student->setWorkplaceAddress($_POST['workplaceAddress']);
+			$student->setPaisT($_POST['paist']);
+			$student->setEstadoT($_POST['estadot']);
+			$student->setCiudadT($_POST['ciudadt']);
+			$student->setWorkplaceArea($_POST['workplaceArea']); 
+			$student->setWorkplacePosition($_POST['workplacePosition']); 
+			$student->setWorkplacePhone($_POST['workplacePhone']);
+			$student->setWorkplaceEmail($_POST['workplaceEmail']);
+			
+			// Estudios
+			$student->setAcademicDegree($_POST['academicDegree']);
+			$student->setProfesion($_POST['profesion']);
+			$student->setSchool($_POST['school']);
+			$student->setMasters($_POST['masters']); 
+			$student->setMastersSchool($_POST['mastersSchool']);
+			$student->setHighSchool($_POST['highSchool']);
+			if(!$student->Update())
+			{
+				echo "fail[#]";
+				$smarty->display(DOC_ROOT . '/templates/boxes/status_on_popup.tpl');
+			}
+			else
+			{
+				$_SESSION['User']['actualizado'] = 'si';
+				echo "ok[#]";
+				$smarty->display(DOC_ROOT . '/templates/boxes/status.tpl');
+			}
+			break;
 	}
 
 ?>

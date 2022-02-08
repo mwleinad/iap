@@ -827,7 +827,8 @@ class Student extends User
 							school = '".$this->getSchool()."', 
 							masters = '".$this->getMasters()."', 
 							mastersSchool = '".$this->getMastersSchool()."', 
-							highSchool = '".$this->getHighSchool()."'						
+							highSchool = '".$this->getHighSchool()."',
+							actualizado = 'si'						
 						WHERE 
 							userId = ".$this->getUserId();
 		$this->Util()->DB()->setQuery($sqlQuery);
