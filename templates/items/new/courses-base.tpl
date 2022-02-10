@@ -60,7 +60,7 @@
 							<i class="far fa-list-alt"></i>
 						</button>
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							{if $subject.majorName=="ESPECIALIDAD" || $subject.majorName=="MAESTRIA"}
+							{if $subject.majorName=="ESPECIALIDAD" || $subject.majorName=="MAESTRÍA"}
 								<a class="dropdown-item spanActive" href="#" onclick="VerGrupo({$subject.courseId},'matricula');" title="Matrículas" id="{$subject.courseId}">
 									<i class="fas fa-cog"></i> Matrículas
 								</a>

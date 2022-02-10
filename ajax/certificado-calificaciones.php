@@ -12,22 +12,91 @@ $user->allow_access(37);
 
 $course->setCourseId($_GET['co']);
 $infoCourse = $course->Info();
+// Tipo de Curso
 if($infoCourse['tipoCuatri'] == 'Semestre')
     $typeCourse = 'semester';
 if($infoCourse['tipoCuatri'] == 'Cuatrimestre')
     $typeCourse = 'quarter';
+// Calificacion Minima Aprobatoria
 $minCal = 7;
 if($infoCourse['majorId'] == 18)
     $minCal = 8;
+// Modalidad y RVOE
+if($infoCourse['modality'] == 'Online')
+{
+    $modality = 'NO ESCOLAR';
+    $rvoe = $infoCourse['rvoeLinea'];
+    $fechaRvoe = $infoCourse['fechaRvoeLinea'];
+}
+if($infoCourse['modality'] == 'Local')
+{
+    $modality = 'ESCOLAR';
+    $rvoe = $infoCourse['rvo'];
+    $fechaRvoe = $infoCourse['fechaRvoe'];
+}
+
+$position = [
+    1 => 'PRIMER',
+    2 => 'SEGUNDO',
+    3 => 'TERCER',
+    4 => 'CUARTO'
+];
+
 
 $student->setUserId($_GET['al']);
 $infoStudent = $student->GetInfo();
-$modules = $student->BoletaCalificacion($_GET['co'], $_GET['cu'], false);
+// $modules = $student->BoletaCalificacion($_GET['co'], $_GET['cu'], false);
 
 $institution->setInstitutionId(1);
 $myInstitution = $institution->Info();
+/**
+ * $infoCourse
+ * $infoStudent
+ */
+$qualifications = [];
+for($period = 1; $period <= $infoCourse['totalPeriods']; $period++)
+{
+    $tmp = $student->BoletaCalificacion($infoCourse['courseId'], $period, false);
+    foreach($tmp as $item)
+    {
+        $qualifications[$period][] = [
+            'name' => $item['name'],
+            'score' => $item['score']
+        ];
+    }
+}
+$tbody = '';
+for($period = 1; $period <= $infoCourse['totalPeriods']; $period += 2)
+{
+    $max_modules = count($qualifications[$period]);
+    $next = false;
+    if(array_key_exists($period + 1, $qualifications))
+    {
+        $next = true;
+        $b2 = count($qualifications[$period + 1]);
+        if($b2 > $max_modules)
+            $max_modules = $b2;
+    }
+    for($element = 0; $element < $max_modules; $element++)
+    {
+        $tbody .= '<tr>
+                        <td colspan="4"></td>
+                        <td colspan="4"></td>
+                    </tr>';
+        $tbody .= '<tr>';
+        $tbody .= '<td>' . $qualifications[$period][$element]['name'] . '</td>
+                    <td style="text-align: center;">' . $qualifications[$period][$element]['score'] . '</td>
+                    <td></td>
+                    <td></td>
+                    <td>' . ($next ? $qualifications[$period + 1][$element]['name'] : '') . '</td>
+                    <td style="text-align: center;">' . ($next ? $qualifications[$period + 1][$element]['score'] : '') . '</td>
+                    <td></td>
+                    <td></td>';
+        $tbody .= '</tr>';
+    }
+}
 /* echo "<pre>";
-print_r($infoCourse); 
+print_r($next); 
 exit; */
 
 $html_modules = "";
@@ -73,8 +142,8 @@ $html .="<html>
                     #mexico {
                         width: 80px;
                         position: absolute;
-                        top: 0px;
-                        left: 0px;
+                        top: 16px;
+                        left: 20px;
                     }
                     .bg-gray {
                         background-color: #dddddd;
@@ -82,19 +151,33 @@ $html .="<html>
 		        </style>
 	        </head>
 	        <body>
-		        <center>
-                    <img src='" . DOC_ROOT . "/images/Escudo.jpg' id='mexico' />
-                    <p style='line-height: 14px;'><label style='font-size: 12pt;'><b>GOBIERNO CONSTITUCIONAL DEL ESTADO DE CHIAPAS</b></label><br>
-                    <label style='font-size: 10pt;'>SECRETARÍA DE EDUCACIÓN</label><br>
-                    <label style='font-size: 8pt;'>SUBSECRETARÍA DE EDUCACIÓN ESTATAL</label><br>
-                    <label style='font-size: 8pt;'>DIRECCIÓN DE EDUCACIÓN SUPERIOR</label><br>
-                    <label style='font-size: 8pt;'>DEPARTAMENTO DE SERVICIOS ESCOLARES</label></p>
-                </center>
-                <p style='font-size: 8pt;'>LA DIRECCIÓN DEL INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, RÉGIMEN PARTICULAR, TURNO ___ MODALIDAD ___, CLAVE " . $myInstitution['identifier'] . ", CERTIFICA QUE:<br>
-                EL (LA) C. " . mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']) . "<br>
-                CON No. DE CONTROL: " . $student->GetMatricula($infoCourse['courseId']) . " ACREDITÓ LAS MATERIAS QUE INTEGRAN EL PLAN DE ESTUDIOS DE LA " . $infoCourse['majorName'] . " EN:</p>
-                <p>" . $infoCourse['name'] . "</p>
-                <p style='font-size: 8pt;'>ACUERDO NÚMERO: ______, VIGENTE A PARTIR DEL _______, DURANTE EL PERIODO:</p>
+                <table width='100%''>
+                    <tr>
+                        <img src='" . DOC_ROOT . "/images/Escudo.jpg' id='mexico' />
+                        <td width='20'>
+                        </td>
+                        <td width='80'>
+                            <p style='line-height: 14px; text-align: center;'>
+                                <label style='font-size: 12pt;'><b>GOBIERNO CONSTITUCIONAL DEL ESTADO DE CHIAPAS</b></label><br>
+                                <label style='font-size: 10pt;'>SECRETARÍA DE EDUCACIÓN</label><br>
+                                <label style='font-size: 8pt;'>SUBSECRETARÍA DE EDUCACIÓN ESTATAL</label><br>
+                                <label style='font-size: 8pt;'>DIRECCIÓN DE EDUCACIÓN SUPERIOR</label><br>
+                                <label style='font-size: 8pt;'>DEPARTAMENTO DE SERVICIOS ESCOLARES</label>
+                            </p>
+                            <p style='font-size: 8pt; text-align: justify;'>
+                                LA DIRECCIÓN DEL INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, RÉGIMEN PARTICULAR, TURNO " . mb_strtoupper($infoCourse['turn']) . " MODALIDAD " . $modality . ", CLAVE " . $myInstitution['identifier'] . ", CERTIFICA QUE:<br>
+                                EL (LA) C. <b>" . mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']) . "</b><br>
+                                CON No. DE CONTROL: <b>" . $student->GetMatricula($infoCourse['courseId']) . "</b> ACREDITÓ LAS MATERIAS QUE INTEGRAN EL PLAN DE ESTUDIOS DE LA " . $infoCourse['majorName'] . " EN:
+                            </p>
+                            <p style='font-size: 8pt; text-align: center;'><b>" . $infoCourse['name'] . "</b></p>
+                            <p style='font-size: 8pt; text-align: center;'>
+                                ACUERDO NÚMERO: <b>" . $rvoe . "</b>, VIGENTE A PARTIR DEL " . mb_strtoupper($util->FormatReadableDate($fechaRvoe)) . ", DURANTE EL PERIODO:<br>
+                                <b>" . mb_strtoupper($_GET['pe']) . "</b>
+                            </p>
+                            <p style='font-size: 8pt; text-align: center;'>CON LOS RESULTADOS QUE A CONTINUACIÓN SE ANOTAN:</p>
+                        </td>
+                    </tr>
+                </table>
                 <table align='center' width='100%' border='1' style='font-size: 5pt;' class='border'>
                     <tr>
                         <td class='text-center border' rowspan='2'>MATERIAS</td>
@@ -110,10 +193,11 @@ $html .="<html>
                         <td class='text-center border'>Cifra</td>
                         <td class='text-center border'>Letra</td>
                     </tr>
-			    </table>
-                <p style='font-size: 8pt;'>La escala oficial de calificaciones es de ______, considerando como mínima aprobatoria ______. Este certificado ampara ______ materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ______.</p>
+                    " . $tbody . "
+                </table>
+                <p style='font-size: 8pt;'>La escala oficial de calificaciones es de 6 (SEIS) a 10 (DIEZ), considerando como mínima aprobatoria " . $minCal . " (" . mb_strtoupper($util->num2letras($minCal)) . "). Este certificado ampara ______ materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ______.</p>
                 <table width='100%'>
-                    <tr>
+                    <tr style='border-spacing: 0px !important;'>
                         <td>
                             <table align='center' border='1' style='font-size: 5pt;' class='border'>
                                 <tr>
@@ -172,52 +256,6 @@ $html .="<html>
                     </tr>
                 </table>
                 <p style='font-size: 6pt; text-align: center;'><b>ESTE DOCUMENTO NO ES VÁLIDO SI PRESENTA RASPADURAS O ENMENDADURAS</b></p>
-
-
-
-
-
-		        <table align='center' width='100%' border='1' class='txtTicket'>
-                    <tr>
-                        <td class='text-center'><b>Nombre del Alumno:</b> </td>
-                        <td colspan='2'></td>
-                        <td class='text-center'><b>Matrícula:</b></td>
-                    </tr>
-                    <tr>
-                        <td class='text-center'><b>Ciclo:</b> " . $_GET['ci'] . "</td>
-                    </tr>
-                    <tr>
-                        <td class='text-center' style='text-transform: capitalize;'><b>" . $infoCourse['tipoCuatri'] . ":</b></td>
-                        <td> " . $util->num2order($_GET['cu']) . "</td>
-                        <td class='text-center'><b>Periodo:</b> " . $_GET['pe'] . ' ' . $_GET['year'] . "</td>
-                        <td class='text-center'><b>Grupo:</b> " . $infoCourse['group'] . "</td>
-                    </tr>
-			    </table>
-                <table align='center' width='100%' border='1' class='txtTicket'>
-                    <tr>
-                        <td rowspan='2' class='text-center'><b>No.</b></td>
-                        <td rowspan='2' class='text-center'><b>Materias</b></td>
-                        <td class='text-center'><b>Calificación</b></td>
-                        <td class='text-center'><b>Calificación</b></td>
-                    </tr>
-                    <tr>
-                        <td class='text-center'><b>En Número</b></td>
-                        <td class='text-center'><b>En Letra</b></td>
-                    </tr>
-                    " . $html_modules . "
-                </table><br>
-                <center>
-                    <p>Tuxtla Gutiérrez, Chiapas; " . mb_strtolower($util->FormatReadableDate($_GET['fe'])) . ".</p>
-                </center><br><br>
-                <center>
-                    <p>ATENTAMENTE</p>
-                </center><br><br>
-                <center>
-                    <p>
-                        " . $myInstitution['directorAcademico'] . "<br>
-                        <b>DIRECTORA ACADÉMICA</b>
-                    </p>
-                </center>
 	        </body>
 	    </html>";
 	/* echo $html;
@@ -236,7 +274,7 @@ $html .="<html>
 	$mipdf ->render();
 	 
 	# Enviamos el fichero PDF al navegador.
-	$mipdf ->stream('BoletaCalificaciones.pdf', array('Attachment' => 0));
+	$mipdf ->stream('Certificado.pdf', array('Attachment' => 0));
 			
 
 
