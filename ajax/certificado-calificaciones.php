@@ -77,20 +77,20 @@ for($period = 1; $period <= $infoCourse['totalPeriods']; $period += 2)
         if($b2 > $max_modules)
             $max_modules = $b2;
     }
+    $tbody .= '<tr>
+                    <td colspan="4" style="text-align: center;"><b>' . mb_strtoupper($position[$period] . ' ' . $infoCourse['tipoCuatri']) . '</b></td>
+                    <td colspan="4" style="text-align: center;"><b>' . ($next ? mb_strtoupper($position[$period + 1] . ' ' . $infoCourse['tipoCuatri']) : '') . '</b></td>
+                </tr>';
     for($element = 0; $element < $max_modules; $element++)
     {
-        $tbody .= '<tr>
-                        <td colspan="4"></td>
-                        <td colspan="4"></td>
-                    </tr>';
         $tbody .= '<tr>';
         $tbody .= '<td>' . $qualifications[$period][$element]['name'] . '</td>
                     <td style="text-align: center;">' . $qualifications[$period][$element]['score'] . '</td>
-                    <td></td>
+                    <td>' . mb_strtoupper($util->num2letras($qualifications[$period][$element]['score'])) . '</td>
                     <td></td>
                     <td>' . ($next ? $qualifications[$period + 1][$element]['name'] : '') . '</td>
                     <td style="text-align: center;">' . ($next ? $qualifications[$period + 1][$element]['score'] : '') . '</td>
-                    <td></td>
+                    <td>' . mb_strtoupper($util->num2letras($qualifications[$period][$element]['score'])) . '</td>
                     <td></td>';
         $tbody .= '</tr>';
     }
@@ -178,21 +178,23 @@ $html .="<html>
                         </td>
                     </tr>
                 </table>
-                <table align='center' width='100%' border='1' style='font-size: 5pt;' class='border'>
-                    <tr>
-                        <td class='text-center border' rowspan='2'>MATERIAS</td>
-                        <td class='text-center border' colspan='2'>CALIFICACIÓN</td>
-                        <td class='text-center border' rowspan='2'>OBSERVACIÓN</td>
-                        <td class='text-center border' rowspan='2'>MATERIAS</td>
-                        <td class='text-center border' colspan='2'>CALIFICACIÓN</td>
-                        <td class='text-center border' rowspan='2'>OBSERVACIÓN</td>
-                    </tr>
-                    <tr>
-                        <td class='text-center border'>Cifra</td>
-                        <td class='text-center border'>Letra</td>
-                        <td class='text-center border'>Cifra</td>
-                        <td class='text-center border'>Letra</td>
-                    </tr>
+                <table align='center' width='100%' style='font-size: 5pt;' border='1' class='border'>
+                    <thead>
+                        <tr>
+                            <th class='text-center' rowspan='2'>MATERIAS</th>
+                            <th class='text-center' colspan='2'>CALIFICACIÓN</th>
+                            <th class='text-center' rowspan='2'>OBSERVACIÓN</th>
+                            <th class='text-center' rowspan='2'>MATERIAS</th>
+                            <th class='text-center' colspan='2'>CALIFICACIÓN</th>
+                            <th class='text-center' rowspan='2'>OBSERVACIÓN</th>
+                        </tr>
+                        <tr>
+                            <th class='text-center'>Cifra</th>
+                            <th class='text-center'>Letra</th>
+                            <th class='text-center'>Cifra</th>
+                            <th class='text-center'>Letra</th>
+                        </tr>
+                    </thead>
                     " . $tbody . "
                 </table>
                 <p style='font-size: 8pt;'>La escala oficial de calificaciones es de 6 (SEIS) a 10 (DIEZ), considerando como mínima aprobatoria " . $minCal . " (" . mb_strtoupper($util->num2letras($minCal)) . "). Este certificado ampara ______ materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ______.</p>
