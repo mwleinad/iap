@@ -1009,10 +1009,10 @@
 			$student->setMasters($_POST['masters']); 
 			$student->setMastersSchool($_POST['mastersSchool']);
 			$student->setHighSchool($_POST['highSchool']);
-			if(!$student->Update())
+			if(!$student->UpdateRegister())
 			{
 				echo "fail[#]";
-				$smarty->display(DOC_ROOT . '/templates/boxes/status_on_popup.tpl');
+				$smarty->display(DOC_ROOT . '/templates/boxes/status.tpl');
 			}
 			else
 			{

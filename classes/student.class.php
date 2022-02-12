@@ -827,8 +827,7 @@ class Student extends User
 							school = '".$this->getSchool()."', 
 							masters = '".$this->getMasters()."', 
 							mastersSchool = '".$this->getMastersSchool()."', 
-							highSchool = '".$this->getHighSchool()."',
-							actualizado = 'si'						
+							highSchool = '".$this->getHighSchool()."'						
 						WHERE 
 							userId = ".$this->getUserId();
 		$this->Util()->DB()->setQuery($sqlQuery);
@@ -3077,7 +3076,7 @@ class Student extends User
 			$sql = "SELECT teamNumber FROM team WHERE courseModuleId = " . $res['courseModuleId'] . " AND userId = " . $res["alumnoId"];
 			$this->Util()->DB()->setQuery($sql);
 			$result[$key]["equipo"] = $this->Util()->DB()->GetSingle();
-			$result[$key]{"addepUp"} = 0;
+			$result[$key]["addepUp"] = 0;
 			foreach($actividades as $activity)
 			{
 				if($activity["score"] <= 0)
@@ -3088,13 +3087,13 @@ class Student extends User
 				$score = $this->Util()->DB()->GetSingle();
 				$result[$key]{"score"}[] = $score;
 				$realScore = $score * $activity["score"] / 100;
-				$result[$key]{"realScore"}[] = $realScore;
-				$result[$key]{"addepUp"} += $realScore;
+				$result[$key]["realScore"][] = $realScore;
+				$result[$key]["addepUp"] += $realScore;
 			}
 			
 			if($infoCc["calificacion"]==null or $infoCc["calificacion"]==0)
 			{	
-				$at = $result[$key]{"addepUp"} / 10;
+				$at = $result[$key]["addepUp"] / 10;
 
 				if($this->tipoMajor == "MAESTRIA" and $at < 7)
 					$at= floor ($at);
@@ -3158,7 +3157,7 @@ class Student extends User
 						WHERE courseModuleId = " . $value['courseModuleId'] . " AND userId = " . $this->userId;
 			$this->Util()->DB()->setQuery($sql);
 			$result[$key]["equipo"] = $this->Util()->DB()->GetSingle();
-			$result[$key]{"addepUp"} = 0;
+			$result[$key]["addepUp"] = 0;
 			foreach($actividades as $activity)
 			{
 				if($activity["score"] <= 0)
@@ -3171,11 +3170,11 @@ class Student extends User
 				$result[$key]{"score"}[] = $score;
 				$realScore = $score * $activity["score"] / 100;
 				$result[$key]{"realScore"}[] = $realScore;
-				$result[$key]{"addepUp"} += $realScore;
+				$result[$key]["addepUp"] += $realScore;
 			}
 			if($infoCc["calificacion"]==null or $infoCc["calificacion"]==0)
 			{		
-				$at = $result[$key]{"addepUp"} / 10;
+				$at = $result[$key]["addepUp"] / 10;
 				if($this->tipoMajor == "MAESTRIA" and $at < 7)
 					$at= floor ($at);
 				else if($this->tipoMajor == "DOCTORADO" and $at < 8)
@@ -3194,6 +3193,56 @@ class Student extends User
 				$result[$key]["score"] = $infoCc["calificacion"];
 		}
 		return $result;
+	}
+
+	public function UpdateRegister()
+	{
+		if($this->Util()->PrintErrors())
+			return false;
+
+		$sqlQuery = "UPDATE user				
+						SET 
+							names = '".$this->getNames()."', 
+							lastNamePaterno = '".$this->getLastNamePaterno()."', 
+							lastNameMaterno = '".$this->getLastNameMaterno()."', 
+							sexo = '".$this->getSexo()."', 
+							birthdate = '".$this->getBirthdate()."', 
+							maritalStatus = '".$this->getMaritalStatus()."', 
+							street = '".$this->getStreet()."', 
+							number = '".$this->getNumer()."', 
+							colony = '".$this->getColony()."', 
+							pais =  '".$this->getCountry()."', 
+							estado = '".$this->getState()."', 
+							ciudad = '".$this->getCity()."', 
+							postalCode = '".$this->getPostalCode()."', 
+							email = '".$this->getEmail()."', 
+							mobile = '".$this->getMobile()."', 
+							phone = '".$this->getPhone()."', 
+							fax = '".$this->getFax()."', 
+							workplaceOcupation = '".$this->getWorkplaceOcupation()."', 
+							workplace = '".$this->getWorkplace()."', 
+							workplaceAddress = '".$this->getWorkplaceAddress()."', 
+							paist='".$this->getPaisT()."',
+							estadot='".$this->getEstadoT()."',
+							ciudadt='".$this->getCiudadT()."',
+							workplaceArea = '".$this->getWorkplaceArea()."', 
+							workplacePosition = '".$this->getWorkplacePosition()."', 
+						    workplacePhone = '".$this->getWorkplacePhone()."', 
+							workplaceEmail = '".$this->getWorkplaceEmail()."', 
+							academicDegree = '".$this->getAcademicDegree()."', 
+							profesion = '".$this->getProfesion()."', 
+							school = '".$this->getSchool()."', 
+							masters = '".$this->getMasters()."', 
+							mastersSchool = '".$this->getMastersSchool()."', 
+							highSchool = '".$this->getHighSchool()."',
+							actualizado = 'si'						
+						WHERE 
+							userId = ".$this->getUserId();
+		$this->Util()->DB()->setQuery($sqlQuery);
+		$this->Util()->DB()->ExecuteQuery();
+		$this->Util()->setError(10030, "complete");
+		$this->Util()->PrintErrors();
+		return true;
 	}
 
 	
