@@ -10,6 +10,7 @@ use Dompdf\Exception;
 session_start();
 $user->allow_access(37);
 
+$total_modules = 0;
 $course->setCourseId($_GET['co']);
 $infoCourse = $course->Info();
 // Tipo de Curso
@@ -63,6 +64,7 @@ for($period = 1; $period <= $infoCourse['totalPeriods']; $period++)
             'name' => $item['name'],
             'score' => $item['score']
         ];
+        $total_modules++;
     }
 }
 $tbody = '';
@@ -197,17 +199,47 @@ $html .="<html>
                     </thead>
                     " . $tbody . "
                 </table>
-                <p style='font-size: 8pt;'>La escala oficial de calificaciones es de 6 (SEIS) a 10 (DIEZ), considerando como mínima aprobatoria " . $minCal . " (" . mb_strtoupper($util->num2letras($minCal)) . "). Este certificado ampara ______ materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ______.</p>
+                <p style='font-size: 8pt;'>La escala oficial de calificaciones es de 6 (SEIS) a 10 (DIEZ), considerando como mínima aprobatoria " . $minCal . " (" . mb_strtoupper($util->num2letras($minCal)) . "). Este certificado ampara <b>" . mb_strtoupper($util->num2letras($total_modules)) . "</b> materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ______.</p>
+                <table width='100%'>
+                    <tr>
+                        <td style='font-size: 8px; text-align: center;'>
+                            <b>PRESIDENTE</b>
+                            <br><br><br>
+                            DR. FERNANDO ÁLVAREZ SIMÁN
+                        </td>
+                        <td style='font-size: 8px; text-align: center;'>
+                            <b>SECRETARIO EJECUTIVO</b>
+                            <br><br><br>
+                            MTRO. OSMAR FERNANDO SALAZAR CISNEROS
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style='font-size: 8px; text-align: center;'>
+                            <br><br>
+                            <b>JEFA DEL DEPARTEMENTO DE SERVICIOS ESCOLARES</b>
+                            <br><br><br>
+                            ING. MARTHA MARLENE ESTRADA ESTRADA
+                        </td>
+                        <td style='font-size: 8px; text-align: center;'>
+                            <br><br>
+                            <b>DIRECTOR DE EDUCACIÓN SUPERIOR</b>
+                            <br><br><br>
+                            DR. ANTONIO MAGDIEL VELÁZQUEZ MÉNDEZ
+                        </td>
+                    </tr>
+                </table><br>
                 <table width='100%'>
                     <tr style='border-spacing: 0px !important;'>
                         <td>
-                            <table align='center' border='1' style='font-size: 5pt;' class='border'>
+                            <table align='center' border='1' class='border'>
                                 <tr>
-                                    <td class='text-center bg-gray border'>DEPARTAMENTO DE SERVICIOS ESCOLARES</td>
+                                    <td class='text-center bg-gray border' style='font-size: 7pt;'>
+                                        DEPARTAMENTO DE SERVICIOS ESCOLARES
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class='border'>
-                                        <p style='text-align: right'>
+                                        <p style='text-align: right; font-size: 7pt;'>
                                             NO. ____________________________________<br>
                                             LIBRO. ____________________________________<br>
                                             FOJA. ____________________________________<br>
@@ -216,7 +248,9 @@ $html .="<html>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class='text-center bg-gray border'>COTEJÓ</td>
+                                    <td class='text-center bg-gray border' style='font-size: 7pt;'>
+                                        COTEJÓ
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class='border'>
@@ -224,7 +258,7 @@ $html .="<html>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class='text-center bg-gray border'>JEFE DE LA OFICINA</td>
+                                    <td class='text-center bg-gray border' style='font-size: 7pt;'>JEFE DE LA OFICINA</td>
                                 </tr>
                                 <tr>
                                     <td class='border'>
@@ -234,26 +268,24 @@ $html .="<html>
                             </table>                        
                         </td>
                         <td>
-                            <p style='font-size: 5pt;'>
-                                POR ACUERDO DEL SECRETARIO GENERAL DE GOBIERNO Y CON FUNDAMENTO EN EL ARTÍCULO 29, FRACCIÓN X DE LA LEY ORGÁNICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS.
+                            <p style='font-size: 7pt;'>
+                                POR ACUERDO DEL SECRETARIO GENERAL DE GOBIERNO Y CON FUNDAMENTO EN EL ARTÍCULO 29; FRACCIÓN X DE LA LEY ORGÁNICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS.
                             </p>
-                            <p style='font-size: 5pt;'>
-                                SE <b>LAGALIZA,</b> PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO, LA FIRMA QUE ANTECEDE CORRESPONDIENTE AL DIRECTOR DE EDUCACIÓN SUPERIOR:
+                            <p style='font-size: 7pt;'>
+                                SE <b>LEGALIZA,</b> PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO, LA FIRMA QUE ANTECEDE CORRESPONDIENTE AL DIRECTOR DE EDUCACIÓN SUPERIOR:
                             </p>
-                            <div style='text-decoration: underline;'>
-                                <p style='font-size: 5pt;'>
-                                    DR. ANTONIO MAGDIEL VELÁZQUEZ MÉNDEZ
-                                </p>
-                                <p style='font-size: 5pt;'>
-                                    TUXTLA GUTIÉRREZ, CHIAPAS A: 
-                                </p>
-                                <p style='font-size: 5pt;'>
-                                    COORDINADOR DE ASUNTOS JURÍDICOS DE GOBIERNO 
-                                </p>
-                                <p style='font-size: 5pt;'>
-                                    MARÍA GUADALUPE SÁNCHEZ ZENTENO 
-                                </p>
-                            </div>
+                            <p style='font-size: 7pt; text-align: center;'>
+                                DR. ANTONIO MAGDIEL VELÁZQUEZ MÉNDEZ
+                            </p>
+                            <p style='font-size: 7pt; text-align: center;'>
+                                TUXTLA GUTIÉRREZ, CHIAPAS A: _______________________ 
+                            </p>
+                            <p style='font-size: 7pt; text-align: center;'>
+                                COORDINADOR DE ASUNTOS JURÍDICOS DE GOBIERNO
+                            </p><br>
+                            <p style='font-size: 7pt; text-align: center;'>
+                                MARÍA GUADALUPE SÁNCHEZ ZENTENO
+                            </p>
                         </td>
                     </tr>
                 </table>
