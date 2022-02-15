@@ -33,7 +33,7 @@ if($infoCourse['modality'] == 'Online')
 if($infoCourse['modality'] == 'Local')
 {
     $modality = 'ESCOLAR';
-    $rvoe = $infoCourse['rvo'];
+    $rvoe = $infoCourse['rvoe'];
     $fechaRvoe = $infoCourse['fechaRvoe'];
 }
 
@@ -43,6 +43,9 @@ $position = [
     3 => 'TERCER',
     4 => 'CUARTO'
 ];
+/* echo "<pre>";
+print_r($infoCourse);
+exit; */
 
 
 $student->setUserId($_GET['al']);
@@ -55,19 +58,49 @@ $myInstitution = $institution->Info();
  * $infoCourse
  * $infoStudent
  */
+$has_modules_repeat = $student->hasModulesRepeat();
+$qualifications_repeat = [];
+if($has_modules_repeat)
+{
+    $tmp = $student->StudentModulesRepeat();
+    foreach($tmp as $item)
+    {
+        $qualifications_repeat[$item['subjectModuleId']] = [
+            'name' => $item['subjectModuleName'],
+            'score' => $item['score']
+        ];
+    }
+}
 $qualifications = [];
 for($period = 1; $period <= $infoCourse['totalPeriods']; $period++)
 {
     $tmp = $student->BoletaCalificacion($infoCourse['courseId'], $period, false);
     foreach($tmp as $item)
     {
-        $qualifications[$period][] = [
-            'name' => $item['name'],
-            'score' => $item['score']
-        ];
+        if( array_key_exists($item['subjectModuleId'], $qualifications_repeat) )
+        {
+            $qualifications[$period][] = [
+                'subjectModuleId' => $item['subjectModuleId'],
+                'name' => $qualifications_repeat[$item['subjectModuleId']]['name'],
+                'score' => $qualifications_repeat[$item['subjectModuleId']]['score'],
+                'comments' => 'R'
+            ];
+        }
+        else
+        {
+            $qualifications[$period][] = [
+                'subjectModuleId' => $item['subjectModuleId'],
+                'name' => $item['name'],
+                'score' => $item['score'],
+                'comments' => ''
+            ];
+        }
         $total_modules++;
     }
 }
+/* echo "<pre>";
+print_r($qualifications);
+exit; */
 $tbody = '';
 for($period = 1; $period <= $infoCourse['totalPeriods']; $period += 2)
 {
@@ -90,11 +123,11 @@ for($period = 1; $period <= $infoCourse['totalPeriods']; $period += 2)
         $tbody .= '<td style="border-style: none;">' . $qualifications[$period][$element]['name'] . '</td>
                     <td style="text-align: center; border-style: none;">' . $qualifications[$period][$element]['score'] . '</td>
                     <td style="text-align: center; border-style: none;">' . mb_strtoupper($util->num2letras($qualifications[$period][$element]['score'])) . '</td>
-                    <td style="border-style: none;"></td>
+                    <td style="border-style: none; text-align: center;">' . mb_strtoupper($qualifications[$period][$element]['comments']) . '</td>
                     <td style="border-style: none;">' . ($next ? $qualifications[$period + 1][$element]['name'] : '') . '</td>
                     <td style="text-align: center; border-style: none;">' . ($next ? $qualifications[$period + 1][$element]['score'] : '') . '</td>
-                    <td style="text-align: center; border-style: none;">' . mb_strtoupper($util->num2letras($qualifications[$period][$element]['score'])) . '</td>
-                    <td style="border-style: none;"></td>';
+                    <td style="text-align: center; border-style: none;">' . mb_strtoupper($util->num2letras($qualifications[$period + 1][$element]['score'])) . '</td>
+                    <td style="border-style: none; text-align: center;">' . mb_strtoupper($qualifications[$period][$element + 1]['comments']) . '</td>';
         $tbody .= '</tr>';
     }
 }
