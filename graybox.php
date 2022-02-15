@@ -217,7 +217,8 @@ $pages = array(
     'student-repeat',
     'qualifications-course',
     'certificates',
-    'certificates-course'
+    'certificates-course',
+    'titulacion'
 );
 
 if(!in_array($_GET['page'], $pages))

@@ -3006,5 +3006,14 @@ class Student extends User
 		$total = $this->Util()->DB()->GetSingle();
 		return $total > 0 ? true : false;
 	}
+
+	function setCertificate($status)
+	{
+		$sql = "INSERT INTO certificate_subject(userId, courseId, date, status, downloaded) 
+					VALUES(" . $this->getUserId() . ", " . $this->courseId . ", CURDATE(), " . $status . ", 0)";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->InsertData();
+		return true;
+	}
 }
 ?>

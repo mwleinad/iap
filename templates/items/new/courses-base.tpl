@@ -65,6 +65,9 @@
 									<i class="fas fa-cog"></i> Matrículas
 								</a>
 							{/if}
+							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=titulacion&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Títulos">
+								<i class="fas fa-file-signature"></i> Títulos
+							</a>
 							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=edit-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Editar">
 								<i class="fas fa-pen"></i> Editar
 							</a>
