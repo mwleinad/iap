@@ -10,6 +10,7 @@ use Dompdf\Exception;
 session_start();
 $user->allow_access(37);
 
+$array_date = explode('-', $_GET['fe']);
 $total_modules = 0;
 $course->setCourseId($_GET['co']);
 $infoCourse = $course->Info();
@@ -79,21 +80,21 @@ for($period = 1; $period <= $infoCourse['totalPeriods']; $period += 2)
         if($b2 > $max_modules)
             $max_modules = $b2;
     }
-    $tbody .= '<tr>
-                    <td colspan="4" style="text-align: center;"><b>' . mb_strtoupper($position[$period] . ' ' . $infoCourse['tipoCuatri']) . '</b></td>
-                    <td colspan="4" style="text-align: center;"><b>' . ($next ? mb_strtoupper($position[$period + 1] . ' ' . $infoCourse['tipoCuatri']) : '') . '</b></td>
+    $tbody .= '<tr style="border-style: none;">
+                    <td colspan="4" style="text-align: center; border-style: none;"><b>' . mb_strtoupper($position[$period] . ' ' . $infoCourse['tipoCuatri']) . '</b></td>
+                    <td colspan="4" style="text-align: center; border-style: none;"><b>' . ($next ? mb_strtoupper($position[$period + 1] . ' ' . $infoCourse['tipoCuatri']) : '') . '</b></td>
                 </tr>';
     for($element = 0; $element < $max_modules; $element++)
     {
-        $tbody .= '<tr>';
-        $tbody .= '<td>' . $qualifications[$period][$element]['name'] . '</td>
-                    <td style="text-align: center;">' . $qualifications[$period][$element]['score'] . '</td>
-                    <td>' . mb_strtoupper($util->num2letras($qualifications[$period][$element]['score'])) . '</td>
-                    <td></td>
-                    <td>' . ($next ? $qualifications[$period + 1][$element]['name'] : '') . '</td>
-                    <td style="text-align: center;">' . ($next ? $qualifications[$period + 1][$element]['score'] : '') . '</td>
-                    <td>' . mb_strtoupper($util->num2letras($qualifications[$period][$element]['score'])) . '</td>
-                    <td></td>';
+        $tbody .= '<tr style="border-style: none;">';
+        $tbody .= '<td style="border-style: none;">' . $qualifications[$period][$element]['name'] . '</td>
+                    <td style="text-align: center; border-style: none;">' . $qualifications[$period][$element]['score'] . '</td>
+                    <td style="text-align: center; border-style: none;">' . mb_strtoupper($util->num2letras($qualifications[$period][$element]['score'])) . '</td>
+                    <td style="border-style: none;"></td>
+                    <td style="border-style: none;">' . ($next ? $qualifications[$period + 1][$element]['name'] : '') . '</td>
+                    <td style="text-align: center; border-style: none;">' . ($next ? $qualifications[$period + 1][$element]['score'] : '') . '</td>
+                    <td style="text-align: center; border-style: none;">' . mb_strtoupper($util->num2letras($qualifications[$period][$element]['score'])) . '</td>
+                    <td style="border-style: none;"></td>';
         $tbody .= '</tr>';
     }
 }
@@ -160,11 +161,11 @@ $html .="<html>
                         </td>
                         <td width='80'>
                             <p style='line-height: 14px; text-align: center;'>
-                                <label style='font-size: 12pt;'><b>GOBIERNO CONSTITUCIONAL DEL ESTADO DE CHIAPAS</b></label><br>
-                                <label style='font-size: 10pt;'>SECRETARÍA DE EDUCACIÓN</label><br>
-                                <label style='font-size: 8pt;'>SUBSECRETARÍA DE EDUCACIÓN ESTATAL</label><br>
-                                <label style='font-size: 8pt;'>DIRECCIÓN DE EDUCACIÓN SUPERIOR</label><br>
-                                <label style='font-size: 8pt;'>DEPARTAMENTO DE SERVICIOS ESCOLARES</label>
+                                <label style='font-size: 14pt;'><b>GOBIERNO CONSTITUCIONAL DEL ESTADO DE CHIAPAS</b></label><br>
+                                <label style='font-size: 12pt;'>SECRETARÍA DE EDUCACIÓN</label><br>
+                                <label style='font-size: 10pt;'>SUBSECRETARÍA DE EDUCACIÓN ESTATAL</label><br>
+                                <label style='font-size: 10pt;'>DIRECCIÓN DE EDUCACIÓN SUPERIOR</label><br>
+                                <label style='font-size: 10pt;'>DEPARTAMENTO DE SERVICIOS ESCOLARES</label>
                             </p>
                             <p style='font-size: 8pt; text-align: justify;'>
                                 LA DIRECCIÓN DEL INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, RÉGIMEN PARTICULAR, TURNO " . mb_strtoupper($infoCourse['turn']) . " MODALIDAD " . $modality . ", CLAVE " . $myInstitution['identifier'] . ", CERTIFICA QUE:<br>
@@ -180,7 +181,7 @@ $html .="<html>
                         </td>
                     </tr>
                 </table>
-                <table align='center' width='100%' style='font-size: 5pt;' border='1' class='border'>
+                <table align='center' width='100%' style='font-size: 6pt; border-collapse: collapse; border: 1px solid white;' border='1'>
                     <thead>
                         <tr>
                             <th class='text-center' rowspan='2'>MATERIAS</th>
@@ -197,9 +198,11 @@ $html .="<html>
                             <th class='text-center'>Letra</th>
                         </tr>
                     </thead>
-                    " . $tbody . "
+                    <tbody>
+                        " . $tbody . "
+                    </tbody>
                 </table>
-                <p style='font-size: 8pt;'>La escala oficial de calificaciones es de 6 (SEIS) a 10 (DIEZ), considerando como mínima aprobatoria " . $minCal . " (" . mb_strtoupper($util->num2letras($minCal)) . "). Este certificado ampara <b>" . mb_strtoupper($util->num2letras($total_modules)) . "</b> materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ______.</p>
+                <p style='font-size: 8pt;'>La escala oficial de calificaciones es de 6 (SEIS) a 10 (DIEZ), considerando como mínima aprobatoria " . $minCal . " (" . mb_strtoupper($util->num2letras($minCal)) . "). Este certificado ampara <b>" . mb_strtoupper($util->num2letras($total_modules)) . "</b> materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los " . $array_date[2] . " días del mes de " . mb_strtolower($util->ConvertirMes(intval($array_date[1]))) . " del año " . mb_strtolower($util->num2letras($array_date[0])) . ".</p>
                 <table width='100%'>
                     <tr>
                         <td style='font-size: 8px; text-align: center;'>
@@ -278,7 +281,7 @@ $html .="<html>
                                 DR. ANTONIO MAGDIEL VELÁZQUEZ MÉNDEZ
                             </p>
                             <p style='font-size: 7pt; text-align: center;'>
-                                TUXTLA GUTIÉRREZ, CHIAPAS A: _______________________ 
+                                TUXTLA GUTIÉRREZ, CHIAPAS A: ____________________________________ 
                             </p>
                             <p style='font-size: 7pt; text-align: center;'>
                                 COORDINADOR DE ASUNTOS JURÍDICOS DE GOBIERNO
