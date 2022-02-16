@@ -1,62 +1,40 @@
 <?php
-	include_once('../initPdf.php');
-	include_once('../config.php');
-	include_once(DOC_ROOT.'/libraries.php');
+include_once('../initPdf.php');
+include_once('../config.php');
+include_once(DOC_ROOT.'/libraries.php');
 
 use Dompdf\Adapter\CPDF;
 use Dompdf\Dompdf;
 use Dompdf\Exception;
 
-	session_start();
-
-	$util = new Util;
+session_start();
+$util = new Util;
+$module->setCourseModuleId($_GET["Id"]);
+$info = $module->InfoCourseModule();	
 	
+if($info['modality'] == 'Online')
+{
+	$rov = $info['rvoeLinea'];
+	$fecharov = $info['fechaRvoeLinea']; 
+}
+else
+{
 	
-	$module->setCourseModuleId($_GET["Id"]);
-	$info = $module->InfoCourseModule();
+	$rov = $info['rvoe'];
+	$fecharov = $info['fechaRvoe'];
+}
 	
+$course->setCourseId($info["courseId"]);
+$infoCo = $course->Info();	
+$group->setCourseModuleId($_GET["Id"]);
+$group->setCourseId($info["courseId"]);
+$group->setTipoMajor($info["majorName"]);
+$noTeam = $group->actaCalificacion();
+$studentsRepeat = $group->actaCalificacionRepeat();
+$infoFirma = $personal->extraeFirmaActa();
+$personal->setPersonalId($info['access'][1]);
+$infoPersonal = $personal->Info();
 	
-	if ($info['modality'] == 'Online'){
-		$rov = $info['rvoeLinea'];
-		$fecharov = $info['fechaRvoeLinea']; 
-	}else{
-		
-		$rov = $info['rvoe'];
-		$fecharov = $info['fechaRvoe'];
-	}
-	
-	$course->setCourseId($info["courseId"]);
-	$infoCo = $course->Info();
-	
-	// echo '<pre>'; print_r($info);
-	// exit;
-	
-	
-	$group->setCourseModuleId($_GET["Id"]);
-	$group->setCourseId($info["courseId"]);
-	$group->setTipoMajor($info["majorName"]);
-	$noTeam = $group->actaCalificacion();
-	$studentsRepeat = $group->actaCalificacionRepeat();
-	
-
-	$infoFirma = $personal->extraeFirmaActa();
-	
-	// echo '<pre>'; print_r($info);
-	// $profe  =  explode('|',$info['access']); 
-	
-	// echo $profe;
-	// exit;
-	$personal->setPersonalId($info['access'][1]);
-	$infoPersonal = $personal->Info();
-	
-	
-	
-	// Info
-	// echo "<pre>"; print_r($info);
-	// exit;
-	
-	// echo "<pre>"; print_r($info); 
-	// exit;
 	$html .= "
 	<html>
 	<head>
@@ -145,11 +123,18 @@ use Dompdf\Exception;
 				$html .= "<td>".$aux['lastNamePaterno']." ".$aux['lastNameMaterno']." ".$aux['names']."</td>";
 				$h =  $util->num2letras($aux['score']);
 				
-				if($aux['score'] < 7  and $info['majorName'] == 'MAESTRIA'){
+				if($aux['score'] == 0) 
+				{
+					$html .= "<td><center><font color='red'>NP</font></center></td>";
+					$html .= "<td><center><font color='red'>NO PRESENTÓ</font></center></td>";
+				}
+				else if($aux['score'] < 7  and $info['majorName'] == 'MAESTRÍA')
+				{
 					$html .= "<td><center><font color='red'>".$aux['score']."</font></center></td>";
 					$html .= "<td><center><font color='red'>".$h."</font></center></td>";
 				}
-				else if($aux['score'] < 8  and $info['majorName'] == 'DOCTORADO'){
+				else if($aux['score'] < 8  and $info['majorName'] == 'DOCTORADO')
+				{
 					$html .= "<td><center><font color='red'>".$aux['score']."</font></center></td>";
 					$html .= "<td><center><font color='red'>".$h."</font></center></td>";
 				}
@@ -300,7 +285,6 @@ use Dompdf\Exception;
 		</div>
 	</body>
 	</html>
-
 	";
 	// echo $html;
 	// exit;

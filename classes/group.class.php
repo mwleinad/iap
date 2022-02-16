@@ -666,7 +666,8 @@
 								usr.alumnoId,
 								usr.status,
 								cd.discount,
-								'Recursador' AS situation
+								'Recursador' AS situation,
+								(SELECT cs.status FROM certificate_subject cs WHERE cs.userId = usr.alumnoId AND cs.courseId = usr.courseId) AS certificateStatus
 							FROM user_subject_repeat usr 
 								LEFT JOIN user u 
 									ON usr.alumnoId = u.userId 
@@ -681,7 +682,7 @@
 						us.status AS status,
 						cd.discount,
 						'Ordinario' AS situation,
-						(SELECT cs.status FROM certificate_subject cs WHERE cs.userId = us.alumnoId AND us.courseId = cs.courseId) AS certificateStatus
+						(SELECT cs.status FROM certificate_subject cs WHERE cs.userId = us.alumnoId AND cs.courseId = us.courseId) AS certificateStatus
 					FROM user_subject us
 						LEFT JOIN user u 
 							ON us.alumnoId = u.userId
