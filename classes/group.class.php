@@ -680,7 +680,8 @@
 						us.alumnoId,
 						us.status AS status,
 						cd.discount,
-						'Ordinario' AS situation
+						'Ordinario' AS situation,
+						(SELECT cs.status FROM certificate_subject cs WHERE cs.userId = us.alumnoId AND us.courseId = cs.courseId) AS certificateStatus
 					FROM user_subject us
 						LEFT JOIN user u 
 							ON us.alumnoId = u.userId

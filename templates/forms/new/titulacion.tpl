@@ -18,8 +18,8 @@
                             <td>{$item.names|upper} {$item.lastNamePaterno|upper} {$item.lastNameMaterno|upper}</td>
                             <td>
                                 <select class="form-control input-sm" name="certificates[{$item.userId}]">
-                                    <option value="0" {if $item.certificate eq 0} selected {/if}>No</option>
-                                    <option value="1" {if $item.certificate eq 1} selected {/if}>Si</option>
+                                    <option value="0" {if $item.certificateStatus eq 0} selected {/if}>No</option>
+                                    <option value="1" {if $item.certificateStatus eq 1} selected {/if}>Si</option>
                                 </select>
                             </td>
                         </tr>
