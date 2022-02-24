@@ -126,7 +126,7 @@ switch($_POST["type"])
         $student->setCourseId($_POST['courseId']);
 		$student->setSubjectId($courseInfo['subjectId']);
 
-        if(!$student->DeleteStudentCurricula($_POST['period']))
+        if(!$student->DeleteStudentCurricula($_POST['period'], $_POST['situation']))
         {
             echo "fail[#]";
             //$util->setError(10028, "error","Ocurrio un error al eliminar a este alumno");
@@ -143,20 +143,23 @@ switch($_POST["type"])
 		break;
 
     case "enableStudentCurricula":
-
+		$course->setCourseId($_POST['courseId']);
+		$courseInfo = $course->Info();
         $student->setUserId($_POST['userId']);
         $student->setCourseId($_POST['courseId']);
+		$student->setSubjectId($courseInfo['subjectId']);
 
         if(!$student->EnableStudentCurricula())
         {
             echo "fail[#]";
             $smarty->display(DOC_ROOT.'/templates/boxes/status_on_popup.tpl');
-        }else{
+        }
+		else
+		{
             echo "ok[#]";
             $util->setError(10028, "complete", "Alumno activado con exito.");
             $util->PrintErrors();
             $smarty->display(DOC_ROOT.'/templates/boxes/status_on_popup.tpl');
-
         }
 		break;
 

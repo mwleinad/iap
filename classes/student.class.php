@@ -137,7 +137,7 @@ class Student extends User
 	}
 
 
-	public function AddAcademicHistory($type, $semesterId = 0)
+	public function AddAcademicHistory($type, $situation, $semesterId = 0)
 	{
 		if($type == 'alta')
 		{
@@ -148,7 +148,7 @@ class Student extends User
 			$this->Util()->DB()->setQuery($sql);
 			$semesterId = intval($this->Util()->DB()->GetSingle());
 		}
-		$sql = "INSERT INTO academic_history(subjectId, courseId, userId, semesterId, dateHistory, type) VALUE(" . $this->subjectId . ", " . $this->courseId . ", " . $this->userId . ", " . $semesterId . ", CURDATE(), '" . $type . "')";
+		$sql = "INSERT INTO academic_history(subjectId, courseId, userId, semesterId, dateHistory, type, situation) VALUES(" . $this->subjectId . ", " . $this->courseId . ", " . $this->userId . ", " . $semesterId . ", CURDATE(), '" . $type . "', '" . $situation . "')";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->InsertData();
 		return true;
@@ -574,15 +574,15 @@ class Student extends User
 		return $complete;
 	}
 
-	function DeleteStudentCurricula($period)
+	function DeleteStudentCurricula($period, $situation)
 	{
 		$courseId = $this->getCourseId();
 		$subjectId = $this->subjectId;
 		$userId = $this->getUserId();
-		$sql = "UPDATE user_subject SET status = 'inactivo' where alumnoId = " . $userId . " AND courseId = " . $courseId;
+		$sql = "UPDATE user_subject SET status = 'inactivo', situation = '" . $situation . "', situation_date = CURDATE() WHERE alumnoId = " . $userId . " AND courseId = " . $courseId;
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
-		$this->AddAcademicHistory('baja', $period);
+		$this->AddAcademicHistory('baja', $situation, $period);
 		$this->Util()->setError(10028, "complete","Alumno eliminado con éxito de esta curricula.");
 		$this->Util()->PrintErrors();
 		return true;
@@ -592,10 +592,10 @@ class Student extends User
 	{
 		$courseId = $this->getCourseId();
 		$userId = $this->getUserId();
-		$sql="UPDATE user_subject SET status='activo' where alumnoId='".$userId."' and courseId='".$courseId."' ";
+		$sql="UPDATE user_subject SET status='activo', situation = 'A', situation_date = CURDATE() WHERE alumnoId= '" . $userId . "' AND courseId= '" . $courseId . "' ";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
-		$sql = "DELETE FROM academic_history WHERE userId = " . $userId . " AND courseId = " . $courseId;
+		$this->AddAcademicHistory('alta', 'A');
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
 		$this->Util()->setError(10028, "complete","Alumno activado con éxito.");
@@ -618,7 +618,7 @@ class Student extends User
 			$matricula="";
 			
 		$complete = $this->AddUserToCurricula($userId, $courseId, $info["names"], $info["email"], $info["password"], $courseInfo["majorName"], $courseInfo["name"],$tipo_beca,$por_beca,$matricula);
-		$this->AddAcademicHistory('alta');
+		$this->AddAcademicHistory('alta', 'A');
 		$this->Util()->setError(10028, "complete", $complete);
 		$this->Util()->PrintErrors();
 		return $complete;
