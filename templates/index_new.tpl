@@ -207,6 +207,13 @@
 				});
 			</script>
 		{/if}
+		{if $User.type eq "student" and $page eq "homepage"}
+			<script>
+				Swal.fire({
+					html: '<img src="{$WEB_ROOT}/images/sports.jpg" style="width: 250px;" /><p><b>A la comunidad estudiantil se le hace de su conocimiento que como parte del convenio de colaboración interinstitucional entre el INDEPORTE y el IAP-Chiapas, en la cláusula SEGUNDA: cada estudiante puede hacer uso de alberca y de instalaciones deportivas a cargo del instituto del deporte, considerando siempre una cuota preferencial.</b></p><p><b>Vigencia al 31 de Diciembre del año 2024.</b></p>'
+				});
+			</script>
+		{/if}
 	</body>
 
 </html>
