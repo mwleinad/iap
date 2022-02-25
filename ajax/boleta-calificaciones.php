@@ -37,11 +37,18 @@ foreach($modules as $item)
     $text_color = '';
     if($item['score'] < $minCal)
         $text_color = 'text-danger';
+    $score = $item['score'];
+    $score_txt = $util->num2letras($item['score']);
+    if($score == 0) 
+    {
+        $score = 'NP';
+        $score_txt = 'NO PRESENTÓ';
+    }
     $html_modules .= "<tr>
                         <td class='text-center'>" . $i . "</td>
                         <td style='text-transform: capitalize;'>" . mb_strtolower($item['name']) . "</td>
-                        <td class='text-center " . $text_color . "'>" . $item['score'] . "</td>
-                        <td class='text-center " . $text_color . "' style='text-transform: uppercase;'><i>" . $util->num2letras($item['score']) . "</i></td>
+                        <td class='text-center " . $text_color . "'>" . $score . "</td>
+                        <td class='text-center " . $text_color . "' style='text-transform: uppercase;'><i>" . $score_txt . "</i></td>
                     </tr>";
     $i++;
 }
