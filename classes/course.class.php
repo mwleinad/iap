@@ -442,29 +442,29 @@
 			
 			foreach($result as $key => $res)
 			{
-				$this->Util()->DB()->setQuery("
-					SELECT COUNT(*) FROM subject_module WHERE subjectId ='".$res["subjectId"]."'");
-			
+				$sql = "SELECT COUNT(*) FROM subject_module WHERE subjectId = '" . $res["subjectId"] . "'";
+				$this->Util()->DB()->setQuery($sql);
 				$result[$key]["modules"] = $this->Util()->DB()->GetSingle();
 
-				$this->Util()->DB()->setQuery("
-					SELECT COUNT(*) FROM user_subject WHERE courseId ='".$res["courseId"]."' AND status = 'inactivo'");
+				$sql = "SELECT COUNT(*) FROM user_subject WHERE courseId = '" . $res["courseId"] . "' AND status = 'inactivo'";
+				$this->Util()->DB()->setQuery($sql);
 				$result[$key]["alumnInactive"] = $this->Util()->DB()->GetSingle();
 				
-				$this->Util()->DB()->setQuery("
-					SELECT COUNT(*) FROM user_subject WHERE courseId ='".$res["courseId"]."' AND status = 'activo'");
-			
+				$sql = "SELECT COUNT(user_subject.registrationId) 
+							FROM user_subject 
+							INNER JOIN user 
+								ON user_subject.alumnoId = user.userId 
+							WHERE user_subject.courseId = '" . $res["courseId"] . "' AND user_subject.status = 'activo' AND user.activo = 1";
+				$this->Util()->DB()->setQuery($sql);
 				$result[$key]["alumnActive"] = $this->Util()->DB()->GetSingle();
 
-				$this->Util()->DB()->setQuery("
-					SELECT COUNT(*) FROM course_module WHERE courseId ='".$res["courseId"]."' AND active = 'si'");
+				$sql = "SELECT COUNT(*) FROM course_module WHERE courseId ='" . $res["courseId"] . "' AND active = 'si'";
+				$this->Util()->DB()->setQuery($sql);
 				$result[$key]["courseModuleActive"] = $this->Util()->DB()->GetSingle();
 					
-				$this->Util()->DB()->setQuery("
-					SELECT COUNT(*) FROM course_module WHERE courseId ='".$res["courseId"]."'");
-			
+				$sql = "SELECT COUNT(*) FROM course_module WHERE courseId = '" . $res["courseId"] . "'";
+				$this->Util()->DB()->setQuery($sql);
 				$result[$key]["courseModule"] = $this->Util()->DB()->GetSingle();
-				
 			}
 			
 			//print_r($result);

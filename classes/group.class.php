@@ -948,15 +948,15 @@
 		
 		public function actaCalificacion()
 		{
+			$sql = "SELECT *, 
+						user_subject.status AS status 
+					FROM user_subject
+						LEFT JOIN user 
+							ON user_subject.alumnoId = user.userId
+					WHERE user_subject.status = 'activo' AND courseId = '" . $this->getCourseId() . "' AND user.activo = 1
+					ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
 			
-			// echo $this->tipoMajor;
-			// exit;
-			
-			$this->Util()->DB()->setQuery("
-				SELECT *, user_subject.status AS status FROM user_subject
-				LEFT JOIN user ON user_subject.alumnoId = user.userId
-				WHERE user_subject.status = 'activo' and courseId = '".$this->getCourseId()."'
-				ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC");
+			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
 			$student = New Student;
 			foreach($result as $key => $res)
@@ -1631,7 +1631,7 @@
 					FROM user_subject
 						LEFT JOIN user 
 							ON user_subject.alumnoId = user.userId
-					WHERE user_subject.status = 'activo' AND courseId = " . $info['courseId'] . "
+					WHERE user_subject.status = 'activo' AND courseId = " . $info['courseId'] . " AND user.activo = 1
 					UNION 
 					SELECT 
 						user.*, 
