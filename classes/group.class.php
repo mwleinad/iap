@@ -1760,6 +1760,16 @@
 		}
 		return $result;
 	}
+
+	function CertificateIndicator($status)
+	{
+		$sql = "SELECT COUNT(id) 
+					FROM certificate_subject 
+				WHERE courseId = " . $this->getCourseId() . " AND status = " . $status;
+		$this->Util()->DB()->setQuery($sql);
+		$total = $this->Util()->DB()->GetSingle();
+		return $total;
+	}
 		
 }	
 ?>

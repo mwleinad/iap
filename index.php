@@ -216,7 +216,8 @@ $pages = array(
 	'modulos-recursar',
 	'mantenimiento',
 	'certificates',
-	'titulacion'
+	'titulacion',
+	'indicador-titulacion'
 );
 
 if(!in_array($_GET['page'], $pages))

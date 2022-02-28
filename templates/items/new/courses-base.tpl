@@ -60,13 +60,16 @@
 							<i class="far fa-list-alt"></i>
 						</button>
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							{if $subject.majorName=="ESPECIALIDAD" || $subject.majorName=="MAESTRÍA"}
+							{if $subject.majorName=="ESPECIALIDAD" || $subject.majorName=="MAESTRÍA" || $subject.majorName=="DOCTORADO"}
 								<a class="dropdown-item spanActive" href="#" onclick="VerGrupo({$subject.courseId},'matricula');" title="Matrículas" id="{$subject.courseId}">
 									<i class="fas fa-cog"></i> Matrículas
 								</a>
 							{/if}
 							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=titulacion&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Títulos">
 								<i class="fas fa-file-signature"></i> Títulos
+							</a>
+							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=indicador-titulacion&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Indicador de Titulación">
+								<i class="fas fa-chart-pie"></i> Indicador de Titulación
 							</a>
 							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=edit-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Editar">
 								<i class="fas fa-pen"></i> Editar
