@@ -449,6 +449,11 @@ switch($_POST["type"])
 		$smarty->assign('year', $year);
 		$smarty->display(DOC_ROOT.'/templates/boxes/new/qualifications-course.tpl');
 		break;
+
+	case 'announcement':
+		$_SESSION['User']['announcement'] = true;
+		echo 'Aviso OK';
+		break;
 }
 
 ?>

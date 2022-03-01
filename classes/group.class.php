@@ -1765,10 +1765,17 @@
 	{
 		$sql = "SELECT COUNT(id) 
 					FROM certificate_subject 
-				WHERE courseId = " . $this->getCourseId() . " AND status = " . $status;
+					INNER JOIN user 
+						ON certificate_subject.userId = user.userId 
+				WHERE certificate_subject.courseId = " . $this->getCourseId() . " AND user.activo = 1";
 		$this->Util()->DB()->setQuery($sql);
 		$total = $this->Util()->DB()->GetSingle();
-		return $total;
+		$sql = "SELECT COUNT(id) 
+					FROM certificate_subject 
+				WHERE courseId = " . $this->getCourseId() . " AND status = " . $status;
+		$this->Util()->DB()->setQuery($sql);
+		$certificates = $this->Util()->DB()->GetSingle();
+		return ['total' => $total, 'certificates' => $certificates];
 	}
 		
 }	
