@@ -28,11 +28,11 @@
             {/if}		        
         {else} 
 		<div id="loader_{$item.userId}"></div>
-			{if $item.activo ==1}
+			{*if $item.activo ==1}
 				<i class="fas fa-check-circle fa-2x text-success pointer" id="{$item.userId}" onclick="desactivar({$item.userId},{$item.activo});" data-toggle="tooltip" data-placement="top" title="Dar de Baja"></i>
 			{else}
 				<i class="fas fa-times-circle fa-2x text-danger pointer" id="{$item.userId}" data-toggle="tooltip" data-placement="top" title="Dar de Alta" onclick="activar({$item.userId},{$item.activo});"></i>
-			{/if}
+			{/if*}
 			<a href="{$WEB_ROOT}/graybox.php?page=edit-student&id={$item.userId}&auxImagen=1" data-target="#ajax" data-toggle="modal" data-width="1000px">
 				<i class="fas fa-pen-square fa-2x pointer spanEdit" id="{$item.userId}" data-toggle="tooltip" data-placement="top" title="Editar"></i>
 			</a>
