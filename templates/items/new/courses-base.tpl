@@ -74,6 +74,9 @@
 							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=indicador-desercion&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Indicador de Desersión">
 								<i class="far fa-thumbs-down"></i> Indicador de Deserción
 							</a>
+							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=indicador-recursamiento&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Indicador de Recursamiento">
+								<i class="fas fa-redo"></i> Indicador de Recursamiento
+							</a>
 							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=edit-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Editar">
 								<i class="fas fa-pen"></i> Editar
 							</a>

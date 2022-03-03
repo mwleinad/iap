@@ -220,7 +220,8 @@ $pages = array(
     'certificates-course',
     'titulacion',
     'indicador-titulacion',
-    'indicador-desercion'
+    'indicador-desercion',
+    'indicador-recursamiento'
 );
 
 if(!in_array($_GET['page'], $pages))

@@ -1474,5 +1474,24 @@ class Group extends Module
 		$desertion = $this->Util()->DB()->GetSingle();
 		return ['total' => $total, 'desertion' => $desertion];
 	}
+
+	function RecursionIndicator()
+	{
+		$sql = "SELECT COUNT(registrationId) 
+					FROM user_subject 
+						INNER JOIN user 
+							ON user_subject.alumnoId = user.userId 
+				WHERE user_subject.courseId = " . $this->getCourseId() . " AND user_subject.status = 'activo' AND user_subject.situation = 'A' AND user.activo = 1";
+		$this->Util()->DB()->setQuery($sql);
+		$total = $this->Util()->DB()->GetSingle();
+		$sql = "SELECT COUNT(id) 
+					FROM user_subject_repeat 
+						LEFT JOIN user 
+							ON user_subject_repeat.alumnoId = user.userId 
+				WHERE user_subject_repeat.courseId = " . $this->getCourseId() . " AND user_subject_repeat.status = 'activo' AND user.activo = 1";
+		$this->Util()->DB()->setQuery($sql);
+		$recursion = $this->Util()->DB()->GetSingle();
+		return ['total' => $total, 'recursion' => $recursion];
+	}
 }	
 ?>
