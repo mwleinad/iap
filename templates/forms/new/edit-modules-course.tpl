@@ -142,7 +142,7 @@
                     {/if}
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="tutorId">Tutor Asignado:</label>
+                    <label for="tutorId">Apoyo Académico:</label>
                     {if $docente}
                         {foreach from=$empleados item=personal}
                             {if $myModule.access.2 == $personal.personalId} 

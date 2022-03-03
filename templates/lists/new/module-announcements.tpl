@@ -11,6 +11,6 @@
 				</a>
 			{/if}	
 		</div>
-		<div class="card-body">{$item.description}</div>
+		<div class="card-body">{htmlentities($item.description)}</div>
 	</div>
 {/foreach}

@@ -71,6 +71,9 @@
 							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=indicador-titulacion&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Indicador de Titulación">
 								<i class="fas fa-chart-pie"></i> Indicador de Titulación
 							</a>
+							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=indicador-desercion&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Indicador de Desersión">
+								<i class="far fa-thumbs-down"></i> Indicador de Deserción
+							</a>
 							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=edit-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Editar">
 								<i class="fas fa-pen"></i> Editar
 							</a>
