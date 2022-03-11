@@ -1441,11 +1441,11 @@ class Group extends Module
 
 	function CertificateIndicator($status)
 	{
-		$sql = "SELECT COUNT(id) 
-					FROM certificate_subject 
+		$sql = "SELECT COUNT(registrationId) 
+					FROM user_subject 
 						INNER JOIN user 
-							ON certificate_subject.userId = user.userId 
-				WHERE certificate_subject.courseId = " . $this->getCourseId() . " AND user.activo = 1";
+							ON user_subject.alumnoId = user.userId 
+				WHERE user_subject.courseId = " . $this->getCourseId() . " AND user_subject.status = 'activo' AND user_subject.situation = 'A' AND user.activo = 1";
 		$this->Util()->DB()->setQuery($sql);
 		$total = $this->Util()->DB()->GetSingle();
 		$sql = "SELECT COUNT(id) 
