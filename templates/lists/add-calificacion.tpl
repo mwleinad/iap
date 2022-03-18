@@ -24,7 +24,7 @@
                         <input type="text" readonly name="pro_{$item.alumnoId}" id="pro_{$item.alumnoId}" value="{$item.addepUp}" class="form-control" />
                     </td>
                     <td class="text-center">
-                        <input type="text" {if $info.habilitarCalificar eq 'no'} readonly {/if} maxlength="2" onkeypress="return soloLetras(event)" name="cal_{$item.alumnoId}" id="cal_{$item.alumnoId}" value="{$item.score}" class="form-control {if $item.score < 7 and $majorName eq 'MAESTRIA'} bg-danger {else if $item.score < 8 and $majorName eq 'DOCTORADO'} bg-danger {/if}" />
+                        <input type="text" {if $info.habilitarCalificar eq 'no'} readonly {/if} maxlength="2" onkeypress="return soloLetras(event)" name="cal_{$item.alumnoId}" id="cal_{$item.alumnoId}" value="{$item.score}" class="form-control {if $item.score < 7 and $majorName eq 'MAESTRÍA'} bg-danger {else if $item.score < 8 and $majorName eq 'DOCTORADO'} bg-danger {/if}" />
                     </td>
                 </tr>
             {foreachelse}
@@ -43,7 +43,7 @@
                         <input type="text" readonly name="pro_{$item.alumnoId}" id="pro_{$item.alumnoId}" value="{$item.addepUp}" class="form-control" />
                     </td>
                     <td class="text-center">
-                        <input type="text" {if $info.habilitarCalificar eq 'no'} readonly {/if} maxlength="2" onkeypress="return soloLetras(event)" name="cal_{$item.alumnoId}" id="cal_{$item.alumnoId}" value="{$item.score}" class="form-control {if $item.score < 7 and $majorName eq 'MAESTRIA'} bg-danger {else if $item.score < 8 and $majorName eq 'DOCTORADO'} bg-danger {/if}" />
+                        <input type="text" {if $info.habilitarCalificar eq 'no'} readonly {/if} maxlength="2" onkeypress="return soloLetras(event)" name="cal_{$item.alumnoId}" id="cal_{$item.alumnoId}" value="{$item.score}" class="form-control {if $item.score < 7 and $majorName eq 'MAESTRÍA'} bg-danger {else if $item.score < 8 and $majorName eq 'DOCTORADO'} bg-danger {/if}" />
                     </td>
                 </tr>
             {foreachelse}

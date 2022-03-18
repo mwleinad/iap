@@ -234,7 +234,12 @@ $infoPersonal = $personal->Info();
 				$html .= "<td>".$aux['lastNamePaterno']." ".$aux['lastNameMaterno']." ".$aux['names']."</td>";
 				$h =  $util->num2letras($aux['score']);
 				
-				if($aux['score'] < 7  and $info['majorName'] == 'MAESTRIA'){
+				if($aux['score'] == 0) 
+				{
+					$html .= "<td><center><font color='red'>NP</font></center></td>";
+					$html .= "<td><center><font color='red'>NO PRESENTÓ</font></center></td>";
+				}
+				else if($aux['score'] < 7  and $info['majorName'] == 'MAESTRÍA'){
 					$html .= "<td><center><font color='red'>".$aux['score']."</font></center></td>";
 					$html .= "<td><center><font color='red'>".$h."</font></center></td>";
 				}

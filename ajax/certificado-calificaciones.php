@@ -148,7 +148,7 @@ foreach($modules as $item)
 
 $html .="<html>
 	        <head>
-	            <title>Boleta de Calificaciones</title>
+	            <title>Certificado</title>
 	            <style type='text/css'>
                     body {
                         font-family: sans-serif;
