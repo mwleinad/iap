@@ -43,14 +43,9 @@ $position = [
     3 => 'TERCER',
     4 => 'CUARTO'
 ];
-/* echo "<pre>";
-print_r($infoCourse);
-exit; */
-
 
 $student->setUserId($_GET['al']);
 $infoStudent = $student->GetInfo();
-// $modules = $student->BoletaCalificacion($_GET['co'], $_GET['cu'], false);
 
 $institution->setInstitutionId(1);
 $myInstitution = $institution->Info();
@@ -71,10 +66,32 @@ if($has_modules_repeat)
         ];
     }
 }
+$period_course = [];
+$group_history = $student->GroupHistory($infoCourse['subjectId']);
+$has_history = count($group_history) > 0 ? true : false;
+if($has_history)
+{
+    foreach($group_history as $item)
+    {
+        if($item['type'] == 'baja')
+        {
+            for($i = 1; $i <= $item['semesterId']; $i++)
+                $period_course[$i] = $item['courseId'];
+        }
+        if($item['type'] == 'alta')
+        {
+            for($i = $item['semesterId']; $i <= $infoCourse['totalPeriods']; $i++)
+                $period_course[$i] = $item['courseId'];
+        }
+    }
+}
 $qualifications = [];
 for($period = 1; $period <= $infoCourse['totalPeriods']; $period++)
 {
-    $tmp = $student->BoletaCalificacion($infoCourse['courseId'], $period, false);
+    if($has_history)
+        $tmp = $student->BoletaCalificacion($period_course[$period], $period, false);
+    else
+        $tmp = $student->BoletaCalificacion($infoCourse['courseId'], $period, false);
     foreach($tmp as $item)
     {
         if( array_key_exists($item['subjectModuleId'], $qualifications_repeat) )
@@ -98,9 +115,6 @@ for($period = 1; $period <= $infoCourse['totalPeriods']; $period++)
         $total_modules++;
     }
 }
-/* echo "<pre>";
-print_r($qualifications);
-exit; */
 $tbody = '';
 for($period = 1; $period <= $infoCourse['totalPeriods']; $period += 2)
 {
@@ -193,12 +207,14 @@ $html .="<html>
                         <td width='20'>
                         </td>
                         <td width='80'>
+                            <span style='font-size: 6pt; position: absolute; left: 645px; top: -15px; width: 80px;'>SE-CEIAP-" . $array_date[0] . "</span>
                             <p style='line-height: 14px; text-align: center;'>
                                 <label style='font-size: 14pt;'><b>GOBIERNO CONSTITUCIONAL DEL ESTADO DE CHIAPAS</b></label><br>
                                 <label style='font-size: 12pt;'>SECRETARÍA DE EDUCACIÓN</label><br>
                                 <label style='font-size: 10pt;'>SUBSECRETARÍA DE EDUCACIÓN ESTATAL</label><br>
                                 <label style='font-size: 10pt;'>DIRECCIÓN DE EDUCACIÓN SUPERIOR</label><br>
                                 <label style='font-size: 10pt;'>DEPARTAMENTO DE SERVICIOS ESCOLARES</label>
+                                <span style='font-size: 8pt; position: absolute; left: 635px; width: 80px;'>Folio: " . $_GET['fo'] . "</span>
                             </p>
                             <p style='font-size: 8pt; text-align: justify;'>
                                 LA DIRECCIÓN DEL INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, RÉGIMEN PARTICULAR, TURNO " . mb_strtoupper($infoCourse['turn']) . " MODALIDAD " . $modality . ", CLAVE " . $myInstitution['identifier'] . ", CERTIFICA QUE:<br>
