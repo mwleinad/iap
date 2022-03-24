@@ -201,7 +201,7 @@ $html .="<html>
 		        </style>
 	        </head>
 	        <body>
-                <table width='100%''>
+                <table width='100%'>
                     <tr>
                         <img src='" . DOC_ROOT . "/images/Escudo.jpg' id='mexico' />
                         <td width='20'>
