@@ -248,7 +248,7 @@ if($typeXlsx == 1 || $typeXlsx == 3)
         $drawing = new Drawing();
         $drawing->setWorksheet($sheet);
         $drawing->setName('Escudo Chiapas');
-        $drawing->setPath(DOC_ROOT . '/images/new/docs/logoChiapas.png');
+        $drawing->setPath(DOC_ROOT . '/images/new/docs/logoChiapasColor.png');
         $drawing->setHeight(132);
         $drawing->setCoordinates('B2');
         $sheet->mergeCells('G2:O2');
