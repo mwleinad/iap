@@ -41,6 +41,18 @@ $infoStudent = $student->GetInfo();
 
 $institution->setInstitutionId(1);
 $myInstitution = $institution->Info();
+
+$optionPx = '250px';
+$optionSize = '9pt';
+$option = 'POR PROMEDIO';
+$line = '<p><b>_______________________________________________________________________________________</b></p>';
+if($_POST['opcionExamen'] == 'Tesis')
+{
+    $optionPx = '40px';
+    $optionSize = '8pt';
+    $option = '<label style="text-align: center; font-family: times;">TESIS DE GRADO: "' . mb_strtoupper($_POST['tesis']) . '"</label>';
+    $line = '<p>&nbsp;</p>';
+}
 /* echo "<pre>";
 print_r($infoCourse);
 exit; */
@@ -101,7 +113,7 @@ $html .="<html>
                         <img src='" . DOC_ROOT . "/images/Escudo.jpg' id='mexico' />
                         <td width='10'>&nbsp;</td>
                         <td width='90'>
-                            <span style='font-size: 6pt; position: absolute; left: 645px; top: -15px; width: 80px;'>SE-CEIAP-" . $array_date[0] . "</span>
+                            <span style='font-size: 6pt; position: absolute; left: 525px; top: -15px; width: 80px;'>AEG-16-" . str_replace('20', '', $array_date[0]) . "</span>
                             <p style='line-height: 17px; text-align: center; font-family: Times;'>
                                 <label style='font-size: 13pt;'><b>GOBIERNO CONSTITUCIONAL DEL ESTADO DE CHIAPAS</b></label><br>
                                 <label style='font-size: 13pt;'><b>SECRETARÍA DE EDUCACIÓN</b></label><br>
@@ -135,10 +147,10 @@ $html .="<html>
                 <label style='font-size: 9pt; position: absolute; left: 273px; top: 336px; width: 500px; font-weight: bold;'>
                     " . mb_strtoupper($util->num2letras(str_replace('20', '', $array_date[0]))) . "
                 </label>
-                <label style='font-size: 9pt; position: absolute; left: 180px; top: 366px; width: 500px; font-weight: bold;'>
+                <label style='font-size: 9pt; position: absolute; left: 180px; top: 368px; width: 500px; font-weight: bold;'>
                     " . $_POST['ubicacion'] . "
                 </label>
-                <label style='font-size: 9pt; position: absolute; left: 180px; top: 396px; width: 500px; font-weight: bold;'>
+                <label style='font-size: 9pt; position: absolute; left: 180px; top: 398px; width: 500px; font-weight: bold;'>
                     " . $myInstitution['name_long'] . "
                 </label>
                 <table width='100%'>
@@ -156,26 +168,41 @@ $html .="<html>
                         </td>
                     </tr>
                 </table>
-                <label style='font-size: 9pt; position: absolute; left: 100px; top: 386px; width: 500px; font-weight: bold;'>
+                <label style='font-size: 9pt; position: absolute; left: 100px; top: 450px; width: 500px; font-weight: bold;'>
                     " . $myInstitution['identifier'] . "
                 </label>
-                <label style='font-size: 9pt; position: absolute; left: 285px; top: 386px; width: 500px; font-weight: bold;'>
+                <label style='font-size: 9pt; position: absolute; left: 285px; top: 450px; width: 500px; font-weight: bold;'>
                     " . mb_strtoupper($infoCourse['turn']) . "
                 </label>
-                <label style='font-size: 9pt; position: absolute; left: 480px; top: 386px; width: 500px; font-weight: bold;'>
+                <label style='font-size: 9pt; position: absolute; left: 480px; top: 450px; width: 500px; font-weight: bold;'>
                     " . $modality . "
                 </label>
-                <label style='font-size: 9pt; position: absolute; left: 80px; top: 444px; width: 500px; font-weight: bold;'>
+                <label style='font-size: 9pt; position: absolute; left: 95px; top: 512px; width: 500px; font-weight: bold;'>
                     " . $_POST['nombrePresidente'] . "
                 </label>
-                <label style='font-size: 9pt; position: absolute; left: 80px; top: 473px; width: 500px; font-weight: bold;'>
+                <label style='font-size: 9pt; position: absolute; left: 95px; top: 542px; width: 500px; font-weight: bold;'>
                     " . $_POST['nombreSecretario'] . "
                 </label>
-                <label style='font-size: 9pt; position: absolute; left: 80px; top: 502px; width: 500px; font-weight: bold;'>
+                <label style='font-size: 9pt; position: absolute; left: 95px; top: 572px; width: 500px; font-weight: bold;'>
                     " . $_POST['nombreVocal'] . "
                 </label>
-                <label style='font-size: 9pt; position: absolute; left: 200px; top: 559px; width: 500px; font-weight: bold;'>
+                <label style='font-size: 9pt; position: absolute; left: 200px; top: 635px; width: 500px; font-weight: bold;'>
                     " . mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']) . "
+                </label>
+                <label style='font-size: 9pt; position: absolute; left: 180px; top: 665px; width: 500px; font-weight: bold;'>
+                    " . $student->GetMatricula($infoCourse['courseId']) . "
+                </label>
+                <label style='font-size: " . $optionSize . "; position: absolute; left: " . $optionPx . "; top: 696px; width: 500px; font-weight: bold;'>
+                    " . $option . "
+                </label>
+                <label style='font-size: 9pt; position: absolute; left: 192px; top: 726px; width: 500px; font-weight: bold;'>
+                    " . $title . " EN " . mb_strtoupper($infoCourse['name']) . "
+                </label>
+                <label style='font-size: 9pt; position: absolute; left: 265px; top: 832px; width: 500px; font-weight: bold;'>
+                    APROBARLO
+                </label>
+                <label style='font-size: 8pt; position: absolute; left: 268px; top: 892px; width: 500px; font-weight: bold;'>
+                    " . $title . " EN " . mb_strtoupper($infoCourse['name']) . "
                 </label>
                 <table width='100%'>
                     <tr>
@@ -188,13 +215,18 @@ $html .="<html>
                             <p><b>SECRETARIO: __________________________________________________________________________</b></p>
                             <p><b>VOCAL: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__________________________________________________________________________</b></p>
                             <p>PARA REALIZAR EL EXAMEN DE GRADO AL (A) C. SUSTENTANTE:</p>
-                            <p><b>________________________________________________________________________________________________</b></p>
-                            <p>CON NÚMERO DE CONTROL: <b>" . $student->GetMatricula($infoCourse['courseId']) . "</b> A QUIEN SE EXAMINÓ CON BASE A LA OPCIÓN:</p>
-
-                            <p>PARA OBTENER EL GRADO DE: " . $title . " EN " . mb_strtoupper($infoCourse['name']) . "</p>
+                            <p><b>_______________________________________________________________________________________</b></p>
+                            <p>CON NÚMERO DE CONTROL: <b>____________</b> A QUIEN SE EXAMINÓ CON BASE A LA OPCIÓN:</p>
+                            " . $line . "
+                            <p>PARA OBTENER EL GRADO DE: <b>___________________________________________________________</b></p>
                             <p>ACTO EFECTUADO DE ACUERDO A LAS NORMAS ESTABLECIDAS POR LA DIRECCIÓN DE EDUCACIÓN SUPERIOR DE LA SUBSECRETARÍA DE EDUCACIÓN ESTATAL, UNA VEZ CONCLUIDO EL EXAMEN, EL JURADO DELIBERÓ SOBRE LOS CONOCIMIENTOS Y APTITUDES DEMOSTRADAS Y DETERMINÓ:</p>
-                            <p>A CONTINUACIÓN EL PRESIDENTE DEL JURADO COMUNICÓ AL (A) C. SUSTENTANTE EL RESULTADO OBTENIDO Y LE TOMÓ PROTESTA DE LEY EN LOS TÉRMINOS SIGUIENTES: ¿PROTESTA USTED EJERCER EL GRADO DE __________________________________</p>
-                            <p>CON ENTUSIASMO Y HONRADEZ, VELAR SIEMPRE POR EL PRESTIGIO Y BUEN NOMBRE DEL INSTITUTO Y CONTINUAR ESFORZÁNDOSE POR MEJORAR SU PREPARACIÓN EN TODOS LOS ÓRDENES, PARA GARANTIZAR LOS INTERESES DEL PUEBLO Y DE LA PATRIA?</p>
+                            <p><b>_______________________________________________________________________________________</b></p>
+                            <p>A CONTINUACIÓN EL PRESIDENTE DEL JURADO COMUNICÓ AL (A) C. SUSTENTANTE EL RESULTADO OBTENIDO Y LE TOMÓ PROTESTA DE LEY EN LOS TÉRMINOS SIGUIENTES: ¿PROTESTA USTED EJERCER EL GRADO DE <b>_______________________________________________</b></p>
+                            <p>CON ENTUSIASMO Y HONRADEZ, VELAR SIEMPRE POR EL PRESTIGIO Y BUEN NOMBRE DEL INSTITUTO Y CONTINUAR ESFORZÁNDOSE POR MEJORAR SU PREPARACIÓN EN TODOS LOS ÓRDENES, PARA GARANTIZAR LOS INTERESES DEL PUEBLO Y DE LA PATRIA?</p><br>
+                            <p style='text-align: center;'><b>¡SÍ PROTESTO!</b></p><br>
+                            <p style='text-align: center;'><b>____________________________________________</b></p>
+                            <p style='text-align: center;'><b>" . mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']) . "</b></p><br>
+                            <p style='text-align: center; font-size: 7pt;'><b>SI ASÍ LO HICIERE, QUE LA SOCIEDAD Y LA NACIÓN SE LO PREMIEN Y SI NO, SE LO DEMANDEN</b></p>
                         </td>
                     </tr>
                 </table>
