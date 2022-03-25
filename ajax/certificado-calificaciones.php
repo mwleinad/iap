@@ -21,8 +21,12 @@ if($infoCourse['tipoCuatri'] == 'Cuatrimestre')
     $typeCourse = 'quarter';
 // Calificacion Minima Aprobatoria
 $minCal = 7;
+$prefix = 'CM';
 if($infoCourse['majorId'] == 18)
+{
+    $prefix = 'CD';
     $minCal = 8;
+}
 // Modalidad y RVOE
 if($infoCourse['modality'] == 'Online')
 {
@@ -128,8 +132,10 @@ for($period = 1; $period <= $infoCourse['totalPeriods']; $period += 2)
             $max_modules = $b2;
     }
     $tbody .= '<tr style="border-style: none;">
-                    <td colspan="4" style="text-align: center; border-style: none;"><b>' . mb_strtoupper($position[$period] . ' ' . $infoCourse['tipoCuatri']) . '</b></td>
-                    <td colspan="4" style="text-align: center; border-style: none;"><b>' . ($next ? mb_strtoupper($position[$period + 1] . ' ' . $infoCourse['tipoCuatri']) : '') . '</b></td>
+                    <td style="text-align: center; border-style: none;"><b>' . mb_strtoupper($position[$period] . ' ' . $infoCourse['tipoCuatri']) . '</b></td>
+                    <td colspan="3" style="border-style: none;"></td>
+                    <td style="text-align: center; border-style: none;"><b>' . ($next ? mb_strtoupper($position[$period + 1] . ' ' . $infoCourse['tipoCuatri']) : '') . '</b></td>
+                    <td colspan="3" style="border-style: none;"></td>
                 </tr>';
     for($element = 0; $element < $max_modules; $element++)
     {
@@ -198,6 +204,9 @@ $html .="<html>
                     .bg-gray {
                         background-color: #dddddd;
                     }
+                    @page {
+                        margin: 1.5cm 1cm 0cm 1cm;
+                    }
 		        </style>
 	        </head>
 	        <body>
@@ -207,14 +216,14 @@ $html .="<html>
                         <td width='20'>
                         </td>
                         <td width='80'>
-                            <span style='font-size: 6pt; position: absolute; left: 645px; top: -15px; width: 80px;'>SE-CEIAP-" . $array_date[0] . "</span>
+                            <span style='font-size: 6pt; position: absolute; left: 645px; top: -15px; width: 80px;'>SE-" . $prefix . "IAP-" . $array_date[0] . "</span>
                             <p style='line-height: 14px; text-align: center;'>
                                 <label style='font-size: 14pt;'><b>GOBIERNO CONSTITUCIONAL DEL ESTADO DE CHIAPAS</b></label><br>
                                 <label style='font-size: 12pt;'>SECRETARÍA DE EDUCACIÓN</label><br>
                                 <label style='font-size: 10pt;'>SUBSECRETARÍA DE EDUCACIÓN ESTATAL</label><br>
                                 <label style='font-size: 10pt;'>DIRECCIÓN DE EDUCACIÓN SUPERIOR</label><br>
                                 <label style='font-size: 10pt;'>DEPARTAMENTO DE SERVICIOS ESCOLARES</label>
-                                <span style='font-size: 8pt; position: absolute; left: 635px; width: 80px;'>Folio: " . $_GET['fo'] . "</span>
+                                <span style='font-size: 8pt; position: absolute; left: 635px; width: 80px;'>Folio: <b style='color: red;'>" . $_GET['fo'] . "</b></span>
                             </p>
                             <p style='font-size: 8pt; text-align: justify;'>
                                 LA DIRECCIÓN DEL INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, RÉGIMEN PARTICULAR, TURNO " . mb_strtoupper($infoCourse['turn']) . " MODALIDAD " . $modality . ", CLAVE " . $myInstitution['identifier'] . ", CERTIFICA QUE:<br>
@@ -255,13 +264,18 @@ $html .="<html>
                 <table width='100%'>
                     <tr>
                         <td style='font-size: 8px; text-align: center;'>
-                            <b>PRESIDENTE</b>
+                            <b>RECTOR</b>
                             <br><br><br>
+                            _________________________________________________
+                            <br>
                             DR. FERNANDO ÁLVAREZ SIMÁN
                         </td>
+                        <td style='width: 40%'></td>
                         <td style='font-size: 8px; text-align: center;'>
                             <b>SECRETARIO EJECUTIVO</b>
                             <br><br><br>
+                            _________________________________________________
+                            <br>
                             MTRO. OSMAR FERNANDO SALAZAR CISNEROS
                         </td>
                     </tr>
@@ -270,13 +284,18 @@ $html .="<html>
                             <br><br>
                             <b>JEFA DEL DEPARTEMENTO DE SERVICIOS ESCOLARES</b>
                             <br><br><br>
+                            _________________________________________________
+                            <br>
                             ING. MARTHA MARLENE ESTRADA ESTRADA
                         </td>
+                        <td style='width: 40%'></td>
                         <td style='font-size: 8px; text-align: center;'>
                             <br><br>
-                            <b>DIRECTOR DE EDUCACIÓN SUPERIOR</b>
+                            <b>DIRECTORA DE EDUCACIÓN SUPERIOR</b>
                             <br><br><br>
-                            DR. ANTONIO MAGDIEL VELÁZQUEZ MÉNDEZ
+                            _________________________________________________
+                            <br>
+                            MTRA. XÓCHITL CLEMENTE PARRA
                         </td>
                     </tr>
                 </table><br>
@@ -292,10 +311,10 @@ $html .="<html>
                                 <tr>
                                     <td class='border'>
                                         <p style='text-align: right; font-size: 7pt;'>
-                                            NO. ____________________________________<br>
-                                            LIBRO. ____________________________________<br>
-                                            FOJA. ____________________________________<br>
-                                            FECHA. ____________________________________<br>
+                                            NO. ___________________________________<br>
+                                            LIBRO. ___________________________________<br>
+                                            FOJA. ___________________________________<br>
+                                            FECHA. ___________________________________<br>
                                         </p>
                                     </td>
                                 </tr>
@@ -305,16 +324,22 @@ $html .="<html>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class='border'>
-                                        <p><br><br><br></p>
+                                    <td class='border' style='text-align: center;'>
+                                        <br><br><br>
+                                        <span style='font-size: 6pt;'>
+                                            C. Romeo Guzmán Villarreal  
+                                        </span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class='text-center bg-gray border' style='font-size: 7pt;'>JEFE DE LA OFICINA</td>
                                 </tr>
                                 <tr>
-                                    <td class='border'>
-                                        <p><br><br></p>
+                                    <td class='border' style='text-align: center;'>
+                                        <br><br><br>
+                                        <span style='font-size: 6pt;'>
+                                            Mtro. Manuel Castillejos López
+                                        </span>
                                     </td>
                                 </tr>
                             </table>                        
@@ -324,10 +349,11 @@ $html .="<html>
                                 POR ACUERDO DEL SECRETARIO GENERAL DE GOBIERNO Y CON FUNDAMENTO EN EL ARTÍCULO 29; FRACCIÓN X DE LA LEY ORGÁNICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS.
                             </p>
                             <p style='font-size: 7pt;'>
-                                SE <b>LEGALIZA,</b> PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO, LA FIRMA QUE ANTECEDE CORRESPONDIENTE AL DIRECTOR DE EDUCACIÓN SUPERIOR:
+                                SE LEGALIZA, PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO, LA FIRMA QUE ANTECEDE CORRESPONDIENTE AL DIRECTOR DE EDUCACIÓN SUPERIOR:
                             </p>
                             <p style='font-size: 7pt; text-align: center;'>
-                                DR. ANTONIO MAGDIEL VELÁZQUEZ MÉNDEZ
+                                MTRA. XÓCHITL CLEMENTE PARRA<br>
+                                _________________________________________________________________
                             </p>
                             <p style='font-size: 7pt; text-align: center;'>
                                 TUXTLA GUTIÉRREZ, CHIAPAS A: ____________________________________ 

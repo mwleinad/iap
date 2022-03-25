@@ -103,7 +103,7 @@ $html .="<html>
                         background-color: #dddddd;
                     }
                     @page {
-                        margin: 1.5cm 3cm 1.5cm 3cm;
+                        margin: 1.5cm 3cm 0cm 3cm;
                     }
 		        </style>
 	        </head>
@@ -150,7 +150,7 @@ $html .="<html>
                 <label style='font-size: 9pt; position: absolute; left: 180px; top: 368px; width: 500px; font-weight: bold;'>
                     " . $_POST['ubicacion'] . "
                 </label>
-                <label style='font-size: 9pt; position: absolute; left: 180px; top: 398px; width: 500px; font-weight: bold;'>
+                <label style='font-size: 8pt; position: absolute; left: 180px; top: 398px; width: 500px; font-weight: bold;'>
                     " . $myInstitution['name_long'] . "
                 </label>
                 <table width='100%'>
@@ -219,13 +219,13 @@ $html .="<html>
                             <p>CON NÚMERO DE CONTROL: <b>____________</b> A QUIEN SE EXAMINÓ CON BASE A LA OPCIÓN:</p>
                             " . $line . "
                             <p>PARA OBTENER EL GRADO DE: <b>___________________________________________________________</b></p>
-                            <p>ACTO EFECTUADO DE ACUERDO A LAS NORMAS ESTABLECIDAS POR LA DIRECCIÓN DE EDUCACIÓN SUPERIOR DE LA SUBSECRETARÍA DE EDUCACIÓN ESTATAL, UNA VEZ CONCLUIDO EL EXAMEN, EL JURADO DELIBERÓ SOBRE LOS CONOCIMIENTOS Y APTITUDES DEMOSTRADAS Y DETERMINÓ:</p>
+                            <p style='text-align: justify;'>ACTO EFECTUADO DE ACUERDO A LAS NORMAS ESTABLECIDAS POR LA DIRECCIÓN DE EDUCACIÓN SUPERIOR DE LA SUBSECRETARÍA DE EDUCACIÓN ESTATAL, UNA VEZ CONCLUIDO EL EXAMEN, EL JURADO DELIBERÓ SOBRE LOS CONOCIMIENTOS Y APTITUDES DEMOSTRADAS Y DETERMINÓ:</p>
                             <p><b>_______________________________________________________________________________________</b></p>
-                            <p>A CONTINUACIÓN EL PRESIDENTE DEL JURADO COMUNICÓ AL (A) C. SUSTENTANTE EL RESULTADO OBTENIDO Y LE TOMÓ PROTESTA DE LEY EN LOS TÉRMINOS SIGUIENTES: ¿PROTESTA USTED EJERCER EL GRADO DE <b>_______________________________________________</b></p>
-                            <p>CON ENTUSIASMO Y HONRADEZ, VELAR SIEMPRE POR EL PRESTIGIO Y BUEN NOMBRE DEL INSTITUTO Y CONTINUAR ESFORZÁNDOSE POR MEJORAR SU PREPARACIÓN EN TODOS LOS ÓRDENES, PARA GARANTIZAR LOS INTERESES DEL PUEBLO Y DE LA PATRIA?</p><br>
-                            <p style='text-align: center;'><b>¡SÍ PROTESTO!</b></p><br>
+                            <p style='text-align: justify;'>A CONTINUACIÓN EL PRESIDENTE DEL JURADO COMUNICÓ AL (A) C. SUSTENTANTE EL RESULTADO OBTENIDO Y LE TOMÓ PROTESTA DE LEY EN LOS TÉRMINOS SIGUIENTES: ¿PROTESTA USTED EJERCER EL GRADO DE <b>_______________________________________________</b></p>
+                            <p style='text-align: justify;'>CON ENTUSIASMO Y HONRADEZ, VELAR SIEMPRE POR EL PRESTIGIO Y BUEN NOMBRE DEL INSTITUTO Y CONTINUAR ESFORZÁNDOSE POR MEJORAR SU PREPARACIÓN EN TODOS LOS ÓRDENES, PARA GARANTIZAR LOS INTERESES DEL PUEBLO Y DE LA PATRIA?</p><br><br>
+                            <p style='text-align: center;'><b>¡SÍ PROTESTO!</b></p><br><br>
                             <p style='text-align: center;'><b>____________________________________________</b></p>
-                            <p style='text-align: center;'><b>" . mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']) . "</b></p><br>
+                            <p style='text-align: center;'><b>" . mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']) . "</b></p><br><br><br>
                             <p style='text-align: center; font-size: 7pt;'><b>SI ASÍ LO HICIERE, QUE LA SOCIEDAD Y LA NACIÓN SE LO PREMIEN Y SI NO, SE LO DEMANDEN</b></p>
                         </td>
                     </tr>

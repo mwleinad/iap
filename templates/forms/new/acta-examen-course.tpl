@@ -60,7 +60,7 @@
     <div class="row d-flex justify-content-center">
         <div class="form-group col-md-12">
             <label for="tesis">Tesis de Grado (Ingrese el Nombre de la Tesis)</label>
-            <input type="text" name="tesis" id="tesis" class="form-control" onkeyup="this.value = this.value.toUpperCase()" required />
+            <input type="text" name="tesis" id="tesis" class="form-control" onkeyup="this.value = this.value.toUpperCase()" />
         </div>
     </div>
 

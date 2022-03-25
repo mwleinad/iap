@@ -19,6 +19,18 @@ $courseId = intval($_GET['course']);
 $totalScores = 20;
 $modality = '';
 $typeCourse = '';
+$suffix = [
+    1 => 'RO',
+    2 => 'DO',
+    3 => 'RO',
+    4 => 'TO',
+    5 => 'TO',
+    6 => 'TO',
+    7 => 'MO',
+    8 => 'VO',
+    9 => 'NO',
+    10 => 'MO'
+];
 
 $course->setCourseId($courseId);
 $courseInfo = $course->Info();
@@ -44,9 +56,9 @@ if($courseInfo['majorId'] == 18)
     $claveSE = 6024;
 }
 if($courseInfo['modality'] == 'Online')
-    $modality = 'ESCOLAR';
-if($courseInfo['modality'] == 'Local')
     $modality = 'NO ESCOLAR';
+if($courseInfo['modality'] == 'Local')
+    $modality = 'ESCOLAR';
 if($courseInfo['subjectId'] == 22)
     $modality = 'MIXTA';
 if($courseInfo['tipoCuatri'] == 'Semestre')
@@ -316,7 +328,7 @@ if($typeXlsx == 1 || $typeXlsx == 3)
         $sheet->mergeCells('O11:Q11');
         $sheet->setCellValue('O11', mb_strtoupper($courseInfo['tipoCuatri']));
         $sheet->getStyle('O11:Q11')->applyFromArray(CellStyle(6, 'Arial', false, 'none', 'thin', 'center', 'left', 0, false));
-        $sheet->setCellValue('R11', $period);
+        $sheet->setCellValue('R11', $period . $suffix[$period]);
         $sheet->getStyle('R11')->applyFromArray(CellStyle(6, 'Arial', true, 'bottom', 'thin', 'center', 'left', 0));
         $sheet->mergeCells('S11:T11');
         $sheet->setCellValue('S11', 'GRUPO');
