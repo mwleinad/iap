@@ -46,7 +46,7 @@ foreach($modules as $item)
     }
     $html_modules .= "<tr>
                         <td class='text-center'>" . $i . "</td>
-                        <td style='text-transform: capitalize;'>" . mb_strtolower($item['name']) . "</td>
+                        <td>" . mb_strtoupper($item['name']) . "</td>
                         <td class='text-center " . $text_color . "'>" . $score . "</td>
                         <td class='text-center " . $text_color . "' style='text-transform: uppercase;'><i>" . $score_txt . "</i></td>
                     </tr>";
