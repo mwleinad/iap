@@ -1452,16 +1452,27 @@
 
 	function SabanaCalificacionesFrontal($period = 0, $ignoreEnglish = false, $order = " ORDER BY sm.name", $type = 'initial')
 	{
-		$sql = "SELECT u.userId, u.curp, u.lastNamePaterno, u.lastNameMaterno, u.names, us.matricula, u.sexo, ah.semesterId, ah.type
+		$students_down = "UNION
+						SELECT u.userId, u.curp, u.lastNamePaterno, u.lastNameMaterno, u.names, us.matricula, u.sexo
+						FROM academic_history ah
+							INNER JOIN user u 
+								ON ah.userId = u.userId 
+							INNER JOIN user_subject us 
+								ON (ah.userId = us.alumnoId AND us.status = 'inactivo' AND (ah.semesterId - 1) <= " . $period . " AND ah.semesterId <> " . $period . ")
+						WHERE ah.type = 'baja' AND ah.courseId = " . $this->courseId;
+		$sql = "SELECT u.userId, u.curp, u.lastNamePaterno, u.lastNameMaterno, u.names, us.matricula, u.sexo
 					FROM user_subject us
 						INNER JOIN user u
 							ON us.alumnoId = u.userId
-						LEFT JOIN academic_history ah 
-							ON (us.alumnoId = ah.userId AND us.courseId = ah.courseId AND ah.type = 'baja')
-					WHERE us.courseId = " . $this->courseId . "
-				ORDER BY u.lastNamePaterno, u.lastNameMaterno, u.names";
+					WHERE us.courseId = " . $this->courseId . " AND u.activo = '1' AND us.status = 'activo'
+				" . $students_down . "
+				ORDER BY lastNamePaterno, lastNameMaterno, names";
 		$this->Util()->DB()->setQuery($sql);
 		$students = $this->Util()->DB()->GetResult();
+		/* echo $sql; exit; */
+		/* echo "<pre>";
+		var_dump($students);
+		exit; */
 		if($type == 'final')
 		{
 			$condition = "";

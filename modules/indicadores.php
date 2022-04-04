@@ -1,6 +1,11 @@
 <?php
 	$user->allow_access(37);
 
+    // Información del Curso
+    $course->setCourseId($_GET['id']);
+    $courseInfo = $course->Info();
+    $smarty->assign('courseInfo', $courseInfo);
+
     // Titulacion
     $group->setCourseId($_GET['id']);
     $total = $group->CertificateIndicator(1);

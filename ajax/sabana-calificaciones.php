@@ -44,9 +44,9 @@ if($typeXlsx == 2 || $typeXlsx == 4)
         $modulesRepeat[] .= $item['courseModuleId']; 
     $students = $course->SabanaCalificacionesTrasera($period, true, " ORDER BY cm.initialDate", 'final', $modulesRepeat);
 }
-/* echo "<pre>";
+echo "<pre>";
 var_dump($students);
-exit; */
+exit;
 
 $minCal = 7;
 $claveSE = 5036;

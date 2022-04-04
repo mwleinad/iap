@@ -9,6 +9,9 @@ use Dompdf\Exception;
 
 session_start();
 $user->allow_access(37);
+// Información del Curso
+$course->setCourseId($_GET['id']);
+$courseInfo = $course->Info();
 // Titulacion
 $group->setCourseId($_GET['id']);
 $total_certificate = $group->CertificateIndicator(1);
@@ -72,6 +75,9 @@ $html .="<html>
 		        <center>
                     <p><b>INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS</b></p>
                 </center><br>
+                <h5>" . $courseInfo['majorName'] . "  " . $courseInfo['name'] . "</h5>
+                <h5><b>Grupo:</b> " . $courseInfo['group'] . "</h5>
+                <h5><b>Periodo:</b> " . $courseInfo['initialDate'] ." - " . $courseInfo['finalDate'] . "</h5>
 		        <table align='center' width='100%' border='1' class='txtTicket'>
                     <thead>
                         <tr>
