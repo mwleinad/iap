@@ -44,9 +44,9 @@ if($typeXlsx == 2 || $typeXlsx == 4)
         $modulesRepeat[] .= $item['courseModuleId']; 
     $students = $course->SabanaCalificacionesTrasera($period, true, " ORDER BY cm.initialDate", 'final', $modulesRepeat);
 }
-echo "<pre>";
+/* echo "<pre>";
 var_dump($students);
-exit;
+exit; */
 
 $minCal = 7;
 $claveSE = 5036;
@@ -312,7 +312,7 @@ if($typeXlsx == 1 || $typeXlsx == 3)
         $sheet->setCellValue('U10', 'RVOE');
         $sheet->getStyle('U10:V10')->applyFromArray(CellStyle(6, 'Arial', false, 'bottom', 'thin', 'center', 'center', 0));
         $sheet->mergeCells('W10:Y10');
-        $sheet->setCellValue('W10', $courseInfo['rvoe']);
+        $sheet->setCellValue('W10', $courseInfo['modality'] == 'Online' ? $courseInfo['rvoeLinea'] : $courseInfo['rvoe']);
         $sheet->getStyle('W10:Y10')->applyFromArray(CellStyle(6, 'Arial', true, 'bottom', 'thin', 'center', 'left', 0));
         $sheet->setCellValue('E11', 'MUNICIPIO');
         $sheet->getStyle('E11')->applyFromArray(CellStyle(6, 'Arial', false, 'none', 'thin', 'center', 'center', 0));
@@ -342,7 +342,7 @@ if($typeXlsx == 1 || $typeXlsx == 3)
         $sheet->setCellValue('X11', $courseInfo['turn']);
         $sheet->getStyle('X11:Z11')->applyFromArray(CellStyle(6, 'Arial', true, 'bottom', 'thin', 'center', 'left', 0));
         $sheet->mergeCells('AA10:AE11');
-        $sheet->setCellValue('AA10', 'A PARTIR DEL ' . $util->FormatReadableDate($courseInfo['fechaRvoe']));
+        $sheet->setCellValue('AA10', 'A PARTIR DEL ' . $util->FormatReadableDate($courseInfo['modality'] == 'Online' ? $courseInfo['fechaRvoeLinea'] : $courseInfo['fechaRvoe']));
         $sheet->getStyle('AA10:AE11')->applyFromArray(CellStyle(5, 'Arial', false, 'none', 'thin', 'center', 'center', 0));
         $sheet->setCellValue('E12', 'MODALIDAD');
         $sheet->getStyle('E12')->applyFromArray(CellStyle(6, 'Arial', false, 'none', 'thin', 'center', 'center', 0));
@@ -576,6 +576,35 @@ if($typeXlsx == 1 || $typeXlsx == 3)
         $sheet->mergeCells('Z5:AA6');
         $sheet->setCellValue('Z5', 'INSCRITOS INICIO DE CURSOS');
         $sheet->getStyle('Z5:AA6')->applyFromArray(CellStyle(4, 'Arial', false, 'allBorders', 'thin', 'center', 'left', 0));
+        /* $sheet->mergeCells('AB5:AB6');
+        $sheet->setCellValue('AB5', $totalHombres); // Hombres
+        $sheet->getStyle('AB5:AB6')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
+        $sheet->mergeCells('AC5:AC6');
+        $sheet->setCellValue('AC5', $totalMujeres); // Mujeres
+        $sheet->getStyle('AC5:AC6')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
+        $sheet->mergeCells('AD5:AD6');
+        $sheet->setCellValue('AD5', $totalStudents); // Total
+        $sheet->getStyle('AD5:AD6')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
+        $sheet->mergeCells('Z8:AA9');
+        $sheet->setCellValue('Z8', 'FIN DE CURSOS');
+        $sheet->getStyle('Z8:AA9')->applyFromArray(CellStyle(4, 'Arial', false, 'allBorders', 'thin', 'center', 'left', 0));
+        $sheet->mergeCells('AB8:AB9');
+        $sheet->setCellValue('AB8', ($typeXlsx == 1 ? '' : ($totalHombres - $bajasHombre))); // Hombres
+        $sheet->getStyle('AB8:AB9')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
+        $sheet->mergeCells('AC8:AC9');
+        $sheet->setCellValue('AC8', ($typeXlsx == 1 ? '' : ($totalMujeres - $bajasMujer))); // Mujeres
+        $sheet->getStyle('AC8:AC9')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
+        $sheet->mergeCells('AD8:AD9');
+        $sheet->setCellValue('AD8', ($typeXlsx == 1 ? '' : ($totalHombres - $bajasHombre) + ($totalMujeres - $bajasMujer))); // Total
+        $sheet->getStyle('AD8:AD9')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0)); */
+
+        // Rename worksheet
+        $spreadsheet->setActiveSheetIndex($iteration - 1)->setTitle('Hoja ' . $iteration);
+    }
+    for($iteration = 1; $iteration <= $totalPages; $iteration++)
+    {
+        $spreadsheet->setActiveSheetIndexByName('Hoja ' . $iteration);
+        $sheet = $spreadsheet->getActiveSheet();
         $sheet->mergeCells('AB5:AB6');
         $sheet->setCellValue('AB5', $totalHombres); // Hombres
         $sheet->getStyle('AB5:AB6')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
@@ -583,7 +612,7 @@ if($typeXlsx == 1 || $typeXlsx == 3)
         $sheet->setCellValue('AC5', $totalMujeres); // Mujeres
         $sheet->getStyle('AC5:AC6')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
         $sheet->mergeCells('AD5:AD6');
-        $sheet->setCellValue('AD5', $totalHombres + $totalMujeres); // Total
+        $sheet->setCellValue('AD5', $totalStudents); // Total
         $sheet->getStyle('AD5:AD6')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
         $sheet->mergeCells('Z8:AA9');
         $sheet->setCellValue('Z8', 'FIN DE CURSOS');
@@ -597,11 +626,7 @@ if($typeXlsx == 1 || $typeXlsx == 3)
         $sheet->mergeCells('AD8:AD9');
         $sheet->setCellValue('AD8', ($typeXlsx == 1 ? '' : ($totalHombres - $bajasHombre) + ($totalMujeres - $bajasMujer))); // Total
         $sheet->getStyle('AD8:AD9')->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
-
-        // Rename worksheet
-        $spreadsheet->setActiveSheetIndex($iteration - 1)->setTitle('Hoja ' . $iteration);
     }
-    //echo $firstEmptyRow; exit;
 }
 
 

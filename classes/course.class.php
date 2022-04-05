@@ -1453,14 +1453,14 @@
 	function SabanaCalificacionesFrontal($period = 0, $ignoreEnglish = false, $order = " ORDER BY sm.name", $type = 'initial')
 	{
 		$students_down = "UNION
-						SELECT u.userId, u.curp, u.lastNamePaterno, u.lastNameMaterno, u.names, us.matricula, u.sexo
+						SELECT u.userId, u.curp, u.lastNamePaterno, u.lastNameMaterno, u.names, us.matricula, u.sexo, ah.situation
 						FROM academic_history ah
 							INNER JOIN user u 
 								ON ah.userId = u.userId 
 							INNER JOIN user_subject us 
-								ON (ah.userId = us.alumnoId AND us.status = 'inactivo' AND (ah.semesterId - 1) <= " . $period . " AND ah.semesterId <> " . $period . ")
+								ON (ah.userId = us.alumnoId AND us.status = 'inactivo' AND ah.semesterId >= " . $period . ")
 						WHERE ah.type = 'baja' AND ah.courseId = " . $this->courseId;
-		$sql = "SELECT u.userId, u.curp, u.lastNamePaterno, u.lastNameMaterno, u.names, us.matricula, u.sexo
+		$sql = "SELECT u.userId, u.curp, u.lastNamePaterno, u.lastNameMaterno, u.names, us.matricula, u.sexo, 'A' AS situation
 					FROM user_subject us
 						INNER JOIN user u
 							ON us.alumnoId = u.userId
