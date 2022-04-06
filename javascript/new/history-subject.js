@@ -441,8 +441,8 @@ function EnableStudentCurricula(userId, courseId) {
 
 
 function additional() {
-    let course = document.getElementById('co').value;
-    let cuatri = document.getElementById('cu').value;
+    let course = document.getElementById('course').value;
+    let semester = document.getElementById('semester').value;
     console.log('[Prueba - OK]');
     $.ajax({
         url: WEB_ROOT + '/ajax/new/studentCurricula.php',
@@ -450,7 +450,7 @@ function additional() {
         data: {
             type: "additional",
             course: course,
-            cuatri: cuatri
+            semester: semester
         },
         beforeSend: function () {},
         success: function (data) {

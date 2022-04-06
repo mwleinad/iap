@@ -2818,6 +2818,61 @@ class Student extends User
 		return $result;
 	}
 
+	public function SaveQualifications($courseId, $semesterId, $cycle, $period, $date, $year, $modules, $course)
+	{
+		/* echo "<pre>";
+		print_r($course);
+		exit; */
+		include_once(DOC_ROOT."/properties/messages.php");
+		$infoStudent = $this->GetInfo();
+		$qualifications = [];
+		foreach($modules as $item)
+		{
+			$score = $item['score'];
+			if($score == 0) 
+				$score = 'NP';
+			$qualifications[] = [
+				'course-module' => $item['courseModuleId'],
+				'subject-module' => $item['subjectModuleId'],
+				'start' => $item['initialDate'],
+				'end' => $item['finalDate'],
+				'score' => $score
+			];
+		}
+		$qualifications = json_encode($qualifications);
+		$qr = 'IAP_BC_C' . $courseId . '_S' . $this->userId . '_N' . $semesterId . '_' . $qualifications;
+		$qr = base64_encode($qr);
+		/* echo "<pre>";
+		print_r($infoStudent);
+		exit; */
+		$sql = "INSERT INTO qualifications(courseId, userId, semesterId, cycle, period, date, year, qualifications, qr, created_at) VALUES(" . $courseId . ", " . $this->userId . ", " . $semesterId . ", '" . $cycle . "', '" . $period . "', '" . $date . "', '" . $year . "', '" . $qualifications . "', '" . $qr . "', NOW())";
+		$this->Util()->DB()->setQuery($sql);
+		$qualificationsId = $this->Util()->DB()->InsertData();
+		// Enviar Correo
+		$sendmail = new SendMail;
+		$details_body = array(
+			"semester" => utf8_decode($course['tipoCuatri']),
+			"period" => $semesterId,
+			"course" => utf8_decode($course['majorName'] . ' ' . $course['name']),
+		);
+		$details_subject = array();
+		$attachment = [];
+		$fileName = [];
+		$email = $infoStudent['email'];
+		$email = 'carloszh04@gmail.com';
+		if($email)
+			$sendmail->PrepareAttachment($message[4]["subject"], $message[4]["body"], $details_body, $details_subject, $email, '', $attachment, $fileName);
+		return $qualificationsId;
+	}
+
+	public function GetQualifications($qualificationId)
+	{
+		$sql = "SELECT * FROM qualifications WHERE id = " . $qualificationId;
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetRow();
+		return $result;
+	}
+
 	public function UpdateRegister()
 	{
 		if($this->Util()->PrintErrors())

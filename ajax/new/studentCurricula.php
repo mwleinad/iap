@@ -432,7 +432,7 @@ switch($_POST["type"])
 
 	case 'additional':
 		$courseId = intval($_POST['course']);
-		$semesterId = intval($_POST['cuatri']);
+		$semesterId = intval($_POST['semester']);
 		$modules = $course->AddedCourseModulesCuatri($courseId, $semesterId);
 		$arrayDate = explode('-', $modules[0]['initialDate']);
 		$year = intval($arrayDate[0]);

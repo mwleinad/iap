@@ -1,11 +1,10 @@
-<form action="{$WEB_ROOT}/ajax/boleta-calificaciones.php" method="GET" target="_blank">
-    <input type="hidden" id="co" name="co" value="{$info.courseId}" />
+<form action="{$WEB_ROOT}/ajax/boleta-calificaciones.php" method="POST" target="_blank">
+    <input type="hidden" id="course" name="course" value="{$info.courseId}" />
 
     <div class="row">
         <div class="form-group col-md-6">
-            <label for="al">Selecciona Alumno</label>
-            <select name="al" id="al" class="form-control">
-                <option value="0">-- Todos los Alumnos --</option>
+            <label for="students">Selecciona Alumno <small>(Para seleccionar más de un alumno, manten presionada la tecla Ctrl y da click sobre los alumnos)</small></label>
+            <select name="students[]" id="students" class="form-control" multiple>
                 {foreach from=$students item=item}
                     <option value="{$item.userId}" class="text-capitalize">
                         {$item.lastNamePaterno|upper} {$item.lastNameMaterno|upper} {$item.names|upper}
@@ -14,8 +13,8 @@
             </select>
         </div>
         <div class="form-group col-md-6">
-            <label for="cu">Cuatrimestre/Semestre</label>
-            <select name="cu" id="cu" class="form-control" onchange="additional()">
+            <label for="semester">Cuatrimestre/Semestre</label>
+            <select name="semester" id="semester" class="form-control" onchange="additional()">
                 <option value="">-- Seleccionar --</option>
                 {for $period=1 to $info.totalPeriods}
                     <option value="{$period}">{$period}</option>
@@ -33,8 +32,8 @@
             </select>
         </div>*}
         <div class="form-group col-md-6">
-            <label for="fe">Fecha de Boleta</label>
-            <input type="text" name="fe" id="fe" class="form-control i-calendar" required />
+            <label for="date">Fecha de Boleta</label>
+            <input type="text" name="date" id="date" class="form-control i-calendar" required />
         </div>
     </div>
 

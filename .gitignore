@@ -22,6 +22,7 @@
 /ajax/app/one/node_modules/
 /tripticos
 /vendor
+/tmp
 
 .env
 /templates_c/*
