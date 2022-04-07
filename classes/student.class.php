@@ -2873,6 +2873,28 @@ class Student extends User
 		return $result;
 	}
 
+	public function GetLastQualifications($courseId)
+	{
+		$sql = "SELECT id, courseId, userId, semesterId, cycle, period, date, year, qualifications, qr, created_at, MAX(created_at) FROM qualifications WHERE courseId = " . $courseId . " AND userId = " . $this->userId . " GROUP BY semesterId ORDER BY semesterId";
+		$this->Util()->DB()->setQuery($sql);
+	   	$result = $this->Util()->DB()->GetResult();
+		return $result;
+	}
+
+	public function GetTotalEvalDocente($courseId, $semesterId)
+	{
+		$sql = "SELECT COUNT(ead.evalalumnodocenteId)
+					FROM eval_alumno_docente ead
+					 	INNER JOIN course_module cm
+						 	ON ead.courseModuleId = cm.courseModuleId
+						INNER JOIN subject_module sm 
+							ON sm.subjectModuleId = cm.subjectModuleId
+					WHERE cm.courseId = ". $courseId . " AND sm.semesterId = " . $semesterId . " AND ead.alumnoId = " . $this->userId;
+		$this->Util()->DB()->setQuery($sql);
+		$total = $this->Util()->DB()->GetSingle();
+		return $total;
+	}
+
 	public function UpdateRegister()
 	{
 		if($this->Util()->PrintErrors())

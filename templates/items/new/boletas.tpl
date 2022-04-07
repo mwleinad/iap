@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card border border-success">
+            <div class="card-header bg-success text-white">
+                <h4><b>Curricula:</b> [{$courseInfo.majorName}] {$courseInfo.name}</h4>
+                {if $courseInfo.totalPeriods > 0}
+                    <h4><b>Total de {$courseInfo.tipoCuatri}: </b> {$courseInfo.totalPeriods}</h4>
+                {/if}<br>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <tbody>
+                        {for $period = 1 to $courseInfo.totalPeriods}
+                            <tr>
+                                <td><b>{$courseInfo.tipoCuatri} {$period}</b></td>
+                                <td>
+                                    {if array_key_exists($period, $qualifications)}
+                                        <a href="#" target="_blank" class="btn btn-outline-info">
+                                            <i class="fas fa-file-download"></i> Descargar Boleta
+                                        </a>
+                                    {else}
+                                        Por el momento la boleta no está disponible.
+                                    {/if}
+                                </td>
+                            </tr>
+                        {/for}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

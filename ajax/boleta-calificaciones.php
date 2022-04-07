@@ -27,7 +27,17 @@ if($infoCourse['majorId'] == 18)
 $students = $_POST['students'];
 if(count($students) > 1)
 {
-
+    foreach($students as $item)
+    {
+        $student->setUserId($item);
+        $infoStudent = $student->GetInfo();
+        $modules = $student->BoletaCalificacion($_POST['course'], $_POST['semester'], false);
+        $qualificationsId = $student->SaveQualifications($_POST['course'], $_POST['semester'], $_POST['cycle'], $_POST['period'], $_POST['date'], $_POST['year'], $modules, $infoCourse);
+        echo "<script>
+                alert('Las boletas se guardaron de manera correcta...');
+                window.close();
+            </script>";
+    }
 }
 else
 {
@@ -114,6 +124,12 @@ else
                             bottom: 200px;
                             right: 20px;
                         }
+                        #signature {
+                            width: 230px;
+                            position: fixed;
+                            bottom: 480px;
+                            right: 210px;
+                        }
                     </style>
                 </head>
                 <body>
@@ -171,6 +187,7 @@ else
                             <b>DIRECTORA ACADÉMICA</b>
                         </p>
                     </center>
+                    <img src='" . DOC_ROOT . "/images/new/docs/signature_agcc.png' id='signature'>
                     <img src='" . $target_path . "' id='qr'>
                     <img src='" . DOC_ROOT . "/images/new/docs/doc_footer.png' class='img-footer'>
                 </body>
