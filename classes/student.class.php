@@ -2832,8 +2832,8 @@ class Student extends User
 			if($score == 0) 
 				$score = 'NP';
 			$qualifications[] = [
-				'course-module' => $item['courseModuleId'],
-				'subject-module' => $item['subjectModuleId'],
+				'courseModule' => $item['courseModuleId'],
+				'subjectModule' => $item['subjectModuleId'],
 				'start' => $item['initialDate'],
 				'end' => $item['finalDate'],
 				'score' => $score
@@ -2875,13 +2875,13 @@ class Student extends User
 
 	public function GetLastQualifications($courseId)
 	{
-		$sql = "SELECT id, courseId, userId, semesterId, cycle, period, date, year, qualifications, qr, created_at, MAX(created_at) FROM qualifications WHERE courseId = " . $courseId . " AND userId = " . $this->userId . " GROUP BY semesterId ORDER BY semesterId";
+		$sql = "SELECT MAX(id) AS id, courseId, userId, semesterId, cycle, period, date, year, qualifications, qr, created_at FROM qualifications WHERE courseId = " . $courseId . " AND userId = " . $this->userId . " GROUP BY semesterId ORDER BY semesterId";
 		$this->Util()->DB()->setQuery($sql);
 	   	$result = $this->Util()->DB()->GetResult();
 		return $result;
 	}
 
-	public function GetTotalEvalDocente($courseId, $semesterId)
+	public function HasAllEvalDocente($courseId, $semesterId)
 	{
 		$sql = "SELECT COUNT(ead.evalalumnodocenteId)
 					FROM eval_alumno_docente ead
@@ -2891,8 +2891,16 @@ class Student extends User
 							ON sm.subjectModuleId = cm.subjectModuleId
 					WHERE cm.courseId = ". $courseId . " AND sm.semesterId = " . $semesterId . " AND ead.alumnoId = " . $this->userId;
 		$this->Util()->DB()->setQuery($sql);
-		$total = $this->Util()->DB()->GetSingle();
-		return $total;
+		$total_eval = $this->Util()->DB()->GetSingle();
+		$sql = "SELECT COUNT(cm.courseModuleId)
+					FROM course_module cm
+						INNER JOIN subject_module sm 
+							ON sm.subjectModuleId = cm.subjectModuleId
+					WHERE cm.courseId = ". $courseId . " AND sm.semesterId = " . $semesterId;
+		$this->Util()->DB()->setQuery($sql);
+		$total_modules = $this->Util()->DB()->GetSingle();
+		$has_all = $total_eval == $total_modules ? true : false;
+		return $has_all;
 	}
 
 	public function UpdateRegister()

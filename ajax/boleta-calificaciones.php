@@ -197,5 +197,6 @@ else
 	$mipdf ->load_html($html);
 	$mipdf ->render();
 	$mipdf ->stream('BoletaCalificaciones.pdf', array('Attachment' => 0));
+    unlink($target_path);
 }
 ?>

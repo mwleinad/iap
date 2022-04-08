@@ -15,9 +15,13 @@
                                 <td><b>{$courseInfo.tipoCuatri} {$period}</b></td>
                                 <td>
                                     {if array_key_exists($period, $qualifications)}
-                                        <a href="#" target="_blank" class="btn btn-outline-info">
-                                            <i class="fas fa-file-download"></i> Descargar Boleta
-                                        </a>
+                                        {if $evaluations[$period]}
+                                            <a href="{$WEB_ROOT}/ajax/boleta-calificacion.php?id={$qualifications[$period]['id']}" target="_blank" class="btn btn-outline-info">
+                                                <i class="fas fa-file-download"></i> Descargar Boleta
+                                            </a>
+                                        {else}
+                                            <p class="text-danger">Para descargar la boleta debes contestar todas las Evaluaciones Docente.</p>
+                                        {/if}
                                     {else}
                                         Por el momento la boleta no está disponible.
                                     {/if}

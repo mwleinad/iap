@@ -9,12 +9,13 @@ $evaluations = [];
 foreach($qualificationsTmp as $item)
 {
     $qualifications[$item['semesterId']] = $item;
-    $totalEval = $student->GetTotalEvalDocente($_GET['id'], $item['semesterId']);
+    $totalEval = $student->HasAllEvalDocente($_GET['id'], $item['semesterId']);
     $evaluations[$item['semesterId']] = $totalEval;
 }
-echo "<pre>";
-print_r($evaluations);
-exit;
+/* echo "<pre>";
+print_r($qualificationsTmp);
+exit; */
 $smarty->assign("infoStudent", $info);
 $smarty->assign("courseInfo", $courseInfo);
 $smarty->assign("qualifications", $qualifications);
+$smarty->assign("evaluations", $evaluations);
