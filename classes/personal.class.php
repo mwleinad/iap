@@ -1321,7 +1321,7 @@ class Personal extends Main
 				WHERE
 					documentoId = ".$this->documentoId." and personalId = ".$this->personalId."";
 		$this->Util()->DB()->setQuery($sql);
-		$count = $this->Util()->DB()->GetSingle();
+		$count = $this->Util()->DB()->GetRow();
 		
 		if($count['documentosprofesorId'] == null){
 			
