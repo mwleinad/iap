@@ -2875,10 +2875,18 @@ class Student extends User
 
 	public function GetLastQualifications($courseId)
 	{
-		$sql = "SELECT MAX(id) AS id, courseId, userId, semesterId, cycle, period, date, year, qualifications, qr, created_at FROM qualifications WHERE courseId = " . $courseId . " AND userId = " . $this->userId . " GROUP BY semesterId ORDER BY semesterId";
+		$sql = "SELECT MAX(id) AS id, courseId, userId, semesterId, cycle, period, date, year, qualifications, qr, created_at, downloaded, downloaded_at FROM qualifications WHERE courseId = " . $courseId . " AND userId = " . $this->userId . " GROUP BY semesterId ORDER BY semesterId";
 		$this->Util()->DB()->setQuery($sql);
 	   	$result = $this->Util()->DB()->GetResult();
 		return $result;
+	}
+
+	public function DownloadQualifications($qualificationId)
+	{
+		$sql = "UPDATE qualifications SET downloaded = 1, downloaded_at = CURDATE() WHERE id = " . $qualificationId;
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->ExecuteQuery();
+		return true;
 	}
 
 	public function HasAllEvalDocente($courseId, $semesterId)

@@ -454,6 +454,12 @@ switch($_POST["type"])
 		$_SESSION['User']['announcement'] = true;
 		echo 'Aviso OK';
 		break;
+
+	case 'downloadedQualifications':
+		$qualificationId = $_POST['qualificationId'];
+		$student->DownloadQualifications($qualificationId);
+		echo 'ok[#]' . $qualificationId;
+		break;
 }
 
 ?>

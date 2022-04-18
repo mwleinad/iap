@@ -16,9 +16,15 @@
                                 <td>
                                     {if array_key_exists($period, $qualifications)}
                                         {if $evaluations[$period]}
-                                            <a href="{$WEB_ROOT}/ajax/boleta-calificacion.php?id={$qualifications[$period]['id']}" target="_blank" class="btn btn-outline-info">
-                                                <i class="fas fa-file-download"></i> Descargar Boleta
-                                            </a>
+                                            {if $qualifications[$period]['downloaded'] eq 1}
+                                                <a href="{$WEB_ROOT}/ajax/boleta-calificacion.php?id={$qualifications[$period]['id']}" target="_blank" class="btn btn-outline-info" title="Descargar Boleta de Calificaciones">
+                                                    <i class="fas fa-file-download"></i> Descargar Boleta
+                                                </a>
+                                            {else}
+                                                <a href="javascript:;" onclick="DownloadQualifications({$qualifications[$period]['id']}, {$period})" class="btn btn-outline-primary" title="Descargar Boleta de Calificaciones">
+                                                    <i class="fas fa-file-download"></i> Descargar Boleta
+                                                </a> 
+                                            {/if}
                                         {else}
                                             <p class="text-danger">Para descargar la boleta debes contestar todas las Evaluaciones Docente.</p>
                                         {/if}
