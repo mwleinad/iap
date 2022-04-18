@@ -1,9 +1,9 @@
-function DownloadQualifications(qualificationId, semester)
+function DownloadQualifications(qualificationId, semester, name)
 {
     CloseFview();
     Swal.fire({
         title: 'Boleta de Calificaciones',
-        html: '<p>Acepto que he recibido la boleta de calificaciones parciales correspondiente al ' + semester + ' cuatrimestre/semestre de el/la programa académico.</p>',
+        html: '<p>ACEPTO QUE HE RECIBIDO LA BOLETA DE CALIFICACIONES PARCIALES CORRESPONDIENTE AL ' + semester + ' CUATRIMESTRE/SEMESTRE DE EL/LA ' + name + '.</p>',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#58ff85',

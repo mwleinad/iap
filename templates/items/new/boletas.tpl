@@ -21,7 +21,7 @@
                                                     <i class="fas fa-file-download"></i> Descargar Boleta
                                                 </a>
                                             {else}
-                                                <a href="javascript:;" onclick="DownloadQualifications({$qualifications[$period]['id']}, {$period})" class="btn btn-outline-primary" title="Descargar Boleta de Calificaciones">
+                                                <a href="javascript:;" onclick="DownloadQualifications({$qualifications[$period]['id']}, {$period}, '{$courseInfo['majorName']} EN {$courseInfo['name']}')" class="btn btn-outline-primary" title="Descargar Boleta de Calificaciones">
                                                     <i class="fas fa-file-download"></i> Descargar Boleta
                                                 </a> 
                                             {/if}

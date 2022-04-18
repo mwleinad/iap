@@ -13,7 +13,7 @@ foreach($qualificationsTmp as $item)
     $evaluations[$item['semesterId']] = $totalEval;
 }
 /* echo "<pre>";
-print_r($qualificationsTmp);
+print_r($courseInfo);
 exit; */
 $smarty->assign("infoStudent", $info);
 $smarty->assign("courseInfo", $courseInfo);
