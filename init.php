@@ -1,8 +1,8 @@
 <?php 
 	// error_reporting(0);
-    // ini_set("display_errors", 1);
-    //$showErrors = E_ALL ^ (E_STRICT | E_NOTICE | E_DEPRECATED);
-    //error_reporting($showErrors);
+    ini_set("display_errors", 1);
+    $showErrors = E_ALL ^ (E_STRICT | E_NOTICE | E_DEPRECATED);
+    error_reporting($showErrors);
 	
 	if(function_exists('xdebug_disable'))
 		xdebug_disable();
