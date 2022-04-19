@@ -2875,7 +2875,14 @@ class Student extends User
 
 	public function GetLastQualifications($courseId)
 	{
-		$sql = "SELECT MAX(id) AS id, courseId, userId, semesterId, cycle, period, date, year, qualifications, qr, created_at, downloaded, downloaded_at FROM qualifications WHERE courseId = " . $courseId . " AND userId = " . $this->userId . " GROUP BY semesterId ORDER BY semesterId";
+		$sql = "SELECT qualifications.*
+	  				FROM qualifications
+						INNER JOIN (
+		  					SELECT MAX(id) AS id
+		  						FROM qualifications
+		  					WHERE courseId = " . $courseId . " AND userId = " . $this->userId . " GROUP BY semesterId
+						) qs ON qualifications.id = qs.id
+	  				ORDER BY semesterId";
 		$this->Util()->DB()->setQuery($sql);
 	   	$result = $this->Util()->DB()->GetResult();
 		return $result;
@@ -2887,6 +2894,39 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
 		return true;
+	}
+
+	public function DownloadedQualifications($courseId, $totalPeriods)
+	{
+		$result = [];
+		for($i = 1; $i <= $totalPeriods; $i++)
+		{
+			$sql = "SELECT qualifications.*
+	  				FROM qualifications
+						INNER JOIN (
+		  					SELECT MAX(id) AS id
+		  						FROM qualifications
+		  					WHERE courseId = " . $courseId . " AND userId = " . $this->userId . " AND semesterId = " . $i . " GROUP BY semesterId
+						) qs ON qualifications.id = qs.id
+	  				ORDER BY semesterId";
+			$this->Util()->DB()->setQuery($sql);
+			$tmp = $this->Util()->DB()->GetRow();
+			if($tmp)
+			{
+				$result[$i] = [
+					'downloaded' => $tmp['downloaded'],
+					'downloaded_at' => $tmp['downloaded_at']
+				];
+			}
+			else
+			{
+				$result[$i] = [
+					'downloaded' => 0,
+					'downloaded_at' => ''
+				];
+			}
+		}
+		return $result;
 	}
 
 	public function HasAllEvalDocente($courseId, $semesterId)
