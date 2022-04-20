@@ -54,7 +54,7 @@ if($_POST['opcionExamen'] == 'Tesis')
     $line = '<p>&nbsp;</p>';
 }
 /* echo "<pre>";
-print_r($infoCourse);
+print_r($_POST);
 exit; */
 
 
@@ -104,6 +104,13 @@ $html .="<html>
                     }
                     @page {
                         margin: 1.5cm 3cm 0cm 3cm;
+                    }
+                    .wrapper-page {
+                        page-break-after: always;
+                    }
+                    
+                    .wrapper-page:last-child {
+                        page-break-after: avoid;
                     }
 		        </style>
 	        </head>
@@ -230,6 +237,165 @@ $html .="<html>
                         </td>
                     </tr>
                 </table>
+
+                <div class='wrapper-page'>
+                    <p style='font-size: 9pt; text-align: center;'>TERMINADO EL ACTO SE LEVANTA PARA CONSTANCIA LA PRESENTE ACTA</p>
+                    <p style='font-size: 9pt; text-align: center;'>FIRMANDO DE CONFORMIDAD LOS INTEGRANTES DEL JURADO Y EL RECTOR DEL INSTITUTO QUE DA FE.</p><br>
+                    <p style='font-size: 9pt; text-align: center;'><b>JURADO DEL EXAMEN</b></p>
+                    <table width='100%'>
+                        <tr>
+                            <td style='font-size: 9pt; text-align: center;'>
+                                <b>NOMBRE</b>
+                                <br><br><br><br>
+                                " . $_POST['nombrePresidente'] . "
+                                ___________________________________
+                                <br>
+                                PRESIDENTE
+                                <br><br><br>
+                            </td>
+                            <td style='width: 40%'></td>
+                            <td style='font-size: 9pt; text-align: center;'>
+                                <b>FIRMA</b>
+                                <br><br><br><br>
+                                ___________________________________
+                                <br>
+                                CÉDULA PROFESIONAL No. " . $_POST['cedulaPresidente'] . "
+                                <br><br><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style='font-size: 9pt; text-align: center;'>
+                                <br><br><br>
+                                " . $_POST['nombreSecretario'] . "
+                                ___________________________________
+                                <br>
+                                SECRETARIO
+                                <br><br><br>
+                            </td>
+                            <td style='width: 40%'></td>
+                            <td style='font-size: 9pt; text-align: center;'>
+                                <br><br><br>
+                                ___________________________________
+                                <br>
+                                CÉDULA PROFESIONAL No. " . $_POST['cedulaSecretario'] . "
+                                <br><br><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style='font-size: 9pt; text-align: center;'>
+                                <br><br><br>
+                                " . $_POST['nombreVocal'] . "
+                                ___________________________________
+                                <br>
+                                VOCAL
+                                <br><br><br>
+                            </td>
+                            <td style='width: 40%'></td>
+                            <td style='font-size: 9pt; text-align: center;'>
+                                <br><br><br>
+                                ___________________________________
+                                <br>
+                                CÉDULA PROFESIONAL No. " . $_POST['cedulaVocal'] . "
+                                <br><br><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style='font-size: 9pt; text-align: center;' colspan='3'>
+                                <br><br><br>
+                                <b>RECTOR DEL INSTITUTO</b>
+                                <br><br><br><br>
+                                ___________________________________
+                                <br>
+                                DR. FERNANDO ÁLVAREZ SIMÁN
+                                <br><br><br><br><br><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style='font-size: 9pt; text-align: center;'>
+                                JEFA DEL DEPARTAMENTO DE SERVICIOS ESCOLARES 
+                                <br><br><br><br>
+                                ___________________________________
+                                <br>
+                                ING. MARTHA MARLENE ESTRADA ESTRADA
+                            </td>
+                            <td style='width: 40%'></td>
+                            <td style='font-size: 9pt; text-align: center;'>
+                                DIRECTORA DE EDUCACIÓN SUPERIOR
+                                <br><br><br><br>
+                                ___________________________________
+                                <br>
+                                MTRA. XÓCHITL CLEMENTE PARRA
+                            </td>
+                        </tr>
+                    </table>
+                    <br><br><br><br><br>
+                    <table width='100%'>
+                        <tr style='border-spacing: 0px !important;'>
+                            <td style='width: 40%;'>
+                                <table align='center' border='1' class='border'>
+                                    <tr>
+                                        <td class='text-center bg-gray border' style='font-size: 7pt;'>
+                                            REGISTRADO EN EL DEPARTAMENTO DE SERVICIOS ESCOLARES
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class='border'>
+                                            <p style='text-align: left; font-size: 7pt;'>
+                                                NO. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;___________________________________<br>
+                                                LIBRO. &nbsp;___________________________________<br>
+                                                FOJA. &nbsp;&nbsp;&nbsp;___________________________________<br>
+                                                FECHA. ___________________________________<br>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class='text-center bg-gray border' style='font-size: 7pt;'>
+                                            COTEJÓ
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class='border' style='text-align: center;'>
+                                            <br><br><br><br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class='text-center bg-gray border' style='font-size: 7pt;'>JEFA DE LA OFICINA</td>
+                                    </tr>
+                                    <tr>
+                                        <td class='border' style='text-align: center;'>
+                                            <br><br><br>
+                                            <span style='font-size: 6pt;'>
+                                                C.P. MÁRIA DEL SOCORRO VELASCO HERNÁNDEZ
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </table>                        
+                            </td>
+                            <td style='width: 60%; padding-left: 20px;'>
+                                <p style='font-size: 7pt; text-align: justify;'>
+                                    CON FUNDAMENTO EN EL ARTÍCULO 29, FRACCIÓN X DE LA LEY ÓRGANICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, 27 FRACCIÓN XX DEL REGLAMENTO INTERIOR DE LA SECRETARÍA GENERAL DE GOBIERNO.
+                                </p>
+                                <p style='font-size: 7pt; text-align: justify;'>
+                                    SE LEGALIZA, PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO, LA FIRMA QUE ANTECEDE CORRESPONDE A LA DIRECTORA DE EDUCACIÓN SUPERIOR:
+                                </p>
+                                <p style='font-size: 7pt; text-align: center;'>
+                                    MTRA. XÓCHITL CLEMENTE PARRA<br>
+                                    _____________________________________________________________
+                                </p>
+                                <p style='font-size: 7pt; text-align: center;'>
+                                    TUXTLA GUTIÉRREZ, CHIAPAS A: _________________________________ 
+                                </p>
+                                <p style='font-size: 7pt; text-align: center;'>
+                                    COORDINADORA DE ASUNTOS JURÍDICOS DE GOBIERNO
+                                </p><br>
+                                <p style='font-size: 7pt; text-align: center;'>
+                                    MARÍA GUADALUPE SÁNCHEZ ZENTENO
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                    <p style='font-size: 6pt; text-align: center;'><b>Este documento no es válido si presenta raspaduras o enmendaduras</b></p>
+                </div>
 	        </body>
 	    </html>";
 	/* echo $html;

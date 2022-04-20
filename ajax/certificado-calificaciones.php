@@ -349,7 +349,7 @@ $html .="<html>
                                 POR ACUERDO DEL SECRETARIO GENERAL DE GOBIERNO Y CON FUNDAMENTO EN EL ARTÍCULO 29; FRACCIÓN X DE LA LEY ORGÁNICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS.
                             </p>
                             <p style='font-size: 7pt;'>
-                                SE LEGALIZA, PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO, LA FIRMA QUE ANTECEDE CORRESPONDIENTE AL DIRECTOR DE EDUCACIÓN SUPERIOR:
+                                SE LEGALIZA, PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO, LA FIRMA QUE ANTECEDE CORRESPONDIENTE A LA DIRECTORA DE EDUCACIÓN SUPERIOR:
                             </p>
                             <p style='font-size: 7pt; text-align: center;'>
                                 MTRA. XÓCHITL CLEMENTE PARRA<br>
@@ -359,7 +359,7 @@ $html .="<html>
                                 TUXTLA GUTIÉRREZ, CHIAPAS A: ____________________________________ 
                             </p>
                             <p style='font-size: 7pt; text-align: center;'>
-                                COORDINADOR DE ASUNTOS JURÍDICOS DE GOBIERNO
+                                COORDINADORA DE ASUNTOS JURÍDICOS DE GOBIERNO
                             </p><br>
                             <p style='font-size: 7pt; text-align: center;'>
                                 MARÍA GUADALUPE SÁNCHEZ ZENTENO
