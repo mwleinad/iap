@@ -82,6 +82,10 @@ use Dompdf\Exception;
 				<td>".$infoM['subjectName']."</td>
 			</tr>
 			<tr>
+				<td>Periodo</td>
+				<td>" . $infoM['initialDate'] . " a " . $infoM['finalDate'] . "</td>
+			</tr>
+			<tr>
 				<td>Nombre Docente</td>
 				<td>".$infoP['name']." ".$infoP['lastname_paterno']." ".$infoP['lastname_materno']."</td>
 			</tr>
