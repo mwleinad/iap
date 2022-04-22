@@ -3017,5 +3017,69 @@ class Student extends User
 		$this->Util()->DB()->InsertData();
 		return true;
 	}
+
+	public function enumerateCatProductos()
+	{
+		$sql = "SELECT *
+					FROM catdocumentoalumno
+				WHERE status = 'activo'";
+		$this->Util()->DB()->setQuery($sql);
+		$res = $this->Util()->DB()->GetResult();
+		
+		foreach($res as $key => $aux)
+		{
+			$sql = "SELECT ruta
+						FROM documentosalumno
+					WHERE documentosalumnoId = " . $aux['catdocumentoalumnoId'] . " AND userId = " . $this->userId;
+			$this->Util()->DB()->setQuery($sql);
+			$count = $this->Util()->DB()->GetRow();
+			
+			if($count['ruta'] <> '')
+			{
+				$res[$key]['existArchivo'] = 'si';
+				$res[$key]['ruta'] = $count['ruta'];
+			}else{
+				$res[$key]['existArchivo'] = 'no';
+			}	
+		}
+		return $res;
+	}
+
+	public function onSaveDocumento($nombre, $descripcion, $documentoId = null)
+	{
+		if(isset($documentoId))
+		{
+			$sql = "UPDATE catdocumentoalumno
+						SET nombre = '" . $nombre . "', descripcion = '" . $descripcion . "'
+				WHERE catcodumentoalumnoId = " . $documentoId;
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->ExecuteQuery();
+		}
+		else
+		{			
+			$sql = "INSERT INTO catdocumentoalumno(nombre, descripcion) VALUES('" . $nombre . "', '" . $descripcion . "')";
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->InsertData();
+		}	
+		return true;
+	}
+
+	public function infoDocumento($documentoId)
+	{
+		$sql = 'SELECT * 
+					FROM catdocumentoalumno
+				WHERE catdocumentoalumnoId = ' . $documentoId;
+		$this->Util()->DB()->setQuery($sql);
+		$lst = $this->Util()->DB()->GetRow();
+		return $lst;
+	}
+
+	public function onDeleteDocumento($documentoId)
+	{
+		$sql = "UPDATE catdocumentoalumno SET status = 'eliminado' WHERE catdocumentoalumnoId = " . $documentoId;
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->ExecuteQuery();
+		return true;
+	}
 }
 ?>

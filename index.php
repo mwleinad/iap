@@ -186,6 +186,7 @@ $pages = array(
 	'lst-docentes',
 	'cat-doc-docente',
 	'add-cat-doc-docente',
+	'cat-doc-alumno',
 	'materias',
 	'vehiculos',
 	'report-materia',

@@ -183,6 +183,8 @@ $pages = array(
 	'cat-doc-admin',
 	'add-cat-doc-docente',
 	'add-cat-doc-docente-add',
+    'add-cat-doc-alumno',
+    'add-cat-doc-alumno-add',
 	'add-repositorio',
 	'val',
 	'carta',

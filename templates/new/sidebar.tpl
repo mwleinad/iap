@@ -55,6 +55,9 @@
                                         <a class="nav-link {if $page == "recording"}active{/if}" href="{$WEB_ROOT}/recording">Videoconferencias</a>
                                     </li>*}
                                 {/if}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{$WEB_ROOT}/cat-doc-alumno">Documentos Alumnos</a>
+                                </li>
                             </ul>
                         </div>
                     </li>

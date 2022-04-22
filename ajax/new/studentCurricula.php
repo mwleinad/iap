@@ -460,6 +460,42 @@ switch($_POST["type"])
 		$student->DownloadQualifications($qualificationId);
 		echo 'ok[#]' . $qualificationId;
 		break;
+
+	case 'onSaveDocumento':
+		if( $student->onSaveDocumento($_POST['nombre'], $_POST['descripcion']) )
+		{
+			echo 'ok[#]';
+			echo '<div class="alert alert-info alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<strong>El Documento se agrego correctamente</strong>
+				</div>';
+			echo '[#]';
+			$student->setUserId($_SESSION['User']['userId']);
+			$registros = $student->enumerateCatProductos();
+			$smarty->assign("registros", $registros);
+			$smarty->display(DOC_ROOT . '/templates/lists/new/add-cat-doc-alumno.tpl');
+		}
+		else
+			echo 'fail[#]';
+		break;
+
+	case 'onDeleteDocumento':
+		if($student->onDeleteDocumento($_POST['Id']))
+		{
+			echo "ok[#]";
+			echo '<div class="alert alert-info alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>El Documento se elimino correctamente</strong>
+				</div>';
+			$student->setUserId($_SESSION['User']['userId']);
+			$registros = $student->enumerateCatProductos();
+			echo '[#]';		
+			$smarty->assign("registros", $registros);
+			$smarty->display(DOC_ROOT . '/templates/lists/new/add-cat-doc-alumno.tpl');
+		}
+		else
+			echo "fail[#]";
+		break;
 }
 
 ?>
