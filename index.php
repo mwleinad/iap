@@ -182,6 +182,7 @@ $pages = array(
 	'view-inbox',
 	'doc-docente',
 	'add-docdocente',
+	'doc-alumno',
 	'repositorio',
 	'lst-docentes',
 	'cat-doc-docente',

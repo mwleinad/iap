@@ -439,3 +439,76 @@ function addCourseModule()
 		}
 	});	   
 }
+
+function loadTR(Id)
+{
+	$('#tr_' + Id).toggle();
+}
+
+function enviarArchivo(Id)
+{
+	var fd = new FormData(document.getElementById("frmDoc_" + Id));
+	fd.append('cId', 'admin');
+	$.ajax({
+		url: WEB_ROOT + '/ajax/new/studentCurricula.php',
+		data: fd,
+		processData: false,
+		contentType: false,
+		type: 'POST',
+		xhr: function()
+		{
+			var XHR = $.ajaxSettings.xhr();
+			XHR.upload.addEventListener('progress', function(e){
+				console.log(e)
+				var Progress = ((e.loaded / e.total)*100);
+				Progress = (Progress);
+				console.log(Progress)
+				$('#progress_'+Id).val(Math.round(Progress));
+				$('#porcentaje_'+Id).html(Math.round(Progress)+'%');
+			},false);
+			return XHR;
+		},
+		beforeSend: function(){	},
+		success: function(response)
+		{	
+			console.log(response);
+			var splitResp = response.split("[#]");
+			$("#loader").html("");
+			if($.trim(splitResp[0]) == "ok"){
+				$("#msj").html(splitResp[1]);
+				$("#contenido").html(splitResp[2]);
+			}
+			else if($.trim(splitResp[0]) == "fail")
+				$("#txtErrMsg").show();
+			else
+				alert(msgFail);
+		},
+	})
+}
+
+function onDeleteDoc(Id, userId)
+{
+	var resp = confirm("Esta seguro de eliminar el Documento?");	
+	if(!resp)
+		return;
+	$.ajax({
+	  	type: "POST",
+	  	url: WEB_ROOT + '/ajax/new/studentCurricula.php',
+	  	data: $("#frmGral").serialize(true) + '&Id=' + Id + '&type=onDelete&userId=' + userId + '&cId=admin',
+		beforeSend: function(){ },
+	  	success: function(response) 
+		{	
+			console.log(response)
+			var splitResp = response.split("[#]");
+
+			if($.trim(splitResp[0]) == "ok")
+			{
+				$("#msj").html(splitResp[1]);
+				$("#contenido").html(splitResp[2]);
+			}
+			else if($.trim(splitResp[0]) == "fail")
+				$("#msj").html(splitResp[1]);
+		}
+    });
+	
+}

@@ -21,6 +21,7 @@ class Student extends User
 	private $anterior;
 	private $nuevo;
 	private $repite;
+	private $documentoId;
 
 	public function setAnterior($value)
 	{
@@ -134,6 +135,12 @@ class Student extends User
 		public function setPorBeca($value)
 	{
 		$this->por_beca = $value;
+	}
+
+	public function setDocumentoId($value)
+	{
+		$this->Util()->ValidateInteger($value);
+		$this->documentoId = $value;
 	}
 
 
@@ -3030,7 +3037,7 @@ class Student extends User
 		{
 			$sql = "SELECT ruta
 						FROM documentosalumno
-					WHERE documentosalumnoId = " . $aux['catdocumentoalumnoId'] . " AND userId = " . $this->userId;
+					WHERE catdocumentoalumnoId = " . $aux['catdocumentoalumnoId'] . " AND userId = " . $this->userId;
 			$this->Util()->DB()->setQuery($sql);
 			$count = $this->Util()->DB()->GetRow();
 			
@@ -3077,6 +3084,59 @@ class Student extends User
 	public function onDeleteDocumento($documentoId)
 	{
 		$sql = "UPDATE catdocumentoalumno SET status = 'eliminado' WHERE catdocumentoalumnoId = " . $documentoId;
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->ExecuteQuery();
+		return true;
+	}
+
+	public function adjuntarDocAlumno()
+	{
+		$sql = "SELECT  * FROM documentosalumno WHERE catdocumentoalumnoId = " . $this->documentoId . " AND userId = " . $this->userId;
+		$this->Util()->DB()->setQuery($sql);
+		$count = $this->Util()->DB()->GetRow();
+
+		if($count['documentosalumnoId'] == null)
+		{
+			$sql = "INSERT INTO documentosalumno(catdocumentoalumnoId, userId)
+				 VALUES(" . $this->documentoId . ", " . $this->userId . ")";
+			$this->Util()->DB()->setQuery($sql);
+			$lastId = $this->Util()->DB()->InsertData();
+		}
+		else
+			$lastId = $count['documentosalumnoId'];
+			
+		foreach($_FILES as $key=>$var)
+		{
+		   switch($key)
+		   {
+			   case 'comprobante':
+				   	if($var["name"] <> "")
+					{
+						$aux = explode(".", $var["name"]);
+						$extencion = end($aux);
+						$temporal = $var['tmp_name'];
+						$url = DOC_ROOT;				
+						$foto_name = "doc_" . $lastId . "." . $extencion;
+						
+						if(move_uploaded_file($temporal, $url . "/alumnos/documentos/" . $foto_name))
+						{							
+							$sql = "UPDATE documentosalumno SET ruta = '" . $foto_name . "' WHERE documentosalumnoId = " . $lastId;	
+							$this->Util()->DB()->setQuery($sql);		
+							$this->Util()->DB()->UpdateData();
+						}
+					}
+				break;
+		  	}
+		}
+		return  true;
+	}
+
+	public function onDeleteDocumentoAlumno($Id)
+	{
+		if($this->Util()->PrintErrors())
+			return false; 
+
+		$sql = "DELETE FROM documentosalumno WHERE userId = " . $this->userId . " AND catdocumentoalumnoId = " . $Id;
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
 		return true;

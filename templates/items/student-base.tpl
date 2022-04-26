@@ -36,6 +36,9 @@
 			<a href="{$WEB_ROOT}/graybox.php?page=edit-student&id={$item.userId}&auxImagen=1" data-target="#ajax" data-toggle="modal" data-width="1000px">
 				<i class="fas fa-pen-square fa-2x pointer spanEdit" id="{$item.userId}" data-toggle="tooltip" data-placement="top" title="Editar"></i>
 			</a>
+			<a href="{$WEB_ROOT}/graybox.php?page=doc-alumno&id={$item.userId}&cId=admin" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Documentos">
+				<i class="fas fa-folder-open fa-2x pointer"></i>
+			</a>
 			<a href="{$WEB_ROOT}/graybox.php?page=student-curricula&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px">
 				<i class="fas fa-book fa-2x text-dark pointer" data-toggle="tooltip" data-placement="top" title="Ver Curricula Estudiante"></i>
 			</a>   

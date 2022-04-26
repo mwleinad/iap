@@ -184,6 +184,27 @@
                         </div>
                     </div>
                 </div>
+                {* DOCUMENTOS *}
+                <div class="col-md-4 stretch-card grid-margin">
+                    <div class="card bg-gradient-success card-img-holder text-white">
+                        <div class="text-center">
+                            <a href="{$WEB_ROOT}/doc-alumno">
+                                <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/documentos.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="font-weight-normal mb-3">IAP Chiapas
+                                <i class="fas fa-file-alt float-right fa-lg"></i>
+                            </h4>
+                            <h2 class="mb-5">Documentos</h2>
+                            <div class="text-center">
+                                <a href="{$WEB_ROOT}/doc-alumno" class="btn btn-outline-light btn-fw btn-sm">
+                                    <i class="fas fa-link"></i> Ver
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {* PERSONAL ACADEMICO *}
                 <div class="col-md-4 stretch-card grid-margin">
                     <div class="card bg-gradient-success card-img-holder text-white">

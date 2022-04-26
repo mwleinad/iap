@@ -496,6 +496,51 @@ switch($_POST["type"])
 		else
 			echo "fail[#]";
 		break;
+
+	case 'adjuntarDocAlumno':
+		$student->setDocumentoId($_POST['catId']);
+		$student->setUserId($_POST["userId"]);
+		if($student->adjuntarDocAlumno())
+		{
+			echo "ok[#]";
+			echo '<div class="alert alert-info alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>El Documento se adjunto correctamente</strong>
+				</div>';
+			echo '[#]';
+			$student->setUserId($_POST["userId"]);
+			$registros = $student->enumerateCatProductos();
+			$smarty->assign("cId", $_POST['cId']);
+			$smarty->assign("userId", $_POST['userId']);
+			$smarty->assign("registros", $registros);
+			$smarty->assign("DOC_ROOT", DOC_ROOT);
+			$smarty->display(DOC_ROOT . '/templates/lists/new/doc-alumno.tpl');
+		}
+		else
+			echo "fail[#]";
+		break;
+
+	case 'onDelete':
+		$student->setUserId($_POST['userId']);
+		if($student->onDeleteDocumentoAlumno($_POST['Id']))
+		{
+			echo 'ok[#]';
+			echo '<div class="alert alert-info alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>El Documento se ha eliminado correctamente</strong>
+				</div>';
+			echo '[#]';
+				$student->setUserId($_POST["userId"]);
+				$registros = $student->enumerateCatProductos();
+				$smarty->assign("cId", $_POST['cId']);
+				$smarty->assign("userId", $_POST['userId']);
+				$smarty->assign("registros", $registros);
+				$smarty->assign("DOC_ROOT", DOC_ROOT);
+				$smarty->display(DOC_ROOT . '/templates/lists/new/doc-alumno.tpl');
+			}
+			else
+				echo 'fail[#]';
+		break;
 }
 
 ?>
