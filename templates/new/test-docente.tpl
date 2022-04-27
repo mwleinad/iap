@@ -58,7 +58,9 @@
 			<input type="hidden" name="courseModuleId" value="{$myModule.courseModuleId}" />
 			<input type="hidden" name="personalId" value="{$docente.personalId}" />
 			<div id="container">
-				{include file="{$DOC_ROOT}/templates/lists/test-docente.tpl"}
+				<div class="table-responsive">
+					{include file="{$DOC_ROOT}/templates/lists/test-docente.tpl"}
+				</div>
 			</div>
 			<div id="msj"></div>
 		</form>

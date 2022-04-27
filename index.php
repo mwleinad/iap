@@ -10,6 +10,9 @@ if (!isset($_SESSION))
   session_start();
 }
 
+if((!isset($_SESSION['User'])) && $_GET['page'] != 'login')
+	header('Location: ' . WEB_ROOT . '/login');
+
 
 //print_r($_SESSION);
 //		unset($_SESSION['lastClick']);
