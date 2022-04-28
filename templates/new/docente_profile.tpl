@@ -138,7 +138,7 @@
             <div class="col-md-4 stretch-card grid-margin">
                 <div class="card bg-gradient-success card-img-holder text-white">
                     <div class="text-center">
-                        <a href="{$WEB_ROOT}/reglamento">
+                        <a href="https://biblioteca.iapchiapas.edu.mx/" target="_blank">
                             <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/reglamento.svg" alt="">
                         </a>
                     </div>
