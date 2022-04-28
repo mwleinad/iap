@@ -10,7 +10,7 @@ if (!isset($_SESSION))
   session_start();
 }
 
-if((!isset($_SESSION['User'])) && $_GET['page'] != 'login')
+if((!isset($_SESSION['User'])) && $_GET['page'] != 'login' && $_GET['page'] != 'register')
 	header('Location: ' . WEB_ROOT . '/login');
 
 

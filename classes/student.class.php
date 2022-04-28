@@ -490,7 +490,7 @@ class Student extends User
 		return true;
 	}
 
-	public function AddUserToCurriculaRegister($id, $curricula, $nombre, $email, $password, $major, $course,$tipo_beca,$por_beca,$matricula)
+	public function AddUserToCurriculaRegister($id, $curricula, $nombre, $email, $password, $major, $course, $tipo_beca, $por_beca, $matricula)
 	{
 		include_once(DOC_ROOT."/properties/messages.php");
 		$sql = "SELECT COUNT(*) FROM user_subject WHERE alumnoId = '" . $id . "' AND courseId = '" . $curricula . "'";
@@ -562,8 +562,8 @@ class Student extends User
 		// Crear Vencimientos
 		$this->AddInvoices($id, $curricula);
 		// Create File to Attach
-		$files  = new Files;
-		$file = $files->CedulaInscripcion($id, $curricula, $this, $major, $course);
+		/* $files  = new Files;
+		$file = $files->CedulaInscripcion($id, $curricula, $this, $major, $course); */
 		// Enviar Correo
 		$sendmail = new SendMail;
 		$details_body = array(
@@ -573,10 +573,12 @@ class Student extends User
 			"course" => utf8_decode($course),
 		);
 		$details_subject = array();
-		$attachment[0] = DOC_ROOT."/files/solicitudes/".$file;
+		/* $attachment[0] = DOC_ROOT."/files/solicitudes/".$file;
 		$fileName[0] = "Solicitud_de_Inscripcion.pdf";
 		$attachment[1] = DOC_ROOT."/manual_alumno.pdf";
-		$fileName[1] = "Manual_Alumno.pdf";
+		$fileName[1] = "Manual_Alumno.pdf"; */
+		$attachment = [];
+		$fileName = [];
 		$sendmail->PrepareAttachment($message[1]["subject"], $message[1]["body"], $details_body, $details_subject, $email, $nombre, $attachment, $fileName);
 		return $complete;
 	}
@@ -2960,6 +2962,7 @@ class Student extends User
 
 	public function UpdateRegister()
 	{
+		include_once(DOC_ROOT."/properties/messages.php");
 		if($this->Util()->PrintErrors())
 			return false;
 
@@ -3005,6 +3008,53 @@ class Student extends User
 		$this->Util()->DB()->ExecuteQuery();
 		$this->Util()->setError(10030, "complete");
 		$this->Util()->PrintErrors();
+
+		$this->setUserId($this->getUserId());
+		$info = $this->GetInfo();
+		// Informacion Personal
+		$this->setControlNumber();
+		$this->setNames($info['names']);
+		$this->setLastNamePaterno($info['lastNamePaterno']);
+		$this->setLastNameMaterno($info['lastNameMaterno']);
+		$this->setSexo($info['sexo']);
+		$this->setPassword(trim($info['password']));
+
+		// Datos de Contacto
+		$this->setEmail($info['email']);
+		$this->setMobile($info['mobile']);
+
+		// Datos Laborales
+		$this->setWorkplaceOcupation($info['workplaceOcupation']);
+		$this->setWorkplace($info['workplace']);
+		$this->setWorkplacePosition($info['workplacePosition']);
+		$this->setWorkplaceCity($info['nombreciudad']);
+
+		// Estudios
+		$this->setAcademicDegree($info['academicDegree']);
+		// Create File to Attach
+		$sql = "SELECT courseId FROM user_subject WHERE alumnoId = " . $this->getUserId() . " AND status = 'activo' ORDER BY registrationId LIMIT 1";
+		$this->Util()->DB()->setQuery($sql);
+		$courseId = $this->Util()->DB()->GetSingle();
+		$course = new Course();
+		$course->setCourseId($courseId);
+		$courseInfo = $course->Info();
+		$files  = new Files;
+		$file = $files->CedulaInscripcion($this->getUserId(), $courseId, $this, $courseInfo['majorName'], $courseInfo['name']);
+		// Enviar Correo
+		$sendmail = new SendMail;
+		$details_body = array(
+			"email" => $info["controlNumber"],
+			"password" => $info['password'],
+			"major" => utf8_decode($courseInfo['majorName']),
+			"course" => utf8_decode($courseInfo['name']),
+		);
+		$details_subject = array();
+		$attachment[0] = DOC_ROOT."/files/solicitudes/".$file;
+		$fileName[0] = "Solicitud_de_Inscripcion.pdf";
+		$attachment[1] = DOC_ROOT."/manual_alumno.pdf";
+		$fileName[1] = "Manual_Alumno.pdf";
+		$nombre = $info['names'] . ' ' . $info['lastNamePaterno'] . ' ' . $info['lastNameMaterno'];
+		$sendmail->PrepareAttachment($message[5]['subject'], $message[5]['body'], $details_body, $details_subject, $info['email'], $nombre, $attachment, $fileName);
 		return true;
 	}
 

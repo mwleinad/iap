@@ -14,7 +14,7 @@ $message[1]["body"] = "
 	Tu solicitud de pre-inscripción está siendo revisada por nuestro personal, por lo que en breve recibirás un correo con la confirmación de tu inscripción, esto te dará acceso total a la currícula elegida
 
 	Nota:
-	Si eres alumno presencial, se te adjuntó a este correo una cédula de inscripción, misma que tendrás que presentar en las oficinas del IAP-Chiapas, ubicadas en Libramiento Norte Poniente No 2718. Fraccionamiento Ladera de la Loma. Tgz, Chiapas.
+	Si eres alumno presencial, ingresa al Sistema de Educación en Línea para completar tus datos y generar la cédula de inscripción, misma que tendrás que presentar en las oficinas del IAP-Chiapas, ubicadas en Libramiento Norte Poniente No 2718. Fraccionamiento Ladera de la Loma. Tgz, Chiapas.
 	
 	Para mejor la experiencia de navegación en nuestro Sistema de Educación en Línea, te recomendamos utilizar el navegador Chrome así como también consultar el manual del alumno que se encuentra disponible en el siguiente enlace:
 	<a href='https://iapchiapas.edu.mx/manual_alumno.pdf'>www.iapchiapas.edu.mx/manual_alumno.pdf</a>
@@ -54,5 +54,26 @@ $message[4]["body"] = "
 	Nota:
 	Para mejor la experiencia de navegación en nuestro Sistema de Educación en Línea, te recomendamos utilizar el navegador Chrome así como también consultar el manual del alumno que se encuentra disponible en el siguiente enlace:
 	<a href='https://iapchiapas.edu.mx/manual_alumno.pdf'>www.iapchiapas.edu.mx/manual_alumno.pdf</a>";
+
+
+
+$message[5]["subject"] = "Actualización de Datos | Instituto de Administración Pública del Estado de Chiapas";
+$message[5]["body"] = "
+	Tus datos han sido actualizados en el Sistema de Educación en Línea.
+	
+	El(la) |major| de tu elección es:
+	<b>|course|</b>
+	
+	Tu datos para ingresar al sistema son los siguientes
+	<b>Usuario:</b> |email|
+	<b>Contrase&ntilde;a del Sistema:</b>	|password|
+
+	Nota:
+	Por favor descarga la cédula de inscripción adjunta en este mensaje, misma que tendrás que presentar en las oficinas del IAP-Chiapas, ubicadas en Libramiento Norte Poniente No 2718. Fraccionamiento Ladera de la Loma. Tgz, Chiapas.
+	
+	Para mejor la experiencia de navegación en nuestro Sistema de Educación en Línea, te recomendamos utilizar el navegador Chrome así como también consultar el manual del alumno que se encuentra disponible en el siguiente enlace:
+	<a href='https://iapchiapas.edu.mx/manual_alumno.pdf'>www.iapchiapas.edu.mx/manual_alumno.pdf</a>
+
+	";
 
 ?>
