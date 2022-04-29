@@ -176,7 +176,7 @@ else
                         " . $html_modules . "
                     </table><br>
                     <center>
-                        <p>Tuxtla Gutiérrez, Chiapas; " . mb_strtolower($util->FormatReadableDate($_GET['fe'])) . ".</p>
+                        <p>Tuxtla Gutiérrez, Chiapas; " . mb_strtolower($util->FormatReadableDate($_POST['date'])) . ".</p>
                     </center><br><br>
                     <center>
                         <p>ATENTAMENTE</p>
