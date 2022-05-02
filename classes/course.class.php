@@ -1333,7 +1333,7 @@
 			if($period > 0)
 				$condition = " AND sm.semesterId = " . $period;
 			if($ignoreEnglish)
-				$condition .= " AND sm.subjectModuleId NOT IN (246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257)";
+				$condition .= " AND sm.subjectModuleId NOT IN (246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 274, 275, 276, 277, 278)";
 			$sql = "SELECT cm.courseModuleId, sm.name AS subjectModuleName, cm.initialDate, cm.finalDate 
 						FROM course_module cm 
 							INNER JOIN subject_module sm 
@@ -1479,7 +1479,7 @@
 			if($period > 0)
 				$condition = " AND sm.semesterId = " . $period;
 			if($ignoreEnglish)
-				$condition .= " AND sm.subjectModuleId NOT IN (246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257)";
+				$condition .= " AND sm.subjectModuleId NOT IN (246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 274, 275, 276, 277, 278)";
 			foreach($students as $key => $value)
 			{
 				$semesterId = intval($value['semesterId']);
@@ -1520,7 +1520,7 @@
 			if($period > 0)
 				$condition = " AND sm.semesterId = " . $period;
 			if($ignoreEnglish)
-				$condition .= " AND sm.subjectModuleId NOT IN (246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257)";
+				$condition .= " AND sm.subjectModuleId NOT IN (246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 274, 275, 276, 277, 278)";
 			foreach($students as $key => $value)
 			{
 				$sql = "SELECT cm.courseModuleId, sm.name AS subjectModuleName, cm.initialDate, cm.finalDate, cms.calificacion 
