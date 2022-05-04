@@ -43,37 +43,74 @@ else
 {
     $student->setUserId($students[0]);
     $infoStudent = $student->GetInfo();
-    $modules = $student->BoletaCalificacion($_POST['course'], $_POST['semester'], false);
+    $modules = $student->BoletaCalificacion($_POST['course'], $_POST['semester'], true);
     $qualificationsId = $student->SaveQualifications($_POST['course'], $_POST['semester'], $_POST['cycle'], $_POST['period'], $_POST['date'], $_POST['year'], $modules, $infoCourse);
     $qualifications = $student->GetQualifications($qualificationsId);
     $target_path = DOC_ROOT . '/tmp/' . $qualifications['id'] . '.jpg';
     if (!file_exists($target_path))
         QRcode::png($qualifications['qr'], $target_path);
     /* echo "<pre>";
-    print_r($qualifications); */
+    print_r($modules);
+    exit; */
     $institution->setInstitutionId(1);
     $myInstitution = $institution->Info();
     $html_modules = "";
+    $html_extra_modules = "";    
     $i = 1;
     foreach($modules as $item)
     {
-        $text_color = '';
-        if($item['score'] < $minCal)
-            $text_color = 'text-danger';
-        $score = $item['score'];
-        $score_txt = $util->num2letras($item['score']);
-        if($score == 0) 
+        if($item['extra'] == 0)
         {
-            $score = 'NP';
-            $score_txt = 'NO PRESENTÓ';
+            $text_color = '';
+            if($item['score'] < $minCal)
+                $text_color = 'text-danger';
+            $score = $item['score'];
+            $score_txt = $util->num2letras($item['score']);
+            if($score == 0) 
+            {
+                $score = 'NP';
+                $score_txt = 'NO PRESENTÓ';
+            }
+            $html_modules .= "<tr>
+                                <td class='text-center'>" . $i . "</td>
+                                <td>" . mb_strtoupper($item['name']) . "</td>
+                                <td class='text-center " . $text_color . "'>" . $score . "</td>
+                                <td class='text-center " . $text_color . "' style='text-transform: uppercase;'><i>" . $score_txt . "</i></td>
+                            </tr>";
+            $i++;
         }
-        $html_modules .= "<tr>
-                            <td class='text-center'>" . $i . "</td>
-                            <td>" . mb_strtoupper($item['name']) . "</td>
-                            <td class='text-center " . $text_color . "'>" . $score . "</td>
-                            <td class='text-center " . $text_color . "' style='text-transform: uppercase;'><i>" . $score_txt . "</i></td>
-                        </tr>";
-        $i++;
+    }
+    foreach($modules as $item)
+    {
+        if($item['extra'] == 1)
+        {
+            $text_color = '';
+            if($item['score'] < $minCal)
+            {
+                $text_color = 'text-danger';
+                $score = 'NA';
+                $score_txt = 'NO APROBADO';
+            }
+            if($item['score'] >= $minCal)
+            {
+                $text_color = '';
+                $score = 'A';
+                $score_txt = 'APROBADO';
+            }
+            if($item['score'] == 0) 
+            {
+                $text_color = 'text-danger';
+                $score = 'NP';
+                $score_txt = 'NO PRESENTÓ';
+            }
+            $html_extra_modules .= "<tr>
+                                <td class='text-center'>" . $i . "</td>
+                                <td>" . mb_strtoupper($item['name']) . "</td>
+                                <td class='text-center " . $text_color . "'>" . $score . "</td>
+                                <td class='text-center " . $text_color . "' style='text-transform: uppercase;'><i>" . $score_txt . "</i></td>
+                            </tr>";
+            $i++;
+        }
     }
     $html .="<html>
                 <head>
@@ -127,7 +164,7 @@ else
                         #signature {
                             width: 230px;
                             position: fixed;
-                            bottom: 480px;
+                            bottom: 390px;
                             right: 210px;
                         }
                     </style>
@@ -174,6 +211,22 @@ else
                             <td class='text-center'><b>En Letra</b></td>
                         </tr>
                         " . $html_modules . "
+                    </table><br>
+                    <table align='center' width='100%' border='1' class='txtTicket'>
+                        <tr>
+                            <td colspan='4' class='text-center'><b>ASIGNATURAS EXTRACURRICULARES (SIN CRÉDITOS)</b></td>
+                        </tr>
+                        <tr>
+                            <td rowspan='2' class='text-center'><b>No.</b></td>
+                            <td rowspan='2' class='text-center'><b>Materias</b></td>
+                            <td class='text-center'><b>Calificación</b></td>
+                            <td class='text-center'><b>Calificación</b></td>
+                        </tr>
+                        <tr>
+                            <td class='text-center'><b>En Número</b></td>
+                            <td class='text-center'><b>En Letra</b></td>
+                        </tr>
+                        " . $html_extra_modules . "
                     </table><br>
                     <center>
                         <p>Tuxtla Gutiérrez, Chiapas; " . mb_strtolower($util->FormatReadableDate($_POST['date'])) . ".</p>

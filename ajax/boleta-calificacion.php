@@ -25,7 +25,7 @@ if($infoCourse['majorId'] == 18)
 
 $student->setUserId($qualification['userId']);
 $infoStudent = $student->GetInfo();
-$modules = $student->BoletaCalificacion($qualification['courseId'], $qualification['semesterId'], false);
+$modules = $student->BoletaCalificacion($qualification['courseId'], $qualification['semesterId'], true);
 $target_path = DOC_ROOT . '/tmp/' . $qualification['id'] . '.jpg';
 if (!file_exists($target_path))
     QRcode::png($qualification['qr'], $target_path);
@@ -36,26 +36,64 @@ foreach($modules_qualifications_tmp as $item)
 $institution->setInstitutionId(1);
 $myInstitution = $institution->Info();
 $html_modules = "";
+$html_extra_modules = "";
 $i = 1;
+/* echo "<pre>";
+print_r($modules_qualifications);
+exit; */
 foreach($modules as $item)
 {
     $text_color = '';
-    if($modules_qualifications[$item['courseModuleId']]->score < $minCal)
-        $text_color = 'text-danger';
-    $score = $modules_qualifications[$item['courseModuleId']]->score;
-    $score_txt = $util->num2letras($modules_qualifications[$item['courseModuleId']]->score);
-    if($score == 0) 
+    if($modules_qualifications[$item['courseModuleId']]->extra == 0)
     {
-        $score = 'NP';
-        $score_txt = 'NO PRESENTÓ';
+        if($modules_qualifications[$item['courseModuleId']]->score < $minCal)
+            $text_color = 'text-danger';
+        $score = $modules_qualifications[$item['courseModuleId']]->score;
+        $score_txt = $util->num2letras($modules_qualifications[$item['courseModuleId']]->score);
+        if($score == 0) 
+        {
+            $score = 'NP';
+            $score_txt = 'NO PRESENTÓ';
+        }
+        $html_modules .= "<tr>
+                            <td class='text-center'>" . $i . "</td>
+                            <td>" . mb_strtoupper($item['name']) . "</td>
+                            <td class='text-center " . $text_color . "'>" . $modules_qualifications[$item['courseModuleId']]->score . "</td>
+                            <td class='text-center " . $text_color . "' style='text-transform: uppercase;'><i>" . $score_txt . "</i></td>
+                        </tr>";
+        $i++;
     }
-    $html_modules .= "<tr>
-                        <td class='text-center'>" . $i . "</td>
-                        <td>" . mb_strtoupper($item['name']) . "</td>
-                        <td class='text-center " . $text_color . "'>" . $modules_qualifications[$item['courseModuleId']]->score . "</td>
-                        <td class='text-center " . $text_color . "' style='text-transform: uppercase;'><i>" . $score_txt . "</i></td>
-                    </tr>";
-    $i++;
+}
+foreach($modules as $item)
+{
+    $text_color = '';
+    if($modules_qualifications[$item['courseModuleId']]->extra == 1)
+    {
+        if($modules_qualifications[$item['courseModuleId']]->score < $minCal)
+        {
+            $text_color = 'text-danger';
+            $score = 'NA';
+            $score_txt = 'NO APROBADO';
+        }
+        if($modules_qualifications[$item['courseModuleId']]->score >= $minCal)
+        {
+            $score = 'A';
+            $score_txt = 'APROBADO';
+        }
+        if($modules_qualifications[$item['courseModuleId']]->score == 0) 
+        {
+            $text_color = 'text-danger';
+            $score = 'NP';
+            $score_txt = 'NO PRESENTÓ';
+        }
+        $html_extra_modules .= "<tr>
+                            <td class='text-center'>" . $i . "</td>
+                            <td>" . mb_strtoupper($item['name']) . "</td>
+                            <td class='text-center " . $text_color . "'>" . $score . "</td>
+                            <td class='text-center " . $text_color . "' style='text-transform: uppercase;'><i>" . $score_txt . "</i></td>
+                        </tr>";
+        $i++;
+    }
 }
 $html .="<html>
             <head>
@@ -109,7 +147,7 @@ $html .="<html>
                     #signature {
                         width: 230px;
                         position: fixed;
-                        bottom: 480px;
+                        bottom: 390px;
                         right: 210px;
                     }
                 </style>
@@ -156,6 +194,22 @@ $html .="<html>
                         <td class='text-center'><b>En Letra</b></td>
                     </tr>
                     " . $html_modules . "
+                </table><br>
+                <table align='center' width='100%' border='1' class='txtTicket'>
+                    <tr>
+                        <td colspan='4' class='text-center'><b>ASIGNATURAS EXTRACURRICULARES (SIN CRÉDITOS)</b></td>
+                    </tr>
+                    <tr>
+                        <td rowspan='2' class='text-center'><b>No.</b></td>
+                        <td rowspan='2' class='text-center'><b>Materias</b></td>
+                        <td class='text-center'><b>Calificación</b></td>
+                        <td class='text-center'><b>Calificación</b></td>
+                    </tr>
+                    <tr>
+                        <td class='text-center'><b>En Número</b></td>
+                        <td class='text-center'><b>En Letra</b></td>
+                    </tr>
+                    " . $html_extra_modules . "
                 </table><br>
                 <center>
                     <p>Tuxtla Gutiérrez, Chiapas; " . mb_strtolower($util->FormatReadableDate($qualification['date'])) . ".</p>

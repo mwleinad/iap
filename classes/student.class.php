@@ -2765,7 +2765,7 @@ class Student extends User
 			$condition .= " AND subject_module.semesterId = " . $period;
 		if(!$english)
 			$condition .= " AND subject_module.subjectModuleId NOT IN (246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257)";
-		$sql = "SELECT * 
+		$sql = "SELECT *, IF(subject_module.clave LIKE '%ING%', 1, 0) AS extra
 					FROM course_module
 						LEFT JOIN subject_module 
 							ON subject_module.subjectModuleId = course_module.subjectModuleId
@@ -2841,6 +2841,7 @@ class Student extends User
 			if($score == 0) 
 				$score = 'NP';
 			$qualifications[] = [
+				'extra' => $item['extra'],
 				'courseModule' => $item['courseModuleId'],
 				'subjectModule' => $item['subjectModuleId'],
 				'start' => $item['initialDate'],
@@ -2869,6 +2870,7 @@ class Student extends User
 		$fileName = [];
 		$email = $infoStudent['email'];
 		// $email = 'carloszh04@gmail.com';
+		// $email = false;
 		if($email)
 			$sendmail->PrepareAttachment($message[4]["subject"], $message[4]["body"], $details_body, $details_subject, $email, '', $attachment, $fileName);
 		return $qualificationsId;

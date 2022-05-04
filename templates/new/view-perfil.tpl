@@ -6,7 +6,7 @@
 		{if $infoStudent8.imagen eq ''}
 			<i class="fas fa-user-circle fa-5x"></i>
 		{else}
-			<img src="{{$infoStudent8.imagen}}" class="img-responsive" alt=""> 
+			<img src="{{$infoStudent8.imagen}}" class="img-responsive" style="max-width: 400px;" alt=""> 
 		{/if}
 		<h5 class="card-title">{$infoStudent8.names|upper} {$infoStudent8.lastNamePaterno|upper} {$infoStudent8.lastNameMaterno|upper}</h5>
 		<ul class="nav nav-tabs">
