@@ -177,8 +177,8 @@ $html .="<html>
                     </tr>
                     <tr>
                         <td class='text-center' style='text-transform: capitalize;'><b>" . $infoCourse['tipoCuatri'] . ":</b></td>
-                        <td> " . $util->num2order($qualification['semesterId']) . "</td>
-                        <td class='text-center'><b>Periodo:</b> " . $qualification['period'] . ' ' . $qualification['year'] . "</td>
+                        <td> " . mb_strtoupper($util->num2order($qualification['semesterId'])) . "</td>
+                        <td class='text-center'><b>Periodo:</b> " . mb_strtoupper($qualification['period']) . ' ' . $qualification['year'] . "</td>
                         <td class='text-center'><b>Grupo:</b> " . $infoCourse['group'] . "</td>
                     </tr>
                 </table>

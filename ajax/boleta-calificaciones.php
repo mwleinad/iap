@@ -194,8 +194,8 @@ else
                         </tr>
                         <tr>
                             <td class='text-center' style='text-transform: capitalize;'><b>" . $infoCourse['tipoCuatri'] . ":</b></td>
-                            <td> " . $util->num2order($_POST['semester']) . "</td>
-                            <td class='text-center'><b>Periodo:</b> " . $_POST['period'] . ' ' . $_POST['year'] . "</td>
+                            <td> " . mb_strtoupper($util->num2order($_POST['semester'])) . "</td>
+                            <td class='text-center'><b>Periodo:</b> " . mb_strtoupper($_POST['period']) . ' ' . $_POST['year'] . "</td>
                             <td class='text-center'><b>Grupo:</b> " . $infoCourse['group'] . "</td>
                         </tr>
                     </table>
