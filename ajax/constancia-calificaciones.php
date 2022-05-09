@@ -128,13 +128,13 @@ $html .="<html>
                 </p>
                 <p class='text-center'><b>C. " . $infoStudent['names'] . " " . $infoStudent['lastNamePaterno'] . " " . $infoStudent['lastNameMaterno'] . "</b></p><br>
                 <p>
-                    Con número de matrícula " . $verb . " " . $subject . " <b>\"" . $infoCourse['majorName'] . " EN " . $infoCourse['name'] . "\"</b> modalidad " . $modality . " plan " . $typeCourse . ", generación " . $infoCourse['scholarCicle'] . "; ha obtenido las siguientes calificaciones.
+                    Con número de matrícula <b>" . $student->GetMatricula($_GET['course']) . "</b> " . $verb . " " . $subject . " <b>\"" . $infoCourse['majorName'] . " EN " . $infoCourse['name'] . "\"</b> modalidad " . $modality . " plan " . $typeCourse . ", generación " . $infoCourse['scholarCicle'] . "; ha obtenido las siguientes calificaciones.
                 </p>
                 <p style='font-size: 7pt;'><i><u>
                     CUBRIENDO MÁS DEL 50% DEL TOTAL DE CRÉDITOS DEL PLAN DE ESTUDIOS " . $subject2 . " " . $infoCourse['majorName'] . " EN " . $infoCourse['name'] . "
                 </u></i></p>
                 <p>
-                    A petición de la parte interesada y para los usos legales que mejor convengan, se extiende la presente en la ciudad de Tuxtla Gutiérrez, Chiapas; a los " . $date[2] . " días del mes de " . $util->ConvertirMes($date[1]) . " del año " . mb_strtolower($util->num2letras($date[0])) . ".
+                    A petición de la parte interesada y para los usos legales que mejor convengan, se extiende la presente en la ciudad de Tuxtla Gutiérrez, Chiapas; a los " . $date[2] . " días del mes de " . mb_strtolower($util->GetMonthByKey(intval($date[1]))) . " del año " . mb_strtolower($util->num2letras($date[0])) . ".
                 </p>
                 <br><br>
                 <p><b>ATENTAMENTE</b></p>
