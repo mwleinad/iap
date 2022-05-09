@@ -94,6 +94,10 @@
 							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=constancia-sencilla-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Constancia Sencilla">
 								<i class="fas fa-file-alt"></i> Constancia Sencilla
 							</a>
+							{* Constancia del 50% *}
+							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=constancia-calificaciones-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Constancia Sencilla">
+								<i class="fas fa-file-alt"></i> Constancia del 50%
+							</a>
 							<a class="dropdown-item" href="{$WEB_ROOT}/diplomas.php?id={$subject.courseId}" target="_blank" title="Diplomas">
 								<i class="fas fa-clipboard-check"></i> Diplomas
 							</a>

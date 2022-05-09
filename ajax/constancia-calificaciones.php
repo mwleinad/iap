@@ -45,11 +45,18 @@ if($infoStudent['sexo'] == 'm')
     $verb = 'inscrito';
 
 $subject = 'a la';
+$subject2 = ' DE LA';
 if($infoCourse['majorId'] == 18)
-    $verb = 'a el';
+{
+    $subject = 'a el';
+    $subject2 = 'DEL';
+}
 
 $institution->setInstitutionId(1);
 $myInstitution = $institution->Info();
+/* echo "<pre>";
+print_r($myInstitution);
+exit; */
 /**
  * $infoCourse
  * $infoStudent
@@ -58,7 +65,7 @@ $date = explode('-', $_GET['date']);
 
 $html .="<html>
             <head>
-                <title>Constancia Sencilla</title>
+                <title>Constancia Del 50%</title>
                 <style type='text/css'>
                     body {
                         font-family: sans-serif;
@@ -117,12 +124,15 @@ $html .="<html>
                 </p><br>
                 <p><b>A QUIEN CORRESPONDA:</b></p><br>
                 <p>
-                    La que suscribe Directora Académica del Instituto de Administración Pública del Estado de Chiapas, hace constar que la:
+                    La Dirección Académica del Instituto de Administración Pública del Estado de Chiapas, régimen particular, clave " . $myInstitution['identifier'] . "; hace constar que él:
                 </p>
                 <p class='text-center'><b>C. " . $infoStudent['names'] . " " . $infoStudent['lastNamePaterno'] . " " . $infoStudent['lastNameMaterno'] . "</b></p><br>
                 <p>
-                    Con número de matrícula está " . $verb . " " . $subject . " <b>\"" . $infoCourse['majorName'] . " EN " . $infoCourse['name'] . "\"</b> modalidad " . $modality . " plan " . $typeCourse . ", generación " . $infoCourse['scholarCicle'] . ".
+                    Con número de matrícula " . $verb . " " . $subject . " <b>\"" . $infoCourse['majorName'] . " EN " . $infoCourse['name'] . "\"</b> modalidad " . $modality . " plan " . $typeCourse . ", generación " . $infoCourse['scholarCicle'] . "; ha obtenido las siguientes calificaciones.
                 </p>
+                <p style='font-size: 7pt;'><i><u>
+                    CUBRIENDO MÁS DEL 50% DEL TOTAL DE CRÉDITOS DEL PLAN DE ESTUDIOS " . $subject2 . " " . $infoCourse['majorName'] . " EN " . $infoCourse['name'] . "
+                </u></i></p>
                 <p>
                     A petición de la parte interesada y para los usos legales que mejor convengan, se extiende la presente en la ciudad de Tuxtla Gutiérrez, Chiapas; a los " . $date[2] . " días del mes de " . $util->ConvertirMes($date[1]) . " del año " . mb_strtolower($util->num2letras($date[0])) . ".
                 </p>
