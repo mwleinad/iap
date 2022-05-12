@@ -18,6 +18,8 @@
 	//$smarty->assign('id_act',$_GET["id"] );
 	$actividades = $activity->Enumerate("Tarea");
 	$smarty->assign('actividades', $actividades);
+	$examenes = $activity->Enumerate("Examen");
+	$smarty->assign('examenes', $examenes);
 	
 	// echo "<pre>"; print_r($actividades);
  	// exit;
@@ -44,7 +46,9 @@
 		unset($_SESSION["tareaId"]);
 	}
 	
+	$consecutive = 1;
 	$smarty->assign('totalScore', $totalScore);
+	$smarty->assign('consecutive', $consecutive);
 
 	$totalPonderation = $activity->TotalPonderation();
 	$smarty->assign('totalPonderation', $totalPonderation);

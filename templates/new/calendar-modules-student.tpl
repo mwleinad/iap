@@ -63,7 +63,7 @@
                                 <tbody>
                                     {foreach from=$actividades item=item}
                                         <tr class="{if $timestamp > $item.initialDateTimestamp && $timestamp < $item.finalDateTimestamp} table-success {/if} {if $timestamp > $item.finalDateTimestamp} table-danger {/if} {if $timestamp < $item.initialDateTimestamp} table-danger {/if}">
-                                            <td class="text-center">{$item.count}</td>
+                                            <td class="text-center">{$consecutive++}</td>
                                             <td>{include file="{$DOC_ROOT}/templates/lists/new/module-calendar-td.tpl"}</td>
                                             <td>
                                                 <p><b>Valor de la Actividad:</b> {$item.activityScore}%</p>
@@ -130,6 +130,32 @@
                                                     <b class="break-line">Archivo Adjunto Disponible:</b><br><br>
                                                     <a href='{$WEB_ROOT}/file_retro/{$item.retroFile}' target="_blank" class="bb" style="background: #73b760; color:white">Descargar</a>
                                                 {/if}
+                                            </td>
+                                        </tr>
+                                        {* {include file="{$DOC_ROOT}/templates/lists/new/module-calendar.tpl"} *}
+                                    {/foreach}
+                                    {foreach from=$examenes item=item}
+                                        <tr class="{if $timestamp > $item.initialDateTimestamp && $timestamp < $item.finalDateTimestamp} table-success {/if} {if $timestamp > $item.finalDateTimestamp} table-danger {/if} {if $timestamp < $item.initialDateTimestamp} table-danger {/if}">
+                                            <td class="text-center">{$consecutive++}</td>
+                                            <td>{include file="{$DOC_ROOT}/templates/lists/new/module-calendar-td.tpl"}</td>
+                                            <td>
+                                                {if $item.ponderation}
+                                                    <p>
+                                                        <b>Calificación:</b> {$item.ponderation}<br />
+                                                        <b>Porcentaje obtenido: </b>{$item.realScore}%
+                                                    </p>
+                                                    <div class="progress">
+                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: {$item.ponderation}%" aria-valuenow="{$item.ponderation}" aria-valuemin="0" aria-valuemax="100">{$item.ponderation}%</div>
+                                                    </div>
+                                                {/if}
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-center">
+                                                <a href="{$WEB_ROOT}/graybox.php?page=view-description-activity&id={$item.activityId};" class="btn btn-info btn-xs" data-target="#ajax" data-toggle="modal" >
+                                                    <i class="fas fa-info-circle"></i> Descripción
+                                                </a>
                                             </td>
                                         </tr>
                                         {* {include file="{$DOC_ROOT}/templates/lists/new/module-calendar.tpl"} *}

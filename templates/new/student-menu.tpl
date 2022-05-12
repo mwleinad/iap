@@ -29,9 +29,9 @@
         <a href="{$WEB_ROOT}/calendar-modules-student/id/{$id}" class="list-group-item list-group-item-action text-white">
             <b>Actividades <i class="fas fa-clipboard-list float-right"></i></b>
         </a>
-        <a href="{$WEB_ROOT}/examen-modules-student/id/{$id}" class="list-group-item list-group-item-action text-white">
+        {* <a href="{$WEB_ROOT}/examen-modules-student/id/{$id}" class="list-group-item list-group-item-action text-white">
             <b>Exámenes <i class="fas fa-tasks float-right"></i></b>
-        </a>
+        </a> *}
         <a href="{$WEB_ROOT}/resources-modules-student/id/{$id}" class="list-group-item list-group-item-action text-white">
             <b>Recursos de Apoyo <i class="fas fa-folder-open float-right"></i></b>
         </a>
