@@ -120,7 +120,7 @@ $html .="<html>
                         <img src='" . DOC_ROOT . "/images/Escudo.jpg' id='mexico' />
                         <td width='10'>&nbsp;</td>
                         <td width='90'>
-                            <span style='font-size: 6pt; position: absolute; left: 525px; top: -15px; width: 80px;'>AEG-16-" . str_replace('20', '', $array_date[0]) . "</span>
+                            <span style='font-size: 6pt; position: absolute; left: 525px; top: -15px; width: 80px;'>AEG-16-" . str_replace('20', '', date('Y')) . "</span>
                             <p style='line-height: 17px; text-align: center; font-family: Times;'>
                                 <label style='font-size: 13pt;'><b>GOBIERNO CONSTITUCIONAL DEL ESTADO DE CHIAPAS</b></label><br>
                                 <label style='font-size: 13pt;'><b>SECRETARÍA DE EDUCACIÓN</b></label><br>
@@ -159,6 +159,9 @@ $html .="<html>
                 </label>
                 <label style='font-size: 8pt; position: absolute; left: 180px; top: 398px; width: 500px; font-weight: bold;'>
                     " . $myInstitution['name_long'] . "
+                </label>
+                <label style='font-size: 9pt; position: absolute; left: 535px; top: 170px; width: 500px; font-weight: bold;'>
+                    No. <span style='color: red;'>" . $_POST['folio'] . "</span>
                 </label>
                 <table width='100%'>
                     <tr style='font-size: 9pt;'>
@@ -251,7 +254,7 @@ $html .="<html>
                                 ___________________________________
                                 <br>
                                 PRESIDENTE
-                                <br><br><br>
+                                <br><br>
                             </td>
                             <td style='width: 40%'></td>
                             <td style='font-size: 9pt; text-align: center;'>
@@ -260,7 +263,7 @@ $html .="<html>
                                 ___________________________________
                                 <br>
                                 CÉDULA PROFESIONAL No. " . $_POST['cedulaPresidente'] . "
-                                <br><br><br>
+                                <br><br>
                             </td>
                         </tr>
                         <tr>
@@ -270,7 +273,7 @@ $html .="<html>
                                 ___________________________________
                                 <br>
                                 SECRETARIO
-                                <br><br><br>
+                                <br><br>
                             </td>
                             <td style='width: 40%'></td>
                             <td style='font-size: 9pt; text-align: center;'>
@@ -278,7 +281,7 @@ $html .="<html>
                                 ___________________________________
                                 <br>
                                 CÉDULA PROFESIONAL No. " . $_POST['cedulaSecretario'] . "
-                                <br><br><br>
+                                <br><br>
                             </td>
                         </tr>
                         <tr>
@@ -288,7 +291,7 @@ $html .="<html>
                                 ___________________________________
                                 <br>
                                 VOCAL
-                                <br><br><br>
+                                <br><br>
                             </td>
                             <td style='width: 40%'></td>
                             <td style='font-size: 9pt; text-align: center;'>
@@ -296,7 +299,7 @@ $html .="<html>
                                 ___________________________________
                                 <br>
                                 CÉDULA PROFESIONAL No. " . $_POST['cedulaVocal'] . "
-                                <br><br><br>
+                                <br><br>
                             </td>
                         </tr>
                         <tr>
