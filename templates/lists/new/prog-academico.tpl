@@ -5,6 +5,7 @@
 			<th>Clave</th>
 			<th>Tipo</th>
 			<th>Nombre</th>
+			<th>Periodo</th>
 			<th>Modalidad</th>
 			<th>Grupo</th>
 			<th>Materias</th>
@@ -18,6 +19,7 @@
 				<td>{$subject.clave}</td>
 				<td>{$subject.majorName}</td>
 				<td>{$subject.name}</td>
+				<td>{$subject.initialDate} | {$subject.finalDate}</td>
 				<td>{if $subject.modality eq 'Local'}Escolar{else}{$subject.modality}{/if}</td>
 				<td>{$subject.group}</td>
 				<td>
