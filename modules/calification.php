@@ -17,8 +17,16 @@ if($_POST)
     $module->EditModuleToCourse();
 }
 
-
-
+$module->setCourseModuleId($_GET["id"]);
+$moduleInfo = $module->InfoCourseModule();
+$isEnglish = false;
+$minCal = 70;
+if($moduleInfo['majorId'] == 18)
+    $minCal = 80;
+if(substr($moduleInfo['claveMateria'], 0, 3) == 'ING')
+{
+    $isEnglish = true;
+}
 $activity->setCourseModuleId($_GET["id"]);
 $actividades = $activity->Enumerate();
 $smarty->assign('actividades', $actividades);
@@ -50,5 +58,7 @@ $group->setCourseId($info["courseId"]);
 $theGroup = $group->DefaultGroup();
 
 $smarty->assign('theGroup', $theGroup);
-
+$smarty->assign('moduleInfo', $moduleInfo);
+$smarty->assign('minCal', $minCal);
+$smarty->assign('isEnglish', $isEnglish);
 ?>

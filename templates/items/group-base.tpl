@@ -23,7 +23,17 @@
 				{/if}
 			</td> 
 		{/section}
-        <td class="text-center">{$item.addepUp}%</td>
+        <td class="text-center">
+			{if $isEnglish eq true}
+				{if floatval($item.addepUp) ge floatval($minCal)}
+					Aprobado
+				{else}
+					No Aprobado
+				{/if}
+			{else}
+				{$item.addepUp}%
+			{/if}
+		</td>
     </tr>
 {foreachelse}
 	<tr><td colspan="4" class="text-center">No se encontró ningún registro.</td></tr>

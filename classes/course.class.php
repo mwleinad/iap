@@ -1067,7 +1067,9 @@
 			//print_r($result);exit;
 			foreach($result as $key => $res)
 			{
-				
+				$isEnglish = 0;
+				if(substr($result[$key]['clave'], 0, 3) == 'ING')
+					$isEnglish = 1;
 				//verifica si el alumno ya completo la encuesta
 				$sql = "
 					SELECT count(*)
@@ -1119,6 +1121,7 @@
 				$result[$key]["totalScore"] = $student->GetAcumuladoCourseModule($res["courseModuleId"]);
 				$result[$key]["calificacionFinal"] = $infoCc['calificacion'];
 				$result[$key]["countEval"] = $countEval;
+				$result[$key]["isEnglish"] = $isEnglish;
 			}
 			
 			return $result;

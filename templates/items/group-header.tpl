@@ -8,5 +8,11 @@
 	{section name=foo loop=$totalActividades} 
 		<th>Cal. {$smarty.section.foo.iteration}</th> 
 	{/section}
-	<th>Acumulado</th>
+	<th>
+		{if $isEnglish eq true}
+			Resultado
+		{else}
+			Acumulado
+		{/if}
+	</th>
 </tr>
