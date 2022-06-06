@@ -11,6 +11,13 @@ session_start();
 $util = new Util;
 $module->setCourseModuleId($_GET["Id"]);
 $info = $module->InfoCourseModule();	
+/* echo "<pre>";
+var_dump($info);
+exit; */
+
+$isEnglish = false;
+if(substr($info['clave'], 0, 3) == 'ING')
+	$isEnglish = true;
 	
 if($info['modality'] == 'Online')
 {
@@ -130,17 +137,41 @@ $infoPersonal = $personal->Info();
 				}
 				else if($aux['score'] < 7  and $info['majorName'] == 'MAESTRÍA')
 				{
-					$html .= "<td><center><font color='red'>".$aux['score']."</font></center></td>";
-					$html .= "<td><center><font color='red'>".$h."</font></center></td>";
+					if($isEnglish)
+					{
+						$html .= "<td><center><font color='red'>NA</font></center></td>";
+						$html .= "<td><center><font color='red'>No Aprobado</font></center></td>";
+					}
+					else
+					{
+						$html .= "<td><center><font color='red'>".$aux['score']."</font></center></td>";
+						$html .= "<td><center><font color='red'>".$h."</font></center></td>";
+					}
 				}
 				else if($aux['score'] < 8  and $info['majorName'] == 'DOCTORADO')
 				{
-					$html .= "<td><center><font color='red'>".$aux['score']."</font></center></td>";
-					$html .= "<td><center><font color='red'>".$h."</font></center></td>";
+					if($isEnglish)
+					{
+						$html .= "<td><center><font color='red'>NA</font></center></td>";
+						$html .= "<td><center><font color='red'>No Aprobado</font></center></td>";
+					}
+					else
+					{
+						$html .= "<td><center><font color='red'>".$aux['score']."</font></center></td>";
+						$html .= "<td><center><font color='red'>".$h."</font></center></td>";
+					}
 				}
 				else{
-					$html .= "<td><center>".$aux['score']."</center></td>";
-					$html .= "<td><center>".$h."</center></td>";
+					if($isEnglish)
+					{
+						$html .= "<td><center>A</center></td>";
+						$html .= "<td><center>Aprobado</center></td>";
+					}
+					else
+					{
+						$html .= "<td><center>".$aux['score']."</center></td>";
+						$html .= "<td><center>".$h."</center></td>";
+					}
 				}
 				$html .= "</tr>";
 			}  
@@ -239,17 +270,43 @@ $infoPersonal = $personal->Info();
 					$html .= "<td><center><font color='red'>NP</font></center></td>";
 					$html .= "<td><center><font color='red'>NO PRESENTÓ</font></center></td>";
 				}
-				else if($aux['score'] < 7  and $info['majorName'] == 'MAESTRÍA'){
-					$html .= "<td><center><font color='red'>".$aux['score']."</font></center></td>";
-					$html .= "<td><center><font color='red'>".$h."</font></center></td>";
+				else if($aux['score'] < 7  and $info['majorName'] == 'MAESTRÍA')
+				{
+					if($isEnglish)
+					{
+						$html .= "<td><center><font color='red'>NA</font></center></td>";
+						$html .= "<td><center><font color='red'>No Aprobado</font></center></td>";
+					}
+					else
+					{
+						$html .= "<td><center><font color='red'>".$aux['score']."</font></center></td>";
+						$html .= "<td><center><font color='red'>".$h."</font></center></td>";
+					}
 				}
-				else if($aux['score'] < 8  and $info['majorName'] == 'DOCTORADO'){
-					$html .= "<td><center><font color='red'>".$aux['score']."</font></center></td>";
-					$html .= "<td><center><font color='red'>".$h."</font></center></td>";
+				else if($aux['score'] < 8  and $info['majorName'] == 'DOCTORADO')
+				{
+					if($isEnglish)
+					{
+						$html .= "<td><center><font color='red'>NA</font></center></td>";
+						$html .= "<td><center><font color='red'>No Aprobado</font></center></td>";
+					}
+					else
+					{
+						$html .= "<td><center><font color='red'>".$aux['score']."</font></center></td>";
+						$html .= "<td><center><font color='red'>".$h."</font></center></td>";
+					}
 				}
 				else{
-					$html .= "<td><center>".$aux['score']."</center></td>";
-					$html .= "<td><center>".$h."</center></td>";
+					if($isEnglish)
+					{
+						$html .= "<td><center>A</center></td>";
+						$html .= "<td><center>Aprobado</center></td>";
+					}
+					else
+					{
+						$html .= "<td><center>".$aux['score']."</center></td>";
+						$html .= "<td><center>".$h."</center></td>";
+					}
 				}
 				$html .= "</tr>";
 			}  

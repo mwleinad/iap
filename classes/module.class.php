@@ -202,6 +202,7 @@
 						subject_module.subjectModuleId as Id,
 						subject_module.semesterId as semesId,
 						subject_module.icon as icon,
+						subject_module.clave as clave,
 						c.courseId as courseId,
 						c.modality as modality,
 						c.group as groupA,
