@@ -21,8 +21,8 @@
 	}
 
 	
-	// echo '<pre>'; print_r($lstPreguntas);
-	// exit;
+	/* echo '<pre>'; print_r($lstPreguntas);
+	exit; */
 	$smarty->assign('mId', $_GET["id"]);
 	$smarty->assign('lstPreguntas', $lstPreguntas);
 

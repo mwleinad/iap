@@ -92,6 +92,8 @@ class Encuesta extends Main
 				FROM 
 					user_subject
 				where 
+					status = 'activo' AND 
+					situation = 'A' AND 
 					courseId = ".$courseId."";
 			
 		$this->Util()->DB()->setQuery($sql);
