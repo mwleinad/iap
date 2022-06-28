@@ -224,7 +224,8 @@ $pages = array(
 	'titulacion',
 	'indicadores',
 	'acta-examen-course',
-	'boletas'
+	'boletas',
+	'niveles-ingles'
 );
 
 if(!in_array($_GET['page'], $pages))

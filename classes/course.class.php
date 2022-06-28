@@ -1554,5 +1554,46 @@
 		$result = $this->Util()->DB()->GetResult();
 		return $result;
 	}
+
+	function SaveEnglishLevels($data)
+	{
+		$identifiers = [
+			1 => 'INGI',
+			2 => 'INGII',
+			3 => 'INGIII',
+			4 => 'INGIV',
+			5 => 'INGV',
+			6 => 'INGVI',
+			7 => 'INGVII',
+			8 => 'INGVIII',
+			9 => 'INGIX',
+			10 => 'INGX'
+		];
+		foreach($data as $userId => $levels)
+        {
+            $sql = "DELETE FROM english_levels WHERE courseId = " . $this->courseId . " AND userId = " . $userId;
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->DeleteData();
+            foreach($levels as $item)
+            {
+                $sql = "INSERT INTO english_levels(courseId, userId, validated_level, identifier) VALUES(" . $this->courseId . ", " . $userId . ", " . $item . ", '" . $identifiers[$item] . "')";
+				$this->Util()->DB()->setQuery($sql);
+				$result = $this->Util()->DB()->InsertData();
+            } 
+        }
+	}
+
+	function GetEnglishLevels()
+	{
+		$data = [];
+		$sql = "SELECT * FROM english_levels WHERE courseId = " . $this->courseId . ' ORDER BY userId, validated_level';
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		foreach($result as $item)
+		{
+			$data[$item['userId']][] = $item['validated_level'];
+		}
+		return $data;
+	}
 }	
 ?>

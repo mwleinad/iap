@@ -800,10 +800,19 @@ class Group extends Module
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 		$student = New Student;
+		// Niveles Ingles
+		$english = $this->ValidatedEnglish();
+		$sql = "SELECT sm.semesterId 
+					FROM course_module cm
+						INNER JOIN subject_module sm 
+							ON cm.subjectModuleId = sm.subjectModuleId 
+					WHERE cm.courseModuleId = " . $this->coursemoduleId;
+		$this->Util()->DB()->setQuery($sql);
+		$semesterId = $this->Util()->DB()->GetSingle();
 		foreach($result as $key => $res)
 		{
 			$sql = "SELECT *
-						FROM course_module_score
+						FROM course_module_score cms
 					WHERE courseModuleId = '" . $this->coursemoduleId . "' AND userId = " . $res["alumnoId"] . " AND courseId = " . $res["courseId"] . "";
 			$this->Util()->DB()->setQuery($sql);
 			$infoCc = $this->Util()->DB()->GetRow();
@@ -858,6 +867,23 @@ class Group extends Module
 				$result[$key]["score"] = 7;
 			else */
 			$result[$key]["score"] = $infoCc["calificacion"];
+			$result[$key]['is_english'] = $english['is_english'];
+			$result[$key]['is_validated'] = 0;
+			if($english['is_english'] == 1)
+			{
+				$validated = $english['validated'][$res['alumnoId']];
+				// var_dump($english['validated'][$res['alumnoId']]);
+				if(is_array($english['validated'][$res['alumnoId']]))
+				{
+					if(in_array($semesterId, $validated))
+					{
+						$result[$key]['is_validated'] = 1;
+						$infoCc["calificacion"] = 10;
+						$result[$key]["score"] = 10;
+						$result[$key]["addepUp"] = 10;
+					}
+				}
+			}
 		}
 		return $result;
 	}	
@@ -1492,6 +1518,28 @@ class Group extends Module
 		$this->Util()->DB()->setQuery($sql);
 		$recursion = $this->Util()->DB()->GetSingle();
 		return ['total' => $total, 'recursion' => $recursion];
+	}
+
+	function ValidatedEnglish()
+	{
+		$data['is_english'] = 0;;
+		$sql = "SELECT cm.courseId, cm.courseModuleId, sm.subjectModuleId, sm.semesterId, sm.clave, sm.name, IF(sm.clave LIKE '%ING%', 1, 0) AS is_english
+					FROM course_module cm 
+						INNER JOIN subject_module sm 
+							ON cm.subjectModuleId = sm.subjectModuleId
+				WHERE cm.courseModuleId = " . $this->coursemoduleId;
+		$this->Util()->DB()->setQuery($sql);
+		$course_module = $this->Util()->DB()->GetRow();
+		if($course_module['is_english'] == 1)
+		{
+			$data['is_english'] = 1;
+			$sql = "SELECT * FROM english_levels WHERE courseId = " . $course_module['courseId'] . ' ORDER BY userId, validated_level';
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->GetResult();
+			foreach($result as $item)
+				$data['validated'][$item['userId']][] = $item['validated_level'];
+		}
+		return $data;
 	}
 }	
 ?>

@@ -226,7 +226,8 @@ $pages = array(
     'indicadores',
     'acta-examen-course',
     'constancia-sencilla-course',
-    'constancia-calificaciones-course'
+    'constancia-calificaciones-course',
+    'niveles-ingles'
 );
 
 if(!in_array($_GET['page'], $pages))

@@ -65,6 +65,9 @@
 									<i class="fas fa-cog"></i> Matrículas
 								</a>
 							{/if}
+							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=niveles-ingles&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Niveles de Inglés">
+								<i class="far fa-check-square"></i> Niveles de Inglés
+							</a>
 							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=titulacion&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Títulos">
 								<i class="fas fa-file-signature"></i> Títulos
 							</a>

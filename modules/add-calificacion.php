@@ -20,6 +20,9 @@
 	$smarty->assign('noTeam', $noTeam);
 	$studentsRepeat = $group->actaCalificacionRepeat();
 	$smarty->assign('studentsRepeat', $studentsRepeat);
+	/* echo "<pre>";
+	var_dump($noTeam);
+	exit; */
 	
 	$numberTeams = $group->GetNumberOfTeams();
 	$smarty->assign('numberTeams', $numberTeams);
