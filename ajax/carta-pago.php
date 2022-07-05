@@ -7,7 +7,7 @@ use Dompdf\Dompdf;
 use Dompdf\Exception;
 
 session_start();
-if($_SESSION['User']['perfil'] != 'Docente')
+if($_SESSION['User']['perfil'] != 'Docente' && $_SESSION['User']['perfil'] != 'Administrador')
 	exit;
 
 	
@@ -46,7 +46,7 @@ $html .="<html>
 				<br><br><br><br><br>
 				<p>
 					<b>LIC. GUILMAR EUCARIO SARMIENTO ZENTENO</b><br>
-					<b>COORDINADOR ADMINISTRATIVO DEL  IAP CHIAPAS.</b><br>
+					<b>SECRETARIO ADMINISTRATIVO DEL  IAP CHIAPAS.</b><br>
 					<b>PRESENTE.</b>
 				</p>
 				<br><br>
