@@ -26,14 +26,16 @@
     <div id="additional" class="row"></div>
 
     <div class="row d-flex justify-content-center">
-        {*<div class="form-group col-md-6">
-            <label for="pe">Periodo</label>
-            <select name="pe" id="pe" class="form-control">
-            </select>
-        </div>*}
         <div class="form-group col-md-6">
             <label for="date">Fecha de Boleta</label>
             <input type="text" name="date" id="date" class="form-control i-calendar" required />
+        </div>
+        <div class="form-group col-md-6">
+            <label for="notification">¿Notificar por Correo?</label>
+            <select name="notification" id="notification" class="form-control">
+                <option value="1">Si</option>
+                <option value="0">No</option>
+            </select>
         </div>
     </div>
 

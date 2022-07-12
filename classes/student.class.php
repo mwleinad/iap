@@ -2827,7 +2827,7 @@ class Student extends User
 		return $result;
 	}
 
-	public function SaveQualifications($courseId, $semesterId, $cycle, $period, $date, $year, $modules, $course)
+	public function SaveQualifications($courseId, $semesterId, $cycle, $period, $date, $year, $modules, $course, $send_message)
 	{
 		/* echo "<pre>";
 		print_r($course);
@@ -2869,9 +2869,9 @@ class Student extends User
 		$attachment = [];
 		$fileName = [];
 		$email = $infoStudent['email'];
-		// $email = 'carloszh04@gmail.com';
+		$email = 'carloszh04@gmail.com';
 		// $email = false;
-		if($email)
+		if($email != '' && $send_message == 1)
 			$sendmail->PrepareAttachment($message[4]["subject"], $message[4]["body"], $details_body, $details_subject, $email, '', $attachment, $fileName);
 		return $qualificationsId;
 	}

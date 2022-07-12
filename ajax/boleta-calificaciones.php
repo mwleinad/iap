@@ -32,7 +32,7 @@ if(count($students) > 1)
         $student->setUserId($item);
         $infoStudent = $student->GetInfo();
         $modules = $student->BoletaCalificacion($_POST['course'], $_POST['semester'], false);
-        $qualificationsId = $student->SaveQualifications($_POST['course'], $_POST['semester'], $_POST['cycle'], $_POST['period'], $_POST['date'], $_POST['year'], $modules, $infoCourse);
+        $qualificationsId = $student->SaveQualifications($_POST['course'], $_POST['semester'], $_POST['cycle'], $_POST['period'], $_POST['date'], $_POST['year'], $modules, $infoCourse, $_POST['notification']);
         echo "<script>
                 alert('Las boletas se guardaron de manera correcta...');
                 window.close();
@@ -44,7 +44,7 @@ else
     $student->setUserId($students[0]);
     $infoStudent = $student->GetInfo();
     $modules = $student->BoletaCalificacion($_POST['course'], $_POST['semester'], true);
-    $qualificationsId = $student->SaveQualifications($_POST['course'], $_POST['semester'], $_POST['cycle'], $_POST['period'], $_POST['date'], $_POST['year'], $modules, $infoCourse);
+    $qualificationsId = $student->SaveQualifications($_POST['course'], $_POST['semester'], $_POST['cycle'], $_POST['period'], $_POST['date'], $_POST['year'], $modules, $infoCourse, $_POST['notification']);
     $qualifications = $student->GetQualifications($qualificationsId);
     $target_path = DOC_ROOT . '/tmp/' . $qualifications['id'] . '.jpg';
     if (!file_exists($target_path))
