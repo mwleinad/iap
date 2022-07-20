@@ -33,6 +33,9 @@ else
 	
 $course->setCourseId($info["courseId"]);
 $infoCo = $course->Info();	
+/* echo "<pre>";
+print_r($infoCo);
+exit; */
 $group->setCourseModuleId($_GET["Id"]);
 $group->setCourseId($info["courseId"]);
 $group->setTipoMajor($info["majorName"]);
@@ -77,11 +80,11 @@ $infoPersonal = $personal->Info();
 	</head>
 	<body>
 		<div class='wrapper-page'>
-			<img src='".DOC_ROOT."/images/logo_correo.jpg'>
+			<img src='" . DOC_ROOT . "/images/logo_correo.jpg'>
 			<center>	
 			<b>INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, A.C.</b>
 			<br>
-			<b>".$info['majorName'].": ".$info['subjectName']."</b><br>
+			<b>" . $info['majorName'] . ": " . $info['subjectName'] . "</b><br>
 			<b>ACTA DE CALIFICACIÓN FINAL</b><br>
 			</center>	
 			<br>
@@ -89,27 +92,27 @@ $infoPersonal = $personal->Info();
 			<table class='txtTicket' width='100%'>
 			<tr>
 				<td>Acuerdo: No.: </td>
-				<td>".$rov." de fecha ".$fecharov."</td>
+				<td>" . $rov . " de fecha " . $fecharov . "</td>
 			</tr>
 			<tr>
 				<td>Ciclo: </td>
-				<td>".$infoCo["scholarCicle"]."</td>
+				<td>" . $infoCo["scholarCicle"] . "</td>
 			</tr>
 			<tr>
 				<td>Materia:</td>
-				<td>".$info['claveMateria']." ".$info['name']."</td>
+				<td>" . $info['claveMateria'] . " " . $info['name'] . "</td>
 			</tr>	
 			<tr>
-				<td>Cuatrimestre:</td>
-				<td>".$info['semesId']."</td>
+				<td>" . mb_strtoupper($infoCo['tipoCuatri']) . ":</td>
+				<td>" . $info['semesId'] . "</td>
 			</tr>
 			<tr>
 				<td>Grupo:</td>
-				<td>".$info['groupA']."</td>
+				<td>" . $info['groupA'] . "</td>
 			</tr>
 			<tr>
 				<td>Periodo:</td>
-				<td>".$info['initialDate']." - ".$info['finalDate']."</td>
+				<td>" . $info['initialDate'] . " - " . $info['finalDate'] . "</td>
 			</tr>
 			
 			</table>
@@ -144,8 +147,8 @@ $infoPersonal = $personal->Info();
 					}
 					else
 					{
-						$html .= "<td><center><font color='red'>".$aux['score']."</font></center></td>";
-						$html .= "<td><center><font color='red'>".$h."</font></center></td>";
+						$html .= "<td><center><font color='red'>" . 6 . "</font></center></td>";
+						$html .= "<td><center><font color='red'>SEIS</font></center></td>";
 					}
 				}
 				else if($aux['score'] < 8  and $info['majorName'] == 'DOCTORADO')
@@ -157,8 +160,8 @@ $infoPersonal = $personal->Info();
 					}
 					else
 					{
-						$html .= "<td><center><font color='red'>".$aux['score']."</font></center></td>";
-						$html .= "<td><center><font color='red'>".$h."</font></center></td>";
+						$html .= "<td><center><font color='red'>" . 7 . "</font></center></td>";
+						$html .= "<td><center><font color='red'>SIETE</font></center></td>";
 					}
 				}
 				else{
@@ -169,8 +172,8 @@ $infoPersonal = $personal->Info();
 					}
 					else
 					{
-						$html .= "<td><center>".$aux['score']."</center></td>";
-						$html .= "<td><center>".$h."</center></td>";
+						$html .= "<td><center>" . $aux['score'] . "</center></td>";
+						$html .= "<td><center>" . $h . "</center></td>";
 					}
 				}
 				$html .= "</tr>";
