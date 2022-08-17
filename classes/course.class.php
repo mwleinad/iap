@@ -771,8 +771,8 @@
 						subject.name AS name,
 						course.tipo as tipoCuatri,
 						subject.totalPeriods,
-						subject.crm_id,
-						subject.crm_name
+						(SELECT IF((course.modality = 'Online'), subject.crm_id_online, subject.crm_id_local)) AS crm_id,
+						(SELECT IF((course.modality = 'Online'), subject.crm_name_online, subject.crm_name_local)) AS crm_name
 					FROM
 						course
 					LEFT JOIN subject ON subject.subjectId = course.subjectId
