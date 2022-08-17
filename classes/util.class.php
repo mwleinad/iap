@@ -34,6 +34,15 @@ class Util extends ErrorLms
 		return $this->Dbfire;
 	}
 
+	public function DBCrm()
+	{
+		if($this->DBCrm == null )
+		{
+			$this->DBCrm = new DBCrm();
+		}
+		return $this->DBCrm;
+	}
+
 	function RoundNumber($number)
 	{
 		return round($number, 6);

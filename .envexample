@@ -5,3 +5,8 @@ SQL_HOST=localhost
 SQL_NAME=lms
 SQL_USER=root
 SQL_PASSWORD=
+
+SQL_HOST_CRM=localhost
+SQL_NAME_CRM=crm
+SQL_USER_CRM=root
+SQL_PASSWORD_CRM=

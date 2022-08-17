@@ -7,6 +7,11 @@ define("SQL_DATABASE", getenv('SQL_NAME'));
 define("SQL_USER", getenv('SQL_USER'));
 define("SQL_PASSWORD", getenv('SQL_PASSWORD'));
 
+define("SQL_HOST_CRM", getenv('SQL_HOST_CRM'));
+define("SQL_DATABASE_CRM", getenv('SQL_NAME_CRM'));
+define("SQL_USER_CRM", getenv('SQL_USER_CRM'));
+define("SQL_PASSWORD_CRM", getenv('SQL_PASSWORD_CRM'));
+
 define("ITEMS_PER_PAGE", "20");
 define("MIN_YEAR", 2009);
 define("MAX_YEAR", 2030);

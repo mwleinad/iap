@@ -770,7 +770,9 @@
 						major.name AS majorName, 
 						subject.name AS name,
 						course.tipo as tipoCuatri,
-						subject.totalPeriods
+						subject.totalPeriods,
+						subject.crm_id,
+						subject.crm_name
 					FROM
 						course
 					LEFT JOIN subject ON subject.subjectId = course.subjectId
