@@ -7,9 +7,9 @@
 						<i class="far fa-list-alt"></i> Acciones
 					</button>
 					<div class="dropdown-menu">
-						{*<a class="dropdown-item" href="javascript:;" onclick="accionesEliminar()">
+						<a class="dropdown-item" href="javascript:;" onclick="accionesEliminar()">
 							<i class="fas fa-minus-circle"></i> Eliminar Mensajes
-						</a>*}
+						</a>
 						<a class="dropdown-item" href="javascript:;" onclick="accionesFavoritos()">
 							<i class="fas fa-star"></i> Agregar a Favoritos
 						</a>

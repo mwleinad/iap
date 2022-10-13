@@ -89,6 +89,7 @@ include_once(DOC_ROOT.'/libs/pdf/dompdf_config.inc.php');
 include_once(DOC_ROOT.'/libs/phpqrcode/qrlib.php');
 include_once(DOC_ROOT.'/classes/docente.class.php');
 include_once(DOC_ROOT . '/classes/calendar.class.php');
+include_once(DOC_ROOT . '/classes/certificates.class.php');
 $docente = new Docente();
 
 $db = new DB;
@@ -146,6 +147,7 @@ $bank= new Bank;
 $solicitud= new Solicitud;
 $encuesta= new Encuesta;
 $calendar = new Calendar;
+$certificates = new Certificates;
 
 $smarty = new Smarty;
 

@@ -850,7 +850,8 @@
 			}else if($this->tipoReporte=='enviados' or $this->tipoReporte=='borrador' or $this->tipoReporte=='eliminados'){
 				
 				if($this->quienEnviaId){
-					$filtro .= " and quienEnvia = '".$this->quienEnviaId."'";
+					if($this->quienEnviaId != 'personal')
+						$filtro .= " and quienEnvia = '".$this->quienEnviaId."'";
 					if($this->quienEnviaId=='personal'){
 						$campos .= "p.names as nombre, p.lastNamePaterno as paterno, p.lastNameMaterno as materno";
 						// $left .= " left join user as p on p.userId = c.yoId";
