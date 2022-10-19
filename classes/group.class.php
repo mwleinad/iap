@@ -616,6 +616,7 @@ class Group extends Module
 				$result[$key]{"realScore"}[] = $realScore;
 				$result[$key]{"addepUp"} += $realScore;
 			}
+			$result[$key]{"addepUp"} = round($result[$key]{"addepUp"}, 0, PHP_ROUND_HALF_DOWN);;
 		}
 		return $result;
 	}
