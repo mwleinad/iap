@@ -211,10 +211,21 @@
         {if $User.positionId == 1 || $AccessMod[13] == 1 || $AccessMod[14] == 1 || $AccessMod[15] == 1 || $AccessMod[16] == 1}
             {if $vistaPrevia ne 1}
                 <li class="nav-item">
-                    <a class="nav-link" href="{$WEB_ROOT}/institution">
-                        <span class="menu-title">Configuración</span>
+                    <a class="nav-link" data-toggle="collapse" href="#m-configuraciones" aria-expanded="false" aria-controls="m-configuraciones">
+                        <span class="menu-title">Configuraciones</span>
+                        <i class="menu-arrow"></i>
                         <i class="mdi mdi-settings menu-icon"></i>
                     </a>
+                    <div class="collapse" id="m-configuraciones">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{$WEB_ROOT}/institution"> Institución </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{$WEB_ROOT}/configuracion-certificados"> Certificados </a>
+                            </li>
+                        </ul>
+                    </div> 
                 </li>
             {/if}
         {/if}

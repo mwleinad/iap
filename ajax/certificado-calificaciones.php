@@ -1,7 +1,7 @@
 <?php
 include_once('../initPdf.php');
 include_once('../config.php');
-include_once(DOC_ROOT.'/libraries.php');
+include_once(DOC_ROOT . '/libraries.php');
 
 use Dompdf\Adapter\CPDF;
 use Dompdf\Dompdf;
@@ -10,37 +10,33 @@ use Dompdf\Exception;
 session_start();
 $user->allow_access(37);
 
-$array_date = explode('-', $_GET['fe']);
+$array_date = explode('-', $_POST['date']);
 $total_modules = 0;
-$course->setCourseId($_GET['co']);
+$course->setCourseId($_POST['course']);
 $infoCourse = $course->Info();
-// Tipo de Curso
-if($infoCourse['tipoCuatri'] == 'Semestre')
-    $typeCourse = 'semester';
-if($infoCourse['tipoCuatri'] == 'Cuatrimestre')
-    $typeCourse = 'quarter';
+$settingCertificate = $certificates->getSettings();
+// echo "<pre>";
+// print_r($infoCourse);
+
 // Calificacion Minima Aprobatoria
 $minCal = 7;
 $prefix = 'CM';
-if($infoCourse['majorId'] == 18)
-{
+if ($infoCourse['majorId'] == 18) {
     $prefix = 'CD';
     $minCal = 8;
 }
 // Modalidad y RVOE
-if($infoCourse['modality'] == 'Online')
-{
+if ($infoCourse['modality'] == 'Online') {
     $modality = 'NO ESCOLAR';
     $rvoe = $infoCourse['rvoeLinea'];
     $fechaRvoe = $infoCourse['fechaRvoeLinea'];
 }
-if($infoCourse['modality'] == 'Local')
-{
+if ($infoCourse['modality'] == 'Local') {
     $modality = 'ESCOLAR';
     $rvoe = $infoCourse['rvoe'];
     $fechaRvoe = $infoCourse['fechaRvoe'];
 }
-
+$infoCourse['tipoCuatri'] = $infoCourse['tipoCuatri'] == '' ? "Cuatrimestre" : $infoCourse['tipoCuatri'];
 $position = [
     1 => 'PRIMER',
     2 => 'SEGUNDO',
@@ -48,147 +44,28 @@ $position = [
     4 => 'CUARTO'
 ];
 
-$student->setUserId($_GET['al']);
-$infoStudent = $student->GetInfo();
-
+$students = $_POST['student'];
+$folios = $_POST['folio'];
 $institution->setInstitutionId(1);
 $myInstitution = $institution->Info();
-/**
- * $infoCourse
- * $infoStudent
- */
-$has_modules_repeat = $student->hasModulesRepeat();
-$qualifications_repeat = [];
-if($has_modules_repeat)
-{
-    $tmp = $student->StudentModulesRepeat();
-    foreach($tmp as $item)
-    {
-        $qualifications_repeat[$item['subjectModuleId']] = [
-            'name' => $item['subjectModuleName'],
-            'score' => $item['score']
-        ];
-    }
-}
-$period_course = [];
-$group_history = $student->GroupHistory($infoCourse['subjectId']);
-$has_history = count($group_history) > 0 ? true : false;
-if($has_history)
-{
-    foreach($group_history as $item)
-    {
-        if($item['type'] == 'baja')
-        {
-            for($i = 1; $i <= $item['semesterId']; $i++)
-                $period_course[$i] = $item['courseId'];
-        }
-        if($item['type'] == 'alta')
-        {
-            for($i = $item['semesterId']; $i <= $infoCourse['totalPeriods']; $i++)
-                $period_course[$i] = $item['courseId'];
-        }
-    }
-}
-$qualifications = [];
-for($period = 1; $period <= $infoCourse['totalPeriods']; $period++)
-{
-    if($has_history)
-        $tmp = $student->BoletaCalificacion($period_course[$period], $period, false);
-    else
-        $tmp = $student->BoletaCalificacion($infoCourse['courseId'], $period, false);
-    foreach($tmp as $item)
-    {
-        if( array_key_exists($item['subjectModuleId'], $qualifications_repeat) )
-        {
-            $qualifications[$period][] = [
-                'subjectModuleId' => $item['subjectModuleId'],
-                'name' => $qualifications_repeat[$item['subjectModuleId']]['name'],
-                'score' => $qualifications_repeat[$item['subjectModuleId']]['score'],
-                'comments' => 'R'
-            ];
-        }
-        else
-        {
-            $qualifications[$period][] = [
-                'subjectModuleId' => $item['subjectModuleId'],
-                'name' => $item['name'],
-                'score' => $item['score'],
-                'comments' => ''
-            ];
-        }
-        $total_modules++;
-    }
-}
-$tbody = '';
-for($period = 1; $period <= $infoCourse['totalPeriods']; $period += 2)
-{
-    $max_modules = count($qualifications[$period]);
-    $next = false;
-    if(array_key_exists($period + 1, $qualifications))
-    {
-        $next = true;
-        $b2 = count($qualifications[$period + 1]);
-        if($b2 > $max_modules)
-            $max_modules = $b2;
-    }
-    $tbody .= '<tr style="border-style: none;">
-                    <td style="text-align: center; border-style: none;"><b>' . mb_strtoupper($position[$period] . ' ' . $infoCourse['tipoCuatri']) . '</b></td>
-                    <td colspan="3" style="border-style: none;"></td>
-                    <td style="text-align: center; border-style: none;"><b>' . ($next ? mb_strtoupper($position[$period + 1] . ' ' . $infoCourse['tipoCuatri']) : '') . '</b></td>
-                    <td colspan="3" style="border-style: none;"></td>
-                </tr>';
-    for($element = 0; $element < $max_modules; $element++)
-    {
-        $tbody .= '<tr style="border-style: none;">';
-        $tbody .= '<td style="border-style: none;">' . $qualifications[$period][$element]['name'] . '</td>
-                    <td style="text-align: center; border-style: none;">' . $qualifications[$period][$element]['score'] . '</td>
-                    <td style="text-align: center; border-style: none;">' . mb_strtoupper($util->num2letras($qualifications[$period][$element]['score'])) . '</td>
-                    <td style="border-style: none; text-align: center;">' . mb_strtoupper($qualifications[$period][$element]['comments']) . '</td>
-                    <td style="border-style: none;">' . ($next ? $qualifications[$period + 1][$element]['name'] : '') . '</td>
-                    <td style="text-align: center; border-style: none;">' . ($next ? $qualifications[$period + 1][$element]['score'] : '') . '</td>
-                    <td style="text-align: center; border-style: none;">' . mb_strtoupper($util->num2letras($qualifications[$period + 1][$element]['score'])) . '</td>
-                    <td style="border-style: none; text-align: center;">' . mb_strtoupper($qualifications[$period][$element + 1]['comments']) . '</td>';
-        $tbody .= '</tr>';
-    }
-}
-/* echo "<pre>";
-print_r($next); 
-exit; */
-
-$html_modules = "";
-$i = 1;
-foreach($modules as $item)
-{
-    $text_color = '';
-    if($item['score'] < $minCal)
-        $text_color = 'text-danger';
-    $html_modules .= "";
-    $i++;
-}
-
-$html .="<html>
-	        <head>
-	            <title>Certificado</title>
-	            <style type='text/css'>
+$datePeriod = $_POST['period'];
+$html = "<html>
+            <head>
+                <style type='text/css'>
                     body {
-                        font-family: sans-serif;
+                        font-family: sans-serif; 
                     }
-	                .txtTicket {
-			            font-size: 9pt;
-			            font-family: sans-serif;
-			            /*font:bold 12px 'Trebuchet MS';*/ 
-		            }
-		            table.border,td.border {
-		                border: 1px solid black;
-		                border-collapse: collapse;
-	                }
-		            table.border,td.border {
-		                border: 1px solid black;
-		                border-collapse: collapse;
-	                }
-	                .line {
-		                border-bottom: 1px solid; border-left: 0px; border-right: 0px;	
-	                }
+                    table.border,td.border {
+                        border: 1px solid black;
+                        border-collapse: collapse;
+                    }
+                    table.border,td.border {
+                        border: 1px solid black;
+                        border-collapse: collapse;
+                    }
+                    .line {
+                        border-bottom: 1px solid; border-left: 0px; border-right: 0px;	
+                    }
                     .text-center {
                         text-align: center;
                     }
@@ -196,198 +73,346 @@ $html .="<html>
                         color: red;
                     }
                     #mexico {
-                        width: 80px;
+                        width: 3cm;
                         position: absolute;
                         top: 16px;
-                        left: 20px;
+                        left: 8px;
+                    }
+                    #ovalo {
+                        position:absolute;
+                        width:3.2cm;
+                        top: 130px;
+                        height: 5.2cm;
+                        left:3px;
                     }
                     .bg-gray {
                         background-color: #dddddd;
                     }
+                    .page_break { page-break-before: always; }
                     @page {
-                        margin: 1.5cm 1cm 0cm 1cm;
+                        margin: 1cm 0.5cm 0.5cm 0.5cm;
                     }
-		        </style>
-	        </head>
-	        <body>
-                <table width='100%'>
-                    <tr>
+                </style>
+            </head>
+            <body>";
+
+foreach ($students as $itemStudent) {
+    $student->setUserId($itemStudent);
+    $infoStudent = $student->GetInfo();
+    $has_modules_repeat = $student->hasModulesRepeat();
+    $qualifications_repeat = [];
+    if ($has_modules_repeat) {
+        $tmp = $student->StudentModulesRepeat();
+        foreach ($tmp as $item) {
+            $qualifications_repeat[$item['subjectModuleId']] = [
+                'name' => $item['subjectModuleName'],
+                'score' => $item['score']
+            ];
+        }
+    }
+
+    $period_course = [];
+    $group_history = $student->GroupHistory($infoCourse['subjectId']);
+    // print_r($group_history);
+    $has_history = count($group_history) > 0 ? true : false;
+    if ($has_history) {
+        foreach ($group_history as $item) {
+            if ($item['type'] == 'baja') {
+                for ($i = 1; $i <= $item['semesterId']; $i++)
+                    $period_course[$i] = $item['courseId'];
+            }
+            if ($item['type'] == 'alta') {
+                for ($i = $item['semesterId']; $i <= $infoCourse['totalPeriods']; $i++)
+                    $period_course[$i] = $item['courseId'];
+            }
+        }
+    }
+    // print_r($period_course);
+
+    $qualifications = [];
+    for ($period = 1; $period <= $infoCourse['totalPeriods']; $period++) {
+        if ($has_history)
+            $tmp = $student->BoletaCalificacion($period_course[$period], $period, false); 
+        else
+            $tmp = $student->BoletaCalificacion($infoCourse['courseId'], $period, false);
+        foreach ($tmp as $item) {
+            if (array_key_exists($item['subjectModuleId'], $qualifications_repeat)) {
+                $qualifications[$period][] = [
+                    'subjectModuleId' => $item['subjectModuleId'],
+                    'name' => $qualifications_repeat[$item['subjectModuleId']]['name'],
+                    'score' => $qualifications_repeat[$item['subjectModuleId']]['score'],
+                    'comments' => 'R'
+                ];
+            } else {
+                $qualifications[$period][] = [
+                    'subjectModuleId' => $item['subjectModuleId'],
+                    'name' => $item['name'],
+                    'score' => $item['score'],
+                    'comments' => ''
+                ];
+            }
+            $total_modules++;
+        }
+    }
+
+    // print_r($qualifications);
+    $dataHistoryCertificate = $certificates->getHistoryCertificateStudent($_POST['course'], $itemStudent);
+    if (is_null($dataHistoryCertificate)) {
+        $rector['name'] = mb_strtoupper($settingCertificate['rector']);
+        $secretary['name'] = mb_strtoupper($settingCertificate['secretary']);
+        $schoolService['name'] = mb_strtoupper($settingCertificate['school_services']);
+        $director['name'] = mb_strtoupper($settingCertificate['director_education']);
+        $coordinator['name'] = mb_strtoupper($settingCertificate['coordinator']);
+        $comparison['name'] = mb_strtoupper($settingCertificate['comparison']);
+        $head['name'] = mb_strtoupper($settingCertificate['head_office']);
+        $rector['genre'] = $settingCertificate['genre_rector'] == 1 ? "RECTOR" : "RECTORA";
+        $secretary['genre'] = $settingCertificate['genre_secretary'] == 1 ? "SECRETARIO EJECUTIVO" : "SECRETARIA EJECUTIVA";
+        $director['genre'] = $settingCertificate['genre_director'] == 1 ? "DIRECTOR" : "DIRECTORA";
+        $schoolService['genre'] = $settingCertificate['genre_school'] == 1 ? "JEFE" : "JEFA";
+        $coordinator['genre'] = $settingCertificate['genre_coordinator'] == 1 ? "COORDINADOR" : "COORDINADORA";
+        $head['genre'] = $settingCertificate['genre_head'] == 1 ? "JEFE" : "JEFA";
+        $certificates->addHistoryCertificateStudent($_POST['course'], $itemStudent, $rector['name'], $secretary['name'], $schoolService['name'], $director['name'], $coordinator['name'], $comparison['name'], $head['name'], $settingCertificate['genre_rector'], $settingCertificate['genre_secretary'], $settingCertificate['genre_director'], $settingCertificate['genre_director'], $settingCertificate['genre_coordinator'], $settingCertificate['genre_head'], $_POST['date'], $datePeriod, $folios[$itemStudent]);
+    }else{
+        $rector['name'] = mb_strtoupper($dataHistoryCertificate['rector']);
+        $secretary['name'] = mb_strtoupper($dataHistoryCertificate['secretary']);
+        $schoolService['name'] = mb_strtoupper($dataHistoryCertificate['school_services']);
+        $director['name'] = mb_strtoupper($dataHistoryCertificate['director_education']);
+        $coordinator['name'] = mb_strtoupper($dataHistoryCertificate['coordinator']);
+        $comparison['name'] = mb_strtoupper($dataHistoryCertificate['comparison']);
+        $head['name'] = mb_strtoupper($dataHistoryCertificate['head_office']);
+        $rector['genre'] = $dataHistoryCertificate['genre_rector'] == 1 ? "RECTOR" : "RECTORA";
+        $secretary['genre'] = $dataHistoryCertificate['genre_secretary'] == 1 ? "SECRETARIO EJECUTIVO" : "SECRETARIA EJECUTIVA";
+        $director['genre'] = $dataHistoryCertificate['genre_director'] == 1 ? "DIRECTOR" : "DIRECTORA";
+        $schoolService['genre'] = $dataHistoryCertificate['genre_school'] == 1 ? "JEFE" : "JEFA";
+        $coordinator['genre'] = $dataHistoryCertificate['genre_coordinator'] == 1 ? "COORDINADOR" : "COORDINADORA";
+        $head['genre'] = $dataHistoryCertificate['genre_head'] == 1 ? "JEFE" : "JEFA";
+        $datePeriod = $dataHistoryCertificate['school_cycle'];
+    }
+    $tbody = '';
+    $sumCal = 0;
+    $materias = 0;
+    for ($period = 1; $period <= $infoCourse['totalPeriods']; $period+=2) {
+        $max_modules = count($qualifications[$period]);
+        $next = false;
+        if ($qualifications[$period+1]) {
+            $next = true;
+        }
+        $tbody .= ' <tr style="border-style: none;">
+                        <td style="text-align: center; border-style: none; padding:7px 0;"><b>' . mb_strtoupper($position[$period] . ' ' . $infoCourse['tipoCuatri']) . '</b></td>
+                        <td colspan="3" style="border-style: none; padding:5px 0;"></td>
+                        <td style="text-align: center; border-style: none; padding:7px 0;"><b>' . ($next ? mb_strtoupper($position[$period + 1] . ' ' . $infoCourse['tipoCuatri']) : '') . '</b></td>
+                        <td colspan="3" style="border-style: none; padding:5px 0;"></td>
+                    </tr>';
+        for ($element = 0; $element < $max_modules; $element++) {
+            $next = false;
+            if ($qualifications[$period+1][$element]) {
+                $next = true;
+            }
+            $tbody .= '<tr style="border-style: none;">';
+                $tbody .= '<td style="border-style: none;">' . $qualifications[$period][$element]['name'] . '</td>
+                        <td style="text-align: center; border-style: none;">' . $qualifications[$period][$element]['score'] . '</td>
+                        <td style="text-align: center; border-style: none;">' . mb_strtoupper($util->num2letras($qualifications[$period][$element]['score'])) . '</td>
+                        <td style="border-style: none; text-align: center;">' . mb_strtoupper($qualifications[$period][$element]['comments']) . '</td>
+                        <td style="border-style: none;">' . ($next ? $qualifications[$period + 1][$element]['name'] : '') . '</td>
+                        <td style="text-align: center; border-style: none;">' . ($next ? $qualifications[$period + 1][$element]['score'] : '') . '</td>
+                        <td style="text-align: center; border-style: none;">' . ($next ? mb_strtoupper($util->num2letras($qualifications[$period + 1][$element]['score'])) : '') . '</td>
+                        <td style="border-style: none; text-align: center;">' . mb_strtoupper($qualifications[$period][$element + 1]['comments']) . '</td>';
+            $tbody .= '</tr>';
+            $sumCal+=$qualifications[$period][$element]['score'] + ($next ? $qualifications[$period + 1][$element]['score'] : 0);
+            $materias++;
+            $materias = $next ? $materias + 1 : $materias;
+        }
+        $promedio = round(($sumCal / $materias),1,PHP_ROUND_HALF_DOWN);
+    }
+    $plan = ($infoCourse['majorName'] == "DOCTORADO" ? "DEL " : "DE LA ").$infoCourse['majorName'];
+    $prefijoDirector = $director['genre'] == "DIRECTOR" ? "DEL " : "A LA ".$director['genre'];
+    $html .="
+            <table width='100%'>
+                <tr>
+                    <td width='17%'>
                         <img src='" . DOC_ROOT . "/images/Escudo.jpg' id='mexico' />
-                        <td width='20'>
-                        </td>
-                        <td width='80'>
-                            <span style='font-size: 6pt; position: absolute; left: 645px; top: -15px; width: 80px;'>SE-" . $prefix . "IAP-" . $array_date[0] . "</span>
-                            <p style='line-height: 14px; text-align: center;'>
-                                <label style='font-size: 14pt;'><b>GOBIERNO CONSTITUCIONAL DEL ESTADO DE CHIAPAS</b></label><br>
-                                <label style='font-size: 12pt;'>SECRETARÍA DE EDUCACIÓN</label><br>
-                                <label style='font-size: 10pt;'>SUBSECRETARÍA DE EDUCACIÓN ESTATAL</label><br>
-                                <label style='font-size: 10pt;'>DIRECCIÓN DE EDUCACIÓN SUPERIOR</label><br>
-                                <label style='font-size: 10pt;'>DEPARTAMENTO DE SERVICIOS ESCOLARES</label>
-                                <span style='font-size: 8pt; position: absolute; left: 635px; width: 80px;'>Folio: <b style='color: red;'>" . $_GET['fo'] . "</b></span>
-                            </p>
-                            <p style='font-size: 8pt; text-align: justify;'>
+                        <img src='" . DOC_ROOT . "/images/new/docs/mignon.jpg' id='ovalo' />
+                    </td>
+                    <td width='83%'> 
+                        <div style='font-size: 6.5pt; position: absolute; right: -.6cm; top: -10px; width: 80px;'><b>SE-" . $prefix . "IAP-" . $array_date[0] . "<b></div> 
+                        <div style='font-size: 9pt; position:absolute; right: 5px; width: 80px; top:105px;'><strong>Folio:</strong> <b style='color: red;'>" . mb_strtoupper($folios[$itemStudent]) . "</b></div> 
+                        <div style='min-height:8.5cm;'>
+                            <div class='text-center' style='margin-top:15px;'>
+                                <label style='font-size: 15pt;'><b>GOBIERNO CONSTITUCIONAL DEL ESTADO DE CHIAPAS</b></label><br>
+                                <label style='font-size: 13pt;'>SECRETARÍA DE EDUCACIÓN</label><br>
+                                <label style='font-size: 11pt;'>SUBSECRETARÍA DE EDUCACIÓN ESTATAL</label><br>
+                                <label style='font-size: 11pt;'>DIRECCIÓN DE EDUCACIÓN SUPERIOR</label><br>
+                                <label style='font-size: 11pt;'>DEPARTAMENTO DE SERVICIOS ESCOLARES</label>
+                            </div>
+                            <p style='font-size: 8.6pt; text-align: justify;line-height:0.5cm; margin-top:0.4cm;'>
                                 LA DIRECCIÓN DEL INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, RÉGIMEN PARTICULAR, TURNO " . mb_strtoupper($infoCourse['turn']) . " MODALIDAD " . $modality . ", CLAVE " . $myInstitution['identifier'] . ", CERTIFICA QUE:<br>
                                 EL (LA) C. <b>" . mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']) . "</b><br>
-                                CON No. DE CONTROL: <b>" . $student->GetMatricula($infoCourse['courseId']) . "</b> ACREDITÓ LAS MATERIAS QUE INTEGRAN EL PLAN DE ESTUDIOS DE LA " . $infoCourse['majorName'] . " EN:
+                                CON No. DE CONTROL: <b>" . $student->GetMatricula($infoCourse['courseId']) . "</b> ACREDITÓ LAS MATERIAS QUE INTEGRAN EL PLAN DE ESTUDIOS " . $plan . " EN:
                             </p>
-                            <p style='font-size: 8pt; text-align: center;'><b>" . $infoCourse['name'] . "</b></p>
-                            <p style='font-size: 8pt; text-align: center;'>
-                                ACUERDO NÚMERO: <b>" . $rvoe . "</b>, VIGENTE A PARTIR DEL " . mb_strtoupper($util->FormatReadableDate($fechaRvoe)) . ", DURANTE EL PERIODO:<br>
-                                <b>" . mb_strtoupper($_GET['pe']) . "</b>
+                            <p style='font-size: 9.5pt; text-align: center;'><b>" . $infoCourse['name'] . "</b></p>
+                            <p style='font-size: 9pt; text-align: justify;'>
+                                ACUERDO NÚMERO: <b>" . $rvoe . "</b>, VIGENTE A PARTIR DEL " . mb_strtoupper($util->FormatReadableDate($fechaRvoe)) . ", DURANTE EL PERIODO:<br> 
                             </p>
-                            <p style='font-size: 8pt; text-align: center;'>CON LOS RESULTADOS QUE A CONTINUACIÓN SE ANOTAN:</p>
-                        </td>
-                    </tr>
-                </table>
-                <table align='center' width='100%' style='font-size: 6pt; border-collapse: collapse; border: 1px solid white;' border='1'>
-                    <thead>
-                        <tr>
-                            <th class='text-center' rowspan='2'>MATERIAS</th>
-                            <th class='text-center' colspan='2'>CALIFICACIÓN</th>
-                            <th class='text-center' rowspan='2'>OBSERVACIÓN</th>
-                            <th class='text-center' rowspan='2'>MATERIAS</th>
-                            <th class='text-center' colspan='2'>CALIFICACIÓN</th>
-                            <th class='text-center' rowspan='2'>OBSERVACIÓN</th>
-                        </tr>
-                        <tr>
-                            <th class='text-center'>Cifra</th>
-                            <th class='text-center'>Letra</th>
-                            <th class='text-center'>Cifra</th>
-                            <th class='text-center'>Letra</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        " . $tbody . "
-                    </tbody>
-                </table>
-                <p style='font-size: 8pt;'>La escala oficial de calificaciones es de 6 (SEIS) a 10 (DIEZ), considerando como mínima aprobatoria " . $minCal . " (" . mb_strtoupper($util->num2letras($minCal)) . "). Este certificado ampara <b>" . mb_strtoupper($util->num2letras($total_modules)) . "</b> materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los " . $array_date[2] . " días del mes de " . mb_strtolower($util->ConvertirMes(intval($array_date[1]))) . " del año " . mb_strtolower($util->num2letras($array_date[0])) . ".</p>
-                <table width='100%'>
+                            <p class='text-center' style='font-size: 9.5pt;;'><b>" . mb_strtoupper($datePeriod) . "</b></p>
+                            <p style='font-size: 8pt; text-align: center; margin-bottom:0px;'>CON LOS RESULTADOS QUE A CONTINUACIÓN SE ANOTAN:</p> 
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table align='center' width='100%' style='font-size: 6.8pt; border-collapse: collapse; border: 1px solid white;' border='1'>
+                <thead>
                     <tr>
-                        <td style='font-size: 8px; text-align: center;'>
-                            <b>RECTOR</b>
-                            <br><br><br>
-                            _________________________________________________
-                            <br>
-                            DR. FERNANDO ÁLVAREZ SIMÁN
-                        </td>
-                        <td style='width: 40%'></td>
-                        <td style='font-size: 8px; text-align: center;'>
-                            <b>SECRETARIO EJECUTIVO</b>
-                            <br><br><br>
-                            _________________________________________________
-                            <br>
-                            MTRO. OSMAR FERNANDO SALAZAR CISNEROS
-                        </td>
+                        <th class='text-center' rowspan='2' width='5.8cm' style='padding:5px'>MATERIAS</th>
+                        <th class='text-center' colspan='2'>CALIFICACIÓN</th>
+                        <th class='text-center' rowspan='2'>OBSERVACIÓN</th>
+                        <th class='text-center' rowspan='2' width='5.5cm'>MATERIAS</th>
+                        <th class='text-center' colspan='2'>CALIFICACIÓN</th>
+                        <th class='text-center' rowspan='2'>OBSERVACIÓN</th>
                     </tr>
                     <tr>
-                        <td style='font-size: 8px; text-align: center;'>
-                            <br><br>
-                            <b>JEFA DEL DEPARTEMENTO DE SERVICIOS ESCOLARES</b>
-                            <br><br><br>
-                            _________________________________________________
-                            <br>
-                            ING. MARTHA MARLENE ESTRADA ESTRADA
-                        </td>
-                        <td style='width: 40%'></td>
-                        <td style='font-size: 8px; text-align: center;'>
-                            <br><br>
-                            <b>DIRECTORA DE EDUCACIÓN SUPERIOR</b>
-                            <br><br><br>
-                            _________________________________________________
-                            <br>
-                            MTRA. XÓCHITL CLEMENTE PARRA
-                        </td>
+                        <th class='text-center'>Cifra</th>
+                        <th class='text-center'>Letra</th>
+                        <th class='text-center'>Cifra</th>
+                        <th class='text-center'>Letra</th>
                     </tr>
-                </table><br>
-                <table width='100%'>
-                    <tr style='border-spacing: 0px !important;'>
-                        <td>
-                            <table align='center' border='1' class='border'>
-                                <tr>
-                                    <td class='text-center bg-gray border' style='font-size: 7pt;'>
-                                        DEPARTAMENTO DE SERVICIOS ESCOLARES
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class='border'>
-                                        <p style='text-align: right; font-size: 7pt;'>
-                                            NO. ___________________________________<br>
-                                            LIBRO. ___________________________________<br>
-                                            FOJA. ___________________________________<br>
-                                            FECHA. ___________________________________<br>
-                                        </p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class='text-center bg-gray border' style='font-size: 7pt;'>
-                                        COTEJÓ
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class='border' style='text-align: center;'>
-                                        <br><br><br>
-                                        <span style='font-size: 6pt;'>
-                                            C. Romeo Guzmán Villarreal  
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class='text-center bg-gray border' style='font-size: 7pt;'>JEFE DE LA OFICINA</td>
-                                </tr>
-                                <tr>
-                                    <td class='border' style='text-align: center;'>
-                                        <br><br><br>
-                                        <span style='font-size: 6pt;'>
-                                            Mtro. Manuel Castillejos López
-                                        </span>
-                                    </td>
-                                </tr>
-                            </table>                        
-                        </td>
-                        <td>
-                            <p style='font-size: 7pt;'>
-                                POR ACUERDO DEL SECRETARIO GENERAL DE GOBIERNO Y CON FUNDAMENTO EN EL ARTÍCULO 29; FRACCIÓN X DE LA LEY ORGÁNICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS.
-                            </p>
-                            <p style='font-size: 7pt;'>
-                                SE LEGALIZA, PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO, LA FIRMA QUE ANTECEDE CORRESPONDIENTE A LA DIRECTORA DE EDUCACIÓN SUPERIOR:
-                            </p>
-                            <p style='font-size: 7pt; text-align: center;'>
-                                MTRA. XÓCHITL CLEMENTE PARRA<br>
-                                _________________________________________________________________
-                            </p>
-                            <p style='font-size: 7pt; text-align: center;'>
-                                TUXTLA GUTIÉRREZ, CHIAPAS A: ____________________________________ 
-                            </p>
-                            <p style='font-size: 7pt; text-align: center;'>
-                                COORDINADORA DE ASUNTOS JURÍDICOS DE GOBIERNO
-                            </p><br>
-                            <p style='font-size: 7pt; text-align: center;'>
-                                MARÍA GUADALUPE SÁNCHEZ ZENTENO
-                            </p>
-                        </td>
+                </thead>
+                <tbody>
+                    " . $tbody . "
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan='8' style='border:none; text-align:right; padding: 15px 0; font-weight: 900; font-size:10pt;'>PROMEDIO GENERAL {$promedio} ".mb_strtoupper($util->num2letras($promedio,false))."</td>
                     </tr>
-                </table>
-                <p style='font-size: 6pt; text-align: center;'><b>ESTE DOCUMENTO NO ES VÁLIDO SI PRESENTA RASPADURAS O ENMENDADURAS</b></p>
-	        </body>
-	    </html>";
-	/* echo $html;
-	exit; */
-	# Instanciamos un objeto de la clase DOMPDF.
-	$mipdf = new DOMPDF();
-	 
-	# Definimos el tamaño y orientación del papel que queremos.
-	# O por defecto cogerá el que está en el fichero de configuración.
-	$mipdf ->set_paper("A4", "portrait");
-	 
-	# Cargamos el contenido HTML.
-	$mipdf ->load_html($html);
-	 
-	# Renderizamos el documento PDF.
-	$mipdf ->render();
-	 
-	# Enviamos el fichero PDF al navegador.
-	$mipdf ->stream('Certificado.pdf', array('Attachment' => 0));
-			
+                </tfoot>
+            </table>
+            <p style='font-size: 8pt;'>La escala oficial de calificaciones es de 6 (SEIS) a 10 (DIEZ), considerando como mínima aprobatoria " . $minCal . " (" . mb_strtoupper($util->num2letras($minCal)) . "). Este certificado ampara <b>" . mb_strtoupper($util->num2letras($total_modules)) . "</b> materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los " . $array_date[2] . " días del mes de " . mb_strtolower($util->ConvertirMes(intval($array_date[1]))) . " del año " .$array_date[0]. ".</p>
+            <table width='100%'>
+                <tr>
+                    <td style='font-size: 9pt; text-align: center;'>
+                        <b>{$rector['genre']}</b>
+                        <br><br><br> 
+                        _________________________________________________
+                        <br>
+                        {$rector['name']}
+                    </td>
+                    <td style='width: 10%'></td>
+                    <td style='font-size: 9pt; text-align: center;'>
+                        <b>{$secretary['genre']}</b>
+                        <br><br><br> 
+                        _________________________________________________
+                        <br>
+                        {$secretary['name']}
+                    </td>
+                </tr>
+                <tr>
+                    <td style='font-size: 9pt; text-align: center;'>
+                        <br><br><br>
+                        <b>{$schoolService['genre']} DEL DEPARTAMENTO DE SERVICIOS ESCOLARES</b>
+                        <br><br><br> 
+                        _________________________________________________
+                        <br>
+                        {$schoolService['name']}
+                    </td>
+                    <td style='width: 10%'></td>
+                    <td style='font-size: 9pt; text-align: center;'>
+                        <br><br><br>
+                        <b>{$director['genre']} DE EDUCACIÓN SUPERIOR</b>
+                        <br><br><br> 
+                        _________________________________________________
+                        <br>
+                        {$director['name']}
+                    </td>
+                </tr>
+            </table><br>
+            <table width='100%'>
+                <tr style='border-spacing: 0px !important;'>
+                    <td style='width:45%;line-height:0.5cm;'>
+                        <table align='center' border='1' class='border' style='padding-right:20px; margin:0; width:100%'>
+                            <tr>
+                                <td class='text-center bg-gray border' style='font-size: 7pt;'>
+                                    DEPARTAMENTO DE SERVICIOS ESCOLARES
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class='border'>
+                                    <p style='text-align: right; font-size: 8pt; line-height:0.5cm'>
+                                        <b>
+                                        NO. ____________________________________________<br>
+                                        LIBRO. ____________________________________________<br>
+                                        FOJA. ____________________________________________<br>
+                                        FECHA. ____________________________________________<br>
+                                        </b>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class='text-center bg-gray border' style='font-size: 7pt; padding:5px;'>
+                                    COTEJÓ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class='border' style='text-align: center;'>
+                                    <br><br><br>
+                                    <span style='font-size: 6pt;'>
+                                        {$comparison['name']}  
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class='text-center bg-gray border' style='font-size: 7pt; padding:5px;'>{$head['genre']} DE LA OFICINA</td>
+                            </tr>
+                            <tr>
+                                <td class='border' style='text-align: center;'>
+                                    <br><br><br>
+                                    <span style='font-size: 6pt;'>
+                                        {$head['name']}
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>                        
+                    </td>
+                    <td style='vertical-align: top; line-height:0.5cm;'>
+                        <p style='font-size: 7pt;'>
+                            CON FUNDAMENTO EN EL ARTÍCULO 29, FRACCIÓN X DE LA LEY ORGÁNICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, 27 FRACCIÓN XX DEL REGLAMENTO INTERIOR DE LA SECRETARÍA GENERAL DE GOBIERNO:
+                        </p>
+                        <p style='font-size: 7pt;'>
+                            SE LEGALIZA, PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO, LA FIRMA QUE ANTECEDE CORRESPONDE {$prefijoDirector} DE EDUCACIÓN SUPERIOR:
+                        </p>
+                        <p style='font-size: 7pt; text-align: center;'>
+                            {$director['name']}<br>
+                            ___________________________________________________________________________
+                        </p>
+                        <p style='font-size: 7pt; text-align: center;'>
+                            TUXTLA GUTIÉRREZ, CHIAPAS A: _____________________________________________
+                        </p><br>
+                        <p style='font-size: 7pt; text-align: center;'>
+                            {$coordinator['genre']} DE ASUNTOS JURÍDICOS DE GOBIERNO
+                        </p><br>
+                        <p style='font-size: 7pt; text-align: center;'>
+                        ____________________________________________<br>
+                            {$coordinator['name']}
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <p style='font-size: 6pt; text-align: center;'><b>ESTE DOCUMENTO NO ES VÁLIDO SI PRESENTA RASPADURAS O ENMENDADURAS</b></p>"; 
+    if ($itemStudent !== end($students)) {
+        $html.="<div class='page_break'></div>";
+    } 
+} 
 
-
-?>
+$html.="</body>
+</html>";
+// echo $html;
+// echo "</pre>";  
+$mipdf = new DOMPDF();
+# Definimos el tamaño y orientación del papel que queremos.
+# O por defecto cogerá el que está en el fichero de configuración.
+$mipdf ->set_paper("legal", "portrait");
+# Cargamos el contenido HTML.
+$mipdf ->load_html($html);
+# Renderizamos el documento PDF.
+$mipdf ->render();
+# Enviamos el fichero PDF al navegador.s
+$mipdf ->stream('Certificado.pdf', array('Attachment' => 0));

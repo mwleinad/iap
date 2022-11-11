@@ -4,7 +4,8 @@ include_once('init.php');
 include_once('config.php');
 include_once(DOC_ROOT.'/libraries.php');
 
-//print_r($_GET);exit;
+// print_r($_GET);
+// exit;
 if (!isset($_SESSION)) 
 {
   session_start();
@@ -225,7 +226,8 @@ $pages = array(
 	'indicadores',
 	'acta-examen-course',
 	'boletas',
-	'niveles-ingles'
+	'niveles-ingles',
+	'configuracion-certificados'
 );
 
 if(!in_array($_GET['page'], $pages))
