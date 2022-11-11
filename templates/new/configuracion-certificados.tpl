@@ -16,7 +16,7 @@
 </div>
 <div class="card mb-4">
     <div class="card-body">
-        <form class="form row" action="{$WEB_ROOT}/ajax/new/setting-certificate" id="form_settings">
+        <form class="form row" action="{$WEB_ROOT}/ajax/new/setting-certificate.php" id="form_settings">
             <div class="col-md-12">
                 <h4>Datos del Rector(a)<span class="text-danger">*</span></h4>
             </div>
