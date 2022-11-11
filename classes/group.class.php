@@ -1542,5 +1542,4 @@ class Group extends Module
 		}
 		return $data;
 	}
-}	
-?>
+}
