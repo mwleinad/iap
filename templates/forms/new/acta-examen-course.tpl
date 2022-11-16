@@ -106,6 +106,53 @@
 </form>
 
 <script>
+    $("body").on("change", "#student", function(){
+        var course = $("#course").val();
+        var student = $(this).val();
+        $.ajax({
+            url:"{$WEB_ROOT}/ajax/new/acta-examen.php",
+            data:{
+                "course" : course,
+                "student" : student 
+            },
+            type:"POST"
+        }).done(function(response){
+            response = JSON.parse(response);
+            if (response.status) {
+                $("#fecha").val(response.data.date);
+                $("#folio").val(response.data.folioSEP);
+                $("#noActa").val(response.data.actNumber);
+                $("#noAutorizacion").val(response.data.authNumber);
+                $("#hora").val(response.data.hour);
+                $("ubicacion").val(response.data.location);
+                if(response.data.testOption == "Tesis"){
+                    $("#opcionExamen option[value='Tesis']").prop("selected",true);
+                    $("#tesis").val(response.data.tesis);
+                }
+                $("#nombrePresidente").val(response.data.president);
+                $("#cedulaPresidente").val(response.data.presidentCedula);
+                $("#nombreSecretario").val(response.data.secretary);
+                $("#cedulaSecretario").val(response.data.secretaryCedula);
+                $("#nombreVocal").val(response.data.vocal);
+                $("#cedulaVocal").val(response.data.vocalCedula); 
+            }else{
+                $("#fecha").val("");
+                $("#folio").val("");
+                $("#noActa").val("");
+                $("#noAutorizacion").val("");
+                $("#hora").val("");
+                $("ubicacion").val(""); 
+                $("#opcionExamen option[value='Promedio']").prop("selected",true); 
+                $("#tesis").val("");
+                $("#nombrePresidente").val("");
+                $("#cedulaPresidente").val("");
+                $("#nombreSecretario").val("");
+                $("#cedulaSecretario").val("");
+                $("#nombreVocal").val("");
+                $("#cedulaVocal").val(""); 
+            }
+        })
+    });
     flatpickr('.i-calendar', {
         dateFormat: "Y-m-d"
     });

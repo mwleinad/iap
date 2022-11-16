@@ -42,6 +42,13 @@ $infoStudent = $student->GetInfo();
 $institution->setInstitutionId(1);
 $myInstitution = $institution->Info();
 
+$testHistory = $test->getTestHistory($_POST['course'],$_POST['student']);
+if($testHistory){
+    $test->updateTestHistory($_POST['course'],$_POST['student'], $_POST['fecha'], $_POST['folio'],$_POST['noActa'],$_POST['noAutorizacion'],$_POST['hora'],$_POST['ubicacion'],$_POST['opcionExamen'],$_POST['tesis'],$_POST['nombrePresindente'],$_POST['nombreSecretario'],$_POST['nombreVocal'],$_POST['cedulaPresidente'],$_POST['cedulaSecretario'],$_POST['cedulaVocal']);
+}else{
+    //$date, $folio, $act, $auth, $hour, $location, $option, $tesis, $president, $secretary, $vocal, $presidentCedula, $secretaryCedula, $vocalCedula
+    $test->addTestHistory($_POST['course'],$_POST['student'], $_POST['fecha'], $_POST['folio'],$_POST['noActa'],$_POST['noAutorizacion'],$_POST['hora'],$_POST['ubicacion'],$_POST['opcionExamen'],$_POST['tesis'],$_POST['nombrePresindente'],$_POST['nombreSecretario'],$_POST['nombreVocal'],$_POST['cedulaPresidente'],$_POST['cedulaSecretario'],$_POST['cedulaVocal']);
+}
 $optionPx = '250px';
 $optionSize = '9pt';
 $option = 'POR PROMEDIO';
@@ -56,7 +63,16 @@ if($_POST['opcionExamen'] == 'Tesis')
 /* echo "<pre>";
 print_r($_POST);
 exit; */
-
+$settingCertificate = $certificates->getSettings();
+$rector['name'] = mb_strtoupper($settingCertificate['rector']);
+$rector['genre'] = $settingCertificate['genre_rector'] == 1 ? "RECTOR" : "RECTORA";
+$schoolService['name'] = mb_strtoupper($settingCertificate['school_services']);
+$schoolService['genre'] = $settingCertificate['genre_school'] == 1 ? "JEFE" : "JEFA";
+$director['name'] = mb_strtoupper($settingCertificate['director_education']);
+$director['genre'] = $settingCertificate['genre_director'] == 1 ? "DIRECTOR" : "DIRECTORA";
+$head['name'] = mb_strtoupper($settingCertificate['head_office']);
+$head['genre'] = $settingCertificate['genre_head'] == 1 ? "JEFE" : "JEFA";
+$comparison['name'] = mb_strtoupper($settingCertificate['comparison']);
 
 $html .="<html>
 	        <head>
@@ -305,29 +321,29 @@ $html .="<html>
                         <tr>
                             <td style='font-size: 9pt; text-align: center;' colspan='3'>
                                 <br><br><br>
-                                <b>RECTOR DEL INSTITUTO</b>
+                                <b>{$rector['genre']}</b>
                                 <br><br><br><br>
                                 ___________________________________
                                 <br>
-                                DR. FERNANDO ÁLVAREZ SIMÁN
+                                {$rector['name']}
                                 <br><br><br><br><br><br>
                             </td>
                         </tr>
                         <tr>
                             <td style='font-size: 9pt; text-align: center;'>
-                                JEFA DEL DEPARTAMENTO DE SERVICIOS ESCOLARES 
+                                {$schoolService['genre']} DEL DEPARTAMENTO DE SERVICIOS ESCOLARES 
                                 <br><br><br><br>
                                 ___________________________________
                                 <br>
-                                ING. MARTHA MARLENE ESTRADA ESTRADA
+                                {$schoolService['name']}
                             </td>
                             <td style='width: 40%'></td>
                             <td style='font-size: 9pt; text-align: center;'>
-                                DIRECTORA DE EDUCACIÓN SUPERIOR
+                                {$director['genre']} DE EDUCACIÓN SUPERIOR
                                 <br><br><br><br>
                                 ___________________________________
                                 <br>
-                                MTRA. XÓCHITL CLEMENTE PARRA
+                                {$director['name']}
                             </td>
                         </tr>
                     </table>
@@ -362,13 +378,13 @@ $html .="<html>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class='text-center bg-gray border' style='font-size: 7pt;'>JEFA DE LA OFICINA</td>
+                                        <td class='text-center bg-gray border' style='font-size: 7pt;'>{$head['genre']} DE LA OFICINA</td>
                                     </tr>
                                     <tr>
                                         <td class='border' style='text-align: center;'>
                                             <br><br><br>
                                             <span style='font-size: 6pt;'>
-                                                C.P. MÁRIA DEL SOCORRO VELASCO HERNÁNDEZ
+                                                {$head['name']}
                                             </span>
                                         </td>
                                     </tr>
