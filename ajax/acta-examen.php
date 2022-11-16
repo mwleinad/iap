@@ -44,10 +44,10 @@ $myInstitution = $institution->Info();
 
 $testHistory = $test->getTestHistory($_POST['course'],$_POST['student']);
 if($testHistory){
-    $test->updateTestHistory($_POST['course'],$_POST['student'], $_POST['fecha'], $_POST['folio'],$_POST['noActa'],$_POST['noAutorizacion'],$_POST['hora'],$_POST['ubicacion'],$_POST['opcionExamen'],$_POST['tesis'],$_POST['nombrePresindente'],$_POST['nombreSecretario'],$_POST['nombreVocal'],$_POST['cedulaPresidente'],$_POST['cedulaSecretario'],$_POST['cedulaVocal']);
+    $test->updateTestHistory($_POST['course'],$_POST['student'], $_POST['fecha'], $_POST['folio'],$_POST['noActa'],$_POST['noAutorizacion'],$_POST['hora'],$_POST['ubicacion'],$_POST['opcionExamen'],$_POST['tesis'],$_POST['nombrePresidente'],$_POST['nombreSecretario'],$_POST['nombreVocal'],$_POST['cedulaPresidente'],$_POST['cedulaSecretario'],$_POST['cedulaVocal']);
 }else{
     //$date, $folio, $act, $auth, $hour, $location, $option, $tesis, $president, $secretary, $vocal, $presidentCedula, $secretaryCedula, $vocalCedula
-    $test->addTestHistory($_POST['course'],$_POST['student'], $_POST['fecha'], $_POST['folio'],$_POST['noActa'],$_POST['noAutorizacion'],$_POST['hora'],$_POST['ubicacion'],$_POST['opcionExamen'],$_POST['tesis'],$_POST['nombrePresindente'],$_POST['nombreSecretario'],$_POST['nombreVocal'],$_POST['cedulaPresidente'],$_POST['cedulaSecretario'],$_POST['cedulaVocal']);
+    $test->addTestHistory($_POST['course'],$_POST['student'], $_POST['fecha'], $_POST['folio'],$_POST['noActa'],$_POST['noAutorizacion'],$_POST['hora'],$_POST['ubicacion'],$_POST['opcionExamen'],$_POST['tesis'],$_POST['nombrePresidente'],$_POST['nombreSecretario'],$_POST['nombreVocal'],$_POST['cedulaPresidente'],$_POST['cedulaSecretario'],$_POST['cedulaVocal']);
 }
 $optionPx = '250px';
 $optionSize = '9pt';

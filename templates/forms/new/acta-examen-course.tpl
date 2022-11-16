@@ -118,13 +118,14 @@
             type:"POST"
         }).done(function(response){
             response = JSON.parse(response);
+            console.log(response);
             if (response.status) {
                 $("#fecha").val(response.data.date);
                 $("#folio").val(response.data.folioSEP);
                 $("#noActa").val(response.data.actNumber);
                 $("#noAutorizacion").val(response.data.authNumber);
                 $("#hora").val(response.data.hour);
-                $("ubicacion").val(response.data.location);
+                $("#ubicacion").val(response.data.location);
                 if(response.data.testOption == "Tesis"){
                     $("#opcionExamen option[value='Tesis']").prop("selected",true);
                     $("#tesis").val(response.data.tesis);
