@@ -77,4 +77,11 @@ class Certificates extends Module
         $result = $this->Util()->DB()->InsertData();	
         //return $result;
     }
+
+    public function updateHistoryCertificateStudent($courseId, $studentId, $rector, $secretary, $school_services, $director_education, $coordinator, $comparison, $head_office, $genre_rector, $genre_secretary, $genre_school, $genre_director, $genre_coordinator, $genre_head, $expedition_date, $school_cycle, $folio)
+    {
+        $sql = "UPDATE certificate_history SET `rector`='{$rector}',`secretary`='{$secretary}',`school_services`='{$school_services}',`director_education`='{$director_education}',`coordinator`='{$coordinator}',`comparison`='{$comparison}',`head_office`='{$head_office}',`genre_rector`='{$genre_rector}',`genre_secretary`='{$genre_secretary}',`genre_school`='{$genre_school}',`genre_director`='{$genre_director}',`genre_coordinator`='{$genre_coordinator}',`genre_head`='{$genre_head}',`expedition_date`='{$expedition_date}',`school_cycle`='{$school_cycle}',`folio`='{$folio}' WHERE courseId = {$courseId} AND studentId = {$studentId}";
+        $this->Util()->DB()->setQuery($sql);
+        $this->Util()->DB()->UpdateData();	 
+    }
 }

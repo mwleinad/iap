@@ -288,6 +288,6 @@ else
 		
 	$smarty->display(DOC_ROOT.'/templates/index_new.tpl');
 }
-
+// print_r($AccessMod);
 
 ?>

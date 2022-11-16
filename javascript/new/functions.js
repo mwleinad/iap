@@ -139,3 +139,10 @@ function CloseFview()
 {
     bootbox.hideAll();
 }
+
+$('#ajax').on('show.bs.modal', function (event) {
+    console.log("Se abrió el modal(?");
+    $("#ajax .modal-content").html(`<div class="modal-body">
+                                    <i class="fas fa-spinner fa-pulse fa-lg"></i> Cargando...
+                                </div>`);
+})

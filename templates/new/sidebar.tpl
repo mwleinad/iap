@@ -208,7 +208,7 @@
             {/if}
         {/if}
 
-        {if $User.positionId == 1 || $AccessMod[13] == 1 || $AccessMod[14] == 1 || $AccessMod[15] == 1 || $AccessMod[16] == 1}
+        {if $User.positionId == 1 || $AccessMod[13] == 1 || $AccessMod[14] == 1 || $AccessMod[15] == 1 || $AccessMod[16] == 1 || $AccessMod[38] == 1}
             {if $vistaPrevia ne 1}
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#m-configuraciones" aria-expanded="false" aria-controls="m-configuraciones">
@@ -218,9 +218,11 @@
                     </a>
                     <div class="collapse" id="m-configuraciones">
                         <ul class="nav flex-column sub-menu">
+                            {if $AccessMod[38] != 1}
                             <li class="nav-item">
                                 <a class="nav-link" href="{$WEB_ROOT}/institution"> Institución </a>
                             </li>
+                            {/if} 
                             <li class="nav-item">
                                 <a class="nav-link" href="{$WEB_ROOT}/configuracion-certificados"> Certificados </a>
                             </li>

@@ -10,7 +10,7 @@ use Dompdf\Exception;
 session_start();
 $user->allow_access(37);
 
-$array_date = explode('-', $_POST['date']);
+
 $total_modules = 0;
 $course->setCourseId($_POST['course']);
 $infoCourse = $course->Info();
@@ -156,37 +156,30 @@ foreach ($students as $itemStudent) {
     }
 
     // print_r($qualifications);
+    $rector['name'] = mb_strtoupper($settingCertificate['rector']);
+    $secretary['name'] = mb_strtoupper($settingCertificate['secretary']);
+    $schoolService['name'] = mb_strtoupper($settingCertificate['school_services']);
+    $director['name'] = mb_strtoupper($settingCertificate['director_education']);
+    $coordinator['name'] = mb_strtoupper($settingCertificate['coordinator']);
+    $comparison['name'] = mb_strtoupper($settingCertificate['comparison']);
+    $head['name'] = mb_strtoupper($settingCertificate['head_office']);
+    $rector['genre'] = $settingCertificate['genre_rector'] == 1 ? "RECTOR" : "RECTORA";
+    $secretary['genre'] = $settingCertificate['genre_secretary'] == 1 ? "SECRETARIO EJECUTIVO" : "SECRETARIA EJECUTIVA";
+    $director['genre'] = $settingCertificate['genre_director'] == 1 ? "DIRECTOR" : "DIRECTORA";
+    $schoolService['genre'] = $settingCertificate['genre_school'] == 1 ? "JEFE" : "JEFA";
+    $coordinator['genre'] = $settingCertificate['genre_coordinator'] == 1 ? "COORDINADOR" : "COORDINADORA";
+    $head['genre'] = $settingCertificate['genre_head'] == 1 ? "JEFE" : "JEFA";
     $dataHistoryCertificate = $certificates->getHistoryCertificateStudent($_POST['course'], $itemStudent);
-    if (is_null($dataHistoryCertificate)) {
-        $rector['name'] = mb_strtoupper($settingCertificate['rector']);
-        $secretary['name'] = mb_strtoupper($settingCertificate['secretary']);
-        $schoolService['name'] = mb_strtoupper($settingCertificate['school_services']);
-        $director['name'] = mb_strtoupper($settingCertificate['director_education']);
-        $coordinator['name'] = mb_strtoupper($settingCertificate['coordinator']);
-        $comparison['name'] = mb_strtoupper($settingCertificate['comparison']);
-        $head['name'] = mb_strtoupper($settingCertificate['head_office']);
-        $rector['genre'] = $settingCertificate['genre_rector'] == 1 ? "RECTOR" : "RECTORA";
-        $secretary['genre'] = $settingCertificate['genre_secretary'] == 1 ? "SECRETARIO EJECUTIVO" : "SECRETARIA EJECUTIVA";
-        $director['genre'] = $settingCertificate['genre_director'] == 1 ? "DIRECTOR" : "DIRECTORA";
-        $schoolService['genre'] = $settingCertificate['genre_school'] == 1 ? "JEFE" : "JEFA";
-        $coordinator['genre'] = $settingCertificate['genre_coordinator'] == 1 ? "COORDINADOR" : "COORDINADORA";
-        $head['genre'] = $settingCertificate['genre_head'] == 1 ? "JEFE" : "JEFA";
+    
+    if (is_null($dataHistoryCertificate)) { // Si no existe historial, se crea.
         $certificates->addHistoryCertificateStudent($_POST['course'], $itemStudent, $rector['name'], $secretary['name'], $schoolService['name'], $director['name'], $coordinator['name'], $comparison['name'], $head['name'], $settingCertificate['genre_rector'], $settingCertificate['genre_secretary'], $settingCertificate['genre_director'], $settingCertificate['genre_director'], $settingCertificate['genre_coordinator'], $settingCertificate['genre_head'], $_POST['date'], $datePeriod, $folios[$itemStudent]);
-    }else{
-        $rector['name'] = mb_strtoupper($dataHistoryCertificate['rector']);
-        $secretary['name'] = mb_strtoupper($dataHistoryCertificate['secretary']);
-        $schoolService['name'] = mb_strtoupper($dataHistoryCertificate['school_services']);
-        $director['name'] = mb_strtoupper($dataHistoryCertificate['director_education']);
-        $coordinator['name'] = mb_strtoupper($dataHistoryCertificate['coordinator']);
-        $comparison['name'] = mb_strtoupper($dataHistoryCertificate['comparison']);
-        $head['name'] = mb_strtoupper($dataHistoryCertificate['head_office']);
-        $rector['genre'] = $dataHistoryCertificate['genre_rector'] == 1 ? "RECTOR" : "RECTORA";
-        $secretary['genre'] = $dataHistoryCertificate['genre_secretary'] == 1 ? "SECRETARIO EJECUTIVO" : "SECRETARIA EJECUTIVA";
-        $director['genre'] = $dataHistoryCertificate['genre_director'] == 1 ? "DIRECTOR" : "DIRECTORA";
-        $schoolService['genre'] = $dataHistoryCertificate['genre_school'] == 1 ? "JEFE" : "JEFA";
-        $coordinator['genre'] = $dataHistoryCertificate['genre_coordinator'] == 1 ? "COORDINADOR" : "COORDINADORA";
-        $head['genre'] = $dataHistoryCertificate['genre_head'] == 1 ? "JEFE" : "JEFA";
-        $datePeriod = $dataHistoryCertificate['school_cycle'];
+        $array_date = explode('-', $_POST['date']);
+    }else{//En caso contrario, se actualiza.
+        $datePeriod = empty($datePeriod) ? $dataHistoryCertificate['school_cycle'] : $datePeriod;
+        $dateExpidition = empty($_POST['date']) ? $dataHistoryCertificate['expidition_date'] : $_POST['date'];
+        $array_date = explode('-', $dateExpidition);
+
+        $certificates->updateHistoryCertificateStudent($_POST['course'], $itemStudent, $rector['name'], $secretary['name'], $schoolService['name'], $director['name'], $coordinator['name'], $comparison['name'], $head['name'], $settingCertificate['genre_rector'], $settingCertificate['genre_secretary'], $settingCertificate['genre_director'], $settingCertificate['genre_director'], $settingCertificate['genre_coordinator'], $settingCertificate['genre_head'], $_POST['date'], $datePeriod, $folios[$itemStudent]);
     }
     $tbody = '';
     $sumCal = 0;
@@ -236,7 +229,7 @@ foreach ($students as $itemStudent) {
                     <td width='83%'> 
                         <div style='font-size: 6.5pt; position: absolute; right: -.6cm; top: -10px; width: 80px;'><b>SE-" . $prefix . "IAP-" . $array_date[0] . "<b></div> 
                         <div style='font-size: 9pt; position:absolute; right: 5px; width: 80px; top:105px;'><strong>Folio:</strong> <b style='color: red;'>" . mb_strtoupper($folios[$itemStudent]) . "</b></div> 
-                        <div style='min-height:8.5cm;'>
+                        <div style='height:8.5cm;'>
                             <div class='text-center' style='margin-top:15px;'>
                                 <label style='font-size: 15pt;'><b>GOBIERNO CONSTITUCIONAL DEL ESTADO DE CHIAPAS</b></label><br>
                                 <label style='font-size: 13pt;'>SECRETARÍA DE EDUCACIÓN</label><br>
