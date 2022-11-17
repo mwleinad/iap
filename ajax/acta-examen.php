@@ -35,24 +35,69 @@ if($infoCourse['modality'] == 'Local')
     $rvoe = $infoCourse['rvoe'];
     $fechaRvoe = $infoCourse['fechaRvoe'];
 }
-
-$student->setUserId($_POST['student']);
-$infoStudent = $student->GetInfo();
-
-$institution->setInstitutionId(1);
-$myInstitution = $institution->Info();
-
-$testHistory = $test->getTestHistory($_POST['course'],$_POST['student']);
-if($testHistory){
-    $test->updateTestHistory($_POST['course'],$_POST['student'], $_POST['fecha'], $_POST['folio'],$_POST['noActa'],$_POST['noAutorizacion'],$_POST['hora'],$_POST['ubicacion'],$_POST['opcionExamen'],$_POST['tesis'],$_POST['nombrePresidente'],$_POST['nombreSecretario'],$_POST['nombreVocal'],$_POST['cedulaPresidente'],$_POST['cedulaSecretario'],$_POST['cedulaVocal']);
-}else{
-    //$date, $folio, $act, $auth, $hour, $location, $option, $tesis, $president, $secretary, $vocal, $presidentCedula, $secretaryCedula, $vocalCedula
-    $test->addTestHistory($_POST['course'],$_POST['student'], $_POST['fecha'], $_POST['folio'],$_POST['noActa'],$_POST['noAutorizacion'],$_POST['hora'],$_POST['ubicacion'],$_POST['opcionExamen'],$_POST['tesis'],$_POST['nombrePresidente'],$_POST['nombreSecretario'],$_POST['nombreVocal'],$_POST['cedulaPresidente'],$_POST['cedulaSecretario'],$_POST['cedulaVocal']);
-}
-$optionPx = '250px';
+$html = "<html>
+<head>
+    <title>Acta de Examen</title>
+    <style type='text/css'>
+        body {
+            font-family: sans-serif;
+            width:100%;
+        }
+        .txtTicket {
+            font-size: 9pt;
+            font-family: sans-serif;
+            /*font:bold 12px 'Trebuchet MS';*/ 
+        }
+        table.border,td.border {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        table.border,td.border {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        .line {
+            border-bottom: 1px solid; border-left: 0px; border-right: 0px;	
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-danger {
+            color: red;
+        }
+        #mexico {
+            width: 100px;
+            position: absolute;
+            top: 16px;
+            left: 0px;
+        }
+        #mignon {
+            width: 3.5cm;
+            height: 5cm;
+            position: absolute;
+            top: 200px;
+            left: 0px;
+        }
+        .bg-gray {
+            background-color: #dddddd;
+        }
+        @page {
+            margin: 1.5cm 1.5cm 0cm 1.5cm;
+        }
+        .wrapper-page {
+            page-break-after: always;
+        }
+        
+        .wrapper-page:last-child {
+            page-break-after: avoid;
+        }
+    </style>
+</head>
+<body>";
+$optionPx = '325px';
 $optionSize = '9pt';
 $option = 'POR PROMEDIO';
-$line = '<p><b>_______________________________________________________________________________________</b></p>';
+$line = '<p><b>________________________________________________________________________________________________________</b></p>';
 if($_POST['opcionExamen'] == 'Tesis')
 {
     $optionPx = '40px';
@@ -60,9 +105,8 @@ if($_POST['opcionExamen'] == 'Tesis')
     $option = '<label style="text-align: center; font-family: times;">TESIS DE GRADO: "' . mb_strtoupper($_POST['tesis']) . '"</label>';
     $line = '<p>&nbsp;</p>';
 }
-/* echo "<pre>";
-print_r($_POST);
-exit; */
+$institution->setInstitutionId(1);
+$myInstitution = $institution->Info(); 
 $settingCertificate = $certificates->getSettings();
 $rector['name'] = mb_strtoupper($settingCertificate['rector']);
 $rector['genre'] = $settingCertificate['genre_rector'] == 1 ? "RECTOR" : "RECTORA";
@@ -73,190 +117,152 @@ $director['genre'] = $settingCertificate['genre_director'] == 1 ? "DIRECTOR" : "
 $head['name'] = mb_strtoupper($settingCertificate['head_office']);
 $head['genre'] = $settingCertificate['genre_head'] == 1 ? "JEFE" : "JEFA";
 $comparison['name'] = mb_strtoupper($settingCertificate['comparison']);
+$coordinator['name'] = mb_strtoupper($settingCertificate['coordinator']);
+$coordinator['genre'] = $settingCertificate['genre_coordinator'] == 1 ? "COORDINADOR" : "COORDINADORA";
 
-$html .="<html>
-	        <head>
-	            <title>Acta de Examen</title>
-	            <style type='text/css'>
-                    body {
-                        font-family: sans-serif;
-                    }
-	                .txtTicket {
-			            font-size: 9pt;
-			            font-family: sans-serif;
-			            /*font:bold 12px 'Trebuchet MS';*/ 
-		            }
-		            table.border,td.border {
-		                border: 1px solid black;
-		                border-collapse: collapse;
-	                }
-		            table.border,td.border {
-		                border: 1px solid black;
-		                border-collapse: collapse;
-	                }
-	                .line {
-		                border-bottom: 1px solid; border-left: 0px; border-right: 0px;	
-	                }
-                    .text-center {
-                        text-align: center;
-                    }
-                    .text-danger {
-                        color: red;
-                    }
-                    #mexico {
-                        width: 90px;
-                        position: absolute;
-                        top: 16px;
-                        left: -65px;
-                    }
-                    #mignon {
-                        width: 3cm;
-                        position: absolute;
-                        top: 240px;
-                        left: 0px;
-                    }
-                    .bg-gray {
-                        background-color: #dddddd;
-                    }
-                    @page {
-                        margin: 1.5cm 3cm 0cm 3cm;
-                    }
-                    .wrapper-page {
-                        page-break-after: always;
-                    }
-                    
-                    .wrapper-page:last-child {
-                        page-break-after: avoid;
-                    }
-		        </style>
-	        </head>
-	        <body>
+if ($_POST['student'] == 0) {
+    $group->setCourseId($_POST['course']);
+    $students = $group->DefaultGroup();
+}else{
+    $students[0]['userId'] = $_POST['student'];
+}
+foreach ($students as $item) {
+    $student->setUserId($item['userId']);
+    $infoStudent = $student->GetInfo();
+    $testHistory = $test->getTestHistory($_POST['course'],$item['userId']);
+    if($testHistory){
+        $test->updateTestHistory($_POST['course'], $item['userId'], $_POST['fecha'], $_POST['folio'],$_POST['noActa'],$_POST['noAutorizacion'],$_POST['hora'],$_POST['ubicacion'],$_POST['opcionExamen'],$_POST['tesis'],$_POST['nombrePresidente'],$_POST['nombreSecretario'],$_POST['nombreVocal'],$_POST['cedulaPresidente'],$_POST['cedulaSecretario'],$_POST['cedulaVocal']);
+    }else{
+        //$date, $folio, $act, $auth, $hour, $location, $option, $tesis, $president, $secretary, $vocal, $presidentCedula, $secretaryCedula, $vocalCedula
+        $test->addTestHistory($_POST['course'], $item['userId'], $_POST['fecha'], $_POST['folio'],$_POST['noActa'],$_POST['noAutorizacion'],$_POST['hora'],$_POST['ubicacion'],$_POST['opcionExamen'],$_POST['tesis'],$_POST['nombrePresidente'],$_POST['nombreSecretario'],$_POST['nombreVocal'],$_POST['cedulaPresidente'],$_POST['cedulaSecretario'],$_POST['cedulaVocal']);
+    }
+
+    $html.="<div>
                 <table width='100%'>
                     <tr>
                         <img src='" . DOC_ROOT . "/images/Escudo.jpg' id='mexico' />
-                        <td width='10'>&nbsp;</td>
-                        <td width='90'>
-                            <span style='font-size: 6pt; position: absolute; left: 525px; top: -15px; width: 80px;'>AEG-16-" . str_replace('20', '', date('Y')) . "</span>
-                            <p style='line-height: 17px; text-align: center; font-family: Times;'>
-                                <label style='font-size: 13pt;'><b>GOBIERNO CONSTITUCIONAL DEL ESTADO DE CHIAPAS</b></label><br>
-                                <label style='font-size: 13pt;'><b>SECRETARÍA DE EDUCACIÓN</b></label><br>
-                                <label style='font-size: 13pt;'><b>SUBSECRETARÍA DE EDUCACIÓN ESTATAL</b></label><br>
-                                <label style='font-size: 13pt;'><b>DIRECCIÓN DE EDUCACIÓN SUPERIOR</b></label><br>
+                        <td width='10%'>&nbsp;</td>
+                        <td width='90%'>
+                            <span style='font-size: 12pt; position: absolute; right: 40px; top: -15px;'>AEG-16-" . str_replace('20', '', date('Y')) . "</span>
+                            <p style='line-height: 20px; text-align: center; font-family: Times;'>
+                                <label style='font-size: 15pt;'><b>GOBIERNO CONSTITUCIONAL DEL ESTADO DE CHIAPAS</b></label><br>
+                                <label style='font-size: 15pt;'><b>SECRETARÍA DE EDUCACIÓN</b></label><br>
+                                <label style='font-size: 14pt;'><b>SUBSECRETARÍA DE EDUCACIÓN ESTATAL</b></label><br>
+                                <label style='font-size: 14pt;'><b>DIRECCIÓN DE EDUCACIÓN SUPERIOR</b></label><br>
                                 <label style='font-size: 13pt;'><b>DEPARTAMENTO DE SERVICIOS ESCOLARES</b></label><br>
-                                <label style='font-size: 8pt; font-family: sans-serif;'>RVOE: <b>" . $rvoe . "</b> ACUERDO NÚMERO VIGENTE: A PARTIR DEL <b>" . mb_strtoupper($util->FormatReadableDate($fechaRvoe)) . "</b></label><br>
+                                <label style='font-size: 8pt; font-family: sans-serif;'>RVOE: <b> ACUERDO NÚMERO" . $rvoe . "</b> VIGENTE: A PARTIR DEL <b>" . mb_strtoupper($util->FormatReadableDate($fechaRvoe)) . "</b></label><br>
                                 <label style='font-size: 9pt; font-family: sans-serif;'>RÉGIMEN PARTICULAR</label>
                             </p>
                         </td>
                     </tr>
-                </table><br><br>
-                <label style='font-size: 9pt; position: absolute; left: 353px; top: 215px; width: 500px; font-weight: bold;'>
+                </table><br>
+                <div style='font-size: 9pt; position: absolute; left: 385px; top: 215px; width: 500px; font-weight: bold;'>
                     " . $_POST['noActa'] . "
-                </label>
-                <label style='font-size: 9pt; position: absolute; left: 500px; top: 215px; width: 500px; font-weight: bold;'>
+                </div>
+                <div style='font-size: 9pt; position: absolute; left: 560px; top: 215px; width: 500px; font-weight: bold;'>
                     " . $_POST['noAutorizacion'] . "
-                </label>
-                <label style='font-size: 9pt; position: absolute; left: 320px; top: 245px; width: 500px; font-weight: bold;'>
+                </div>
+                <div style='font-size: 9pt; position: absolute; left: 320px; top: 245px; width: 500px; font-weight: bold;'>
                     " . $myInstitution['ubication'] . "
-                </label>
-                <label style='font-size: 9pt; position: absolute; left: 273px; top: 276px; width: 500px; font-weight: bold;'>
+                </div>
+                <div style='font-size: 9pt; position: absolute; left: 285px; top: 276px; width: 500px; font-weight: bold;'>
                     " . $_POST['hora'] . "
-                </label>
-                <label style='font-size: 9pt; position: absolute; left: 475px; top: 276px; width: 500px; font-weight: bold;'>
+                </div>
+                <div style='font-size: 9pt; position: absolute; left: 550px; top: 276px; width: 500px; font-weight: bold;'>
                     " . mb_strtoupper($util->num2letras($array_date[2])) . "
-                </label>
-                <label style='font-size: 9pt; position: absolute; left: 273px; top: 306px; width: 500px; font-weight: bold;'>
+                </div>
+                <div style='font-size: 9pt; position: absolute; left: 285px; top: 306px; width: 500px; font-weight: bold;'>
                     " . mb_strtoupper($util->ConvertirMes(intval($array_date[1]))) . "
-                </label>
-                <label style='font-size: 9pt; position: absolute; left: 273px; top: 336px; width: 500px; font-weight: bold;'>
+                </div>
+                <div style='font-size: 9pt; position: absolute; left: 285px; top: 336px; width: 500px; font-weight: bold;'>
                     " . mb_strtoupper($util->num2letras(str_replace('20', '', $array_date[0]))) . "
-                </label>
-                <label style='font-size: 9pt; position: absolute; left: 180px; top: 368px; width: 500px; font-weight: bold;'>
+                </div>
+                <div style='font-size: 9pt; position: absolute; left: 210px; top: 368px; width: 500px; font-weight: bold;'>
                     " . $_POST['ubicacion'] . "
-                </label>
-                <label style='font-size: 8pt; position: absolute; left: 180px; top: 398px; width: 500px; font-weight: bold;'>
+                </div>
+                <div style='font-size: 9pt; position: absolute; left: 210px; top: 398px; width: 500px; font-weight: bold;'>
                     " . $myInstitution['name_long'] . "
-                </label>
-                <label style='font-size: 9pt; position: absolute; left: 535px; top: 170px; width: 500px; font-weight: bold;'>
+                </div>
+                <div style='font-size: 10pt; position: absolute; left: 650px; top: 170px; width: 500px; font-weight: bold;'>
                     No. <span style='color: red;'>" . $_POST['folio'] . "</span>
-                </label>
+                </div>
                 <table width='100%'>
                     <tr style='font-size: 9pt;'>
                         <img src='" . DOC_ROOT . "/images/new/docs/mignon.jpg' id='mignon' />
-                        <td width='25%'>&nbsp;</td>
-                        <td width='75%'>
-                            <p>ACTA DE EXAMEN DE GRADO No. <b>____</b> AUTORIZACIÓN No. <b>_____________</b></p>
-                            <p>EN LA CIUDAD DE <b>_________________________________________________</b></p>
-                            <p>SIENDO LAS <b>____________________</b> HORAS DEL DÍA <b>___________________</b></p>
-                            <p>DEL MES DE <b>______________________________________________________</b></p>
-                            <p>DE DOS MIL <b>______________________________________________________</b></p>
-                            <p>EN <b>______________________________________________________________</b></p>
-                            <p>DEL <b>_____________________________________________________________</b></p>
+                        <td width='23%'>&nbsp;</td>
+                        <td width='72%'>
+                            <p>ACTA DE EXAMEN DE GRADO No. <b>_______</b> AUTORIZACIÓN No. <b>________________________</b></p>
+                            <p>EN LA CIUDAD DE &nbsp;&nbsp; <b>_____________________________________________________________</b></p>
+                            <p>SIENDO LAS &nbsp;&nbsp; <b>________________________</b> &nbsp; HORAS DEL DÍA &nbsp;&nbsp; <b>________________________</b></p>
+                            <p>DEL MES DE &nbsp;&nbsp; <b>_________________________________________________________________</b></p>
+                            <p>DE DOS MIL &nbsp;&nbsp; <b>__________________________________________________________________</b></p>
+                            <p>EN &nbsp;&nbsp;&nbsp;&nbsp; <b>_________________________________________________________________________</b></p>
+                            <p>DEL &nbsp;&nbsp; <b>_________________________________________________________________________</b></p>
                         </td>
                     </tr>
                 </table>
-                <label style='font-size: 9pt; position: absolute; left: 100px; top: 450px; width: 500px; font-weight: bold;'>
+                <div style='font-size: 9pt; position: absolute; left: 100px; top: 450px; width: 500px; font-weight: bold;'>
                     " . $myInstitution['identifier'] . "
-                </label>
-                <label style='font-size: 9pt; position: absolute; left: 285px; top: 450px; width: 500px; font-weight: bold;'>
+                </div>
+                <div style='font-size: 9pt; position: absolute; left: 300px; top: 450px; width: 500px; font-weight: bold;'>
                     " . mb_strtoupper($infoCourse['turn']) . "
-                </label>
-                <label style='font-size: 9pt; position: absolute; left: 480px; top: 450px; width: 500px; font-weight: bold;'>
+                </div>
+                <div style='font-size: 9pt; position: absolute; left: 550px; top: 450px; width: 500px; font-weight: bold;'>
                     " . $modality . "
-                </label>
-                <label style='font-size: 9pt; position: absolute; left: 95px; top: 512px; width: 500px; font-weight: bold;'>
+                </div>
+                <div style='font-size: 9pt; position: absolute; left: 95px; top: 512px; width: 500px; font-weight: bold;'>
                     " . $_POST['nombrePresidente'] . "
-                </label>
-                <label style='font-size: 9pt; position: absolute; left: 95px; top: 542px; width: 500px; font-weight: bold;'>
+                </div>
+                <div style='font-size: 9pt; position: absolute; left: 95px; top: 542px; width: 500px; font-weight: bold;'>
                     " . $_POST['nombreSecretario'] . "
-                </label>
-                <label style='font-size: 9pt; position: absolute; left: 95px; top: 572px; width: 500px; font-weight: bold;'>
+                </div>
+                <div style='font-size: 9pt; position: absolute; left: 95px; top: 572px; width: 500px; font-weight: bold;'>
                     " . $_POST['nombreVocal'] . "
-                </label>
-                <label style='font-size: 9pt; position: absolute; left: 200px; top: 635px; width: 500px; font-weight: bold;'>
+                </div>
+                <div style='font-size: 9pt; position: absolute; left: 230px; top: 635px; width: 500px; font-weight: bold;'>
                     " . mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']) . "
-                </label>
-                <label style='font-size: 9pt; position: absolute; left: 180px; top: 665px; width: 500px; font-weight: bold;'>
+                </div>
+                <div style='font-size: 9pt; position: absolute; left: 180px; top: 665px; width: 500px; font-weight: bold;'>
                     " . $student->GetMatricula($infoCourse['courseId']) . "
-                </label>
-                <label style='font-size: " . $optionSize . "; position: absolute; left: " . $optionPx . "; top: 696px; width: 500px; font-weight: bold;'>
+                </div>
+                <div style='font-size: " . $optionSize . "; position: absolute; left: " . $optionPx . "; top: 696px; width: 500px; font-weight: bold;'>
                     " . $option . "
-                </label>
-                <label style='font-size: 9pt; position: absolute; left: 192px; top: 726px; width: 500px; font-weight: bold;'>
+                </div>
+                <div style='font-size: 9pt; position: absolute; left: 220px; top: 726px; width: 500px; font-weight: bold;'>
                     " . $title . " EN " . mb_strtoupper($infoCourse['name']) . "
-                </label>
-                <label style='font-size: 9pt; position: absolute; left: 265px; top: 832px; width: 500px; font-weight: bold;'>
+                </div>
+                <div style='font-size: 9pt; position: absolute; left: 325px; top: 835px; width: 500px; font-weight: bold;'>
                     APROBARLO
-                </label>
-                <label style='font-size: 8pt; position: absolute; left: 268px; top: 892px; width: 500px; font-weight: bold;'>
+                </div>
+                <div style='font-size: 9pt; position: absolute; left: 200px; top: 930px; width: 500px; font-weight: bold;'>
                     " . $title . " EN " . mb_strtoupper($infoCourse['name']) . "
-                </label>
+                </div>
                 <table width='100%'>
                     <tr>
                         <td style='font-size: 9pt;'>
                             <p style='text-align: justify;'>
-                                CON CLAVE: <b>__________________</b> TURNO: <b>__________________</b> MODALIDAD: <b>___________________</b>
+                                CON CLAVE: <b>______________________</b> &nbsp;&nbsp;&nbsp;TURNO: <b>_______________________</b> &nbsp;&nbsp;&nbsp;MODALIDAD: <b>________________________</b>
                             </p>
                             <p>SE REUNIÓ EL JURADO INTEGRADO POR LOS CC.</p>
-                            <p><b>PRESIDENTE: __________________________________________________________________________</b></p>
-                            <p><b>SECRETARIO: __________________________________________________________________________</b></p>
-                            <p><b>VOCAL: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__________________________________________________________________________</b></p>
+                            <p><b>PRESIDENTE: ___________________________________________________________________________________________</b></p>
+                            <p><b>SECRETARIO: ___________________________________________________________________________________________</b></p>
+                            <p><b>VOCAL: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____________________________________________________________________________________________</b></p>
                             <p>PARA REALIZAR EL EXAMEN DE GRADO AL (A) C. SUSTENTANTE:</p>
-                            <p><b>_______________________________________________________________________________________</b></p>
-                            <p>CON NÚMERO DE CONTROL: <b>____________</b> A QUIEN SE EXAMINÓ CON BASE A LA OPCIÓN:</p>
+                            <p><b>________________________________________________________________________________________________________</b></p>
+                            <p>CON NÚMERO DE CONTROL: <b>__________________</b> A QUIEN SE EXAMINÓ CON BASE A LA OPCIÓN:</p>
                             " . $line . "
-                            <p>PARA OBTENER EL GRADO DE: <b>___________________________________________________________</b></p>
-                            <p style='text-align: justify;'>ACTO EFECTUADO DE ACUERDO A LAS NORMAS ESTABLECIDAS POR LA DIRECCIÓN DE EDUCACIÓN SUPERIOR DE LA SUBSECRETARÍA DE EDUCACIÓN ESTATAL, UNA VEZ CONCLUIDO EL EXAMEN, EL JURADO DELIBERÓ SOBRE LOS CONOCIMIENTOS Y APTITUDES DEMOSTRADAS Y DETERMINÓ:</p>
-                            <p><b>_______________________________________________________________________________________</b></p>
-                            <p style='text-align: justify;'>A CONTINUACIÓN EL PRESIDENTE DEL JURADO COMUNICÓ AL (A) C. SUSTENTANTE EL RESULTADO OBTENIDO Y LE TOMÓ PROTESTA DE LEY EN LOS TÉRMINOS SIGUIENTES: ¿PROTESTA USTED EJERCER EL GRADO DE <b>_______________________________________________</b></p>
-                            <p style='text-align: justify;'>CON ENTUSIASMO Y HONRADEZ, VELAR SIEMPRE POR EL PRESTIGIO Y BUEN NOMBRE DEL INSTITUTO Y CONTINUAR ESFORZÁNDOSE POR MEJORAR SU PREPARACIÓN EN TODOS LOS ÓRDENES, PARA GARANTIZAR LOS INTERESES DEL PUEBLO Y DE LA PATRIA?</p><br><br>
-                            <p style='text-align: center;'><b>¡SÍ PROTESTO!</b></p><br><br>
+                            <p>PARA OBTENER EL GRADO DE: <b>____________________________________________________________________________</b></p>
+                            <p style='text-align: justify; line-height:16pt;'>ACTO EFECTUADO DE ACUERDO A LAS NORMAS ESTABLECIDAS POR LA DIRECCIÓN DE EDUCACIÓN SUPERIOR DE LA SUBSECRETARÍA DE EDUCACIÓN ESTATAL, UNA VEZ CONCLUIDO EL EXAMEN, EL JURADO DELIBERÓ SOBRE LOS CONOCIMIENTOS Y APTITUDES DEMOSTRADAS Y DETERMINÓ:</p>
+                            ".$line."
+                            <p style='text-align: justify; line-height:16pt;'>A CONTINUACIÓN EL PRESIDENTE DEL JURADO COMUNICÓ AL (A) C. SUSTENTANTE EL RESULTADO OBTENIDO Y LE TOMÓ PROTESTA DE LEY EN LOS TÉRMINOS SIGUIENTES: ¿PROTESTA USTED EJERCER EL GRADO DE".$line."</p>
+                            <p style='text-align: justify; line-height:16pt;'>CON ENTUSIASMO Y HONRADEZ, VELAR SIEMPRE POR EL PRESTIGIO Y BUEN NOMBRE DEL INSTITUTO Y CONTINUAR ESFORZÁNDOSE POR MEJORAR SU PREPARACIÓN EN TODOS LOS ÓRDENES, PARA GARANTIZAR LOS INTERESES DEL PUEBLO Y DE LA PATRIA?</p><br>
+                            <p style='text-align: center;'><b>¡SÍ PROTESTO!</b></p><br>
                             <p style='text-align: center;'><b>____________________________________________</b></p>
-                            <p style='text-align: center;'><b>" . mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']) . "</b></p><br><br><br>
-                            <p style='text-align: center; font-size: 7pt;'><b>SI ASÍ LO HICIERE, QUE LA SOCIEDAD Y LA NACIÓN SE LO PREMIEN Y SI NO, SE LO DEMANDEN</b></p>
+                            <p style='text-align: center;'><b>" . mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']) . "</b></p><br>
+                            <p style='text-align: center;'><b>SI ASÍ LO HICIERE, QUE LA SOCIEDAD Y LA NACIÓN SE LO PREMIEN Y SI NO, SE LO DEMANDEN</b></p>
                         </td>
                     </tr>
-                </table>
-
+                </table> 
                 <div class='wrapper-page'>
                     <p style='font-size: 9pt; text-align: center;'>TERMINADO EL ACTO SE LEVANTA PARA CONSTANCIA LA PRESENTE ACTA</p>
                     <p style='font-size: 9pt; text-align: center;'>FIRMANDO DE CONFORMIDAD LOS INTEGRANTES DEL JURADO Y EL RECTOR DEL INSTITUTO QUE DA FE.</p><br>
@@ -267,16 +273,16 @@ $html .="<html>
                                 <b>NOMBRE</b>
                                 <br><br><br><br>
                                 " . $_POST['nombrePresidente'] . "
-                                ___________________________________
+                                _________________________________________________
                                 <br>
                                 PRESIDENTE
                                 <br><br>
                             </td>
-                            <td style='width: 40%'></td>
+                            <td style='width: 10%'></td>
                             <td style='font-size: 9pt; text-align: center;'>
                                 <b>FIRMA</b>
-                                <br><br><br><br>
-                                ___________________________________
+                                <br><br><br><br><br>
+                                _____________________________________________
                                 <br>
                                 CÉDULA PROFESIONAL No. " . $_POST['cedulaPresidente'] . "
                                 <br><br>
@@ -286,15 +292,15 @@ $html .="<html>
                             <td style='font-size: 9pt; text-align: center;'>
                                 <br><br><br>
                                 " . $_POST['nombreSecretario'] . "
-                                ___________________________________
+                                __________________________________________________
                                 <br>
                                 SECRETARIO
                                 <br><br>
                             </td>
-                            <td style='width: 40%'></td>
+                            <td style='width: 10%'></td>
                             <td style='font-size: 9pt; text-align: center;'>
-                                <br><br><br>
-                                ___________________________________
+                                <br><br><br><br>
+                                ______________________________________________
                                 <br>
                                 CÉDULA PROFESIONAL No. " . $_POST['cedulaSecretario'] . "
                                 <br><br>
@@ -304,44 +310,48 @@ $html .="<html>
                             <td style='font-size: 9pt; text-align: center;'>
                                 <br><br><br>
                                 " . $_POST['nombreVocal'] . "
-                                ___________________________________
+                                _________________________________________________
                                 <br>
                                 VOCAL
                                 <br><br>
                             </td>
-                            <td style='width: 40%'></td>
+                            <td style='width: 10%'></td>
                             <td style='font-size: 9pt; text-align: center;'>
-                                <br><br><br>
-                                ___________________________________
+                                <br><br><br><br>
+                                _____________________________________________
                                 <br>
                                 CÉDULA PROFESIONAL No. " . $_POST['cedulaVocal'] . "
                                 <br><br>
                             </td>
-                        </tr>
+                        </tr> 
+                    </table>
+                    <table style='width:100%; text-align:center;'>
                         <tr>
                             <td style='font-size: 9pt; text-align: center;' colspan='3'>
                                 <br><br><br>
-                                <b>{$rector['genre']}</b>
+                                <b>{$rector['genre']} DEL INSTITUTO</b>
                                 <br><br><br><br>
-                                ___________________________________
+                                ______________________________________________________
                                 <br>
                                 {$rector['name']}
                                 <br><br><br><br><br><br>
                             </td>
-                        </tr>
+                        </tr> 
+                    </table>
+                    <table style='width:100%'>
                         <tr>
                             <td style='font-size: 9pt; text-align: center;'>
                                 {$schoolService['genre']} DEL DEPARTAMENTO DE SERVICIOS ESCOLARES 
                                 <br><br><br><br>
-                                ___________________________________
+                                _____________________________________________
                                 <br>
                                 {$schoolService['name']}
                             </td>
-                            <td style='width: 40%'></td>
+                            <td style='width: 10%'></td>
                             <td style='font-size: 9pt; text-align: center;'>
                                 {$director['genre']} DE EDUCACIÓN SUPERIOR
-                                <br><br><br><br>
-                                ___________________________________
+                                <br><br><br><br><br>
+                                ______________________________________________
                                 <br>
                                 {$director['name']}
                             </td>
@@ -350,35 +360,35 @@ $html .="<html>
                     <br><br><br><br><br>
                     <table width='100%'>
                         <tr style='border-spacing: 0px !important;'>
-                            <td style='width: 40%;'>
+                            <td style='width: 40%; padding:0 20px;'>
                                 <table align='center' border='1' class='border'>
                                     <tr>
-                                        <td class='text-center bg-gray border' style='font-size: 7pt;'>
+                                        <td class='text-center bg-gray border' style='font-size: 7pt; padding:5px 0;'>
                                             REGISTRADO EN EL DEPARTAMENTO DE SERVICIOS ESCOLARES
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class='border'>
-                                            <p style='text-align: left; font-size: 7pt;'>
-                                                NO. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;___________________________________<br>
-                                                LIBRO. &nbsp;___________________________________<br>
-                                                FOJA. &nbsp;&nbsp;&nbsp;___________________________________<br>
-                                                FECHA. ___________________________________<br>
+                                        <td class='border' style='padding:0; margin:0'>
+                                            <p style='text-align: right; font-size: 8pt; line-height:25px; padding:0; margin:0;'>
+                                                NO: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_______________________________<br>
+                                                LIBRO: &nbsp;_______________________________<br>
+                                                FOJA: &nbsp;&nbsp;&nbsp;_______________________________<br>
+                                                FECHA: _______________________________<br>
                                             </p>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class='text-center bg-gray border' style='font-size: 7pt;'>
+                                        <td class='text-center bg-gray border' style='font-size: 7pt; padding:5px 0;'>
                                             COTEJÓ
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class='border' style='text-align: center;'>
-                                            <br><br><br><br>
+                                            <br><br><br>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class='text-center bg-gray border' style='font-size: 7pt;'>{$head['genre']} DE LA OFICINA</td>
+                                        <td class='text-center bg-gray border' style='font-size: 7pt; padding:5px;'>{$head['genre']} DE LA OFICINA</td>
                                     </tr>
                                     <tr>
                                         <td class='border' style='text-align: center;'>
@@ -398,36 +408,44 @@ $html .="<html>
                                     SE LEGALIZA, PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO, LA FIRMA QUE ANTECEDE CORRESPONDE A LA DIRECTORA DE EDUCACIÓN SUPERIOR:
                                 </p>
                                 <p style='font-size: 7pt; text-align: center;'>
-                                    MTRA. XÓCHITL CLEMENTE PARRA<br>
+                                    {$director['name']}<br>
                                     _____________________________________________________________
                                 </p>
                                 <p style='font-size: 7pt; text-align: center;'>
                                     TUXTLA GUTIÉRREZ, CHIAPAS A: _________________________________ 
                                 </p>
                                 <p style='font-size: 7pt; text-align: center;'>
-                                    COORDINADORA DE ASUNTOS JURÍDICOS DE GOBIERNO
+                                    {$coordinator['genre']} DE ASUNTOS JURÍDICOS DE GOBIERNO
                                 </p><br>
                                 <p style='font-size: 7pt; text-align: center;'>
-                                    MARÍA GUADALUPE SÁNCHEZ ZENTENO
+                                ________________________________________<br>
+                                    {$coordinator['name']}
                                 </p>
                             </td>
                         </tr>
                     </table>
-                    <p style='font-size: 6pt; text-align: center;'><b>Este documento no es válido si presenta raspaduras o enmendaduras</b></p>
+                    <p style='font-size: 9pt; text-align: center;'><b>Este documento no es válido si presenta raspaduras o enmendaduras</b></p>
                 </div>
-	        </body>
-	    </html>";
-	/* echo $html;
-	exit; */
-	# Instanciamos un objeto de la clase DOMPDF.
-	$mipdf = new DOMPDF();
-	# Definimos el tamaño y orientación del papel que queremos.
-	# O por defecto cogerá el que está en el fichero de configuración.
-	$mipdf ->set_paper("Legal", "portrait");
-	# Cargamos el contenido HTML.
-	$mipdf ->load_html($html);
-	# Renderizamos el documento PDF.
-	$mipdf ->render();
-	# Enviamos el fichero PDF al navegador.
-	$mipdf ->stream('ActaExamen.pdf', array('Attachment' => 0));
+            </div>"; 
+}
+$html.="</body>
+</html>";
+
+// echo "<pre>";
+// echo $html;
+// exit;
+
+
+// exit; */
+// # Instanciamos un objeto de la clase DOMPDF.
+$mipdf = new DOMPDF();
+# Definimos el tamaño y orientación del papel que queremos.
+# O por defecto cogerá el que está en el fichero de configuración.
+$mipdf ->set_paper("legal", "portrait");
+# Cargamos el contenido HTML.
+$mipdf ->load_html($html);
+# Renderizamos el documento PDF.
+$mipdf ->render();
+# Enviamos el fichero PDF al navegador.
+$mipdf ->stream('ActaExamen.pdf', array('Attachment' => 0));
 ?>
