@@ -98,6 +98,7 @@ function actionPostAjax(form, response){
         window.location.href = response.location;
     }
 }
+
 function showModal(title, data)
 {
     bootbox.dialog({
@@ -141,8 +142,5 @@ function CloseFview()
 }
 
 $('#ajax').on('show.bs.modal', function (event) {
-    console.log("Se abrió el modal(?");
-    $("#ajax .modal-content").html(`<div class="modal-body">
-                                    <i class="fas fa-spinner fa-pulse fa-lg"></i> Cargando...
-                                </div>`);
+    $("#ajax .modal-content").html(`<div class="modal-body"> <i class="fas fa-spinner fa-pulse fa-lg"></i> Cargando... </div>`);
 })

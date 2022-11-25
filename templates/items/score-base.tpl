@@ -1,10 +1,10 @@
 {foreach from=$theGroup item=item key=key}
 <tr id="1">
     <td class="text-center">{$item.controlNumber}</td>
-    <td class="text-capitalize">
+    <td class="text-capitalize" style="white-space:normal;">
         {if $item.situation eq 'Recursador'} <small class="text-danger">[Recursador]</small> {/if} {$item.lastNamePaterno} {$item.lastNameMaterno} {$item.names}
     </td>
-    <td class="text-center">
+    <td class="text-center" style="white-space:normal;" id='homework{$item.homework.homeworkId}'>
         {if $item.homework.path ne ''}
             {assign var="entrega" value="1"}
             <a href="{$WEB_ROOT}/download.php?file=homework/{$item.homework.path}">
@@ -14,13 +14,25 @@
                     Tarea
                 {/if}
             </a>
+            {if $actividad.activityType == "Tarea"} 
+                <br>
+                <br>
+                <button class="btn btn-danger p-3 ajax" title="Eliminar tarea" data-id="{$item.homework.homeworkId}" data-url="{$WEB_ROOT}/ajax/score-activity-new.php" data-option="deleteHomework">
+                    <i class="fa fa-trash"></i>
+                </button> 
+            {/if}
         {else}
             {assign var="entrega" value="0"}
             Sin Entregar
         {/if}
     </td>
-    <td class="text-center">
-        <input type="text" class="form-control" maxlength="5" size="5"  name="ponderation[{$item.alumnoId}]" name="ponderation[{$item.alumnoId}]" value="{$item.ponderation}" />
+    <td class="text-center" id='test{$item.activityScoreId}'>
+        <input type="text" class="form-control" maxlength="5" size="5"  name="ponderation[{$item.alumnoId}]" value="{$item.ponderation}" />
+        {if $actividad.activityType == "Examen" && $item.try > 0} 
+            <button class="btn btn-danger p-3 ajax" title="Eliminar intento de examen" data-id="{$item.activityScoreId}" data-student="{$item.alumnoId}" data-url="{$WEB_ROOT}/ajax/score-activity-new.php" data-option="deleteScore">
+                <i class="fa fa-trash"></i>
+            </button>
+        {/if} 
     </td>
     <td class="text-center">
         <textarea class="form-control" name="retro[{$item.alumnoId}]" name="retro[{$item.alumnoId}]" rows="8" style="width: 200px !important;">{$item.retro}</textarea>

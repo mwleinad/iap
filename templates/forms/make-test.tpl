@@ -1,5 +1,5 @@
 {if $access == 1}
-<form id="addMajorForm" name="addMajorForm" method="post">
+<form id="addMajorForm" name="addMajorForm" method="post" class="col-md-10 mx-auto">
 	<input type="hidden" name="modality" id="modality" value="{$actividad.modality}" />
 	<input type="hidden" id="type" name="type" value="saveAddMajor" />
 	<div class="row">
@@ -19,25 +19,60 @@
 				{foreach from=$myTest item=subject}
 					<li>
 						<p><b>{$subject.question}</b> <span class="badge badge-info"><b>Valor: {$subject.ponderation}%</b></span></p>
-						<div class="text-left">
+						<div class="text-left radio-buttons">
 							{if $subject.opcionA}
-								<input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionA" />{$subject.opcionA}
+								<div class="input-group mb-3 col-md-12 align-items-center form-group">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<input type="radio" name="anwer[{$subject.testId}]" id="anwerA{$subject.testId}" value="opcionA" /> 
+										</div>
+									</div>
+									<label for="anwerA{$subject.testId}" class="form-control answerPointer">{$subject.opcionA}</label>
+								</div>
 							{/if}
 							{if $subject.opcionB}
 								<div style="clear:both"></div>
-								<input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionB" />{$subject.opcionB}
+								<div class="input-group mb-3 col-md-12 align-items-center form-group">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<input type="radio" name="anwer[{$subject.testId}]" id="anwerB{$subject.testId}" value="opcionB" /> 
+										</div>
+									</div>
+									<label for="anwerB{$subject.testId}" class="form-control answerPointer">{$subject.opcionB}</label>
+								</div>
 							{/if}
 							{if $subject.opcionC}
 								<div style="clear:both"></div>
-								<input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionC" />{$subject.opcionC}
+								<div class="input-group mb-3 col-md-12 align-items-center form-group">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<input type="radio" name="anwer[{$subject.testId}]" id="anwerC{$subject.testId}" value="opcionC" /> 
+										</div>
+									</div>
+									<label for="anwerC{$subject.testId}" class="form-control answerPointer">{$subject.opcionC}</label>
+								</div>
 							{/if}
 							{if $subject.opcionD}
 								<div style="clear:both"></div>
-								<input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionD" />{$subject.opcionD}
+								<div class="input-group mb-3 col-md-12 align-items-center form-group">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<input type="radio" name="anwer[{$subject.testId}]" id="anwerD{$subject.testId}" value="opcionD" /> 
+										</div>
+									</div>
+									<label for="anwerD{$subject.testId}" class="form-control answerPointer">{$subject.opcionD}</label>
+								</div>
 							{/if}
 							{if $subject.opcionE}
 								<div style="clear:both"></div>
-								<input style="width:50px" type="radio" name="anwer[{$subject.testId}]" id="anwer[{$subject.testId}]" value="opcionE" />{$subject.opcionE}<br />
+								<div class="input-group mb-3 col-md-12 align-items-center form-group">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<input type="radio" name="anwer[{$subject.testId}]" id="anwerE{$subject.testId}" value="opcionE" /> 
+										</div>
+									</div>
+									<label for="anwerE{$subject.testId}" class="form-control answerPointer">{$subject.opcionE}</label>
+								</div> 
 							{/if}
 						</div>
 					</li>
@@ -105,4 +140,21 @@
 		30: "30 Segundos Restantes",
 		0: "El Tiempo Terminó"
 	});
+
+	window.addEventListener("load", function(event) {
+		$(function(){
+			$("input[type='radio']").on("click", function(){
+				$(this).parents(".radio-buttons").find(".answerPointer").removeClass('selected');
+				$(this).parents(".input-group").find('.answerPointer').addClass('selected');
+			});	
+		}); 
+	});
+	
 </script>
+<style>
+	.answerPointer:hover, .answerPointer.selected{
+		border: 2px solid #3e4b5b;
+		cursor: pointer;
+		font-size: 16px;
+	}
+</style>

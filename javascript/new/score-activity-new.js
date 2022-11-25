@@ -33,3 +33,35 @@ function saveCalificacion(){
 			})
 	
 }//saveCalificacion
+
+
+$(document).on("click",".ajax", function(ev){
+	ev.preventDefault(); 
+	Swal.fire({
+		title: '¿Está seguro de realizar esta acción?',
+		text: "No podrá ser revertida",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: '¡Sí, realizar!'
+		}).then((result) => {
+		if (result.isConfirmed) {
+			$.ajax({
+				url:$(this).data("url"),
+				type:"POST",
+				data:{id:$(this).data('id'),type:$(this).data('option'),student:$(this).data('student')}
+			}).done(function(response){
+				response = JSON.parse(response);
+				Swal.fire(
+					'Éxito',
+					response.message,
+					'success'
+				)
+				$(response.selector).html(response.contenido);
+			}).fail(function(response){
+				console.log(response);
+			});
+		}
+	}) 
+});

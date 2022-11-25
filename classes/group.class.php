@@ -321,6 +321,18 @@ class Group extends Module
 							WHERE activityId = '" . $id . "' AND userId = '" . $res["alumnoId"] . "'";
 					$this->Util()->DB()->setQuery($sql);
 					$result[$key]["homework"] = $this->Util()->DB()->GetRow();
+
+					$sql = "SELECT activityScoreId
+								FROM activity_score
+							WHERE activityId = '" . $id . "' AND userId = '" . $res["alumnoId"] . "'";
+					$this->Util()->DB()->setQuery($sql);
+					$result[$key]["activityScoreId"] = $this->Util()->DB()->GetSingle();
+
+					$sql = "SELECT try
+								FROM activity_score
+							WHERE activityId = '" . $id . "' AND userId = '" . $res["alumnoId"] . "'";
+					$this->Util()->DB()->setQuery($sql);
+					$result[$key]["try"] = $this->Util()->DB()->GetSingle();
 			
 				}
 				break;				

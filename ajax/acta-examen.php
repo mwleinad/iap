@@ -424,7 +424,7 @@ foreach ($students as $item) {
                             </td>
                         </tr>
                     </table>
-                    <p style='font-size: 9pt; text-align: center;'><b>Este documento no es válido si presenta raspaduras o enmendaduras</b></p>
+                    <p style='font-size: 9pt; text-align: center; margin-top:40px;'><b>Este documento no es válido si presenta raspaduras o enmendaduras</b></p>
                 </div>
             </div>"; 
 }

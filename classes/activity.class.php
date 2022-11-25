@@ -1024,5 +1024,12 @@
 			
 			return true;
 		}
+
+		public function deleteActivityScore($activityScoreId)
+		{
+			$sql = "DELETE FROM  activity_score WHERE activityScoreId = '{$activityScoreId}'";
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->UpdateData();
+		}
 	}	
 ?>

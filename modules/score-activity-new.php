@@ -15,10 +15,7 @@
 		$group->setCourseModuleId($actividad["courseModuleId"]);
 		$group->EditScore($_POST["modality"], $_GET["id"], $_POST["ponderation"], $_POST["retro"]);
 		
-		if($_POST["auxTpl"] == "admin"){
-			
-			
-			
+		if($_POST["auxTpl"] == "admin"){ 
 			header("Location:".WEB_ROOT."/edit-modules-course/id/". $_POST["cId"]."");
 			exit;
 		}
@@ -30,6 +27,7 @@
 	$smarty->assign('actividad', $actividad);
 	$smarty->assign('id', $_GET["id"]);
 
+	// print_r($actividad);
 	$module->setCourseModuleId($actividad["courseModuleId"]);
 	$info = $module->InfoCourseModule();
 // echo $actividad["courseModuleId"];

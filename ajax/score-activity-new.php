@@ -24,12 +24,27 @@ switch($_POST["type"])
 			</div>';
 		}else{
 			echo 'fail[#]';
-		}
-		
-		
+		} 
 		
 	break;
 	
+	case "deleteHomework":
+		$homework->deleteHomework($_POST['id']);
+		echo json_encode([ 
+			'message'	=>'Tarea eliminada',
+			'selector'	=>'#homework'.$_POST['id'],
+			'contenido'	=>'Sin entregar'
+		]);
+	break;
+
+	case 'deleteScore': 
+		$activity->deleteActivityScore($_POST['id']);
+		echo json_encode([ 
+			'message'	=>'Intento de examen eliminado',
+			'selector'	=>'#test'.$_POST['id'],
+			'contenido'	=>'<input type="text" class="form-control" maxlength="5" size="5"  name="ponderation['.$_POST['student'].']" name="ponderation['.$_POST['student'].']" value="0" />'
+		]);
+	break;
 	
 }
 
