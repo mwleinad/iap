@@ -1033,7 +1033,7 @@ class Group extends Module
 						WHERE courseModuleId = '" . $this->coursemoduleId . "' AND userId = " . $e[1] . " AND courseId = " . $info["courseId"] . "";
 				$this->Util()->DB()->setQuery($sql);
 				$infoCc = $this->Util()->DB()->GetRow();
-				
+				$aux = $aux == "N/P" ? 0 : $aux;
 				if($infoCc["courseModuleScoreId"] <= 0)
 				{	
 					$sql = "INSERT INTO `course_module_score`(`courseModuleId`, `courseId`, `userId`, `calificacion`)

@@ -15,7 +15,7 @@ $total_modules = 0;
 $course->setCourseId($_POST['course']);
 $infoCourse = $course->Info();
 $settingCertificate = $certificates->getSettings();
-// echo "<pre>";
+echo "<pre>";
 // print_r($infoCourse);
 
 // Calificacion Minima Aprobatoria
@@ -136,7 +136,7 @@ foreach ($students as $itemStudent) {
         else
             $tmp = $student->BoletaCalificacion($infoCourse['courseId'], $period, false);
         foreach ($tmp as $item) {
-            if (array_key_exists($item['subjectModuleId'], $qualifications_repeat)) {
+            if (array_key_exists($item['subjectModuleId'], $qualifications_repeat)) { 
                 $qualifications[$period][] = [
                     'subjectModuleId' => $item['subjectModuleId'],
                     'name' => $qualifications_repeat[$item['subjectModuleId']]['name'],
@@ -209,11 +209,12 @@ foreach ($students as $itemStudent) {
                         <td style="border-style: none;">' . ($next ? $qualifications[$period + 1][$element]['name'] : '') . '</td>
                         <td style="text-align: center; border-style: none;">' . ($next ? $qualifications[$period + 1][$element]['score'] : '') . '</td>
                         <td style="text-align: center; border-style: none;">' . ($next ? mb_strtoupper($util->num2letras($qualifications[$period + 1][$element]['score'])) : '') . '</td>
-                        <td style="border-style: none; text-align: center;">' . mb_strtoupper($qualifications[$period][$element + 1]['comments']) . '</td>';
+                        <td style="border-style: none; text-align: center;">' . mb_strtoupper($qualifications[$period +1][$element]['comments']) . '</td>';
             $tbody .= '</tr>';
             $sumCal+=$qualifications[$period][$element]['score'] + ($next ? $qualifications[$period + 1][$element]['score'] : 0);
             $materias++;
             $materias = $next ? $materias + 1 : $materias;
+            // print_r($qualifications[$period+1][$element]);
         }
         $promedio = round(($sumCal / $materias),1,PHP_ROUND_HALF_DOWN);
     }
@@ -398,7 +399,7 @@ foreach ($students as $itemStudent) {
 $html.="</body>
 </html>";
 // echo $html;
-// echo "</pre>";  
+echo "</pre>";  
 $mipdf = new DOMPDF();
 # Definimos el tamaño y orientación del papel que queremos.
 # O por defecto cogerá el que está en el fichero de configuración.
