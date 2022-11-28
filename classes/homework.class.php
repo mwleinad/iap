@@ -45,7 +45,7 @@ class Homework extends Activity
 
 		$sql = "
 				SELECT COUNT(*) FROM homework
-				WHERE activityId = '" . $this->actividadId . "' AND userId = '" . $this->userId . "'";
+				WHERE activityId = '" . $this->actividadId . "' AND userId = '" . $this->userId . "' AND deleted_at IS NULL";
 		$this->Util()->DB()->setQuery($sql);
 		$count = $this->Util()->DB()->GetSingle();
 		// exit;
@@ -77,7 +77,7 @@ class Homework extends Activity
 							homework
 							SET
 								nombre = '" . $nombre . "'
-							WHERE activityId = '" . $this->actividadId . "' AND userId = '" . $this->userId . "'";
+							WHERE activityId = '" . $this->actividadId . "' AND userId = '" . $this->userId . "' AND deleted_at IS NULL";
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->UpdateData();
 		}
@@ -128,7 +128,7 @@ class Homework extends Activity
 								path = '" . $relative_path . "',
 								mime = '" . $file["type"] . "',
 								confirmacion=" . $confirmacion . "
-							WHERE activityId = '" . $this->actividadId . "' AND userId = '" . $this->userId . "'";
+							WHERE activityId = '" . $this->actividadId . "' AND userId = '" . $this->userId . "' AND deleted_at IS NULL";
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->UpdateData();
 		}
@@ -185,7 +185,7 @@ class Homework extends Activity
 
 		$sql = "
 				SELECT * FROM homework
-				WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $_SESSION['User']['userId'] . "'";
+				WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $_SESSION['User']['userId'] . "' AND deleted_at IS NULL";
 		$this->Util()->DB()->setQuery($sql);
 		$count = $this->Util()->DB()->GetRow();
 		// exit;
@@ -219,7 +219,7 @@ class Homework extends Activity
 								nombre = '" . $nombre . "',
 								dateUpdate = '" . date('Y-m-d') . "',
 								countUpdate = '" . ($count['countUpdate'] + 1) . "'
-							WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $_SESSION['User']['userId'] . "'";
+							WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $_SESSION['User']['userId'] . "' AND deleted_at IS NULL";
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->UpdateData();
 		}
@@ -271,7 +271,7 @@ class Homework extends Activity
 								path = '" . $relative_path . "',
 								mime = '" . $file["type"] . "',
 								confirmacion=" . $confirmacion . "
-							WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $_SESSION['User']['userId'] . "'";
+							WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $_SESSION['User']['userId'] . "' AND deleted_at IS NULL";
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->UpdateData();
 			// exit;
@@ -335,7 +335,7 @@ class Homework extends Activity
 							* 
 						FROM
 							homework
-						WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $this->getUserId() . "'";
+						WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $this->getUserId() . "' AND deleted_at IS NULL";
 			//configuramos la consulta con la cadena de actualizacion
 			$this->Util()->DB()->setQuery($sql);
 			//ejecutamos la consulta y obtenemos el resultado
@@ -369,7 +369,7 @@ class Homework extends Activity
 								COUNT(*) 
 							FROM
 								homework
-							WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $member["userId"] . "'";
+							WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $member["userId"] . "' AND deleted_at IS NULL";
 				$this->Util()->DB()->setQuery($sql);
 				$count = $this->Util()->DB()->GetSingle();
 
@@ -378,7 +378,7 @@ class Homework extends Activity
 									* 
 								FROM
 									homework
-								WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $member["userId"] . "'";
+								WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $member["userId"] . "' AND deleted_at IS NULL";
 					$this->Util()->DB()->setQuery($sql);
 					$result = $this->Util()->DB()->GetRow();
 				}
@@ -402,7 +402,7 @@ class Homework extends Activity
 							* 
 						FROM
 							homework
-						WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $this->userId . "'";
+						WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $this->userId . "' AND deleted_at IS NULL";
 			//configuramos la consulta con la cadena de actualizacion
 			$this->Util()->DB()->setQuery($sql);
 			//ejecutamos la consulta y obtenemos el resultado
@@ -436,7 +436,7 @@ class Homework extends Activity
 								COUNT(*) 
 							FROM
 								homework
-							WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $member["userId"] . "'";
+							WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $member["userId"] . "' AND deleted_at IS NULL";
 				$this->Util()->DB()->setQuery($sql);
 				$count = $this->Util()->DB()->GetSingle();
 
@@ -445,7 +445,7 @@ class Homework extends Activity
 									* 
 								FROM
 									homework
-								WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $member["userId"] . "'";
+								WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $member["userId"] . "' AND deleted_at IS NULL";
 					$this->Util()->DB()->setQuery($sql);
 					$result = $this->Util()->DB()->GetRow();
 				}
@@ -455,10 +455,10 @@ class Homework extends Activity
 		return $result;
 	}
 
-	public function deleteHomework($homeworkId)
+	public function deleteHomework($homeworkId, $userId)
 	{
-		$sql = "DELETE FROM homework WHERE homeworkId = '{$homeworkId}'";
+		$sql = "UPDATE homework SET deleted_at = NOW(), user_id = $userId WHERE homeworkId = '{$homeworkId}'";
 		$this->Util()->DB()->setQuery($sql);
-		$this->Util()->DB()->DeleteData();
+		$this->Util()->DB()->UpdateData();
 	}
 }

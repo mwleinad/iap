@@ -6,7 +6,7 @@ include_once('../config.php');
 include_once(DOC_ROOT.'/libraries.php');
 
 session_start();
-
+$User = $_SESSION['User'];
 switch($_POST["type"])
 {
 	case "saveCalificacion": 
@@ -29,7 +29,7 @@ switch($_POST["type"])
 	break;
 	
 	case "deleteHomework":
-		$homework->deleteHomework($_POST['id']);
+		$homework->deleteHomework($_POST['id'], $User['userId']);
 		echo json_encode([ 
 			'message'	=>'Tarea eliminada',
 			'selector'	=>'#homework'.$_POST['id'],

@@ -1027,7 +1027,7 @@
 
 		public function deleteActivityScore($activityScoreId)
 		{
-			$sql = "DELETE FROM  activity_score WHERE activityScoreId = '{$activityScoreId}'";
+			$sql = "UPDATE activity_score SET try = 0, ponderation = 0 WHERE activityScoreId = '{$activityScoreId}'";
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->UpdateData();
 		}

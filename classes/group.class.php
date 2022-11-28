@@ -318,7 +318,7 @@ class Group extends Module
 
 					$sql = "SELECT *
 								FROM homework
-							WHERE activityId = '" . $id . "' AND userId = '" . $res["alumnoId"] . "'";
+							WHERE activityId = '" . $id . "' AND userId = '" . $res["alumnoId"] . "' AND deleted_at IS NULL";
 					$this->Util()->DB()->setQuery($sql);
 					$result[$key]["homework"] = $this->Util()->DB()->GetRow();
 
@@ -364,7 +364,7 @@ class Group extends Module
 					{
 						$sql = "SELECT *
 									FROM homework
-								WHERE activityId = '" . $id . "' AND userId = '" . $member["userId"] . "' AND path <>'' 
+								WHERE activityId = '" . $id . "' AND userId = '" . $member["userId"] . "' AND path <>'' AND deleted_at IS NULL 
 								ORDER BY homeworkId ASC";
 						$this->Util()->DB()->setQuery($sql);
 						$home = $this->Util()->DB()->GetRow();
@@ -1089,10 +1089,10 @@ class Group extends Module
 		$notificacion->setEnlace('/edit-modules-course/id/' . $this->coursemoduleId);
 		$notificacion->saveNotificacion();
 		
-		$resposeHtml .= '<br><br><br><br>';
-		$resposeHtml .= $actividads;
-		$sendmail->PrepareAttachment("Actualizacion en Acta de Calificaciones", $resposeHtml, "", "", "dacademica@iapchiapas.org.mx", "Administrador", $attachment, $fileName);
-		$sendmail->PrepareAttachment("Actualizacion en Acta de Calificaciones", $resposeHtml, "", "", "enlinea@iapchiapas.org.mx", "Administrador", $attachment, $fileName);
+		// $resposeHtml .= '<br><br><br><br>';
+		// $resposeHtml .= $actividads;
+		// $sendmail->PrepareAttachment("Actualizacion en Acta de Calificaciones", $resposeHtml, "", "", "dacademica@iapchiapas.org.mx", "Administrador", $attachment, $fileName);
+		// $sendmail->PrepareAttachment("Actualizacion en Acta de Calificaciones", $resposeHtml, "", "", "enlinea@iapchiapas.org.mx", "Administrador", $attachment, $fileName);
 		return true;
 	}
 		
