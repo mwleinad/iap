@@ -98,15 +98,13 @@ return $notificaciones;
 
 public function saveNotificacion(){
 	 $sqlNot="insert into notificacion(notificacionId,actividad,vista,hecho,fecha_aplicacion,tablas,enlace)
-			   values(
-			              '',
+			   values( 
 			            '".$this->actividad."', 
 			            '".$this->vista."',
 			            '".$this->hecho."',
 			            '".date("Y-m-d H:i:s")."',
 			            '".$this->tablas."',
-						'".$this->enlace."'
-			     
+						'".$this->enlace."' 
 			         )";
 					 
 			$this->Util()->DB()->setQuery($sqlNot);

@@ -176,10 +176,10 @@ foreach ($students as $itemStudent) {
         $array_date = explode('-', $_POST['date']);
     }else{//En caso contrario, se actualiza.
         $datePeriod = empty($datePeriod) ? $dataHistoryCertificate['school_cycle'] : $datePeriod;
-        $dateExpidition = empty($_POST['date']) ? $dataHistoryCertificate['expidition_date'] : $_POST['date'];
+        $dateExpidition = empty($_POST['date']) ? $dataHistoryCertificate['expedition_date'] : $_POST['date'];
         $array_date = explode('-', $dateExpidition);
 
-        $certificates->updateHistoryCertificateStudent($_POST['course'], $itemStudent, $rector['name'], $secretary['name'], $schoolService['name'], $director['name'], $coordinator['name'], $comparison['name'], $head['name'], $settingCertificate['genre_rector'], $settingCertificate['genre_secretary'], $settingCertificate['genre_director'], $settingCertificate['genre_director'], $settingCertificate['genre_coordinator'], $settingCertificate['genre_head'], $_POST['date'], $datePeriod, $folios[$itemStudent]);
+        $certificates->updateHistoryCertificateStudent($_POST['course'], $itemStudent, $rector['name'], $secretary['name'], $schoolService['name'], $director['name'], $coordinator['name'], $comparison['name'], $head['name'], $settingCertificate['genre_rector'], $settingCertificate['genre_secretary'], $settingCertificate['genre_director'], $settingCertificate['genre_director'], $settingCertificate['genre_coordinator'], $settingCertificate['genre_head'], $dateExpidition, $datePeriod, $folios[$itemStudent]);
     }
     $tbody = '';
     $sumCal = 0;
