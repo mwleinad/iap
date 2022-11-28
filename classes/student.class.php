@@ -2874,7 +2874,8 @@ class Student extends User
 						LEFT JOIN subject_module 
 							ON subject_module.subjectModuleId = course_module.subjectModuleId
 					WHERE courseId = " . $courseId . " " . $condition . "
-					ORDER BY semesterId ASC, initialDate ASC";
+					ORDER BY semesterId ASC, orden ASC";
+					// echo $sql."<br>";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 		foreach($result as $key => $value)
