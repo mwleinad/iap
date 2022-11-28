@@ -141,7 +141,7 @@ foreach ($students as $itemStudent) {
                     'subjectModuleId' => $item['subjectModuleId'],
                     'name' => $qualifications_repeat[$item['subjectModuleId']]['name'],
                     'score' => $qualifications_repeat[$item['subjectModuleId']]['score'],
-                    'comments' => 'R'
+                    'comments' => 'REC'
                 ];
             } else {
                 $qualifications[$period][] = [
