@@ -15,7 +15,7 @@ $total_modules = 0;
 $course->setCourseId($_POST['course']);
 $infoCourse = $course->Info();
 $settingCertificate = $certificates->getSettings();
-echo "<pre>";
+// echo "<pre>";
 // print_r($infoCourse);
 
 // Calificacion Minima Aprobatoria
@@ -399,7 +399,7 @@ foreach ($students as $itemStudent) {
 $html.="</body>
 </html>";
 // echo $html;
-echo "</pre>";  
+// echo "</pre>";  
 $mipdf = new DOMPDF();
 # Definimos el tamaño y orientación del papel que queremos.
 # O por defecto cogerá el que está en el fichero de configuración.
