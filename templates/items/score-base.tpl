@@ -14,7 +14,7 @@
                     Tarea
                 {/if}
             </a>
-            {if $actividad.activityType == "Tarea"} 
+            {if $actividad.activityType == "Tarea" && in_array($User['userId'],[1,149])} 
                 <br>
                 <br>
                 <button class="btn btn-danger p-3 ajax" title="Eliminar tarea" data-id="{$item.homework.homeworkId}" data-url="{$WEB_ROOT}/ajax/score-activity-new.php" data-option="deleteHomework">
@@ -28,7 +28,7 @@
     </td>
     <td class="text-center" id='test{$item.activityScoreId}'>
         <input type="text" class="form-control" maxlength="5" size="5"  name="ponderation[{$item.alumnoId}]" value="{$item.ponderation}" />
-        {if $actividad.activityType == "Examen" && $item.try > 0} 
+        {if $actividad.activityType == "Examen" && $item.try > 0 && in_array($User['userId'],[1,149])} 
             <button class="btn btn-danger p-3 ajax" title="Eliminar intento de examen" data-id="{$item.activityScoreId}" data-student="{$item.alumnoId}" data-url="{$WEB_ROOT}/ajax/score-activity-new.php" data-option="deleteScore">
                 <i class="fa fa-trash"></i>
             </button>
