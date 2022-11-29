@@ -861,12 +861,13 @@ class Group extends Module
 			
 			if($infoCc["calificacion"] == null or $infoCc["calificacion"] == 0)
 			{	
-				$at = $result[$key]{"addepUp"} / 10;
+				$at = $result[$key]{"addepUp"} / 10; 
 				if($this->tipoMajor == "MAESTRIA" and $at < 7)
 					$at = floor ($at);
 				else if($this->tipoMajor == "DOCTORADO" and $at < 8)
 					$at = floor ($at);
 				else
+					$at = round($at, 1, PHP_ROUND_HALF_DOWN);
 					$at = round($at, 0, PHP_ROUND_HALF_DOWN);
 				$infoCc["calificacion"] = $at ;
 				
@@ -1463,6 +1464,7 @@ class Group extends Module
 				else if($this->tipoMajor == "DOCTORADO" and $at < 8)
 					$at= floor ($at);
 				else
+					$at= round($at, 1, PHP_ROUND_HALF_DOWN);
 					$at= round($at, 0, PHP_ROUND_HALF_DOWN);
 				$infoCc["calificacion"] = $at ;
 			}else
