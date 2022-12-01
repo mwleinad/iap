@@ -216,7 +216,7 @@ foreach ($students as $itemStudent) {
             $materias = $next ? $materias + 1 : $materias;
             // print_r($qualifications[$period+1][$element]);
         }
-        $promedio = round(($sumCal / $materias),1,PHP_ROUND_HALF_DOWN);
+        $promedio = bcdiv($sumCal, $materias, 1);
     }
     $plan = ($infoCourse['majorName'] == "DOCTORADO" ? "DEL " : "DE LA ").$infoCourse['majorName'];
     $prefijoDirector = $director['genre'] == "DIRECTOR" ? "DEL " : "A LA ".$director['genre'];
