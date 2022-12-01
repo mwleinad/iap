@@ -220,6 +220,8 @@ foreach ($students as $itemStudent) {
     }
     $plan = ($infoCourse['majorName'] == "DOCTORADO" ? "DEL " : "DE LA ").$infoCourse['majorName'];
     $prefijoDirector = $director['genre'] == "DIRECTOR" ? "DEL " : "A LA ".$director['genre'];
+    $nameStudent =  mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']);
+    $nameStudent = $util->eliminar_acentos($nameStudent);
     $html .="
             <table width='100%'>
                 <tr>
@@ -240,7 +242,7 @@ foreach ($students as $itemStudent) {
                             </div>
                             <p style='font-size: 8.6pt; text-align: justify;line-height:0.5cm; margin-top:0.4cm;'>
                                 LA DIRECCIÓN DEL INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, RÉGIMEN PARTICULAR, TURNO " . mb_strtoupper($infoCourse['turn']) . " MODALIDAD " . $modality . ", CLAVE " . $myInstitution['identifier'] . ", CERTIFICA QUE:<br>
-                                EL (LA) C. <b>" . mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']) . "</b><br>
+                                EL (LA) C. <b>" . $nameStudent . "</b><br>
                                 CON No. DE CONTROL: <b>" . $student->GetMatricula($infoCourse['courseId']) . "</b> ACREDITÓ LAS MATERIAS QUE INTEGRAN EL PLAN DE ESTUDIOS " . $plan . " EN:
                             </p>
                             <p style='font-size: 9.5pt; text-align: center;'><b>" . $infoCourse['name'] . "</b></p>

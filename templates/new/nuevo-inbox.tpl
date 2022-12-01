@@ -1,4 +1,15 @@
-<div class="portlet box red">
+<style>
+.child.table-bordered{
+	border-color:#73B760;
+}
+.child.table-bordered th, .child.table-bordered td{
+	border-color:#73B760;
+}
+.child.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #b8eea9;
+}
+</style>
+<div class="portlet box red p-5">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-bullhorn"></i>Modulos
@@ -8,7 +19,7 @@
         </div>
     </div>
     <div class="portlet-body">
-       <table width="100%" class="tblGral table table-bordered table-striped table-condensed flip-content">
+       <table width="100%" class="tblGral table table-striped table-condensed flip-content">
 			<thead>
 				<th></th>
 				<th>Tipo</th>
@@ -26,7 +37,7 @@
 						<tr>
 							<td id="td_{$subject.courseId}" colspan="10" style="display:none">
 								<table>
-									<table width="100%" class="tblGral table table-bordered table-striped table-condensed flip-content">
+									<table width="100%" class="tblGral child table table-bordered table-striped table-condensed flip-content">
 									<thead>
 										<th></th>
 										<th>Nombre</th>
