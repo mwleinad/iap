@@ -3,6 +3,8 @@
         <input type="hidden" id="type" name="type" value="saveAddMajor" />
         <input type="hidden" id="topicsubId" name="topicsubId" value="{$topicsubId}" />
         <input type="hidden" id="moduleId" name="moduleId" value="{$moduleId}" />
+        <input type="hidden" id="positionId" name="positionId" value="{$positionId}" />
+        <input type="hidden" id="userId" name="userId" value="{$userId}" />
         <div class="row">
             <div class="form-group col-md-12">
                 <label for="reply">Aportación:</label>

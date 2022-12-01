@@ -10,14 +10,14 @@
 		     $forum->setTopicsubId($_POST["topicsubId"]);
 			 $forum->setModuleId($_POST["moduleId"]);
 		     $forum->setReply($_POST["reply"]);
-		     if($User["positionId"]==0 || $User["positionId"]=="" || $User["positionId"]==null || !isset($User["positionId"])){
-		     $forum->setUserId($User["userId"]);
+		     if($_POST["positionId"]==0 || $_POST["positionId"]=="" || $_POST["positionId"]==null || !isset($_POST["positionId"])){
+		     $forum->setUserId($_POST["userId"]);
 		     $forum->setPersonalId(0);
 		         }
 			else{
 			
 			$forum->setUserId(0);
-			$forum->setPersonalId($User["userId"]);
+			$forum->setPersonalId($_POST["userId"]);
 			}
     	$forum->AddReply();
 	   }else{
@@ -35,6 +35,7 @@
    // echo $_GET["Id"];
 	$smarty->assign('topicsubId', $_GET["topicsubId"]);
 	$smarty->assign('positionId', $User["positionId"]);
+	$smarty->assign('userId', $User["userId"]);
 	$smarty->assign('moduleId', $_GET['id']);
 	
 	$forum->setTopicsubId($_GET["topicsubId"]);
