@@ -6,11 +6,11 @@
 	border-color:#73B760;
 }
 .child.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #b8eea9;
+    background-color: #dadbda;
 }
 </style>
-<div class="portlet box red p-5">
-    <div class="portlet-title">
+<div class="portlet box red" >
+    <div class="portlet-title p-3 text-white" style="background-color: #73b760;">
         <div class="caption">
             <i class="fa fa-bullhorn"></i>Modulos
         </div>
@@ -18,7 +18,7 @@
 
         </div>
     </div>
-    <div class="portlet-body">
+    <div class="portlet-body p-5">
        <table width="100%" class="tblGral table table-striped table-condensed flip-content">
 			<thead>
 				<th></th>
@@ -52,8 +52,9 @@
 												<td>{$item2.semesterId}</td>
 												<td>{$item2.name}</td>
 												<td>{$item2.statusCCi}</td>
-												<td>
-													<a href="{$WEB_ROOT}/reply-inbox/id/{$item2.courseModuleId}/cId/0"><i class="fa fa-sign-in fa-lg"></i>
+												<td class="text-center">
+													<a href="{$WEB_ROOT}/reply-inbox/id/{$item2.courseModuleId}/cId/0">
+														<i class="icon-paper-plane fa-2x text-black"></i>
 													</a>
 												</td>
 											</tr>
