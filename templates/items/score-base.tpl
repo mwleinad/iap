@@ -4,7 +4,7 @@
     <td class="text-capitalize" style="white-space:normal;">
         {if $item.situation eq 'Recursador'} <small class="text-danger">[Recursador]</small> {/if} {$item.lastNamePaterno} {$item.lastNameMaterno} {$item.names}
     </td>
-    <td class="text-center" style="white-space:normal;" id='homework{$item.homework.homeworkId}'>
+    <td class="text-center" style="white-space:normal;" id='homework{$item.homeworkId}'>
         {if $item.homework.path ne ''}
             {assign var="entrega" value="1"}
             <a href="{$WEB_ROOT}/download.php?file=homework/{$item.homework.path}">
@@ -14,10 +14,10 @@
                     Tarea
                 {/if}
             </a>
-            {if $actividad.activityType == "Tarea" && in_array($User['userId'],[1,149])} 
+            {if ($actividad.activityType == "Tarea" || $actividad.activityType == "Por Equipo") && in_array($User['userId'],[1,149])} 
                 <br>
                 <br>
-                <button class="btn btn-danger p-3 ajax" title="Eliminar tarea" data-id="{$item.homework.homeworkId}" data-url="{$WEB_ROOT}/ajax/score-activity-new.php" data-option="deleteHomework">
+                <button class="btn btn-danger p-3 ajax" title="Eliminar tarea" data-id="{$item.homeworkId}" data-url="{$WEB_ROOT}/ajax/score-activity-new.php" data-option="deleteHomework">
                     <i class="fa fa-trash"></i>
                 </button> 
             {/if}

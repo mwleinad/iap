@@ -10,8 +10,8 @@
         </div>
         <h4 class="text-left">{$courseInfo.majorName} {$courseInfo.name}</h4>
         <h4 class="text-left"><b>Grupo:</b> {$courseInfo.group}</h4>
-        <h4 class="text-left"><b>Periodo:</b> {$courseInfo.initialDate} - {$courseInfo.finalDate}</h4>
-        <h1>Inicador de Titulación</h1><hr>
+        <h4 class="text-left"><b>Período:</b> {$courseInfo.initialDate} - {$courseInfo.finalDate}</h4>
+        <h1>Indicador de Titulación</h1><hr>
         <h3><i class="fas fa-users"></i> Alumnos Totales: {$total_certificate.total}</h3>
         <h3><i class="fas fa-graduation-cap"></i> Alumnos Titulados: {$total_certificate.certificates}</h3>
         <span class="badge badge-info">

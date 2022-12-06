@@ -316,11 +316,11 @@ class Group extends Module
 					$this->Util()->DB()->setQuery($sql);
 					$result[$key]["fileRetro"] = $this->Util()->DB()->GetSingle();
 
-					$sql = "SELECT *
+					$sql = "SELECT homeworkId
 								FROM homework
 							WHERE activityId = '" . $id . "' AND userId = '" . $res["alumnoId"] . "' AND deleted_at IS NULL";
 					$this->Util()->DB()->setQuery($sql);
-					$result[$key]["homework"] = $this->Util()->DB()->GetRow();
+					$result[$key]["homeworkId"] = $this->Util()->DB()->GetSingle();
 
 					$sql = "SELECT activityScoreId
 								FROM activity_score
@@ -367,6 +367,7 @@ class Group extends Module
 								WHERE activityId = '" . $id . "' AND userId = '" . $member["userId"] . "' AND path <>'' AND deleted_at IS NULL 
 								ORDER BY homeworkId ASC";
 						$this->Util()->DB()->setQuery($sql);
+
 						$home = $this->Util()->DB()->GetRow();
 						if($home['path'] <> '')
 						{
@@ -374,6 +375,7 @@ class Group extends Module
 							{
 								$result[$key]["homework"] = WEB_ROOT . "/homework/" . $home["path"];
 								$result[$key]["nombre"] = $home['nombre'];
+								$result[$key]["homeworkId"] = $home['homeworkId'];
 							} 
 						} 
 
@@ -1555,5 +1557,12 @@ class Group extends Module
 				$data['validated'][$item['userId']][] = $item['validated_level'];
 		}
 		return $data;
+	}
+
+	/**
+	 * Retorna todos los alumnos activos y graduados de las materias de acuerdo a los rangos de fechas.
+	 */
+	function IndicadorTitulacionFechas($fecha_inicial,$fecha_final)
+	{ 
 	}
 }
