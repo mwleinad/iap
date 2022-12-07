@@ -1564,5 +1564,14 @@ class Group extends Module
 	 */
 	function IndicadorTitulacionFechas($fecha_inicial,$fecha_final)
 	{ 
+		$sql = "SELECT COUNT(*) FROM user_subject INNER JOIN user ON user_subject.alumnoId = user.userId INNER JOIN course ON course.courseId = user_subject.courseId WHERE user_subject.status = 'activo' AND user_subject.situation = 'A' AND user.activo = 1 AND (course.finalDate >= '{$fecha_inicial}' AND course.finalDate <= '{$fecha_final}');";
+		$this->Util()->DB()->setQuery($sql);
+		$total = $this->Util()->DB()->GetSingle(); 
+
+
+		$sql = "SELECT COUNT(*) FROM certificate_subject INNER JOIN course ON course.courseId = certificate_subject.courseId WHERE certificate_subject.status = 1 AND (course.finalDate >= '{$fecha_inicial}' AND course.finalDate <= '{$fecha_final}');";
+		$this->Util()->DB()->setQuery($sql);
+		$certificates = $this->Util()->DB()->GetSingle(); 
+		return ['total' => $total, 'certificates' => $certificates];
 	}
 }

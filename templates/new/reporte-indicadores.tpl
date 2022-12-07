@@ -32,23 +32,13 @@
                     <label>Fecha final</label>
                     <input type="date" class="form-control" id="fecha_final" required name="fecha_final">
                 </div>
-				<div class="col-md-4">
-					<label for="posgrado">Posgrado</label>
-					<select name="posgrado" id="posgrado" class="form-control">
-						<option value="">-- Seleccionar --</option>
-						{foreach from=$lstPosgrados item=subject}
-							<option value="{$subject.subjectId}">{$subject.name}</option>
-						{/foreach}
-					</select>
-				</div> 
                 <div class="col-md-12 form-group"></div>
                 <div class="col-md-12 text-center">
                     <button type="submit" class="btn btn-primary">Buscar</button>
                 </div>
 			</div>
 		</form> 
-		<div id="container" class="table-responsive">
-			{include file="{$DOC_ROOT}/templates/lists/new/reporte-indicadores.tpl"}
+		<div id="container-reportes" class="table-responsive">
 		</div>
     </div>
 </div>

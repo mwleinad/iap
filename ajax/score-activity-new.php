@@ -15,6 +15,8 @@ switch($_POST["type"])
 		// exit;
 		$activity->setActivityId($_POST["id"]);
 		$actividad = $activity->Info();
+		// echo "<pre>";
+		// print_r($actividad);
 		$group->setCourseModuleId($actividad["courseModuleId"]);
 		if($group->EditScore($actividad["modality"], $_POST["id"], $_POST["ponderation"], $_POST["retro"])){
 			echo 'ok[#]';
