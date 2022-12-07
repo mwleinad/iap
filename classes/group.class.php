@@ -316,11 +316,11 @@ class Group extends Module
 					$this->Util()->DB()->setQuery($sql);
 					$result[$key]["fileRetro"] = $this->Util()->DB()->GetSingle();
 
-					$sql = "SELECT homeworkId
+					$sql = "SELECT *
 								FROM homework
 							WHERE activityId = '" . $id . "' AND userId = '" . $res["alumnoId"] . "' AND deleted_at IS NULL";
 					$this->Util()->DB()->setQuery($sql);
-					$result[$key]["homeworkId"] = $this->Util()->DB()->GetSingle();
+					$result[$key]["homework"] = $this->Util()->DB()->GetRow();
 
 					$sql = "SELECT activityScoreId
 								FROM activity_score

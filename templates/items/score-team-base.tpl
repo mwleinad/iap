@@ -2,9 +2,16 @@
 <tr id="1">
     <td class="text-center">{$item.teamId}</td>
     <td class="text-center">{$item.teamNumber}</td>
-    <td class="text-center">
+    <td class="text-center" id='homework{$item.homeworkId}'>
         {if $item.homework.path ne ''} 
             <a href="{$item.homework}" target="_blank">{$item.nombre}</a>
+            {if in_array($User['userId'],[1,149])} 
+                <br>
+                <br>
+                <button class="btn btn-danger p-3 ajax" title="Eliminar tarea" data-id="{$item.homeworkId}" data-url="{$WEB_ROOT}/ajax/score-activity-new.php" data-option="deleteHomework">
+                    <i class="fa fa-trash"></i>
+                </button> 
+            {/if}
         {else}
             Sin Entregar
         {/if}
