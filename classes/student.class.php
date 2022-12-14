@@ -2880,9 +2880,10 @@ class Student extends User
 		$result = $this->Util()->DB()->GetResult();
 		foreach($result as $key => $value)
 		{
-			$sql = "SELECT *
+			$sql = "SELECT course_module_score.*, cm.calificacionValida
 						FROM course_module_score
-						WHERE courseModuleId = " . $value['courseModuleId'] . " AND userId = " . $this->userId . " AND courseId = " . $courseId;
+							LEFT JOIN course_module as cm ON cm.courseModuleId = course_module_score.courseModuleId
+						WHERE course_module_score.courseModuleId = " . $value['courseModuleId'] . " AND userId = " . $this->userId . " AND course_module_score.courseId = " . $courseId;
 			$this->Util()->DB()->setQuery($sql);
 			$infoCc = $this->Util()->DB()->GetRow();
 			// CALCULA ACUMULADO

@@ -29,9 +29,23 @@ if(count($students) > 1)
 {
     foreach($students as $item)
     {
+        $flag = true;
         $student->setUserId($item);
         $infoStudent = $student->GetInfo();
         $modules = $student->BoletaCalificacion($_POST['course'], $_POST['semester'], false);
+        foreach($modules as $element)
+        {
+            if($element['calificacionValida'] == 'no')
+                $flag = false;
+        }
+        if(!$flag)
+        {
+            echo "<script>
+                    alert('No se pudo generar la boleta, no se han publicado todas las calificaciones...');
+                    window.close();
+                </script>";
+            exit;
+        }
         $qualificationsId = $student->SaveQualifications($_POST['course'], $_POST['semester'], $_POST['cycle'], $_POST['period'], $_POST['date'], $_POST['year'], $modules, $infoCourse, $_POST['notification']);
         echo "<script>
                 alert('Las boletas se guardaron de manera correcta...');
@@ -41,9 +55,15 @@ if(count($students) > 1)
 }
 else
 {
+    $flag = true;
     $student->setUserId($students[0]);
     $infoStudent = $student->GetInfo();
     $modules = $student->BoletaCalificacion($_POST['course'], $_POST['semester'], true);
+    foreach($modules as $item)
+    {
+        if($item['calificacionValida'] == 'no')
+            $flag = false;
+    }
     $qualificationsId = $student->SaveQualifications($_POST['course'], $_POST['semester'], $_POST['cycle'], $_POST['period'], $_POST['date'], $_POST['year'], $modules, $infoCourse, $_POST['notification']);
     $qualifications = $student->GetQualifications($qualificationsId);
     $target_path = DOC_ROOT . '/tmp/' . $qualifications['id'] . '.jpg';
@@ -52,6 +72,14 @@ else
     /* echo "<pre>";
     print_r($modules);
     exit; */
+    if(!$flag)
+    {
+        echo "<script>
+                alert('No se pudo generar la boleta, no se han publicado todas las calificaciones...');
+                window.close();
+            </script>";
+        exit;
+    }
     $institution->setInstitutionId(1);
     $myInstitution = $institution->Info();
     $html_modules = "";
