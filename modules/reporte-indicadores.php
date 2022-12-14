@@ -1,4 +1,4 @@
 <?php 
-$lstPosgrados = $subject->getPosgrados(); 
-$smarty->assign("lstPosgrados", $lstPosgrados);
+$lstPosgrados = $group->posgrados();  
+$smarty->assign("posgrados", $lstPosgrados);
 ?>

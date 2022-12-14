@@ -32,13 +32,21 @@
                     <label>Fecha final</label>
                     <input type="date" class="form-control" id="fecha_final" required name="fecha_final">
                 </div>
-                <div class="col-md-12 form-group"></div>
+                <div class="col-md-4 form-group">
+                    <label for="posgrado">Posgrado</label>
+                    <select class="form-control" name="posgrado" id="posgrado">
+                        <option value="">----</option>
+                        {foreach from=$posgrados item=item}
+                            <option value="{$item.subjectId}">[{$item.nivelPosgrado}]{$item.posgrado}</option>
+                        {/foreach}
+                    </select>
+                </div>
                 <div class="col-md-12 text-center">
                     <button type="submit" class="btn btn-primary">Buscar</button>
                 </div>
 			</div>
 		</form> 
-		<div id="container-reportes" class="table-responsive">
+		<div id="contenedor-reportes">
 		</div>
     </div>
 </div>

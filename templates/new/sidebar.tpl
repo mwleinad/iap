@@ -191,9 +191,11 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="{$WEB_ROOT}/report-materia">Materias</a>
                                     </li>
-                                    {* <li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/reporte-indicadores">Indicadores</a>
-                                    </li> *}
+                                    {if $User['userId'] == 1}
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{$WEB_ROOT}/reporte-indicadores">Indicadores</a>
+                                        </li>
+                                    {/if}
                                     {*<li class="nav-item">
                                         <a class="nav-link" href="{$WEB_ROOT}/report-docentes">Docentes</a>
                                     </li>*}

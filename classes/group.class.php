@@ -1562,16 +1562,116 @@ class Group extends Module
 	/**
 	 * Retorna todos los alumnos activos y graduados de las materias de acuerdo a los rangos de fechas.
 	 */
-	function IndicadorTitulacionFechas($fecha_inicial,$fecha_final)
+	function IndicadorTitulacionFechas($fecha_inicial,$fecha_final, $posgrado = NULL)
 	{ 
-		$sql = "SELECT COUNT(*) FROM user_subject INNER JOIN user ON user_subject.alumnoId = user.userId INNER JOIN course ON course.courseId = user_subject.courseId WHERE user_subject.status = 'activo' AND user_subject.situation = 'A' AND user.activo = 1 AND (course.finalDate >= '{$fecha_inicial}' AND course.finalDate <= '{$fecha_final}');";
+		$condicion = "";
+		if(!is_null($posgrado) && !empty($posgrado)){
+			$condicion = "AND course.subjectId = '{$posgrado}' ";
+		}
+		$sql = "SELECT COUNT(*) FROM user_subject INNER JOIN user ON user_subject.alumnoId = user.userId INNER JOIN course ON course.courseId = user_subject.courseId WHERE user_subject.status = 'activo' AND user_subject.situation = 'A' AND user.activo = 1 AND course.finalDate >= '{$fecha_inicial}' AND course.finalDate <= '{$fecha_final}' {$condicion};";
+		$this->Util()->DB()->setQuery($sql);
+		$total = $this->Util()->DB()->GetSingle();  
+
+		$sql = "SELECT COUNT(*) FROM certificate_subject INNER JOIN course ON course.courseId = certificate_subject.courseId WHERE certificate_subject.status = 1 AND course.finalDate >= '{$fecha_inicial}' AND course.finalDate <= '{$fecha_final}' {$condicion};";
+		$this->Util()->DB()->setQuery($sql);
+		$certificates = $this->Util()->DB()->GetSingle();  
+
+		$percentage = $total == 0 ? 0 : ($certificates * 100) / $total;
+		
+		return ['total' => $total, 'certificates' => $certificates, 'percentage' => $percentage, 'totalPosgrados'];
+	}
+
+	public function IndicadorDesertoresFechas($fecha_inicial,$fecha_final, $posgrado = NULL)
+	{
+		$condicion = "";
+		if(!is_null($posgrado) && !empty($posgrado)){
+			$condicion = "AND course.subjectId = '{$posgrado}' ";
+		}
+		$sql = "SELECT COUNT(*) FROM user_subject INNER JOIN user ON user_subject.alumnoId = user.userId INNER JOIN course ON course.courseId = user_subject.courseId WHERE user.activo = 1 AND course.finalDate >= '{$fecha_inicial}' AND course.finalDate <= '{$fecha_final}' {$condicion};";
+		$this->Util()->DB()->setQuery($sql);
+		$total = $this->Util()->DB()->GetSingle(); 
+
+		$sql = "SELECT COUNT(*) FROM user_subject INNER JOIN user ON user_subject.alumnoId = user.userId INNER JOIN course ON course.courseId = user_subject.courseId WHERE user_subject.status = 'inactivo'  AND user.activo = 1 AND course.finalDate >= '{$fecha_inicial}' AND course.finalDate <= '{$fecha_final}' {$condicion};";
+		$this->Util()->DB()->setQuery($sql);
+		$desertion = $this->Util()->DB()->GetSingle();
+
+		$percentageDesertion = $total == 0 ? 0 : ($desertion * 100) / $total;
+		$percentageEffiency = $total == 0 ? 0 : (100 - ($desertion * 100) / $total);
+		return ['total' => $total, 'desertion' => $desertion, 'percentageDesertion'=>$percentageDesertion, 'percentageEffiency'=>$percentageEffiency];
+	}
+
+	public function IndicadorRecursadoresFechas($fecha_inicial, $fecha_final, $posgrado = NULL)
+	{ 
+		$condicion = "";
+		if(!is_null($posgrado) && !empty($posgrado)){
+			$condicion = "AND course.subjectId = '{$posgrado}' ";
+		}
+		$sql = "SELECT COUNT(*) FROM user_subject INNER JOIN user ON user_subject.alumnoId = user.userId INNER JOIN course ON course.courseId = user_subject.courseId WHERE user_subject.status = 'activo' AND user_subject.situation = 'A' AND user.activo = 1 AND course.finalDate >= '{$fecha_inicial}' AND course.finalDate <= '{$fecha_final}' {$condicion};";
 		$this->Util()->DB()->setQuery($sql);
 		$total = $this->Util()->DB()->GetSingle(); 
 
 
-		$sql = "SELECT COUNT(*) FROM certificate_subject INNER JOIN course ON course.courseId = certificate_subject.courseId WHERE certificate_subject.status = 1 AND (course.finalDate >= '{$fecha_inicial}' AND course.finalDate <= '{$fecha_final}');";
+		$sql = "SELECT COUNT(id)  FROM user_subject_repeat  LEFT JOIN user  ON user_subject_repeat.alumnoId = user.userId  INNER JOIN course ON course.courseId = user_subject_repeat.courseId WHERE user_subject_repeat.status = 'activo' AND user.activo = 1 AND course.finalDate >= '{$fecha_inicial}' AND course.finalDate <= '{$fecha_final}' {$condicion}";
 		$this->Util()->DB()->setQuery($sql);
-		$certificates = $this->Util()->DB()->GetSingle(); 
-		return ['total' => $total, 'certificates' => $certificates];
+		$recursion = $this->Util()->DB()->GetSingle(); 
+		$percentage = $total == 0 ? 0 : ($recursion * 100) / $total;
+		return ['total' => $total, 'recursion' => $recursion, 'percentage'=>$percentage];
+
+	}
+
+	public function desgloseReporteIndicadores($fecha_inicial, $fecha_final, $posgrado = NULL)
+	{
+		if(!empty($posgrado) && !is_null($posgrado)){
+			$sql = "SELECT course.courseId, major.name as nivelPosgrado, subject.name as nombrePosgrado, course.group, SUM(IF(user_subject.status = 'activo',1,0)) as totalCursando FROM `user_subject` INNER JOIN user ON user.userId = user_subject.alumnoId INNER JOIN course ON course.courseId = user_subject.courseId INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo WHERE user_subject.situation = 'A' AND user.activo = 1 AND course.finalDate >= '{$fecha_inicial}' AND course.finalDate <= '{$fecha_final}' AND course.subjectId = '{$posgrado}' GROUP BY major.majorId, course.group";
+
+			$sql2 = "SELECT course.courseId, course.group, COUNT(*) as totalTitulados FROM certificate_subject INNER JOIN course ON course.courseId = certificate_subject.courseId INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo WHERE certificate_subject.status = 1 AND course.finalDate >= '{$fecha_inicial}' AND course.finalDate <= '{$fecha_final}' AND course.subjectId = '{$posgrado}' GROUP BY major.majorId, course.group";
+
+			$sql3 = "SELECT course.courseId, course.group, COUNT(*) as totalInscritos FROM user_subject INNER JOIN user ON user_subject.alumnoId = user.userId INNER JOIN course ON course.courseId = user_subject.courseId INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo WHERE user.activo = 1 AND course.finalDate >= '{$fecha_inicial}' AND course.finalDate <= '{$fecha_final}' AND course.subjectId = '{$posgrado}' GROUP BY major.majorId, course.group";
+
+			$sql4 = "SELECT course.courseId, course.group, SUM(IF(user_subject.status = 'inactivo', 1, 0)) as totalDesertores FROM user_subject INNER JOIN user ON user_subject.alumnoId = user.userId INNER JOIN course ON course.courseId = user_subject.courseId INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo WHERE user.activo = 1 AND course.finalDate >= '{$fecha_inicial}' AND course.finalDate <= '{$fecha_final}' AND course.subjectId = '{$posgrado}' GROUP BY major.majorId, course.group;";
+
+			$sql5 = "SELECT SUM(IF(user_subject_repeat.status = 'activo', 1, 0)) as totalRecursadores, course.group FROM user_subject_repeat  LEFT JOIN user  ON user_subject_repeat.alumnoId = user.userId  INNER JOIN course ON course.courseId = user_subject_repeat.courseId INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo WHERE user.activo = 1 AND (course.finalDate >= '{$fecha_inicial}' AND course.finalDate <= '{$fecha_final}')  AND course.subjectId = '{$posgrado}' GROUP BY major.majorId,course.group;";
+		}else{
+			$sql = "SELECT course.courseId, major.name as nivelPosgrado, subject.name as nombrePosgrado, SUM(IF(user_subject.status = 'activo',1,0)) as totalCursando, GROUP_CONCAT(DISTINCT(course.group)) as grupos FROM `user_subject` INNER JOIN user ON user.userId = user_subject.alumnoId INNER JOIN course ON course.courseId = user_subject.courseId INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo WHERE user_subject.situation = 'A' AND user.activo = 1 AND course.finalDate >= '{$fecha_inicial}' AND course.finalDate <= '{$fecha_final}' GROUP BY major.majorId, subject.subjectId;";
+
+			$sql2 = "SELECT course.courseId, COUNT(*) as totalTitulados FROM certificate_subject INNER JOIN course ON course.courseId = certificate_subject.courseId INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo WHERE certificate_subject.status = 1 AND course.finalDate >= '{$fecha_inicial}' AND course.finalDate <= '{$fecha_final}' GROUP BY major.majorId, subject.subjectId;";
+
+			$sql3 = "SELECT course.courseId, COUNT(*) as totalInscritos FROM user_subject INNER JOIN user ON user_subject.alumnoId = user.userId INNER JOIN course ON course.courseId = user_subject.courseId INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo WHERE user.activo = 1 AND course.finalDate >= '{$fecha_inicial}' AND course.finalDate <= '{$fecha_final}' GROUP BY major.majorId, subject.subjectId;"; 
+
+			$sql4 = "SELECT course.courseId, SUM(IF(user_subject.status = 'inactivo', 1, 0)) as totalDesertores FROM user_subject INNER JOIN user ON user_subject.alumnoId = user.userId INNER JOIN course ON course.courseId = user_subject.courseId INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo WHERE user.activo = 1 AND course.finalDate >= '{$fecha_inicial}' AND course.finalDate <= '{$fecha_final}' GROUP BY major.majorId, subject.subjectId;";
+
+			$sql5 = "SELECT SUM(IF(user_subject_repeat.status = 'activo', 1, 0)) as totalRecursadores FROM user_subject_repeat  LEFT JOIN user  ON user_subject_repeat.alumnoId = user.userId  INNER JOIN course ON course.courseId = user_subject_repeat.courseId INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo WHERE user.activo = 1 AND course.finalDate >= '{$fecha_inicial}' AND course.finalDate <= '{$fecha_final}' GROUP BY major.majorId, subject.subjectId;";
+		
+		}
+		$this->Util()->DB()->setQuery($sql);
+		$totalesEnCurso = $this->Util()->DB()->GetResult(); 
+
+		$this->Util()->DB()->setQuery($sql2);
+		$totalTitulados = $this->Util()->DB()->GetResult();
+
+		$this->Util()->DB()->setQuery($sql3);
+		$totalInscritos = $this->Util()->DB()->GetResult();
+		
+		$this->Util()->DB()->setQuery($sql4);
+		$totalDesertores = $this->Util()->DB()->GetResult();
+
+		$this->Util()->DB()->setQuery($sql5); 
+		$totalRecursadores = $this->Util()->DB()->GetResult(); 
+		
+		return [
+			'totalesEnCurso' => $totalesEnCurso, 
+			'totalTitulados' => $totalTitulados, 
+			'totalInscritos' => $totalInscritos, 
+			'totalDesertores' => $totalDesertores, 
+			'totalRecursadores' => $totalRecursadores
+		];
+	}
+
+	public function posgrados()
+	{
+		$sql = "SELECT subject.subjectId, major.name as nivelPosgrado, subject.name as posgrado FROM `course` INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo GROUP BY major.majorId, subject.subjectId ORDER BY major.name ASC;";
+		$this->Util()->DB()->setQuery($sql);
+		$resultado = $this->Util()->DB()->GetResult(); 
+		return $resultado;
 	}
 }
