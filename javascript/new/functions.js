@@ -10,7 +10,6 @@ var LOADER3 = "<div align='center'><img src='"+WEB_ROOT+"/images/cargando.gif'><
 // var WEB_ROOT = "http://www.iapchiapasenlinea.mx";
 
 $( document ).ready(function() {
-    console.log("?");
     $(document).on("click",".closeModal",function() {
         bootbox.hideAll();
     });
