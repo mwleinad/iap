@@ -1653,7 +1653,7 @@ class Student extends User
 		$sql = "SELECT * FROM user WHERE email = '" . $this->getEmail() . "'";
 		$this->Util()->DB()->setQuery($sql);
 		$infoDu = $this->Util()->DB()->GetRow();
-		if(!$infoDu){
+		if(!$infoDu['email']){
 			return false;
 		}
 		$msj = "Instituto de Administración Publica del Estado de Chiapas, A. C.
