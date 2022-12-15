@@ -118,7 +118,11 @@
 
 <div id="loader"></div>
 <div class="form-group text-center">
-    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+    {if isset($no_admin)}
+        <a href="{$WEB_ROOT}" class="btn btn-danger">Regresar</a>
+    {else}
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button> 
+    {/if}
     <button type="button" class="btn btn-success submitForm" onclick="AddStudentRegister();" id="addStudent">Guardar</button>
 </div>
 <div class="row">

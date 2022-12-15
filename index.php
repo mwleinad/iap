@@ -11,7 +11,7 @@ if (!isset($_SESSION))
   session_start();
 }
 
-if((!isset($_SESSION['User'])) && $_GET['page'] != 'login' && $_GET['page'] != 'register')
+if((!isset($_SESSION['User'])) && $_GET['page'] != 'login' && $_GET['page'] != 'register' && $_GET['page'] != "recuperacion")
 	header('Location: ' . WEB_ROOT . '/login');
 
 
@@ -228,7 +228,7 @@ $pages = array(
 	'boletas',
 	'niveles-ingles',
 	'configuracion-certificados',
-	'reporte-indicadores'
+	'reporte-indicadores',
 );
 
 if(!in_array($_GET['page'], $pages))

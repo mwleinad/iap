@@ -26,15 +26,16 @@
                                     <h4>Recuperación de Datos de Acceso</h4>
                                     <h6 class="font-weight-light text-center">Ingresa el correo electrónico con el que te diste de alta en nuestro Sistema de Educación en Línea, por ese medio te enviaremos tus datos de acceso.</h6>
                                 </div>
-                                <form id="emailrecuperacion" class="pt-3" method="POST">
+                                <form class="pt-3 form" method="POST" id="form_recuperacion" action="{$WEB_ROOT}/ajax/new/recuperacion.php">
                                     <input type="hidden" name="type" value="recupera" />
                                     <div class="form-group">
-                                        <input type="email" id="email" name="email" class="form-control form-control-lg" autocomplete="off" placeholder="Correo" />
+                                        <input type="email" id="email" name="email" class="form-control form-control-lg" autocomplete="off" placeholder="Correo" required />
+                                        <span class="invalid-feedback"></span>
                                     </div>
                                     <div id="loader" ></div>
 			                        <div id="divMsj" class="alert alert-info" style="display:none"></div>
                                     <div class="mt-3">
-                                        <button type="button" onclick="Recuperacion()" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">
+                                        <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">
                                             Recuperar
                                         </button>
                                     </div>
@@ -67,7 +68,6 @@
         <script src="{$WEB_ROOT}/assets/pages/scripts/login-4.min.js" type="text/javascript"></script>
         {include file="{$DOC_ROOT}/templates/config.tpl"}
         <script src="{$WEB_ROOT}/javascript/new/functions.js?{$timestamp}" type="text/javascript"></script>
-        <script src="{$WEB_ROOT}/javascript/new/{$page}.js?{$timestamp}" type="text/javascript"></script>
         {* New scripts *}
         <!--script src="{$WEB_ROOT}/assets/vcz/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script-->
     </body>

@@ -1660,7 +1660,7 @@ class Student extends User
 				Contraseña: ".$infoDu["password"]."<br>
 				<br><br>
 				Para una correcta navegación en nuestro Sistema, puede consultar el manual del alumno en:<br>
-				http://www.iapchiapasenlinea.mx/manual_alumno.pdf<br>
+				<a href=http://www.iapchiapasenlinea.mx/manual_alumno.pdf>http://www.iapchiapasenlinea.mx/manual_alumno.pdf</a><br>
 				Cualquier duda, favor de contactarnos:<br>
 				Teléfonos: (961) 125-15-08, 125-15-09, 125-15-10 Ext. 106 o 114<br>
 				Correo: enlinea@iapchiapas.org.mx<br>
@@ -1668,7 +1668,7 @@ class Student extends User
 				IAP-Chiapas<br>
 				<img src='".WEB_ROOT."/images/logo_correo.jpg'>
 				<br><br><br>";
-		$sendmail->PrepareAttachment("IAP Chiapas | Recuperacion de datos de usuario", utf8_decode($msj), "", "", $infoDu["email"], $infoDu["names"], $attachment, $fileName);
+		$sendmail->Prepare("IAP Chiapas | Recuperación de datos de usuario", utf8_decode($msj), "", "", $infoDu["email"], $infoDu["names"]);
 		$this->Util()->setError(10030, "complete","Se ha enviado un correo con tus datos de acceso");
 		$this->Util()->PrintErrors();
 		return true;

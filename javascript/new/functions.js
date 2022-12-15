@@ -10,7 +10,7 @@ var LOADER3 = "<div align='center'><img src='"+WEB_ROOT+"/images/cargando.gif'><
 // var WEB_ROOT = "http://www.iapchiapasenlinea.mx";
 
 $( document ).ready(function() {
-
+    console.log("?");
     $(document).on("click",".closeModal",function() {
         bootbox.hideAll();
     });
@@ -56,7 +56,7 @@ $( document ).ready(function() {
                     form.find("input[name="+index+"]").addClass('is-invalid');
                     form.find("input[name="+index+"]").parent().append(`<span class="invalid-feedback">${value}</span>`); 
                 });
-            } 
+            }
         });
     });
 
@@ -95,7 +95,10 @@ function actionPostAjax(form, response){
         }
     }
     if (response.location) {
-        window.location.href = response.location;
+        var duracion = response.duracion ? response.duracion : 0;
+        setTimeout(() => {
+            window.location.href = response.location;
+        }, duracion); 
     }
 }
 

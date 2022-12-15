@@ -6,4 +6,5 @@
 	$smarty->assign('prof',$prof);
 	$activeCourses = $course->EnumerateActive();
 	$smarty->assign("activeCourses", $activeCourses);
+	$smarty->assign("no_admin",true);
 ?>
