@@ -37,7 +37,7 @@ switch($_POST["type"])
         {
             echo json_encode([
                 'selector'  =>"#divMsj",
-                'html'      =>"Ocurrió un error con el envío de correo, intente más tarde"
+                'html'      =>'Ocurrió un error con el envío de correo, intente más tarde <script>$("#divMsj").removeAttr("style");</script>'
             ]);
         }else{
             echo json_encode([

@@ -1653,6 +1653,9 @@ class Student extends User
 		$sql = "SELECT * FROM user WHERE email = '" . $this->getEmail() . "'";
 		$this->Util()->DB()->setQuery($sql);
 		$infoDu = $this->Util()->DB()->GetRow();
+		if(!$infoDu){
+			return false;
+		}
 		$msj = "Instituto de Administración Publica del Estado de Chiapas, A. C.
 				<br><br>
 				Sus datos de acceso para nuestro Sistema de Educación en Línea son:<br>
