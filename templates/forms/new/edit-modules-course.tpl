@@ -178,18 +178,6 @@
                         </select>
                     {/if}
                 </div>
-                {if !$docente}
-                    <div class="form-group col-md-4">
-                        <label for="presentacion">Archivo de Presentación (.swf):</label>
-                        <input type="file" name="presentacion" id="presentacion"  class="form-control" />
-                        {if $existepre==1}&nbsp; &nbsp; <a target="_blank" href="{$WEB_ROOT}/flash/{$nombrePre}">{$nombrePre}</a>&nbsp; &nbsp; <a href="{$WEB_ROOT}/edit-modules-course/id/{$moduleCourseId}/e/2" >Eliminar</a> {/if}
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="calendario">Calendario (.jpg):</label>
-                        <input type="file" name="calendario" id="calendario"  class="form-control" />
-                        {if $existecal==1}&nbsp; &nbsp; <a target="_blank" href="{$WEB_ROOT}/calendario/{$nombreCal}">{$nombreCal}</a>&nbsp; &nbsp; <a href="{$WEB_ROOT}/edit-modules-course/id/{$moduleCourseId}/e/1" >Eliminar</a> {/if}
-                    </div>
-                {/if}
             </div>
             {if !$docente}
                 <div class="row">
