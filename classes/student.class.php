@@ -42,8 +42,7 @@ class Student extends User
 	{
 		$this->perfil = $value;
 	}
-
-
+	
 	public function setAsunto($value)
 	{
 		$this->asunto = $value;
@@ -535,9 +534,9 @@ class Student extends User
 							'".$this->getMastersSchool()."', 
 							'".$this->getHighSchool()."',
 							'no'
-						)";
+						)"; 
 		$this->Util()->DB()->setQuery($sqlQuery);
-
+						
 		if($id = $this->Util()->DB()->InsertData())
 		{
 			$fecha_aplicacion = date("Y-m-d H:i:s");
@@ -1140,18 +1139,23 @@ class Student extends User
 		$result = NULL;
 		$result2 = NULL;
 		$filtro = "";
-		if($this->nombre)
+		$pageExtra = "";
+		if($this->nombre){
 			$filtro .= " and names like '%" . $this->nombre . "%'";
-
-		if($this->apaterno)
+			$pageExtra = "/nombre/{$this->nombre}";
+		} 
+		if($this->apaterno){
 			$filtro .= " and lastNamePaterno like '%" . $this->apaterno . "%'";
-
-		if($this->amaterno)
+			$pageExtra.= "/paterno/{$this->apaterno}";
+		}
+		if($this->amaterno){
 			$filtro .= " and lastNameMaterno like '%" . $this->amaterno . "%'";
-
-		if($this->noControl)
+			$pageExtra.= "/materno/{$this->amaterno}";
+		}
+		if($this->noControl){
 			$filtro .= " and controlNumber = '" . $this->noControl . "'";
-
+			$pageExtra.= "/control/{$this->noControl}";
+		}
 		if($this->estatus)
 		{
 			if($this->estatus==2)
@@ -1211,19 +1215,19 @@ class Student extends User
 		$arrPages['previusPage'] = '';
 		if($currentPage > 1)
 		{
-			$arrPages['previusPage'] = $pageLink . '/' . $pageVar . '/' . ($currentPage - 1);
+			$arrPages['previusPage'] = $pageLink . '/' . $pageVar . '/' . ($currentPage - 1).$pageExtra;
 			if($currentPage > 2)
-				$arrPages['startPage'] = $pageLink . '/' . $pageVar . '/' . '1';
+				$arrPages['startPage'] = $pageLink . '/' . $pageVar . '/' . '1'.$pageExtra;
 		}
 		$arrPages['nextPage'] = '';
 		$arrPages['endPage'] = '';
 		if($currentPage < $arrPages['totalPages'])
 		{
-			$arrPages['nextPage'] = $pageLink . '/' . $pageVar . '/' . ($currentPage + 1);
+			$arrPages['nextPage'] = $pageLink . '/' . $pageVar . '/' . ($currentPage + 1).$pageExtra;
 			if($currentPage < ($arrPages['totalPages'] - 1))
-				$arrPages['endPage'] = $pageLink . '/' . $pageVar . '/' . $arrPages['totalPages'];
+				$arrPages['endPage'] = $pageLink . '/' . $pageVar . '/' . $arrPages['totalPages'].$pageExtra;
 		}
-		$arrPages['refreshPage'] = $pageLink . '/' . $pageVar . '/' . $currentPage ;
+		$arrPages['refreshPage'] = $pageLink . '/' . $pageVar . '/' . $currentPage.$pageExtra ;
 		return $result;
 	}
 
