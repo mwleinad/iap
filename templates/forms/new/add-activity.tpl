@@ -65,7 +65,7 @@
         </div>
         <div class="form-group col-md-6">
             <label for="ponderation">Ponderación:</label>
-            <input type="text" name="ponderation" id="ponderation" maxlength="3" class="form-control"/>
+            <input type="number" name="ponderation" id="ponderation" maxlength="3" min="0" class="form-control"/>
         </div>
     </div>
     <div class="row">
