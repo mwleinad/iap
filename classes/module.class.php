@@ -1010,7 +1010,7 @@
 					left join subject as s on s.subjectId = sm.subjectId
 					left join course as ce on ce.courseId = cm.courseId
 					WHERE
-						c.personalId = ".$Id." order by cm.active asc";
+						c.personalId = ".$Id." GROUP BY c.courseModuleId, ce.group order by cm.active asc";
 			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->GetResult();
 			
