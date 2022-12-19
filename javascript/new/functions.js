@@ -25,6 +25,9 @@ $( document ).ready(function() {
         ev.preventDefault();
         var form = $(this);
         var data = new FormData(document.getElementById(form.attr('id')));
+        console.log(data);
+        console.log(form);
+        console.log(document.getElementById(form.attr('id')));
         var btnSubmit = form.find("button[type='submit']");
         $.ajax({
             type: "POST",
@@ -52,8 +55,8 @@ $( document ).ready(function() {
                 console.log(response);
                 actionPostAjax(form, response);
                 $.each(response.errors,function(index, value){
-                    form.find("input[name="+index+"]").addClass('is-invalid');
-                    form.find("input[name="+index+"]").parent().append(`<span class="invalid-feedback">${value}</span>`); 
+                    form.find("input[name="+index+"],textarea[name="+index+"]").addClass('is-invalid');
+                    form.find("input[name="+index+"],textarea[name="+index+"]").parent().append(`<span class="invalid-feedback d-block">${value}</span>`); 
                 });
             }
         });
@@ -97,6 +100,12 @@ function actionPostAjax(form, response){
         var duracion = response.duracion ? response.duracion : 0;
         setTimeout(() => {
             window.location.href = response.location;
+        }, duracion); 
+    }
+    if (response.reload) {
+        var duracion = response.duracion ? response.duracion : 0;
+        setTimeout(() => {
+            location.reload();
         }, duracion); 
     }
 }

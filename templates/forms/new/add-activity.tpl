@@ -1,13 +1,14 @@
-<form id="addMajorForm" name="addMajorForm" method="post" action="{$WEB_ROOT}/add-activity/id/{$id}">
+<form class="form" id="form_add_activity" method="post" action="{$WEB_ROOT}/add-activity/id/{$id}">
     <input type="hidden" id="auxTpl" name="auxTpl" value="{$auxTpl}" />
     <input type="hidden" id="id" name="id" value="{$id}" />
     <input type="hidden" id="type" name="type" value="saveAddMajor" />
+    <input type="hidden" id="descripcionValida" name="descripcionValida" value="true">
     <div class="row">
         <div class="form-group col-md-12">
             <label for="activityType">Tipo de Actividad:</label>
             <select id="activityType" name="activityType" class="form-control">
                 <option value="Lectura">Lectura</option>
-                <option value="Tarea">Tarea</option>
+                <option value="Tarea" selected>Tarea</option>
                 <option value="Examen">Examen</option>
                 <option value="Foro">Foro</option>
                 <option value="Otro">Otro</option>
@@ -21,7 +22,7 @@
         </div>
 		<div class="form-group col-md-6">
             <label for="horaInicial">Hora Inicial:</label>
-            <input type="time" name="horaInicial" id="horaInicial" class="form-control" />
+            <input type="time" name="horaInicial" id="horaInicial" class="form-control" value="00:00:00" />
         </div>
     </div>
     <div class="row">
@@ -65,7 +66,7 @@
         </div>
         <div class="form-group col-md-6">
             <label for="ponderation">Ponderación:</label>
-            <input type="number" name="ponderation" id="ponderation" maxlength="3" min="0" class="form-control"/>
+            <input type="number" name="ponderation" id="ponderation" maxlength="3" class="form-control" />
         </div>
     </div>
     <div class="row">
@@ -81,8 +82,22 @@
         language: "es",
         toolbarButtonSize: "small",
         autofocus: true,
-        toolbarAdaptive: false
+        toolbarAdaptive: false,
+        limitChars: 2500,
+        limitHTML: false
     });
+    editor.e.on('keyup', () => {
+        var cadenaCaracteres = editor.__plugins.stat.charCounter.outerText;
+        var arregloCadena = cadenaCaracteres.split(" "); 
+		console.log(cadenaCaracteres);
+        console.log(arregloCadena);
+        console.log(parseInt(arregloCadena[1]));
+        if(parseInt(arregloCadena[1]) >= 2500){
+            $("#descripcionValida").val(false);
+        }else{
+            $("#descripcionValida").val(true);
+        }
+	});
     $('.modal').removeAttr('tabindex');
 
     flatpickr('.i-calendar', {

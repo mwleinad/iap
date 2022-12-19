@@ -8,6 +8,28 @@
 
 	if($_POST)
 	{
+		$errors = [];
+		
+		if(empty($_POST['resumen'])){
+			$errors["resumen"] = "El campo titulo es requerido.";
+		}
+		if (empty($_POST['description'])) {
+			$errors["description"] = "El campo descripcion es requerido.";
+		}
+		if ($_POST['descripcionValida'] == "false") {
+			$errors["description"] = "Solo se permiten 2500 caracteres máximo";
+		}
+		if(empty($_POST['ponderation'])){
+			$errors["ponderation"] = "El campo ponderación es requerido.";
+		}
+		if (!empty($errors)) {
+			header('HTTP/1.1 422 Unprocessable Entity');
+            header('Content-Type: application/json; charset=UTF-8');
+			echo json_encode([
+				'errors'    =>$errors
+			]);
+			exit;
+		}
 		$activity->setCourseModuleId($_GET["id"]);
 		$activity->setActivityType($_POST["activityType"]);
 
@@ -23,12 +45,19 @@
 		$activity->Save();
 		
 		if($_POST["auxTpl"]=="admin"){
-			header("Location:".WEB_ROOT."/edit-modules-course/id/".$_POST["id"]."");
+			echo json_encode([
+				'growl'		=>true,
+				'message'	=>'Actividad creada',
+				'type'		=>'success',
+				'duracion'	=>3000,
+				'reload'	=>true
+			]);
+			// header("Location:".WEB_ROOT."/edit-modules-course/id/".$_POST["id"]."");
 			exit;
 		}
 		
 	}
-
+	
 	$date = date("d-m-Y");
 	$smarty->assign('date', $date);
 	$smarty->assign('id', $_GET["id"]);
