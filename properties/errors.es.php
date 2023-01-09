@@ -46,6 +46,7 @@ $property["error"][10030] = "El alumno ha sido actualizado correctamente";
 $property["error"][10031] = "El personal ha sido creado correctamente";
 $property["error"][10032] = "El personal ha sido eliminado correctamente";
 $property["error"][10033] = "El personal ha sido actualizado correctamente";
+$property["error"][10078] = "No se puede agregar el personal, porque ya existe un registro con este dato";
 
 $property["error"][10034] = "El horario ha sido creado correctamente";
 $property["error"][10035] = "El horario ha sido eliminado correctamente";

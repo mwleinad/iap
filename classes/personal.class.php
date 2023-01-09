@@ -210,7 +210,8 @@ class Personal extends Main
 	}
 
 	public function setRfc($value)
-	{
+	{ 
+		$this->Util()->ValidateString($value, $max_chars = 60, $minChars = 1, "RFC");
 		$this->rfc = $value;
 	}
 
@@ -913,7 +914,15 @@ class Personal extends Main
 			return false;
 		}
 
+		$sql = "SELECT COUNT(*) FROM personal WHERE rfc = '{$this->rfc}'";
+		$this->Util()->DB()->setQuery($sql);
+		$count = $this->Util()->DB()->GetSingle();
 
+		if($count > 0){
+			$this->Util()->setError(10078, "error", "", "RFC");
+			$this->Util()->PrintErrors();
+			return false;
+		}
 
 		$sql = "INSERT INTO 
 					personal 

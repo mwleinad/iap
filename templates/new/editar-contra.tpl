@@ -11,7 +11,7 @@
 			<div class="row">
 				<div class="form-group col-md-12">
 					<label for="fecha_4">Fecha de Contrato:</label>
-					<input type="text" name="fechaContrato" id="fecha_4" class="form-control i-calendar" {if $myModule.fechaContrato eq '0000-00-00'} value="{$hoy}" {else} value="{$myModule.fechaContrato}" {/if} />
+					<input type="text" name="fechaContrato" id="fecha_4" class="form-control i-calendar" {if $myModule.fechaContrato eq '00-00-0000'} value="{$hoy}" {else} value="{$myModule.fechaContrato}" {/if} />
 				</div>
 			</div>
 			<span class="badge badge-dark my-3">Fecha de Materia</span>

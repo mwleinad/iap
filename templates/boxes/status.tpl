@@ -1,10 +1,10 @@
 <div>
 	{if !empty($errors)}
 	{foreach from=$errors.value item="error" key="key"}
-		{$error}.
 		{if $errors.field.$key}
-			Campo: <u>{$errors.field.$key}</u>
+			Error en el campo: <strong>[{$errors.field.$key}]</strong>
 		{/if}
+		{$error}.<br>
 	{/foreach}
 {/if}
 </div>
