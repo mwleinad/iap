@@ -45,7 +45,7 @@
 			<a href="{$WEB_ROOT}/graybox.php?page=student-repeat&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px">
 				<i class="fas fa-book fa-2x text-danger pointer" data-toggle="tooltip" data-placement="top" title="Recursar Materia"></i>
 			</a>   
-			<a href="{$WEB_ROOT}/files/solicitudes.php?alumnoId={$item.userId}&cursoId={$item.courseId}" target="_blank">
+			<a href="{$WEB_ROOT}/pdf/solicitudes.php?alumnoId={$item.userId}&cursoId={$item.courseId}" target="_blank">
 				<i class="fas fa-file-export fa-2x text-info pointer" data-toggle="tooltip" data-placement="top" title="Ficha de Registro"></i>
 			</a>
 			{if $item.hasRGP > 0}
