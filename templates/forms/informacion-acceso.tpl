@@ -3,7 +3,7 @@
 	<div class="row">
 		<div class="form-group col-md-6">
 			<label for="user">Usuario</label>
-			<input type="text" id="user" name="user" class="form-control" {if $cId eq 'si' or $Usertype eq 'Docente'} disabled {/if} value="{$info.username}" />
+			<input type="text" id="user" name="user" class="form-control" {if $cId eq 'si' or $Usertype eq 'Docente'} readonly {/if} value="{$info.username}" />
 		</div>
 		<div class="form-group col-md-6">
 			<label for="pass1">Contraseña</label>

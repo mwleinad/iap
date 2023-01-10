@@ -595,26 +595,26 @@ switch ($_POST["type"]) {
 			// $smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
 			//					header("Location: ".WEB_ROOT."/alumn-services");
 			/*					$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
-					echo "[#]";
-					
-					$arrPage = array();		
-					$viewPage = 1;			
-					$rowsPerPage = 30;		
-					
-					$pageVar = 'p';	
-					
-					if(isset($_GET["$pageVar"]))
-						$viewPage = $_GET["$pageVar"];	
-					
-					$students = $student->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/student', $arrPage, ' semesterId ASC, ');
-					
-					$students = $util->EncodeResult($students);
-					$smarty->assign('students', $students);	
-					$smarty->assign('arrPage', $arrPage);
-					
-					$smarty->assign("DOC_ROOT", DOC_ROOT);
-					$smarty->display(DOC_ROOT.'/templates/lists/student.tpl');
-*/
+				echo "[#]";
+				
+				$arrPage = array();		
+				$viewPage = 1;			
+				$rowsPerPage = 30;		
+				
+				$pageVar = 'p';	
+				
+				if(isset($_GET["$pageVar"]))
+					$viewPage = $_GET["$pageVar"];	
+				
+				$students = $student->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/student', $arrPage, ' semesterId ASC, ');
+				
+				$students = $util->EncodeResult($students);
+				$smarty->assign('students', $students);	
+				$smarty->assign('arrPage', $arrPage);
+				
+				$smarty->assign("DOC_ROOT", DOC_ROOT);
+				$smarty->display(DOC_ROOT.'/templates/lists/student.tpl');
+			*/
 		}
 		break;
 
@@ -671,7 +671,7 @@ switch ($_POST["type"]) {
 		$smarty->display(DOC_ROOT . '/templates/lists/student.tpl');
 		echo "[#]";
 		$smarty->assign('arrPage', $arrPage);
-		$smarty->display(DOC_ROOT.'/templates/footer-pages-links.tpl');
+		$smarty->display(DOC_ROOT . '/templates/footer-pages-links.tpl');
 		break;
 
 	case "viewCourse":

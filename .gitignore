@@ -23,7 +23,7 @@
 /tripticos
 /vendor
 /tmp
-
+error_log
 .env
 /templates_c/*
 !/templates_c/.gitkeep
