@@ -41,7 +41,7 @@ class Files extends Main
 		$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 		
 		//set auto page breaks
-		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+		$pdf->SetAutoPageBreak(TRUE, 10);
 		
 		//set image scale factor
 		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
@@ -270,7 +270,6 @@ class Files extends Main
 
 		<table><tr><td align="center"><br></td></tr></table>
 		<table><tr><td align="center"></td></tr></table>
-		<br>		
 		<table><tr><td align="center">______________________________________</td></tr></table>
 		<table><tr><td align="center">Firma del Alumno</td></tr></table>
 
