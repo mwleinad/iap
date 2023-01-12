@@ -1,13 +1,10 @@
 <?php
+header('Content-type: application/pdf');
 include_once('../init.php');
 include_once('../config.php');
 include_once(DOC_ROOT . '/libraries.php');
 
 session_start();
-ob_start();
-error_reporting(E_ALL & ~E_NOTICE);
-ini_set('display_errors', 0);
-ini_set('log_errors', 1);
 
 $alumno = $_GET['alumnoId'];
 $curso = $_GET['cursoId'];
@@ -15,6 +12,15 @@ $course->setCourseId($curso);
 $courseInfo = $course->Info();
 $student->setUserId($alumno);
 $info = $student->GetInfo(); 
+// echo "<pre>";
+// return print_r($courseInfo);
+$activeCourses = $course->EnumerateActive();
+foreach ($activeCourses as $item) {
+    if ($item['courseId'] == $curso) {
+        $courseInfo['group'] = "SIN ASIGNAR";
+        break;
+    }
+}
 
 //Datos personales
 $student->setControlNumber();
@@ -56,5 +62,5 @@ $student->setMastersSchool($info['mastersSchool']);
 $student->setProfesion($info['profesion']);
 
 $files  = new Files;
-$file = $files->CedulaPrueba($alumno, $curso, $student, $courseInfo['majorName'], $courseInfo['name']);
+$files->CedulaInscripcion($alumno, $curso, $student, $courseInfo);
 ?>

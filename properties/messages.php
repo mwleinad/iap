@@ -59,7 +59,7 @@ $message[4]["body"] = "
 
 $message[5]["subject"] = "Actualización de Datos | Instituto de Administración Pública del Estado de Chiapas";
 $message[5]["body"] = "
-	Tus datos han sido actualizados en el Sistema de Educación en Línea. Adjunto a este correo podrás descargar tu cédula de inscripción.
+	Tus datos han sido actualizados en el Sistema de Educación en Línea. 
 	
 	El(la) |major| de tu elección es:
 	<b>|course|</b>
@@ -69,7 +69,7 @@ $message[5]["body"] = "
 	<b>Contrase&ntilde;a del Sistema:</b>	|password|
 
 	Nota:
-	Por favor descarga la cédula de inscripción adjunta en este mensaje, misma que tendrás que presentar en las oficinas del IAP-Chiapas, ubicadas en Libramiento Norte Poniente No 2718. Fraccionamiento Ladera de la Loma. Tgz, Chiapas.
+	Por favor descarga la cédula de inscripción en el siguiente enlace https://app.iapchiapas.edu.mx/pdf/solicitudes.php?alumnoId=|alumno|&cursoId=|courseId| , misma que tendrás que presentar en las oficinas del IAP-Chiapas, ubicadas en Libramiento Norte Poniente No 2718. Fraccionamiento Ladera de la Loma. Tgz, Chiapas.
 	
 	Para mejor la experiencia de navegación en nuestro Sistema de Educación en Línea, te recomendamos utilizar el navegador Chrome así como también consultar el manual del alumno que se encuentra disponible en el siguiente enlace:
 	<a href='https://iapchiapas.edu.mx/manual_alumno.pdf'>www.iapchiapas.edu.mx/manual_alumno.pdf</a>

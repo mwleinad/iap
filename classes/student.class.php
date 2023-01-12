@@ -879,16 +879,16 @@ class Student extends User
 		// Crear Vencimientos
 		$this->AddInvoices($id, $curricula);
 		// Create File to Attach
-		$files  = new Files;
-		$file = $files->CedulaInscripcion($id, $curricula, $this, $major, $course);
-		// Enviar correo
-		$sendmail = new SendMail;
-		$details_body = array(
-			"email" => $info["controlNumber"],
-			"password" => $password,
-			"major" => utf8_decode($major),
-			"course" => utf8_decode($course),
-		);
+		// $files  = new Files;
+		// $file = $files->CedulaInscripcion($id, $curricula, $this, $major, $course);
+		// // Enviar correo
+		// $sendmail = new SendMail;
+		// $details_body = array(
+		// 	"email" => $info["controlNumber"],
+		// 	"password" => $password,
+		// 	"major" => utf8_decode($major),
+		// 	"course" => utf8_decode($course),
+		// );
 		// Envio Correo Deshabilitado
 		/* $details_subject = array();
 		$attachment[0] = DOC_ROOT."/files/solicitudes/".$file;
@@ -1040,8 +1040,8 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		$infoUS = $this->Util()->DB()->GetRow();
 
-		$files  = new Files;
-		$file = $files->CedulaInscripcion($this->getUserId(), $infoUS["courseId"], $this, $major, $course);
+		// $files  = new Files;
+		// $file = $files->CedulaInscripcion($this->getUserId(), $infoUS["courseId"], $this, $major, $course);
 		$this->Util()->setError(10030, "complete");
 		$this->Util()->PrintErrors();
 		return true;
@@ -3153,8 +3153,8 @@ class Student extends User
 		$course = new Course();
 		$course->setCourseId($courseId);
 		$courseInfo = $course->Info();
-		$files  = new Files;
-		$file = $files->CedulaInscripcion($this->getUserId(), $courseId, $this, $courseInfo['majorName'], $courseInfo['name']);
+		// $files  = new Files;
+		// $file = $files->CedulaInscripcion($this->getUserId(), $courseId, $this, $courseInfo['majorName'], $courseInfo['name']);
 		// Enviar Correo
 		$sendmail = new SendMail;
 		$details_body = array(
@@ -3162,6 +3162,8 @@ class Student extends User
 			"password" => $info['password'],
 			"major" => utf8_decode($courseInfo['majorName']),
 			"course" => utf8_decode($courseInfo['name']),
+			"alumno" => $this->getUserId(),
+			"courseId" => $courseId
 		);
 		$details_subject = array();
 		$attachment[0] = DOC_ROOT."/files/solicitudes/".$file;
