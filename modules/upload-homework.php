@@ -10,6 +10,12 @@
 		$homework->setModality($_POST["modality"]);
 		$homework->setNombre($_POST["nombre"]);
 		$homework->setUserId($_SESSION["User"]["userId"]);
+		print_r($_FILES);
+		if(empty($_FILES['path']['tmp_name'])){ 
+			$_SESSION["exito"] = "archivo_vacio"; 
+			header("Location:".WEB_ROOT."/calendar-modules-student/id/".$_POST["courseId"]);
+			exit;
+		}
 		$homework->Upload($_FILES["path"]);
 
 		//aqui lo que tenemos que hacer es un header location a la pagina que teniamos originalmente

@@ -29,7 +29,7 @@
         </div>
         <div class="form-group col-md-6">
             <label for="path">Tarea:</label>
-            <input type="file" name="path" id="path" size="34" />
+            <input type="file" name="path" id="path" size="34" required />
         </div>
     </div>
 	{if $homework.countUpdate eq 1}

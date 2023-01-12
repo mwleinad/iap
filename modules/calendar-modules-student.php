@@ -38,12 +38,14 @@
 		$totalScore += $res["realScore"];
 	}
 	
-	if($_SESSION["exito"] == "si"){
+	if(isset($_SESSION["exito"])){
 		
-		$smarty->assign('exito', "si");
-		$smarty->assign('tareaId', $_SESSION["tareaId"]);
+		$smarty->assign('exito', $_SESSION["exito"]);
 		unset($_SESSION["exito"]);
-		unset($_SESSION["tareaId"]);
+		if ($_SESSION["exito"] == "si") {
+			$smarty->assign('tareaId', $_SESSION["tareaId"]);
+			unset($_SESSION["tareaId"]);
+		}
 	}
 	
 	$consecutive = 1;

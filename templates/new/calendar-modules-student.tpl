@@ -47,6 +47,16 @@
                                 </div>
                             </div>
                         {/if}
+                        {if $exito eq "archivo_vacio"}
+                            <div class="col-md-12">
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>Falto subir el archivo de la actividad.</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                        {/if}
                         <div class="table-responsive">
                             <table class="table table-bordered table-sm">
                                 <thead>
