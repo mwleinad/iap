@@ -108,7 +108,14 @@
             {/foreach}
             </div>
             <div class="tab-pane fade" id="pagos" role="tabpanel" aria-labelledby="pagos-tab">
-                ...
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4><b>Curricula:</b> [{$info.majorName}] {$info.name}</h4>
+                        {if $info.totalPeriods > 0}
+                            <h4><b>Total {$info.tipoCuatri}: </b> {$info.totalPeriods}</h4>
+                        {/if}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
