@@ -23,6 +23,7 @@
                 {foreach from=$cursos item=curso}
                     <div class="accordion" id="accordion{$curso['courseId']}">
                         <div class="card">
+                            {if $curso['situation'] eq "Ordinario"}
                             <div class="card-header">
                                 <h2 class="mb-0">
                                     <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
@@ -31,7 +32,6 @@
                                     </button>
                                 </h2>
                             </div>
-
                             <div id="collapse{$curso['courseId']}" class="collapse" aria-labelledby="headingOne"
                                 data-parent="#accordion{$curso['courseId']}">
                                 <div class="card-body">
@@ -58,12 +58,54 @@
                                     {/foreach}
                                 </div>
                             </div>
+                            {/if}
                         </div>
                     </div>
                 {/foreach}
             </div>
             <div class="tab-pane fade" id="recursamiento" role="tabpanel" aria-labelledby="recursamiento-tab">
-                ...
+            {foreach from=$cursos item=curso}
+                <div class="accordion" id="accordion{$curso['courseId']}">
+                    <div class="card">
+                        {if $curso['situation'] != "Ordinario"}
+                        <div class="card-header">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                                    data-target="#collapse{$curso['courseId']}" aria-expanded="true" aria-controls="collapse{$curso['courseId']}">
+                                    <h3>{$curso['majorName']} - {$curso['name']} [{$curso['group']}]</h3>
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapse{$curso['courseId']}" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#accordion{$curso['courseId']}">
+                            <div class="card-body">
+                                {foreach from=$curso['calificaciones'] item=calificaciones key=key}
+                                    <div class="row">
+                                        <h3 class="w-100">{$curso['tipoCuatri']} {$key}</h3>    
+                                        <div class="col-12">
+                                            <div class="row" style=" padding: 20px; background-color: #73b760; font-size: 20px; color: white; border-radius:20px;">
+                                                <div class="col-6 text-center">Materia</div>
+                                                <div class="col-3 text-center">Calificación</div>
+                                                <div class="col-3 text-center">Descripción</div> 
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="row" style=" padding: 20px; font-size: 18px;">
+                                            {foreach from=$calificaciones item=calificacion}
+                                                <div class="col-6 text-center">{$calificacion['name']}</div>
+                                                <div class="col-3 text-center">{$calificacion['score']}</div>
+                                                <div class="col-3 text-center">{$calificacion['comments']}</div>
+                                            {/foreach} 
+                                            </div>
+                                        </div>
+                                    </div>
+                                {/foreach}
+                            </div>
+                        </div>
+                        {/if}
+                    </div>
+                </div>
+            {/foreach}
             </div>
             <div class="tab-pane fade" id="pagos" role="tabpanel" aria-labelledby="pagos-tab">
                 ...
