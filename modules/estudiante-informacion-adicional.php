@@ -5,11 +5,11 @@
 	 * Sección calificaciones
 	 */
 	// echo "<pre>";
+	$total_modules = 0;
 	$cursos = $student->StudentCourses();
-	$has_modules_repeat = $student->hasModulesRepeat();
-	$student->setUserId($itemStudent);
+	$has_modules_repeat = $student->hasModulesRepeat(); 
     $infoStudent = $student->GetInfo();
-    
+    // print_r($infoStudent);
 	// print_r($cursos);
 	$position = [
 		1 => 'PRIMER',
@@ -65,6 +65,8 @@
 				}
 			}
 		}
+		// echo "Periodos <br>";
+		// print_r($period_course);
 		 
 		$qualifications = [];
 		for ($period = 1; $period <= $infoCourse['totalPeriods']; $period++) {
@@ -72,6 +74,8 @@
 				$tmp = $student->BoletaCalificacion($period_course[$period], $period, false); 
 			else
 				$tmp = $student->BoletaCalificacion($infoCourse['courseId'], $period, false);
+
+			// print_r($tmp);
 			foreach ($tmp as $item) {
 				if (array_key_exists($item['subjectModuleId'], $qualifications_repeat)) { 
 					$qualifications[$period][] = [
