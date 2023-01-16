@@ -87,7 +87,7 @@ class Files extends Main
 		<table><tr><td><img src="'.$logo.'" width="150px"></td></tr></table>
 		<table>
 			<tr>
-				<td align="center"><b>SECCIÓN ESTATAL DEL INSTITUTO NACIONAL DE ADMINISTRACIÓN PÚBLICA, A.C</b></td>
+				<td align="center"><b>INSTITUTO DE ADMINISTRACIÓN PÚBLICA, A.C</b></td>
 			</tr>
 		</table>
 		<table><tr><td align="center"><b>SECRETARÍA ACADÉMICA</b></td></tr></table>
