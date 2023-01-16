@@ -42,7 +42,7 @@ class Student extends User
 	{
 		$this->perfil = $value;
 	}
-	
+
 	public function setAsunto($value)
 	{
 		$this->asunto = $value;
@@ -131,7 +131,7 @@ class Student extends User
 		$this->tipo_beca = $value;
 	}
 
-		public function setPorBeca($value)
+	public function setPorBeca($value)
 	{
 		$this->por_beca = $value;
 	}
@@ -145,8 +145,7 @@ class Student extends User
 
 	public function AddAcademicHistory($type, $situation, $semesterId = 0)
 	{
-		if($type == 'alta')
-		{
+		if ($type == 'alta') {
 			$sql = "SELECT semesterId 
 						FROM academic_history 
 					WHERE subjectId = " . $this->subjectId . " AND userId = " . $this->userId . "
@@ -163,16 +162,14 @@ class Student extends User
 	public function UpdateFoto()
 	{
 		$ext = end(explode('.', basename($_FILES['foto']['name'])));
-		if(strtolower($ext) != "jpg" && strtolower($ext) != "jepg")
-		{
+		if (strtolower($ext) != "jpg" && strtolower($ext) != "jepg") {
 			$this->Util()->setError(10028, "error", "La extension solo puede ser jpg");
 			$this->Util()->PrintErrors();
 			return;
 		}
 		$filename = $_POST["userId"] . ".jpg";
-		$target_path = DOC_ROOT."/alumnos/".$filename;
-		if(move_uploaded_file($_FILES['foto']['tmp_name'], $target_path)) 
-		{
+		$target_path = DOC_ROOT . "/alumnos/" . $filename;
+		if (move_uploaded_file($_FILES['foto']['tmp_name'], $target_path)) {
 			$sql = "UPDATE user SET rutaFoto = '" . $filename . "' WHERE userId = " . $_POST["userId"];
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->ExecuteQuery();
@@ -183,69 +180,63 @@ class Student extends User
 
 	public function desactivar()
 	{
-		$sql="UPDATE user SET activo='0' WHERE userId='" . $this->getUserId() . "' ";
+		$sql = "UPDATE user SET activo='0' WHERE userId='" . $this->getUserId() . "' ";
 		$this->Util()->DB()->setQuery($sql);
-	     if(!$this->Util()->DB()->ExecuteQuery())
-		 {
-		  	$infoStudent = $this->GetInfo();
+		if (!$this->Util()->DB()->ExecuteQuery()) {
+			$infoStudent = $this->GetInfo();
 			$fecha_aplicacion = date("Y-m-d H:i:s");
-			$hecho = $_SESSION['User']['userId']."p";
-			$actividad = "Se ha dado de Baja un Alumno(".$infoStudent['controlNumber']."-".$infoStudent['names']." ".$infoStudent['lastNamePaterno']." ".$infoStudent['lastNameMaterno'].") desde el panel de Administración ";
-			$visto = "1p,".$_SESSION['User']['userId']."p";
+			$hecho = $_SESSION['User']['userId'] . "p";
+			$actividad = "Se ha dado de Baja un Alumno(" . $infoStudent['controlNumber'] . "-" . $infoStudent['names'] . " " . $infoStudent['lastNamePaterno'] . " " . $infoStudent['lastNameMaterno'] . ") desde el panel de Administración ";
+			$visto = "1p," . $_SESSION['User']['userId'] . "p";
 			$enlace = "/student";
 
 			$sqlNot = "INSERT INTO notificacion(notificacionId,actividad,vista,hecho,fecha_aplicacion,tablas,enlace)
-			   			VALUES('', '".$actividad."', '".$visto."', '".$hecho."', '".$fecha_aplicacion."', 'reply', '".$enlace."')";
+			   			VALUES('', '" . $actividad . "', '" . $visto . "', '" . $hecho . "', '" . $fecha_aplicacion . "', 'reply', '" . $enlace . "')";
 			$this->Util()->DB()->setQuery($sqlNot);
 			// Ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
 			$this->Util()->DB()->InsertData();
-		 	return true;
-		}
-		else
-		{
-		 	$this->Util()->setError(10030, "complete","No ne pudo desactivar al Alumno intente mas tarde");
+			return true;
+		} else {
+			$this->Util()->setError(10030, "complete", "No ne pudo desactivar al Alumno intente mas tarde");
 			$this->Util()->PrintErrors();
-		 	return false;
+			return false;
 		}
 	}
 
 	public function Activar()
 	{
-	 	$sql = "UPDATE user SET activo='1' WHERE userId='" . $this->getUserId() . "'";
+		$sql = "UPDATE user SET activo='1' WHERE userId='" . $this->getUserId() . "'";
 		$this->Util()->DB()->setQuery($sql);
-	    if(!$this->Util()->DB()->ExecuteQuery())
-		{
+		if (!$this->Util()->DB()->ExecuteQuery()) {
 			$this->Util()->setError(10030, "complete", "El Alumno fue dado de Alta Correctamente");
 			$this->Util()->PrintErrors();
-		  	$infoStudent = $this->GetInfo();
+			$infoStudent = $this->GetInfo();
 			$fecha_aplicacion = date("Y-m-d H:i:s");
-			$hecho = $_SESSION['User']['userId']."p";
-			$actividad = "Se ha dado de Alta un Alumno(".$infoStudent['controlNumber']."-".$infoStudent['names']." ".$infoStudent['lastNamePaterno']." ".$infoStudent['lastNameMaterno'].") desde el panel de Administración ";
-			$visto = "1p,".$_SESSION['User']['userId']."p";
+			$hecho = $_SESSION['User']['userId'] . "p";
+			$actividad = "Se ha dado de Alta un Alumno(" . $infoStudent['controlNumber'] . "-" . $infoStudent['names'] . " " . $infoStudent['lastNamePaterno'] . " " . $infoStudent['lastNameMaterno'] . ") desde el panel de Administración ";
+			$visto = "1p," . $_SESSION['User']['userId'] . "p";
 			$enlace = "/student";
 			$sqlNot = "INSERT INTO notificacion(notificacionId, actividad, vista, hecho, fecha_aplicacion, tablas, enlace)
-			   			VALUES('', '".$actividad."',  '".$visto."', '".$hecho."', '".$fecha_aplicacion."', 'reply', '".$enlace."')";
+			   			VALUES('', '" . $actividad . "',  '" . $visto . "', '" . $hecho . "', '" . $fecha_aplicacion . "', 'reply', '" . $enlace . "')";
 			$this->Util()->DB()->setQuery($sqlNot);
 			// Ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
 			$this->Util()->DB()->InsertData();
 			return true;
-		}
-		else
-		{
-		 	$this->Util()->setError(10030, "complete","No ne pudo Activar al Alumno intente mas tarde");
+		} else {
+			$this->Util()->setError(10030, "complete", "No ne pudo Activar al Alumno intente mas tarde");
 			$this->Util()->PrintErrors();
-		 	return false;
+			return false;
 		}
 	}
 
 	public function GetInfo()
-	{ 
+	{
 		$sql = "SELECT u.*, 
 						m.nombre AS nombreciudad 
 				FROM user AS u 
 					LEFT JOIN municipio AS m 
 						ON m.municipioId = u.ciudadt
-		WHERE userId = '".$this->userId."'";
+		WHERE userId = '" . $this->userId . "'";
 		$this->Util()->DB()->setQuery($sql);
 		$row = $this->Util()->DB()->GetRow();
 		$row["names"] = $this->Util()->DecodeTiny($row["names"]);
@@ -256,33 +247,33 @@ class Student extends User
 
 	public function EnumerateTotal()
 	{
-	   	$sql = "SELECT * FROM user";
-	   	$this->Util()->DB()->setQuery($sql);
-	   	$result = $this->Util()->DB()->GetResult();
+		$sql = "SELECT * FROM user";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
 		return $result;
 	}
 
 	public function EnumeratePaises()
 	{
 		$sql = "SELECT * FROM pais";
-	   	$this->Util()->DB()->setQuery($sql);
-	   	$result = $this->Util()->DB()->GetResult();
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
 		return $result;
 	}
 
 	public function EnumerateEstados()
 	{
 		$sql = "SELECT * FROM estado WHERE paisId='" . $this->getCountry() . "'";
-	   	$this->Util()->DB()->setQuery($sql);
-	   	$result = $this->Util()->DB()->GetResult();
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
 		return $result;
 	}
 
 	public function EnumerateCiudades()
 	{
-	   	$sql ="SELECT * FROM municipio WHERE estadoId='" . $this->getState() . "'";
-	   	$this->Util()->DB()->setQuery($sql);
-	   	$result = $this->Util()->DB()->GetResult();
+		$sql = "SELECT * FROM municipio WHERE estadoId='" . $this->getState() . "'";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
 		return $result;
 	}
 
@@ -290,8 +281,7 @@ class Student extends User
 	{
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
-		foreach($result as $key => $res)
-		{
+		foreach ($result as $key => $res) {
 			$card = $res;
 			$result2[$key] = $card;
 		}
@@ -309,8 +299,7 @@ class Student extends User
 						ORDER BY " . $orderSemester . " lastNamePaterno ASC, lastNameMaterno ASC, `names` ASC";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
-		foreach($result as $key => $res)
-		{
+		foreach ($result as $key => $res) {
 			$card = $res;
 			$result2[$key] = $card;
 		}
@@ -325,24 +314,22 @@ class Student extends User
 		return $total;
 	}
 
-	public function Save($option="")
+	public function Save($option = "")
 	{
-		if($this->Util()->PrintErrors())
+		if ($this->Util()->PrintErrors())
 			return false;
 
 		$sql = "SELECT COUNT(*) FROM user WHERE email = '" . $this->getEmail() . "'";
 		// Verificando que no se duplique el correo electronico
 		$this->Util()->DB()->setQuery($sql);
 		$total = $this->Util()->DB()->GetSingle();
-		if($total > 0)
-		{
+		if ($total > 0) {
 			$this->Util()->setError(10028, "error", "Este e-mail ya ha sido registrado previamente");
 			$this->Util()->PrintErrors();
 			return false;
 		}
-        // Validando contraseña de minimo 6 caracteres
-		if(strlen($this->getPassword()) < 6)
-		{
+		// Validando contraseña de minimo 6 caracteres
+		if (strlen($this->getPassword()) < 6) {
 			$this->Util()->setError(10028, "error", "El password debe de contener al menos 6 caracteres.");
 			$this->Util()->PrintErrors();
 			return false;
@@ -497,83 +484,77 @@ class Student extends User
 							VALUES
 						(
 							'student',
-							'".$this->getNames()."', 
-							'".$this->getLastNamePaterno()."', 
-							'".$this->getLastNameMaterno()."',
-							'".$this->getControlNumber()."',
-							'".$this->getBirthdate()."',							
-							'".$this->getEmail()."', 
-							'".$this->getPhone()."', 
-							'".$this->getPassword()."',
-							'".$this->getStreet()."', 
-							'".$this->getNumer()."', 
-							'".$this->getColony()."', 
-							'".$this->getCity()."', 
-							'".$this->getState()."', 
-							'".$this->getCountry()."', 
-							'".$this->getPostalCode()."', 
-							'".$this->getSexo()."', 
-							'".$this->getMaritalStatus()."', 
-							'".$this->getFax()."', 
-							'".$this->getMobile()."', 
-							'".$this->getWorkplace()."', 
-							'".$this->getWorkplaceOcupation()."', 
-							'".$this->getWorkplaceAddress()."', 
-							'".$this->getWorkplaceArea()."', 
-							'".$this->getWorkplacePosition()."', 
-							'".$this->getCiudadT()."', 
-							'".$this->getPaisT()."', 
-							'".$this->getEstadoT()."', 
-							'".$this->getCiudadT()."',
-							'".$this->getWorkplacePhone()."', 
-							'".$this->getWorkplaceEmail()."', 
-							'".$this->getAcademicDegree()."', 
-							'".$this->getProfesion()."', 
-							'".$this->getSchool()."', 
-							'".$this->getMasters()."', 
-							'".$this->getMastersSchool()."', 
-							'".$this->getHighSchool()."',
+							'" . $this->getNames() . "', 
+							'" . $this->getLastNamePaterno() . "', 
+							'" . $this->getLastNameMaterno() . "',
+							'" . $this->getControlNumber() . "',
+							'" . $this->getBirthdate() . "',							
+							'" . $this->getEmail() . "', 
+							'" . $this->getPhone() . "', 
+							'" . $this->getPassword() . "',
+							'" . $this->getStreet() . "', 
+							'" . $this->getNumer() . "', 
+							'" . $this->getColony() . "', 
+							'" . $this->getCity() . "', 
+							'" . $this->getState() . "', 
+							'" . $this->getCountry() . "', 
+							'" . $this->getPostalCode() . "', 
+							'" . $this->getSexo() . "', 
+							'" . $this->getMaritalStatus() . "', 
+							'" . $this->getFax() . "', 
+							'" . $this->getMobile() . "', 
+							'" . $this->getWorkplace() . "', 
+							'" . $this->getWorkplaceOcupation() . "', 
+							'" . $this->getWorkplaceAddress() . "', 
+							'" . $this->getWorkplaceArea() . "', 
+							'" . $this->getWorkplacePosition() . "', 
+							'" . $this->getCiudadT() . "', 
+							'" . $this->getPaisT() . "', 
+							'" . $this->getEstadoT() . "', 
+							'" . $this->getCiudadT() . "',
+							'" . $this->getWorkplacePhone() . "', 
+							'" . $this->getWorkplaceEmail() . "', 
+							'" . $this->getAcademicDegree() . "', 
+							'" . $this->getProfesion() . "', 
+							'" . $this->getSchool() . "', 
+							'" . $this->getMasters() . "', 
+							'" . $this->getMastersSchool() . "', 
+							'" . $this->getHighSchool() . "',
 							'no'
-						)"; 
+						)";
 		$this->Util()->DB()->setQuery($sqlQuery);
-						
-		if($id = $this->Util()->DB()->InsertData())
-		{
+
+		if ($id = $this->Util()->DB()->InsertData()) {
 			$fecha_aplicacion = date("Y-m-d H:i:s");
 			$enlace = "/student";
 
-			if($this->getRegister()==0)
-			{
-				$hecho=$id."u";
-				$actividad="Se ha Registrado un nuevo Alumno";
-				$visto=$id."u,1p";
-			}
-			else
-			{
-				$hecho=$_SESSION['User']['userId']."p";
-				$actividad="Se ha registrado un Alumno(".$this->getNames()." ".$this->getLastNamePaterno()." ".$this->getLastNameMaterno().") desde el panel de Administración ";
-				$visto="1p,".$_SESSION['User']['userId']."p";
+			if ($this->getRegister() == 0) {
+				$hecho = $id . "u";
+				$actividad = "Se ha Registrado un nuevo Alumno";
+				$visto = $id . "u,1p";
+			} else {
+				$hecho = $_SESSION['User']['userId'] . "p";
+				$actividad = "Se ha registrado un Alumno(" . $this->getNames() . " " . $this->getLastNamePaterno() . " " . $this->getLastNameMaterno() . ") desde el panel de Administración ";
+				$visto = "1p," . $_SESSION['User']['userId'] . "p";
 			}
 
-			$sqlNot="INSERT INTO notificacion(notificacionId,actividad,vista,hecho,fecha_aplicacion,tablas,enlace)
+			$sqlNot = "INSERT INTO notificacion(notificacionId,actividad,vista,hecho,fecha_aplicacion,tablas,enlace)
 			   		VALUES('', '" . $actividad . "', '" . $visto . "', '" . $hecho . "', '" . $fecha_aplicacion . "', 'reply', '" . $enlace . "')";
 			$this->Util()->DB()->setQuery($sqlNot);
 			// Ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
 			$this->Util()->DB()->InsertData();
 		}
 
-		if($option == "createCurricula")
-		{
+		if ($option == "createCurricula") {
 			$course = new Course();
 			$course->setCourseId($_POST["curricula"]);
 			$courseInfo = $course->Info();
-            if($this->tipo_beca=="Ninguno")
-			    $this->por_beca=0;
+			if ($this->tipo_beca == "Ninguno")
+				$this->por_beca = 0;
 
 			$this->AddUserToCurriculaRegister($id, $_POST["curricula"], $this->getNames(), $this->getEmail(), $this->getPassword(), $courseInfo["majorName"], $courseInfo["name"], $this->tipo_beca, $this->por_beca, "");
 
-			if($this->getRegister()==0)
-			{
+			if ($this->getRegister() == 0) {
 				$complete1 = "Te has registrado exitosamente. Te hemos enviado un correo electronico con los datos de ingreso al sistema";
 				$this->Util()->setError(10028, "complete", $complete1);
 				$complete2 = "En caso de no estar en tu bandeja de entrada, verifica en correos no deseados";
@@ -582,12 +563,10 @@ class Student extends User
 				$this->Util()->setError(10028, "complete", $complete4);
 				$complete3 = "Bienvenido";
 				$this->Util()->setError(10028, "complete", $complete3);
+			} else {
+				$complete = "Has ingresado al Alumno exitosamente, Se ha enviado un correo electronico para continuar con su proceso de inscripción";
+				$this->Util()->setError(10028, "complete", $complete);
 			}
-            else
-			{
-				$complete="Has ingresado al Alumno exitosamente, Se ha enviado un correo electronico para continuar con su proceso de inscripción";
-	        	$this->Util()->setError(10028, "complete", $complete);
-		   	}
 		}
 		$this->Util()->PrintErrors();
 		return true;
@@ -595,7 +574,7 @@ class Student extends User
 
 	public function AddUserToCurriculaRegister($id, $curricula, $nombre, $email, $password, $major, $course, $tipo_beca, $por_beca, $matricula)
 	{
-		include_once(DOC_ROOT."/properties/messages.php");
+		include_once(DOC_ROOT . "/properties/messages.php");
 		$sql = "SELECT COUNT(*) FROM user_subject WHERE alumnoId = '" . $id . "' AND courseId = '" . $curricula . "'";
 		$this->Util()->DB()->setQuery($sql);
 		$count = $this->Util()->DB()->GetSingle();
@@ -616,29 +595,26 @@ class Student extends User
 		$sql = "SELECT registrationId FROM user_subject WHERE courseId = " . $temporalGroup . " AND alumnoId = " . $id;
 		$this->Util()->DB()->setQuery($sql);
 		$registrationId = intval($this->Util()->DB()->GetSingle());
-			
+
 		$status = 'activo';
-		
-		if($count > 0)
+
+		if ($count > 0)
 			return $complete = "Este alumno ya esta registrado en esta curricula. Favor de Seleccionar otra Curricula";
 
-		if($temporalGroup > 0 && $registrationId > 0)
-		{
+		if ($temporalGroup > 0 && $registrationId > 0) {
 			// Actualiza la curricula temporal por la oficial
 			$sql = "UPDATE user_subject SET courseId = " . $curricula . ", status = 'activo' WHERE alumnoId = " . $id . " AND courseId = " . $temporalGroup;
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->UpdateData();
 			$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico para continuar con el proceso de inscripcion";
-		}
-		else
-		{
+		} else {
 			// Se inscribe a curricula 
-			$sqlQuery = "INSERT INTO user_subject(alumnoId, status, courseId, tipo_beca, por_beca, matricula) VALUES('".$id."', '".$status."', '".$curricula."', '".$tipo_beca."', '".$por_beca."', '".$matricula."')";
+			$sqlQuery = "INSERT INTO user_subject(alumnoId, status, courseId, tipo_beca, por_beca, matricula) VALUES('" . $id . "', '" . $status . "', '" . $curricula . "', '" . $tipo_beca . "', '" . $por_beca . "', '" . $matricula . "')";
 			$this->Util()->DB()->setQuery($sqlQuery);
-			if($this->Util()->DB()->InsertData())
+			if ($this->Util()->DB()->InsertData())
 				$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico para continuar con el proceso de inscripcion";
 			else
-				$complete="no";
+				$complete = "no";
 		}
 		$this->setUserId($id);
 		$info = $this->GetInfo();
@@ -695,7 +671,7 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
 		$this->AddAcademicHistory('baja', $situation, $period);
-		$this->Util()->setError(10028, "complete","Alumno eliminado con éxito de esta curricula.");
+		$this->Util()->setError(10028, "complete", "Alumno eliminado con éxito de esta curricula.");
 		$this->Util()->PrintErrors();
 		return true;
 	}
@@ -704,18 +680,18 @@ class Student extends User
 	{
 		$courseId = $this->getCourseId();
 		$userId = $this->getUserId();
-		$sql="UPDATE user_subject SET status='activo', situation = 'A', situation_date = CURDATE() WHERE alumnoId= '" . $userId . "' AND courseId= '" . $courseId . "' ";
+		$sql = "UPDATE user_subject SET status='activo', situation = 'A', situation_date = CURDATE() WHERE alumnoId= '" . $userId . "' AND courseId= '" . $courseId . "' ";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
 		$this->AddAcademicHistory('alta', 'A');
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
-		$this->Util()->setError(10028, "complete","Alumno activado con éxito.");
+		$this->Util()->setError(10028, "complete", "Alumno activado con éxito.");
 		$this->Util()->PrintErrors();
 		return true;
 	}
 
-	function AddUserToCurriculaFromCatalog($userId, $courseId,$tipo_beca,$por_beca)
+	function AddUserToCurriculaFromCatalog($userId, $courseId, $tipo_beca, $por_beca)
 	{
 		$course = new Course();
 		$course->setCourseId($courseId);
@@ -724,22 +700,21 @@ class Student extends User
 		$user = new User();
 		$this->setUserId($userId);
 		$info = $this->GetInfo();
-		if($courseInfo['majorName']=="ESPECIALIDAD" || $courseInfo['majorName']=="MAESTRIA")
-			$matricula=$this->generaMatricula($info['majorName'],$courseId);
+		if ($courseInfo['majorName'] == "ESPECIALIDAD" || $courseInfo['majorName'] == "MAESTRIA")
+			$matricula = $this->generaMatricula($info['majorName'], $courseId);
 		else
-			$matricula="";
-			
-		$complete = $this->AddUserToCurricula($userId, $courseId, $info["names"], $info["email"], $info["password"], $courseInfo["majorName"], $courseInfo["name"],$tipo_beca,$por_beca,$matricula);
+			$matricula = "";
+
+		$complete = $this->AddUserToCurricula($userId, $courseId, $info["names"], $info["email"], $info["password"], $courseInfo["majorName"], $courseInfo["name"], $tipo_beca, $por_beca, $matricula);
 		$this->AddAcademicHistory('alta', 'A');
 		$this->Util()->setError(10028, "complete", $complete);
 		$this->Util()->PrintErrors();
 		return $complete;
 	}
 
-	public function generaMatricula($major,$courseId)
+	public function generaMatricula($major, $courseId)
 	{
-		switch($major)
-		{
+		switch ($major) {
 			case 'MAESTRIA':
 				$year = date('Y');
 				$year = substr($year, -2);
@@ -750,16 +725,16 @@ class Student extends User
 							ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
 				$this->Util()->DB()->setQuery($sql);
 				$maestrias = $this->Util()->DB()->GetResult();
-				foreach($maestrias as $fila)
-					$num=$fila['matricula'];
+				foreach ($maestrias as $fila)
+					$num = $fila['matricula'];
 
 				$num = substr($num, -3);    // devuelve "ef"
-				$num = $num +1;
-				if(strlen($num)==2)
-					$num="0".$num;
+				$num = $num + 1;
+				if (strlen($num) == 2)
+					$num = "0" . $num;
 				$matricula = "5036101" . $year . $num;
 				return $matricula;
-			break;
+				break;
 
 			case 'ESPECIALIDAD':
 				$year = date('Y');
@@ -772,30 +747,30 @@ class Student extends User
 							ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
 				$this->Util()->DB()->setQuery($sql);
 				$maestrias = $this->Util()->DB()->GetResult();
-				foreach($maestrias as $fila)
-					$num=$fila['matricula'];
+				foreach ($maestrias as $fila)
+					$num = $fila['matricula'];
 				$num = substr($num, -3);    // devuelve "ef"
 				$num = $num + 1;
-				if(strlen($num)==2)
-			        $num = "0" . $num;
+				if (strlen($num) == 2)
+					$num = "0" . $num;
 				$matricula = "5046101" . $year . $num;
 				return $matricula;
-			break;
+				break;
 		}
 	}
 
-	public function AddUserToCurricula($id, $curricula, $nombre, $email, $password, $major, $course,$tipo_beca,$por_beca,$matricula)
+	public function AddUserToCurricula($id, $curricula, $nombre, $email, $password, $major, $course, $tipo_beca, $por_beca, $matricula)
 	{
-		include_once(DOC_ROOT."/properties/messages.php");
-		$sql = "SELECT COUNT(*) FROM user_subject WHERE alumnoId = '".$id."' AND courseId = '".$curricula."'";
+		include_once(DOC_ROOT . "/properties/messages.php");
+		$sql = "SELECT COUNT(*) FROM user_subject WHERE alumnoId = '" . $id . "' AND courseId = '" . $curricula . "'";
 		$this->Util()->DB()->setQuery($sql);
 		$count = $this->Util()->DB()->GetSingle();
 
-		$sql = "SELECT subjectId FROM course WHERE courseId = '".$curricula."'";
+		$sql = "SELECT subjectId FROM course WHERE courseId = '" . $curricula . "'";
 		$this->Util()->DB()->setQuery($sql);
 		$subjectId = $this->Util()->DB()->GetSingle();
 
-		$sql = "SELECT payments FROM subject WHERE subjectId = '".$subjectId."'";
+		$sql = "SELECT payments FROM subject WHERE subjectId = '" . $subjectId . "'";
 		$this->Util()->DB()->setQuery($sql);
 		$payments = $this->Util()->DB()->GetSingle();
 
@@ -808,31 +783,28 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		$registrationId = intval($this->Util()->DB()->GetSingle());
 		$status = 'activo';
-				
-		if($count > 0)
+
+		if ($count > 0)
 			return $complete = "Este alumno ya esta registrado en esta curricula. Favor de Seleccionar otra Curricula";
 
-		if($temporalGroup > 0 && $registrationId > 0)
-		{
+		if ($temporalGroup > 0 && $registrationId > 0) {
 			// Actualiza la curricula temporal por la oficial
 			$sql = "UPDATE user_subject SET courseId = " . $curricula . ", status = 'activo' WHERE alumnoId = " . $id . " AND courseId = " . $temporalGroup;
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->UpdateData();
 			$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico para continuar con el proceso de inscripcion";
-		}
-		else
-		{
+		} else {
 			// Se inscribe a curricula 
-			$sqlQuery = "INSERT INTO user_subject(alumnoId, status, courseId, tipo_beca, por_beca, matricula) VALUES('".$id."', '".$status."', '".$curricula."', '".$tipo_beca."', '".$por_beca."', '".$matricula."')";
+			$sqlQuery = "INSERT INTO user_subject(alumnoId, status, courseId, tipo_beca, por_beca, matricula) VALUES('" . $id . "', '" . $status . "', '" . $curricula . "', '" . $tipo_beca . "', '" . $por_beca . "', '" . $matricula . "')";
 			$this->Util()->DB()->setQuery($sqlQuery);
-			if($this->Util()->DB()->InsertData())
+			if ($this->Util()->DB()->InsertData())
 				$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico para continuar con el proceso de inscripcion";
 			else
-				$complete="no";
+				$complete = "no";
 		}
 		$this->setUserId($id);
 		$info = $this->GetInfo();
-		
+
 		$this->setControlNumber();
 		$this->setNames($info['names']);
 		$this->setLastNamePaterno($info['lastNamePaterno']);
@@ -902,47 +874,47 @@ class Student extends User
 
 	public function Update()
 	{
-		if($this->Util()->PrintErrors())
+		if ($this->Util()->PrintErrors())
 			return false;
 
 		$sqlQuery = "UPDATE user				
 						SET 
-							names = '".$this->getNames()."', 
-							lastNamePaterno = '".$this->getLastNamePaterno()."', 
-							lastNameMaterno = '".$this->getLastNameMaterno()."', 
-							birthdate = '".$this->getBirthdate()."', 
-							email = '".$this->getEmail()."', 
-							phone = '".$this->getPhone()."', 
-							password = '".$this->getPassword()."', 
-							street = '".$this->getStreet()."', 
-							number = '".$this->getNumer()."', 
-							colony = '".$this->getColony()."', 
-							ciudad = '".$this->getCity()."', 
-							estado = '".$this->getState()."', 
-							pais =  '".$this->getCountry()."', 
-							postalCode = '".$this->getPostalCode()."', 
-							sexo = '".$this->getSexo()."', 
-							maritalStatus = '".$this->getMaritalStatus()."', 
-							fax = '".$this->getFax()."', 
-							mobile = '".$this->getMobile()."', 
-							workplace = '".$this->getWorkplace()."', 
-							workplaceOcupation = '".$this->getWorkplaceOcupation()."', 
-							workplaceAddress = '".$this->getWorkplaceAddress()."', 
-							workplaceArea = '".$this->getWorkplaceArea()."', 
-							workplacePosition = '".$this->getWorkplacePosition()."', 
-							paist='".$this->getPaisT()."',
-							estadot='".$this->getEstadoT()."',
-							ciudadt='".$this->getCiudadT()."',
-						    workplacePhone = '".$this->getWorkplacePhone()."', 
-							workplaceEmail = '".$this->getWorkplaceEmail()."', 
-							academicDegree = '".$this->getAcademicDegree()."', 
-							profesion = '".$this->getProfesion()."', 
-							school = '".$this->getSchool()."', 
-							masters = '".$this->getMasters()."', 
-							mastersSchool = '".$this->getMastersSchool()."', 
-							highSchool = '".$this->getHighSchool()."'						
+							names = '" . $this->getNames() . "', 
+							lastNamePaterno = '" . $this->getLastNamePaterno() . "', 
+							lastNameMaterno = '" . $this->getLastNameMaterno() . "', 
+							birthdate = '" . $this->getBirthdate() . "', 
+							email = '" . $this->getEmail() . "', 
+							phone = '" . $this->getPhone() . "', 
+							password = '" . $this->getPassword() . "', 
+							street = '" . $this->getStreet() . "', 
+							number = '" . $this->getNumer() . "', 
+							colony = '" . $this->getColony() . "', 
+							ciudad = '" . $this->getCity() . "', 
+							estado = '" . $this->getState() . "', 
+							pais =  '" . $this->getCountry() . "', 
+							postalCode = '" . $this->getPostalCode() . "', 
+							sexo = '" . $this->getSexo() . "', 
+							maritalStatus = '" . $this->getMaritalStatus() . "', 
+							fax = '" . $this->getFax() . "', 
+							mobile = '" . $this->getMobile() . "', 
+							workplace = '" . $this->getWorkplace() . "', 
+							workplaceOcupation = '" . $this->getWorkplaceOcupation() . "', 
+							workplaceAddress = '" . $this->getWorkplaceAddress() . "', 
+							workplaceArea = '" . $this->getWorkplaceArea() . "', 
+							workplacePosition = '" . $this->getWorkplacePosition() . "', 
+							paist='" . $this->getPaisT() . "',
+							estadot='" . $this->getEstadoT() . "',
+							ciudadt='" . $this->getCiudadT() . "',
+						    workplacePhone = '" . $this->getWorkplacePhone() . "', 
+							workplaceEmail = '" . $this->getWorkplaceEmail() . "', 
+							academicDegree = '" . $this->getAcademicDegree() . "', 
+							profesion = '" . $this->getProfesion() . "', 
+							school = '" . $this->getSchool() . "', 
+							masters = '" . $this->getMasters() . "', 
+							mastersSchool = '" . $this->getMastersSchool() . "', 
+							highSchool = '" . $this->getHighSchool() . "'						
 						WHERE 
-							userId = ".$this->getUserId();
+							userId = " . $this->getUserId();
 		$this->Util()->DB()->setQuery($sqlQuery);
 		$this->Util()->DB()->ExecuteQuery();
 		$this->Util()->setError(10030, "complete");
@@ -952,47 +924,47 @@ class Student extends User
 
 	public function UpdateAlumn()
 	{
-		if($this->Util()->PrintErrors())
+		if ($this->Util()->PrintErrors())
 			return false;
 
 		$sqlQuery = "UPDATE user				
 						SET  
-							names = '".$this->getNames()."', 
-							lastNamePaterno = '".$this->getLastNamePaterno()."', 
-							lastNameMaterno = '".$this->getLastNameMaterno()."', 
-							birthdate = '".$this->getBirthdate()."', 
-							email = '".$this->getEmail()."', 
-							phone = '".$this->getPhone()."', 
-							password = '".$this->getPassword()."', 
-							street = '".$this->getStreet()."', 
-							number = '".$this->getNumer()."', 
-							colony = '".$this->getColony()."', 
-							ciudad = '".$this->getCity()."', 
-							estado = '".$this->getState()."', 
-							pais =  '".$this->getCountry()."', 
-							postalCode = '".$this->getPostalCode()."', 
-							sexo = '".$this->getSexo()."', 
-							maritalStatus = '".$this->getMaritalStatus()."', 
-							fax = '".$this->getFax()."', 
-							mobile = '".$this->getMobile()."', 
-							workplace = '".$this->getWorkplace()."', 
-							workplaceAddress = '".$this->getWorkplaceAddress()."', 
-							workplaceArea = '".$this->getWorkplaceArea()."', 
-							workplaceOcupation = '".$this->getWorkplaceOcupation()."', 
+							names = '" . $this->getNames() . "', 
+							lastNamePaterno = '" . $this->getLastNamePaterno() . "', 
+							lastNameMaterno = '" . $this->getLastNameMaterno() . "', 
+							birthdate = '" . $this->getBirthdate() . "', 
+							email = '" . $this->getEmail() . "', 
+							phone = '" . $this->getPhone() . "', 
+							password = '" . $this->getPassword() . "', 
+							street = '" . $this->getStreet() . "', 
+							number = '" . $this->getNumer() . "', 
+							colony = '" . $this->getColony() . "', 
+							ciudad = '" . $this->getCity() . "', 
+							estado = '" . $this->getState() . "', 
+							pais =  '" . $this->getCountry() . "', 
+							postalCode = '" . $this->getPostalCode() . "', 
+							sexo = '" . $this->getSexo() . "', 
+							maritalStatus = '" . $this->getMaritalStatus() . "', 
+							fax = '" . $this->getFax() . "', 
+							mobile = '" . $this->getMobile() . "', 
+							workplace = '" . $this->getWorkplace() . "', 
+							workplaceAddress = '" . $this->getWorkplaceAddress() . "', 
+							workplaceArea = '" . $this->getWorkplaceArea() . "', 
+							workplaceOcupation = '" . $this->getWorkplaceOcupation() . "', 
 
-						    paist='".$this->getPaisT()."',
-							estadot='".$this->getEstadoT()."',
-							ciudadt='".$this->getCiudadT()."',
-							workplacePhone = '".$this->getWorkplacePhone()."', 
-							workplaceEmail = '".$this->getWorkplaceEmail()."', 
-							profesion = '".$this->getProfesion()."', 
-							academicDegree = '".$this->getAcademicDegree()."', 
-							school = '".$this->getSchool()."', 
-							masters = '".$this->getMasters()."', 
-							mastersSchool = '".$this->getMastersSchool()."', 
-							highSchool = '".$this->getHighSchool()."'						
+						    paist='" . $this->getPaisT() . "',
+							estadot='" . $this->getEstadoT() . "',
+							ciudadt='" . $this->getCiudadT() . "',
+							workplacePhone = '" . $this->getWorkplacePhone() . "', 
+							workplaceEmail = '" . $this->getWorkplaceEmail() . "', 
+							profesion = '" . $this->getProfesion() . "', 
+							academicDegree = '" . $this->getAcademicDegree() . "', 
+							school = '" . $this->getSchool() . "', 
+							masters = '" . $this->getMasters() . "', 
+							mastersSchool = '" . $this->getMastersSchool() . "', 
+							highSchool = '" . $this->getHighSchool() . "'						
 						WHERE 
-							userId = ".$this->getUserId();
+							userId = " . $this->getUserId();
 		$this->Util()->DB()->setQuery($sqlQuery);
 		$this->Util()->DB()->ExecuteQuery();
 		$this->setUserId($this->getUserId());
@@ -1036,7 +1008,7 @@ class Student extends User
 		$this->setMasters($info['masters']);
 		$this->setMastersSchool($info['mastersSchool']);
 		$this->setProfesion($info['profesion']);
-	 	$sql = "SELECT * FROM user_subject WHERE alumnoId = ".$this->getUserId()." ";
+		$sql = "SELECT * FROM user_subject WHERE alumnoId = " . $this->getUserId() . " ";
 		$this->Util()->DB()->setQuery($sql);
 		$infoUS = $this->Util()->DB()->GetRow();
 
@@ -1049,53 +1021,53 @@ class Student extends User
 
 	public function UpdateFicha()
 	{
-		if($this->Util()->PrintErrors())
+		if ($this->Util()->PrintErrors())
 			return false;
 
 		$sqlQuery = "UPDATE user				
 				SET
-					mainMajor = ".$this->getMainMajor().", 
-					secondMajor = ".$this->getSecondMajor().", 
-					thirdMajor = ".$this->getThirdMajor().", 
-					mode = ".$this->getMode().",
-					names = '".$this->getNames()."', 
-					lastNamePaterno = '".$this->getLastNamePaterno()."', 
-					lastNameMaterno = '".$this->getLastNameMaterno()."', 
-					sexo = '".$this->getSexo()."',													
-					birthdate = '".$this->getBirthdate()."', 
+					mainMajor = " . $this->getMainMajor() . ", 
+					secondMajor = " . $this->getSecondMajor() . ", 
+					thirdMajor = " . $this->getThirdMajor() . ", 
+					mode = " . $this->getMode() . ",
+					names = '" . $this->getNames() . "', 
+					lastNamePaterno = '" . $this->getLastNamePaterno() . "', 
+					lastNameMaterno = '" . $this->getLastNameMaterno() . "', 
+					sexo = '" . $this->getSexo() . "',													
+					birthdate = '" . $this->getBirthdate() . "', 
 					
-					cityBorn = '".$this->getCityBorn()."', 
-					stateBorn = '".$this->getStateBorn()."', 
-					countryBorn = '".$this->getCountryBorn()."',
+					cityBorn = '" . $this->getCityBorn() . "', 
+					stateBorn = '" . $this->getStateBorn() . "', 
+					countryBorn = '" . $this->getCountryBorn() . "',
 					
-					street = '".$this->getStreet()."', 
-					number = '".$this->getNumer()."', 
-					colony = '".$this->getColony()."', 
-					city = '".$this->getCity()."', 
-					state = '".$this->getState()."', 
-					country =  '".$this->getCountry()."', 
-					postalCode = '".$this->getPostalCode()."',
-					phone = '".$this->getPhone()."', 
-					curp = '".$this->getCurp()."',
+					street = '" . $this->getStreet() . "', 
+					number = '" . $this->getNumer() . "', 
+					colony = '" . $this->getColony() . "', 
+					city = '" . $this->getCity() . "', 
+					state = '" . $this->getState() . "', 
+					country =  '" . $this->getCountry() . "', 
+					postalCode = '" . $this->getPostalCode() . "',
+					phone = '" . $this->getPhone() . "', 
+					curp = '" . $this->getCurp() . "',
 												
-					tutorNames = '".$this->getTutorNames()."', 
-					tutorLastNamePaterno = '".$this->getTutorLastNamePaterno()."', 
-					tutorLastNameMaterno = '".$this->getTutorLastNameMaterno()."', 
-					tutorAddress = '".$this->getTutorAddress()."', 
-					tutorPhone = '".$this->getTutorPhone()."', 
+					tutorNames = '" . $this->getTutorNames() . "', 
+					tutorLastNamePaterno = '" . $this->getTutorLastNamePaterno() . "', 
+					tutorLastNameMaterno = '" . $this->getTutorLastNameMaterno() . "', 
+					tutorAddress = '" . $this->getTutorAddress() . "', 
+					tutorPhone = '" . $this->getTutorPhone() . "', 
 					
-					prevSchNames = '".$this->getPrevSchNames()."', 
-					prevSchType = ".$this->getPrevSchType().", 
-					prevSchKey = '".$this->getPrevSchKey()."', 
-					prevSchMode = ".$this->getPrevSchMode().", 
-					prevSchCity = '".$this->getPrevSchCity()."', 
-					prevSchState = '".$this->getPrevSchState()."', 
-					prevSchAverage = ".$this->getPrevSchAverage().", 
-					prevSchCertified = ".$this->getPrevSchCertified().",
+					prevSchNames = '" . $this->getPrevSchNames() . "', 
+					prevSchType = " . $this->getPrevSchType() . ", 
+					prevSchKey = '" . $this->getPrevSchKey() . "', 
+					prevSchMode = " . $this->getPrevSchMode() . ", 
+					prevSchCity = '" . $this->getPrevSchCity() . "', 
+					prevSchState = '" . $this->getPrevSchState() . "', 
+					prevSchAverage = " . $this->getPrevSchAverage() . ", 
+					prevSchCertified = " . $this->getPrevSchCertified() . ",
 					
-					average = '".$this->getAverage()."'					
+					average = '" . $this->getAverage() . "'					
 				WHERE 
-					userId = ".$this->getUserId();
+					userId = " . $this->getUserId();
 		$this->Util()->DB()->setQuery($sqlQuery);
 		$this->Util()->DB()->ExecuteQuery();
 		$this->Util()->setError(10030, "complete");
@@ -1113,7 +1085,7 @@ class Student extends User
 
 	public function Delete()
 	{
-		if($this->Util()->PrintErrors())
+		if ($this->Util()->PrintErrors())
 			return false;
 
 		$sqlQuery = "DELETE FROM user WHERE userId = " . $this->getUserId();
@@ -1140,36 +1112,35 @@ class Student extends User
 		$result2 = NULL;
 		$filtro = "";
 		$pageExtra = "";
-		if($this->nombre){
+		if ($this->nombre) {
 			$filtro .= " and names like '%" . $this->nombre . "%'";
 			$pageExtra = "/nombre/{$this->nombre}";
-		} 
-		if($this->apaterno){
+		}
+		if ($this->apaterno) {
 			$filtro .= " and lastNamePaterno like '%" . $this->apaterno . "%'";
-			$pageExtra.= "/paterno/{$this->apaterno}";
+			$pageExtra .= "/paterno/{$this->apaterno}";
 		}
-		if($this->amaterno){
+		if ($this->amaterno) {
 			$filtro .= " and lastNameMaterno like '%" . $this->amaterno . "%'";
-			$pageExtra.= "/materno/{$this->amaterno}";
+			$pageExtra .= "/materno/{$this->amaterno}";
 		}
-		if($this->noControl){
+		if ($this->noControl) {
 			$filtro .= " and controlNumber = '" . $this->noControl . "'";
-			$pageExtra.= "/control/{$this->noControl}";
+			$pageExtra .= "/control/{$this->noControl}";
 		}
-		if($this->estatus)
-		{
-			if($this->estatus==2)
+		if ($this->estatus) {
+			if ($this->estatus == 2)
 				$filtro .= " and activo = 0";
 			else
 				$filtro .= " and activo = '" . $this->estatus . "'";
 		}
 		$totalTableRows = $this->CountTotalRows($sqlSearch);
 		$totalPages = ceil($totalTableRows / $rowsPerPage);
-		if($currentPage < 1)
+		if ($currentPage < 1)
 			$currentPage = 1;
-		if($currentPage > $totalPages)
+		if ($currentPage > $totalPages)
 			$currentPage = $totalPages;
-		$arrPages['rowBegin']	= ($currentPage * $rowsPerPage) - $rowsPerPage + 1 ;
+		$arrPages['rowBegin']	= ($currentPage * $rowsPerPage) - $rowsPerPage + 1;
 		$rowOffset = $arrPages['rowBegin'] - 1;
 		$sql = "SELECT *,
 						(SELECT COUNT(userId) FROM accepted_regulations WHERE userId = user.userId) AS hasRGP
@@ -1179,8 +1150,7 @@ class Student extends User
 					LIMIT " . $rowOffset . ", " . $rowsPerPage;
 		$this->Util()->DB()->setQuery($sql);
 		$result2 = $this->Util()->DB()->GetResult();
-		foreach($result2 as $key => $res)
-		{
+		foreach ($result2 as $key => $res) {
 			$card = $res;
 			$sql = "SELECT courseId FROM user_subject WHERE alumnoId = " . $res["userId"] . "";
 			$this->Util()->DB()->setQuery($sql);
@@ -1190,15 +1160,12 @@ class Student extends User
 			$card["lastNamePaterno"] = $this->Util->DecodeTiny($card["lastNamePaterno"]);
 			$card["names"] = $this->Util->DecodeTiny($card["names"]);
 
-			if(file_exists(DOC_ROOT . "/alumnos/" . $res["userId"] . ".jpg"))
-			{
-				$card["foto"] = '<a href="#open-'.$res["userId"].'" id="foto-'.$res["userId"].'">
-					<img src="'.WEB_ROOT.'/alumnos/'.$res["userId"].'.jpg" width="40" height="40" style=" height: auto; width: auto; max-width: 80px; max-height: 80px;"/>
+			if (file_exists(DOC_ROOT . "/alumnos/" . $res["userId"] . ".jpg")) {
+				$card["foto"] = '<a href="#open-' . $res["userId"] . '" id="foto-' . $res["userId"] . '">
+					<img src="' . WEB_ROOT . '/alumnos/' . $res["userId"] . '.jpg" width="40" height="40" style=" height: auto; width: auto; max-width: 80px; max-height: 80px;"/>
 				</a>';
-				$card['photo'] = $res["userId"].".jpg";
-			}
-			else
-			{
+				$card['photo'] = $res["userId"] . ".jpg";
+			} else {
 				$card["foto"] = '';
 				$card['photo'] = $res['rutaFoto'];
 			}
@@ -1213,42 +1180,39 @@ class Student extends User
 		$arrPages['totalPages']	= $totalPages;
 		$arrPages['startPage'] = '';
 		$arrPages['previusPage'] = '';
-		if($currentPage > 1)
-		{
-			$arrPages['previusPage'] = $pageLink . '/' . $pageVar . '/' . ($currentPage - 1).$pageExtra;
-			if($currentPage > 2)
-				$arrPages['startPage'] = $pageLink . '/' . $pageVar . '/' . '1'.$pageExtra;
+		if ($currentPage > 1) {
+			$arrPages['previusPage'] = $pageLink . '/' . $pageVar . '/' . ($currentPage - 1) . $pageExtra;
+			if ($currentPage > 2)
+				$arrPages['startPage'] = $pageLink . '/' . $pageVar . '/' . '1' . $pageExtra;
 		}
 		$arrPages['nextPage'] = '';
 		$arrPages['endPage'] = '';
-		if($currentPage < $arrPages['totalPages'])
-		{
-			$arrPages['nextPage'] = $pageLink . '/' . $pageVar . '/' . ($currentPage + 1).$pageExtra;
-			if($currentPage < ($arrPages['totalPages'] - 1))
-				$arrPages['endPage'] = $pageLink . '/' . $pageVar . '/' . $arrPages['totalPages'].$pageExtra;
+		if ($currentPage < $arrPages['totalPages']) {
+			$arrPages['nextPage'] = $pageLink . '/' . $pageVar . '/' . ($currentPage + 1) . $pageExtra;
+			if ($currentPage < ($arrPages['totalPages'] - 1))
+				$arrPages['endPage'] = $pageLink . '/' . $pageVar . '/' . $arrPages['totalPages'] . $pageExtra;
 		}
-		$arrPages['refreshPage'] = $pageLink . '/' . $pageVar . '/' . $currentPage.$pageExtra ;
+		$arrPages['refreshPage'] = $pageLink . '/' . $pageVar . '/' . $currentPage . $pageExtra;
 		return $result;
 	}
 
 	public function CountTotalRows()
 	{
 		$filtro = "";
-		if($this->nombre)
+		if ($this->nombre)
 			$filtro .= " and names like '%" . $this->nombre . "%'";
 
-		if($this->apaterno)
+		if ($this->apaterno)
 			$filtro .= " and lastNamePaterno like '%" . $this->apaterno . "%'";
 
-		if($this->amaterno)
+		if ($this->amaterno)
 			$filtro .= " and lastNameMaterno like '%" . $this->amaterno . "%'";
 
-		if($this->noControl)
+		if ($this->noControl)
 			$filtro .= " and controlNumber = '" . $this->noControl . "'";
 
-		if($this->estatus)
-		{
-			if($this->estatus == 2)
+		if ($this->estatus) {
+			if ($this->estatus == 2)
 				$filtro .= " and activo = 0";
 			else
 				$filtro .= " and activo = '" . $this->estatus . "'";
@@ -1269,8 +1233,7 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		$result2 = $this->Util()->DB()->GetResult();
 		$result = array();
-		foreach($result2 as $key => $res)
-		{
+		foreach ($result2 as $key => $res) {
 			$card = $res;
 			$semester->setSemesterId($res['semesterId']);
 			$card['semester'] = $semester->GetNameById();
@@ -1299,7 +1262,7 @@ class Student extends User
 
 	function info_subject($courseId)
 	{
-		$sql="SELECT * FROM user_subject WHERE courseId='" . $courseId . "' AND  alumnoId='" . $this->getUserId() . "' ";
+		$sql = "SELECT * FROM user_subject WHERE courseId='" . $courseId . "' AND  alumnoId='" . $this->getUserId() . "' ";
 		$this->Util()->DB()->setQuery($sql);
 		$row = $this->Util()->DB()->GetRow();
 		return $row;
@@ -1342,30 +1305,26 @@ class Student extends User
 		$sql = 'SELECT gu.testIdentifier, gu.gradescore, gu.datetest
 					FROM gradereport_user AS gu, gradereport AS g, subject_group AS sg
 				WHERE gu.gradereportId = g.gradereportId
-					AND g.groupId = sg.subgpoId AND gu.alumnoId = '.$this->userId.' AND sg.subjectId = '.$this->subjectId.'
+					AND g.groupId = sg.subgpoId AND gu.alumnoId = ' . $this->userId . ' AND sg.subjectId = ' . $this->subjectId . '
 				ORDER BY gu.datetest ASC';
 
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 		$gradescore = 0;
-		foreach($result as $res)
-		{
+		foreach ($result as $res) {
 			$testIdentifier = $res['testIdentifier'];
-			if($testIdentifier == 'PARCIAL')
-			{
+			if ($testIdentifier == 'PARCIAL') {
 				$gradescore += $res['gradescore'];
 				$obs = '';
-			}
-			elseif($testIdentifier == 'GLOBAL')
-			{
+			} elseif ($testIdentifier == 'GLOBAL') {
 				$gradescore = $res['gradescore'];
 				$obs = '';
 			}
 			//Falta definir mas tipos de calificaciones
 		}
-		if($testIdentifier == 'PARCIAL')
+		if ($testIdentifier == 'PARCIAL')
 			$average = $gradescore / 3;
-		elseif($testIdentifier == 'GLOBAL')
+		elseif ($testIdentifier == 'GLOBAL')
 			$average = $gradescore;
 		else
 			$average = 0;
@@ -1377,7 +1336,7 @@ class Student extends User
 	function SaveKardexCalif()
 	{
 		$sql = 'INSERT INTO kardex_calificacion(userId, semesterId, majorId, subjectId, calif, typeCalifId, periodoId)
-					VALUES("'.$this->userId.'", "'.$this->semesterId.'", "'.$this->majorId.'", "'.$this->subjectId.'", "'.$this->average.'", "'.$this->type.'", "'.$this->periodoId.'")';
+					VALUES("' . $this->userId . '", "' . $this->semesterId . '", "' . $this->majorId . '", "' . $this->subjectId . '", "' . $this->average . '", "' . $this->type . '", "' . $this->periodoId . '")';
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
 		$this->Util()->setError(10070, "complete");
@@ -1398,7 +1357,7 @@ class Student extends User
 	function DeleteKardexCalif()
 	{
 		$sql = 'DELETE FROM  kardex_calificacion WHERE
-					userId = "'.$this->userId.'"
+					userId = "' . $this->userId . '"
 					AND	semesterId = "' . $this->semesterId . '" AND majorId = "' . $this->majorId . '"';
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->DeleteData();
@@ -1409,7 +1368,7 @@ class Student extends User
 	{
 		$sql = 'SELECT *
 					FROM user
-				WHERE CONCAT(lastNamePaterno," ",lastNameMaterno," ",names) LIKE "%' . $this->name . '%" LIMIT 15'; 
+				WHERE CONCAT(lastNamePaterno," ",lastNameMaterno," ",names) LIKE "%' . $this->name . '%" LIMIT 15';
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 		return $result;
@@ -1435,41 +1394,37 @@ class Student extends User
 	function encuentro_monto($courseId)
 	{
 		$sql = "SELECT subjectId FROM course WHERE courseId='" . $courseId . "' ";
-	    $this->Util()->DB()->setQuery($sql);
-	    $res = $this->Util()->DB()->GetRow();
+		$this->Util()->DB()->setQuery($sql);
+		$res = $this->Util()->DB()->GetRow();
 		$sql = "SELECT cost FROM subject WHERE subjectId = '" . $res['subjectId'] . "' ";
-	    $this->Util()->DB()->setQuery($sql);
-	    $costo = $this->Util()->DB()->GetRow();
-	   return $costo['cost'];
+		$this->Util()->DB()->setQuery($sql);
+		$costo = $this->Util()->DB()->GetRow();
+		return $costo['cost'];
 	}
 
-	function editarPor($alumnoId,$courseId,$por_beca,$tipo_beca)
+	function editarPor($alumnoId, $courseId, $por_beca, $tipo_beca)
 	{
-	    if($tipo_beca == "Ninguno")
+		if ($tipo_beca == "Ninguno")
 			$por_beca = 0;
 
-  	 	$sqlQuery = "UPDATE user_subject SET por_beca = '" . $por_beca . "', tipo_beca = '" . $tipo_beca . "' WHERE alumnoId = '" . $alumnoId . "'  AND courseId = '" . $courseId . "'";
+		$sqlQuery = "UPDATE user_subject SET por_beca = '" . $por_beca . "', tipo_beca = '" . $tipo_beca . "' WHERE alumnoId = '" . $alumnoId . "'  AND courseId = '" . $courseId . "'";
 		$this->Util()->DB()->setQuery($sqlQuery);
 		$this->Util()->DB()->ExecuteQuery();
 
 		$sql = "SELECT * FROM invoice WHERE userId = '" . $alumnoId . "'";
 		$this->Util()->DB()->setQuery($sql);
 		$id_invoices = $this->Util()->DB()->GetResult();
-	    foreach($id_invoices as $fila)
-		{
+		foreach ($id_invoices as $fila) {
 			$sql = "SELECT * FROM payment WHERE invoiceId = '" . $fila[0] . "'";
-	        $this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->setQuery($sql);
 			$info_payment = $this->Util()->DB()->GetResult();
-			if(count($info_payment)==0)
-			{
-				if($por_beca !=0)
-				{
-					$v=(100-$por_beca)/100;
-					$valor=round($this->encuentro_monto($fila["courseId"])*$v,2);
-				}
-				else
+			if (count($info_payment) == 0) {
+				if ($por_beca != 0) {
+					$v = (100 - $por_beca) / 100;
+					$valor = round($this->encuentro_monto($fila["courseId"]) * $v, 2);
+				} else
 					$valor = $this->encuentro_monto($fila["courseId"]);
-				$sql = "UPDATE invoice SET amount = '" . $valor . "' WHERE invoiceId = '" . $fila[0] . "'";	
+				$sql = "UPDATE invoice SET amount = '" . $valor . "' WHERE invoiceId = '" . $fila[0] . "'";
 				$this->Util()->DB()->setQuery($sql);
 				$this->Util()->DB()->ExecuteQuery();
 			}
@@ -1482,39 +1437,34 @@ class Student extends User
 	{
 		$course = new Course;
 		$course->SetCourseId($curricula);
-		$por_beca=$this->por_beca($id);
+		$por_beca = $this->por_beca($id);
 		$myCourse = $course->Info($id);
 		//print_r($myCourse);
 		$initialExplode = explode("-", $myCourse["initialDate"]);
 		$initialYear = $initialExplode[0];
 		$initialMonth = $initialExplode[1];
 		$initialDay = $initialExplode[2];
-		for($ii = 0; $ii < $myCourse["payments"]; $ii++)
-		{
-			if($initialMonth > 12)
-			{
+		for ($ii = 0; $ii < $myCourse["payments"]; $ii++) {
+			if ($initialMonth > 12) {
 				$initialMonth = 1;
 				$initialYear++;
 			}
 
-			if($initialDay > 28)
+			if ($initialDay > 28)
 				$initialDay = 28;
 
-			if($por_beca !=0)
-			{
-				$v=(100-$por_beca)/100;
-			  	$valor=round($myCourse["cost"]*$v,2);
-			}
-			else
-			  	$valor=$myCourse["cost"];
+			if ($por_beca != 0) {
+				$v = (100 - $por_beca) / 100;
+				$valor = round($myCourse["cost"] * $v, 2);
+			} else
+				$valor = $myCourse["cost"];
 
-			$sql = "SELECT  * FROM  `invoice` WHERE userId = '".$id."' AND courseId = '" . $curricula . "' AND dueDate = '" . $initialYear . "-" . $initialMonth."-" . $initialDay . "' AND amount = '" . $valor . "'";
-	        $this->Util()->DB()->setQuery($sql);
+			$sql = "SELECT  * FROM  `invoice` WHERE userId = '" . $id . "' AND courseId = '" . $curricula . "' AND dueDate = '" . $initialYear . "-" . $initialMonth . "-" . $initialDay . "' AND amount = '" . $valor . "'";
+			$this->Util()->DB()->setQuery($sql);
 			$info_invoice = $this->Util()->DB()->GetResult();
 
 
-	      	if(count($info_invoice)==0)
-			{
+			if (count($info_invoice) == 0) {
 				$sql = "INSERT INTO invoice(userId, courseId, dueDate, amount) VALUES('" . $id . "', '" . $curricula . "', '" . $initialYear . "-" . $initialMonth . "-" . $initialDay . "', '" . $valor . "')";
 				$this->Util()->DB()->setQuery($sql);
 				$this->Util()->DB()->InsertData();
@@ -1523,7 +1473,7 @@ class Student extends User
 		}
 	}
 
-	function  StudentCoursesU($userId,$courseId)
+	function  StudentCoursesU($userId, $courseId)
 	{
 		$sql = "SELECT *, subject.name AS nombre, major.name AS majorName
 					FROM user_subject
@@ -1535,7 +1485,7 @@ class Student extends User
 					ON major.majorId = subject.tipo
 				WHERE
 					alumnoId = '" . $userId . "' AND course.courseId = '" . $courseId . "'";
-        $this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetRow();
 		return $result;
 	}
@@ -1543,21 +1493,19 @@ class Student extends User
 	function StudentCourses($status = NULL, $active = NULL)
 	{
 		$tmp_status = $status;
-		if($status != NULL)
+		if ($status != NULL)
 			$status = " AND status = '" . $status . "'";
 
-		if($active != NULL)
+		if ($active != NULL)
 			$active = " AND course.active = '" . $active . "'";
 
-		if($tmp_status == 'finalizado')
-		{
+		if ($tmp_status == 'finalizado') {
 			$status = '';
 			$finalizado = " AND CURDATE() > course.finalDate";
-		}
-		elseif($tmp_status == 'activo')
+		} elseif ($tmp_status == 'activo')
 			$finalizado = " AND CURDATE() <= course.finalDate";
 
-		 $sql = "SELECT user_subject.courseId, 
+		$sql = "SELECT user_subject.courseId, 
 		 				user_subject.alumnoId, 
 						user_subject.status, 
 						subject.name AS name, 
@@ -1601,8 +1549,7 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 
-		foreach($result as $key => $res)
-		{
+		foreach ($result as $key => $res) {
 			$sql = "SELECT COUNT(*) FROM subject_module WHERE subjectId = '" . $res["subjectId"] . "'";
 			$this->Util()->DB()->setQuery($sql);
 			$result[$key]["modules"] = $this->Util()->DB()->GetSingle();
@@ -1631,9 +1578,9 @@ class Student extends User
 		$actividades = $activity->Enumerate();
 		$realScore = 0;
 		$countAc = count($actividades);
-		foreach($actividades as $res)
+		foreach ($actividades as $res)
 			$totalScore += $res["ponderation"];
-		@$total = $totalScore/$countAc;
+		@$total = $totalScore / $countAc;
 		return $total;
 	}
 
@@ -1642,11 +1589,11 @@ class Student extends User
 		// Actividades
 		$activity = new Activity;
 		$activity->setCourseModuleId($id);
-		if($alumnoId)
+		if ($alumnoId)
 			$activity->setUserId($alumnoId);
 		$actividades = $activity->Enumerate();
 		$realScore = 0;
-		foreach($actividades as $res)
+		foreach ($actividades as $res)
 			$totalScore += $res["realScore"];
 		return $totalScore;
 	}
@@ -1657,14 +1604,14 @@ class Student extends User
 		$sql = "SELECT * FROM user WHERE email = '" . $this->getEmail() . "'";
 		$this->Util()->DB()->setQuery($sql);
 		$infoDu = $this->Util()->DB()->GetRow();
-		if(!$infoDu['email']){
+		if (!$infoDu['email']) {
 			return false;
 		}
 		$msj = "Instituto de Administración Publica del Estado de Chiapas, A. C.
 				<br><br>
 				Sus datos de acceso para nuestro Sistema de Educación en Línea son:<br>
-				Usuario: ".$infoDu["controlNumber"]."<br>
-				Contraseña: ".$infoDu["password"]."<br>
+				Usuario: " . $infoDu["controlNumber"] . "<br>
+				Contraseña: " . $infoDu["password"] . "<br>
 				<br><br>
 				Para una correcta navegación en nuestro Sistema, puede consultar el manual del alumno en:<br>
 				<a href=https://app.iapchiapas.edu.mx/manual_alumno.pdf>https://app.iapchiapas.edu.mx/manual_alumno.pdf</a><br>
@@ -1673,10 +1620,10 @@ class Student extends User
 				Correo: enlinea@iapchiapas.edu.mx<br>
 				Saludos.<br>
 				IAP-Chiapas<br>
-				<img src='".WEB_ROOT."/images/logo_correo.jpg'>
+				<img src='" . WEB_ROOT . "/images/logo_correo.jpg'>
 				<br><br><br>";
 		$sendmail->Prepare("IAP Chiapas | Recuperación de datos de usuario", utf8_decode($msj), "", "", $infoDu["email"], $infoDu["names"]);
-		$this->Util()->setError(10030, "complete","Se ha enviado un correo con tus datos de acceso");
+		$this->Util()->setError(10030, "complete", "Se ha enviado un correo con tus datos de acceso");
 		$this->Util()->PrintErrors();
 		return true;
 	}
@@ -1705,7 +1652,7 @@ class Student extends User
 		return $result;
 	}
 
-	function InfoStudentCourses($status = NULL, $active = NULL,$courseId)
+	function InfoStudentCourses($status = NULL, $active = NULL, $courseId)
 	{
 		$sql = "SELECT *, subject.name AS name, major.name AS majorName
 					FROM user_subject
@@ -1786,31 +1733,30 @@ class Student extends User
 					<table>
 						<tr>
 							<td>Nombre:</td>
-							<td>'.$_POST['nombre'].'</td>
+							<td>' . $_POST['nombre'] . '</td>
 						</tr>
 						<tr>
 							<td>Telefono:</td>
-							<td>'.$_POST['telefono'].'</td>
+							<td>' . $_POST['telefono'] . '</td>
 						</tr>
 						<tr>
 							<td>Correo:</td>
-							<td>'.$_POST['correo'].'</td>
+							<td>' . $_POST['correo'] . '</td>
 						</tr>
 						<tr>
 							<td>Solicitud:</td>
-							<td>'.$_POST['peticion'].'</td>
+							<td>' . $_POST['peticion'] . '</td>
 						</tr>
 					</table>' . $_POST['peticion'];
-		$sendmail->enviarCorreo("Formulario de Contacto",$contenido, "", "", "contacto@iapchiapas.org.mx", "Administrador", $attachment, $fileName, $_POST['correo'], $_POST['nombre']);
+		$sendmail->enviarCorreo("Formulario de Contacto", $contenido, "", "", "contacto@iapchiapas.org.mx", "Administrador", $attachment, $fileName, $_POST['correo'], $_POST['nombre']);
 		return true;
 	}
 
 	public function ProcesoReinscripcion($courseMId, $subjectId, $courseId, $semestreId)
 	{
-		if($courseMId == 'x')
+		if ($courseMId == 'x')
 			$infoS['semesterId'] = $semestreId;
-		else
-		{
+		else {
 			$sql = "SELECT * FROM course_module AS c
 						LEFT JOIN subject_module AS s 
 							ON c.subjectModuleId = s.subjectModuleId
@@ -1847,7 +1793,7 @@ class Student extends User
 		$sql = "SELECT * FROM user WHERE userId = " . $_SESSION["User"]["userId"] . "";
 		$this->Util()->DB()->setQuery($sql);
 		$infoS = $this->Util()->DB()->GetRow();
-		$sql="SELECT * FROM pagosadicio WHERE clavealumno  = '" . $infoS['referenciaBancaria'] . "' ORDER BY id DESC";
+		$sql = "SELECT * FROM pagosadicio WHERE clavealumno  = '" . $infoS['referenciaBancaria'] . "' ORDER BY id DESC";
 		$this->Util()->DB()->setQuery($sql);
 		$row6 = $this->Util()->DB()->GetRow();
 		return $row6;
@@ -1859,26 +1805,24 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		$infoS = $this->Util()->DB()->GetRow();
 
-		$sql="SELECT * FROM pagosadicio WHERE clavealumno  = '" . $infoS['referenciaBancaria'] . "' ORDER BY id DESC";
+		$sql = "SELECT * FROM pagosadicio WHERE clavealumno  = '" . $infoS['referenciaBancaria'] . "' ORDER BY id DESC";
 		$this->Util()->DB()->setQuery($sql);
 		$row6 = $this->Util()->DB()->GetRow();
 
-		$sql="SELECT periodo FROM pagosadicio WHERE clavealumno  = '" . $infoS['referenciaBancaria'] . "' AND clavenivel = '" . $row6['clavenivel'] . "' GROUP BY periodo";
+		$sql = "SELECT periodo FROM pagosadicio WHERE clavealumno  = '" . $infoS['referenciaBancaria'] . "' AND clavenivel = '" . $row6['clavenivel'] . "' GROUP BY periodo";
 		$this->Util()->DB()->setQuery($sql);
 		$row = $this->Util()->DB()->GetResult();
 
-		foreach($row as $key=>$aux)
-		{
-			$sql="SELECT * FROM pagosadicio 
+		foreach ($row as $key => $aux) {
+			$sql = "SELECT * FROM pagosadicio 
 					WHERE clavealumno = '" . $infoS['referenciaBancaria'] . "' 
 						AND clavenivel = '" . $row6['clavenivel'] . "' 
 						AND periodo = '" . $aux['periodo'] . "' 
 						AND (claveconcepto = 12 or claveconcepto = 21 or claveconcepto = 9)";
 			$this->Util()->DB()->setQuery($sql);
 			$rowp = $this->Util()->DB()->GetResult();
-			foreach($rowp as $key6=>$aux6)
-			{
-				$sql="SELECT * FROM alumnoshistorial 
+			foreach ($rowp as $key6 => $aux6) {
+				$sql = "SELECT * FROM alumnoshistorial 
 						WHERE clave  = '" . $infoS['referenciaBancaria'] . "' 
 							AND clavenivel = '" . $row6['clavenivel'] . "' 
 							AND ciclo = '" . $row6['ciclo'] . "' 
@@ -1889,24 +1833,19 @@ class Student extends User
 				$rowp[$key6]['beca'] = $rowp8['becaporcentaje'];
 				$rowp[$key6]['numPagos'] = $rowp8['numPagos'];
 
-				if($aux6['claveconcepto'] == 21)
-				{
-					for($i=1; $i<=$rowp8['numPagos']; $i++)
-					{
-						if($i==2)
-						{
-							$undiantes = strtotime ( '+'.($aux6['pagacada']).' day' , strtotime ( $rowp8['fechainiciopagos'] ) ) ;
-							$rowp8['fechainiciopagos'] = date ( 'Y-m-d' , $undiantes );
+				if ($aux6['claveconcepto'] == 21) {
+					for ($i = 1; $i <= $rowp8['numPagos']; $i++) {
+						if ($i == 2) {
+							$undiantes = strtotime('+' . ($aux6['pagacada']) . ' day', strtotime($rowp8['fechainiciopagos']));
+							$rowp8['fechainiciopagos'] = date('Y-m-d', $undiantes);
 						}
-						if($i==3)
-						{
-							$undiantes = strtotime ( '+'.($aux6['pagacada']).' day' , strtotime ( $rowp8['fechainiciopagos'] ) ) ;
-							$rowp8['fechainiciopagos'] = date ( 'Y-m-d' , $undiantes );
+						if ($i == 3) {
+							$undiantes = strtotime('+' . ($aux6['pagacada']) . ' day', strtotime($rowp8['fechainiciopagos']));
+							$rowp8['fechainiciopagos'] = date('Y-m-d', $undiantes);
 						}
-						if($i==4)
-						{
-							$undiantes = strtotime ( '+'.($aux6['pagacada']).' day' , strtotime ( $rowp8['fechainiciopagos'] ) ) ;
-							$rowp8['fechainiciopagos'] = date ( 'Y-m-d' , $undiantes );
+						if ($i == 4) {
+							$undiantes = strtotime('+' . ($aux6['pagacada']) . ' day', strtotime($rowp8['fechainiciopagos']));
+							$rowp8['fechainiciopagos'] = date('Y-m-d', $undiantes);
 						}
 						$rowp[$i]['inicioPago'] = $rowp8['fechainiciopagos'];
 						$rowp[$i]['descripcion'] = 'Materia';
@@ -1914,9 +1853,7 @@ class Student extends User
 						$rowp[$i]['beca'] = $rowp8['becaporcentaje'];
 						@$rowp[$i]['total'] = $aux6['importe'];
 					}
-				}
-				else
-				{
+				} else {
 					$rowp[0]['inicioPago'] = $rowp8['fechainiciopagos'];
 					$rowp[0]['descripcion'] = $aux6['descripcion'];
 					$rowp[0]['numPagos'] = $rowp8['numPagos'];
@@ -1935,11 +1872,11 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		$infoS = $this->Util()->DB()->GetRow();
 
-		$sql="SELECT * FROM pagosadicio WHERE clavealumno = '" . $infoS['referenciaBancaria'] . "' ORDER BY id DESC";
+		$sql = "SELECT * FROM pagosadicio WHERE clavealumno = '" . $infoS['referenciaBancaria'] . "' ORDER BY id DESC";
 		$this->Util()->DB()->setQuery($sql);
 		$row6 = $this->Util()->DB()->GetRow();
 
-		$sql="SELECT periodo, ciclo, clavenivel, gradogrupo, nombrenivel 
+		$sql = "SELECT periodo, ciclo, clavenivel, gradogrupo, nombrenivel 
 				FROM pagosadicio 
 			WHERE clavealumno = '" . $infoS['referenciaBancaria'] . "' GROUP BY periodo ORDER BY id ASC";
 		$this->Util()->DB()->setQuery($sql);
@@ -1950,10 +1887,9 @@ class Student extends User
 		 * 21 materia
 		 * 9 resinscripcion
 		 */
-		$util = New Util;
-		foreach($row as $key=>$aux)
-		{
-			$sql="SELECT efectivo 
+		$util = new Util;
+		foreach ($row as $key => $aux) {
+			$sql = "SELECT efectivo 
 					FROM pagos 
 				WHERE clave = '" . $infoS['referenciaBancaria'] . "' 
 					AND ciclo = '" . $aux['ciclo'] . "' 
@@ -1965,21 +1901,20 @@ class Student extends User
 			$rowabono = $this->Util()->DB()->GetResult();
 
 			$efectivo = 0;
-			foreach($rowabono as $keya => $auxa)
+			foreach ($rowabono as $keya => $auxa)
 				$efectivo += $auxa['efectivo'];
 
 			$sql = "SELECT * from pagosadicio 
 						WHERE clavealumno  = '" . $infoS['referenciaBancaria'] . "' 
-							AND clavenivel = '".$aux['clavenivel']."' 
-							AND periodo = '".$aux['periodo']."' 
+							AND clavenivel = '" . $aux['clavenivel'] . "' 
+							AND periodo = '" . $aux['periodo'] . "' 
 							AND (claveconcepto = 9 or claveconcepto = 12 or claveconcepto = 21) 
 						ORDER BY claveconcepto ASC";
 			$this->Util()->DB()->setQuery($sql);
 			$rowp = $this->Util()->DB()->GetResult();
 			$rowp = $util->orderMultiDimensionalArray($rowp, 'claveconcepto', false);
-			foreach($rowp as $key6=>$aux6)
-			{
-				$sql="SELECT * 
+			foreach ($rowp as $key6 => $aux6) {
+				$sql = "SELECT * 
 						FROM alumnoshistorial 
 					WHERE clave  = '" . $infoS['referenciaBancaria'] . "' 
 						AND clavenivel = '" . $aux['clavenivel'] . "' 
@@ -1990,60 +1925,48 @@ class Student extends User
 				$rowp[$key6]['inicioPago'] = $rowp8['fechainiciopagos'];
 				$rowp[$key6]['beca'] = $rowp8['becaporcentaje'];
 				$rowp[$key6]['numPagos'] = $rowp8['numPagos'];
-				if($aux6['claveconcepto'] == 21)
-				{
-					for($i=1; $i<4; $i++)
-					{
-						if($i == 2)
-						{
-							$undiantes = strtotime( '+'.($aux6['pagacada']).' day' , strtotime( $rowp8['fechainiciopagos'] ) ) ;
-							$rowp8['fechainiciopagos'] = date( 'Y-m-d' , $undiantes );
+				if ($aux6['claveconcepto'] == 21) {
+					for ($i = 1; $i < 4; $i++) {
+						if ($i == 2) {
+							$undiantes = strtotime('+' . ($aux6['pagacada']) . ' day', strtotime($rowp8['fechainiciopagos']));
+							$rowp8['fechainiciopagos'] = date('Y-m-d', $undiantes);
 						}
-						if($i == 3)
-						{
-							$undiantes = strtotime ( '+'.($aux6['pagacada']).' day' , strtotime ( $rowp8['fechainiciopagos'] ) ) ;
-							$rowp8['fechainiciopagos'] = date ( 'Y-m-d' , $undiantes );
+						if ($i == 3) {
+							$undiantes = strtotime('+' . ($aux6['pagacada']) . ' day', strtotime($rowp8['fechainiciopagos']));
+							$rowp8['fechainiciopagos'] = date('Y-m-d', $undiantes);
 						}
-						if($i == 4)
-						{
-							$undiantes = strtotime ( '+'.($aux6['pagacada']).' day' , strtotime ( $rowp8['fechainiciopagos'] ) ) ;
-							$rowp8['fechainiciopagos'] = date ( 'Y-m-d' , $undiantes );
+						if ($i == 4) {
+							$undiantes = strtotime('+' . ($aux6['pagacada']) . ' day', strtotime($rowp8['fechainiciopagos']));
+							$rowp8['fechainiciopagos'] = date('Y-m-d', $undiantes);
 						}
 
 						$abono  = 0;
-						$descuento = (($aux6['importe']*$rowp8['becaporcentaje'])/100);
-						if($efectivo >0)
-						{
-							$efectivo =  $efectivo - ($aux6['importe']- $descuento);
-							if ($efectivo >=0)
-								$abono = ($aux6['importe']- $descuento);
+						$descuento = (($aux6['importe'] * $rowp8['becaporcentaje']) / 100);
+						if ($efectivo > 0) {
+							$efectivo =  $efectivo - ($aux6['importe'] - $descuento);
+							if ($efectivo >= 0)
+								$abono = ($aux6['importe'] - $descuento);
 							else
 								$abono = 0;
 						}
-						if($i>=2)
-						{
+						if ($i >= 2) {
 							$rowp[$i]['inicioPago'] = $rowp8['fechainiciopagos'];
 							$rowp[$i]['numPagos'] = $rowp8['numPagos'];
 							$rowp[$i]['beca'] = $rowp8['becaporcentaje'];
 							@$rowp[$i]['abono'] = $abono;
 							@$rowp[$i]['importe'] = $aux6['importe'];
 							$rowp[$i]['descripcion'] = $aux6['descripcion'];
-							$descuento = (($aux6['importe']*$rowp8['becaporcentaje'])/100);
-							@$rowp[$i]['totalPagar'] = $aux6['importe']- $descuento;
-						}
-						else
-						{
+							$descuento = (($aux6['importe'] * $rowp8['becaporcentaje']) / 100);
+							@$rowp[$i]['totalPagar'] = $aux6['importe'] - $descuento;
+						} else {
 							@$rowp[$i]['abono'] = $abono;
-							$descuento = (($aux6['importe']*$rowp8['becaporcentaje'])/100);
-							@$rowp[$i]['totalPagar'] = $aux6['importe']- $descuento;
+							$descuento = (($aux6['importe'] * $rowp8['becaporcentaje']) / 100);
+							@$rowp[$i]['totalPagar'] = $aux6['importe'] - $descuento;
 						}
 					}
-				}
-				else
-				{
+				} else {
 					$abono  = 0;
-					if($efectivo >0)
-					{
+					if ($efectivo > 0) {
 						$efectivo = $efectivo - $aux6['importe'];
 						if ($efectivo >= 0)
 							$abono = $aux6['importe'];
@@ -2064,52 +1987,51 @@ class Student extends User
 
 		// ECHO $tipo;
 
-		if($tipo=='2'){
+		if ($tipo == '2') {
 
-			$sql="select * from user ";
+			$sql = "select * from user ";
 			$this->Util()->Db()->setQuery($sql);
 			$lst = $this->Util()->Db()->GetResult();
 
-			foreach($lst as $key=>$aux){
+			foreach ($lst as $key => $aux) {
 
 
-				$sql="select * from ALUMNOS where CLAVE = '".$aux['referenciaBancaria']."'";
+				$sql = "select * from ALUMNOS where CLAVE = '" . $aux['referenciaBancaria'] . "'";
 				$this->Util()->Dbfire()->setQuery($sql);
 				$infoAl = $this->Util()->Dbfire()->GetResult();
 
-				 $sql = "UPDATE
+				$sql = "UPDATE
 							 user
 					 SET
-						porcentajeBeca = '".$infoAl['PORCBECA']."'
+						porcentajeBeca = '" . $infoAl['PORCBECA'] . "'
 					 WHERE 
-						referenciaBancaria = '".$aux['referenciaBancaria']."'";
+						referenciaBancaria = '" . $aux['referenciaBancaria'] . "'";
 				$this->Util()->DB()->setQuery($sql);
 				$this->Util()->DB()->UpdateData();
 			}
-
-		}else{
-			$sql="select max(id) from pagosadicio";
+		} else {
+			$sql = "select max(id) from pagosadicio";
 			$this->Util()->Db()->setQuery($sql);
 			$maxIdPago = $this->Util()->Db()->GetSIngle();
 
-			$sql="select max(id) from alumnoshistorial";
+			$sql = "select max(id) from alumnoshistorial";
 			$this->Util()->Db()->setQuery($sql);
 			$maxIdH = $this->Util()->Db()->GetSIngle();
 
-			$sql="select * from pagosadicio where ID > ".$maxIdPago." order by ID asc";
+			$sql = "select * from pagosadicio where ID > " . $maxIdPago . " order by ID asc";
 			$this->Util()->Dbfire()->setQuery($sql);
 			$row6 = $this->Util()->Dbfire()->GetResult();
 
-			$sql="select * from alumnoshistorial where ID > ".$maxIdH." order by ID asc";
+			$sql = "select * from alumnoshistorial where ID > " . $maxIdH . " order by ID asc";
 			$this->Util()->Dbfire()->setQuery($sql);
 			$lstHistory = $this->Util()->Dbfire()->GetResult();
 
 
 
 
-			foreach($row6 as $key=>$aux){
+			foreach ($row6 as $key => $aux) {
 
-				 $sqlNot="insert into pagosadicio(
+				$sqlNot = "insert into pagosadicio(
 					  id,
 					  ciclo,
 					  periodo,
@@ -2137,42 +2059,42 @@ class Student extends User
 					  fechamodificacion
 					)
 				   values(
-							'".$aux['ID']."', 
-							'".$aux['CICLO']."', 
-							'".$aux['PERIODO']."',
-							'".$aux['CLAVENIVEL']."',
-							'".$aux['NOMBRENIVEL']."',
-							'".$aux['GRADOGRUPO']."',
-							'".$aux['CLAVEALUMNO']."',
-							'".$aux['CLAVECONCEPTO']."',
-							'".$aux['DESCRIPCION']."',
-							'".$aux['PERIODICIDAD']."',
-							'".$aux['IMPORTE']."',
-							'".$aux['IVA']."',
-							'".$aux['FORMATO']."',
-							'".$aux['FORMAPAGO']."',
-							'".$aux['APLICABECA']."',
-							'".$aux['UNIDAD']."',
-							'".$aux['PAGAREN']."',
-							'".$aux['PAGACADA']."',
-							'".$aux['PASES']."',
-							'".$aux['ACCESOS']."',
-							'".$aux['CATEGORIA']."',
-							'".$aux['USUARIO']."',
-							'".$aux['FECHACREACION']."',
-							'".$aux['USUARIOMODIFICACION']."',
-							'".$aux['FECHAMODIFICACION']."'
+							'" . $aux['ID'] . "', 
+							'" . $aux['CICLO'] . "', 
+							'" . $aux['PERIODO'] . "',
+							'" . $aux['CLAVENIVEL'] . "',
+							'" . $aux['NOMBRENIVEL'] . "',
+							'" . $aux['GRADOGRUPO'] . "',
+							'" . $aux['CLAVEALUMNO'] . "',
+							'" . $aux['CLAVECONCEPTO'] . "',
+							'" . $aux['DESCRIPCION'] . "',
+							'" . $aux['PERIODICIDAD'] . "',
+							'" . $aux['IMPORTE'] . "',
+							'" . $aux['IVA'] . "',
+							'" . $aux['FORMATO'] . "',
+							'" . $aux['FORMAPAGO'] . "',
+							'" . $aux['APLICABECA'] . "',
+							'" . $aux['UNIDAD'] . "',
+							'" . $aux['PAGAREN'] . "',
+							'" . $aux['PAGACADA'] . "',
+							'" . $aux['PASES'] . "',
+							'" . $aux['ACCESOS'] . "',
+							'" . $aux['CATEGORIA'] . "',
+							'" . $aux['USUARIO'] . "',
+							'" . $aux['FECHACREACION'] . "',
+							'" . $aux['USUARIOMODIFICACION'] . "',
+							'" . $aux['FECHAMODIFICACION'] . "'
 						 )";
 				$this->Util()->DB()->setQuery($sqlNot);
 				$this->Util()->DB()->InsertData();
 			}
 
-			foreach($lstHistory as $key=>$aux){
+			foreach ($lstHistory as $key => $aux) {
 
-				 $r = explode ('/',$aux['FECHAINICIOPAGOS']);
-				 $fecha = $r[2].$r[1].$r[0];
+				$r = explode('/', $aux['FECHAINICIOPAGOS']);
+				$fecha = $r[2] . $r[1] . $r[0];
 
-				 $sqlNot="insert into alumnoshistorial(
+				$sqlNot = "insert into alumnoshistorial(
 					  id,
 					  clave,
 					  clavenivel,
@@ -2200,60 +2122,59 @@ class Student extends User
 					  
 					)
 				   values(
-							'".$aux['ID']."', 
-							'".$aux['CLAVE']."', 
-							'".$aux['CLAVENIVEL']."',
-							'".$aux['NOMBRENIVEL']."',
-							'".$aux['GRADOGRUPO']."',
-							'".$aux['CICLO']."',
-							'".$aux['BECAPESOS']."',
-							'".$aux['BECAPORCENTAJE']."',
-							'".$aux['NOMBRE']."',
-							'".$aux['APELLIDOP']."',
-							'".$aux['APELLIDOM']."',
-							'".$aux['PERIODO']."',
-							'".$fecha."',
-							'".$aux['INFOCAMBIO']."',
-							'".$aux['ACTIVADO']."',
-							'".$aux['IDPLAN']."',
-							'".$aux['IDESPECIALIDAD']."',
-							'".$aux['USUARIO']."',
-							'".$aux['FECHACREACION']."',
-							'".$aux['USUARIOMODIFICACION']."',
-							'".$aux['FECHAMODIFICACION']."',
-							'".$aux['STATUS']."',
-							'".$aux['FECHASTATUS']."',
-							'".$aux['OBSERVACIONES']."'
+							'" . $aux['ID'] . "', 
+							'" . $aux['CLAVE'] . "', 
+							'" . $aux['CLAVENIVEL'] . "',
+							'" . $aux['NOMBRENIVEL'] . "',
+							'" . $aux['GRADOGRUPO'] . "',
+							'" . $aux['CICLO'] . "',
+							'" . $aux['BECAPESOS'] . "',
+							'" . $aux['BECAPORCENTAJE'] . "',
+							'" . $aux['NOMBRE'] . "',
+							'" . $aux['APELLIDOP'] . "',
+							'" . $aux['APELLIDOM'] . "',
+							'" . $aux['PERIODO'] . "',
+							'" . $fecha . "',
+							'" . $aux['INFOCAMBIO'] . "',
+							'" . $aux['ACTIVADO'] . "',
+							'" . $aux['IDPLAN'] . "',
+							'" . $aux['IDESPECIALIDAD'] . "',
+							'" . $aux['USUARIO'] . "',
+							'" . $aux['FECHACREACION'] . "',
+							'" . $aux['USUARIOMODIFICACION'] . "',
+							'" . $aux['FECHAMODIFICACION'] . "',
+							'" . $aux['STATUS'] . "',
+							'" . $aux['FECHASTATUS'] . "',
+							'" . $aux['OBSERVACIONES'] . "'
 						 )";
 
 				$this->Util()->DB()->setQuery($sqlNot);
 				$this->Util()->DB()->InsertData();
-
 			}
 
-			$sql="select max(id) from pagosadicio";
+			$sql = "select max(id) from pagosadicio";
 			$this->Util()->Db()->setQuery($sql);
 			$maxIdPago = $this->Util()->Db()->GetSIngle();
 
-			$sql="select max(id) from alumnoshistorial";
+			$sql = "select max(id) from alumnoshistorial";
 			$this->Util()->Db()->setQuery($sql);
 			$maxIdH = $this->Util()->Db()->GetSIngle();
 
-			 $sql = "UPDATE
+			$sql = "UPDATE
 							tablasincronizada
 					SET
-						ultimoRegistro = '".$maxIdPago."',
-						fechaSincronizacion = '".date('Y-m-d')."'
+						ultimoRegistro = '" . $maxIdPago . "',
+						fechaSincronizacion = '" . date('Y-m-d') . "'
 					WHERE nombre = 'pagosadicio'";
 
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->UpdateData();
 
-			 $sql = "UPDATE
+			$sql = "UPDATE
 							tablasincronizada
 					SET
-						ultimoRegistro = '".$maxIdH."',
-						fechaSincronizacion = '".date('Y-m-d')."'
+						ultimoRegistro = '" . $maxIdH . "',
+						fechaSincronizacion = '" . date('Y-m-d') . "'
 					WHERE nombre = 'alumnoshistorial'";
 
 			$this->Util()->DB()->setQuery($sql);
@@ -2270,29 +2191,29 @@ class Student extends User
 	{
 
 
-		$sql="select * from alumnoshistorial where ID >= 1649 and ID < 1749 ";
+		$sql = "select * from alumnoshistorial where ID >= 1649 and ID < 1749 ";
 		$this->Util()->DB()->setQuery($sql);
 		$rowp = $this->Util()->DB()->GetResult();
 
 
 
-		foreach($rowp as $key=>$aux){
+		foreach ($rowp as $key => $aux) {
 
 
 
-			$sql="select * from alumnoshistorial where ID = ".$aux['id']." ";
+			$sql = "select * from alumnoshistorial where ID = " . $aux['id'] . " ";
 			$this->Util()->Dbfire()->setQuery($sql);
 			$infoA = $this->Util()->Dbfire()->GetRow();
 
-			$r = explode ('/',$infoA['FECHAINICIOPAGOS']);
+			$r = explode('/', $infoA['FECHAINICIOPAGOS']);
 
-			 $fecha = $r[2].$r[1].$r[0].'<br>';
+			$fecha = $r[2] . $r[1] . $r[0] . '<br>';
 
-			 $sql = "UPDATE
+			$sql = "UPDATE
 						alumnoshistorial
 						SET
-							fechainiciopagos = '".$fecha."'
-						WHERE ID = '".$aux['id']."'";
+							fechainiciopagos = '" . $fecha . "'
+						WHERE ID = '" . $aux['id'] . "'";
 
 			// exit;
 			$this->Util()->DB()->setQuery($sql);
@@ -2310,8 +2231,8 @@ class Student extends User
 		$sql = "UPDATE
 				solicitud
 				SET
-					tipobaja = '".$this->tipobaja."',
-					motivo = '".$this->motivo."'
+					tipobaja = '" . $this->tipobaja . "',
+					motivo = '" . $this->motivo . "'
 				WHERE tiposolicitudId = 3 and estatus = 'en progreso' ";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->UpdateData();
@@ -2319,58 +2240,56 @@ class Student extends User
 		return true;
 	}
 
-	public function miChat(){
+	public function miChat()
+	{
 
 
-		 $sql = 'SELECT 
+		$sql = 'SELECT 
 				*
 				FROM chat as c
 				left join user as u on u.userId = c.usuarioId
-				WHERE c.yoId = '.$_SESSION['User']["userId"].' or c.usuarioId = '.$_SESSION['User']["userId"].'
+				WHERE c.yoId = ' . $_SESSION['User']["userId"] . ' or c.usuarioId = ' . $_SESSION['User']["userId"] . '
 				group by c.usuarioId,c.yoId ORDER BY  chatId ASC ';
 
-	$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->setQuery($sql);
 		$data = $this->Util()->DB()->GetResult();
-		foreach($data as $key=>$aux){
+		foreach ($data as $key => $aux) {
 
-			if($aux["yoId"]==$_SESSION['User']["userId"]){
+			if ($aux["yoId"] == $_SESSION['User']["userId"]) {
 				$sql = 'SELECT 
 				*
 				FROM user 
-				WHERE userId = '.$aux["usuarioId"].'';
-			$this->Util()->DB()->setQuery($sql);
-			$infoU = $this->Util()->DB()->GetRow();
+				WHERE userId = ' . $aux["usuarioId"] . '';
+				$this->Util()->DB()->setQuery($sql);
+				$infoU = $this->Util()->DB()->GetRow();
 				$data[$key]["nombre"] = $infoU["names"];
-			}
-			else{
-			$sql = 'SELECT 
+			} else {
+				$sql = 'SELECT 
 				*
 				FROM user 
-				WHERE userId = '.$aux["yoId"].'';
-			$this->Util()->DB()->setQuery($sql);
-			$infoU = $this->Util()->DB()->GetRow();
+				WHERE userId = ' . $aux["yoId"] . '';
+				$this->Util()->DB()->setQuery($sql);
+				$infoU = $this->Util()->DB()->GetRow();
 				$data[$key]["nombre"] = $infoU["names"];
 			}
-
-
 		}
 
 
 		return $data;
+	} //Enumerate
 
-	}//Enumerate
+	public function entablandoConversacion($Id)
+	{
 
-	public function entablandoConversacion($Id){
-
-		 $sql = 'SELECT * FROM chat WHERE chatId = '.$Id.'';
+		$sql = 'SELECT * FROM chat WHERE chatId = ' . $Id . '';
 		$this->Util()->DB()->setQuery($sql);
 		$info = $this->Util()->DB()->GetRow();
 
-		 $sql = 'SELECT 
+		$sql = 'SELECT 
 		* 
 		FROM chat as c
 		left join user as u on u.userId =   c.usuarioId 
-		WHERE (c.usuarioId = '.$info["usuarioId"].' or c.yoId = '.$info["usuarioId"].') and (c.usuarioId = '.$info["yoId"].' or c.yoId = '.$info["yoId"].')';
+		WHERE (c.usuarioId = ' . $info["usuarioId"] . ' or c.yoId = ' . $info["usuarioId"] . ') and (c.usuarioId = ' . $info["yoId"] . ' or c.yoId = ' . $info["yoId"] . ')';
 
 		$this->Util()->DB()->setQuery($sql);
 		$lstChat = $this->Util()->DB()->GetResult();
@@ -2379,21 +2298,22 @@ class Student extends User
 		// exit;
 
 		return $lstChat;
-	}//
+	} //
 
-	public function SaveMensaje(){
+	public function SaveMensaje()
+	{
 
 		// $sql = 'SELECT * FROM chat WHERE chatId = '.$_POST["chatId"].'';
 		// $this->Util()->DB()->setQuery($sql);
 		// $infoChat = $this->Util()->DB()->GetRow();
 
 		// if($infoChat["yoId"]<>$_SESSION['User']["userId"]){
-			// $userId = $infoChat["yoId"];
+		// $userId = $infoChat["yoId"];
 		// }else{
-			// $userId = $infoChat["usuarioId"];
+		// $userId = $infoChat["usuarioId"];
 		// }
 
-		 $sql = "
+		$sql = "
 		INSERT INTO  chat (
 				`fechaEnvio` ,
 				`courseModuleId` ,
@@ -2402,30 +2322,30 @@ class Student extends User
 				`mensaje` 
 				)
 				VALUES (
-				'".date("Y-m-d")."',
-				'".$_POST['c5Id']."',
-				'".$_POST['profId']."',
-				'".$_SESSION['User']["userId"]."',
-				'".$_POST["mensaje"]."'
+				'" . date("Y-m-d") . "',
+				'" . $_POST['c5Id'] . "',
+				'" . $_POST['profId'] . "',
+				'" . $_SESSION['User']["userId"] . "',
+				'" . $_POST["mensaje"] . "'
 				);";
 
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->InsertData();
 
 		return true;
-
 	}
 
-	public function SaveReply(){
+	public function SaveReply()
+	{
 
-		if ($_SESSION['User']['type']=='student'){
+		if ($_SESSION['User']['type'] == 'student') {
 			$quien = 'alumno';
-		}else{
+		} else {
 			$quien = 'personal';
 		}
 
 
-		 $sql = "
+		$sql = "
 		INSERT INTO  chat (
 				`courseModuleId` ,
 				`fechaEnvio` ,
@@ -2437,14 +2357,14 @@ class Student extends User
 				`asunto` 
 				)
 				VALUES (
-				'".$this->cmId."',
-				'".date('Y-m-d')."',
-				'".$this->statusjj."',
-				'".$this->usuariojjId."',
-				'".$this->yoId."',
-				'".$this->mensaje."',
-				'".$quien."',
-				'".$this->asunto."'
+				'" . $this->cmId . "',
+				'" . date('Y-m-d') . "',
+				'" . $this->statusjj . "',
+				'" . $this->usuariojjId . "',
+				'" . $this->yoId . "',
+				'" . $this->mensaje . "',
+				'" . $quien . "',
+				'" . $this->asunto . "'
 				);";
 
 		$this->Util()->DB()->setQuery($sql);
@@ -2452,42 +2372,38 @@ class Student extends User
 
 		// echo '<pre>'; print_r($_FILES);
 		// exit;
-		foreach($_FILES as $key=>$var)
-		{
-		   switch($key)
-		   {
-			   case 'archivos':
-			   if($var["name"]<>""){
-					$aux = explode(".",$var["name"]);
-					$extencion=end($aux);
-					$temporal = $var['tmp_name'];
-					$url = DOC_ROOT;
-					$foto_name="doc_".$aId.".".$extencion;
-					if(move_uploaded_file($temporal,$url."/doc_inbox/".$foto_name)){
+		foreach ($_FILES as $key => $var) {
+			switch ($key) {
+				case 'archivos':
+					if ($var["name"] <> "") {
+						$aux = explode(".", $var["name"]);
+						$extencion = end($aux);
+						$temporal = $var['tmp_name'];
+						$url = DOC_ROOT;
+						$foto_name = "doc_" . $aId . "." . $extencion;
+						if (move_uploaded_file($temporal, $url . "/doc_inbox/" . $foto_name)) {
 
-						$sql = "UPDATE
+							$sql = "UPDATE
 							chat
 							SET
-								rutaAdjunto = '".$foto_name."'
-							WHERE chatId = '".$aId."'";
-								$this->Util()->DB()->setQuery($sql);
-								$this->Util()->DB()->UpdateData();
-
+								rutaAdjunto = '" . $foto_name . "'
+							WHERE chatId = '" . $aId . "'";
+							$this->Util()->DB()->setQuery($sql);
+							$this->Util()->DB()->UpdateData();
+						}
 					}
-				}
-		   }
+			}
 		}
 
 		return true;
-
 	}
 
 	public function InfoEstudiate($Id)
 	{
 
 		$sql = "
-				SELECT * FROM user WHERE userId =  ".$Id."";
-				// exit;
+				SELECT * FROM user WHERE userId =  " . $Id . "";
+		// exit;
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetRow();
 
@@ -2499,9 +2415,9 @@ class Student extends User
 	public function GetPorcentajeBeca($clave)
 	{
 
-		 $sql = "
-				SELECT * FROM alumnoshistorial WHERE clave =  ".$clave." order by id DESC";
-				// exit;
+		$sql = "
+				SELECT * FROM alumnoshistorial WHERE clave =  " . $clave . " order by id DESC";
+		// exit;
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetRow();
 
@@ -2512,100 +2428,96 @@ class Student extends User
 	{
 
 
-		$sql = "SELECT * FROM municipio WHERE estadoId = '".$Id."'";
-				// exit;
+		$sql = "SELECT * FROM municipio WHERE estadoId = '" . $Id . "'";
+		// exit;
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 
 		return $result;
-
-
 	}
 
 	function onChangePicture($Id)
-		{
+	{
 
-			// echo '<pre>'; print_r($_FILES);
-			// echo '<pre>'; print_r($_POST);
-			// exit;
-			$archivo = 'archivos';
-			foreach($_FILES as $key=>$var)
-			{
-			   switch($key)
-			   {
-				   case $archivo:
-				   if($var["name"]<>""){
-						$aux = explode(".",$var["name"]);
-						$extencion=end($aux);
+		// echo '<pre>'; print_r($_FILES);
+		// echo '<pre>'; print_r($_POST);
+		// exit;
+		$archivo = 'archivos';
+		foreach ($_FILES as $key => $var) {
+			switch ($key) {
+				case $archivo:
+					if ($var["name"] <> "") {
+						$aux = explode(".", $var["name"]);
+						$extencion = end($aux);
 						$temporal = $var['tmp_name'];
 						$url = DOC_ROOT;
-						$foto_name=$Id.".".$extencion;
-						if(move_uploaded_file($temporal,$url."/alumnos/".$foto_name)){
+						$foto_name = $Id . "." . $extencion;
+						if (move_uploaded_file($temporal, $url . "/alumnos/" . $foto_name)) {
 
 							/* $minFoto = $foto_name;
 							$this->resizeImagen($url.'/alumnos/', $foto_name, 340, 340,$minFoto,$extencion); */
 
 							$sql = 'UPDATE 		
 								user SET 		
-								rutaFoto = "'.$foto_name.'"			      		
-								WHERE userId = '.$Id.'';
+								rutaFoto = "' . $foto_name . '"			      		
+								WHERE userId = ' . $Id . '';
 							$this->Util()->DB()->setQuery($sql);
 							$this->Util()->DB()->UpdateData();
-					   }
+						}
 					}
 					break;
-				}
 			}
-
-			unset($_FILES);
-
-			return true;
 		}
+
+		unset($_FILES);
+
+		return true;
+	}
 
 	public function onSavePerfil($Id)
 	{
 
 		$sql = 'UPDATE 		
 					user SET 		
-					perfil = "'.strip_tags($this->perfil).'"			      		
-					WHERE userId = '.$Id.'';
-				$this->Util()->DB()->setQuery($sql);
-				$this->Util()->DB()->UpdateData();
+					perfil = "' . strip_tags($this->perfil) . '"			      		
+					WHERE userId = ' . $Id . '';
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->UpdateData();
 
-			return true;
+		return true;
 	}
 
 	public function onSavePass($Id)
 	{
 
-		$sql = "SELECT count(*) FROM user WHERE password = '".$this->anterior."' and userId='".$_SESSION["User"]["userId"]."'";
+		$sql = "SELECT count(*) FROM user WHERE password = '" . $this->anterior . "' and userId='" . $_SESSION["User"]["userId"] . "'";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetSingle();
 
-		if($result <= 0){
+		if ($result <= 0) {
 			echo 'fail[#]';
 			echo '<font color="red">La contraseña anterior no es correcta</font>';
 			exit;
 		}
 
-		if($this->nuevo != $this->repite){
+		if ($this->nuevo != $this->repite) {
 			echo 'fail[#]';
 			echo '<font color="red">Las contraseñas no coinciden</font>';
 			exit;
 		}
 
-		if($this->nuevo == ''){
+		if ($this->nuevo == '') {
 			echo 'fail[#]';
 			echo '<font color="red">La nueva contraseña no puede estar vacia</font>';
 			exit;
 		}
 
-		 $sqlQuery = "
+		$sqlQuery = "
 			UPDATE 
 				user 
 			set 
-				password='".$this->nuevo."'
-			where userId='".$_SESSION["User"]["userId"]."'";
+				password='" . $this->nuevo . "'
+			where userId='" . $_SESSION["User"]["userId"] . "'";
 
 		$this->Util()->DB()->setQuery($sqlQuery);
 		$this->Util()->DB()->ExecuteQuery();
@@ -2614,39 +2526,39 @@ class Student extends User
 	}
 
 
-	function resizeImagen($ruta, $nombre, $alto, $ancho,$nombreN,$extension){
+	function resizeImagen($ruta, $nombre, $alto, $ancho, $nombreN, $extension)
+	{
 
-		$rutaImagenOriginal = $ruta.$nombre;
-		if($extension == 'GIF' || $extension == 'gif'){
-		$img_original = imagecreatefromgif($rutaImagenOriginal);
+		$rutaImagenOriginal = $ruta . $nombre;
+		if ($extension == 'GIF' || $extension == 'gif') {
+			$img_original = imagecreatefromgif($rutaImagenOriginal);
 		}
-		if($extension == 'jpg' || $extension == 'JPG'){
-		$img_original = imagecreatefromjpeg($rutaImagenOriginal);
+		if ($extension == 'jpg' || $extension == 'JPG') {
+			$img_original = imagecreatefromjpeg($rutaImagenOriginal);
 		}
-		if($extension == 'png' || $extension == 'PNG'){
-		$img_original = imagecreatefrompng($rutaImagenOriginal);
+		if ($extension == 'png' || $extension == 'PNG') {
+			$img_original = imagecreatefrompng($rutaImagenOriginal);
 		}
 		$max_ancho = $ancho;
 		$max_alto = $alto;
-		list($ancho,$alto)=getimagesize($rutaImagenOriginal);
+		list($ancho, $alto) = getimagesize($rutaImagenOriginal);
 		$x_ratio = $max_ancho / $ancho;
 		$y_ratio = $max_alto / $alto;
-		if( ($ancho <= $max_ancho) && ($alto <= $max_alto) ){//Si ancho
-		$ancho_final = $ancho;
+		if (($ancho <= $max_ancho) && ($alto <= $max_alto)) { //Si ancho
+			$ancho_final = $ancho;
 			$alto_final = $alto;
-		} elseif (($x_ratio * $alto) < $max_alto){
+		} elseif (($x_ratio * $alto) < $max_alto) {
 			$alto_final = ceil($x_ratio * $alto);
 			$ancho_final = $max_ancho;
-		} else{
+		} else {
 			$ancho_final = ceil($y_ratio * $ancho);
 			$alto_final = $max_alto;
 		}
-		$tmp=imagecreatetruecolor($ancho_final,$alto_final);
-		imagecopyresampled($tmp,$img_original,0,0,0,0,$ancho_final, $alto_final,$ancho,$alto);
+		$tmp = imagecreatetruecolor($ancho_final, $alto_final);
+		imagecopyresampled($tmp, $img_original, 0, 0, 0, 0, $ancho_final, $alto_final, $ancho, $alto);
 		imagedestroy($img_original);
-		$calidad=70;
-		imagejpeg($tmp,$ruta.$nombreN,$calidad);
-
+		$calidad = 70;
+		imagejpeg($tmp, $ruta . $nombreN, $calidad);
 	}
 
 
@@ -2662,8 +2574,7 @@ class Student extends User
 	{
 		$sql = "SELECT COUNT(userId) FROM accepted_regulations WHERE userId = " . $this->userId;
 		$hasAccepted = $this->Util()->DB()->setQuery($sql);
-		if($hasAccepted == 0)
-		{
+		if ($hasAccepted == 0) {
 			$sql = "INSERT INTO accepted_regulations(userId, date) VALUES(" . $this->userId . ", CURDATE())";
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->InsertData();
@@ -2681,15 +2592,15 @@ class Student extends User
 
 	function blockRegulation($status = NULL, $active = NULL, $arrayCourses = NULL)
 	{
-		if($status != NULL)
-			$status = " AND status = '".$status."'";
+		if ($status != NULL)
+			$status = " AND status = '" . $status . "'";
 
-		if($active != NULL)
-			$active = " AND course.active = '".$active."'";
+		if ($active != NULL)
+			$active = " AND course.active = '" . $active . "'";
 
-		if($arrayCourses != NULL)
+		if ($arrayCourses != NULL)
 			$arrayCourses = " AND user_subject.courseId IN (" . $arrayCourses . ")";
-		
+
 		$sql = "SELECT
 					COUNT(alumnoId)
 				FROM
@@ -2725,7 +2636,7 @@ class Student extends User
 
 	public function AddUserToCourseModule($id, $curricula, $modulo, $nombre, $email, $password, $moduleName)
 	{
-		include_once(DOC_ROOT."/properties/messages.php");
+		include_once(DOC_ROOT . "/properties/messages.php");
 		$sql = "SELECT COUNT(*) FROM user_subject_repeat WHERE alumnoId = " . $id . " AND courseId = " . $curricula . " AND courseModuleId = " . $modulo;
 		$this->Util()->DB()->setQuery($sql);
 		$count = $this->Util()->DB()->GetSingle();
@@ -2735,17 +2646,17 @@ class Student extends User
 		$subjectId = $this->Util()->DB()->GetSingle(); */
 
 		$status = "activo";
-		if($count > 0)
+		if ($count > 0)
 			return $complete = "Este alumno ya esta registrado en este modulo. Favor de Seleccionar otro Modulo";
 
 		// Se inscribe a modulo 
 		$sqlQuery = "INSERT INTO user_subject_repeat(alumnoId, courseId, courseModuleId, status) VALUES(" . $id . ", " . $curricula . ", " . $modulo . ", '" . $status . "')";
 		$this->Util()->DB()->setQuery($sqlQuery);
-		if($this->Util()->DB()->InsertData())
+		if ($this->Util()->DB()->InsertData())
 			$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico";
 		else
-			$complete="no";
-			
+			$complete = "no";
+
 		$sendmail = new SendMail;
 		$details_body = array(
 			"email" => $info["controlNumber"],
@@ -2762,15 +2673,15 @@ class Student extends User
 	}
 
 
-	function StudentModulesRepeat($status = NULL){
+	function StudentModulesRepeat($status = NULL)
+	{
 
 		$tmp_status = $status;
-		if($status != NULL)
-		{
+		if ($status != NULL) {
 			$status = " AND status = '" . $status . "'";
 		}
 
-		 $sql = "SELECT
+		$sql = "SELECT
 					usr.*, s.name AS subjectName, m.name AS majorName, s.icon, c.group, cm.initialDate, cm.finalDate, sm.name AS subjectModuleName, cm.courseModuleId, c.courseId, sm.subjectModuleId
 				FROM
 					user_subject_repeat usr
@@ -2792,8 +2703,7 @@ class Student extends User
 		$result = $this->Util()->DB()->GetResult();
 
 		// Calificaciones
-		foreach($result as $key => $res)
-		{
+		foreach ($result as $key => $res) {
 			$sql = "SELECT * FROM course_module_score WHERE courseModuleId = " . $res['courseModuleId'] . " AND userId = " . $res["alumnoId"] . " AND courseId = " . $res["courseId"];
 			$this->Util()->DB()->setQuery($sql);
 			$infoCc = $this->Util()->DB()->GetRow();
@@ -2805,38 +2715,36 @@ class Student extends User
 			$this->Util()->DB()->setQuery($sql);
 			$result[$key]["equipo"] = $this->Util()->DB()->GetSingle();
 			$result[$key]["addepUp"] = 0;
-			foreach($actividades as $activity)
-			{
-				if($activity["score"] <= 0)
+			foreach ($actividades as $activity) {
+				if ($activity["score"] <= 0)
 					continue;
 				//revisar calificacion
 				$sqlca = "SELECT ponderation FROM activity_score WHERE activityId = " . $activity["activityId"] . " AND userId = " . $res["alumnoId"];
 				$this->Util()->DB()->setQuery($sqlca);
 				$score = $this->Util()->DB()->GetSingle();
-				$result[$key]{"score"}[] = $score;
+				$result[$key]{
+				"score"}[] = $score;
 				$realScore = $score * $activity["score"] / 100;
 				$result[$key]["realScore"][] = $realScore;
 				$result[$key]["addepUp"] += $realScore;
 			}
-			
-			if($infoCc["calificacion"]==null or $infoCc["calificacion"]==0)
-			{	
+
+			if ($infoCc["calificacion"] == null or $infoCc["calificacion"] == 0) {
 				$at = $result[$key]["addepUp"] / 10;
 
-				if($this->tipoMajor == "MAESTRIA" and $at < 7)
-					$at= floor ($at);
-				else if($this->tipoMajor == "DOCTORADO" and $at < 8)
-					$at= floor ($at);
+				if ($this->tipoMajor == "MAESTRIA" and $at < 7)
+					$at = floor($at);
+				else if ($this->tipoMajor == "DOCTORADO" and $at < 8)
+					$at = floor($at);
 				else
-					$at= round($at, 0, PHP_ROUND_HALF_DOWN);
-				$infoCc["calificacion"] = $at ;
-			}
-			else
+					$at = round($at, 0, PHP_ROUND_HALF_DOWN);
+				$infoCc["calificacion"] = $at;
+			} else
 				$infoCc["calificacion"] = $infoCc["calificacion"];
-			
-			if($this->tipoMajor == "MAESTRIA" and $infoCc["calificacion"] < 7)
+
+			if ($this->tipoMajor == "MAESTRIA" and $infoCc["calificacion"] < 7)
 				$result[$key]["score"] = 6;
-			else if($this->tipoMajor == "DOCTORADO" and $infoCc["calificacion"] < 8)
+			else if ($this->tipoMajor == "DOCTORADO" and $infoCc["calificacion"] < 8)
 				$result[$key]["score"] = 7;
 			else
 				$result[$key]["score"] = $infoCc["calificacion"];
@@ -2872,9 +2780,9 @@ class Student extends User
 	public function BoletaCalificacion($courseId, $period = 0, $english = true)
 	{
 		$condition = "";
-		if($period > 0)
+		if ($period > 0)
 			$condition .= " AND subject_module.semesterId = " . $period;
-		if(!$english)
+		if (!$english)
 			$condition .= " AND subject_module.subjectModuleId NOT IN (246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257)";
 		$sql = "SELECT *, IF(subject_module.clave LIKE '%ING%', 1, 0) AS extra
 					FROM course_module
@@ -2882,11 +2790,10 @@ class Student extends User
 							ON subject_module.subjectModuleId = course_module.subjectModuleId
 					WHERE courseId = " . $courseId . " " . $condition . "
 					ORDER BY semesterId ASC, orden ASC";
-					// echo $sql."<br>";
+		// echo $sql."<br>";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
-		foreach($result as $key => $value)
-		{
+		foreach ($result as $key => $value) {
 			$sql = "SELECT course_module_score.*, cm.calificacionValida
 						FROM course_module_score
 							LEFT JOIN course_module as cm ON cm.courseModuleId = course_module_score.courseModuleId
@@ -2903,36 +2810,35 @@ class Student extends User
 			$this->Util()->DB()->setQuery($sql);
 			$result[$key]["equipo"] = $this->Util()->DB()->GetSingle();
 			$result[$key]["addepUp"] = 0;
-			foreach($actividades as $activity)
-			{
-				if($activity["score"] <= 0)
+			foreach ($actividades as $activity) {
+				if ($activity["score"] <= 0)
 					continue;
 				$sqlca = "SELECT ponderation
 							FROM activity_score
 							WHERE activityId = " . $activity["activityId"] . " AND userId = " . $this->userId;
 				$this->Util()->DB()->setQuery($sqlca);
 				$score = $this->Util()->DB()->GetSingle();
-				$result[$key]{"score"}[] = $score;
+				$result[$key]{
+				"score"}[] = $score;
 				$realScore = $score * $activity["score"] / 100;
-				$result[$key]{"realScore"}[] = $realScore;
+				$result[$key]{
+				"realScore"}[] = $realScore;
 				$result[$key]["addepUp"] += $realScore;
 			}
-			if($infoCc["calificacion"]==null or $infoCc["calificacion"]==0)
-			{		
+			if ($infoCc["calificacion"] == null or $infoCc["calificacion"] == 0) {
 				$at = $result[$key]["addepUp"] / 10;
-				if($this->tipoMajor == "MAESTRIA" and $at < 7)
-					$at= floor ($at);
-				else if($this->tipoMajor == "DOCTORADO" and $at < 8)
-					$at= floor ($at);
+				if ($this->tipoMajor == "MAESTRIA" and $at < 7)
+					$at = floor($at);
+				else if ($this->tipoMajor == "DOCTORADO" and $at < 8)
+					$at = floor($at);
 				else
-					$at= round($at, 0, PHP_ROUND_HALF_DOWN);
-				$infoCc["calificacion"] = $at;	
-			}
-			else
+					$at = round($at, 0, PHP_ROUND_HALF_DOWN);
+				$infoCc["calificacion"] = $at;
+			} else
 				$infoCc["calificacion"] = $infoCc["calificacion"];
-			if($this->tipoMajor == "MAESTRIA" and $infoCc["calificacion"] < 7)
+			if ($this->tipoMajor == "MAESTRIA" and $infoCc["calificacion"] < 7)
 				$result[$key]["score"] = 6;
-			else if($this->tipoMajor == "DOCTORADO" and $infoCc["calificacion"] < 8)
+			else if ($this->tipoMajor == "DOCTORADO" and $infoCc["calificacion"] < 8)
 				$result[$key]["score"] = 7;
 			else
 				$result[$key]["score"] = $infoCc["calificacion"];
@@ -2945,13 +2851,12 @@ class Student extends User
 		/* echo "<pre>";
 		print_r($course);
 		exit; */
-		include_once(DOC_ROOT."/properties/messages.php");
+		include_once(DOC_ROOT . "/properties/messages.php");
 		$infoStudent = $this->GetInfo();
 		$qualifications = [];
-		foreach($modules as $item)
-		{
+		foreach ($modules as $item) {
 			$score = $item['score'];
-			if($score == 0) 
+			if ($score == 0)
 				$score = 'NP';
 			$qualifications[] = [
 				'extra' => $item['extra'],
@@ -2984,7 +2889,7 @@ class Student extends User
 		$email = $infoStudent['email'];
 		// $email = 'carloszh04@gmail.com';
 		// $email = false;
-		if($email != '' && $send_message == 1)
+		if ($email != '' && $send_message == 1)
 			$sendmail->PrepareAttachment($message[4]["subject"], $message[4]["body"], $details_body, $details_subject, $email, '', $attachment, $fileName);
 		return $qualificationsId;
 	}
@@ -3008,7 +2913,7 @@ class Student extends User
 						) qs ON qualifications.id = qs.id
 	  				ORDER BY semesterId";
 		$this->Util()->DB()->setQuery($sql);
-	   	$result = $this->Util()->DB()->GetResult();
+		$result = $this->Util()->DB()->GetResult();
 		return $result;
 	}
 
@@ -3023,8 +2928,7 @@ class Student extends User
 	public function DownloadedQualifications($courseId, $totalPeriods)
 	{
 		$result = [];
-		for($i = 1; $i <= $totalPeriods; $i++)
-		{
+		for ($i = 1; $i <= $totalPeriods; $i++) {
 			$sql = "SELECT qualifications.*
 	  				FROM qualifications
 						INNER JOIN (
@@ -3035,15 +2939,12 @@ class Student extends User
 	  				ORDER BY semesterId";
 			$this->Util()->DB()->setQuery($sql);
 			$tmp = $this->Util()->DB()->GetRow();
-			if($tmp)
-			{
+			if ($tmp) {
 				$result[$i] = [
 					'downloaded' => $tmp['downloaded'],
 					'downloaded_at' => $tmp['downloaded_at']
 				];
-			}
-			else
-			{
+			} else {
 				$result[$i] = [
 					'downloaded' => 0,
 					'downloaded_at' => ''
@@ -3061,14 +2962,14 @@ class Student extends User
 						 	ON ead.courseModuleId = cm.courseModuleId
 						INNER JOIN subject_module sm 
 							ON sm.subjectModuleId = cm.subjectModuleId
-					WHERE cm.courseId = ". $courseId . " AND sm.semesterId = " . $semesterId . " AND ead.alumnoId = " . $this->userId;
+					WHERE cm.courseId = " . $courseId . " AND sm.semesterId = " . $semesterId . " AND ead.alumnoId = " . $this->userId;
 		$this->Util()->DB()->setQuery($sql);
 		$total_eval = $this->Util()->DB()->GetSingle();
 		$sql = "SELECT COUNT(cm.courseModuleId)
 					FROM course_module cm
 						INNER JOIN subject_module sm 
 							ON sm.subjectModuleId = cm.subjectModuleId
-					WHERE cm.courseId = ". $courseId . " AND sm.semesterId = " . $semesterId;
+					WHERE cm.courseId = " . $courseId . " AND sm.semesterId = " . $semesterId;
 		$this->Util()->DB()->setQuery($sql);
 		$total_modules = $this->Util()->DB()->GetSingle();
 		$has_all = $total_eval == $total_modules ? true : false;
@@ -3077,48 +2978,48 @@ class Student extends User
 
 	public function UpdateRegister()
 	{
-		include_once(DOC_ROOT."/properties/messages.php");
-		if($this->Util()->PrintErrors())
+		include_once(DOC_ROOT . "/properties/messages.php");
+		if ($this->Util()->PrintErrors())
 			return false;
 
 		$sqlQuery = "UPDATE user				
 						SET 
-							names = '".$this->getNames()."', 
-							lastNamePaterno = '".$this->getLastNamePaterno()."', 
-							lastNameMaterno = '".$this->getLastNameMaterno()."', 
-							sexo = '".$this->getSexo()."', 
-							birthdate = '".$this->getBirthdate()."', 
-							maritalStatus = '".$this->getMaritalStatus()."', 
-							street = '".$this->getStreet()."', 
-							number = '".$this->getNumer()."', 
-							colony = '".$this->getColony()."', 
-							pais =  '".$this->getCountry()."', 
-							estado = '".$this->getState()."', 
-							ciudad = '".$this->getCity()."', 
-							postalCode = '".$this->getPostalCode()."', 
-							email = '".$this->getEmail()."', 
-							mobile = '".$this->getMobile()."', 
-							phone = '".$this->getPhone()."', 
-							fax = '".$this->getFax()."', 
-							workplaceOcupation = '".$this->getWorkplaceOcupation()."', 
-							workplace = '".$this->getWorkplace()."', 
-							workplaceAddress = '".$this->getWorkplaceAddress()."', 
-							paist='".$this->getPaisT()."',
-							estadot='".$this->getEstadoT()."',
-							ciudadt='".$this->getCiudadT()."',
-							workplaceArea = '".$this->getWorkplaceArea()."', 
-							workplacePosition = '".$this->getWorkplacePosition()."', 
-						    workplacePhone = '".$this->getWorkplacePhone()."', 
-							workplaceEmail = '".$this->getWorkplaceEmail()."', 
-							academicDegree = '".$this->getAcademicDegree()."', 
-							profesion = '".$this->getProfesion()."', 
-							school = '".$this->getSchool()."', 
-							masters = '".$this->getMasters()."', 
-							mastersSchool = '".$this->getMastersSchool()."', 
-							highSchool = '".$this->getHighSchool()."',
+							names = '" . $this->getNames() . "', 
+							lastNamePaterno = '" . $this->getLastNamePaterno() . "', 
+							lastNameMaterno = '" . $this->getLastNameMaterno() . "', 
+							sexo = '" . $this->getSexo() . "', 
+							birthdate = '" . $this->getBirthdate() . "', 
+							maritalStatus = '" . $this->getMaritalStatus() . "', 
+							street = '" . $this->getStreet() . "', 
+							number = '" . $this->getNumer() . "', 
+							colony = '" . $this->getColony() . "', 
+							pais =  '" . $this->getCountry() . "', 
+							estado = '" . $this->getState() . "', 
+							ciudad = '" . $this->getCity() . "', 
+							postalCode = '" . $this->getPostalCode() . "', 
+							email = '" . $this->getEmail() . "', 
+							mobile = '" . $this->getMobile() . "', 
+							phone = '" . $this->getPhone() . "', 
+							fax = '" . $this->getFax() . "', 
+							workplaceOcupation = '" . $this->getWorkplaceOcupation() . "', 
+							workplace = '" . $this->getWorkplace() . "', 
+							workplaceAddress = '" . $this->getWorkplaceAddress() . "', 
+							paist='" . $this->getPaisT() . "',
+							estadot='" . $this->getEstadoT() . "',
+							ciudadt='" . $this->getCiudadT() . "',
+							workplaceArea = '" . $this->getWorkplaceArea() . "', 
+							workplacePosition = '" . $this->getWorkplacePosition() . "', 
+						    workplacePhone = '" . $this->getWorkplacePhone() . "', 
+							workplaceEmail = '" . $this->getWorkplaceEmail() . "', 
+							academicDegree = '" . $this->getAcademicDegree() . "', 
+							profesion = '" . $this->getProfesion() . "', 
+							school = '" . $this->getSchool() . "', 
+							masters = '" . $this->getMasters() . "', 
+							mastersSchool = '" . $this->getMastersSchool() . "', 
+							highSchool = '" . $this->getHighSchool() . "',
 							actualizado = 'si'						
 						WHERE 
-							userId = ".$this->getUserId();
+							userId = " . $this->getUserId();
 		$this->Util()->DB()->setQuery($sqlQuery);
 		$this->Util()->DB()->ExecuteQuery();
 		$this->Util()->setError(10030, "complete");
@@ -3166,9 +3067,9 @@ class Student extends User
 			"courseId" => $courseId
 		);
 		$details_subject = array();
-		$attachment[0] = DOC_ROOT."/files/solicitudes/".$file;
+		$attachment[0] = DOC_ROOT . "/files/solicitudes/" . $file;
 		$fileName[0] = "Solicitud_de_Inscripcion.pdf";
-		$attachment[1] = DOC_ROOT."/manual_alumno.pdf";
+		$attachment[1] = DOC_ROOT . "/manual_alumno.pdf";
 		$fileName[1] = "Manual_Alumno.pdf";
 		$nombre = $info['names'] . ' ' . $info['lastNamePaterno'] . ' ' . $info['lastNameMaterno'];
 		$sendmail->PrepareAttachment($message[5]['subject'], $message[5]['body'], $details_body, $details_subject, $info['email'], $nombre, $attachment, $fileName);
@@ -3199,42 +3100,37 @@ class Student extends User
 				WHERE status = 'activo'";
 		$this->Util()->DB()->setQuery($sql);
 		$res = $this->Util()->DB()->GetResult();
-		
-		foreach($res as $key => $aux)
-		{
+
+		foreach ($res as $key => $aux) {
 			$sql = "SELECT ruta
 						FROM documentosalumno
 					WHERE catdocumentoalumnoId = " . $aux['catdocumentoalumnoId'] . " AND userId = " . $this->userId;
 			$this->Util()->DB()->setQuery($sql);
 			$count = $this->Util()->DB()->GetRow();
-			
-			if($count['ruta'] <> '')
-			{
+
+			if ($count['ruta'] <> '') {
 				$res[$key]['existArchivo'] = 'si';
 				$res[$key]['ruta'] = $count['ruta'];
-			}else{
+			} else {
 				$res[$key]['existArchivo'] = 'no';
-			}	
+			}
 		}
 		return $res;
 	}
 
 	public function onSaveDocumento($nombre, $descripcion, $documentoId = null)
 	{
-		if(isset($documentoId))
-		{
+		if (isset($documentoId)) {
 			$sql = "UPDATE catdocumentoalumno
 						SET nombre = '" . $nombre . "', descripcion = '" . $descripcion . "'
 				WHERE catcodumentoalumnoId = " . $documentoId;
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->ExecuteQuery();
-		}
-		else
-		{			
+		} else {
 			$sql = "INSERT INTO catdocumentoalumno(nombre, descripcion) VALUES('" . $nombre . "', '" . $descripcion . "')";
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->InsertData();
-		}	
+		}
 		return true;
 	}
 
@@ -3262,51 +3158,44 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		$count = $this->Util()->DB()->GetRow();
 
-		if($count['documentosalumnoId'] == null)
-		{
+		if ($count['documentosalumnoId'] == null) {
 			$sql = "INSERT INTO documentosalumno(catdocumentoalumnoId, userId)
 				 VALUES(" . $this->documentoId . ", " . $this->userId . ")";
 			$this->Util()->DB()->setQuery($sql);
 			$lastId = $this->Util()->DB()->InsertData();
-		}
-		else
+		} else
 			$lastId = $count['documentosalumnoId'];
-			
-		foreach($_FILES as $key=>$var)
-		{
-		   switch($key)
-		   {
-			   case 'comprobante':
-				   	if($var["name"] <> "")
-					{
+
+		foreach ($_FILES as $key => $var) {
+			switch ($key) {
+				case 'comprobante':
+					if ($var["name"] <> "") {
 						$aux = explode(".", $var["name"]);
 						$extencion = end($aux);
 						$temporal = $var['tmp_name'];
-						$url = DOC_ROOT;				
+						$url = DOC_ROOT;
 						$foto_name = "doc_" . $lastId . "." . $extencion;
-						
-						if(move_uploaded_file($temporal, $url . "/alumnos/documentos/" . $foto_name))
-						{							
-							$sql = "UPDATE documentosalumno SET ruta = '" . $foto_name . "' WHERE documentosalumnoId = " . $lastId;	
-							$this->Util()->DB()->setQuery($sql);		
+
+						if (move_uploaded_file($temporal, $url . "/alumnos/documentos/" . $foto_name)) {
+							$sql = "UPDATE documentosalumno SET ruta = '" . $foto_name . "' WHERE documentosalumnoId = " . $lastId;
+							$this->Util()->DB()->setQuery($sql);
 							$this->Util()->DB()->UpdateData();
 						}
 					}
-				break;
-		  	}
+					break;
+			}
 		}
 		return  true;
 	}
 
 	public function onDeleteDocumentoAlumno($Id)
 	{
-		if($this->Util()->PrintErrors())
-			return false; 
+		if ($this->Util()->PrintErrors())
+			return false;
 
 		$sql = "DELETE FROM documentosalumno WHERE userId = " . $this->userId . " AND catdocumentoalumnoId = " . $Id;
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
 		return true;
-	}
+	}  
 }
-?>
