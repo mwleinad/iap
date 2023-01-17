@@ -1152,7 +1152,7 @@ class Student extends User
 		$result2 = $this->Util()->DB()->GetResult();
 		foreach ($result2 as $key => $res) {
 			$card = $res;
-			$sql = "SELECT courseId FROM user_subject WHERE alumnoId = " . $res["userId"] . "";
+			$sql = "SELECT courseId FROM user_subject WHERE alumnoId = " . $res["userId"] . " ORDER BY registrationId DESC";
 			$this->Util()->DB()->setQuery($sql);
 			$courseId = $this->Util()->DB()->GetSIngle();
 			$card["courseId"] = $courseId;
