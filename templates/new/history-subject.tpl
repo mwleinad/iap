@@ -38,7 +38,7 @@
 				<div class="row">
 					<div class="form-group col-md-4">
 						<label for="curricula">Tipo Curricula</label>
-						<select class="form-control" onClick="onBuscar()" name="curricula" id="curricula">
+						<select class="form-control" onchange="onBuscar()" name="curricula" id="curricula">
 							<option value="0" disabled selected>-- Seleccionar --</option>
 							<option value="">Todo el Historial</option>
 							{foreach from=$lstMajor item=subject}
@@ -48,7 +48,7 @@
 					</div>
 					<div class="form-group col-md-4">
 						<label for="activo">Activo</label>
-						<select class="form-control" onClick="onBuscar()" name="activo" id="activo">
+						<select class="form-control" onchange="onBuscar()" name="activo" id="activo">
 							<option></option>
 							<option>si</option>
 							<option>no</option>
@@ -56,7 +56,7 @@
 					</div>
 					<div class="form-group col-md-4">
 						<label for="modalidad">Modalidad</label>
-						<select class="form-control" onClick="onBuscar()" name="modalidad" id="modalidad">
+						<select class="form-control" onchange="onBuscar()" name="modalidad" id="modalidad">
 							<option></option>
 							<option>No Escolar</option>
 							<option value="Local">Escolar</option>

@@ -286,7 +286,7 @@ function onBuscar() {
         type: "POST",
         data: $("#frmFlt1").serialize(true) + '&type=onBuscar',
         beforeSend: function () {
-            // $('#load_'+Id).html(LOADER3);
+            $("#tblContent").html(`<div class="text-center"> <i class="fas fa-spinner fa-pulse fa-lg"></i> Cargando... </div>`);
         },
         success: function (data) {
             console.log(data)
@@ -328,8 +328,8 @@ function savePeriodos() {
 function DeleteStudentCurricula(userId, courseId) {
     CloseFview();
     Swal.fire({
-        title: '¿Estas seguro que deseas eliminar este alumno de esta curricula?',
-        html: '<p><small>Para realizar la baja, debes seleccionar el tipo de baja, además de ingresar el número del cuatrimestre o semestre del cual se dará de baja el alumno (Cuatrimestre/Semestre Inconcluso).</small></p><label>Tipo de Baja</label><select id="situation" class="swal2-input"><option value="BT">Baja Temporal</option><option value="BD">Baja por Deserción</option><option value="BR">Baja por Reprobación</option><option value="BDF">Baja Definitiva</option></select><label>Cuatrimestre/Semestre a Dar de Baja</label><input type="number" id="period" class="swal2-input" placeholder="Cuatrimestre/Semestre a Dar de Baja">',
+        title: '¿Estás seguro que deseas eliminar este alumno de esta currícula?',
+        html: '<p><small>Para realizar la baja, debes ingresar el número del cuatrimestre o semestre del cual se dará de baja el alumno (Cuatrimestre/Semestre Inconcluso).</small></p><label>Cuatrimestre/Semestre a Dar de Baja</label><input type="number" id="period" class="swal2-input" placeholder="Cuatrimestre/Semestre a Dar de Baja">',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#58ff85',
@@ -391,7 +391,7 @@ function DeleteStudentCurricula(userId, courseId) {
 
 function EnableStudentCurricula(userId, courseId) {
     Swal.fire({
-        title: '¿Estas seguro que deseas activar al alumno?',
+        title: '¿Estás seguro que deseas activar al alumno?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '	#58ff85',

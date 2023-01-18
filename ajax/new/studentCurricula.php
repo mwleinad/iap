@@ -126,7 +126,7 @@ switch($_POST["type"])
         $student->setCourseId($_POST['courseId']);
 		$student->setSubjectId($courseInfo['subjectId']);
 
-        if(!$student->DeleteStudentCurricula($_POST['period'], $_POST['situation']))
+        if(!$student->DeleteStudentCurricula($_POST['period'], "BT"))
         {
             echo "fail[#]";
             //$util->setError(10028, "error","Ocurrio un error al eliminar a este alumno");
