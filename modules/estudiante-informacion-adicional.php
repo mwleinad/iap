@@ -1,6 +1,7 @@
 <?php 	  
 	$estudianteID = $_GET['id'];
 	$student->setUserId($estudianteID);
+	$calendar->setUserId($estudianteID);
 	/**
 	 * Sección calificaciones
 	 */
@@ -35,8 +36,11 @@
 	foreach ($cursos as $key => $curso) {
 		$course->setCourseId($curso['courseId']);
 		$infoCourse = $course->Info();
+		$calendar->setCourseId($curso['courseId']);
+    	$distribution = $calendar->getCalendar();
 		$cursos[$key]["tipoCuatri"] = $infoCourse['tipoCuatri'] == '' ? "Cuatrimestre" : $infoCourse['tipoCuatri'];
 		$cursos[$key]["totalPeriods"] = $infoCourse['totalPeriods'];
+		$cursos[$key]["distribucion"] = $distribution;
 		// print_r($infoCourse);
 		if ($infoCourse['modality'] == 'Online') {
 			$modality = 'NO ESCOLAR';
