@@ -6,7 +6,7 @@
             <label for="subjectId">Selecciona Curricula:</label>
             <select name="subjectId" id="subjectId" class="form-control">
                 {foreach from=$cursos item=curso}
-                    <option value="{$curso.subjectId}">{$curso.majorName} - {$curso.name}</option>
+                <option value="{$curso.subjectId}">{$curso.majorName} - {$curso.name} {if $curso.rvoe != ""} [{$curso.rvoe}] {/if}</option>
                 {/foreach}
             </select>
         </div>

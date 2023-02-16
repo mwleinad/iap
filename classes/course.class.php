@@ -804,7 +804,7 @@ class Course extends Subject
 		//				WHERE course.active = 'si' AND courseId IN (0)
 
 		$this->Util()->DB()->setQuery("
-				SELECT *, major.name AS majorName, subject.name AS name FROM course
+				SELECT *, major.name AS majorName, subject.name AS name, subject.rvoe FROM course
 				LEFT JOIN subject ON course.subjectId = subject.subjectId 
 				LEFT JOIN major ON major.majorId = subject.tipo
 				WHERE course.active = 'si' AND listar = 'si'
