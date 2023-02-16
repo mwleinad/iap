@@ -181,10 +181,6 @@ function generar(courseId, tipo) {
     });
 }
 
-
-
-
-
 function saveNumReferencia(id, activo) {
     $("#type").val("saveNumReferencia")
     $.ajax({
@@ -329,7 +325,11 @@ function DeleteStudentCurricula(userId, courseId) {
     CloseFview();
     Swal.fire({
         title: '¿Estás seguro que deseas eliminar este alumno de esta currícula?',
-        html: '<p><small>Para realizar la baja, debes ingresar el número del cuatrimestre o semestre del cual se dará de baja el alumno (Cuatrimestre/Semestre Inconcluso).</small></p><label>Cuatrimestre/Semestre a Dar de Baja</label><input type="number" id="period" class="swal2-input" placeholder="Cuatrimestre/Semestre a Dar de Baja">',
+        html: ` <p style="font-size:18px">
+                    Para realizar la baja, debes ingresar el número del cuatrimestre o semestre del cual se dará de baja el alumno (Cuatrimestre/Semestre Inconcluso).
+                </p>
+                <label>Cuatrimestre/Semestre a Dar de Baja</label>
+                <input type="number" id="period" class="form-control" placeholder="Cuatrimestre/Semestre a Dar de Baja" min="1">`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#58ff85',
@@ -337,7 +337,7 @@ function DeleteStudentCurricula(userId, courseId) {
         confirmButtonText: 'Confirmar',
         preConfirm: () => {
             const period = Swal.getPopup().querySelector('#period').value;
-            const situation = Swal.getPopup().querySelector('#situation').value;
+            const situation = "BT"; //Swal.getPopup().querySelector('#situation').value;
             if (!period)
                 Swal.showValidationMessage('Por favor, ingresa cuatrimestre/semestre.');
             return {
@@ -357,32 +357,18 @@ function DeleteStudentCurricula(userId, courseId) {
                     period: result.value.period,
                     situation: result.value.situation
                 },
-                beforeSend: function () {},
-                success: function (transport) {
-                    var response = transport.responseText || "no response text";
-                    console.log(response);
-
-                    var splitResponse = response.split("[#]");
-
-                    //alert(splitResponse[2])
-                    if (splitResponse[0] == "fail") {
-                        ShowStatusPopUp(splitResponse[1])
-                        CloseFview();
-
-                    } else {
-                        Swal.fire(
-                            'Exito',
-                            'El alumno se elimino correctamente',
-                            'success'
-                        );
-                        //ShowStatusPopUp(splitResponse[1])
-                        CloseFview();
+            }).done(function(response){
+                response = JSON.parse(response);
+                console.log(response);
+                if(response.periodoValido){
+                    if (response.estatus) {
+                        ShowStatus(response.mensaje);
+                    }else{
+                        ShowStatusPopUp(response.mensaje);
                     }
-                    grayOut(false);
-                    setInterval('window.location.reload()', 3000);
-                },
-                error: function () {
-                    alert('Something went wrong...');
+                }else{
+                    $("#ajax.modal").modal();
+                    $("#ajax .modal-content").html(response.calificaciones);
                 }
             });
         }

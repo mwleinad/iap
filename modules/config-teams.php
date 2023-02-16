@@ -30,12 +30,21 @@
 	
 	$module->setCourseModuleId($_GET["id"]);
 	$info = $module->InfoCourseModule();
-	
+	$periodoActual = $info["semesId"];
 	$group->setCourseModuleId($_GET["id"]);
 	$group->setCourseId($info["courseId"]);
 	$noTeam = $group->NoTeam();
-	$smarty->assign('noTeam', $noTeam);
 	
+	foreach ($noTeam as $key => $value) {
+		$student->setUserId($value['userId']);
+		$periodo = $student->periodoAltaCurso($info['courseId']);
+		if($periodoActual < $periodo){
+			if($value['situation'] != "Recursador"){
+				unset($noTeam[$key]);
+			}
+		} 
+	}
+	$smarty->assign('noTeam', $noTeam);
 	$numberTeams = $group->GetNumberOfTeams();
 	$smarty->assign('numberTeams', $numberTeams);
 

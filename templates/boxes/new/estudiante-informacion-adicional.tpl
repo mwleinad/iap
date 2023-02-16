@@ -26,7 +26,7 @@
                             {if $curso.situation eq "Ordinario"}
                             <div class="card-header">
                                 <h2 class="mb-0">
-                                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                            <button class="btn btn-link {if $curso.status == 'activo'} bg-primary {else} bg-danger {/if} btn-block text-left" type="button" data-toggle="collapse"
                                         data-target="#collapse{$curso.courseId}" aria-expanded="true" aria-controls="collapse{$curso.courseId}">
                                         <h3>{$curso.majorName} - {$curso.name} [{$curso.group}]</h3>
                                     </button>

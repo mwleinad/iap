@@ -2,10 +2,18 @@
 		
 	// $student->setUserId($_SESSION['User']["userId"]);
 	$lstGrupo = $group->getGrupo($_GET['id']);
-	
-	
-	// echo '<pre>'; print_r($_SESSION);
-	// exit;
+	$module->setCourseModuleId($_GET['id']);
+	$info = $module->InfoCourseModule();
+	$periodoActual = $info["semesId"];  
+	foreach ($lstGrupo as $key => $value) {
+		$student->setUserId($value['userId']);
+		$periodo = $student->periodoAltaCurso($info['courseId']);
+		if($periodoActual < $periodo){
+			if($value['situation'] != "Recursador"){
+				unset($lstGrupo[$key]);
+			}
+		} 
+	}
 	$smarty->assign("lstGrupo", $lstGrupo);
 	
 	if($_SESSION['User']['perfil'] == 'Administrador' or $_SESSION['User']['perfil'] == 'Docente'){

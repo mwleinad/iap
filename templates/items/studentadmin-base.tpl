@@ -8,9 +8,17 @@
         <td>{$item.password}</td>
         <td>
             {if $tip eq 'Inactivo'}
-                <a href="javascript:;" onclick="EnableStudentCurricula({$item.alumnoId},{$courseId})" title="Activar Alumno de esta Curricula">
+                <form class="form" action="{$WEB_ROOT}/ajax/new/studentCurricula.php" id="form_historial{$item.alumnoId}" method="post">
+                    <input type="hidden" name="type" value="calificacionesBaja">
+                    <input type="hidden" name="alumno" value="{$item.alumnoId}">
+                    <input type="hidden" name="curso" value="{$courseId}">
+                    <button type="submit" class="btn btn-link p-0">
+                        <i class="fas fa-eye text-success"></i>
+                    </button>
+                </form>
+                {* <a href="javascript:;" onclick="EnableStudentCurricula({$item.alumnoId},{$courseId})" title="Activar Alumno de esta Curricula">
                     <i class="fas fa-undo fa-lg text-success"></i>
-                </a>
+                </a> *}
             {else}
                 <a href="javascript:;" onclick="DeleteStudentCurricula({$item.alumnoId},{$courseId})" title="Eliminar Alumno de esta Curricula">
                     <i class="fas fa-minus-circle fa-lg text-danger"></i>

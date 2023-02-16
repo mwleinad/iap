@@ -1,3 +1,4 @@
+{if $permiso}
 <div class="col-md-12 mt-4">
     <form id="addNoticia" name="addNoticia" method="post" action="{$WEB_ROOT}/add-reply/id/{$moduleId}/topicsubId/{$topicsubId}" enctype="multipart/form-data">
         <input type="hidden" id="type" name="type" value="saveAddMajor" />
@@ -23,4 +24,5 @@
             </div>
         </div>
     </form>
-</div>
+</div>    
+{/if}

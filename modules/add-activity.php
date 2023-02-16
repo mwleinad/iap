@@ -42,15 +42,29 @@
 		$activity->setRequiredActivity($_POST["requiredActivity"]);
 		$activity->setPonderation($_POST["ponderation"]);
 		$activity->setHoraInicial($_POST["horaInicial"]);
-		$activity->Save();
-		
+		$actidadCreada = $activity->Save();
+
+		$module->setCourseModuleId($_GET['id']);
+		$infoModulo = $module->InfoCourseModule();
+		$forum->setSubject($_POST['resumen']);
+		$forum->setReply($_POST['description']);
+		$forum->setCourseModuleId($_GET['id']);
+		$forum->setCourseId($infoModulo['courseId']);
+		$forum->setUserId($User['userId']);
+		$forum->setActividadId($actidadCreada);
+		$foroDiscucion = $forum->foroDiscusion();
+		$forum->setTopicId($foroDiscucion);
+		$respuesta = $forum->AddTopic();
+
+		$mensaje = $_POST == "Foro" ? "Actividad y foro creados" : "Actividad creada";
 		if($_POST["auxTpl"]=="admin"){
 			echo json_encode([
 				'growl'		=>true,
-				'message'	=>'Actividad creada',
+				'message'	=>$mensaje,
 				'type'		=>'success',
 				'duracion'	=>3000,
-				'reload'	=>true
+				'reload'	=>true, 
+				'respuesta'	=>$respuesta
 			]);
 			// header("Location:".WEB_ROOT."/edit-modules-course/id/".$_POST["id"]."");
 			exit;

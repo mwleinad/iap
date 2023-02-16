@@ -21,6 +21,12 @@ class Course extends Subject
 	private $tipoCuatri;
 	private $totalPeriods;
 	private $temporalGroup;
+	private $periodo;
+
+	public function setPeriodo($valor)
+	{
+		$this->periodo = $valor;
+	}
 
 	public function setTipoCuatri($value)
 	{
@@ -1420,27 +1426,13 @@ class Course extends Subject
 
 	function SabanaCalificacionesFrontal($period = 0, $ignoreEnglish = false, $order = " ORDER BY sm.name", $type = 'initial')
 	{
-		$students_down = "UNION
-						SELECT u.userId, u.curp, u.lastNamePaterno, u.lastNameMaterno, u.names, us.matricula, u.sexo, ah.situation
-						FROM academic_history ah
-							INNER JOIN user u 
-								ON ah.userId = u.userId 
-							INNER JOIN user_subject us 
-								ON (ah.userId = us.alumnoId AND us.status = 'inactivo' AND ah.semesterId >= " . $period . ")
-						WHERE ah.type = 'baja' AND ah.courseId = " . $this->courseId;
-		$sql = "SELECT u.userId, u.curp, u.lastNamePaterno, u.lastNameMaterno, u.names, us.matricula, u.sexo, 'A' AS situation
-					FROM user_subject us
-						INNER JOIN user u
-							ON us.alumnoId = u.userId
-					WHERE us.courseId = " . $this->courseId . " AND u.activo = '1' AND us.status = 'activo'
-				" . $students_down . "
-				ORDER BY lastNamePaterno, lastNameMaterno, names";
+		$sql = "SELECT u.userId, u.curp, u.lastNamePaterno, u.lastNameMaterno, u.names, us.matricula, u.sexo, situation, (SELECT IF(academic_history.semesterId = 0, 1, academic_history.semesterId) as periodo FROM academic_history WHERE academic_history.courseId = '{$this->courseId}' AND academic_history.type = 'alta' AND academic_history.userId = u.userId) as alta, (SELECT academic_history.semesterId FROM academic_history WHERE academic_history.courseId = '{$this->courseId}' AND academic_history.type = 'baja' AND academic_history.userId = u.userId) as baja FROM user_subject us INNER JOIN user u ON us.alumnoId = u.userId WHERE us.courseId = '{$this->courseId}' ORDER BY lastNamePaterno, lastNameMaterno, names;";
 		$this->Util()->DB()->setQuery($sql);
 		$students = $this->Util()->DB()->GetResult();
-		/* echo $sql; exit; */
-		/* echo "<pre>";
-		var_dump($students);
-		exit; */
+		// echo $sql; exit;
+		// echo "<pre>";
+		// var_dump($students);
+		// exit;  
 		if ($type == 'final') {
 			$condition = "";
 			if ($period > 0)
@@ -1448,7 +1440,7 @@ class Course extends Subject
 			if ($ignoreEnglish)
 				$condition .= " AND sm.subjectModuleId NOT IN (246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 274, 275, 276, 277, 278)";
 			foreach ($students as $key => $value) {
-				$semesterId = intval($value['semesterId']);
+				$semesterId = intval($value['alta']);
 				$sql = "SELECT cm.courseModuleId, sm.name AS subjectModuleName, cm.initialDate, cm.finalDate, cms.calificacion 
 				FROM course_module cm 
 					INNER JOIN subject_module sm 
@@ -1460,25 +1452,39 @@ class Course extends Subject
 				$result = $this->Util()->DB()->GetResult();
 				$students[$key]['modules'] = $result;
 
-				if ($period > $semesterId && $semesterId > 0)
+				// if ($semesterId > $period || $semesterId == $period)
+				if ($semesterId > $period)
+					unset($students[$key]);
+			}
+		}else{
+			foreach ($students as $key => $value) {
+				$semesterId = intval($value['alta']);
+				if ($semesterId > $period || ( $semesterId == $period && $semesterId > 1))
 					unset($students[$key]);
 			}
 		}
 		$students = array_values($students);
+		// print_r($students);
 		return $students;
 	}
 
 	function SabanaCalificacionesTrasera($period = 0, $ignoreEnglish = false, $order = " ORDER BY sm.name", $type = 'initial', $modules = [])
 	{
 		$modules = implode(',', $modules);
-		$sql = "SELECT u.userId, u.lastNamePaterno, u.lastNameMaterno, u.names, u.sexo,
-						(SELECT matricula FROM user_subject WHERE alumnoId = u.userId ORDER BY registrationId DESC LIMIT 1) AS matricula
-				FROM user_subject_repeat usr
-					INNER JOIN user u
-						ON usr.alumnoId = u.userId
-				WHERE usr.courseId = " . $this->courseId . " AND usr.courseModuleId IN (" . $modules . ") 
-			GROUP BY usr.alumnoId ORDER BY u.lastNamePaterno, u.lastNameMaterno, u.names";
+		/*$sql = "SELECT * FROM (SELECT 'REC' AS situation, u.userId, u.lastNamePaterno, u.lastNameMaterno, u.names, u.sexo,
+		(SELECT matricula FROM user_subject WHERE alumnoId = u.userId ORDER BY registrationId DESC LIMIT 1) AS matricula, '' AS alta
+		FROM user_subject_repeat usr INNER JOIN USER u ON usr.alumnoId = u.userId
+		WHERE usr.courseId = ".$this->courseId." AND usr.courseModuleId IN(".$modules.")
+		UNION ALL SELECT situation, user.userId, user.lastNamePaterno, user.lastNameMaterno, user.names, user.sexo, 
+		( SELECT matricula FROM user_subject WHERE alumnoId = user.userId ORDER BY registrationId DESC LIMIT 1) AS matricula,
+		( SELECT academic_history.semesterId AS periodo FROM academic_history WHERE academic_history.courseId = ".$this->courseId." AND academic_history.type = 'alta' AND academic_history.userId = user.userId LIMIT 1) AS alta
+		FROM user_subject INNER JOIN user ON user_subject.alumnoId = user.userId WHERE user_subject.courseId = ".$this->courseId." HAVING alta = 2) A ORDER BY A.lastNamePaterno, A.lastNameMaterno,A.names";*/ 
+		$sql = "SELECT 'REC' AS situation, u.userId, u.lastNamePaterno, u.lastNameMaterno, u.names, u.sexo,
+		(SELECT matricula FROM user_subject WHERE alumnoId = u.userId ORDER BY registrationId DESC LIMIT 1) AS matricula, '' AS alta
+		FROM user_subject_repeat usr INNER JOIN USER u ON usr.alumnoId = u.userId
+		WHERE usr.courseId = ".$this->courseId." AND usr.courseModuleId IN(".$modules.")";
 		$this->Util()->DB()->setQuery($sql);
+		// echo $sql;
 		$students = $this->Util()->DB()->GetResult();
 		if ($type == 'final') {
 			$condition = "";
@@ -1552,5 +1558,28 @@ class Course extends Subject
 			$data[$item['userId']][] = $item['validated_level'];
 		}
 		return $data;
+	}
+
+	/**
+	 * Inidica el periodo actual del curso
+	 */
+	public function periodoActual()
+	{
+		$sql = "SELECT semesterId FROM course_module LEFT JOIN subject_module ON subject_module.subjectModuleId = course_module.subjectModuleId WHERE courseId = '{$this->courseId}' ORDER BY semesterId DESC LIMIT 1"; 
+		$this->Util()->DB()->setQuery($sql);
+		$periodo = $this->Util()->DB()->GetSingle();
+		return $periodo;
+	}
+
+	/**
+	 * Indica la cantidad de módulos que hay en el periodo de un curso
+	 */
+	public function modulosPeriodo()
+	{
+		$sql = "SELECT count(*) as modulos FROM course_module LEFT JOIN subject_module ON subject_module.subjectModuleId = course_module.subjectModuleId WHERE courseId = '{$this->courseId}' AND semesterId = '{$this->periodo}';";
+		// echo $sql;
+		$this->Util()->DB()->setQuery($sql);
+		$modulos = $this->Util()->DB()->GetSingle();
+		return $modulos;
 	}
 }

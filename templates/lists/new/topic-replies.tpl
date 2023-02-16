@@ -67,10 +67,12 @@
 					</div>
 				</div>
 				<div class="card-footer d-flex justify-content-around text-muted">
-					<a href="{$WEB_ROOT}/graybox.php?page=add-comment&id={$item.replyId}&moduleId={$moduleId}&topicsubId={$topicsubId}" data-target="#ajax" data-toggle="modal" title="Agregar Comentario" class="text-primary text-center">
-						<i class="fas fa-comment-medical fa-2x pointer"></i>
-						<br> Agregar Comentario
-					</a>
+					{if $permiso}
+						<a href="{$WEB_ROOT}/graybox.php?page=add-comment&id={$item.replyId}&moduleId={$moduleId}&topicsubId={$topicsubId}" data-target="#ajax" data-toggle="modal" title="Agregar Comentario" class="text-primary text-center">
+							<i class="fas fa-comment-medical fa-2x pointer"></i>
+							<br> Agregar Comentario
+						</a>
+					{/if}
 					{if $item.numComentarios <= 0}
 						<i class="far fa-comments fa-2x" title="Ver Comentarios"></i>
 					{else}

@@ -10,21 +10,7 @@
    		$announcement->Delete();
 	}
 	
-	$tipo_curricula = 'Activa';
-	switch($_GET['cur'])
-	{
-		case 2:
-			$tipo_curricula = 'Inactiva';
-			break;
-
-		case 3:
-			$tipo_curricula = 'Finalizada';
-			break;
-		default:
-			$tipo_curricula = 'Activa';
-			break;
-	}
-
+	$tipo_curricula = 'Activa'; 
 	if($User['type'] == 'student')
 	{
 		if($User['actualizado'] == 'no')
@@ -80,20 +66,16 @@
 	//$student->setUserId($_GET["id"]);
 	$activeCourses = $student->StudentCourses();
 	$smarty->assign("courses", $activeCourses);	
-	
+	// echo "$tipo_curricula \n";
 	if($tipo_curricula == 'Activa')
 	{
 		$activeCourses = $student->StudentCourses("activo", "si");
 		$smarty->assign("activeCourses", $activeCourses);
+		$inactiveCourses = $student->StudentCourses("inactivo", "si");
+		$smarty->assign("inactiveCourses", $inactiveCourses);	
 	}	
 	$showRegulation = $student->blockRegulation("activo", "si", "119, 129");
-	$smarty->assign("showRegulation", $showRegulation);	
-
-	if($tipo_curricula == 'Inactiva')
-	{
-		$inactiveCourses = $student->StudentCourses("inactivo", "si");
-		$smarty->assign("activeCourses", $inactiveCourses);	
-	}
+	$smarty->assign("showRegulation", $showRegulation);	 
 
 	if($tipo_curricula == 'Finalizada') 
 	{

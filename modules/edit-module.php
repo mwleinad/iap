@@ -3,7 +3,7 @@
 	/* For Session Control - Don't remove this */
 	$user->allow_access(37);	
 	/* End Session Control */
-	
+	// print_r($_GET);
 	if($_POST)
 	{
 		$module->setSubjectModuleId($_GET['id']);
@@ -23,8 +23,14 @@
 		$module->setSemesterId($_POST['semesterId']);
 		
 		$module->Update();
-		
-		header("Location:" . WEB_ROOT . "/subject");
+		echo json_encode([
+			'growl'		=>true, 
+			'type'		=>'success',
+			'message'	=>'Cambios actualizados',
+			'duracion'	=>3000,
+			'location'	=>WEB_ROOT . "/edit-modules-course/id/{$_POST['curso']}"
+		]);
+		// header("Location:" . WEB_ROOT . "/edit-modules-course/id/{$_POST['curso']}");
 		exit;
 	}
 
@@ -57,6 +63,7 @@
 	$smarty->assign('mnuMain','cursos');
 	$smarty->assign('courseModuleId',$_GET['id']);
 	$smarty->assign('configMateria','si');
-
+	$smarty->assign('curso', $_GET['course']);
+	$smarty->assign('url', WEB_ROOT . "/edit-modules-course/id/{$_GET['course']}")
 	//$smarty->assign('major',$major->Enumerate());	
 ?>

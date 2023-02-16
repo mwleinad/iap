@@ -1,6 +1,6 @@
 <div class="card mb-4">
     <div class="card-header bg-primary text-white">
-        <i class="fas fa-tasks"></i> Sabanas
+        <i class="fas fa-tasks"></i> Sabanas - {$courseInfo.name}[{$courseInfo.group}] - {$courseInfo.majorName}
     </div>
     <div class="card-body">
         <form action="{$WEB_ROOT}/ajax/sabana-calificaciones.php" method="GET" target="_blank">

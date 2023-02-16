@@ -1,6 +1,7 @@
-<form id="editSubjectForm" name="editSubjectForm" method="post" action="{$WEB_ROOT}/edit-module/id/{$post.subjectModuleId}">
+<form id="formModule" class="form" method="post" action="{$WEB_ROOT}/edit-module/id/{$post.subjectModuleId}">
     <input type="hidden" id="subjectModuleId" name="subjectModuleId" value="{$post.subjectModuleId}"/>
     <input type="hidden" id="subjectId" name="subjectId" value="{$post.subjectId}"/>
+    <input type="hidden" id="curso" name="curso" value="{$curso}">
     
     <div class="row">
         <div class="form-group col-md-4">
@@ -89,8 +90,8 @@
     
     <div class="row">
         <div class="form-group col-md-12 text-center">
-            <button type="submit" class="btn btn-success submitForm">Guardar</button>
-            <button type="button" class="btn btn-danger closeModal">Cancelar</button>
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a href="{$url}" class="btn btn-danger">Regresar</a>
         </div>
     </div>
 </form>
@@ -139,16 +140,4 @@
     </div>
 </div>*}
 
-<script type="text/javascript">
-    $(function() {
-        $('textarea').each(function () {
-            new Jodit(this, {
-                language: "es",
-                toolbarButtonSize: "small",
-                autofocus: true,
-                toolbarAdaptive: false
-            });
-            console.log("Activado");
-        });
-    });
-</script>
+ 

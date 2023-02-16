@@ -1433,12 +1433,16 @@ class Util extends ErrorLms
 		];
 		// 0 => Year, 1 => Month, 2 => Day
 		$arrayDate = explode('-', $date);
+		// echo "$date \n";
+		// print_r($arrayDate);
 		$response = '';
 		foreach ($period[$type] as $item) {
 			$month = intval($arrayDate[1]);
+			// echo "Mes $month\n";
 			if (($item['im'] >= $month) && ($arrayDate['fm'] <= $month))
 				$response = $item['period'];
 		}
+		// echo $response . ' ' . $arrayDate[0]."\n";
 		return $response . ' ' . $arrayDate[0];
 	}
 

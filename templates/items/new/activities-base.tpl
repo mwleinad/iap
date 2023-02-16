@@ -46,6 +46,11 @@
                     </a>
 				{/if}
             {/if}
+            {if $subject.activityType == "Foro"}
+                <a href="{$WEB_ROOT}/graybox.php?page=foro-estadisticas&actividad={$subject.activityId}" data-target="#ajax" data-toggle="modal">
+                    <i id="d-{$subject.subjectId}" name="d-{$subject.name}" title="Estadísticas" class="fas fa-chart-bar fa-2x text-info pointer spanEdit" data-toggle="tooltip" data-placement="top"></i>
+                </a>
+            {/if}
         </td>
     </tr>
     {foreachelse}

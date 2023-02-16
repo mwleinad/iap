@@ -51,12 +51,22 @@ $smarty->assign('totalPonderation', $totalPonderation);
 $majorModality = $activity->GetMajorModality();
 
 $module->setCourseModuleId($_GET["id"]);
-$info = $module->InfoCourseModule();
+$info = $module->InfoCourseModule(); 
+
+$periodoActual = $info["semesId"]; 
 
 $group->setCourseModuleId($_GET["id"]);
 $group->setCourseId($info["courseId"]);
 $theGroup = $group->DefaultGroup();
-
+foreach ($theGroup as $key => $value) {
+    $student->setUserId($value['userId']);
+    $periodo = $student->periodoAltaCurso($info['courseId']);
+    if($periodoActual < $periodo){
+        if($value['situation'] != "Recursador"){
+            unset($theGroup[$key]);
+        }
+    } 
+}
 $smarty->assign('theGroup', $theGroup);
 $smarty->assign('moduleInfo', $moduleInfo);
 $smarty->assign('minCal', $minCal);

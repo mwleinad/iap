@@ -114,16 +114,20 @@ foreach ($students as $itemStudent) {
     $period_course = [];
     $group_history = $student->GroupHistory($infoCourse['subjectId']);
     // print_r($group_history);
-    $has_history = count($group_history) > 0 ? true : false;
+    $has_history = count($group_history) > 1 ? true : false;
     if ($has_history) {
         foreach ($group_history as $item) {
             if ($item['type'] == 'baja') {
-                for ($i = 1; $i <= $item['semesterId']; $i++)
-                    $period_course[$i] = $item['courseId'];
+                for ($i = 1; $i <= $item['semesterId']; $i++){
+                    if(empty($period_course[$i])){
+                        $period_course[$i] = $item['courseId'];
+                    }
+                }
             }
-            if ($item['type'] == 'alta') {
-                for ($i = $item['semesterId']; $i <= $infoCourse['totalPeriods']; $i++)
+            if($item['type'] == "alta"){
+                for ($i = $item['semesterId']; $i <= $infoCourse['totalPeriods']; $i++){
                     $period_course[$i] = $item['courseId'];
+                }
             }
         }
     }

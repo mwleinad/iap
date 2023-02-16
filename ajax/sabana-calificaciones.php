@@ -2,9 +2,9 @@
 include_once('../init.php');
 include_once('../config.php');
 include_once(DOC_ROOT.'/libraries.php');
-/* echo "<pre>";
-print_r($_GET);
-exit; */
+// echo "<pre>";
+// print_r($_GET);
+// exit;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -35,6 +35,9 @@ $suffix = [
 $course->setCourseId($courseId);
 $courseInfo = $course->Info();
 $courseModules = $course->ListModules($period, true, " ORDER BY cm.initialDate");
+// echo $courseId;
+// print_r($courseInfo);
+// print_r($courseModules);
 $modulesRepeat = [];
 if($typeXlsx == 1 || $typeXlsx == 3)
     $students = $course->SabanaCalificacionesFrontal($period, true, " ORDER BY cm.initialDate", 'final');
@@ -44,9 +47,9 @@ if($typeXlsx == 2 || $typeXlsx == 4)
         $modulesRepeat[] .= $item['courseModuleId']; 
     $students = $course->SabanaCalificacionesTrasera($period, true, " ORDER BY cm.initialDate", 'final', $modulesRepeat);
 }
-/* echo "<pre>";
-var_dump($students);
-exit; */
+// echo "<pre>";
+// print_r($students);
+// exit;
 
 $minCal = 7;
 $claveSE = 5036;
@@ -65,6 +68,7 @@ if($courseInfo['tipoCuatri'] == 'Semestre')
     $typeCourse = 'semester';
 if($courseInfo['tipoCuatri'] == 'Cuatrimestre')
     $typeCourse = 'quarter';
+// echo "Tipo de curso: $typeCourse \n";
 $institution->setInstitutionId(1);
 $myInstitution = $institution->Info();
 $studentKeys = array_keys($students);
@@ -163,7 +167,7 @@ $spreadsheet = new Spreadsheet();
 
 // Set document properties
 $spreadsheet->getProperties()->setCreator('Carlos Zenteno')
-    ->setLastModifiedBy('Carlos Zenteno')
+    ->setLastModifiedBy('William Ramírez')
     ->setTitle('Sabana de Calificaciones')
     ->setSubject('Sabana de Calificaciones')
     ->setDescription('Sabana de Calificaciones | IAP Chiapas')
@@ -409,8 +413,8 @@ if($typeXlsx == 1 || $typeXlsx == 3)
                 $lastNameMaterno = mb_strtoupper($students[$indexStudent]['lastNameMaterno']);
                 $names = mb_strtoupper($students[$indexStudent]['names']);
                 $sexo = ($students[$indexStudent]['sexo'] == 'm' ? 'H' : 'M');
-                $baja = $students[$indexStudent]['type'];
-                $bajaPeriodo = $students[$indexStudent]['semesterId'];
+                $baja = $students[$indexStudent]['situation'];
+                $bajaPeriodo = $students[$indexStudent]['baja'];
                 $modulesScore = $students[$indexStudent]['modules'];
                 if($sexo == 'H')
                     $totalHombres++;
@@ -479,16 +483,16 @@ if($typeXlsx == 1 || $typeXlsx == 3)
                     $sheet->getStyle($column . $noRow)->applyFromArray(CellStyle(7, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0, false, $color));
                 }
                 ++$column;
-                if($baja == 'baja' && $period == $bajaPeriodo)
+                if($baja != 'A' && $period == $bajaPeriodo)
                 {
                     if($sexo == 'H')
                         $bajasHombre++;
                     if($sexo == 'M')
                         $bajasMujer++;
                     $sheet->mergeCells($column . $noRow . ':AC' . $noRow);
-                    $sheet->setCellValue($column . $noRow, 'BAJA TEMPORAL');
+                    $sheet->setCellValue($column . $noRow, 'BAJA');
                     $sheet->getStyle($column . $noRow . ':AC' . $noRow)->applyFromArray(CellStyle(7, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0, true, 'FF0000'));
-                    $sheet->setCellValue('AD' . $noRow, 'BT');
+                    $sheet->setCellValue('AD' . $noRow, 'B');
                     $sheet->getStyle('AD' . $noRow)->applyFromArray(CellStyle(7, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
                 }
                 else
@@ -502,9 +506,9 @@ if($typeXlsx == 1 || $typeXlsx == 3)
                             if($sexo == 'M')
                                 $bajasMujer++;
                             $sheet->mergeCells($column . $noRow . ':AC' . $noRow);
-                            $sheet->setCellValue($column . $noRow, 'BAJA POR DESERCIÓN');
+                            $sheet->setCellValue($column . $noRow, 'BAJA');
                             $sheet->getStyle($column . $noRow . ':AC' . $noRow)->applyFromArray(CellStyle(7, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0, true, 'FF0000'));
-                            $sheet->setCellValue('AD' . $noRow, 'BD');
+                            $sheet->setCellValue('AD' . $noRow, 'B');
                             $sheet->getStyle('AD' . $noRow)->applyFromArray(CellStyle(7, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
                         }
                         else
@@ -820,6 +824,13 @@ if($typeXlsx == 2 || $typeXlsx == 4)
     $indexStudent = 0;
     for($row = 7; $row <= 13; $row++)
     {
+        if($students[$indexStudent]['situation'] != "REC" && !empty($students[$indexStudent]['situation'])){
+            // echo $students[$indexStudent]['situation']."\n";
+            $indexStudent++; 
+            $row--; 
+            continue;
+        }
+        // echo $row."\n";
         $matricula = '';
         $lastNamePaterno = '';
         $lastNameMaterno = '';
@@ -835,7 +846,7 @@ if($typeXlsx == 2 || $typeXlsx == 4)
             $sexo = ($students[$indexStudent]['sexo'] == 'm' ? 'H' : 'M');
             $baja = $students[$indexStudent]['type'];
             $bajaPeriodo = $students[$indexStudent]['semesterId'];
-            $modulesScore = $students[$indexStudent]['modules'];
+            $modulesScore = $students[$indexStudent]['modules'];           
         }
         $sheet->getStyle('C' . $row)->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
         $sheet->getStyle('D' . $row)->applyFromArray(CellStyle(6, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
@@ -851,9 +862,9 @@ if($typeXlsx == 2 || $typeXlsx == 4)
          * CALIFICACIONES
          */
         $column = 'J';
-        /* echo "<pre>";
-        print_r($modulesScore);
-        exit; */
+        // echo "Módulos con calificaciones";
+        // print_r($modulesScore);
+        // exit; */
         if($typeXlsx == 4)
         {
             for($is = 0; $is < count($courseModules); $is++) 
@@ -862,10 +873,10 @@ if($typeXlsx == 2 || $typeXlsx == 4)
                 $color = '000000';
                 if($modulesScore != null)
                 {
-                    if(array_key_exists($is, $modulesScore))
-                    $calificacion = $modulesScore[$is]['calificacion'];
+                    if($courseModules[$is]['courseModuleId'] == $modulesScore[0]['courseModuleId'])
+                        $calificacion = $modulesScore[0]['calificacion'];
                     else
-                        $calificacion = 0;
+                        $calificacion = "";
                 }
                 else
                     $calificacion = 0;
@@ -877,6 +888,7 @@ if($typeXlsx == 2 || $typeXlsx == 4)
                 if($calificacion == 0 || $lastNamePaterno == '')
                     $calificacion = '';
                 // Calificacion
+                // echo "calificación: $calificacion\n";
                 $sheet->setCellValue(++$column . $row, $calificacion);
                 $sheet->getStyle($column . $row)->applyFromArray(CellStyle(7, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0, false, $color));
             }
@@ -893,15 +905,42 @@ if($typeXlsx == 2 || $typeXlsx == 4)
     $sheet->mergeCells('H15:M15');
     $sheet->setCellValue('H15', 'ALUMNOS DADOS DE ALTA');
     $sheet->getStyle('H15:M15')->applyFromArray(CellStyle(10, 'Arial', true, 'none', 'thin', 'center', 'center', 0));
+    $indexStudent = 0;
     for($row = 17; $row <= 23; $row++)
     {
+        // if($students[$indexStudent]['situation'] == "REC" && !empty($students[$indexStudent]['situation'])){
+        //     $indexStudent++; 
+        //     $row--; 
+        //     continue;
+        // }
+        // $matricula = '';
+        // $lastNamePaterno = '';
+        // $lastNameMaterno = '';
+        // $names = '';
+        // $sexo = '';
+        // $modulesScore = [];
+        // if($indexStudent < $totalStudents)
+        // {
+        //     $matricula = $students[$indexStudent]['matricula'];
+        //     $lastNamePaterno = mb_strtoupper($students[$indexStudent]['lastNamePaterno']);
+        //     $lastNameMaterno = mb_strtoupper($students[$indexStudent]['lastNameMaterno']);
+        //     $names = mb_strtoupper($students[$indexStudent]['names']);
+        //     $sexo = ($students[$indexStudent]['sexo'] == 'm' ? 'H' : 'M');
+        //     $baja = $students[$indexStudent]['type'];
+        //     $bajaPeriodo = $students[$indexStudent]['semesterId'];
+        //     $modulesScore = $students[$indexStudent]['modules'];           
+        // }
+        
         $sheet->getStyle('C' . $row)->applyFromArray(CellStyle(8, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
         $sheet->getStyle('D' . $row)->applyFromArray(CellStyle(8, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
         $sheet->getStyle('E' . $row)->applyFromArray(CellStyle(8, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
         $sheet->getStyle('F' . $row)->applyFromArray(CellStyle(8, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
+        // $sheet->setCellValue('F' . $row, $matricula);
         $sheet->mergeCells('G' . $row . ':' . 'I' . $row);
+        // $sheet->setCellValue('G' . $row, $lastNamePaterno . ' ' . $lastNameMaterno . ' ' . $names);
         $sheet->getStyle('G' . $row . ':' . 'I' . $row)->applyFromArray(CellStyle(8, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
         $sheet->getStyle('J' . $row)->applyFromArray(CellStyle(8, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
+        // $sheet->setCellValue('J' . $row, $sexo);
         $sheet->getStyle('K' . $row)->applyFromArray(CellStyle(8, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
         $sheet->getStyle('L' . $row)->applyFromArray(CellStyle(8, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
         $sheet->getStyle('M' . $row)->applyFromArray(CellStyle(8, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
@@ -922,6 +961,7 @@ if($typeXlsx == 2 || $typeXlsx == 4)
         $sheet->getStyle('AB' . $row)->applyFromArray(CellStyle(8, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
         $sheet->getStyle('AC' . $row)->applyFromArray(CellStyle(8, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
         $sheet->getStyle('AD' . $row)->applyFromArray(CellStyle(8, 'Arial', false, 'allBorders', 'thin', 'center', 'center', 0));
+        $indexStudent++;
     }
     // INSCRIPCIÓN O REINSCRIPCIÓN
     $sheet->mergeCells('C25:G25');
@@ -1021,7 +1061,7 @@ if($typeXlsx == 2 || $typeXlsx == 4)
     $spreadsheet->setActiveSheetIndex(0)->setTitle('Hoja 1');
 }
 
-
+// exit;
 
 
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet

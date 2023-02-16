@@ -18,11 +18,11 @@
                 <input type="hidden" name="positionId" value="{$positionId}" />
                 <input type="hidden" name="id" value="{$id}" />
             </form>
-            <div id="divContenforo">
+            <div id="divContenforo"> 
                 {include file="{$DOC_ROOT}/templates/lists/new/topic-replies.tpl"}
             </div>
             <br>
-            <br>
+            <br> 
             {include file="{$DOC_ROOT}/templates/forms/new/add-reply.tpl"}
         </div>
     </div>

@@ -25,9 +25,9 @@ $( document ).ready(function() {
         ev.preventDefault();
         var form = $(this);
         var data = new FormData(document.getElementById(form.attr('id')));
-        console.log(data);
-        console.log(form);
-        console.log(document.getElementById(form.attr('id')));
+        // console.log(data);
+        // console.log(form);
+        // console.log(document.getElementById(form.attr('id')));
         var btnSubmit = form.find("button[type='submit']");
         $.ajax({
             type: "POST",
@@ -43,8 +43,8 @@ $( document ).ready(function() {
         })
         .done(function (response) {
             btnSubmit.prop('disabled',false);
-            console.log(response)
             response = JSON.parse(response);
+            console.log(response)
             actionPostAjax(form, response);
         })
         .fail(function(response){
@@ -62,14 +62,14 @@ $( document ).ready(function() {
         });
     });
 
-    // $(document).on("click","[data-target]", function(){
-    //     if($(this).data('target') == "#ajax"){
-    //         var ancho = $(this).data("width");
-    //         if(typeof ancho !== 'undefined' ){
-    //             $(".modal-dialog").css({"width":ancho});
-    //         }
-    //     }
-    // })
+    $(document).on("click","[data-target]", function(){
+        if($(this).data('target') == "#ajax"){
+            var ancho = $(this).data("width");
+            if(typeof ancho !== 'undefined' ){
+                $(".modal-dialog").css({"max-width":ancho});
+            }
+        }
+    })
 
     $("body").on('keyup', '.onlynumber', function(){
         var valor = numero($(this).val());
@@ -90,8 +90,8 @@ function actionPostAjax(form, response){
         $("#ajax").modal('hide');
     }
     if (response.html) {
-        if (response.modal) {
-            $("#ajax .modal-body").html(response.html);
+        if (response.modal) { 
+            $("#ajax .modal-content").html(response.html);
         }else{
             $(document).find(response.selector).html(response.html);
         }

@@ -295,9 +295,12 @@ class Group extends Module
 						ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
 				$this->Util()->DB()->setQuery($sql);
 				$result = $this->Util()->DB()->GetResult();
-				
 				foreach($result as $key => $res)
 				{
+					$sql = "SELECT IF(semesterId = 0, 1, semesterId) as semesterId FROM academic_history WHERE userId = {$res['alumnoId']} AND courseId = '{$this->getCourseId()}' ";
+					$this->Util()->DB()->setQuery($sql); 
+					$result[$key]["alta"] = $this->Util()->DB()->GetSingle();
+
 					$sql = "SELECT ponderation
 								FROM activity_score
 							WHERE activityId = '" . $id . "' AND userId = '" . $res["alumnoId"] . "'";
@@ -399,7 +402,8 @@ class Group extends Module
 					}
 				}
 				break;
-		}
+		} 
+		// print_r($result); 
 		return $result;
 	}
 		

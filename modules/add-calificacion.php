@@ -10,13 +10,21 @@
 	
 	$module->setCourseModuleId($_GET["id"]);
 	$info = $module->InfoCourseModule();
-
+	$periodoActual = $info["semesId"]; 
 	// echo "<pre>"; print_r($info["majorName"]);
 	// exit;
 	$group->setTipoMajor($info["majorName"]);
 	$group->setCourseModuleId($_GET["id"]);
 	$group->setCourseId($info["courseId"]);
 	$noTeam = $group->actaCalificacion();
+	foreach ($noTeam as $key => $value) {
+		$student->setUserId($value['alumnoId']);
+		$periodo = $student->periodoAltaCurso($info['courseId']);
+		if($periodoActual < $periodo){
+			unset($noTeam[$key]);
+		} 
+	}
+	
 	$smarty->assign('noTeam', $noTeam);
 	$studentsRepeat = $group->actaCalificacionRepeat();
 	$smarty->assign('studentsRepeat', $studentsRepeat);

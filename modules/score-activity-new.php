@@ -21,7 +21,7 @@
 		}
 	 
 	 }
-
+	// echo "<pre>";
 	$activity->setActivityId($_GET["id"]);
 	$actividad = $activity->Info();
 	$smarty->assign('actividad', $actividad);
@@ -33,11 +33,13 @@
 	// echo $actividad["courseModuleId"];
 	// exit;
 	//grupo
+	// print_r($info);
 	$group->setCourseModuleId($actividad["courseModuleId"]);
 	$group->setCourseId($info["courseId"]);
 	$theGroup = $group->ScoreGroup($actividad["modality"], $actividad["activityType"], $_GET["id"]);
 	// echo "<pre>"; print_r($theGroup);
 	// exit;
+	$smarty->assign("periodoActual", $info["semesId"]);
 	$smarty->assign('theGroup', $theGroup);
 	$smarty->assign('cId', $_GET["cId"]);
 ?>

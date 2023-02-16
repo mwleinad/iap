@@ -229,6 +229,8 @@ $pages = array(
     'constancia-calificaciones-course',
     'niveles-ingles',
     "estudiante-informacion-adicional",
+    "ficha-registro",
+    'foro-estadisticas'
 );
 
 if(!in_array($_GET['page'], $pages))

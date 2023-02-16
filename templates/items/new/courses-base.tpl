@@ -31,7 +31,7 @@
 				{if !$docente}  {$subject.courseModule} {/if}
 				{/if}
 					{if !$docente}  /{$subject.modules} {/if}
-				{*} Flecha verde {*}
+				{* Flecha verde *}
 				<br>
 				{if ($docente == 1 AND $subject.courseModuleActive > 0) || !$docente}
 					<a href="{$WEB_ROOT}/graybox.php?page=view-modules-course&id={$subject.courseId}" title="Ver Modulos de Curso" data-target="#ajax" data-toggle="modal" >
@@ -46,8 +46,14 @@
 			</td>
 			<td class="text-center">
 				{if !$docente}
-					<span class="pointer spanActive badge badge-success rounded-circle" onclick="VerGrupoAdmin({$subject.courseId});" title="Alumnos" id="{$subject.courseId}">{$subject.alumnActive}</span>             /
-					<span class="pointer spanInactive badge badge-danger rounded-circle" onclick="VerGrupoInactivoAdmin({$subject.courseId});"  id="{$subject.courseId}">{$subject.alumnInactive}</span>
+					<span class="pointer spanActive badge badge-success rounded-circle" onclick="VerGrupoAdmin({$subject.courseId});" title="Alumnos" id="{$subject.courseId}">{$subject.alumnActive}</span>
+					/
+					<form class="form d-inline" action="{$WEB_ROOT}/ajax/new/studentCurricula.php" method="POST" id="inactiveStudent{$subject.courseId}">
+						<input type="hidden" name="type" value="StudentInactivoAdmin">
+						<input type="hidden" name="id" value="{$subject.courseId}">
+						<input type="hidden" name="tip" value="Inactivo">
+						<button type="submit" class="pointer spanInactive badge badge-danger rounded-circle" data-target="#ajax" data-toggle="modal">{$subject.alumnInactive}</button>
+					</form>
 				{else}
 					<span class="badge badge-success rounded-circle">{$subject.alumnActive}</span> / <span class="badge badge-danger rounded-circle">{$subject.alumnInactive}</span>
 				{/if}

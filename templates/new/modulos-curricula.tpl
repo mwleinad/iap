@@ -20,7 +20,7 @@
     <div class="card-body">
         <h3 class="text-center">{$infoCourses.majorName|upper}: {$infoCourses.name|upper} - GRUPO: {$infoCourses.group}</h3>
         <div id="accordion">
-            {for $cuatrimestre = 1 to $infoCourses.totalPeriods}
+            {for $cuatrimestre = $alta to $baja}
                 <div class="card">
                     <div class="card-header collapsed card-link pointer text-white bg-primary" data-toggle="collapse" href="#collapse{$cuatrimestre}">
                         {$infoCourses.tipoCuatri} {$cuatrimestre} <i class="fas fa-chevron-circle-down float-right"></i>
@@ -60,7 +60,7 @@
                                                             {else}
                                                                 {if $subject.finalDateStamp > 0 AND $timestamp > $subject.finalDateStamp}
                                                                     {* materia finalizada *}
-                                                                    {if $subject.countEval >=1}
+                                                                    {if $subject.countEval >=1 || $inactivo}
                                                                         <span class="badge {if $subject.calificacionFinal < $minCalInt} badge-danger {else} badge-success {/if} rounded">
                                                                             {$subject.calificacionFinal}
                                                                         </span>

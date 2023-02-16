@@ -22,6 +22,7 @@ class Student extends User
 	private $nuevo;
 	private $repite;
 	private $documentoId;
+	private $tipoMajor;
 
 	public function setAnterior($value)
 	{
@@ -142,11 +143,16 @@ class Student extends User
 		$this->documentoId = $value;
 	}
 
+	public function setTipoMajor($value)
+	{
+		$this->tipoMajor = $value;
+	}
 
-	public function AddAcademicHistory($type, $situation, $semesterId = 0)
+
+	public function AddAcademicHistory($type, $situation, $semesterId = 1)
 	{
 		if ($type == 'alta') {
-			$sql = "SELECT semesterId 
+			$sql = "SELECT IF(semesterId = 0, 1, semesterId) as semesterId 
 						FROM academic_history 
 					WHERE subjectId = " . $this->subjectId . " AND userId = " . $this->userId . "
 					ORDER BY academicHistoryId DESC LIMIT 1";
@@ -1152,9 +1158,14 @@ class Student extends User
 		$result2 = $this->Util()->DB()->GetResult();
 		foreach ($result2 as $key => $res) {
 			$card = $res;
-			$sql = "SELECT courseId FROM user_subject WHERE alumnoId = " . $res["userId"] . " ORDER BY registrationId DESC";
+			$sql = "SELECT user_subject.courseId, user_subject.alumnoId, user_subject.status, subject.name AS name, major.name AS majorName, subject.icon, course.group, course.modality, course.initialDate, course.finalDate, 'Ordinario' AS situation FROM user_subject LEFT JOIN course ON course.courseId = user_subject.courseId LEFT JOIN subject ON subject.subjectId = course.subjectId LEFT JOIN major ON major.majorId = subject.tipo WHERE alumnoId = '{$res['userId']}' AND status = 'activo' AND CURDATE() <= course.finalDate UNION SELECT usr.courseId, usr.alumnoId, usr.status, subject.name AS name, major.name AS majorName, subject.icon, course.group, course.modality, course.initialDate, course.finalDate, 'Recursador' AS situation FROM user_subject_repeat usr LEFT JOIN course ON course.courseId = usr.courseId LEFT JOIN subject ON subject.subjectId = course.subjectId LEFT JOIN major ON major.majorId = subject.tipo WHERE alumnoId = '{$res['userId']}' AND status = 'activo' ORDER BY status ASC";
 			$this->Util()->DB()->setQuery($sql);
-			$courseId = $this->Util()->DB()->GetSIngle();
+			$courseId = $this->Util()->DB()->GetResult(); 
+			if(count($courseId) == 0){
+				$sql = "SELECT courseId FROM user_subject WHERE alumnoId = " . $res["userId"] . " ORDER BY registrationId DESC LIMIT 1";
+				$this->Util()->DB()->setQuery($sql);
+				$courseId = $this->Util()->DB()->GetResult(); 
+			}
 			$card["courseId"] = $courseId;
 			$card["lastNameMaterno"] = $this->Util->DecodeTiny($card["lastNameMaterno"]);
 			$card["lastNamePaterno"] = $this->Util->DecodeTiny($card["lastNamePaterno"]);
@@ -1545,7 +1556,7 @@ class Student extends User
 					LEFT JOIN major 
 						ON major.majorId = subject.tipo 
 				WHERE alumnoId = " . $this->getUserId() . " " . $status . " 
-				ORDER BY status ASC";
+				ORDER BY status ASC, courseId DESC";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 
@@ -1564,7 +1575,8 @@ class Student extends User
 
 			$sql = "SELECT COUNT(*) FROM course_module WHERE courseId ='" . $res["courseId"] . "'";
 			$this->Util()->DB()->setQuery($sql);
-			$result[$key]["courseModule"] = $this->Util()->DB()->GetSingle();
+			$result[$key]["courseModule"] = $this->Util()->DB()->GetSingle(); 
+			 
 		}
 		return $result;
 	}
@@ -2766,12 +2778,12 @@ class Student extends User
 						subjectId,
 						courseId,
 						userId,
-						IF(type = 'baja', semesterId - 1, semesterId) AS semesterId,
+						semesterId,
 						dateHistory,
 						type,
 						situation 
 					FROM academic_history 
-				WHERE userId = " . $this->userId . " AND subjectId = " . $subjectId . " AND semesterId > 0 ORDER BY type DESC";
+				WHERE userId = " . $this->userId . " AND subjectId = " . $subjectId . " ORDER BY type DESC, academicHistoryId ASC";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 		return $result;
@@ -2784,6 +2796,8 @@ class Student extends User
 			$condition .= " AND subject_module.semesterId = " . $period;
 		if (!$english)
 			$condition .= " AND subject_module.subjectModuleId NOT IN (246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257)";
+
+		// Se obtienen las materias del curso
 		$sql = "SELECT *, IF(subject_module.clave LIKE '%ING%', 1, 0) AS extra
 					FROM course_module
 						LEFT JOIN subject_module 
@@ -2793,23 +2807,31 @@ class Student extends User
 		// echo $sql."<br>";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
+		// echo "Materias del curso:";
+		// print_r($result);
 		foreach ($result as $key => $value) {
+			//Se obtienen las calificaciones totales de cada materia
 			$sql = "SELECT course_module_score.*, cm.calificacionValida
 						FROM course_module_score
 							LEFT JOIN course_module as cm ON cm.courseModuleId = course_module_score.courseModuleId
 						WHERE course_module_score.courseModuleId = " . $value['courseModuleId'] . " AND userId = " . $this->userId . " AND course_module_score.courseId = " . $courseId;
+			// echo "$sql<br>";
 			$this->Util()->DB()->setQuery($sql);
 			$infoCc = $this->Util()->DB()->GetRow();
-			// CALCULA ACUMULADO
+			// echo "InfoCc:";
+			// print_r($infoCc);
+			// CALCULA ACUMULADO; Se obtienen las actividades pertenecientes a la materia(módulo).
 			$activity = new Activity;
-			$activity->setCourseModuleId($value['coursemoduleId']);
+			$activity->setCourseModuleId($value['courseModuleId']);
 			$actividades = $activity->Enumerate();
+			//Se obtienen los equipos por materias(módulo)
 			$sql = "SELECT teamNumber
 						FROM team
 						WHERE courseModuleId = " . $value['courseModuleId'] . " AND userId = " . $this->userId;
 			$this->Util()->DB()->setQuery($sql);
 			$result[$key]["equipo"] = $this->Util()->DB()->GetSingle();
 			$result[$key]["addepUp"] = 0;
+			// print_r($actividades);
 			foreach ($actividades as $activity) {
 				if ($activity["score"] <= 0)
 					continue;
@@ -2818,14 +2840,12 @@ class Student extends User
 							WHERE activityId = " . $activity["activityId"] . " AND userId = " . $this->userId;
 				$this->Util()->DB()->setQuery($sqlca);
 				$score = $this->Util()->DB()->GetSingle();
-				$result[$key]{
-				"score"}[] = $score;
+				$result[$key]["score"][] = $score;
 				$realScore = $score * $activity["score"] / 100;
-				$result[$key]{
-				"realScore"}[] = $realScore;
+				$result[$key]["realScore"][] = $realScore;
 				$result[$key]["addepUp"] += $realScore;
 			}
-			if ($infoCc["calificacion"] == null or $infoCc["calificacion"] == 0) {
+			if ($infoCc["calificacion"] == null or $infoCc["calificacion"] == 0) { 
 				$at = $result[$key]["addepUp"] / 10;
 				if ($this->tipoMajor == "MAESTRIA" and $at < 7)
 					$at = floor($at);
@@ -2843,6 +2863,7 @@ class Student extends User
 			else
 				$result[$key]["score"] = $infoCc["calificacion"];
 		}
+		// print_r($result);
 		return $result;
 	}
 
@@ -3198,4 +3219,31 @@ class Student extends User
 		$this->Util()->DB()->ExecuteQuery();
 		return true;
 	}  
+
+	//Obtiene el semestre en el que se dio de baja en el curso.
+	public function bajaCurso($cursoId)
+	{
+		$sql = "SELECT semesterId FROM academic_history WHERE courseId = '{$cursoId}' AND userId = '{$this->userId}' AND type = 'baja' ORDER BY academicHistoryId DESC";
+		$this->Util()->DB()->setQuery($sql); 
+		$semestre = $this->Util()->DB()->GetSingle();
+		// echo $sql;
+		return $semestre;
+	}
+	//Obtiene el periodo en el que se dio de alta en el curso.
+	public function periodoAltaCurso($cursoId)
+	{
+		$sql = "SELECT IF(semesterId = 0, 1, semesterId) as semesterId FROM academic_history WHERE courseId = '{$cursoId}' AND userId = '{$this->userId}' AND type = 'alta' ORDER BY academicHistoryId DESC";
+		$this->Util()->DB()->setQuery($sql); 
+		$periodo = $this->Util()->DB()->GetSingle();
+		// echo $sql;
+		return $periodo;
+	}
+
+	public function primerCurso()
+	{
+		$sql = "SELECT courseId FROM `user_subject` WHERE alumnoId = '{$this->userId}' ORDER BY registrationId ASC LIMIT 1;";
+		$this->Util()->DB()->setQuery($sql);
+		$curso = $this->Util()->DB()->GetSingle();
+		return $curso;
+	}
 }

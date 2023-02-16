@@ -7,11 +7,11 @@
 	 */
 	// echo "<pre>";
 	$total_modules = 0;
-	$cursos = $student->StudentCourses();
-	$has_modules_repeat = $student->hasModulesRepeat(); 
+	$cursos = $student->StudentCourses(); 
+	$primerCurso = $student->primerCurso();
     $infoStudent = $student->GetInfo();
     // print_r($infoStudent);
-	// print_r($cursos);
+	// print_r($primerCurso);
 	$position = [
 		1 => 'PRIMER',
 		2 => 'SEGUNDO',
@@ -34,29 +34,31 @@
 
 	// unset($cursos[0]);
 	foreach ($cursos as $key => $curso) {
+		if($curso['courseId'] == $primerCurso){
+			unset($cursos[$key]);
+			continue;
+		}
 		$course->setCourseId($curso['courseId']);
 		$infoCourse = $course->Info();
+		// print_r($infoCourse);
 		$calendar->setCourseId($curso['courseId']);
+		$baja = $student->bajaCurso($curso['courseId']);
+		$alta = $student->periodoAltaCurso($curso['courseId']);
+		$cursos[$key]['status']	= 'inactivo';
+		if($baja == ""){
+			$baja = $infoCourse['totalPeriods']; 
+			$cursos[$key]['status']	= 'activo';
+		}
+
     	$distribution = $calendar->getCalendar();
 		$cursos[$key]["tipoCuatri"] = $infoCourse['tipoCuatri'] == '' ? "Cuatrimestre" : $infoCourse['tipoCuatri'];
 		$cursos[$key]["totalPeriods"] = $infoCourse['totalPeriods'];
-		$cursos[$key]["distribucion"] = $distribution;
-		// print_r($infoCourse);
-		if ($infoCourse['modality'] == 'Online') {
-			$modality = 'NO ESCOLAR';
-			$rvoe = $infoCourse['rvoeLinea'];
-			$fechaRvoe = $infoCourse['fechaRvoeLinea'];
-		}
-		if ($infoCourse['modality'] == 'Local') {
-			$modality = 'ESCOLAR';
-			$rvoe = $infoCourse['rvoe'];
-			$fechaRvoe = $infoCourse['fechaRvoe'];
-		}
-
+		$cursos[$key]["distribucion"] = $distribution; 
+		 
 		$period_course = [];
 		$group_history = $student->GroupHistory($infoCourse['subjectId']);
 		// print_r($group_history);
-		$has_history = count($group_history) > 0 ? true : false;
+		$has_history = count($group_history) > 1 ? true : false;
 		if ($has_history) {
 			foreach ($group_history as $item) {
 				if ($item['type'] == 'baja') {
@@ -73,11 +75,11 @@
 		// print_r($period_course);
 		 
 		$qualifications = [];
-		for ($period = 1; $period <= $infoCourse['totalPeriods']; $period++) {
+		for ($period = $alta; $period <= $baja; $period++) {
 			if ($has_history)
-				$tmp = $student->BoletaCalificacion($period_course[$period], $period, false); 
+				$tmp = $student->BoletaCalificacion($period_course[$period], $period, true); 
 			else
-				$tmp = $student->BoletaCalificacion($infoCourse['courseId'], $period, false);
+				$tmp = $student->BoletaCalificacion($infoCourse['courseId'], $period, true);
 
 			// print_r($tmp);
 			foreach ($tmp as $item) {

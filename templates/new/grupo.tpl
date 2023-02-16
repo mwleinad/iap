@@ -4,7 +4,7 @@
     </div>
     <div class="card-body text-center">
 		<div class="row">
-			{foreach from=$lstGrupo item=item key=key}
+			{foreach from=$lstGrupo item=item key=key} 
 				<div class="col-md-3 d-flex align-items-stretch mb-3">
 					<div class="card border border-primary w-100">
 						<div class="card-body">
