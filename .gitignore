@@ -31,3 +31,6 @@ error_log
 !/ajax/templates_c/.gitkeep
 /ajax/new/templates_c/*
 !/ajax/new/templates_c/.gitkeep
+/ajax/error_log
+/ajax/new/error_log
+error_log
