@@ -1409,7 +1409,8 @@ class Course extends Subject
 		$sql = 'SELECT 
 						DISTINCT(subject.subjectId), 
 						major.name AS majorName, 
-						subject.name AS name  FROM course
+						subject.name AS name  FROM course,
+						IF(subject.subjectId = 53, rvoe, "") as rvoe
 					LEFT JOIN subject 
 						ON course.subjectId = subject.subjectId 
 					LEFT JOIN major 
