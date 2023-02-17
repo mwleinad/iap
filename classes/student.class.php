@@ -3241,7 +3241,7 @@ class Student extends User
 
 	public function primerCurso()
 	{
-		$sql = "SELECT courseId FROM `user_subject` WHERE alumnoId = '{$this->userId}' AND courseId NOT IN (81,82,98,80,59,137,97) ORDER BY registrationId ASC LIMIT 1;";
+		$sql = "SELECT courseId FROM `user_subject` WHERE alumnoId = '{$this->userId}' AND courseId IN (81,82,98,80,59,137,97) ORDER BY registrationId ASC LIMIT 1;";
 		$this->Util()->DB()->setQuery($sql);
 		$curso = $this->Util()->DB()->GetSingle();
 		return $curso;
