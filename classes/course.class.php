@@ -1409,8 +1409,9 @@ class Course extends Subject
 		$sql = 'SELECT 
 						DISTINCT(subject.subjectId), 
 						major.name AS majorName, 
-						subject.name AS name  FROM course,
-						IF(subject.subjectId = 53, rvoe, "") as rvoe
+						subject.name AS name,
+						IF(subject.subjectId = 53, subject.rvoe, "") as rvoe
+						FROM course
 					LEFT JOIN subject 
 						ON course.subjectId = subject.subjectId 
 					LEFT JOIN major 
@@ -1419,6 +1420,7 @@ class Course extends Subject
 					ORDER BY 
 					FIELD (major.name,"MAESTRIA","DOCTORADO","CURSO","ESPECIALIDAD") asc, subject.name, modality desc, initialDate desc,  active';
 		// exit;
+		echo $sql;
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 		return $result;
