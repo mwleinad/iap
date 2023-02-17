@@ -1420,7 +1420,7 @@ class Course extends Subject
 					ORDER BY 
 					FIELD (major.name,"MAESTRIA","DOCTORADO","CURSO","ESPECIALIDAD") asc, subject.name, modality desc, initialDate desc,  active';
 		// exit;
-		echo $sql;
+		// echo $sql;
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 		return $result;
