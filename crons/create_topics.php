@@ -13,8 +13,8 @@ if (!isset($_SESSION))
 
 	$result = $course->AllActiveCourseModules();	
 	
-	$topics = array("Dudas para el Docente", "Asesoria Academica", "Presentacion Personal", "Foro de Discusion");
-	
+	// $topics = array("Dudas para el Docente", "Asesoria Academica", "Presentacion Personal", "Foro de Discusion");
+	$topics = array("Presentacion Personal", "Foro de Discusion");
 	foreach($result as $key => $val)
 	{
 		//si no hay foros insertar

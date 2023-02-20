@@ -207,7 +207,7 @@
 				});
 			</script>
 		{/if}
-		{if $User.type eq "student" and $page eq "homepage"}
+		{* {if $User.type eq "student" and $page eq "homepage"}
 			{if $User.announcement neq true}
 				<script>
 					Swal.fire({
@@ -233,7 +233,7 @@
 					});
 				</script>
 			{/if}
-		{/if}
+		{/if} *}
 	</body>
 
 </html>

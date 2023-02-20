@@ -378,54 +378,8 @@ class Module extends Course
 			//si el resultado es cero, no se pudo insertar el nuevo registro...se regresara false
 			$result = false;
 			$this->Util()->setError(90010, 'error');
-		}
-
-
-		$sql = "INSERT INTO
-						topic
-						( 
-							subject,	
-						 	tipo,
-						 	topicDate,
-						 	descripcion,
-						 	courseId,
-						 	courseModuleId
-						)
-					VALUES (
-							'Dudas para el Docente',
-							'dudas',
-							'" . date('Y-m-d h:i:s') . "',
-							'En este foro podrán realizar preguntas referentes al contenido del curso y el docente asignado se las responderá.',
-							'" . $this->getCourseId() . "',
-							'" . $Id . "'
-							)";
-		$this->Util()->DB()->setQuery($sql);
-		$this->Util()->DB()->InsertData();
-
-
-
-		$sql = "INSERT INTO
-						topic
-						( 
-							subject,	
-						 	tipo,
-						 	topicDate,
-						 	descripcion,
-						 	courseId,
-						 	courseModuleId
-						)
-					VALUES (
-							'Asesoria Academica',
-							'asesoria',
-							'" . date('Y-m-d h:i:s') . "',
-							'En este foro podrás incluir dudas referentes al curso y nuestro personal académico los resolverá.',
-							'" . $this->getCourseId() . "',
-							'" . $Id . "'
-							)";
-		$this->Util()->DB()->setQuery($sql);
-		$this->Util()->DB()->InsertData();
-
-
+		}  
+		 
 		$sql = "INSERT INTO
 						topic
 						( 

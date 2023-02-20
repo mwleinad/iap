@@ -28,7 +28,7 @@ $( document ).ready(function() {
         // console.log(data);
         // console.log(form);
         // console.log(document.getElementById(form.attr('id')));
-        var btnSubmit = form.find("button[type='submit']");
+        var btnSubmit = form.find("button[type='submit'], input[type='submit']");
         $.ajax({
             type: "POST",
             url: form.attr('action'),
@@ -41,14 +41,18 @@ $( document ).ready(function() {
                 form.find(".invalid-feedback").remove();
             }
         })
-        .done(function (response) {
-            btnSubmit.prop('disabled',false);
+        .done(function (response) { 
             response = JSON.parse(response);
             console.log(response)
             actionPostAjax(form, response);
+            setTimeout(() => {
+                btnSubmit.prop('disabled',false);
+            }, 3000); 
         })
         .fail(function(response){
-            btnSubmit.prop('disabled',false)
+            setTimeout(() => {
+                btnSubmit.prop('disabled',false);
+            }, 3000);  
             console.log(response);
             if (response.status == 422) {
                 response = JSON.parse(response.responseText);
