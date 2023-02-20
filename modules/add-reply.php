@@ -48,13 +48,15 @@ $smarty->assign('id', $_GET["id"]);
 if ($User["positionId"] != 1 && $User["positionId"] != 4)
 	$smarty->assign('mnuMain', "modulo");
 $permiso = true;
-$infoForo = $forum->TopicsubInfo();
-$activity->setActivityId($infoForo['activityId']);
+$infoSubForo = $forum->TopicsubInfo();
+$forum->setTopicId($infoSubForo['topicId']);
+$infoForo = $forum->TopicInfo();
+$activity->setActivityId($infoSubForo['activityId']);
 $infoActividad = $activity->Info();
-
+//print_r($infoForo);
 $fecha_actual = strtotime(date("Y-m-d H:i:00",time()));
 $fecha_actividad = strtotime($infoActividad['finalDateNoFormat']);  
-if($User['type'] == "student" && $fecha_actual > $fecha_actividad){
+if($User['type'] == "student" && $fecha_actual > $fecha_actividad && $infoForo['tipo'] == "discucion"){
 	$permiso = false;
 } 
 $smarty->assign('permiso', $permiso);
