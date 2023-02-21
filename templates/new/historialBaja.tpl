@@ -11,7 +11,7 @@
             <div class="row">
                 <h3 class="w-100">{$tipoCuatri} {$key}</h3> 
                 <div class="col-12">
-                    <div class="row align-items-center" style="padding: 5px; background-color: #73b760; font-size: 20px; color: white; border-radius:20px 20px 0 0;">
+                    <div class="row align-items-center" style="padding: 5px; background-color: {if $calificacion@last} #ef5372; {else} #73b760; {/if} font-size: 20px; color: white; border-radius:20px 20px 0 0;">
                         <div class="col-6 text-center">Materia</div>
                         <div class="col-2 text-center">Calificación Acumulada</div>
                         <div class="col-2 text-center">Calificación Final</div>
@@ -23,7 +23,15 @@
                     <div class="row td" style="padding: 10px; font-size: 16px;">
                         <div class="col-6 text-center">{$item.name}</div>
                         <div class="col-2 text-center">{$item.addepUp}</div>
-                        <div class="col-2 text-center">{$item.score}</div>
+                        <div class="col-2 text-center">
+                            {if $item.score < $calificacionMinima && $item.score != 0}
+                                <span class="text-danger">{$calificacionMinima-1}</span>
+                            {elseif $item.score == 0}
+                                <span class="text-danger">NP</span>
+                            {else}
+                                {$item.score}                        
+                            {/if}
+                        </div>
                         <div class="col-2 text-center">{$item.comments}</div>
                     </div>
                     {/foreach} 

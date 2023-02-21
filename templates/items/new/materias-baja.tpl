@@ -40,7 +40,7 @@
                             {$item['name']}
                         </div>
                         <div class="col-md-3 text-center" style="padding: 5px;">
-                            {$item['score']}
+                            {$item['addepUp']}
                         </div>
                         <div class="col-md-3 text-center" style="padding: 5px;">
                             {if $item['score'] < $calificacionMinima && $item['score'] != 0}

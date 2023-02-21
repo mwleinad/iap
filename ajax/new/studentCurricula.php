@@ -200,6 +200,7 @@ switch ($_POST["type"]) {
 						'subjectModuleId' => $item['subjectModuleId'],
 						'name' => $qualifications_repeat[$item['subjectModuleId']]['name'],
 						'score' => $qualifications_repeat[$item['subjectModuleId']]['score'],
+						'addepUp' => $qualifications_repeat[$item['subjectModuleId']]['addepUp'],
 						'comments' => 'REC.'
 					];
 				} else {
@@ -207,6 +208,7 @@ switch ($_POST["type"]) {
 						'subjectModuleId' => $item['subjectModuleId'],
 						'name' => $item['name'],
 						'score' => $item['score'],
+						'addepUp' => $item['addepUp'],
 						'comments' => ''
 					];
 				}
@@ -665,6 +667,7 @@ switch ($_POST["type"]) {
 		$course->setCourseId($curso);
 		$total_modules = 0;
 		$infoCourse = $course->Info();
+		$calificacionMinima = $infoCourse['majorName'] == "MAESTRÍA" ? 7 : 8;
 		$tipoCuatri = $infoCourse['tipoCuatri'] == '' ? "Cuatrimestre" : $infoCourse['tipoCuatri'];
 		$student->setTipoMajor($infoCourse['majorName']);
 		//Obtenemos el cuatri de la baja.
@@ -719,7 +722,7 @@ switch ($_POST["type"]) {
 		$smarty->assign("curso", $curso);
 		$smarty->assign("calificaciones", $qualifications);
 		$smarty->assign("tipoCuatri", $tipoCuatri);
-
+		$smarty->assign("calificacionMinima", $calificacionMinima);
 		echo json_encode([
 			'modal'	=> true,
 			'html'	=> $smarty->fetch(DOC_ROOT . "/templates/new/historialBaja.tpl")
