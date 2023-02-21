@@ -2,11 +2,11 @@
     <div class="card-header bg-primary text-white">
         <i class="fas fa-bullhorn"></i> Foro {$asunto}
         <div class="col-md-12 text-right">
-            {if $positionId != 0}
+            {* {if $positionId != 0} *}
                 <a href="{$WEB_ROOT}/edit-modules-course/id/{$id}" class="btn btn-outline-light btn-sm"><i class="fas fa-arrow-circle-left"></i> Regresar</a>
-            {else}
+            {* {else}
                 <a href="{$WEB_ROOT}/forum-modules-student/id/{$id}" class="btn btn-outline-light btn-sm"><i class="fas fa-arrow-circle-left"></i> Regresar</a>
-            {/if}
+            {/if} *}
             {if ($asunto== "Foro de Discusion") && ($User.type == "student")}
             {else} |
                 <a href="{$WEB_ROOT}/graybox.php?page=add-topic&id={$topicId}&cId={$id}" data-target="#ajax" data-toggle="modal" class="btn btn-outline-light btn-sm">

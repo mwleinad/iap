@@ -20,7 +20,7 @@
 		$module->setEvaluation($_POST['evaluation']);
 		$module->setBibliography($_POST['bibliography']);
 		$module->setSemesterId($_POST['semesterId']);
-		
+		$module->setCreditos($_POST['creditos']);
 		$module->Save();
 
 		header("Location:" . WEB_ROOT . "/subject");

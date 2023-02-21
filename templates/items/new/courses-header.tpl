@@ -2,7 +2,7 @@
     {if $User.type ne 'Docente'}
         <th class="font-weight-bold">ID</th>
     {/if}
-    <th class="font-weight-bold">Clave</th>
+    <th class="font-weight-bold">RVOE</th>
     <th class="font-weight-bold">Tipo</th>
     <th class="font-weight-bold">Nombre</th>
     <th class="font-weight-bold">Grupo</th>

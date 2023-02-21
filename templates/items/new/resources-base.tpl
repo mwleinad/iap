@@ -1,6 +1,7 @@
 {foreach from=$resources item=subject}
 <tr class="text-center">
 	<td class="break-line">{$subject.name}</td>
+	<td class="break-line">{$subject.semana}</td>
 	<td class="break-line">{$subject.description}</td>
 	<td>
 		{if $configMateria eq 'si'}
@@ -33,6 +34,6 @@
 </tr>
 {foreachelse}
 	<tr>
-    	<td colspan="4" class="text-center">No se encontró ningún registro.</td>
+    	<td colspan="5" class="text-center">No se encontró ningún registro.</td>
     </tr>
 {/foreach}

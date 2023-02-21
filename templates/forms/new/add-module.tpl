@@ -9,9 +9,13 @@
             <label for="frmClave">Clave:</label>
             <input type="text" name="frmClave" id="frmClave" class="form-control" />
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-2">
             <label for="semesterId">Cuatrimestre/Semestre:</label>
-            <input type="text" name="semesterId" id="semesterId" class="form-control" value="1" maxlength="2" />
+            <input type="number" name="semesterId" id="semesterId" class="form-control" value="1" maxlength="2" />
+        </div>
+        <div class="form-group col-md-2">
+            <label for="creditos">Créditos</label>
+            <input type="number" name="creditos" id="creditos" class="form-control" value="1" maxlength="2" />
         </div>
     </div>
     <div class="row">

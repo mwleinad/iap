@@ -250,6 +250,7 @@ switch ($_POST["type"]) {
 			$smarty->assign("tipoPeriodo", $courseInfo['tipoCuatri']);
 			$smarty->assign("curso", $_POST['courseId']);
 			$smarty->assign("estudiante", $_POST['userId']);
+			$smarty->assign("calificacionMinima", $calificacionMinima);
 			echo json_encode([
 				"calificaciones"	=>$smarty->fetch(DOC_ROOT."/templates/items/new/materias-baja.tpl"),
 				"periodoValido"		=>false

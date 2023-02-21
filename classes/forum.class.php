@@ -399,7 +399,7 @@ class Forum extends Main
 		$sql = "
 				SELECT * FROM topic
 				LEFT JOIN user ON user.userId = topic.userId
-				WHERE courseId = " . $this->courseId . " and courseModuleId = " . $this->courseModuleId . "
+				WHERE courseId = " . $this->courseId . " and courseModuleId = " . $this->courseModuleId . " AND (tipo = 'discucion' OR tipo = 'presentacion')
 				ORDER BY topicDate DESC";
 		$this->Util()->DB()->setQuery($sql);
 		// exit;

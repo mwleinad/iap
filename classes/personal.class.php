@@ -176,7 +176,7 @@ class Personal extends Main
 
 	public function setPositionId($value)
 	{
-		$this->Util()->ValidateOption($value, "Puesto");
+		// $this->Util()->ValidateOption($value, "Puesto");
 		$this->positionId = $value;
 	}
 
@@ -598,6 +598,7 @@ class Personal extends Main
 	public function Update()
 	{
 
+		// print_r($this->Util()->getErrors());
 		if ($this->Util()->PrintErrors()) {
 			return false;
 		}
@@ -630,7 +631,7 @@ class Personal extends Main
 				WHERE 
 					personalId = " . $this->personalId;
 
-
+		// echo $sql;
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
 

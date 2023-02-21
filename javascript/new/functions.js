@@ -91,6 +91,7 @@ function actionPostAjax(form, response){
         growl(response.message,response.type);
     }
     if (response.modal_close) {
+        $(".bootbox-close-button").click();
         $("#ajax").modal('hide');
     }
     if (response.html) {

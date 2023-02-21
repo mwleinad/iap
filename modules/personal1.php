@@ -66,6 +66,13 @@
 			// }
 
 			$personal->Update();
+			echo json_encode([
+				'growl'			=>true,
+				'type'			=>'success',
+				'message'		=>"Datos actualizados",
+				'modal_close'	=>true
+			]);
+			exit;
 		}
 	}
 	

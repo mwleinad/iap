@@ -11,6 +11,7 @@
 		$resource->setCourseModuleId($_GET["id"]);
 		$resource->setName($_POST["name"]);
 		$resource->setDescription($_POST["description"]);
+		$resource->setSemana($_POST['semana']);
 		$resource->Save();
 		
 		//segun la varible redireccionamos

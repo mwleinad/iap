@@ -184,7 +184,8 @@ switch($_POST["type"])
         $subjects = $module->EnumerateById($_POST['id']);
 
         $smarty->assign("id", $_POST['id']);
-        $smarty->assign("subjects", $subjects);
+        $smarty->assign("subjects", $subjects);  
+        $smarty->assign("urlBack", WEB_ROOT."/subject");
         $smarty->display(DOC_ROOT . '/templates/boxes/new/view-modules-popup.tpl');
 
         break;

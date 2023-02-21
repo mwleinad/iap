@@ -79,6 +79,12 @@ class Module extends Course
 		return $this->courseModuleId;
 	}
 
+	private $creditos;
+	public function setCreditos($value)
+	{
+		$this->creditos = $value;
+	}
+
 	public function EnumerateById($id = null)
 	{
 		$this->Util()->DB()->setQuery("
@@ -121,7 +127,8 @@ class Module extends Course
 							semesterId,
 							evaluation,
 							bibliography,							
-							cost
+							cost,
+							credits
 						)
 					VALUES (
 							'" . $this->getSubjectId() . "', 
@@ -138,7 +145,8 @@ class Module extends Course
 							'" . $this->getSemesterId() . "',
 							'" . $this->getEvaluation() . "',
 							'" . $this->getBibliography() . "',
-							'" . $this->getCost() . "'
+							'" . $this->getCost() . "',
+							'" . $this->creditos . "'
 							)";
 		//configuramos la consulta con la cadena de insercion
 		$this->Util()->DB()->setQuery($sql);
@@ -275,7 +283,8 @@ class Module extends Course
 						semesterId='" 	. $this->getSemesterId() . "',
 						evaluation='" 	. $this->getEvaluation() . "',
 						bibliography='" 	. $this->getBibliography() . "',
-						cost='" 	. $this->getCost() . "'
+						cost='" 	. $this->getCost() . "',
+						credits = '" . $this->creditos . "'
 						WHERE 	subjectModuleId='" . $this->subjectModuleId . "'";
 		//configuramos la consulta con la cadena de actualizacion
 		$this->Util()->DB()->setQuery($sql);
@@ -378,8 +387,8 @@ class Module extends Course
 			//si el resultado es cero, no se pudo insertar el nuevo registro...se regresara false
 			$result = false;
 			$this->Util()->setError(90010, 'error');
-		}  
-		 
+		}
+
 		$sql = "INSERT INTO
 						topic
 						( 

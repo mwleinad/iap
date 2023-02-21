@@ -1,6 +1,6 @@
 
 
-<form id="editPersonalForm" name="editPersonalForm" method="post" action="{$WEB_ROOT}/personal1" enctype="multipart/form-data">
+<form class="form" id="editPersonalForm" name="editPersonalForm" method="post" action="{$WEB_ROOT}/personal1" enctype="multipart/form-data">
     <input type="hidden" id="type" name="type" value="saveEditPersonal"/>
     <input type="hidden" id="id" name="id" value="{$info.personalId}" />
     <input type="hidden" id="list_roles" name="list_roles" value="" />
@@ -17,7 +17,7 @@
         <div class="form-group col-md-6">
             <label for="positionId">Puesto:</label>
             <select name="positionId" id="positionId" class="form-control" placeholder="Seleccione">
-                <option value="">Seleccione</option>
+                <option value="0">Seleccione</option>
                 {include file="{$DOC_ROOT}/templates/lists/enum-position.tpl"}
             </select>
         </div>
@@ -75,10 +75,17 @@
             <label for="username">Usuario:</label>
             <input type="text" name="username" id="username" class="form-control" placeholder="Usuario" value="{$info.username}"/>
         </div>
-        <div class="form-group col-md-6">
+        <div class="col-md-6">
             <label for="passwd">Contraseña:</label>
-            <input type="password" name="passwd" id="passwd" class="form-control" placeholder="Contraseña" value="{$info.passwd}"  />
-        </div>
+            <div class="input-group mb-3"> 
+                <input type="password" name="passwd" id="passwd" class="form-control" placeholder="Contraseña" value="{$info.passwd}"  />
+                <div class="input-group-append">
+                    <button type="button" class="input-group-text showpass">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+        </div> 
     </div>
     <div class="row">
         <div class="form-group col-md-6">
@@ -153,6 +160,19 @@
 
         flatpickr('.i-calendar', {
             dateFormat: "d-m-Y"
+        });
+
+        $(".showpass").on("click",function(){
+            let inputPass = $("#passwd");
+            if(inputPass.hasClass("show")){
+                inputPass.attr("type", "password");
+                inputPass.removeClass("show");  
+                $(this).html("<i class='fa fa-eye'></i>");          
+            }else{
+                inputPass.attr("type", "text");
+                inputPass.addClass("show");
+                $(this).html("<i class='fa fa-eye-slash'></i>");  
+            }
         });
     });
 </script>

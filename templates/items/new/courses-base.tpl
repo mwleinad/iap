@@ -5,7 +5,7 @@
 			{if $User.type ne 'Docente'}
 				<td class="id text-center">{$subject.courseId}</td>
 			{/if}			
-			<td class="text-center">{$subject.clave}</td>
+			<td class="text-center">{$subject.rvoe}</td>
 			<td class="text-center">{$subject.majorName}</td>
 			<td class="text-center break-line">{$subject.name}</td>
 			<td class="text-center">{$subject.group}</td>

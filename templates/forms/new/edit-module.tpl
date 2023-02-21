@@ -2,7 +2,9 @@
     <input type="hidden" id="subjectModuleId" name="subjectModuleId" value="{$post.subjectModuleId}"/>
     <input type="hidden" id="subjectId" name="subjectId" value="{$post.subjectId}"/>
     <input type="hidden" id="curso" name="curso" value="{$curso}">
-    
+    {if $urlBack}
+        <input type="hidden" value="{$urlBack}" name="urlBack">
+    {/if}
     <div class="row">
         <div class="form-group col-md-4">
             <label for="frmName">Nombre:</label>
@@ -12,9 +14,13 @@
             <label for="frmClave">Clave:</label>
             <input type="text" name="frmClave" id="frmClave" class="form-control"  value="{$post.clave}" {if $docente} readonly="readonly"{/if} />
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-2">
             <label for="semesterId">Cuatrimestre/Semestre:</label>
             <input type="text" name="semesterId" id="semesterId" class="form-control" value="{$post.semesterId}" {if $docente} readonly="readonly"{/if} />
+        </div>
+        <div class="form-group col-md-2">
+            <label for="creditos">Créditos</label>
+            <input type="text" name="creditos" id="creditos" class="form-control" value="{$post.credits}" {if $docente} readonly="readonly"{/if} />
         </div>
     </div>
 
@@ -91,53 +97,21 @@
     <div class="row">
         <div class="form-group col-md-12 text-center">
             <button type="submit" class="btn btn-success">Guardar</button>
-            <a href="{$url}" class="btn btn-danger">Regresar</a>
+            <a href="{if $urlBack} {$urlBack} {else} {$url} {/if}" class="btn btn-danger">Regresar</a>
         </div>
     </div>
-</form>
+</form> 
 
-{*<div class="card mb-4">
-    <div class="card-header bg-primary text-white">
-        <i class="fas fa-clipboard-list"></i> .:: Actividades ::.
-        <a href="{$WEB_ROOT}/graybox.php?page=add-activity-c&id={$courseModuleId}&auxTpl=admin" class="btn btn-info float-right" data-target="#ajax" data-toggle="modal">
-            <i class="fas fa-plus"></i> Agregar Actividad
-        </a>
-    </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-12">
-                <h4>Ponderación Total del Modulo: <b>{$totalPonderation}%</b></h4>
-                {if $totalPonderation < 100}
-                    <div class="alert alert-danger" role="alert">
-                        La suma de las ponderaciones de las actividades es menor a 100%. Se recomienda que sea 100%
-                    </div>
-                {/if}
-                {if $totalPonderation > 100}
-                    <div class="alert alert-danger" role="alert">
-                        La suma de las ponderaciones de las actividades es mayor a 100%. Se recomienda que sea 100%
-                    </div>
-                {/if}
-            </div>
-        </div>
-
-        <div id="tblContent-activities" class="table-responsive">
-            {include file="lists/new/activities.tpl"}
-        </div>
-    </div>
-</div>
-
-<div class="card mb-4">
-    <div class="card-header bg-primary text-white">
-        <i class="far fa-folder-open"></i> .:: Recursos de Apoyo ::.
-        <a href="{$WEB_ROOT}/graybox.php?page=add-resource-c&id={$courseModuleId}&auxTpl=admin&cId={$myModule.courseModuleId}" class="btn btn-info float-right" data-target="#ajax" data-toggle="modal">
-            <i class="fas fa-plus"></i> Agregar Recurso de Apoyo
-        </a>
-    </div>
-    <div class="card-body">
-        <div id="tblContentResources" class="table-responsive">
-            {include file="lists/new/resources.tpl"}
-        </div>
-    </div>
-</div>*}
-
- 
+<script type="text/javascript">
+$(function() {
+    $('textarea').each(function () {
+        new Jodit(this, {
+            language: "es",
+            toolbarButtonSize: "small",
+            autofocus: true,
+            toolbarAdaptive: false
+        });
+        console.log("Activado");
+    });
+});
+</script>

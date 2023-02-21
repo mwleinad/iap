@@ -21,16 +21,19 @@
 		$module->setEvaluation($_POST['evaluation']);
 		$module->setBibliography($_POST['bibliography']);
 		$module->setSemesterId($_POST['semesterId']);
-		
+		$module->setCreditos($_POST['creditos']);
 		$module->Update();
+		$url = WEB_ROOT . "/edit-modules-course/id/{$_POST['curso']}";
+		if($_POST['urlBack']){
+			$url = $_POST['urlBack'];
+		}
 		echo json_encode([
 			'growl'		=>true, 
 			'type'		=>'success',
 			'message'	=>'Cambios actualizados',
 			'duracion'	=>3000,
-			'location'	=>WEB_ROOT . "/edit-modules-course/id/{$_POST['curso']}"
-		]);
-		// header("Location:" . WEB_ROOT . "/edit-modules-course/id/{$_POST['curso']}");
+			'location'	=>$url
+		]); 
 		exit;
 	}
 
@@ -64,6 +67,7 @@
 	$smarty->assign('courseModuleId',$_GET['id']);
 	$smarty->assign('configMateria','si');
 	$smarty->assign('curso', $_GET['course']);
-	$smarty->assign('url', WEB_ROOT . "/edit-modules-course/id/{$_GET['course']}")
+	$smarty->assign('urlBack', $_GET['urlBack']);
+	$smarty->assign('url', WEB_ROOT . "/edit-modules-course/id/{$_GET['course']}");
 	//$smarty->assign('major',$major->Enumerate());	
 ?>

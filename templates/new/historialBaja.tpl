@@ -13,7 +13,7 @@
                 <div class="col-12">
                     <div class="row align-items-center" style="padding: 5px; background-color: #73b760; font-size: 20px; color: white; border-radius:20px 20px 0 0;">
                         <div class="col-6 text-center">Materia</div>
-                        <div class="col-2 text-center">Calificación acumulada</div>
+                        <div class="col-2 text-center">Calificación Acumulada</div>
                         <div class="col-2 text-center">Calificación Final</div>
                         <div class="col-2 text-center">Descripción</div> 
                     </div>

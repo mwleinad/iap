@@ -2,17 +2,25 @@
 
 $message[1]["subject"] = "Estas oficialmente pre-inscrito al Programa de Alta Dirección del Instituto de Administración Pública del Estado de Chiapas";
 $message[1]["body"] = "
-	Bienvenido al Programa de Alta Dirección del Instituto de Administración Pública del Estado de Chiapas. Estamos muy agradecidos que nos hayas elegido.
-	
+	¡Bienvenido/a a nuestro programa de estudios! 
+
+	Estamos muy contentos de tenerte como estudiante en nuestro programa y esperamos que esta experiencia sea enriquecedora y satisfactoria para ti. Queremos que sepas que estamos comprometidos a brindarte el mejor servicio y apoyo para que puedas alcanzar tus metas académicas.
+
+	En este programa tendrás acceso a recursos y herramientas que te ayudarán a desarrollar tus habilidades y conocimientos, así como a una comunidad de compañeros y profesores dispuestos a ayudarte en todo lo que necesites. No dudes en comunicarte con nosotros si tienes preguntas o inquietudes sobre el programa.
+
 	El(la) |major| de tu elección es:
 	<b>|course|</b>
 	
-	Tu datos para ingresar al sistema son los siguientes
+	Tus datos para ingresar al sistema son los siguientes
+	https://app.iapchiapas.edu.mx/
+
 	<b>Usuario:</b> |email|
 	<b>Contrase&ntilde;a del Sistema:</b>	|password|
 	
 	Tu solicitud de pre-inscripción está siendo revisada por nuestro personal, por lo que en breve recibirás un correo con la confirmación de tu inscripción, esto te dará acceso total a la currícula elegida
 
+	¡Te deseamos éxito en tu camino de aprendizaje!
+	
 	Nota:
 	Ingresa al Sistema de Educación en Línea para completar tus datos y generar la cédula de inscripción.
 	
