@@ -16,8 +16,9 @@
 		if (empty($_POST['description'])) {
 			$errors["description"] = "El campo descripcion es requerido.";
 		}
-		if(empty($_POST['ponderation'])){
-			$errors["ponderation"] = "El campo ponderación es requerido.";
+		if(empty($_POST['ponderation']) || $_POST['ponderation'] < 0){
+			$_POST['ponderation'] = 0;
+			// $errors["ponderation"] = "El campo ponderación es requerido.";
 		}
 
 		if (!empty($errors)) {

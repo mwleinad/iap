@@ -891,4 +891,27 @@ class Forum extends Main
 		$id = $this->Util()->DB()->GetSingle();
 		return $id;
 	}
+
+	/**
+	 * Obtiene la información del foro por el id de la actividad
+	 */
+	public function getTopicActivity()
+	{
+		$sql = "SELECT * FROM topicsub WHERE activityId = '{$this->actividadId}'"; 
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetRow();
+		return $result;
+	}
+
+	public function cantidadComentarios()
+	{
+		$sql = "SELECT COUNT(*) as cantidad FROM `reply` WHERE topicId = '{$this->topicsubId}' AND userId = '{$this->userId}' AND (content <> '' OR path <> '') AND son = 0 ";
+		$this->Util()->DB()->setQuery($sql);
+		$result['aportaciones'] = $this->Util()->DB()->GetSingle();
+
+		$sql = "SELECT COUNT(*) as cantidad FROM `reply` WHERE topicId = '{$this->topicsubId}' AND userId = '{$this->userId}' AND (content <> '' OR path <> '') AND son <> 0 ";
+		$this->Util()->DB()->setQuery($sql);
+		$result['comentarios'] = $this->Util()->DB()->GetSingle();
+		return $result;
+	}
 }

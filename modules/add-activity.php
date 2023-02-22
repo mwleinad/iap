@@ -19,8 +19,9 @@
 		if ($_POST['descripcionValida'] == "false") {
 			$errors["description"] = "Solo se permiten 2500 caracteres máximo";
 		}
-		if(empty($_POST['ponderation'])){
-			$errors["ponderation"] = "El campo ponderación es requerido.";
+		if(empty($_POST['ponderation']) || $_POST['ponderation'] < 0){
+			$_POST['ponderation'] = 0;
+			// $errors["ponderation"] = "El campo ponderación es requerido.";
 		}
 		if (!empty($errors)) {
 			header('HTTP/1.1 422 Unprocessable Entity');
@@ -54,9 +55,9 @@
 		$forum->setActividadId($actidadCreada);
 		$foroDiscucion = $forum->foroDiscusion();
 		$forum->setTopicId($foroDiscucion);
-		$respuesta = $forum->AddTopic();
+		$forum->AddTopic();
 
-		$mensaje = $_POST == "Foro" ? "Actividad y foro creados" : "Actividad creada";
+		$mensaje = $_POST['activityType'] == "Foro" ? "Actividad y foro creados" : "Actividad creada";
 		if($_POST["auxTpl"]=="admin"){
 			echo json_encode([
 				'growl'		=>true,
@@ -64,7 +65,6 @@
 				'type'		=>'success',
 				'duracion'	=>3000,
 				'reload'	=>true, 
-				'respuesta'	=>$respuesta
 			]);
 			// header("Location:".WEB_ROOT."/edit-modules-course/id/".$_POST["id"]."");
 			exit;
