@@ -43,15 +43,7 @@
                                                     <h5 class="card-title"><b>Fecha Fin:</b> {$subject.finalDate|date_format:"%d-%m-%Y"}</h5>
                                                     <p class="card-text">
                                                         <b>Calificación Parcial:</b> <span class="badge {if $subject.totalScore < $minCal} badge-danger {else} badge-success {/if} rounded-circle">
-                                                            {if $subject.isEnglish eq 1}
-                                                                {if $subject.totalScore < $minCal}
-                                                                    No Aprobado
-                                                                {else}
-                                                                    Aprobado
-                                                                {/if}
-                                                            {else}
-                                                                {$subject.totalScore}   
-                                                            {/if}
+                                                           {$subject.totalScore} 
                                                         </span><br />
                                                         {if ($subject.finalDateStamp > 0) AND ($timestamp > $subject.finalDateStamp)}
                                                             <b>Calificación Final:</b> 

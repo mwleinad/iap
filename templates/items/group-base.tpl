@@ -24,15 +24,7 @@
 			</td> 
 		{/section}
         <td class="text-center">
-			{if $isEnglish eq true}
-				{if floatval($item.addepUp) ge floatval($minCal)}
-					Aprobado
-				{else}
-					No Aprobado
-				{/if}
-			{else}
-				{$item.addepUp}%
-			{/if}
+			{$item.addepUp}%
 		</td>
     </tr>
 {foreachelse}
