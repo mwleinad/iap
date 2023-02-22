@@ -1410,7 +1410,7 @@ class Course extends Subject
 						DISTINCT(subject.subjectId), 
 						major.name AS majorName, 
 						subject.name AS name,
-						IF(subject.subjectId = 53, "2023", "") as rvoe
+						IF(subject.subjectId IN(53,54), "2023", "") as rvoe
 						FROM course
 					LEFT JOIN subject 
 						ON course.subjectId = subject.subjectId 
