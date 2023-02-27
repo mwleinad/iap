@@ -524,6 +524,7 @@ class Group extends Module
 				WHERE courseId = '" . $this->getCourseId() . "' AND user_subject.status = 'inactivo'
 				ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
 		$this->Util()->DB()->setQuery($sql);
+		// echo $sql;
 		$result = $this->Util()->DB()->GetResult();
 		$student = new Student();
 		foreach($result as $fila)
@@ -616,7 +617,11 @@ class Group extends Module
 			$this->Util()->DB()->setQuery($sql);
 			$result[$key]["equipo"] = $this->Util()->DB()->GetSingle();
 			
-			$result[$key]{"addepUp"} = 0;
+			$sql = "SELECT *, SUM(IF(type = 'alta', 1, 0)) as altas, SUM(IF(type = 'baja', 1, 0)) as bajas, 'revisar' FROM `academic_history` WHERE userId = {$res['alumnoId']}  GROUP BY userId, courseId HAVING altas > 1 OR bajas > 1;";
+			$this->Util()->DB()->setQuery($sql);
+			$result[$key]["historial"] = $this->Util()->DB()->GetRow();
+
+			$result[$key]["addepUp"] = 0;
 			foreach($actividades as $activity)
 			{
 				if($activity["score"] <= 0)
@@ -629,12 +634,12 @@ class Group extends Module
 				$this->Util()->DB()->setQuery($sql);
 				$score = $this->Util()->DB()->GetSingle();
 
-				$result[$key]{"score"}[] = $score;
+				$result[$key]["score"][] = $score;
 				$realScore = $score * $activity["score"] / 100;
-				$result[$key]{"realScore"}[] = $realScore;
-				$result[$key]{"addepUp"} += $realScore;
+				$result[$key]["realScore"][] = $realScore;
+				$result[$key]["addepUp"] += $realScore;
 			}
-			$result[$key]{"addepUp"} = round($result[$key]{"addepUp"}, 0, PHP_ROUND_HALF_DOWN);;
+			$result[$key]["addepUp"] = round($result[$key]["addepUp"], 0, PHP_ROUND_HALF_DOWN);;
 		}
 		return $result;
 	}
