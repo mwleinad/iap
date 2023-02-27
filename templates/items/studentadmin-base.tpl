@@ -1,6 +1,6 @@
 {foreach from=$students item=item key=key}
     <tr class="text-center">
-        <td>{$item.lastNamePaterno|upper}</td>
+        <td>{if $item.historial['revisar']} <i class="fa fa-exclamation-triangle text-danger" data-toggle="tooltip" data-placement="top" title="Existe un problema con el historial del alumno"></i> {/if} {$item.lastNamePaterno|upper}</td>
         <td>{$item.lastNameMaterno|upper}</td>
         <td>{$item.names|upper}</td>
         <td>{$item.controlNumber}</td>
@@ -30,4 +30,4 @@
     <tr>
         <td colspan="7" class="text-center">No se encontró ningún registro.</td>
     </tr>
-{/foreach}
+{/foreach} 

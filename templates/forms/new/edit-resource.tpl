@@ -3,10 +3,14 @@
 	<input type="hidden" id="auxTpl" name="auxTpl" value="{$auxTpl}" />
 	<input type="hidden" id="cId" name="cId" value="{$cId}" />
     <div class="row">
-        <div class="form-group col-md-12">
+        <div class="form-group col-md-8">
             <label for="name">Nombre:</label>
             <input type="text" name="name" id="name" value="{$resource.name}" class="form-control" />
         </div>
+        <div class="form-group col-4">
+            <label for="semena">Semana de utilización</label>
+            <input type="number" class="form-control" id="semana" name="semana" value="{$resource.semana}" />
+        </div> 
     </div>
     <div class="row">
         <div class="form-group col-md-12">

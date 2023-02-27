@@ -45,14 +45,19 @@
 				{/if} 
 			</td>
 			<td class="text-center">
-				{if !$docente}
-					<span class="pointer spanActive badge badge-success rounded-circle" onclick="VerGrupoAdmin({$subject.courseId});" title="Alumnos" id="{$subject.courseId}">{$subject.alumnActive}</span>
+				{if !$docente} 
+					<form class="form d-inline" action="{$WEB_ROOT}/ajax/new/studentCurricula.php" method="POST" id="activeStudent{$subject.courseId}">
+						<input type="hidden" name="type" value="StudentAdmin">
+						<input type="hidden" name="id" value="{$subject.courseId}">
+						<input type="hidden" name="tip" value="Activo">
+						<button type="submit" class="pointer spanActive badge badge-success rounded-circle" data-target="#ajax" data-toggle="modal" title="Alumnos Activos">{$subject.alumnActive}</button>
+					</form> 
 					/
 					<form class="form d-inline" action="{$WEB_ROOT}/ajax/new/studentCurricula.php" method="POST" id="inactiveStudent{$subject.courseId}">
 						<input type="hidden" name="type" value="StudentInactivoAdmin">
 						<input type="hidden" name="id" value="{$subject.courseId}">
 						<input type="hidden" name="tip" value="Inactivo">
-						<button type="submit" class="pointer spanInactive badge badge-danger rounded-circle" data-target="#ajax" data-toggle="modal">{$subject.alumnInactive}</button>
+						<button type="submit" class="pointer spanInactive badge badge-danger rounded-circle" data-target="#ajax" data-toggle="modal" title="Alumnos Inactivos">{$subject.alumnInactive}</button>
 					</form>
 				{else}
 					<span class="badge badge-success rounded-circle">{$subject.alumnActive}</span> / <span class="badge badge-danger rounded-circle">{$subject.alumnInactive}</span>

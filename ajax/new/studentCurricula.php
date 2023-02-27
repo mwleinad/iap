@@ -44,8 +44,10 @@ switch ($_POST["type"]) {
 		$smarty->assign("tip", $_POST['tip']);
 		$smarty->assign("DOC_ROOT", DOC_ROOT);
 		$smarty->assign("students", $students);
-		$smarty->display(DOC_ROOT . '/templates/boxes/view-studentadmin.tpl');
-
+		echo json_encode([
+			'modal'	=> true,
+			'html'	=> $smarty->fetch(DOC_ROOT . '/templates/boxes/view-studentadmin.tpl')
+		]);
 		break;
 
 	case "calificaciones":
@@ -314,6 +316,7 @@ switch ($_POST["type"]) {
 		$smarty->assign("courseId", $_POST['id']);
 		$smarty->assign("DOC_ROOT", DOC_ROOT);
 		$smarty->assign("students", $students);
+		print_r($students);
 		echo json_encode([
 			'modal'	=> true,
 			'html'	=> $smarty->fetch(DOC_ROOT . '/templates/boxes/view-studentadmin.tpl')

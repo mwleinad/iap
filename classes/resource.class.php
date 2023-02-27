@@ -124,7 +124,8 @@ class Resource extends Module
 					resource
 					SET
 						name = '" . utf8_decode($this->getName()) . "',
-						description = '" . utf8_decode($this->getDescription()) . "'
+						description = '" . utf8_decode($this->getDescription()) . "',
+						semana = '{$this->semana}'
 					WHERE resourceId = '" . $this->resourceId . "'";
 		//configuramos la consulta con la cadena de insercion
 		$this->Util()->DB()->setQuery($sql);

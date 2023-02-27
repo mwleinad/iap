@@ -8,6 +8,7 @@
 		$resource->setResourceId($_GET["id"]);
 		$resource->setName($_POST["name"]);
 		$resource->setDescription($_POST["description"]);
+		$resource->setSemana($_POST['semana']);
 		$resource->Edit();
 		
 		if($_POST["auxTpl"] == "admin"){

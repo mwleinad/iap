@@ -25,9 +25,6 @@ $( document ).ready(function() {
         ev.preventDefault();
         var form = $(this);
         var data = new FormData(document.getElementById(form.attr('id')));
-        // console.log(data);
-        // console.log(form);
-        // console.log(document.getElementById(form.attr('id')));
         var btnSubmit = form.find("button[type='submit'], input[type='submit']");
         $.ajax({
             type: "POST",
