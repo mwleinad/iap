@@ -519,29 +519,21 @@ class Group extends Module
 	{
 		$sql = "SELECT *, user_subject.status AS status 
 					FROM user_subject
-						LEFT JOIN user 
+						INNER JOIN user 
 							ON user_subject.alumnoId = user.userId
 				WHERE courseId = '" . $this->getCourseId() . "' AND user_subject.status = 'inactivo'
 				ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
 		$this->Util()->DB()->setQuery($sql);
 		// echo $sql;
 		$result = $this->Util()->DB()->GetResult();
-		$student = new Student();
-		foreach($result as $fila)
+		
+		foreach($result as $key => $fila)
 		{
-			$x = 0;
-			$alumnos = $student->EnumerateTotal();
-			foreach($alumnos as $alumno)
-			{
-				if($fila["alumnoId"] == $alumno["userId"] )
-					$x=1;
-			}
-			if($x == 0) {
-				$student->setAlumnoId($fila["alumnoId"]);
-				$student->DeleteLimpia();
-			}
-			return $result;
+			$sql = "SELECT *, SUM(IF(type = 'alta', 1, 0)) as altas, SUM(IF(type = 'baja', 1, 0)) as bajas, 'revisar' FROM `academic_history` WHERE userId = {$fila['alumnoId']}  GROUP BY userId, courseId HAVING altas > 1 OR bajas > 1;";
+			$this->Util()->DB()->setQuery($sql);
+			$result[$key]["historial"] = $this->Util()->DB()->GetRow();
 		}
+		return $result;
 	}
 		
 	public function DefaultGroup()
@@ -583,24 +575,7 @@ class Group extends Module
 				ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
-		
-		$student= new Student();
-		
-		foreach($result as $fila)
-		{
-			$x = 0;
-			$alumnos = $student->EnumerateTotal();
-			foreach($alumnos as $alumno)
-			{
-				if($fila["alumnoId"] == $alumno["userId"])
-					$x = 1;
-			}
-			if($x==0)
-			{
-				$student->setAlumnoId($fila["alumnoId"]);
-				$student->DeleteLimpia();
-			}
-		}
+		 
 		
 		foreach($result as $key => $res)
 		{

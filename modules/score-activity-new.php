@@ -3,13 +3,9 @@
 	/* For Session Control - Don't remove this */
 	$user->allow_access(37);	
 
-//	print_r($_SESSION); EXIT;
+	//	print_r($_SESSION); EXIT;
 	if($_POST)
 	{
-	
-		// echo "<pre>"; print_r($_POST);
-		// echo "<pre>"; print_r($_FILES);
-		// exit;
   	    $activity->setActivityId($_GET["id"]);
 		$actividad = $activity->Info();
 		$group->setCourseModuleId($actividad["courseModuleId"]);
@@ -19,9 +15,7 @@
 			header("Location:".WEB_ROOT."/edit-modules-course/id/". $_POST["cId"]."");
 			exit;
 		}
-	 
-	 }
-	// echo "<pre>";
+	}
 	$activity->setActivityId($_GET["id"]);
 	$actividad = $activity->Info();
 	$smarty->assign('actividad', $actividad);
