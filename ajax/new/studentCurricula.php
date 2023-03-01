@@ -1,14 +1,14 @@
 <?php
-// echo 'lled';
-// echo '<pre>'; print_r($_GET);
-// echo '<pre>'; print_r($_POST);
-// exit;
+
 include_once('../../init.php');
 include_once('../../config.php');
 include_once(DOC_ROOT . '/libraries.php');
 
 session_start();
-
+// echo 'lled';
+// echo '<pre>'; print_r($_SESSION['User']);
+// echo '<pre>'; print_r($_POST);
+// exit;
 switch ($_POST["type"]) {
 	case "Student":
 
@@ -37,13 +37,13 @@ switch ($_POST["type"]) {
 		break;
 
 	case "StudentAdmin":
-
 		$group->setCourseId($_POST['id']);
 		$students = $group->DefaultGroup();
 		$smarty->assign("courseId", $_POST['id']);
 		$smarty->assign("tip", $_POST['tip']);
 		$smarty->assign("DOC_ROOT", DOC_ROOT);
 		$smarty->assign("students", $students);
+		$smarty->assign("User",$_SESSION['User']);
 		echo json_encode([
 			'modal'	=> true,
 			'html'	=> $smarty->fetch(DOC_ROOT . '/templates/boxes/view-studentadmin.tpl')
@@ -729,6 +729,20 @@ switch ($_POST["type"]) {
 		echo json_encode([
 			'modal'	=> true,
 			'html'	=> $smarty->fetch(DOC_ROOT . "/templates/new/historialBaja.tpl")
+		]);
+		break;
+	case "cambiarCorreos": //Modifica los correos personales por correos institucionales
+		$group->setCourseId($_POST['curso']);
+		$students = $group->DefaultGroup();
+		foreach ($students as $item) {
+			$student->setUserId($item['userId']);
+			$student->setEmail($item['controlNumber']."@iapchiapas.edu.mx");
+			$respuesta = $student->cambiarCorreos();
+		}
+		echo json_encode([
+			'modal_close'	=>true,
+			'message'		=>'Correos cambiados',
+			'growl'			=>true
 		]);
 		break;
 }

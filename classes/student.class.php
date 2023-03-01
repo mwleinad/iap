@@ -3246,4 +3246,11 @@ class Student extends User
 		$curso = $this->Util()->DB()->GetSingle();
 		return $curso;
 	}
+
+	public function cambiarCorreos()
+	{
+		$sql = "UPDATE user SET email = '{$this->email}' WHERE userId = {$this->userId} ";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->ExecuteQuery();
+	}
 }

@@ -90,6 +90,10 @@ function actionPostAjax(form, response){
     if (response.modal_close) {
         $(".bootbox-close-button").click();
         $("#ajax").modal('hide');
+        if ($('.modal-backdrop').is(':visible')) {
+            $('body').removeClass('modal-open'); 
+            $('.modal-backdrop').remove(); 
+        };
     }
     if (response.html) {
         if (response.modal) { 

@@ -29,7 +29,7 @@
                     <i class="fas fa-folder-open fa-3x text-warning"></i>
                 </a>
             {/if}
-            <input type="file" name="fileRetro_{$item.teamNumber}" id="fileRetro_{$item.teamNumber}" onChange="upFile({$item.teamNumber})">
+            <input type="file" name="fileRetro_{$item.teamNumber}" id="fileRetro_{$item.teamNumber}">
         </div>
     </td>
 </tr>
