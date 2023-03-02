@@ -40,7 +40,7 @@
 		$baja = $student->bajaCurso($curso['courseId']);
 		$alta = $student->periodoAltaCurso($curso['courseId']);
 		$calificacionMinima = $infoCourse['majorName'] == "MAESTRÍA" ? 7 : 8;
-		$curso[$key]['calificacionMinima'] = $calificacionMinima;
+		$cursos[$key]['calificacionMinima'] = $calificacionMinima; 
 		$cursos[$key]['status']	= 'inactivo';
 		if($baja == ""){
 			$baja = $infoCourse['totalPeriods']; 
@@ -61,12 +61,14 @@
 						'subjectModuleId' => $item['subjectModuleId'],
 						'name' => $qualifications_repeat[$item['subjectModuleId']]['name'],
 						'score' => $qualifications_repeat[$item['subjectModuleId']]['score'],
+						'addepUp' => $qualifications_repeat[$item['subjectModuleId']]['addepUp'],
 						'comments' => 'REC.'
 					];
 				} else {
 					$qualifications[$period][] = [
 						'subjectModuleId' => $item['subjectModuleId'],
 						'name' => $item['name'],
+						'addepUp' => $item['addepUp'],						
 						'score' => $item['score'],
 						'comments' => ''
 					];
