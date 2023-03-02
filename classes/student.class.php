@@ -23,6 +23,8 @@ class Student extends User
 	private $repite;
 	private $documentoId;
 	private $tipoMajor;
+	private $tipo_beca;
+	private $por_beca;
 
 	public function setAnterior($value)
 	{
