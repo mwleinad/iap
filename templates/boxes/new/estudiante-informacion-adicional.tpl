@@ -39,7 +39,7 @@
                                         <div class="row">
                                             <h3 class="w-100">{$curso.tipoCuatri} {$key}</h3>    
                                             <div class="col-12">
-                                                <div class="row" style=" padding: 20px; background-color: #73b760; font-size: 20px; color: white; border-radius:20px;">
+                                                <div class="row" style=" padding: 20px; background-color: {if $calificaciones@last} #ef5372; {else} #73b760; {/if} font-size: 20px; color: white; border-radius:20px;">
                                                     <div class="col-6 text-center">Materia</div>
                                                     <div class="col-3 text-center">Calificación</div>
                                                     <div class="col-3 text-center">Descripción</div> 
@@ -49,7 +49,15 @@
                                                 <div class="row" style=" padding: 20px; font-size: 18px;">
                                                 {foreach from=$calificaciones item=calificacion}
                                                     <div class="col-6 text-center">{$calificacion.name}</div>
-                                                    <div class="col-3 text-center">{$calificacion.score}</div>
+                                                    <div class="col-3 text-center">
+                                                        {if $calificacion.score < $calificacionMinima && $calificacion.score != 0}
+                                                            <span class="text-danger">{$calificacionMinima-1}</span>
+                                                        {elseif $calificacion.score == 0}
+                                                            <span class="text-danger">NP</span>
+                                                        {else}
+                                                            {$calificacion.score}                        
+                                                        {/if}
+                                                    </div>
                                                     <div class="col-3 text-center">{$calificacion.comments}</div>
                                                 {/foreach} 
                                                 </div>

@@ -39,6 +39,8 @@
 		$calendar->setCourseId($curso['courseId']);
 		$baja = $student->bajaCurso($curso['courseId']);
 		$alta = $student->periodoAltaCurso($curso['courseId']);
+		$calificacionMinima = $infoCourse['majorName'] == "MAESTRÍA" ? 7 : 8;
+		$curso[$key]['calificacionMinima'] = $calificacionMinima;
 		$cursos[$key]['status']	= 'inactivo';
 		if($baja == ""){
 			$baja = $infoCourse['totalPeriods']; 
