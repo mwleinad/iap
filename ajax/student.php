@@ -208,12 +208,8 @@ switch ($_POST["type"]) {
 			echo $ids = implode(",", $ids);
 		}
 		break;
-	case "saveAddStudentRegister":
-
-
-
-		$status = $_POST['status'];
-
+	case "saveAddStudentRegister": 
+		$status = $_POST['status']; 
 		// Información Personal
 		$student->setPermiso($_POST['permiso']);
 		$student->setControlNumber();
@@ -233,15 +229,12 @@ switch ($_POST["type"]) {
 		$student->setWorkplacePosition($_POST['workplacePosition']);
 		$student->setPaisT($_POST['paist']);
 		$student->setEstadoT($_POST['estadot']);
-		$student->setCiudadT($_POST['ciudadt']);
-
+		$student->setCiudadT($_POST['ciudadt']); 
 		// Estudios
-		$student->setAcademicDegree($_POST['academicDegree']);
-
+		$student->setAcademicDegree($_POST['academicDegree']); 
 
 		if (!$student->Save("createCurricula")) {
 			echo "fail[#]";
-
 			$smarty->display(DOC_ROOT . '/templates/boxes/status.tpl');
 		} else {
 			echo "ok[#]";

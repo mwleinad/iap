@@ -39,7 +39,7 @@
                                         <div class="row">
                                             <h3 class="w-100">{$curso.tipoCuatri} {$key}</h3>    
                                             <div class="col-12">
-                                                <div class="row" style=" padding: 20px 0; background-color: {if $calificaciones@last} #ef5372; {else} #73b760; {/if} font-size: 20px; color: white; border-radius:20px;">
+                                                <div class="row" style=" padding: 20px 0; background-color: {if $calificaciones@last &&  $curso.status == "inactivo"} #ef5372; {else} #73b760; {/if} font-size: 20px; color: white; border-radius:20px;">
                                                     <div class="col-6 text-center">Materia</div>
                                                     <div class="col-2 text-center">Calificación Acumulada</div>
                                                     <div class="col-2 text-center">Calificación Final</div>

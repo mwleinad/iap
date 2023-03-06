@@ -8,7 +8,7 @@
 	// echo "<pre>";
 	$total_modules = 0;
 	$cursos = $student->StudentCourses(); 
-	$primerCurso = $student->primerCurso();
+	$primerCurso = $student->primerCurso(); //Obtiene el primer curso si es un temporal.
     $infoStudent = $student->GetInfo(); 
 	$position = [
 		1 => 'PRIMER',

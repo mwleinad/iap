@@ -53,11 +53,13 @@
 		$forum->setCourseId($infoModulo['courseId']);
 		$forum->setUserId($User['userId']);
 		$forum->setActividadId($actidadCreada);
-		$foroDiscucion = $forum->foroDiscusion();
-		$forum->setTopicId($foroDiscucion);
-		$forum->AddTopic();
-
-		$mensaje = $_POST['activityType'] == "Foro" ? "Actividad y foro creados" : "Actividad creada";
+		$mensaje = "Actividad creada";
+		if($_POST['activityType'] == "Foro"){
+			$foroDiscucion = $forum->foroDiscusion();
+			$forum->setTopicId($foroDiscucion);
+			$forum->AddTopic();
+			$mensaje = "Actividad y foro creados";
+		}
 		if($_POST["auxTpl"]=="admin"){
 			echo json_encode([
 				'growl'		=>true,

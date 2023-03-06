@@ -153,17 +153,30 @@ class Student extends User
 
 	public function AddAcademicHistory($type, $situation, $semesterId = 1)
 	{
+		$alta = true;
 		if ($type == 'alta') {
 			$sql = "SELECT IF(semesterId = 0, 1, semesterId) as semesterId 
 						FROM academic_history 
-					WHERE subjectId = " . $this->subjectId . " AND userId = " . $this->userId . "
-					ORDER BY academicHistoryId DESC LIMIT 1";
+					WHERE subjectId = " . $this->subjectId . " AND userId = " . $this->userId . " AND courseId = " . $this->courseId . " LIMIT 1";
 			$this->Util()->DB()->setQuery($sql);
 			$semesterId = intval($this->Util()->DB()->GetSingle());
+			if($semesterId > 0){
+				$alta = false;
+			}else{
+				$sql = "SELECT IF(semesterId = 0, 1, semesterId) as semesterId 
+							FROM academic_history 
+						WHERE subjectId = " . $this->subjectId . " AND userId = " . $this->userId . "
+						ORDER BY academicHistoryId DESC LIMIT 1";
+				$this->Util()->DB()->setQuery($sql);
+				$semesterId = $this->Util()->DB()->GetSingle();
+				$semesterId = $semesterId == 0 ? 1 : $semesterId;
+			}
 		}
-		$sql = "INSERT INTO academic_history(subjectId, courseId, userId, semesterId, dateHistory, type, situation) VALUES(" . $this->subjectId . ", " . $this->courseId . ", " . $this->userId . ", " . $semesterId . ", CURDATE(), '" . $type . "', '" . $situation . "')";
-		$this->Util()->DB()->setQuery($sql);
-		$this->Util()->DB()->InsertData();
+		if ($alta) {
+			$sql = "INSERT INTO academic_history(subjectId, courseId, userId, semesterId, dateHistory, type, situation) VALUES(" . $this->subjectId . ", " . $this->courseId . ", " . $this->userId . ", " . $semesterId . ", CURDATE(), '" . $type . "', '" . $situation . "')";
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->InsertData();
+		}
 		return true;
 	}
 
@@ -794,6 +807,9 @@ class Student extends User
 
 		if ($count > 0)
 			return $complete = "Este alumno ya esta registrado en esta curricula. Favor de Seleccionar otra Curricula";
+		else {
+			
+		}
 
 		if ($temporalGroup > 0 && $registrationId > 0) {
 			// Actualiza la curricula temporal por la oficial
@@ -806,7 +822,7 @@ class Student extends User
 			$sqlQuery = "INSERT INTO user_subject(alumnoId, status, courseId, tipo_beca, por_beca, matricula) VALUES('" . $id . "', '" . $status . "', '" . $curricula . "', '" . $tipo_beca . "', '" . $por_beca . "', '" . $matricula . "')";
 			$this->Util()->DB()->setQuery($sqlQuery);
 			if ($this->Util()->DB()->InsertData())
-				$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico para continuar con el proceso de inscripcion";
+				$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electrónico para continuar con el proceso de inscripcion";
 			else
 				$complete = "no";
 		}
@@ -1162,11 +1178,11 @@ class Student extends User
 			$card = $res;
 			$sql = "SELECT user_subject.courseId, user_subject.alumnoId, user_subject.status, subject.name AS name, major.name AS majorName, subject.icon, course.group, course.modality, course.initialDate, course.finalDate, 'Ordinario' AS situation FROM user_subject LEFT JOIN course ON course.courseId = user_subject.courseId LEFT JOIN subject ON subject.subjectId = course.subjectId LEFT JOIN major ON major.majorId = subject.tipo WHERE alumnoId = '{$res['userId']}' AND status = 'activo' AND CURDATE() <= course.finalDate UNION SELECT usr.courseId, usr.alumnoId, usr.status, subject.name AS name, major.name AS majorName, subject.icon, course.group, course.modality, course.initialDate, course.finalDate, 'Recursador' AS situation FROM user_subject_repeat usr LEFT JOIN course ON course.courseId = usr.courseId LEFT JOIN subject ON subject.subjectId = course.subjectId LEFT JOIN major ON major.majorId = subject.tipo WHERE alumnoId = '{$res['userId']}' AND status = 'activo' ORDER BY status ASC";
 			$this->Util()->DB()->setQuery($sql);
-			$courseId = $this->Util()->DB()->GetResult(); 
-			if(count($courseId) == 0){
+			$courseId = $this->Util()->DB()->GetResult();
+			if (count($courseId) == 0) {
 				$sql = "SELECT courseId FROM user_subject WHERE alumnoId = " . $res["userId"] . " ORDER BY registrationId DESC LIMIT 1";
 				$this->Util()->DB()->setQuery($sql);
-				$courseId = $this->Util()->DB()->GetResult(); 
+				$courseId = $this->Util()->DB()->GetResult();
 			}
 			$card["courseId"] = $courseId;
 			$card["lastNameMaterno"] = $this->Util->DecodeTiny($card["lastNameMaterno"]);
@@ -1577,8 +1593,7 @@ class Student extends User
 
 			$sql = "SELECT COUNT(*) FROM course_module WHERE courseId ='" . $res["courseId"] . "'";
 			$this->Util()->DB()->setQuery($sql);
-			$result[$key]["courseModule"] = $this->Util()->DB()->GetSingle(); 
-			 
+			$result[$key]["courseModule"] = $this->Util()->DB()->GetSingle();
 		}
 		return $result;
 	}
@@ -2737,7 +2752,7 @@ class Student extends User
 				$this->Util()->DB()->setQuery($sqlca);
 				$score = $this->Util()->DB()->GetSingle();
 				$result[$key]{
-				"score"}[] = $score;
+					"score"}[] = $score;
 				$realScore = $score * $activity["score"] / 100;
 				$result[$key]["realScore"][] = $realScore;
 				$result[$key]["addepUp"] += $realScore;
@@ -2847,7 +2862,7 @@ class Student extends User
 				$result[$key]["realScore"][] = $realScore;
 				$result[$key]["addepUp"] += $realScore;
 			}
-			if ($infoCc["calificacion"] == null or $infoCc["calificacion"] == 0) { 
+			if ($infoCc["calificacion"] == null or $infoCc["calificacion"] == 0) {
 				$at = $result[$key]["addepUp"] / 10;
 				if ($this->tipoMajor == "MAESTRIA" and $at < 7)
 					$at = floor($at);
@@ -3220,13 +3235,13 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
 		return true;
-	}  
+	}
 
 	//Obtiene el semestre en el que se dio de baja en el curso.
 	public function bajaCurso($cursoId)
 	{
 		$sql = "SELECT semesterId FROM academic_history WHERE courseId = '{$cursoId}' AND userId = '{$this->userId}' AND type = 'baja' ORDER BY academicHistoryId DESC";
-		$this->Util()->DB()->setQuery($sql); 
+		$this->Util()->DB()->setQuery($sql);
 		$semestre = $this->Util()->DB()->GetSingle();
 		// echo $sql;
 		return $semestre;
@@ -3235,7 +3250,7 @@ class Student extends User
 	public function periodoAltaCurso($cursoId)
 	{
 		$sql = "SELECT IF(semesterId = 0, 1, semesterId) as semesterId FROM academic_history WHERE courseId = '{$cursoId}' AND userId = '{$this->userId}' AND type = 'alta' ORDER BY academicHistoryId DESC";
-		$this->Util()->DB()->setQuery($sql); 
+		$this->Util()->DB()->setQuery($sql);
 		$periodo = $this->Util()->DB()->GetSingle();
 		// echo $sql;
 		return $periodo;
