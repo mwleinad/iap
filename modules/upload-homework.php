@@ -29,10 +29,10 @@
 		//el problema ahi es que obviamente el 158 caambiara dependiendo en que curso este el alumno tons, tenemos
 		//que encontrar una forma en la que podamos obtenerlo
 		//la forma mas facil yo creo es agregando un campo nuevo en el formulario
-		// $_SESSION["exito"] = "si";
-		// $_SESSION["tareaId"] = $_GET["id"];
-		// header("Location:".WEB_ROOT."/calendar-modules-student/id/".$_POST["courseId"]);
-		// exit;
+		$_SESSION["exito"] = "si";
+		$_SESSION["tareaId"] = $_GET["id"];
+		header("Location:".WEB_ROOT."/calendar-modules-student/id/".$_POST["courseId"]);
+		exit;
 	}
 	
 	

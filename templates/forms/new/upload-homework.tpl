@@ -2,10 +2,13 @@
     <input type="hidden" name="modality" id="modality" value="{$actividad.modality}" />
     <input type="hidden" name="courseId" id="courseId" value="{$actividad.courseModuleId}" />
     <input type="hidden" id="type" name="type" value="saveAddMajor" />
-    <p class="text-justify">
-        Únicamente se puede subir un solo archivo por actividad, por lo que si necesita subir varios archivos le recomendamos los comprima en .rar y los suba por este medio.
-    </p>
-	<p class="text-justify">Solamente tendrá la opción de volver a subir su actividad en una ocasión</p>
+    <div class="text-justify alert alert-warning">
+        <p> 
+            Únicamente se puede subir un solo archivo por actividad, por lo que si necesita subir varios archivos le recomendamos los comprima en .rar y los suba por este medio.
+        </p>
+        <p class="text-justify">Solamente tendrá la opción de volver a subir su actividad en una ocasión</p>
+        <p class="text-justify">Solo se permiten archivos con un tamaño máximo de 5MB</p>
+    </div>
     {if $homework.path ne ''}
         <div class="row">
             <div class="col-md-12">
