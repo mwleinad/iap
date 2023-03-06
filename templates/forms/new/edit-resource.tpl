@@ -15,7 +15,7 @@
     <div class="row">
         <div class="form-group col-md-12">
             <label for="description">Descripcion:</label>
-            <input type="text" name="description" id="description" value="{$resource.description}" class="form-control" />
+            <textarea name="description" id="description" class="form-control" rows="20">{$resource.description}</textarea>
         </div>
     </div>
     <div class="row">

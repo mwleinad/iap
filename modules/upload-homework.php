@@ -10,12 +10,17 @@
 		$homework->setModality($_POST["modality"]);
 		$homework->setNombre($_POST["nombre"]);
 		$homework->setUserId($_SESSION["User"]["userId"]);
-		print_r($_FILES);
+		// print_r($_FILES);
 		if(empty($_FILES['path']['tmp_name'])){ 
 			$_SESSION["exito"] = "archivo_vacio"; 
 			header("Location:".WEB_ROOT."/calendar-modules-student/id/".$_POST["courseId"]);
 			exit;
 		}
+		if($_FILES['path']['size'] >= 5242880){
+			$_SESSION["exito"] = "archivo_maximo"; 
+			header("Location:".WEB_ROOT."/calendar-modules-student/id/".$_POST["courseId"]);
+			exit;
+		} 
 		$homework->Upload($_FILES["path"]);
 
 		//aqui lo que tenemos que hacer es un header location a la pagina que teniamos originalmente
@@ -24,10 +29,10 @@
 		//el problema ahi es que obviamente el 158 caambiara dependiendo en que curso este el alumno tons, tenemos
 		//que encontrar una forma en la que podamos obtenerlo
 		//la forma mas facil yo creo es agregando un campo nuevo en el formulario
-		$_SESSION["exito"] = "si";
-		$_SESSION["tareaId"] = $_GET["id"];
-		header("Location:".WEB_ROOT."/calendar-modules-student/id/".$_POST["courseId"]);
-		exit;
+		// $_SESSION["exito"] = "si";
+		// $_SESSION["tareaId"] = $_GET["id"];
+		// header("Location:".WEB_ROOT."/calendar-modules-student/id/".$_POST["courseId"]);
+		// exit;
 	}
 	
 	
