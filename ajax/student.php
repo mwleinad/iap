@@ -6,22 +6,6 @@ include_once(DOC_ROOT . '/libraries.php');
 session_start();
 
 switch ($_POST["type"]) {
-
-
-	case "addCurriculaStudent":
-		$complete = $student->AddUserToCurriculaFromCatalog($_POST["userId"], $_POST["courseId"], "Ninguno", 0);
-		if ($complete == "no" || $complete == "Este alumno ya esta registrado en esta curricula. Favor de Seleccionar otra Curricula") {
-			echo "fail[#]";
-			//$util->setError(10028, "error");
-			$util->PrintErrors();
-			$smarty->display(DOC_ROOT . '/templates/boxes/status.tpl');
-		} else {
-			echo "ok[#]";
-			$smarty->display(DOC_ROOT . '/templates/boxes/status.tpl');
-		}
-		break;
-
-
 	case "addStudent":
 
 		$activeCourses = $course->EnumerateActive();
@@ -696,20 +680,34 @@ switch ($_POST["type"]) {
 		$courseInfo = $course->Info();
 		$student->setUserId($_POST['userId']);
 		$student->setCourseId($_POST['courseId']);
-		$student->setSubjectId($courseInfo['subjectId']);
+		$student->setSubjectId($courseInfo['subjectId']); 
+		if($_POST['periodo'] && !empty($_POST['periodo'])){
+			$student->setPeriodo($_POST['periodo']);
+			$student->setValidar(false);
+		}
 		$complete = $student->AddUserToCurriculaFromCatalog($_POST["userId"], $_POST["courseId"], "Ninguno", 0);
-		if ($complete == "no" || $complete == "Este alumno ya esta registrado en esta curricula. Favor de Seleccionar otra Curricula") {
+		if (!$complete["status"]) {
 			echo "fail[#]";
-			//$util->setError(10028, "error");
-			$util->PrintErrors();
-			$smarty->display(DOC_ROOT . '/templates/boxes/status.tpl');
+			if(isset($complete['period'])){
+				echo $complete['message'];
+				$select = "<select class='form-control' style='text-transform:uppercase;' name='periodo'><option value=''>--Seleccione el periodo--</option><option value='1'>Desde el primer periodo</option> <option value='{$complete['period']}'>Desde el periodo actual({$complete['period']})</option> </select>";
+				echo '<script>
+					if($("#frmAddCurricula").find("#periodos").length > 0){
+						$("#frmAddCurricula").find("#periodos").html("'.$select.'");
+					}else{
+						$("#frmAddCurricula").append("<div id=periodos>'.$select.'</div>");
+					}
+				</script>';
+			}else{
+				$smarty->display(DOC_ROOT . '/templates/boxes/status.tpl');
+			}
 		} else {
 			echo "ok[#]";
 			$student->setUserId($_POST["userId"]);
 			$activeCourses = $student->StudentCourses("activo", "si");
 			$inactiveCourses = $student->StudentCourses("inactivo", "si");
 			$finishedCourses = $student->StudentCourses("finalizado");
-
+			
 			$smarty->assign("finishedCourses", $finishedCourses);
 			$smarty->assign("inactiveCourses", $inactiveCourses);
 			$smarty->assign("activeCourses", $activeCourses);

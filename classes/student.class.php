@@ -25,6 +25,17 @@ class Student extends User
 	private $tipoMajor;
 	private $tipo_beca;
 	private $por_beca;
+	private $validar = true;
+	private $periodo;
+
+	public function setValidar($value)
+	{
+		$this->validar = $value;	
+	}
+	public function setPeriodo($value)
+	{
+		$this->periodo = $value;
+	}
 
 	public function setAnterior($value)
 	{
@@ -153,30 +164,9 @@ class Student extends User
 
 	public function AddAcademicHistory($type, $situation, $semesterId = 1)
 	{
-		$alta = true;
-		if ($type == 'alta') {
-			$sql = "SELECT IF(semesterId = 0, 1, semesterId) as semesterId 
-						FROM academic_history 
-					WHERE subjectId = " . $this->subjectId . " AND userId = " . $this->userId . " AND courseId = " . $this->courseId . " LIMIT 1";
-			$this->Util()->DB()->setQuery($sql);
-			$semesterId = intval($this->Util()->DB()->GetSingle());
-			if($semesterId > 0){
-				$alta = false;
-			}else{
-				$sql = "SELECT IF(semesterId = 0, 1, semesterId) as semesterId 
-							FROM academic_history 
-						WHERE subjectId = " . $this->subjectId . " AND userId = " . $this->userId . "
-						ORDER BY academicHistoryId DESC LIMIT 1";
-				$this->Util()->DB()->setQuery($sql);
-				$semesterId = $this->Util()->DB()->GetSingle();
-				$semesterId = $semesterId == 0 ? 1 : $semesterId;
-			}
-		}
-		if ($alta) {
-			$sql = "INSERT INTO academic_history(subjectId, courseId, userId, semesterId, dateHistory, type, situation) VALUES(" . $this->subjectId . ", " . $this->courseId . ", " . $this->userId . ", " . $semesterId . ", CURDATE(), '" . $type . "', '" . $situation . "')";
-			$this->Util()->DB()->setQuery($sql);
-			$this->Util()->DB()->InsertData();
-		}
+		$sql = "INSERT INTO academic_history(subjectId, courseId, userId, semesterId, dateHistory, type, situation) VALUES(" . $this->subjectId . ", " . $this->courseId . ", " . $this->userId . ", " . $semesterId . ", CURDATE(), '" . $type . "', '" . $situation . "')";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->InsertData();
 		return true;
 	}
 
@@ -727,8 +717,10 @@ class Student extends User
 			$matricula = "";
 
 		$complete = $this->AddUserToCurricula($userId, $courseId, $info["names"], $info["email"], $info["password"], $courseInfo["majorName"], $courseInfo["name"], $tipo_beca, $por_beca, $matricula);
-		$this->AddAcademicHistory('alta', 'A');
-		$this->Util()->setError(10028, "complete", $complete);
+		if ($complete['status']) {
+			$this->AddAcademicHistory('alta', 'A', $this->periodo);
+		}
+		$this->Util()->setError(10028, "complete", $complete["message"]);
 		$this->Util()->PrintErrors();
 		return $complete;
 	}
@@ -805,10 +797,25 @@ class Student extends User
 		$registrationId = intval($this->Util()->DB()->GetSingle());
 		$status = 'activo';
 
-		if ($count > 0)
-			return $complete = "Este alumno ya esta registrado en esta curricula. Favor de Seleccionar otra Curricula";
-		else {
-			
+		if ($count > 0) {
+			$complete['status'] = false;
+			$complete["message"] = "Este alumno ya esta registrado en esta currícula. Favor de Seleccionar otra currícula";
+			return $complete;
+		} else {
+			if ($this->historialDuplicado()) {
+				$complete['status'] = false;
+				$complete["message"] = "Este alumno tiene historial duplicado, favor de comunicarse con el administrador.";
+				return $complete;
+			}
+			if ($this->ultimaBaja() > 1 && $this->validar) {
+				$complete['status']	= false;
+				$complete['message'] = "El alumno tiene una baja en el periodo {$this->ultimaBaja()}, por lo tanto, es necesario que seleccione en qué periodo iniciará.";
+				$complete['period'] = $this->ultimaBaja();
+				$this->setPeriodo($this->ultimaBaja()); //Guardamos el periodo de baja para determinar posteriormente el alta.
+				return $complete;
+			}elseif(empty($this->periodo)){
+				$this->setPeriodo(1);
+			}
 		}
 
 		if ($temporalGroup > 0 && $registrationId > 0) {
@@ -816,15 +823,19 @@ class Student extends User
 			$sql = "UPDATE user_subject SET courseId = " . $curricula . ", status = 'activo' WHERE alumnoId = " . $id . " AND courseId = " . $temporalGroup;
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->UpdateData();
-			$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico para continuar con el proceso de inscripcion";
+			$complete["status"] = true;
+			$complete["message"] = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico para continuar con el proceso de inscripcion";
 		} else {
 			// Se inscribe a curricula 
 			$sqlQuery = "INSERT INTO user_subject(alumnoId, status, courseId, tipo_beca, por_beca, matricula) VALUES('" . $id . "', '" . $status . "', '" . $curricula . "', '" . $tipo_beca . "', '" . $por_beca . "', '" . $matricula . "')";
 			$this->Util()->DB()->setQuery($sqlQuery);
-			if ($this->Util()->DB()->InsertData())
-				$complete = "Has registrado al alumno exitosamente, le hemos enviado un correo electrónico para continuar con el proceso de inscripcion";
-			else
-				$complete = "no";
+			if ($this->Util()->DB()->InsertData()) {
+				$complete["status"] = true;
+				$complete["message"] = "Has registrado al alumno exitosamente, le hemos enviado un correo electrónico para continuar con el proceso de inscripcion";
+			} else {
+				$complete["status"] = false;
+				$complete["message"] = "no";
+			}
 		}
 		$this->setUserId($id);
 		$info = $this->GetInfo();
@@ -1177,6 +1188,7 @@ class Student extends User
 		foreach ($result2 as $key => $res) {
 			$card = $res;
 			$sql = "SELECT user_subject.courseId, user_subject.alumnoId, user_subject.status, subject.name AS name, major.name AS majorName, subject.icon, course.group, course.modality, course.initialDate, course.finalDate, 'Ordinario' AS situation FROM user_subject LEFT JOIN course ON course.courseId = user_subject.courseId LEFT JOIN subject ON subject.subjectId = course.subjectId LEFT JOIN major ON major.majorId = subject.tipo WHERE alumnoId = '{$res['userId']}' AND status = 'activo' AND CURDATE() <= course.finalDate UNION SELECT usr.courseId, usr.alumnoId, usr.status, subject.name AS name, major.name AS majorName, subject.icon, course.group, course.modality, course.initialDate, course.finalDate, 'Recursador' AS situation FROM user_subject_repeat usr LEFT JOIN course ON course.courseId = usr.courseId LEFT JOIN subject ON subject.subjectId = course.subjectId LEFT JOIN major ON major.majorId = subject.tipo WHERE alumnoId = '{$res['userId']}' AND status = 'activo' ORDER BY status ASC";
+			// echo $sql;
 			$this->Util()->DB()->setQuery($sql);
 			$courseId = $this->Util()->DB()->GetResult();
 			if (count($courseId) == 0) {
@@ -3269,5 +3281,25 @@ class Student extends User
 		$sql = "UPDATE user SET email = '{$this->email}' WHERE userId = {$this->userId} ";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
+	}
+
+	//Obtiene el curso y el periodo de la última baja de acuerdo al tipo de especialidad estudiada.
+	public function ultimaBaja()
+	{
+		$sql = "SELECT semesterId FROM academic_history WHERE userId = {$this->getUserId()} AND subjectId = {$this->subjectId} AND type = 'baja' ORDER BY academicHistoryId DESC LIMIT 1";
+		// echo $sql;
+		$this->Util()->DB()->setQuery($sql);
+		$periodo = $this->Util()->DB()->GetSingle();
+		return $periodo;
+	}
+
+	//Checa si el alumno no tiene más de historial duplicado, para poder reajustarlo.
+	public function historialDuplicado()
+	{
+		// $sql = "SELECT *, SUM(IF(type = 'alta', 1, 0)) as altas, SUM(IF(type = 'baja', 1, 0)) as bajas, 'revisar' FROM `academic_history` INNER JOIN subject ON subject.subjectId = academic_history.subjectId WHERE userId = {$this->userId} GROUP BY userId, academic_history.subjectId, tipo, courseId HAVING altas > 1 OR bajas > 1;";
+		$sql = "SELECT *, SUM(IF(type = 'alta', 1, 0)) as altas, SUM(IF(type = 'baja', 1, 0)) as bajas, 'revisar' FROM `academic_history` WHERE userId = {$this->userId} GROUP BY userId, academic_history.subjectId, courseId HAVING altas > 1 OR bajas > 1;";
+		$this->Util()->DB()->setQuery($sql);
+		$existe = $this->Util()->DB()->GetRow();
+		return $existe['revisar'] ? true : false;
 	}
 }

@@ -127,3 +127,9 @@
 		</div>  
     </div>
 </div>
+
+<script>
+if($("#frmAddCurricula").find("#periodos").length > 0){
+	$("#frmAddCurricula").find("#periodos").html("");
+}
+</script>

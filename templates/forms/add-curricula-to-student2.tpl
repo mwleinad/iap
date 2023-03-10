@@ -54,7 +54,4 @@
 	<div id="tblContentGray" class="col-md-12">
 		{include file="{$DOC_ROOT}/templates/lists/curriculas.tpl"}	  
 	</div>
-</div>
-<div class="row">
-	<span class="reqField">*</span> Campo requerido
-</div>
+</div> 
