@@ -26,6 +26,7 @@ $( document ).ready(function() {
         var form = $(this);
         var data = new FormData(document.getElementById(form.attr('id')));
         var btnSubmit = form.find("button[type='submit'], input[type='submit']");
+        var textoBtn = btnSubmit.html();
         $.ajax({
             type: "POST",
             url: form.attr('action'),
@@ -34,21 +35,32 @@ $( document ).ready(function() {
             contentType: false,   // tell jQuery not to set contentType
             beforeSend: function () {
                 btnSubmit.prop('disabled',true);
+                btnSubmit.html("<i class='fa fa-spinner'><i>");
                 form.find(".is-invalid").removeClass('is-invalid');
                 form.find(".invalid-feedback").remove();
             }
         })
         .done(function (response) { 
-            response = JSON.parse(response);
-            console.log(response)
-            actionPostAjax(form, response);
-            setTimeout(() => {
+            try {
+                response = JSON.parse(response);
+                console.log(response)
+                actionPostAjax(form, response);
+                setTimeout(() => {
+                    btnSubmit.prop('disabled',false);
+                    btnSubmit.html(textoBtn);
+                }, 3000); 
+            } catch (error) {
+                console.error(error);
+                growl("Ocurrió un error, intente de nuevo.","danger");
                 btnSubmit.prop('disabled',false);
-            }, 3000); 
+                btnSubmit.html(textoBtn);
+            }
+            
         })
         .fail(function(response){
             setTimeout(() => {
                 btnSubmit.prop('disabled',false);
+                btnSubmit.html(textoBtn);
             }, 3000);  
             console.log(response);
             if (response.status == 422) {
@@ -103,13 +115,13 @@ function actionPostAjax(form, response){
         }
     }
     if (response.location) {
-        var duracion = response.duracion ? response.duracion : 0;
+        var duracion = response.duracion ? response.duracion : 2000;
         setTimeout(() => {
             window.location.href = response.location;
         }, duracion); 
     }
     if (response.reload) {
-        var duracion = response.duracion ? response.duracion : 0;
+        var duracion = response.duracion ? response.duracion : 2000;
         setTimeout(() => {
             location.reload();
         }, duracion); 

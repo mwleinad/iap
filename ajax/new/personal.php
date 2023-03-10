@@ -240,23 +240,30 @@ switch ($_POST["type"]) {
 
 		$personal->setDocumentoId($_POST['catId']);
 		$personal->setPersonalId($_POST["personalId"]);
-		if ($personal->adjuntarDocDocente()) {
-			echo "ok[#]";
-			echo '<div class="alert alert-info alert-dismissable">
-				  <button type="button" class="close" data-dismiss="alert">&times;</button>
-				  <strong>El Documento se adjunto correctamente</strong>
-				</div>';
-			echo '[#]';
+		$response = $personal->adjuntarDocDocente();
+		if ($response['estatus']) { 
 			$personal->setPersonalId($_POST["personalId"]);
 			$registros = $personal->enumerateCatProductos();
 			$smarty->assign("cId", $_POST['cId']);
 			$smarty->assign("personalId", $_POST['personalId']);
 			$smarty->assign("registros", $registros);
 			$smarty->assign("DOC_ROOT", DOC_ROOT);
-			$smarty->display(DOC_ROOT . '/templates/lists/new/doc-docente.tpl');
+			echo json_encode([
+				'growl'		=>true,
+				'message'	=>"Se ha adjuntado el archivo correctamente", 
+				'type'		=>"success",
+				'selector'	=>"#contenido",
+				'html'		=>$smarty->fetch(DOC_ROOT . '/templates/lists/new/doc-docente.tpl'),
+				'modal_close'=>true,
+				'reload'	=>true
+			]); 
+			 
 		} else {
-			echo "fail[#]";
-			//$util->ShowErrors();
+			echo json_encode([
+				'growl' 	=>true,
+				'message'	=>$response['mensaje'],
+				'type'		=>'danger'
+			]); 
 		}
 
 		break;

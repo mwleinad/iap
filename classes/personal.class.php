@@ -1317,42 +1317,29 @@ class Personal extends Main
 			$lastId = $this->Util()->DB()->InsertData();
 		} else {
 			$lastId = $count['documentosprofesorId'];
-		}
+		} 
+		
+		$response = $this->Util()->validarSubida(['size'=>5242880]); 
+		if($response['estatus']){
+			$aux = explode(".", $_FILES['comprobante']["name"]);
+			$extencion = end($aux);
+			$temporal =  $_FILES['comprobante']['tmp_name']; 
+			$url = DOC_ROOT;
+			$foto_name = "doc_" . $lastId . "." . $extencion; 
+			if (move_uploaded_file($temporal, $url . "/docentes/documentos/" . $foto_name)) {  
+				$sql = 'UPDATE 		
+					documentosprofesor SET 		
+					ruta = "' . $foto_name . '"			      		
+					WHERE documentosprofesorId = ' . $lastId . '';
 
-		// echo '<pre>'; print_r($_FILES);
-		// exit;
-		foreach ($_FILES as $key => $var) {
-
-			switch ($key) {
-				case 'comprobante':
-					if ($var["name"] <> "") {
-						$aux = explode(".", $var["name"]);
-						$extencion = end($aux);
-						$temporal = $var['tmp_name'];
-
-						$url = DOC_ROOT;
-						$foto_name = "doc_" . $lastId . "." . $extencion;
-
-						if (move_uploaded_file($temporal, $url . "/docentes/documentos/" . $foto_name)) {
-
-
-							$sql = 'UPDATE 		
-								documentosprofesor SET 		
-								ruta = "' . $foto_name . '"			      		
-								WHERE documentosprofesorId = ' . $lastId . '';
-
-							$this->Util()->DB()->setQuery($sql);
-							$this->Util()->DB()->UpdateData();
-						}
-					}
-					break;
+				$this->Util()->DB()->setQuery($sql);
+				$this->Util()->DB()->UpdateData();
+			}else{
+				$response['estatus'] = false;
+				$response['mensaje'] = "Hubo un problema al guardar el archivo, intente de nuevo, por favor.";
 			}
-		}
-
-
-
-
-		return  true;
+		}	 
+		return $response;
 	}
 
 	public function enumerateRepositorio()

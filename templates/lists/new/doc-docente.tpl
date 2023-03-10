@@ -27,8 +27,8 @@
 						</a>
 					{/if}
 				</td>
-				<td>
-					{if $cId ne 'admin'}
+				<td> 
+					{if $cId ne 'admin'} 
 						{if $subject.existArchivo ne 'si'}
 							<a href="{$WEB_ROOT}/graybox.php?page=add-docdocente&id={$subject.catalogodocumentoId}" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Subir Documento">
 								<i class="fas fa-file-upload fa-lg"></i>
@@ -38,7 +38,7 @@
 								<i class="fas fa-trash-alt fa-lg"></i>
 							</a>
 						{/if}					
-					{else}
+					{else} 
 						{if $subject.existArchivo ne 'si'}
 							<a href="#" onClick="loadTR('{$subject.catalogodocumentoId}')" title="Subir Documento">
 								<i class="fas fa-file-upload fa-lg"></i>

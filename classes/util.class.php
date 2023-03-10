@@ -245,46 +245,51 @@ class Util extends ErrorLms
 		return $string;
 	}
 
-	function eliminar_acentos($cadena){
-		
+	function eliminar_acentos($cadena)
+	{
+
 		//Reemplazamos la A y a
 		$cadena = str_replace(
-		array('Á', 'À', 'Â', 'Ä', 'á', 'à', 'ä', 'â', 'ª'),
-		array('A', 'A', 'A', 'A', 'a', 'a', 'a', 'a', 'a'),
-		$cadena
+			array('Á', 'À', 'Â', 'Ä', 'á', 'à', 'ä', 'â', 'ª'),
+			array('A', 'A', 'A', 'A', 'a', 'a', 'a', 'a', 'a'),
+			$cadena
 		);
 
 		//Reemplazamos la E y e
 		$cadena = str_replace(
-		array('É', 'È', 'Ê', 'Ë', 'é', 'è', 'ë', 'ê'),
-		array('E', 'E', 'E', 'E', 'e', 'e', 'e', 'e'),
-		$cadena );
+			array('É', 'È', 'Ê', 'Ë', 'é', 'è', 'ë', 'ê'),
+			array('E', 'E', 'E', 'E', 'e', 'e', 'e', 'e'),
+			$cadena
+		);
 
 		//Reemplazamos la I y i
 		$cadena = str_replace(
-		array('Í', 'Ì', 'Ï', 'Î', 'í', 'ì', 'ï', 'î'),
-		array('I', 'I', 'I', 'I', 'i', 'i', 'i', 'i'),
-		$cadena );
+			array('Í', 'Ì', 'Ï', 'Î', 'í', 'ì', 'ï', 'î'),
+			array('I', 'I', 'I', 'I', 'i', 'i', 'i', 'i'),
+			$cadena
+		);
 
 		//Reemplazamos la O y o
 		$cadena = str_replace(
-		array('Ó', 'Ò', 'Ö', 'Ô', 'ó', 'ò', 'ö', 'ô'),
-		array('O', 'O', 'O', 'O', 'o', 'o', 'o', 'o'),
-		$cadena );
+			array('Ó', 'Ò', 'Ö', 'Ô', 'ó', 'ò', 'ö', 'ô'),
+			array('O', 'O', 'O', 'O', 'o', 'o', 'o', 'o'),
+			$cadena
+		);
 
 		//Reemplazamos la U y u
 		$cadena = str_replace(
-		array('Ú', 'Ù', 'Û', 'Ü', 'ú', 'ù', 'ü', 'û'),
-		array('U', 'U', 'U', 'U', 'u', 'u', 'u', 'u'),
-		$cadena );
+			array('Ú', 'Ù', 'Û', 'Ü', 'ú', 'ù', 'ü', 'û'),
+			array('U', 'U', 'U', 'U', 'u', 'u', 'u', 'u'),
+			$cadena
+		);
 
 		//Reemplazamos la N, n, C y c
 		$cadena = str_replace(
-		array('Ñ', 'ñ', 'Ç', 'ç'),
-		array('N', 'n', 'C', 'c'),
-		$cadena
+			array('Ñ', 'ñ', 'Ç', 'ç'),
+			array('N', 'n', 'C', 'c'),
+			$cadena
 		);
-		
+
 		return $cadena;
 	}
 
@@ -1456,5 +1461,56 @@ class Util extends ErrorLms
 		);
 		$output = preg_replace($search, '', $input);
 		return $output;
+	}
+
+	/**
+	 * Valida subida de archivo desde formulario
+	 */
+	public function validarSubida($validaciones = [])
+	{
+		$response = ["estatus"=>false, "validacion" => false];
+		foreach ($_FILES as $key => $archivo) { 
+			// print_r($archivo);
+			switch ($archivo['error']) {  //Checamos que no exista ningún problema con la subida de archivo
+				case UPLOAD_ERR_INI_SIZE: 
+					$response['mensaje'] = "Error, el archivo excede el tamaño máximo permitido por el sistema.";
+					break;
+				case UPLOAD_ERR_FORM_SIZE: 
+					$response['mensaje'] = "Error, el archivo excede el tamaño máximo permitido por el formulario.";
+					break;
+				case UPLOAD_ERR_PARTIAL: 
+					$response['mensaje'] = "Error, el archivo fue subido parcialmente.";
+					break;
+				case UPLOAD_ERR_NO_FILE: 
+					$response['mensaje'] = "Error, falta seleccionar el archivo.";
+					break;
+				case UPLOAD_ERR_NO_TMP_DIR:
+					$response['mensaje'] = "Error, hubo un problema con la carpeta temporal.";
+					break;
+				case UPLOAD_ERR_CANT_WRITE:
+					$response['mensaje'] = "Error, hubo un problema con los permisos del archivo.";
+					break;
+				case UPLOAD_ERR_EXTENSION:
+					$response['mensaje'] = "Error, hubo un problema una extensión del sistema que paró la subida del archivo."; 
+					break;
+				default:
+					foreach ($validaciones as $keyv => $value) {
+						switch ($keyv) { //Validamos que no exista ningún error con la validación de archivos después de la subida.
+							case "size": //Validamos el máximo tamaño permitido
+								$maxValue = round($value/1048576);
+								if($archivo['size'] > $value){ 
+									$response['mensaje'] = "Error, el tamaño máximo del archivo debe ser de $maxValue MB";
+									$response['validacion'] = true; //Existe error en las validaciones
+								}
+								break;  
+						}
+					} 
+					if (!$response['validacion']) {
+						$response['estatus'] = true;
+					}
+					break;
+			}
+		}
+		return $response;
 	}
 }
