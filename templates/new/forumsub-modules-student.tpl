@@ -2,6 +2,11 @@
     <div class="card-header bg-primary text-white">
         <i class="fas fa-bullhorn"></i> Foro {$asunto}
         <div class="col-md-12 text-right">
+            {if $asunto == "Presentacion Personal"}
+                <a href="{$WEB_ROOT}/graybox.php?page=add-topic&id={$topicId}&cId={$id}" data-target="#ajax" data-toggle="modal" class="btn btn-outline-light btn-sm">
+                    <span class="btnAdd" id="btnAddSubject"><i class="fas fa-plus-circle"></i> Agregar</span>
+                </a>
+            {/if}
             <a href="{$WEB_ROOT}/edit-modules-course/id/{$id}" class="btn btn-outline-light btn-sm"><i class="fas fa-arrow-circle-left"></i> Regresar</a>
         </div>
     </div>

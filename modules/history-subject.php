@@ -29,8 +29,7 @@
 	
 	$result = $course->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/history-subject', $arrPage);
 	if($_SESSION['User']['perfil'] == 'Docente')
-		$uniqueSubjects = $course->EnumerateSubjectByPage();
-
+		$uniqueSubjects = $course->EnumerateSubjectByPage(); 
 	// $result = $util->orderMultiDimensionalArray($result,'active',true);
 	
 	//checar a que curriculas tengo permiso

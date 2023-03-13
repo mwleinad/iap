@@ -1,7 +1,8 @@
-function cargaInbox(tipo){  
-	
-	// alert(tipo)
-
+$(".list-group-item").on("click", function(){
+	$(".list-group-item").removeClass("active");
+	$(this).addClass("active"); 
+});
+function cargaInbox(tipo){   
 	$.ajax({
 	  	type: "POST",
 	  	url: WEB_ROOT+'/ajax/student.php',
@@ -9,46 +10,16 @@ function cargaInbox(tipo){
 		beforeSend: function(){			
 			
 		},
-	  	success: function(response) {	
-		
+	  	success: function(response) { 
 			console.log(response)
-			var splitResp = response.split("[#]");
-			
-
-			$("#contentInbox").html(response);
-			if (tipo=='enviados'){
-				$("#linkEnviado").addClass("active");
-				$("#linkEntrada").removeClass("active");
-				$("#linkBorrador").removeClass("active");
-				$("#linkEliminado").removeClass("active");
-			}else if (tipo=='entrada'){
-				$("#linkEntrada").addClass("active");
-				$("#linkEnviado"). removeClass("active");
-				$("#linkBorrador").removeClass("active");
-				$("#linkEliminado").removeClass("active");
-			}else if (tipo=='borrador'){
-				$("#linkBorrador").addClass("active");
-				$("#linkEntrada").removeClass("active");
-				$("#linkEnviado"). removeClass("active");
-				$("#linkEliminado").removeClass("active");
-			}else if (tipo=='eliminados'){
-				$("#linkEliminado").addClass("active");
-				$("#linkBorrador").removeClass("active");
-				$("#linkEntrada").removeClass("active");
-				$("#linkEnviado"). removeClass("active");
-				
-			}
-			
-				
+			var splitResp = response.split("[#]");  
+			$("#contentInbox").html(response);  
 		},
 		error:function(){
 			alert(msgError);
 		}
-    });
-	
-}//cargaInbox
-
-
+    }); 
+}//cargaInbox 
 
 function deleteInbox(Id,courseId){
 	

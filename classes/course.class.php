@@ -1147,9 +1147,7 @@ class Course extends Subject
 		$result = $this->Util()->DB()->GetResult();
 		return $result;
 	}
-
-
-
+	
 	function boletaAlumno()
 	{
 
@@ -1425,8 +1423,7 @@ class Course extends Subject
 		$result = $this->Util()->DB()->GetResult();
 		return $result;
 	}
-
-
+	
 	function SabanaCalificacionesFrontal($period = 0, $ignoreEnglish = false, $order = " ORDER BY sm.name", $type = 'initial')
 	{
 		$sql = "SELECT u.userId, u.curp, u.lastNamePaterno, u.lastNameMaterno, u.names, us.matricula, u.sexo, situation, (SELECT IF(academic_history.semesterId = 0, 1, academic_history.semesterId) as periodo FROM academic_history WHERE academic_history.courseId = '{$this->courseId}' AND academic_history.type = 'alta' AND academic_history.userId = u.userId) as alta, (SELECT academic_history.semesterId FROM academic_history WHERE academic_history.courseId = '{$this->courseId}' AND academic_history.type = 'baja' AND academic_history.userId = u.userId) as baja FROM user_subject us INNER JOIN user u ON us.alumnoId = u.userId WHERE us.courseId = '{$this->courseId}' ORDER BY lastNamePaterno, lastNameMaterno, names;";

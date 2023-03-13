@@ -929,14 +929,8 @@ class User extends Main
 	public function getMastersSchool()
 	{
 		return $this->mastersSchool;
-	}
-
-
-
-
-
-
-
+	} 
+	
 	function PermisosDocente()
 	{
 		$sql = "SELECT course_module.*,
@@ -945,7 +939,7 @@ class User extends Main
 						LEFT JOIN subject_module
 							ON course_module.subjectModuleId = subject_module.subjectModuleId
 						LEFT JOIN subject
-							ON subject_module.subjectId = subject.subjectId";
+							ON subject_module.subjectId = subject.subjectId ORDER BY course_module.courseId DESC";
 		$this->Util()->DB()->setQuery($sql);
 		$modulos = $this->Util()->DB()->GetResult();
 

@@ -233,7 +233,7 @@ class Module extends Course
 		//$date = @mktime(0, 0, 0, $explodedInitialDate[1], $explodedInitialDate[2], $explodedInitialDate[0]);
 		$date = mktime(0, 0, 0, $explodedInitialDate[1], $explodedInitialDate[2], intval($explodedInitialDate[0]));
 
-		$result["name"] = $this->Util()->acento($result["name"]);
+		$result["name"] = $result["name"];
 
 
 		$result["week"] = date('W', $date);

@@ -12,14 +12,10 @@
 	$student->setUserId($_SESSION["User"]["userId"]);
 	$activeCourses = $student->StudentCourses("activo", "si");
 	foreach($activeCourses as $key=>$aux){
-		
 		$course->setCourseId($aux["courseId"]);
 		$addedModules = $course->StudentCourseModulesInbox();
 		$activeCourses[$key]['materias'] = $addedModules;
 	}
-	
-	
-	
 	// echo "<pre>"; print_r($activeCourses );
 	// exit;
 	$smarty->assign('date', $date);

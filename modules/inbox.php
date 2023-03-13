@@ -19,6 +19,7 @@
 	}else{
 		$module->setQuienEnviaId('alumno');
 		$smarty->assign('mnuMain', "cursos");
+		$smarty->assign("userType", $_SESSION['User']['perfil']); 
 	}
 	$module->setStatusIn('activo');
 	$module->setTipoReporte('entrada');

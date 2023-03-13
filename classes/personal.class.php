@@ -1200,7 +1200,6 @@ class Personal extends Main
 
 	public function updateInfoAutomovil()
 	{
-
 		$sql = "SELECT 
 					count(*) 
 				FROM 
@@ -1243,9 +1242,6 @@ class Personal extends Main
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->UpdateData();
 		}
-
-
-
 		return true;
 	}
 
@@ -1583,8 +1579,6 @@ class Personal extends Main
 
 	public function onDeleteEncuadre($cmId)
 	{
-
-
 		$sql = "SELECT 
 					* 
 				FROM 
@@ -1627,8 +1621,7 @@ class Personal extends Main
 
 		return $result;
 	}
-
-
+	
 	public function enumeratePersonalAcademico()
 	{
 
@@ -1677,8 +1670,6 @@ class Personal extends Main
 
 	public function enumerateDocentesMsj($Id)
 	{
-
-
 		$sql = "SELECT 
 					p.* 
 				FROM 

@@ -7,12 +7,18 @@
 			{* ASIDE *}
 			<div class="col-md-2">
 				<div class="list-group">
-					{if $userType eq 'student'}
-						{if $countCourses >= 1}
-							<a data-target="#ajax" class="list-group-item list-group-item-action inbox" data-toggle="modal" href="{$WEB_ROOT}/graybox.php?page=nuevo-inbox" data-title="Compose"> 
-								<i class="icon-edit"></i> Nuevo
-							</a>
-						{/if}
+					{if $userType eq 'student' && $countCourses >= 1}
+						<a data-target="#ajax" class="list-group-item list-group-item-action inbox" data-toggle="modal" href="{$WEB_ROOT}/graybox.php?page=nuevo-inbox" data-title="Compose"> 
+							<i class="icon-edit"></i> Nuevo
+						</a>
+					{/if} 
+					{if $userType eq 'Docente'}
+						<form action="{$WEB_ROOT}/ajax/new/docente.php" class="form" id="form_inbox">
+							<input type="hidden" value="crear-inbox" name="opcion">
+							<button class="list-group-item list-group-item-action" type="submit">
+								<i class="fas fa-plus"></i> <i class="fas fa-paper-plane"></i> Nuevo	
+							</button>
+						</form>
 					{/if}
 					<a href="javascript:;" class="list-group-item list-group-item-action inbox active" id="linkEntrada" data-title="Inbox" onClick="cargaInbox('entrada','{$courseMId}')">
 						<small><i class="fas fa-inbox"></i> Recibidos</small>
@@ -46,11 +52,9 @@
 				{* INBOX *}
 				<div class="col-md-12">
 					<div class="inbox-loading"></div>
-					<form id="frmGral" onsubmit="return false;">
-						<div class="inbox-content table-responsive" id="contentInbox">
-							{include file="{$DOC_ROOT}/templates/lists/inbox.tpl"}
-						</div>
-					</form>
+					<div class="inbox-content table-responsive" id="contentInbox">
+						{include file="{$DOC_ROOT}/templates/lists/inbox.tpl"}
+					</div> 
 				</div>
 			</div>
 		</div>

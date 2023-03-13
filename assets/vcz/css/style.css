@@ -19577,3 +19577,16 @@ dl li {
     display: none !important;
   }
 }
+
+.grupo-inbox{
+  padding: 10px 20px;
+  background: #ebedf2; 
+  border: 1px solid #c0c1c5;
+  border-radius: 10px;
+  flex: 1 1 auto;
+}
+
+.grupo-inbox:hover{
+  background-color: #73b760;
+  color: #fff;
+}
