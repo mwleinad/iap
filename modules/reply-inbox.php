@@ -27,7 +27,7 @@
 		// echo $infoC['recibe'];
 		// exit;
 		$dataEnviado = 'De: '.$infoC['envio'].'<br>
-		Enviado: 2017-11-07<br>
+		Enviado: '.$infoC['fechaEnvio'].'<br>
 		Para: '.$infoC['recibe'].'<br>
 		Asunto: '.$infoC['asunto'].'<br>
 		<br>

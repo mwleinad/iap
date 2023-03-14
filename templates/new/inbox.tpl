@@ -14,7 +14,7 @@
 					{/if} 
 					{if $userType eq 'Docente'}
 						<form action="{$WEB_ROOT}/ajax/new/docente.php" class="form" id="form_inbox">
-							<input type="hidden" value="crear-inbox" name="opcion">
+							<input type="hidden" value="inboxGrupos" name="opcion">
 							<button class="list-group-item list-group-item-action" type="submit">
 								<i class="fas fa-plus"></i> <i class="fas fa-paper-plane"></i> Nuevo	
 							</button>

@@ -83,7 +83,7 @@
 	$smarty->assign('infoC', $infoC);
 	$smarty->assign('courseMId', $_GET["id"]);
 	$smarty->assign('lstMsj', $lstMsj);
-	
+	$smarty->assign('userType',$_SESSION['User']['type']);
 	$smarty->assign('mnuSubmain','foro');
 	
 	if($_GET["or"]<>'h'){
