@@ -38,8 +38,7 @@
 		$totalScore += $res["realScore"];
 	}
 	
-	if(isset($_SESSION["exito"])){
-		
+	if(isset($_SESSION["exito"])){		
 		$smarty->assign('exito', $_SESSION["exito"]);
 		unset($_SESSION["exito"]);
 		if ($_SESSION["exito"] == "si") {

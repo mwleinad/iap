@@ -275,6 +275,11 @@ class Homework extends Activity
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->UpdateData();
 			// exit;
+		}else{
+			$sql = "DELETE FROM homework WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $_SESSION['User']['userId'] . "' AND deleted_at IS NULL";
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->DeleteData();
+			return false;
 		}
 
 		$user = new Student;

@@ -11,18 +11,18 @@
 		$homework->setNombre($_POST["nombre"]);
 		$homework->setUserId($_SESSION["User"]["userId"]);
 		// print_r($_FILES);
-		if(empty($_FILES['path']['tmp_name'])){ 
-			$_SESSION["exito"] = "archivo_vacio"; 
-			header("Location:".WEB_ROOT."/calendar-modules-student/id/".$_POST["courseId"]);
-			exit;
-		}
-		if($_FILES['path']['size'] >= 5242880){
-			$_SESSION["exito"] = "archivo_maximo"; 
+		$response = $this->Util()->validarSubida(['size'=>5242880]); 
+		if($response['estatus']){ 
+			$_SESSION["exito"] = $response['mensaje']; 
 			header("Location:".WEB_ROOT."/calendar-modules-student/id/".$_POST["courseId"]);
 			exit;
 		} 
-		$homework->Upload($_FILES["path"]);
-
+		$response = $homework->Upload($_FILES["path"]);
+		if(!$response){
+			$_SESSION["exito"] = "Hubo un error con la subida del archivo"; 
+			header("Location:".WEB_ROOT."/calendar-modules-student/id/".$_POST["courseId"]);
+			exit;
+		}
 		//aqui lo que tenemos que hacer es un header location a la pagina que teniamos originalmente
 		//http://www.iapchiapasenlinea.mx/calendar-modules-student/id/158
 		// header("Location:http://www.iapchiapasenlinea.mx/calendar-modules-student/id/".$_POST["courseId"]);
