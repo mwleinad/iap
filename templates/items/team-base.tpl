@@ -4,9 +4,14 @@
         <td class="text-center">{$item.controlNumber}</td>
         <td>{$item.lastNamePaterno} {$item.lastNameMaterno} {$item.names}</td>
         <td class="text-center">
-            <a href="{$WEB_ROOT}/config-teams/id/{$id}/delete/{$item.teamNumber}" class="btn btn-danger btn-xs">
-                <i class="fas fa-users-slash"></i> Desmantelar Equipo
-            </a>
+            <form class="form" action="{$WEB_ROOT}/config-teams/id/{$id}" id="form_{$item.userId}">
+                <input type="hidden" name="opcion" value="eliminar-de-equipo">
+                <input type="hidden" name="alumno" value="{$item.userId}"> 
+                <button class="btn btn-danger btn-xs" type="submit">
+                    <i class="fas fa-users-slash"></i>Eliminar del equipo
+                </button>
+            </form> 
+            
         </td>
     </tr>
 {foreachelse}

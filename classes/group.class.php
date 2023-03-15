@@ -74,7 +74,7 @@ class Group extends Module
 	}
 	
 	public function setCourseModuleId($value)
-	{
+	{ 
 		$this->Util()->ValidateInteger($value, 999, 1);
 		$this->coursemoduleId = $value;
 	}	
@@ -756,6 +756,7 @@ class Group extends Module
 						ON usr.alumnoId = u.userId 
 				WHERE usr.courseId = " . $this->getCourseId() . " AND usr.status = 'activo' AND usr.courseModuleId = " . $this->coursemoduleId . "
 				ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
+				// echo $sql;
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 		
@@ -765,7 +766,7 @@ class Group extends Module
 			{
 				$sql = "SELECT COUNT(*)
 							FROM team
-						WHERE userId = '" . $res["alumnoId"] . "' AND courseModuleId = '" . $this->coursemoduleId . "'";
+						WHERE userId = '" . $res["alumnoId"] . "' AND courseModuleId = '" . $this->coursemoduleId . "';";
 				$this->Util()->DB()->setQuery($sql);
 			
 			}
@@ -773,16 +774,21 @@ class Group extends Module
 			{
 				$sql = "SELECT COUNT(*)
 							FROM team
-						WHERE userId = '".$res["alumnoId"] . "' AND courseModuleId = '" . $this->getCourseModuleId() . "'";
+						WHERE userId = '".$res["alumnoId"] . "' AND courseModuleId = '" . $this->getCourseModuleId() . "';";
 				$this->Util()->DB()->setQuery($sql);
-			}
+			} 
+			// echo "$sql<br>";
 			$inTeam = $this->Util()->DB()->GetSingle();
+			// echo "Alumno: {$res['alumnoId']}\n";
+			// echo "¿En cuantos equipos está? $inTeam\n";
 			$result[$key]["names"] = $this->Util()->DecodeTiny($result[$key]["names"]);
 			$result[$key]["lastNamePaterno"] = $this->Util()->DecodeTiny($result[$key]["lastNamePaterno"]);
 			$result[$key]["lastNameMaterno"] = $this->Util()->DecodeTiny($result[$key]["lastNameMaterno"]);
 			
-			if($inTeam > 0)
+			if($inTeam > 0){
+				// echo "Llave: $key\n";
 				unset($result[$key]);
+			}
 		}
 		return $result;
 	}
@@ -827,7 +833,7 @@ class Group extends Module
 			$this->Util()->DB()->setQuery($sql);
 			$result[$key]["equipo"] = $this->Util()->DB()->GetSingle();
 				
-			$result[$key]{"addepUp"} = 0;
+			$result[$key]["addepUp"] = 0;
 			foreach($actividades as $activity)
 			{
 				if($activity["score"] <= 0)
@@ -921,7 +927,7 @@ class Group extends Module
 	{
 		$sql = "SELECT COUNT(DISTINCT(teamNumber))
 					FROM team
-				WHERE courseModuleId = '" . $this->getCourseModuleId() . "'";
+				WHERE courseModuleId = '" . $this->coursemoduleId . "'";
 		$this->Util()->DB()->setQuery($sql);
 		$no = $this->Util()->DB()->GetSingle();
 		return $no;	
@@ -939,6 +945,31 @@ class Group extends Module
 		}
 		$this->Util()->setError(90000, 'complete', "Se ha creado un nuevo equipo");
 		$this->Util()->PrintErrors();
+	}
+
+	/**
+	 * Agrega a los alumnos a un equipo en específico
+	 */
+	public function AgregarEquipo($team, $number)
+	{
+		$teamNumber = $number;
+		foreach($team as $member)
+		{
+			$sql = "INSERT INTO team(userId, courseModuleId, teamNumber)
+					VALUES ('" . utf8_decode($member) . "', '" . utf8_decode($this->coursemoduleId) . "', '" . $teamNumber . "')";
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->InsertData();
+		}
+		$this->Util()->setError(90000, 'complete', "Se ha creado un nuevo equipo");
+		$this->Util()->PrintErrors();
+	}
+
+	public function quitarDeEquipo($alumno)
+	{
+		$sql = "DELETE FROM team WHERE courseModuleId = '{$this->coursemoduleId}' AND userId = '{$alumno}' ";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->DeleteData();
+		return $result;
 	}
 
 	function GetMenWomen($group)
@@ -1426,7 +1457,7 @@ class Group extends Module
 					WHERE courseModuleId = " . $this->coursemoduleId . " AND userId = " . $res["alumnoId"];
 			$this->Util()->DB()->setQuery($sql);
 			$result[$key]["equipo"] = $this->Util()->DB()->GetSingle();	
-			$result[$key]{"addepUp"} = 0;
+			$result[$key]["addepUp"] = 0;
 			foreach($actividades as $activity)
 			{
 				if($activity["score"] <= 0)
@@ -1436,15 +1467,15 @@ class Group extends Module
 							WHERE activityId = " . $activity["activityId"] . " AND userId = " . $res["alumnoId"];
 				$this->Util()->DB()->setQuery($sqlca);
 				$score = $this->Util()->DB()->GetSingle();
-				$result[$key]{"score"}[] = $score;
+				$result[$key]["score"][] = $score;
 				$realScore = $score * $activity["score"] / 100;
-				$result[$key]{"realScore"}[] = $realScore;
-				$result[$key]{"addepUp"} += $realScore;
+				$result[$key]["realScore"][] = $realScore;
+				$result[$key]["addepUp"] += $realScore;
 			}
 			
 			if($infoCc["calificacion"] == null or $infoCc["calificacion"] == 0)
 			{	
-				$at = $result[$key]{"addepUp"} / 10;
+				$at = $result[$key]["addepUp"] / 10;
 				if($this->tipoMajor == "MAESTRIA" and $at < 7)
 					$at= floor ($at);
 				else if($this->tipoMajor == "DOCTORADO" and $at < 8)
