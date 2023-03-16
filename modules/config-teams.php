@@ -47,7 +47,7 @@
 		} 
 	}
 	$smarty->assign('noTeam', $noTeam);
-	$numberTeams = $group->GetNumberOfTeams(); 
+	$numberTeams = $group->maxTeam(); 
 	$smarty->assign('numberTeams', $numberTeams);
 	$group->setCourseModuleId($_GET["id"]);
 	$teams = $group->TeamsModule();

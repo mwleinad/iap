@@ -898,19 +898,48 @@ class Group extends Module
 	{
 		if ($this->getCourseModuleId() == '')
 		{
-			$sql = "SELECT MAX(teamNumber)
-						FROM team
-					WHERE courseModuleId = '" . $this->coursemoduleId . "'";
+			$sql = "SELECT teamNumber FROM team WHERE team.courseModuleId = '" . $this->coursemoduleId . "' GROUP BY team.teamNumber ORDER BY teamNumber ASC";
+			$sqlMax = "SELECT MAX(teamNumber) as teamNumber FROM team WHERE team.courseModuleId = '" . $this->coursemoduleId . "'";
 		}
 		else
 		{
-			$sql = "SELECT MAX(teamNumber)
-						FROM team
-					WHERE courseModuleId = '" . $this->getCourseModuleId() . "'";
+			$sql = "SELECT teamNumber FROM team WHERE team.courseModuleId = '" . $this->getCourseModuleId() . "' GROUP BY team.teamNumber ORDER BY teamNumber ASC"; 
+			$sqlMax = "SELECT MAX(teamNumber) as teamNumber FROM team WHERE team.courseModuleId = '" . $this->getCourseModuleId() . "'";
 		}
 		$this->Util()->DB()->setQuery($sql);
-		$max = $this->Util()->DB()->GetSingle() + 1;
+		$teams = $this->Util()->DB()->GetResult();
+
+		$this->Util()->DB()->setQuery($sqlMax);
+		$max = $this->Util()->DB()->GetSingle()+1;
+		$arreglo = [];  
+		foreach ($teams as $item) {
+			 $arreglo[] = $item['teamNumber'];
+		}
+		for ($i=1; $i < $max ; $i++) { 
+			if(!in_array($i, $arreglo)){
+				$max = $i;
+				break;
+			}
+		}
+		// print_r($arreglo);
+		// echo $max;
+		// exit;
 		return $max;	
+	}
+
+	public function maxTeam()
+	{
+		if ($this->getCourseModuleId() == '')
+		{
+			$sql = "SELECT MAX(teamNumber) as teamNumber FROM team WHERE team.courseModuleId = '" . $this->coursemoduleId . "'";
+		}
+		else
+		{
+			$sql = "SELECT MAX(teamNumber) as teamNumber FROM team WHERE team.courseModuleId = '" . $this->getCourseModuleId() . "'";
+		}
+		$this->Util()->DB()->setQuery($sql);
+		$max = $this->Util()->DB()->GetSingle();
+		return $max;
 	}
 
 	function DeleteTeam($id)
