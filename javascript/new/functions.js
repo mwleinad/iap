@@ -48,7 +48,7 @@ $( document ).ready(function() {
                 setTimeout(() => {
                     btnSubmit.prop('disabled',false);
                     btnSubmit.html(textoBtn);
-                }, 3000); 
+                }, 2000); 
             } catch (error) {
                 console.error(error);
                 growl("Ocurrió un error, intente de nuevo.","danger");
@@ -61,7 +61,7 @@ $( document ).ready(function() {
             setTimeout(() => {
                 btnSubmit.prop('disabled',false);
                 btnSubmit.html(textoBtn);
-            }, 3000);  
+            }, 2000);  
             console.log(response);
             if (response.status == 422) {
                 response = JSON.parse(response.responseText);

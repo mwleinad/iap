@@ -71,8 +71,8 @@
     </div>
     <div class="row">
         <div class="form-group col-md-12 text-center">
-            <input type="submit" class="btn btn-success submitForm" id="addMajor" name="addMajor" />
-            <button type="button" class="btn btn-danger closeModal">Cancelar</button>
+            <button type="submit" class="btn btn-success">Crear</button>
+            <button type="button" class="btn btn-danger closeModal" data-dismiss="modal">Cancelar</button>
         </div>
     </div>
 </form>
