@@ -213,12 +213,13 @@ class Homework extends Activity
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->InsertData();
 		} else {
+			$contador = is_numeric($count['countUpdate']) ? $count['countUpdate'] + 1 : 1;
 			$sql = "UPDATE 
 							homework
 							SET
 								nombre = '" . $nombre . "',
 								dateUpdate = '" . date('Y-m-d') . "',
-								countUpdate = '" . ($count['countUpdate'] + 1) . "'
+								countUpdate = '" . ($contador) . "'
 							WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $_SESSION['User']['userId'] . "' AND deleted_at IS NULL";
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->UpdateData();

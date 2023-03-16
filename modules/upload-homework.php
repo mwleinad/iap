@@ -11,15 +11,15 @@
 		$homework->setNombre($_POST["nombre"]);
 		$homework->setUserId($_SESSION["User"]["userId"]);
 		// print_r($_FILES);
-		$response = $this->Util()->validarSubida(['size'=>5242880]); 
-		if($response['estatus']){ 
+		$response = $util->validarSubida(['size'=>5242880]); 
+		if(!$response['estatus']){ 
 			$_SESSION["exito"] = $response['mensaje']; 
 			header("Location:".WEB_ROOT."/calendar-modules-student/id/".$_POST["courseId"]);
 			exit;
 		} 
 		$response = $homework->Upload($_FILES["path"]);
 		if(!$response){
-			$_SESSION["exito"] = "Hubo un error con la subida del archivo"; 
+			$_SESSION["exito"] = "Hubo un error con la subida del archivo, intente de nuevo."; 
 			header("Location:".WEB_ROOT."/calendar-modules-student/id/".$_POST["courseId"]);
 			exit;
 		}
