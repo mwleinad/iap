@@ -8,6 +8,11 @@
 	$module->setQuienEnviaId('personal');
 	$module->setRecibeId($_SESSION['User']['userId']);
 	$module->setCMId($_GET["id"]);
+	if ($_SESSION['User']['type']=='student'){ 
+		$student->setUserId($_SESSION["User"]["userId"]);
+		$activeCourses = $student->StudentCourses("activo", "si");	  
+		$smarty->assign('countCourses',count($activeCourses));
+	}
 	// exit;
 	$lstMsj = $module->EnumerateInbox();
 	
@@ -81,6 +86,7 @@
 	$smarty->assign('infoC', $infoC);
 	$smarty->assign('courseMId', $_GET["id"]);
 	$smarty->assign('lstMsj', $lstMsj);
+	$smarty->assign('userType',$_SESSION['User']['type']);
 	// $smarty->assign('mnuMain', "modulo");
 	$smarty->assign('mnuSubmain','foro');
 	

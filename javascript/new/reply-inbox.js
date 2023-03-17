@@ -114,3 +114,6 @@ function closeModal(){
 function verArchivo(){
 	$("#divFileAdjunto").show();
 }
+function verMateria(Id){ 
+	$("#td_"+Id).toggle();
+}

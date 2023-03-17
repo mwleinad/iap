@@ -8,8 +8,11 @@
 	$module->setRecibeId($_SESSION['User']['userId']);
 	$module->setCMId($_GET["id"]);
 	$lstMsj = $module->EnumerateInbox();
-	
-	
+	if ($_SESSION['User']['type']=='student'){ 
+		$student->setUserId($_SESSION["User"]["userId"]);
+		$activeCourses = $student->StudentCourses("activo", "si");	  
+		$smarty->assign('countCourses',count($activeCourses));
+	}
 	
 	if ($_GET["cId"]<>0){
 		$infoC = $module->infoChat($_GET["cId"]);

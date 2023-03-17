@@ -7,6 +7,19 @@
 			{* ASIDE *}
 			<div class="col-md-2">
 				<div class="list-group">
+					{if $userType eq 'student' && $countCourses >= 1}
+						<a data-target="#ajax" class="list-group-item list-group-item-action inbox" data-toggle="modal" href="{$WEB_ROOT}/graybox.php?page=nuevo-inbox" data-title="Compose"> 
+							<i class="fas fa-plus"></i> <i class="fas fa-paper-plane"></i> Nuevo
+						</a>
+					{/if} 
+					{if $userType eq 'Docente'}
+						<form action="{$WEB_ROOT}/ajax/new/docente.php" class="form" id="form_inbox">
+							<input type="hidden" value="inboxGrupos" name="opcion">
+							<button class="list-group-item list-group-item-action" type="submit">
+								<i class="fas fa-plus"></i> <i class="fas fa-paper-plane"></i> Nuevo	
+							</button>
+						</form>
+					{/if}
 					<a href="javascript:;" class="list-group-item list-group-item-action inbox active" id="linkEntrada" data-title="Inbox" onClick="cargaInbox('entrada','{$courseMId}')">
 						<small><i class="fas fa-inbox"></i> Recibidos</small>
 					</a>

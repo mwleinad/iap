@@ -9,7 +9,7 @@
 				<div class="list-group">
 					{if $userType eq 'student' && $countCourses >= 1}
 						<a data-target="#ajax" class="list-group-item list-group-item-action inbox" data-toggle="modal" href="{$WEB_ROOT}/graybox.php?page=nuevo-inbox" data-title="Compose"> 
-							<i class="icon-edit"></i> Nuevo
+							<i class="fas fa-plus"></i> <i class="fas fa-paper-plane"></i> Nuevo
 						</a>
 					{/if} 
 					{if $userType eq 'Docente'}
