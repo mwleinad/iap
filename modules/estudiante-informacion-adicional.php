@@ -27,7 +27,7 @@
                 'score' => $item['score']
             ];
         }
-    }  
+    }   
  
 	foreach ($cursos as $key => $curso) {
 		if($curso['courseId'] == $primerCurso){
@@ -39,6 +39,7 @@
 		$calendar->setCourseId($curso['courseId']);
 		$baja = $student->bajaCurso($curso['courseId']);
 		$alta = $student->periodoAltaCurso($curso['courseId']);
+		$alta = $alta > 0 ? $alta : 1;
 		$calificacionMinima = $infoCourse['majorName'] == "MAESTRÍA" ? 7 : 8;
 		$cursos[$key]['calificacionMinima'] = $calificacionMinima; 
 		$cursos[$key]['status']	= 'inactivo';
@@ -53,10 +54,18 @@
 		$cursos[$key]["distribucion"] = $distribution;  
 
 		$qualifications = [];
+		$qualificationsRepeats = [];
 		for ($period = $alta; $period <= $baja; $period++) { 
 			$tmp = $student->BoletaCalificacion($infoCourse['courseId'], $period, true);  
 			foreach ($tmp as $item) {
 				if (array_key_exists($item['subjectModuleId'], $qualifications_repeat)) { 
+					$qualificationsRepeats[$period][] =[
+						'subjectModuleId' => $item['subjectModuleId'],
+						'name' => $qualifications_repeat[$item['subjectModuleId']]['name'],
+						'score' => $qualifications_repeat[$item['subjectModuleId']]['score'],
+						'addepUp' => $qualifications_repeat[$item['subjectModuleId']]['addepUp'],
+						'comments' => 'REC.'
+					]; 
 					$qualifications[$period][] = [
 						'subjectModuleId' => $item['subjectModuleId'],
 						'name' => $qualifications_repeat[$item['subjectModuleId']]['name'],
@@ -77,6 +86,7 @@
 			}
 		} 
 		$cursos[$key]["calificaciones"] = $qualifications; 
+		$cursos[$key]["calificacionesRepeat"] = $qualificationsRepeats; 
 	} 
 	$smarty->assign("cuatrimestre", $position);
 	$smarty->assign("cursos", $cursos);
