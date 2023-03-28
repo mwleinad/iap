@@ -737,7 +737,7 @@ switch ($_POST["type"]) {
 		
 		foreach ($students as $item) {
 			$buscarCorreo = strpos($item['email'],"@iapchiapas.edu.mx"); 
-			if($buscarCorreo !== false){
+			if($buscarCorreo === false){
 				$student->setUserId($item['userId']);
 				$student->setCorreoInstitucional($item['controlNumber']."@iapchiapas.edu.mx");
 				$respuesta = $student->cambiarCorreos();
