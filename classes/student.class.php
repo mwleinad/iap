@@ -27,6 +27,7 @@ class Student extends User
 	private $por_beca;
 	private $validar = true;
 	private $periodo;
+	private $correoInstitucional;
 
 	public function setValidar($value)
 	{
@@ -159,6 +160,11 @@ class Student extends User
 	public function setTipoMajor($value)
 	{
 		$this->tipoMajor = $value;
+	}
+
+	public function setCorreoInstitucional($value)
+	{
+		$this->correoInstitucional = $value;
 	}
 
 
@@ -3278,7 +3284,7 @@ class Student extends User
 
 	public function cambiarCorreos()
 	{
-		$sql = "UPDATE user SET email = '{$this->email}' WHERE userId = {$this->userId} ";
+		$sql = "UPDATE user SET correo_institucional = '{$this->correoInstitucional}' WHERE userId = {$this->userId} ";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->ExecuteQuery();
 	}

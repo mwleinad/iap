@@ -734,10 +734,14 @@ switch ($_POST["type"]) {
 	case "cambiarCorreos": //Modifica los correos personales por correos institucionales
 		$group->setCourseId($_POST['curso']);
 		$students = $group->DefaultGroup();
+		
 		foreach ($students as $item) {
-			$student->setUserId($item['userId']);
-			$student->setEmail($item['controlNumber']."@iapchiapas.edu.mx");
-			$respuesta = $student->cambiarCorreos();
+			$buscarCorreo = strpos($item['email'],"@iapchiapas.edu.mx"); 
+			if($buscarCorreo !== false){
+				$student->setUserId($item['userId']);
+				$student->setCorreoInstitucional($item['controlNumber']."@iapchiapas.edu.mx");
+				$respuesta = $student->cambiarCorreos();
+			} 
 		}
 		echo json_encode([
 			'modal_close'	=>true,

@@ -4,6 +4,7 @@
     <th>Nombre</th>
     <th>No. Control</th>
     <th>Correo</th>
+    <th>Correo Institucional</th>
     <th>Password</th>
     <th>Acciones</th>
 </tr>

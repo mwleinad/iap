@@ -5,6 +5,7 @@
         <td>{$item.names|upper}</td>
         <td>{$item.controlNumber}</td>
         <td><a href="mailto:{$item.email}">{$item.email}</a></td>
+        <td><a href="mailto:{$item.correo_institucional}">{$item.correo_institucional}</a></td>
         <td>{$item.password}</td>
         <td>
             {if $tip eq 'Inactivo'}
