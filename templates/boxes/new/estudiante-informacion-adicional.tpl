@@ -20,9 +20,10 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="calificaciones" role="tabpanel"
                 aria-labelledby="calificaciones-tab">
+                <h3 class="text-center my-3">{$infoStudent.names} {$infoStudent.lastNamePaterno} {$infoStudent.lastNameMaterno}</h3>
                 {foreach from=$cursos item=curso}
                     <div class="accordion" id="accordion{$curso.courseId}">
-                        <div class="card">
+                        <div class="card"> 
                             {if $curso.situation eq "Ordinario"}
                             <div class="card-header">
                                 <h2 class="mb-0">
@@ -61,6 +62,8 @@
                                                         {/if}
                                                     </div>
                                                     <div class="col-2 text-center">{$calificacion.comments}</div>
+                                                {foreachelse}
+                                                    <div class="col-12 text-center">Sin calificaciones</div>
                                                 {/foreach} 
                                                 </div>
                                             </div>
