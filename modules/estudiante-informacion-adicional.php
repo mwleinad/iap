@@ -23,17 +23,20 @@
         $tmp = $student->StudentModulesRepeat(); 
         foreach ($tmp as $item) {
             $qualifications_repeat[$item['subjectModuleId']] = [
-                'name' => $item['subjectModuleName'],
-                'score' => $item['score']
+                'name' 			=> $item['subjectModuleName'],
+                'score' 		=> $item['score'],
+				'period'		=> $item['semesterId'],
+				'courseId'		=> $item['courseId']
             ];
         }
-    }   
- 
+    }
+	// echo "<pre>"; 
 	foreach ($cursos as $key => $curso) {
-		if($curso['courseId'] == $primerCurso){
+		if($curso['courseId'] == $primerCurso){ 
 			unset($cursos[$key]);
 			continue;
 		}
+		
 		$course->setCourseId($curso['courseId']);
 		$infoCourse = $course->Info(); 
 		$calendar->setCourseId($curso['courseId']);
@@ -52,9 +55,11 @@
 		$cursos[$key]["tipoCuatri"] = $infoCourse['tipoCuatri'] == '' ? "Cuatrimestre" : $infoCourse['tipoCuatri'];
 		$cursos[$key]["totalPeriods"] = $infoCourse['totalPeriods'];
 		$cursos[$key]["distribucion"] = $distribution;  
+		if($curso['situation'] == 'Recursador'){
+			continue;
+		}
 
-		$qualifications = [];
-		$qualificationsRepeats = [];
+		$qualifications = []; 
 		for ($period = $alta; $period <= $baja; $period++) { 
 			$tmp = $student->BoletaCalificacion($infoCourse['courseId'], $period, true);
 			if(!$tmp){
@@ -62,13 +67,6 @@
 			}else{
 				foreach ($tmp as $item) {
 					if (array_key_exists($item['subjectModuleId'], $qualifications_repeat)) { 
-						$qualificationsRepeats[$period][] =[
-							'subjectModuleId' => $item['subjectModuleId'],
-							'name' => $qualifications_repeat[$item['subjectModuleId']]['name'],
-							'score' => $qualifications_repeat[$item['subjectModuleId']]['score'],
-							'addepUp' => $qualifications_repeat[$item['subjectModuleId']]['addepUp'],
-							'comments' => 'REC.'
-						]; 
 						$qualifications[$period][] = [
 							'subjectModuleId' => $item['subjectModuleId'],
 							'name' => $qualifications_repeat[$item['subjectModuleId']]['name'],
@@ -84,17 +82,29 @@
 							'score' => $item['score'],
 							'comments' => ''
 						];
-					}
-					$total_modules++;
+					} 
 				}
 			}
-			
-		} 
-		$cursos[$key]["calificaciones"] = $qualifications; 
-		$cursos[$key]["calificacionesRepeat"] = $qualificationsRepeats; 
+		}  
+		$cursos[$key]["calificaciones"] = $qualifications;  
 	} 
+	$recursamiento = [];
+	// print_r($qualifications_repeat);
+	foreach ($qualifications_repeat as $item) {
+		$recursamiento[$item['courseId']]['calificaciones'][$item['period']][] = [
+			'subjectModuleId' => $item['subjectModuleId'],
+			'name' => $item['name'],
+			'addepUp' => $item['addepUp'],						
+			'score' => $item['score'],
+			'comments' => ''
+		]; 
+	}
+	// print_r($cursos);
+	// print_r($recursamiento);
+	// exit;
 	$smarty->assign("cuatrimestre", $position);
 	$smarty->assign("cursos", $cursos);
+	$smarty->assign("recursamiento", $recursamiento);
 	$smarty->assign("infoStudent", $infoStudent);
 	$smarty->display(DOC_ROOT.'/templates/boxes/new/estudiante-informacion-adicional.tpl'); 
 ?>

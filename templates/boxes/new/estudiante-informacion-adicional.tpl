@@ -92,7 +92,7 @@
                         <div id="collapse{$curso.courseId}" class="collapse" aria-labelledby="headingOne"
                             data-parent="#accordion{$curso.courseId}">
                             <div class="card-body">
-                                {foreach from=$curso.calificacionesRepeat item=calificaciones key=key}
+                                {foreach from=$recursamiento[$curso.courseId]['calificaciones'] item=calificaciones key=key}
                                     <div class="row">
                                         <h3 class="w-100">{$curso.tipoCuatri} {$key}</h3>    
                                         <div class="col-12">
