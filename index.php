@@ -229,6 +229,7 @@ $pages = array(
 	'niveles-ingles',
 	'configuracion-certificados',
 	'reporte-indicadores',
+	'reportes-extras'
 );
 
 if(!in_array($_GET['page'], $pages))
@@ -252,7 +253,7 @@ if($User['userId'])
 
 $smarty->assign('AccessMod',$AccessMod);
 $smarty->assign('User',$User);
-
+// print_r($User);
 $includedTpl =  $_GET['page'];
 if($_GET['section'])
 {

@@ -207,33 +207,19 @@
 				});
 			</script>
 		{/if}
-		{* {if $User.type eq "student" and $page eq "homepage"}
-			{if $User.announcement neq true}
+		{if $User.type eq "student" and $page eq "homepage"}
+			{if $User.announcement neq true and ($User.userId eq 4121 || $User.userId eq 4123)}
 				<script>
 					Swal.fire({
-						html: '<img src="{$WEB_ROOT}/images/sports.jpg" style="width: 250px;" /><p><b>A la comunidad estudiantil se le hace de su conocimiento que como parte del convenio de colaboración interinstitucional entre el INDEPORTE y el IAP-Chiapas, en la cláusula SEGUNDA: cada estudiante puede hacer uso de alberca y de instalaciones deportivas a cargo del instituto del deporte, considerando siempre una cuota preferencial.</b></p><p><b>Vigencia al 31 de Diciembre del año 2024.</b></p>',
+						html: '<p>Estimado alumno: <br>Por el momento, la currícula correspondiente a la Maestría en Administración y Políticas Públicas, Grupo A; se encuentra inactiva, por favor, comunicarse a Dirección Académica del IAP Chiapas para solucionar este detalle.<br>961 125 15 08 Ext. 105<br> Horario de 08:00 a 16:00 horas',
 						showCancelButton: false,
 						confirmButtonColor: '#58ff85',
 						cancelButtonColor: '#ff4545',
 						confirmButtonText: 'Enterado'
-					}).then((result) => {
-						if (result.isConfirmed) {
-							$.ajax({
-								url : WEB_ROOT+'/ajax/new/studentCurricula.php',
-								type: "POST",
-								data: 'type=announcement',
-								beforeSend: function(){	},
-								success: function(response)
-								{
-									console.log(response);
-								},
-								error: function (){ alert('Something went wrong...'); }
-							});
-						}
 					});
 				</script>
 			{/if}
-		{/if} *}
+		{/if}
 	</body>
 
 </html>

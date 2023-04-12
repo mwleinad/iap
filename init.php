@@ -10,7 +10,7 @@
 	date_default_timezone_set('America/Mexico_City');
 	header('Content-type: text/html; charset=utf-8');
 	
-	if($_GET['page'] != 'cuenta-cobrar-recibo' && $_GET['page'] != 'export-excel' && $_GET['page'] != 'export-pdf'){	
+	if($_GET['page'] != 'cuenta-cobrar-recibo' && $_GET['page'] != 'export-excel' && $_GET['page'] != 'export-pdf' && $_GET['page'] != 'reportes-extras'){	
 		mb_internal_encoding('UTF-8');
 		mb_http_output('UTF-8');
 		mb_http_input('UTF-8');

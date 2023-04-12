@@ -161,7 +161,7 @@
                                     {/if}
                                 </p>
                                 <div class="text-center">
-                                    {if $subject.situation eq 'Ordinario'}
+                                    {* {if $subject.situation eq 'Ordinario'}
                                         <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
                                             <i class="fas fa-link"></i> Ver
                                         </a>
@@ -170,7 +170,7 @@
                                         <a href="{$WEB_ROOT}/modulos-recursar/id/{$subject.courseId}" title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
                                             <i class="fas fa-link"></i> Ver
                                         </a>
-                                    {/if}<br><br> 
+                                    {/if}<br><br>  *}
                                 </div>
                             </div>
                         </div>
