@@ -26,7 +26,7 @@
             </div>
             <div class="w-100"></div>
             {foreach from=$calificaciones item=calificacion key=periodo} 
-                {if $periodo <= $periodoSugerido} 
+                {* {if $periodo <= $periodoSugerido}  *}
                     <h3 class="col-md-12 text-center">{$tipoPeriodo} {$periodo}</h3> 
                     <div class="col-md-12">
                         <div class="row" style="padding: 5px; background-color: {if $periodo == $periodoSugerido} #ef5372; {else} #73b760; {/if} font-size: 20px; color: white; border-radius:20px 20px 0 0;">
@@ -52,7 +52,7 @@
                             {/if}
                         </div>
                     {/foreach} 
-                {/if}
+                {* {/if} *}
             {/foreach}
         </div>
     </div>

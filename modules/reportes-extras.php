@@ -31,67 +31,83 @@ course.active = 'si' AND CURDATE() <= course.finalDate AND user_subject.status =
 ORDER BY
 course.courseId,
 user.lastNamePaterno,
-user.lastNameMaterno;"); 
+user.lastNameMaterno"); 
 $result = $util->Util()->DB()->GetResult(); 
-echo "<pre>";
-
-foreach ($result as $item) {
-    $course->setCourseId($item['courseId']);
+$spreadsheet = new Spreadsheet();
+$spreadsheet->getProperties()->setCreator('William Ramírez')
+    ->setLastModifiedBy('William Ramírez')
+    ->setTitle('Promedios')
+    ->setSubject('Promedios')
+    ->setDescription('Promedios | IAP Chiapas')
+    ->setKeywords('Promedios')
+    ->setCategory('Calificaciones');
+$sheet = $spreadsheet->getActiveSheet();
+$sheet->setCellValue('A1','Currícula');
+$sheet->setCellValue('B1','Grupo');
+$sheet->setCellValue('C1','Nombre');
+$sheet->setCellValue('D1','Apellido Paterno'); 
+$sheet->setCellValue('E1','Apellido Materno'); 
+$sheet->setCellValue('F1','Promedio'); 
+// $sheet->setCellValue('G1','Materias'); 
+$i = 2;
+foreach ($result as $alumnos) { 
+    $course->setCourseId($alumnos['courseId']);
+    $student->setUserId($alumnos['alumnoId']);
     $infoCourse = $course->Info(); 
+
+    $recursamiento = true;
+    $qualifications_repeat = [];
+    if ($recursamiento) {
+        $has_modules_repeat = $student->hasModulesRepeat(); 
+        if ($has_modules_repeat) {
+            $tmp = $student->StudentModulesRepeat(); 
+            foreach ($tmp as $item) {
+                $qualifications_repeat[$item['subjectModuleId']] = [ 
+                    'score' => $item['score']
+                ];
+            }
+        }
+    }
+
+    $sumCal = 0;
+    $materias = 0;
+    $esRecursada = "no";
     for ($period = 1; $period <=  $infoCourse['totalPeriods']; $period++) { 
-        $tmp = $student->BoletaCalificacion($infoCourse['courseId'], $period, true); 
+        $tmp = $student->BoletaCalificacion($infoCourse['courseId'], $period, false); 
         foreach ($tmp as $item) { 
-            $qualifications[$period][] = [
-                'subjectModuleId' => $item['subjectModuleId'],
-                'name' => $item['name'],
-                'addepUp' => $item['addepUp'],						
-                'score' => $item['score'],
-                'comments' => ''
-            ]; 
+            if (array_key_exists($item['subjectModuleId'], $qualifications_repeat) && $recursamiento) {
+                $sumCal+=$qualifications_repeat[$item['subjectModuleId']]['score']; 
+                $esRecursada = "si";
+            }else{
+                $sumCal+=$item['score'];
+            }
+            $materias++;  
         }
     } 
-    $cursos[$key]["calificaciones"] = $qualifications;  
+    $materias = $materias == 0 ? 1 : $materias;
+    $sheet->setCellValue('A'.$i,$alumnos['majorName']." - ".$alumnos['name']);
+    $sheet->setCellValue('B'.$i,$alumnos['group']);
+    $sheet->setCellValue('C'.$i,$alumnos['names']);
+    $sheet->setCellValue('D'.$i,$alumnos['lastNamePaterno']);
+    $sheet->setCellValue('E'.$i,$alumnos['lastNameMaterno']);
+    $sheet->setCellValue('F'.$i,bcdiv($sumCal, $materias, 1)); 
+    $sheet->setCellValue('G'.$i,$esRecursada); 
+    // $sheet->setCellValue('G'.$i, $materias ); 
+    $i++; 
 }
-print_r($result);
-// $group->setCourseId($_GET['curso']);
-// $students = $group->DefaultGroup();
-// // Create new Spreadsheet object
-// $spreadsheet = new Spreadsheet();
 
-// // Set document properties
-// $spreadsheet->getProperties()->setCreator('William Ramírez')
-//     ->setLastModifiedBy('William Ramírez')
-//     ->setTitle('Alumnos')
-//     ->setSubject('Alumnos')
-//     ->setDescription('Alumnos | IAP Chiapas')
-//     ->setKeywords('Alumnos')
-//     ->setCategory('Calificaciones');
-// $sheet = $spreadsheet->getActiveSheet();
-// $sheet->setCellValue('A1','Nombre(s)');
-// $sheet->setCellValue('B1','Apellidos');
-// $sheet->setCellValue('C1','Correo');
-// $sheet->setCellValue('D1','Contraseña'); 
+// Redirect output to a client’s web browser (Xls)
+header('Content-Type: application/vnd.ms-excel; charset=utf-8');
+header('Content-Disposition: attachment;filename="alumnos.xls"');
+header('Cache-Control: max-age=0');
+// If you're serving to IE 9, then the following may be needed
+header('Cache-Control: max-age=1');
 
-// for ($i=2; $i < count($students) ; $i++) {
-//     $sheet->setCellValue('A'.$i,$students[$i-2]['names']);
-//     $sheet->setCellValue('B'.$i,$students[$i-2]['lastNamePaterno']." ".$students[$i-2]['lastNameMaterno']);
-//     $sheet->setCellValue('C'.$i,$students[$i-2]['controlNumber']."@iapchiapas.edu.mx"); 
-//     $password = "iap2023_".rand(100,999);
-//     $sheet->setCellValue('D'.$i,$password);
-// }
+// If you're serving to IE over SSL, then the following may be needed
+header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+header('Pragma: public'); // HTTP/1.0
 
-// // Redirect output to a client’s web browser (Xls)
-// header('Content-Type: application/vnd.ms-excel; charset=utf-8');
-// header('Content-Disposition: attachment;filename="alumnos.xls"');
-// header('Cache-Control: max-age=0');
-// // If you're serving to IE 9, then the following may be needed
-// header('Cache-Control: max-age=1');
-
-// // If you're serving to IE over SSL, then the following may be needed
-// header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-// header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
-// header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
-// header('Pragma: public'); // HTTP/1.0
-
-// $writer = IOFactory::createWriter($spreadsheet, 'Xls');
-// $writer->save('php://output');
+$writer = IOFactory::createWriter($spreadsheet, 'Xls');
+$writer->save('php://output');
