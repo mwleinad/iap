@@ -15,6 +15,7 @@
             <select name="modality" id="modality" class="form-control">
                 <option value="Local">Escolar</option>
                 <option value="Online">No Escolar</option>
+                <option value="Mixto">Mixto</option>
             </select>
         </div>
     </div>
