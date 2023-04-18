@@ -1592,7 +1592,8 @@ class Student extends User
 					LEFT JOIN major 
 						ON major.majorId = subject.tipo 
 				WHERE alumnoId = " . $this->getUserId() . " " . $status . " 
-				ORDER BY status ASC, courseId DESC";
+				ORDER BY majorName, status ASC, courseId DESC";
+				// echo $sql;
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 
