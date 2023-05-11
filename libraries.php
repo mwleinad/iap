@@ -90,6 +90,8 @@ include_once(DOC_ROOT.'/libs/phpqrcode/qrlib.php');
 include_once(DOC_ROOT.'/classes/docente.class.php');
 include_once(DOC_ROOT . '/classes/calendar.class.php');
 include_once(DOC_ROOT . '/classes/certificates.class.php');
+include_once(DOC_ROOT . '/classes/conceptos.class.php');
+include_once(DOC_ROOT . '/classes/pagination.class.php');
 $docente = new Docente();
 
 $db = new DB;
@@ -148,6 +150,8 @@ $solicitud= new Solicitud;
 $encuesta= new Encuesta;
 $calendar = new Calendar;
 $certificates = new Certificates;
+$conceptos = new Conceptos;
+$pagination = new Pagination;
 
 $smarty = new Smarty;
 

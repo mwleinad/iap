@@ -838,6 +838,15 @@ class Student extends User
 			if ($this->Util()->DB()->InsertData()) {
 				$complete["status"] = true;
 				$complete["message"] = "Has registrado al alumno exitosamente, le hemos enviado un correo electrónico para continuar con el proceso de inscripcion";
+				$conceptos = new Conceptos();
+				$conceptos->setCourseId($curricula);
+				$conceptos->setAlumno($id);
+				$relacionados = $conceptos->conceptos_cursos_relacionados();
+				foreach ($relacionados['periodicos'] as $item) { 
+					$conceptos->setConceptoCurso($item['concepto_course_id']);
+					$conceptos->setCosto($item['total']);
+					$conceptos->crear_relacion_curso_alumno(); 
+				}
 			} else {
 				$complete["status"] = false;
 				$complete["message"] = "no";
@@ -2721,14 +2730,8 @@ class Student extends User
 	}
 
 
-	function StudentModulesRepeat($status = NULL)
+	function StudentModulesRepeat($condition = "")
 	{
-
-		$tmp_status = $status;
-		if ($status != NULL) {
-			$status = " AND status = '" . $status . "'";
-		}
-
 		$sql = "SELECT
 					usr.*, s.name AS subjectName, m.name AS majorName, s.icon, c.group, cm.initialDate, cm.finalDate, sm.name AS subjectModuleName, cm.courseModuleId, c.courseId, sm.subjectModuleId
 				FROM
@@ -2744,7 +2747,7 @@ class Student extends User
 				LEFT JOIN subject_module sm 
 					ON cm.subjectModuleId = sm.subjectModuleId
 				WHERE
-					usr.alumnoId = " . $this->getUserId() . "
+					usr.alumnoId = " . $this->getUserId() . " {$condition}
 				ORDER BY sm.name ASC";
 
 		$this->Util()->DB()->setQuery($sql);
@@ -2770,8 +2773,7 @@ class Student extends User
 				$sqlca = "SELECT ponderation FROM activity_score WHERE activityId = " . $activity["activityId"] . " AND userId = " . $res["alumnoId"];
 				$this->Util()->DB()->setQuery($sqlca);
 				$score = $this->Util()->DB()->GetSingle();
-				$result[$key]{
-					"score"}[] = $score;
+				$result[$key]["score"][] = $score;
 				$realScore = $score * $activity["score"] / 100;
 				$result[$key]["realScore"][] = $realScore;
 				$result[$key]["addepUp"] += $realScore;
@@ -2825,14 +2827,15 @@ class Student extends User
 		return $result;
 	}
 
-	public function BoletaCalificacion($courseId, $period = 0, $english = true)
+	public function BoletaCalificacion($courseId, $period = 0, $english = true, $moduloTerminado = false)
 	{
 		$condition = "";
 		if ($period > 0)
 			$condition .= " AND subject_module.semesterId = " . $period;
 		if (!$english)
 			$condition .= " AND subject_module.subjectModuleId NOT IN (246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257)";
-
+		if($moduloTerminado)
+			$condition.= "AND course_module.finalDate <= CURRENT_DATE()";
 		// Se obtienen las materias del curso
 		$sql = "SELECT *, IF(subject_module.clave LIKE '%ING%', 1, 0) AS extra
 					FROM course_module

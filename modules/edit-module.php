@@ -22,6 +22,7 @@
 		$module->setBibliography($_POST['bibliography']);
 		$module->setSemesterId($_POST['semesterId']);
 		$module->setCreditos($_POST['creditos']);
+		$module->setTipo($_POST['tipo']);
 		$module->Update();
 		$url = WEB_ROOT . "/edit-modules-course/id/{$_POST['curso']}";
 		if($_POST['urlBack']){

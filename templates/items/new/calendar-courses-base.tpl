@@ -33,11 +33,6 @@
             </a>
         </td>
         <td class="text-center">
-            <a href="{$WEB_ROOT}/becas-calendario/id/{$subject.courseId}" target="_blank" title="Configurar Becas">
-                <i class="fas fa-check-circle text-dark fa-lg"></i>
-            </a>
-        </td>
-        <td class="text-center">
             <a href="{$WEB_ROOT}/pagos-calendario/id/{$subject.courseId}" target="_blank" title="Historial de Pagos">
                 <i class="fas fa-dollar-sign text-primary fa-lg"></i>
             </a>

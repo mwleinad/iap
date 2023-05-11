@@ -126,7 +126,16 @@
 							</a>
 							<a class="dropdown-item pointer spanActive" onclick="editPeriodos({$subject.courseId});" title="PERIODOS" id="{$subject.courseId}">
 								<i class="fas fa-calendar-alt"></i> Periodos
-							</a>
+							</a> 
+							{if $User.userId == 1}
+								<form id="form_calendario{$subject.courseId}" class="form dropdown-item pointer spanActive" action="{$WEB_ROOT}/ajax/new/conceptos.php" method="POST">
+									<input type="hidden" name="opcion" value="conceptos-curso">
+									<input type="hidden" name="curso" value="{$subject.courseId}">
+									<button type="submit" class="border-0 bg-transparent p-0" data-target="#ajax" data-toggle="modal">
+										<i class="fas fa-calendar-alt"></i> Calendario de Pagos
+									</button>
+								</form>
+							{/if}
 						</div>
 					</div>	
 					<div id="divAccion_{$subject.courseId}"></div>	

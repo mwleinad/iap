@@ -1,31 +1,7 @@
-<div id="calendario-pagos">
-    <div class="page-header">
-        <h3 class="page-title">
-            <span class="page-title-icon bg-gradient-primary text-white mr-2">
-                <i class="mdi mdi-cash"></i>
-            </span>
-            Configurar Calendario
-        </h3>
-        <nav aria-label="breadcrumb">
-            <ul class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page">
-                    <span></span>Cobranza
-                    <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
-                </li>
-            </ul>
-        </nav>
-    </div>
-
+{if $opcion eq "conceptos-curso"}
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
             <i class="fas fa-cogs"></i> Configurar Calendario
-            <form action="{$WEB_ROOT}/ajax/new/conceptos.php" method="POST" class="form" id="form_agregar_conceptos">
-                <input type="hidden" name="opcion" value="agregar_conceptos_curso">
-                <input type="hidden" name="curso" value="{$courseId}">
-                <button type="submit" class="btn btn-info float-right" data-target="#ajax" data-toggle="modal">
-                    <i class="fas fa-plus"></i> Agregar
-                </button>
-            </form>
         </div>
         <div class="card-body">
             <div class="row">
@@ -37,7 +13,6 @@
                 </div>
             </div>
             <div class="row">
-            {if count($conceptos.periodicos) > 0 || count($conceptos.otros) > 0}
                 {for $period = 1 to $info.totalPeriods}
                     <div class="col-md-12">
                         <div class="card">
@@ -66,12 +41,12 @@
                                                         <td>{$item.fecha_limite}</td>
                                                         <td>{($item.descuento) ? "Sí" : "No"}</td>
                                                         <td>
-                                                            <form class="form" action="{$WEB_ROOT}/ajax/new/conceptos.php" id="form_edicion{$item.concepto_course_id}">
+                                                            <form class="form" action="{$WEB_ROOT}/ajax/new/conceptos.php"
+                                                                id="form_concepto_curso{$item.concepto_course_id}">
                                                                 <input type="hidden" name="opcion" value="editar-curso-concepto">
-                                                                <input type="hidden" name="calendario" value="true">
                                                                 <input type="hidden" name="concepto-curso"
                                                                     value="{$item.concepto_course_id}">
-                                                                <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#ajax">Editar</button>
+                                                                <button type="submit" class="btn btn-primary">Editar</button>
                                                             </form>
                                                         </td>
                                                     </tr>
@@ -105,10 +80,10 @@
                                                 <td>{$item.total}</td>
                                                 <td>{($item.descuento) ? "Sí" : "No"}</td>
                                                 <td>
-                                                    <form class="form" action="{$WEB_ROOT}/ajax/new/conceptos.php">
-                                                        <input type="hidden" name="calendario" value="true">
-                                                        <input type="hidden" name="opcion" value="editar_concepto_curso">
-                                                        <input type="hidden" name="concepto_curso"
+                                                    <form class="form" action="{$WEB_ROOT}/ajax/new/conceptos.php"
+                                                        id="form_concepto_curso{$item.concepto_course_id}">
+                                                        <input type="hidden" name="opcion" value="editar-curso-concepto">
+                                                        <input type="hidden" name="concepto-curso"
                                                             value="{$item.concepto_course_id}">
                                                         <button type="submit" class="btn btn-primary">Editar</button>
                                                     </form>
@@ -120,15 +95,69 @@
                             </div>
                         </div>
                     </div>
-                </div>  
-            {else}
-                <div class="col-md-12">
-                    <h4>
-                        Sin conceptos
-                    </h4>
-                </div>  
-            {/if} 
+                </div>
             </div>
         </div>
     </div>
-</div>
+{/if}
+
+{if $opcion eq "actualizar-curso-concepto"}
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <i class="fas fa-cogs"></i> Edición de concepto
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="form row" id="form_modal_concepto" action="{$WEB_ROOT}/ajax/new/conceptos.php"
+                        method="POST">
+                        <input type="hidden" name="concepto_curso" value="{$concepto.concepto_course_id}">
+                        <input type="hidden" name="opcion" value="{$opcion}"> 
+                        <div class="col-md-4 form-group {($concepto.fecha_cobro == "") ? "d-none" : ""}">
+                            <label>Fecha de cobro</label>
+                            <input type="text" class="form-control i-calendar" id="fecha_cobro" name="fecha_cobro"
+                                value="{$concepto.fecha_cobro}">
+                        </div>
+                        <div class="col-md-4 form-group {($concepto.fecha_cobro == "") ? "d-none" : ""}">
+                            <label>Fecha Límite</label>
+                            <input type="text" class="form-control i-calendar" id="fecha_limite" name="fecha_limite"
+                                value="{$concepto.fecha_limite}">
+                        </div>
+                        <div class="col-md-4 form-group {($concepto.fecha_cobro == "") ? "d-none" : ""}">
+                            <label>Periodo</label>
+                            <input type="number" class="form-control" id="periodo" name="periodo"
+                                value="{$concepto.periodo}">
+                        </div>
+
+                        <div class="col-md-4 form-group">
+                            <label>Costo</label>
+                            <input type="text" name="costo" id="costo" class="form-control" value="{$concepto.total}">
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label>¿Aplica beca?</label>
+                            <select class="form-control" id="beca" name="beca">
+                                <option value="1">Sí</option>
+                                <option value="0" {($concepto.descuento == 0) ? "selected" : ""}>No</option>
+                            </select>
+                        </div>
+                        <div class="col-12 mb-3 text-center">
+                            <button type="submit" class="btn btn-success">Actualizar</button>
+                            {if $calendario}
+                                <button type="button" data-dismiss="modal" class="btn btn-danger">Cerrar</button>
+                                <input type="hidden" name="calendario" value="true">
+                            {else}
+                                <a class="btn btn-danger ajax_sin_form" href="{$WEB_ROOT}/ajax/new/conceptos.php"
+                                    data-data='"opcion":"conceptos-curso","curso":"{$concepto.course_id}"'>Regresar</a>
+                            {/if}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        flatpickr('.i-calendar', {
+            dateFormat: "Y-m-d"
+        });
+    </script>
+{/if}

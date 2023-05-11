@@ -619,15 +619,15 @@ class Course extends Subject
 		$this->Util()->DB()->setQuery($sql);
 		//ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
 		$result = $this->Util()->DB()->InsertData();
-		if ($result > 0) {
-			//si el resultado es mayor a cero, se inserto el nuevo registro con exito...se regresara true
-			$result = true;
-			$this->Util()->setError(90000, 'complete', "Se ha abierto un nuevo curso");
-		} else {
-			//si el resultado es cero, no se pudo insertar el nuevo registro...se regresara false
-			$result = false;
-			$this->Util()->setError(90010, 'error');
-		}
+		// if ($result > 0) {
+		// 	//si el resultado es mayor a cero, se inserto el nuevo registro con exito...se regresara true
+		// 	$result = true;
+		// 	$this->Util()->setError(90000, 'complete', "Se ha abierto un nuevo curso");
+		// } else {
+		// 	//si el resultado es cero, no se pudo insertar el nuevo registro...se regresara false
+		// 	$result = false;
+		// 	$this->Util()->setError(90010, 'error');
+		// }
 		$this->Util()->PrintErrors();
 		return $result;
 	}

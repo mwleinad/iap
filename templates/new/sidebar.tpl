@@ -58,6 +58,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{$WEB_ROOT}/cat-doc-alumno">Documentos Alumnos</a>
                                 </li>
+                                {if $User.userId == 1}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{$WEB_ROOT}/conceptos">Conceptos de pago</a>
+                                    </li>
+                                {/if}
                             </ul>
                         </div>
                     </li>

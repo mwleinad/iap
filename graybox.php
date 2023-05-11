@@ -230,7 +230,8 @@ $pages = array(
     'niveles-ingles',
     "estudiante-informacion-adicional",
     "ficha-registro",
-    'foro-estadisticas'
+    'foro-estadisticas',
+    'conceptos'
 );
 
 if(!in_array($_GET['page'], $pages))

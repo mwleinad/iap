@@ -8,6 +8,5 @@
     <th>Fecha Inicial</th>
     <th>Fecha Final</th>
     <th>Calendario</th>
-    <th>Becas</th>
     <th>Pagos</th>
 </tr>

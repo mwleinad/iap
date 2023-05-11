@@ -12,7 +12,12 @@ class Module extends Course
 	private $mensaje;
 	private $enviaId;
 	private $titulo;
+	private $tipo;
 
+	public function setTipo($tipo)
+	{
+		$this->tipo = $tipo;
+	}
 	public function setTitulo($value)
 	{
 		$this->titulo = $value;
@@ -128,7 +133,8 @@ class Module extends Course
 							evaluation,
 							bibliography,							
 							cost,
-							credits
+							credits,
+							tipo
 						)
 					VALUES (
 							'" . $this->getSubjectId() . "', 
@@ -146,7 +152,8 @@ class Module extends Course
 							'" . $this->getEvaluation() . "',
 							'" . $this->getBibliography() . "',
 							'" . $this->getCost() . "',
-							'" . $this->creditos . "'
+							'" . $this->creditos . "',
+							'" . $this->tipo . "'
 							)";
 		//configuramos la consulta con la cadena de insercion
 		$this->Util()->DB()->setQuery($sql);
@@ -284,7 +291,8 @@ class Module extends Course
 						evaluation='" 	. $this->getEvaluation() . "',
 						bibliography='" 	. $this->getBibliography() . "',
 						cost='" 	. $this->getCost() . "',
-						credits = '" . $this->creditos . "'
+						credits = '" . $this->creditos . "',
+						tipo = '" . $this->tipo . "'
 						WHERE 	subjectModuleId='" . $this->subjectModuleId . "'";
 		//configuramos la consulta con la cadena de actualizacion
 		$this->Util()->DB()->setQuery($sql);

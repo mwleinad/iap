@@ -6,9 +6,20 @@
 	
 	if($_POST)
 	{
+		if(empty($_POST['nombre'])){
+			$errors["nombre"] = "El campo nombre es requerido";
+		}
+		if (!empty($errors)) {
+            header('HTTP/1.1 422 Unprocessable Entity');
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode([
+                'errors'    => $errors,
+            ]);
+            exit;
+        } 
 		$module->setSubjectId($_POST['subjectId']);
 		$module->setClave(strtoupper($_POST['frmClave']));
-		$module->setName(strtoupper($_POST['frmName']));
+		$module->setName(strtoupper($_POST['nombre']));
 		$module->setWelcomeText($_POST['welcomeText']);
 		$module->setIntroduction($_POST['introduction']);
 		$module->setIntentions($_POST['intentions']);
@@ -21,9 +32,14 @@
 		$module->setBibliography($_POST['bibliography']);
 		$module->setSemesterId($_POST['semesterId']);
 		$module->setCreditos($_POST['creditos']);
-		$module->Save();
-
-		header("Location:" . WEB_ROOT . "/subject");
+		$module->setTipo($_POST['tipo']);
+		if($module->Save()){
+			echo json_encode([
+                'reload'    	=> true,
+				'growl'		=>true,
+				'message'	=>'Módulo agregado',
+            ]);
+		} 
 		exit;
 	}
 
@@ -35,5 +51,3 @@
 	$smarty->assign('subject',$mySubject);
 
 	//$smarty->assign('major',$major->Enumerate());
-	
-?>

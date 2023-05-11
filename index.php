@@ -145,7 +145,7 @@ $pages = array(
 	"make-test",
 	"student-curricula",	
 	"ver-sabana-course",
-		"add-comment",
+	"add-comment",
 
 	"add-noticia",
 	"tv",
@@ -229,7 +229,8 @@ $pages = array(
 	'niveles-ingles',
 	'configuracion-certificados',
 	'reporte-indicadores',
-	'reportes-extras'
+	'reportes-extras',
+	'conceptos'
 );
 
 if(!in_array($_GET['page'], $pages))

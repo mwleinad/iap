@@ -61,15 +61,14 @@ $( document ).ready(function() {
             setTimeout(() => {
                 btnSubmit.prop('disabled',false);
                 btnSubmit.html(textoBtn);
-            }, 2000);  
-            console.log(response);
+            }, 2000);   
             if (response.status == 422) {
                 response = JSON.parse(response.responseText);
-                console.log(response);
+                growl("Existe un error con los campos requeridos, revise por favor.","danger");
                 actionPostAjax(form, response);
                 $.each(response.errors,function(index, value){
-                    form.find("input[name="+index+"],textarea[name="+index+"]").addClass('is-invalid');
-                    form.find("input[name="+index+"],textarea[name="+index+"]").parent().append(`<span class="invalid-feedback d-block">${value}</span>`); 
+                    form.find("input[name="+index+"],textarea[name="+index+"]").addClass('is-invalid').focus();
+                    form.find("input[name="+index+"],textarea[name="+index+"]").parent().append(`<span class="invalid-feedback d-block">${value}</span>`).focus(); 
                 });
             }
         });
@@ -81,21 +80,44 @@ $( document ).ready(function() {
             if(typeof ancho !== 'undefined' ){
                 $(".modal-dialog").css({"max-width":ancho});
             }
-        }
+        } 
     })
 
-    $("body").on('keyup', '.onlynumber', function(){
-        var valor = numero($(this).val());
+    $(document).on("click", ".ajax_sin_form", function(ev){
+        ev.preventDefault();
+        let data = JSON.parse("{"+$(this).data("data")+"}");
+        console.log(data);
+        $.ajax({
+            url:$(this).attr('href'),
+            data:data,
+            type:"POST"
+        }).done(function(response){
+            response = JSON.parse(response);
+            actionPostAjax("", response);
+        }).fail(function(response){
+            console.log(response);
+        });
+    });
+
+    $("body").on('keyup', '.money', function(){
+        var valor = moneda($(this).val());
         $(this).val(valor);
     }); 
 });
 
-function numero(v){     
-    v=v.replace(/([^0-9]+)/g,'');
-    return v;  
-} 
+function moneda(v) {
+    v = v.replace(/([^0-9\.]+)/g, '');
+    v = v.replace(/^[\.]/, '');
+    v = v.replace(/[\.][\.]/g, '');
+    v = v.replace(/\.(\d)(\d)(\d)/g, '.$1$2');
+    v = v.replace(/\.(\d{1,2})\./g, '.$1');
+    v = v.toString().split('').reverse().join('').replace(/(\d{3})/g, '$1,');
+    v = v.split('').reverse().join('').replace(/^[\,]/, '');
+    return v;
+}
 
 function actionPostAjax(form, response){
+    console.log(response);
     if (response.growl) {
         growl(response.message,response.type);
     }

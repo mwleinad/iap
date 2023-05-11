@@ -27,7 +27,7 @@ LEFT JOIN course ON course.courseId = user_subject.courseId
 LEFT JOIN subject ON subject.subjectId = course.subjectId
 LEFT JOIN major ON major.majorId = subject.tipo
 WHERE
-course.active = 'si' AND CURDATE() <= course.finalDate AND user_subject.status = 'activo' AND course.courseId NOT IN(61, 81, 82, 98, 80, 59, 137, 97)
+course.active = 'si' AND CURDATE() <= course.finalDate AND user_subject.status = 'activo' AND course.courseId NOT IN(61, 81, 82, 98, 80, 59, 137, 97) AND major.majorId IN(1,18)
 ORDER BY
 course.courseId,
 user.lastNamePaterno,
@@ -60,7 +60,7 @@ foreach ($result as $alumnos) {
     if ($recursamiento) {
         $has_modules_repeat = $student->hasModulesRepeat(); 
         if ($has_modules_repeat) {
-            $tmp = $student->StudentModulesRepeat(); 
+            $tmp = $student->StudentModulesRepeat("AND cm.finalDate <= CURRENT_DATE()"); 
             foreach ($tmp as $item) {
                 $qualifications_repeat[$item['subjectModuleId']] = [ 
                     'score' => $item['score']
@@ -73,7 +73,7 @@ foreach ($result as $alumnos) {
     $materias = 0;
     $esRecursada = "no";
     for ($period = 1; $period <=  $infoCourse['totalPeriods']; $period++) { 
-        $tmp = $student->BoletaCalificacion($infoCourse['courseId'], $period, false); 
+        $tmp = $student->BoletaCalificacion($infoCourse['courseId'], $period, false, true); 
         foreach ($tmp as $item) { 
             if (array_key_exists($item['subjectModuleId'], $qualifications_repeat) && $recursamiento) {
                 $sumCal+=$qualifications_repeat[$item['subjectModuleId']]['score']; 

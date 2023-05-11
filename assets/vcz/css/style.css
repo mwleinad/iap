@@ -2803,6 +2803,7 @@ input[type="checkbox"] {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 0;
+  height: 20px;
 }
 
 input[type="date"],
@@ -4765,7 +4766,7 @@ pre code {
   display: block;
   width: 100%;
   height: 2.875rem;
-  padding: 0.94rem 1.375rem;
+  padding: 0.8rem 1.375rem;
   font-size: 0.8125rem;
   font-weight: 400;
   line-height: 1;
@@ -17761,13 +17762,13 @@ code {
 
 .input-group-append .input-group-text,
 .input-group-prepend .input-group-text {
-  border-color: #ebedf2;
+  border-color: #9d9fa3;
   padding: 0.94rem 0.75rem;
-  color: #c9c8c8;
+  color: #9d9fa3;
 }
 
 .form-control {
-  border: 1px solid #ebedf2;
+  border: 1px solid #cdcdcd;
   font-family: 'Lato', sans-serif;
   font-size: 0.8125rem;
 }
@@ -17777,14 +17778,7 @@ code {
   color: #000;
   outline: none;
 }
-
-select.form-control {
-  padding: .4375rem .75rem;
-  border: 0;
-  outline: 1px solid #ebedf2;
-  /* color: #c9c8c8; */
-}
-
+ 
 select.form-control:focus {
   outline: 1px solid #ebedf2;
 }

@@ -408,6 +408,7 @@ switch ($_POST["type"]) {
 		$course->setCurricula($_POST['curricula']);
 		$result = $course->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT . '/history-subject', $arrPage);
 		$uniqueSubjects = $course->EnumerateSubjectByPage();
+		$smarty->assign('User',$_SESSION['User']);
 		$smarty->assign('subjects', $result);
 		$smarty->assign('uniqueSubjects', $uniqueSubjects);
 		$smarty->display(DOC_ROOT . '/templates/lists/new/courses.tpl');

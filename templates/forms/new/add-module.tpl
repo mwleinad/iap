@@ -1,9 +1,10 @@
-<form id="addSubjectForm" name="addSubjectForm" method="post" action="{$WEB_ROOT}/new-module/id/{$id}">
+<form class="form" id="addSubjectForm" name="addSubjectForm" method="post" action="{$WEB_ROOT}/new-module/id/{$id}">
     <input type="hidden" name="subjectId" id="subjectId" value="{$id}" />
     <div class="row">
         <div class="form-group col-md-4">
-            <label for="frmName">Nombre:</label>
-            <input type="text" name="frmName" id="frmName" class="form-control" />
+            <label for="nombre">Nombre:</label>
+            <input type="text" name="nombre" id="nombre" class="form-control" />
+            <span class="invalid-feedback"></span>
         </div>
         <div class="form-group col-md-4">
             <label for="frmClave">Clave:</label>
@@ -16,6 +17,13 @@
         <div class="form-group col-md-2">
             <label for="creditos">Créditos</label>
             <input type="number" name="creditos" id="creditos" class="form-control" value="1" maxlength="2" />
+        </div>
+        <div class="col-md-2 form-group">
+            <label for="tipo">¿Es parte de la currícula?</label>
+            <select class="form-control" name="tipo" id="tipo">
+                <option value="1">Sí</option>
+                <option value="0">No</option>
+            </select>
         </div>
     </div>
     <div class="row">
@@ -80,7 +88,7 @@
     </div>
     <div class="row">
         <div class="col-md-12 text-center">
-            <button type="submit" class="btn btn-success submitForm">Guardar</button>
+            <button type="submit" class="btn btn-success">Guardar</button>
             <button type="button" class="btn btn-danger" onclick="btnClose()">Cancelar</button>
         </div>
     </div>

@@ -1,6 +1,4 @@
-<form id="editSubjectForm" name="editSubjectForm" method="post" action="{$WEB_ROOT}/open-subject">
-    <input type="hidden" id="subjectId" name="subjectId" value="{$post.subjectId}"/>
-
+<form class="form" id="form_open_subject" method="post" action="{$WEB_ROOT}/open-subject">
     <div class="row">
         <div class="form-group col-md-6">
             <label for="subjectId">Selecciona Curricula:</label>
@@ -9,6 +7,7 @@
                 <option value="{$curso.subjectId}">{$curso.majorName} - {$curso.name} {if $curso.rvoe != ""} [{$curso.rvoe}] {/if}</option>
                 {/foreach}
             </select>
+            <span class="invalid-feedback"></span>
         </div>
         <div class="form-group col-md-6">
             <label for="modality">Modalidad:</label>
@@ -116,6 +115,7 @@
                 <option>Cuatrimestre</option>
                 <option>Semestre</option>
             </select >
+            <span class="invalid-feedback"></span>
         </div>
     </div>
 
@@ -133,7 +133,7 @@
     <div class="row">
         <div class="form-group col-md-12 text-center">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-success submitForm">Guardar</button>
+            <button type="submit" class="btn btn-success">Guardar</button>
         </div>
     </div>
 </form>

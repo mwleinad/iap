@@ -1,6 +1,6 @@
 <form id="formModule" class="form" method="post" action="{$WEB_ROOT}/edit-module/id/{$post.subjectModuleId}">
-    <input type="hidden" id="subjectModuleId" name="subjectModuleId" value="{$post.subjectModuleId}"/>
-    <input type="hidden" id="subjectId" name="subjectId" value="{$post.subjectId}"/>
+    <input type="hidden" id="subjectModuleId" name="subjectModuleId" value="{$post.subjectModuleId}" />
+    <input type="hidden" id="subjectId" name="subjectId" value="{$post.subjectId}" />
     <input type="hidden" id="curso" name="curso" value="{$curso}">
     {if $urlBack}
         <input type="hidden" value="{$urlBack}" name="urlBack">
@@ -8,19 +8,30 @@
     <div class="row">
         <div class="form-group col-md-4">
             <label for="frmName">Nombre:</label>
-            <input type="text" name="frmName" id="frmName" class="form-control" value="{$post.name}" {if $docente} readonly="readonly"{/if} />
+            <input type="text" name="frmName" id="frmName" class="form-control" value="{$post.name}" {if $docente}
+                readonly="readonly" {/if} />
         </div>
         <div class="form-group col-md-4">
             <label for="frmClave">Clave:</label>
-            <input type="text" name="frmClave" id="frmClave" class="form-control"  value="{$post.clave}" {if $docente} readonly="readonly"{/if} />
+            <input type="text" name="frmClave" id="frmClave" class="form-control" value="{$post.clave}" {if $docente}
+                readonly="readonly" {/if} />
         </div>
         <div class="form-group col-md-2">
             <label for="semesterId">Cuatrimestre/Semestre:</label>
-            <input type="text" name="semesterId" id="semesterId" class="form-control" value="{$post.semesterId}" {if $docente} readonly="readonly"{/if} />
+            <input type="text" name="semesterId" id="semesterId" class="form-control" value="{$post.semesterId}"
+                {if $docente} readonly="readonly" {/if} />
         </div>
         <div class="form-group col-md-2">
             <label for="creditos">Créditos</label>
-            <input type="text" name="creditos" id="creditos" class="form-control" value="{$post.credits}" {if $docente} readonly="readonly"{/if} />
+            <input type="text" name="creditos" id="creditos" class="form-control" value="{$post.credits}" {if $docente}
+                readonly="readonly" {/if} />
+        </div>
+        <div class="col-md-2 form-group">
+            <label for="tipo">¿Es parte de la currícula?</label>
+            <select class="form-control" name="tipo" id="tipo">
+                <option value="1">Sí</option>
+                <option value="0" {($post.tipo == 0) ? "selected" : ""}>No</option>
+            </select>
         </div>
     </div>
 
@@ -93,25 +104,25 @@
             <textarea id="bibliography" name="bibliography" rows="15" cols="80">{$post.bibliography}</textarea>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="form-group col-md-12 text-center">
             <button type="submit" class="btn btn-success">Guardar</button>
             <a href="{if $urlBack} {$urlBack} {else} {$url} {/if}" class="btn btn-danger">Regresar</a>
         </div>
     </div>
-</form> 
+</form>
 
 <script type="text/javascript">
-$(function() {
-    $('textarea').each(function () {
-        new Jodit(this, {
-            language: "es",
-            toolbarButtonSize: "small",
-            autofocus: true,
-            toolbarAdaptive: false
+    $(function() {
+        $('textarea').each(function() {
+            new Jodit(this, {
+                language: "es",
+                toolbarButtonSize: "small",
+                autofocus: true,
+                toolbarAdaptive: false
+            });
+            console.log("Activado");
         });
-        console.log("Activado");
     });
-});
 </script>

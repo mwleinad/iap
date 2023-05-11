@@ -1,34 +1,14 @@
 <?php
-	/* For Session Control - Don't remove this */
-    $user->allow_access(34);
-    if($_POST)
-    {
-        $courseId = intval($_POST['courseId']);
-        $userId   = intval($_POST['userId']);
-        $calendar->setCourseId($courseId);
-        $calendar->setUserId($userId);
-        foreach($_POST['payments'] as $key => $value)
-        {
-            $calendar->setCalendarDistributionId($key);
-            $calendar->setPaid($value);
-            $calendar->savePayment();
-        }
-        header("Location: " . WEB_ROOT . "/pagos-calendario/id/" . $courseId);
-        exit;
-    }
-
-    $userId   = intval($_GET['id']);
-    $courseId = intval($_GET['course']);
-    $calendar->setCourseId($courseId);
-    $calendar->setUserId($userId);
-    $distribution = $calendar->getCalendar();
-
-    $course->setCourseId($courseId);
+    $alumno = $_GET['id'];
+    $curso = $_GET['course'];
+    $course->setCourseId($curso);
     $info = $course->Info();
-    
-    $smarty->assign('info', $info);
-    $smarty->assign('userId', $userId);
-    $smarty->assign('distribution', $distribution);
-    $smarty->assign('mnuMain', 'cobranza');
-	$smarty->assign('mnuSubmain', 'calendario');
+    $conceptos->setCourseId($curso);
+    $conceptos->setAlumno($alumno);
+    $student->setUserId($alumno);
+    $infoAlumno = $student->GetInfo();
+    $pagos = $conceptos->historial_pagos();
+    $smarty->assign("info", $info); 
+    $smarty->assign("alumno", $infoAlumno);
+    $smarty->assign("pagos", $pagos);
 ?>
