@@ -280,7 +280,8 @@ class Conceptos extends Module
 
     public function crear_relacion_curso_alumno()
     {
-        $sql = "INSERT INTO pagos(alumno_id, concepto_course_id, total, iva, subtotal, status, beca) VALUES({$this->alumno},{$this->conceptoCurso},{$this->costo},0,0,1,0)"; 
+        $sql = "INSERT INTO pagos(alumno_id, concepto_course_id, total, iva, subtotal, status, beca, fecha_cobro, fecha_limite, descuento) VALUES({$this->alumno},{$this->conceptoCurso},{$this->costo}, 0, 0, 1, 0, {$this->fecha_cobro}, {$this->fecha_limite}, {$this->beca})"; 
+        echo $sql;
         $this->Util()->DB()->setQuery($sql);
         $this->Util()->DB()->InsertData();
     }

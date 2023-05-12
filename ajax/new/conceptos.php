@@ -325,8 +325,14 @@ switch ($opcion) {
         $conceptos->setCosto($costo);
         $conceptos->setBeca($beca);
         $conceptos->setPeriodo($periodo);
-        $conceptos->setFechaCobro("'$fecha_cobro'");
-        $conceptos->setFechaLimite("'$fecha_limite'");
+        if ($periodo == 0) {
+            $conceptos->setFechaCobro("NULL");
+            $conceptos->setFechaLimite("NULL");
+        } else {
+            $conceptos->setFechaCobro("'$fecha_cobro'");
+            $conceptos->setFechaLimite("'$fecha_limite'");
+        }
+
         $conceptos->actualizar_concepto_curso();
 
         $infoConcepto = $conceptos->concepto_curso();
@@ -363,14 +369,14 @@ switch ($opcion) {
         $conceptos->setCourseId($curso);
         $conceptos->setAlumno($alumno);
         $conceptos->setPeriodo($periodo);
-        $conceptos->actualizar_beca(); 
+        $conceptos->actualizar_beca();
 
         $course->setCourseId($curso);
-        $info = $course->Info();  
+        $info = $course->Info();
         $student->setUserId($alumno);
         $infoAlumno = $student->GetInfo();
         $pagos = $conceptos->historial_pagos();
-        $smarty->assign("info", $info); 
+        $smarty->assign("info", $info);
         $smarty->assign("alumno", $infoAlumno);
         $smarty->assign("pagos", $pagos);
         echo json_encode([
@@ -386,8 +392,8 @@ switch ($opcion) {
         $infoPago = $conceptos->pago();
         $smarty->assign("pago", $infoPago);
         echo json_encode([
-           'modal'  =>true, 
-           'html'   => $smarty->fetch(DOC_ROOT."/templates/forms/new/pago.tpl") 
+            'modal'  => true,
+            'html'   => $smarty->fetch(DOC_ROOT . "/templates/forms/new/pago.tpl")
         ]);
         break;
 }

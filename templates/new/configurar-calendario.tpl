@@ -16,7 +16,7 @@
         </nav>
     </div>
 
-    <div class="card mb-4">
+    <div class="card">
         <div class="card-header bg-primary text-white">
             <i class="fas fa-cogs"></i> Configurar Calendario
             <form action="{$WEB_ROOT}/ajax/new/conceptos.php" method="POST" class="form" id="form_agregar_conceptos">
@@ -105,12 +105,12 @@
                                                 <td>{$item.total}</td>
                                                 <td>{($item.descuento) ? "Sí" : "No"}</td>
                                                 <td>
-                                                    <form class="form" action="{$WEB_ROOT}/ajax/new/conceptos.php">
+                                                    <form class="form" action="{$WEB_ROOT}/ajax/new/conceptos.php" id="form_edicion{$item.concepto_course_id}">
                                                         <input type="hidden" name="calendario" value="true">
-                                                        <input type="hidden" name="opcion" value="editar_concepto_curso">
-                                                        <input type="hidden" name="concepto_curso"
+                                                        <input type="hidden" name="opcion" value="editar-curso-concepto">
+                                                        <input type="hidden" name="concepto-curso"
                                                             value="{$item.concepto_course_id}">
-                                                        <button type="submit" class="btn btn-primary">Editar</button>
+                                                        <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#ajax">Editar</button>
                                                     </form>
                                                 </td>
                                             </tr>
