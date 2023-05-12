@@ -12,13 +12,15 @@ class Conceptos extends Module
     private $conceptoId; 
     private $fecha_cobro;
     private $fecha_limite;
+    private $fecha_pago;
     private $conceptoSubject;
     private $conceptoCurso; 
     private $alumno;
     private $periodo;
     private $periodoId;
     private $pagoId;
-
+    private $descuento;
+    private $status;
 
     public function setNombre($nombre)
     {
@@ -65,11 +67,6 @@ class Conceptos extends Module
         $this->conceptoId = $concepto;
     }
 
-    public function setInicio($inicio)
-    {
-        $this->inicio = $inicio;
-    }
-
     public function setFechaCobro($fecha_cobro)
     { 
         $this->fecha_cobro = $fecha_cobro;
@@ -80,14 +77,14 @@ class Conceptos extends Module
         $this->fecha_limite = $fecha_limite;
     }
 
+    public function setFechaPago($fecha_pago)
+    {
+        $this->fecha_pago = $fecha_pago;
+    }
+
     public function setConceptoCurso($conceptoCurso)
     {
         $this->conceptoCurso = $conceptoCurso;
-    }
-
-    public function setFechaId($fechaId = NULL)
-    {
-        $this->fechaId = $fechaId;
     }
 
     public function setAlumno($alumno)
@@ -115,6 +112,16 @@ class Conceptos extends Module
         $this->pagoId = $pagoId;
     }
 
+    public function setDescuento($descuento)
+    {
+        $this->descuento = $descuento;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
     public function getConcepto()
     {
         $sql = "SELECT * FROM conceptos WHERE concepto_id = {$this->conceptoId}";
@@ -140,8 +147,16 @@ class Conceptos extends Module
 
     public function listar()
     {
-        $this->Util()->DB()->setQuery("SELECT concepto_id, nombre, descuento, clave_sat, unidad_sat, total, subtotal, iva, periodicidad, cobros, tolerancia FROM conceptos");
+        $this->Util()->DB()->setQuery("SELECT concepto_id, nombre, descuento, clave_sat, unidad_sat, total, subtotal, iva, periodicidad, cobros, tolerancia FROM conceptos WHERE conceptos.deleted_at IS NULL");
         return $this->Util()->DB()->GetResult();
+    }
+
+    public function eliminar_concepto()
+    {
+        $sql = "UPDATE conceptos SET deleted_at = NOW() WHERE concepto_id = {$this->conceptoId}";
+        $this->Util()->DB()->setQuery($sql);
+        $resultado = $this->Util()->DB()->UpdateData();
+        return $resultado;
     }
 
     //Lista todos los conceptos y checa si la curricula ya está relacionada
@@ -289,6 +304,7 @@ class Conceptos extends Module
     public function historial_pagos()
     {
         $sql = "SELECT pagos.pago_id, pagos.concepto_course_id, pagos.alumno_id, pagos.fecha_pago, pagos.total, pagos.iva, pagos.subtotal, CASE WHEN pagos.status = 1 THEN 'Pendiente' WHEN pagos.status = 3 THEN 'Prórroga' ELSE 'Pagado' END as status, pagos.beca, pagos.archivo, pagos.tolerancia as prorroga, conceptos_course.subject_id, conceptos_course.course_id, conceptos_course.concepto_id, conceptos_course.fecha_cobro, conceptos_course.fecha_limite, conceptos_course.periodo, conceptos_course.descuento, conceptos.nombre as concepto_nombre FROM pagos INNER JOIN conceptos_course ON conceptos_course.concepto_course_id = pagos.concepto_course_id INNER JOIN conceptos ON conceptos.concepto_id = conceptos_course.concepto_id WHERE pagos.alumno_id = {$this->alumno} AND conceptos_course.course_id = {$this->getCourseId()} ORDER BY fecha_cobro;";
+        // echo $sql;
         $this->Util()->DB()->setQuery($sql);
         $resultado = $this->Util()->DB()->GetResult();
 
@@ -305,7 +321,7 @@ class Conceptos extends Module
 
     public function actualizar_beca()
     {
-        $sql = "UPDATE pagos INNER JOIN conceptos_course ON conceptos_course.concepto_course_id = pagos.concepto_course_id SET pagos.beca = {$this->beca} WHERE pagos.alumno_id = {$this->alumno} AND conceptos_course.course_id = {$this->getCourseId()} AND conceptos_course.periodo = {$this->periodo} AND conceptos_course.descuento = 1;";
+        $sql = "UPDATE pagos INNER JOIN conceptos_course ON conceptos_course.concepto_course_id = pagos.concepto_course_id SET pagos.beca = {$this->beca} WHERE pagos.alumno_id = {$this->alumno} AND conceptos_course.course_id = {$this->getCourseId()} AND conceptos_course.periodo = {$this->periodo} AND pagos.descuento = 1;";
         // echo $sql;
         $this->Util()->DB()->setQuery($sql);
         $resultado = $this->Util()->DB()->UpdateData();
@@ -314,6 +330,18 @@ class Conceptos extends Module
 
     public function pago()
     {
-         
+        $sql = "SELECT pagos.*, conceptos_course.course_id FROM pagos INNER JOIN conceptos_course ON conceptos_course.concepto_course_id = pagos.concepto_course_id WHERE pago_id = {$this->pagoId}";
+        // echo $sql;
+        $this->Util()->DB()->setQuery($sql);
+        $resultado = $this->Util()->DB()->GetRow();
+        return $resultado;
+    }
+
+    public function actualizar_pago()
+    {
+        $sql = "UPDATE pagos SET total = {$this->costo}, fecha_cobro = {$this->fecha_cobro}, fecha_limite = {$this->fecha_limite}, fecha_pago = {$this->fecha_pago}, descuento = {$this->descuento}, beca = {$this->beca}, status = {$this->status}, tolerancia = {$this->tolerancia} WHERE pago_id = {$this->pagoId}"; 
+        // echo $sql;
+        $this->Util()->DB()->setQuery($sql);
+        $this->Util()->DB()->UpdateData();
     }
 }

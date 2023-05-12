@@ -35,11 +35,11 @@
                                 <input type="hidden" name="opcion" value="editar-concepto">
                                 <button class="btn btn-primary">Editar</button>
                             </form>
-                            {* <form class="form d-inline ml-1">
+                            <form class="form d-inline ml-1">
                                 <input type="hidden" name="concepto" value="{$item.concepto_id}">
-                                <input type="hidden" name="opcion" value="editar">
+                                <input type="hidden" name="opcion" value="eliminar-concepto">
                                 <button class="btn btn-danger">Eliminar</button>
-                            </form> *}
+                            </form>
                         </td>
                     </tr>
                 {/foreach}
