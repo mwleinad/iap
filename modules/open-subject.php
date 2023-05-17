@@ -63,6 +63,7 @@ if ($_POST) {
 		$relacionados = $conceptos->conceptos_subjects_relacionados();
 		$conceptoActual = $relacionados[0]['concepto_id'];
 		$fecha_inicial =  "";
+		$fecha_siguiente = "";
 		foreach ($relacionados as $item) {
 			$conceptos->setConcepto($item['concepto_id']);
 			$conceptos->setCourseId($curso);
@@ -71,12 +72,15 @@ if ($_POST) {
 			if ($item['cobros'] > 0) {
 				$conceptos->setPeriodo($item['periodo']);
 				if ($conceptoActual != $item['concepto_id']) {
-					$fecha_inicial = ""; 
+					$fecha_siguiente = ""; 
 					$conceptoActual = $item['concepto_id'];
 				} 
-				$fecha_inicial = $fecha_inicial == "" ? date("Y-m-d", strtotime($_POST['initialDate'] . "+ " . $item['periodicidad'] . " days")) : date("Y-m-d", strtotime($fecha_inicial . "+ " . $item['periodicidad'] . " days"));
-				// echo "$fecha_inicial<br>"; 
-				$fecha_limite = $item['tolerancia'] > 0 ? date("Y-m-d", strtotime($fecha_inicial . "+ " . $item['tolerancia'] . " days")) : $fecha_inicial;
+				$fecha_siguiente = $fecha_siguiente == "" ? date("Y-m-d", strtotime($_POST['initialDate'] . "+ " . $item['periodicidad'] . " days")) : date("Y-m-d", strtotime($fecha_siguiente . "+ " . $item['periodicidad'] . " days"));
+
+				$fecha_inicial = date('Y-m-01', strtotime($fecha_siguiente));
+				$fecha_inicial = $fecha_inicial < $_POST['initialDate'] ? $fecha_siguiente : $fecha_inicial;
+
+				$fecha_limite = $item['tolerancia'] > 0 ? date("Y-m-d", strtotime($fecha_inicial . "+ " . ($item['tolerancia'] - 1) . " days")) : $fecha_inicial;
 				$conceptos->setFechaCobro("'$fecha_inicial'");
 				$conceptos->setFechaLimite("'$fecha_limite'");
 				$conceptos->crear_relacion_curso();

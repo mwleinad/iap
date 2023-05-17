@@ -132,12 +132,12 @@ switch ($opcion) {
         $conceptoId = $_POST['concepto'];
         $conceptos->setConcepto($conceptoId);
         $conceptos->eliminar_concepto();
-        
+
         $listaConceptos = $conceptos->listar();
         $smarty->assign("conceptos", $listaConceptos);
         echo json_encode([
             'growl'         => true,
-            'message'       => 'Concepto actualizado',
+            'message'       => 'Concepto eliminado',
             'modal_close'   => true,
             'html'          => $smarty->fetch(DOC_ROOT . "/templates/lists/new/conceptos.tpl"),
             'selector'      => ".content-wrapper"
@@ -264,6 +264,28 @@ switch ($opcion) {
             'modal'     => true,
             'html'      => $smarty->fetch(DOC_ROOT . "/templates/forms/new/conceptos-curricula.tpl")
         ]);
+        break;
+    case 'eliminar-curricula-concepto':
+        $conceptoId = intval($_POST['concepto']);
+        $conceptos->setConceptoSubject($conceptoId);
+        $infoConcepto = $conceptos->getConceptoSubject();
+        // print_r($infoConcepto);
+        $conceptos->eliminar_periodos();
+        $conceptos->eliminar_concepto_subject();       
+        
+        $conceptos->setSubjectId($infoConcepto['subject_id']);
+        $listaConceptos = $conceptos->conceptos_subjects();
+        // print_r($listaConceptos);
+        $smarty->assign('opcion', "guardar-curricula-concepto");
+        $smarty->assign("subjectId", $infoConcepto['subject_id']);
+        $smarty->assign("conceptos", $listaConceptos);
+        echo json_encode([
+            'growl'     => true,
+            'message'   => 'Concepto eliminado',
+            'modal'     => true,
+            'html'      => $smarty->fetch(DOC_ROOT . "/templates/forms/new/conceptos-curricula.tpl")
+        ]);
+
         break;
     case 'periodos-concepto': //Muestra la vista de los periodos del concepto relacionado a la curricula
         $conceptoSubjectId = intval($_POST['concepto']);
@@ -400,12 +422,9 @@ switch ($opcion) {
             'html'      => $smarty->fetch(DOC_ROOT . "/templates/new/history-calendar.tpl")
         ]);
         break;
-    case 'pagos':
-        $pagoID = intval($_POST['pago']);
-        $conceptos->setPagoId($pagoID);
-        $infoPago = $conceptos->pago();
-        $curso = $infoPago['course_id'];
-        $alumno = $infoPago['alumno_id'];
+    case 'pagos': 
+        $curso = $_POST['curso'];
+        $alumno = $_POST['alumno'];
         $conceptos->setCourseId($curso);
         $conceptos->setAlumno($alumno);
         $course->setCourseId($curso);
@@ -421,11 +440,28 @@ switch ($opcion) {
             'html'   => $smarty->fetch(DOC_ROOT . "/templates/new/history-calendar.tpl")
         ]);
         break;
+    case 'agregar-pago': 
+        $curso = $_POST['curso'];
+        $alumno = $_POST['alumno'];
+        $conceptos->setCourseId($curso);
+        $listaConceptos = $conceptos->conceptos_cursos_relacionados();
+        $smarty->assign("conceptos", $listaConceptos);
+        $smarty->assign("opcion", "guardar-pago");
+        $smarty->assign("curso", $curso); 
+        $smarty->assign("alumno", $alumno);
+        $smarty->assign("edicion", false); 
+        echo json_encode([
+            'modal'  => true,
+            'html'   => $smarty->fetch(DOC_ROOT . "/templates/forms/new/pago.tpl")
+        ]);
+        break;
     case 'editar-pago':
         $pago = intval($_POST['pago']);
         $conceptos->setPagoId($pago);
         $infoPago = $conceptos->pago();
         $smarty->assign("pago", $infoPago);
+        $smarty->assign("opcion", "actualizar-pago");
+        $smarty->assign("edicion", true); 
         echo json_encode([
             'modal'  => true,
             'html'   => $smarty->fetch(DOC_ROOT . "/templates/forms/new/pago.tpl")
@@ -441,6 +477,7 @@ switch ($opcion) {
         $beca = $_POST['beca'];
         $status = $_POST['estatus'];
         $tolerancia = intval($_POST['tolerancia']);
+        $periodo = intval($_POST['periodo']);
 
         $conceptos->setPagoId($pago);
         $conceptos->setFechaCobro($fecha_cobro);
@@ -451,8 +488,9 @@ switch ($opcion) {
         $conceptos->setBeca($beca);
         $conceptos->setTolerancia($tolerancia);
         $conceptos->setStatus($status);
+        $conceptos->setPeriodo($periodo);
         $conceptos->actualizar_pago();
- 
+
         $infoPago = $conceptos->pago();
         $curso = $infoPago['course_id'];
         $alumno = $infoPago['alumno_id'];

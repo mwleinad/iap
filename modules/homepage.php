@@ -81,8 +81,9 @@
 	{
 		$finishedCourses = $student->StudentCourses("finalizado");
 		$smarty->assign("activeCourses", $finishedCourses);	
-	}
-	
+	} 
+	$pagoPendiente = $student->pago_pendiente();
+	$smarty->assign("pago", $pagoPendiente);
 	$announcements = $announcement->Enumerate(0, 0);
 	$smarty->assign('announcements', $announcements);
 	$smarty->assign("tipo_curricula", $tipo_curricula);

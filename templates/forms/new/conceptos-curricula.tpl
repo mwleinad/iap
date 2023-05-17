@@ -32,8 +32,7 @@
                                             Editar periodos
                                         </a>
                                     {/if}
-                                    <a class="btn btn-sm btn-danger text-white">Eliminar</a>
-
+                                    <a class="btn btn-sm btn-danger text-white ajax_sin_form" data-data='"opcion":"eliminar-curricula-concepto","concepto":"{$item.concepto_subject_id}"' href="{$WEB_ROOT}/ajax/new/conceptos.php">Eliminar</a> 
                                 {else}
                                     <input type="checkbox" id="concepto_{$item.concepto_id}" class="form-check m-0"
                                         name="conceptos[]" value="{$item.concepto_id}">

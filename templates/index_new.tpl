@@ -218,7 +218,7 @@
 						confirmButtonText: 'Enterado'
 					});
 				</script>
-			{/if}
+			{/if}  
 		{/if}
 	</body>
 

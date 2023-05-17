@@ -842,14 +842,16 @@ class Student extends User
 				$conceptos->setCourseId($curricula);
 				$conceptos->setAlumno($id);
 				$relacionados = $conceptos->conceptos_cursos_relacionados();
-				foreach ($relacionados['periodicos'] as $item) { 
-					$conceptos->setConceptoCurso($item['concepto_course_id']);
+				foreach ($relacionados['periodicos'] as $item) {  
 					$conceptos->setCosto($item['total']);
 					$fecha_cobro = is_null($item['fecha_cobro']) ? "NULL" : "'{$item['fecha_cobro']}'";
 					$fecha_limite = is_null($item['fecha_limite']) ? "NULL" : "'{$item['fecha_limite']}'";
 					$conceptos->setFechaCobro($fecha_cobro);
 					$conceptos->setFechaLimite($fecha_limite);
+					$conceptos->setPeriodo($item['periodo']);
 					$conceptos->setBeca($item['descuento']);
+					$conceptos->setCourseId($item['course_id']);
+					$conceptos->setConcepto($item['concepto_id']);
 					$conceptos->crear_relacion_curso_alumno(); 
 				}
 			} else {
@@ -3316,5 +3318,14 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		$existe = $this->Util()->DB()->GetRow();
 		return $existe['revisar'] ? true : false;
+	}
+
+	/**Busca si el alumno cuenta con un pago pendiente y es de tipo periodico */
+	public function pago_pendiente()
+	{
+		$sql = "SELECT pagos.*, conceptos_course.course_id FROM pagos INNER JOIN conceptos_course ON conceptos_course.concepto_course_id = pagos.concepto_course_id WHERE pagos.fecha_cobro <= NOW() AND pagos.status <> 2 AND pagos.alumno_id = {$this->userId} AND periodo <> 0 LIMIT 1;";
+		$this->Util()->DB()->setQuery($sql);
+		$resultado = $this->Util()->DB()->GetRow();
+		return $resultado;
 	}
 }
