@@ -21,6 +21,7 @@ class Conceptos extends Module
     private $pagoId;
     private $descuento;
     private $status;
+    private $total;
 
     public function setNombre($nombre)
     {
@@ -30,6 +31,11 @@ class Conceptos extends Module
     public function setCosto($costo)
     {
         $this->costo = $costo;
+    }
+
+    public function setTotal($total)
+    {
+        $this->total = $total;
     }
 
     public function setBeca($beca)
@@ -363,9 +369,17 @@ class Conceptos extends Module
         return $resultado;
     }
 
+    public function guardar_concepto()
+    {
+        $sql = "INSERT INTO pagos(alumno_id, course_id, concepto_id, fecha_cobro, fecha_limite, fecha_pago, total, iva, subtotal, status, descuento, beca, periodo) VALUES({$this->alumno},{$this->getCourseId()},{$this->conceptoId}, {$this->fecha_cobro}, {$this->fecha_limite}, {$this->fecha_pago}, {$this->total}, 0, {$this->costo}, 1, {$this->descuento}, {$this->beca}, {$this->periodo})";
+        $this->Util()->DB()->setQuery();
+        $this->Util()->DB()->InsertData();
+        // echo $sql;
+    }
+
     public function actualizar_pago()
     {
-        $sql = "UPDATE pagos SET total = {$this->costo}, fecha_cobro = {$this->fecha_cobro}, fecha_limite = {$this->fecha_limite}, fecha_pago = {$this->fecha_pago}, descuento = {$this->descuento}, beca = {$this->beca}, status = {$this->status}, tolerancia = {$this->tolerancia}, periodo = {$this->periodo} WHERE pago_id = {$this->pagoId}";
+        $sql = "UPDATE pagos SET total = {$this->total}, subtotal = {$this->costo}, fecha_cobro = {$this->fecha_cobro}, fecha_limite = {$this->fecha_limite}, fecha_pago = {$this->fecha_pago}, descuento = {$this->descuento}, beca = {$this->beca}, status = {$this->status}, tolerancia = {$this->tolerancia}, periodo = {$this->periodo} WHERE pago_id = {$this->pagoId}";
         // echo $sql;
         $this->Util()->DB()->setQuery($sql);
         $this->Util()->DB()->UpdateData();

@@ -116,7 +116,7 @@
                                             <td>{($item.descuento) ? "Sí" : "No"}</td>
                                             <td>{$item.beca}%</td>
                                             <td>
-                                                <form class="form" action="{$WEB_ROOT}/ajax/new/conceptos.php">
+                                                <form class="form" action="{$WEB_ROOT}/ajax/new/conceptos.php" id="editar_pago{$item.pago_id}">
                                                     <input type="hidden" name="opcion" value="editar-pago">
                                                     <input type="hidden" name="pago"
                                                         value="{$item.pago_id}">

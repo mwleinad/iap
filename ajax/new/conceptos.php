@@ -455,6 +455,52 @@ switch ($opcion) {
             'html'   => $smarty->fetch(DOC_ROOT . "/templates/forms/new/pago.tpl")
         ]);
         break;
+    case 'guardar-pago':
+        $errors = [];
+        $curso = intval($_POST['curso']);
+        $alumno = intval($_POST['alumno']);
+        $concepto = intval($_POST['concepto']);
+        $subtotal = floatval($_POST['costo']);
+        $descuento = intval($_POST['descuento']);
+        $beca = intval($_POST['beca']);
+        $total = $descuento == 1 && $beca > 0 ? $subtotal * ($beca/100) : $subtotal;
+        $periodo = intval($_POST['periodo']);
+        $fecha_cobro = $_POST['fecha_cobro'] != "" && $periodo > 0 ? "'{$_POST['fecha_cobro']}'" : "NULL";
+        $fecha_limite = $_POST['fecha_limite'] != "" && $periodo > 0 ? "'{$_POST['fecha_limite']}'" : "NULL";
+        $fecha_pago = $_POST['fecha_pago'] != "" ? "'{$_POST['fecha_pago']}'" : "NULL";
+        if ($periodo > 0) {
+            if ($fecha_cobro == "NULL") {
+                $errors['fecha_cobro'] = "La fecha de cobro es un campo requerido";
+            }
+            if ($fecha_limite == "NULL") {
+                $errors['fecha_limite'] = "La fecha límite es un campo requerido";
+            }
+        }
+        if ($subtotal == 0) {
+            $errors['costo'] = "Falta indicar el cantidad del pago";
+        }
+
+        if (!empty($errors)) {
+            header('HTTP/1.1 422 Unprocessable Entity');
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode([
+                'errors'    => $errors
+            ]);
+            exit;
+        }
+        $conceptos->setAlumno($alumno);
+        $conceptos->setCourseId($curso);
+        $conceptos->setConcepto($concepto);
+        $conceptos->setCosto($subtotal);
+        $conceptos->setTotal($total);
+        $conceptos->setDescuento($descuento);
+        $conceptos->setBeca($beca);
+        $conceptos->setFechaCobro($fecha_cobro);
+        $conceptos->setFechaLimite($fecha_limite);
+        $conceptos->setFechaPago($fecha_pago); 
+        $conceptos->setPeriodo($periodo);
+        $conceptos->guardar_concepto();
+        break;
     case 'editar-pago':
         $pago = intval($_POST['pago']);
         $conceptos->setPagoId($pago);
@@ -472,9 +518,10 @@ switch ($opcion) {
         $fecha_cobro = isset($_POST['fecha_cobro']) ? "'{$_POST['fecha_cobro']}'" : "NULL";
         $fecha_limite = isset($_POST['fecha_limite']) ? "'{$_POST['fecha_limite']}'" : "NULL";
         $fecha_pago = $_POST['fecha_pago'] != "" ? "'{$_POST['fecha_pago']}'" : "NULL";
-        $costo = $_POST['costo'];
+        $subtotal = $_POST['costo'];
         $descuento = $_POST['descuento'];
         $beca = $_POST['beca'];
+        $total = $descuento == 1 && $beca > 0 ? $subtotal * ($beca/100) : $subtotal;
         $status = $_POST['estatus'];
         $tolerancia = intval($_POST['tolerancia']);
         $periodo = intval($_POST['periodo']);
@@ -483,7 +530,8 @@ switch ($opcion) {
         $conceptos->setFechaCobro($fecha_cobro);
         $conceptos->setFechaLimite($fecha_limite);
         $conceptos->setFechaPago($fecha_pago);
-        $conceptos->setCosto($costo);
+        $conceptos->setCosto($subtotal);
+        $conceptos->setTotal($total);
         $conceptos->setDescuento($descuento);
         $conceptos->setBeca($beca);
         $conceptos->setTolerancia($tolerancia);
