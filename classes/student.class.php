@@ -31,7 +31,7 @@ class Student extends User
 
 	public function setValidar($value)
 	{
-		$this->validar = $value;	
+		$this->validar = $value;
 	}
 	public function setPeriodo($value)
 	{
@@ -819,7 +819,7 @@ class Student extends User
 				$complete['period'] = $this->ultimaBaja();
 				$this->setPeriodo($this->ultimaBaja()); //Guardamos el periodo de baja para determinar posteriormente el alta.
 				return $complete;
-			}elseif(empty($this->periodo)){
+			} elseif (empty($this->periodo)) {
 				$this->setPeriodo(1);
 			}
 		}
@@ -831,6 +831,27 @@ class Student extends User
 			$this->Util()->DB()->UpdateData();
 			$complete["status"] = true;
 			$complete["message"] = "Has registrado al alumno exitosamente, le hemos enviado un correo electronico para continuar con el proceso de inscripcion";
+			$conceptos = new Conceptos();
+			$conceptos->setCourseId($curricula);
+			$conceptos->setAlumno($id);
+			$relacionados = $conceptos->conceptos_cursos_relacionados();
+			foreach ($relacionados['periodicos'] as $item) {
+				$conceptos->setCosto($item['total']);
+				$fecha_cobro = is_null($item['fecha_cobro']) ? "NULL" : "'{$item['fecha_cobro']}'";
+				$fecha_limite = is_null($item['fecha_limite']) ? "NULL" : "'{$item['fecha_limite']}'";
+				$fecha_pago = "NULL";
+				$conceptos->setFechaCobro($fecha_cobro);
+				$conceptos->setFechaLimite($fecha_limite);
+				$conceptos->setFechaPago($fecha_pago);
+				$conceptos->setTotal($item['total']);
+				$conceptos->setCosto(($item['total']));
+				$conceptos->setPeriodo($item['periodo']);
+				$conceptos->setDescuento($item['descuento']);
+				$conceptos->setBeca(0);
+				$conceptos->setCourseId($item['course_id']);
+				$conceptos->setConcepto($item['concepto_id']);
+				$conceptos->guardar_pago(); 
+			}
 		} else {
 			// Se inscribe a curricula 
 			$sqlQuery = "INSERT INTO user_subject(alumnoId, status, courseId, tipo_beca, por_beca, matricula) VALUES('" . $id . "', '" . $status . "', '" . $curricula . "', '" . $tipo_beca . "', '" . $por_beca . "', '" . $matricula . "')";
@@ -842,17 +863,22 @@ class Student extends User
 				$conceptos->setCourseId($curricula);
 				$conceptos->setAlumno($id);
 				$relacionados = $conceptos->conceptos_cursos_relacionados();
-				foreach ($relacionados['periodicos'] as $item) {  
+				foreach ($relacionados['periodicos'] as $item) {
 					$conceptos->setCosto($item['total']);
 					$fecha_cobro = is_null($item['fecha_cobro']) ? "NULL" : "'{$item['fecha_cobro']}'";
 					$fecha_limite = is_null($item['fecha_limite']) ? "NULL" : "'{$item['fecha_limite']}'";
+					$fecha_pago = "NULL";
 					$conceptos->setFechaCobro($fecha_cobro);
 					$conceptos->setFechaLimite($fecha_limite);
+					$conceptos->setFechaPago($fecha_pago);
+					$conceptos->setTotal($item['total']);
+					$conceptos->setCosto(($item['total']));
 					$conceptos->setPeriodo($item['periodo']);
-					$conceptos->setBeca($item['descuento']);
+					$conceptos->setDescuento($item['descuento']);
+					$conceptos->setBeca(0);
 					$conceptos->setCourseId($item['course_id']);
 					$conceptos->setConcepto($item['concepto_id']);
-					$conceptos->crear_relacion_curso_alumno(); 
+					$conceptos->guardar_pago(); 
 				}
 			} else {
 				$complete["status"] = false;
@@ -1609,7 +1635,7 @@ class Student extends User
 						ON major.majorId = subject.tipo 
 				WHERE alumnoId = " . $this->getUserId() . " " . $status . " 
 				ORDER BY majorName, status ASC, courseId DESC";
-				// echo $sql;
+		// echo $sql;
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 
@@ -2841,8 +2867,8 @@ class Student extends User
 			$condition .= " AND subject_module.semesterId = " . $period;
 		if (!$english)
 			$condition .= " AND subject_module.subjectModuleId NOT IN (246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257)";
-		if($moduloTerminado)
-			$condition.= "AND course_module.finalDate <= CURRENT_DATE()";
+		if ($moduloTerminado)
+			$condition .= "AND course_module.finalDate <= CURRENT_DATE()";
 		// Se obtienen las materias del curso
 		$sql = "SELECT *, IF(subject_module.clave LIKE '%ING%', 1, 0) AS extra
 					FROM course_module

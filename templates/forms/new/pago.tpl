@@ -1,6 +1,6 @@
 <div class="card mb-4">
     <div class="card-header bg-primary text-white">
-        <i class="fas fa-cogs"></i> Edición de pago
+        <i class="fas fa-cogs"></i> {($edicion) ? "Edición" : "Creación "} de pago
     </div>
     <div class="card-body">
         <div class="row">
@@ -50,12 +50,6 @@
                         <span class="invalid-feedback"></span>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="fecha_pago">Fecha en la que se realizó el pago</label>
-                        <input type="text" class="form-control i-calendar" name="fecha_pago" id="fecha_pago"
-                            value="{($edicion) ? $pago.fecha_pago : ""}">
-                        <span class="invalid-feedback"></span>
-                    </div>
-                    <div class="col-md-4 mb-3">
                         <label>Periodo</label>
                         <input class="form-control" id="periodo" name="periodo" type="number" min="0" max="10"
                             value="{($edicion) ? $pago.periodo : 0}">
@@ -84,6 +78,12 @@
                             </select>
                             <span class="invalid-feedback"></span>
                         </div>
+                        <div class="col-md-4 mb-3 d-none" id="seccion-fecha-pago">
+                            <label for="fecha_pago">Fecha en la que se realizó el pago</label>
+                            <input type="text" class="form-control i-calendar" name="fecha_pago" id="fecha_pago"
+                                value="{($edicion) ? $pago.fecha_pago : ""}">
+                            <span class="invalid-feedback"></span>
+                        </div>
                         <div class="col-md-4 mb-3 d-none" id="seccion-tolerancia">
                             <label for="tolerancia">Tolerancia(días)</label>
                             <input type="number" min="0" class="form-control" name="tolerancia" id="tolerancia"
@@ -92,7 +92,7 @@
                         </div>
                     {/if}
                     <div class="col-md-12 text-center mb-3">
-                        <button class="btn btn-success" type="submit">Guardar</button>
+                        <button class="btn btn-success" type="submit">{($edicion) ? "Actualizar" : "Guardar"}</button>
                         <a href="{$WEB_ROOT}/ajax/new/conceptos.php"
                             data-data='"opcion":"pagos","curso":{($edicion) ? $pago.course_id : $curso},"alumno":{($edicion) ? $pago.alumno_id : $alumno}'
                             class="btn btn-danger ajax_sin_form">Regresar</a>
@@ -156,11 +156,20 @@
 
     function estatus(estatus) {
         console.log(estatus);
-        if (estatus == 3) {
-            $("#seccion-tolerancia").removeClass("d-none");
-        } else {
-            $("#seccion-tolerancia").addClass("d-none");
-            $("#tolerancia").val(0);
+        switch (estatus) {
+            case "3":
+                $("#seccion-tolerancia").removeClass("d-none");
+                $("#seccion-fecha-pago").addClass("d-none");
+                break;
+            case "2":
+                $("#seccion-fecha-pago").removeClass("d-none");
+                break;
+            default:
+                $("#seccion-tolerancia").addClass("d-none");
+                $("#seccion-fecha-pago").addClass("d-none");
+                $("#tolerancia").val(0);
+                $("#fecha_pago").val("");
+                break;
         }
     }
 

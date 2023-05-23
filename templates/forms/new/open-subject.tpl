@@ -1,4 +1,4 @@
-<form class="form" id="form_open_subject" method="post" action="{$WEB_ROOT}/open-subject">
+<form class="form" id="form_modal" method="post" action="{$WEB_ROOT}/open-subject">
     <div class="row">
         <div class="form-group col-md-6">
             <label for="subjectId">Selecciona Curricula:</label>

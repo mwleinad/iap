@@ -22,6 +22,21 @@ if ($_POST) {
 	if (empty($_POST['finalDate'])) {
 		$errors["finalDate"] = "Falta indicar la fecha de finalización";
 	}
+
+	if (empty($_POST['tipoCuatri'])) {
+		$errors["tipoCuatri"] = "Falta indicar el tipo";
+	}
+	
+	$subjectId = $_POST['subjectId'];
+	$conceptos->setSubjectId($subjectId); 
+	$existeConceptos = $conceptos->conceptos_subjects_count();
+	$existePeriodosCero = $conceptos->conceptos_subjects_periodos_count();
+	if ($existeConceptos == 0) {
+		$errors['subjectId'] = "Error, esta currícula no cuenta con conceptos de pago. Relacione primero los conceptos a la currícula.";
+	}
+	if ($existePeriodosCero > 0) {
+		$errors['subjectId'] = "Error, la currícula cuenta con conceptos de pagos con periodos cero. Edite primero los periodos.";
+	}
 	if (!empty($errors)) {
 		header('HTTP/1.1 422 Unprocessable Entity');
 		header('Content-Type: application/json; charset=UTF-8');
@@ -30,7 +45,6 @@ if ($_POST) {
 		]);
 		exit;
 	}
-	$subjectId = $_POST['subjectId'];
 	$course->setSubjectId($subjectId);
 	$course->setModality($_POST["modality"]);
 	$course->setInitialDate($_POST["initialDate"]);
@@ -52,18 +66,18 @@ if ($_POST) {
 	$course->setListar($_POST["listar"]);
 	$course->setTipoCuatri($_POST["tipoCuatri"]);
 	$course->setTemporalGroup($_POST["temporalGroup"]);
-	$conceptos->setSubjectId($subjectId); 
-	$existeConceptos = $conceptos->conceptos_subjects_count();
+	
 	$curso = $course->Open(); 
 	$conceptos->setCourseId($curso);
 	$subject->setSubjectId($subjectId);
-	$conceptos->setSubjectId($subjectId);
-	$periodos = $subject->periodos();
+	$conceptos->setSubjectId($subjectId); 
 	if ($existeConceptos > 0 && $curso > 0) {
 		$relacionados = $conceptos->conceptos_subjects_relacionados();
 		$conceptoActual = $relacionados[0]['concepto_id'];
+		// echo "Concepto: $conceptoActual ------------ \n";
 		$fecha_inicial =  "";
 		$fecha_siguiente = "";
+		$fecha_anterior = "";
 		foreach ($relacionados as $item) {
 			$conceptos->setConcepto($item['concepto_id']);
 			$conceptos->setCourseId($curso);
@@ -73,13 +87,18 @@ if ($_POST) {
 				$conceptos->setPeriodo($item['periodo']);
 				if ($conceptoActual != $item['concepto_id']) {
 					$fecha_siguiente = ""; 
+					$fecha_anterior = "";
 					$conceptoActual = $item['concepto_id'];
+					// echo "Concepto: $conceptoActual ------------ \n";
 				} 
 				$fecha_siguiente = $fecha_siguiente == "" ? date("Y-m-d", strtotime($_POST['initialDate'] . "+ " . $item['periodicidad'] . " days")) : date("Y-m-d", strtotime($fecha_siguiente . "+ " . $item['periodicidad'] . " days"));
-
-				$fecha_inicial = date('Y-m-01', strtotime($fecha_siguiente));
+				// echo $fecha_siguiente." : ";
+				$fecha_inicial = date('Y-m-01', strtotime($fecha_siguiente)); 
 				$fecha_inicial = $fecha_inicial < $_POST['initialDate'] ? $fecha_siguiente : $fecha_inicial;
-
+				$fecha_inicial = $fecha_inicial == $fecha_anterior ? date("Y-m-d", strtotime($fecha_inicial. "+ 1 month")) : $fecha_inicial;
+				$fecha_anterior = $fecha_inicial;
+				// echo $fecha_inicial." : ";
+				// echo $fecha_anterior."\n";
 				$fecha_limite = $item['tolerancia'] > 0 ? date("Y-m-d", strtotime($fecha_inicial . "+ " . ($item['tolerancia'] - 1) . " days")) : $fecha_inicial;
 				$conceptos->setFechaCobro("'$fecha_inicial'");
 				$conceptos->setFechaLimite("'$fecha_limite'");

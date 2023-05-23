@@ -463,7 +463,7 @@ switch ($opcion) {
         $subtotal = floatval($_POST['costo']);
         $descuento = intval($_POST['descuento']);
         $beca = intval($_POST['beca']);
-        $total = $descuento == 1 && $beca > 0 ? $subtotal * ($beca/100) : $subtotal;
+        $total = $descuento == 1 && $beca > 0 ? $subtotal - ($subtotal * ($beca/100)) : $subtotal;
         $periodo = intval($_POST['periodo']);
         $fecha_cobro = $_POST['fecha_cobro'] != "" && $periodo > 0 ? "'{$_POST['fecha_cobro']}'" : "NULL";
         $fecha_limite = $_POST['fecha_limite'] != "" && $periodo > 0 ? "'{$_POST['fecha_limite']}'" : "NULL";
@@ -499,7 +499,8 @@ switch ($opcion) {
         $conceptos->setFechaLimite($fecha_limite);
         $conceptos->setFechaPago($fecha_pago); 
         $conceptos->setPeriodo($periodo);
-        $conceptos->guardar_concepto();
+        $conceptos->setUserId($_SESSION['User']['userId']);  
+        $conceptos->guardar_pago();
         break;
     case 'editar-pago':
         $pago = intval($_POST['pago']);
@@ -514,6 +515,7 @@ switch ($opcion) {
         ]);
         break;
     case 'actualizar-pago':
+        $errors = [];
         $pago = intval($_POST['pago']);
         $fecha_cobro = isset($_POST['fecha_cobro']) ? "'{$_POST['fecha_cobro']}'" : "NULL";
         $fecha_limite = isset($_POST['fecha_limite']) ? "'{$_POST['fecha_limite']}'" : "NULL";
@@ -521,11 +523,27 @@ switch ($opcion) {
         $subtotal = $_POST['costo'];
         $descuento = $_POST['descuento'];
         $beca = $_POST['beca'];
-        $total = $descuento == 1 && $beca > 0 ? $subtotal * ($beca/100) : $subtotal;
+        $total = $descuento == 1 && $beca > 0 ? $subtotal - ($subtotal * ($beca/100)) : $subtotal;
         $status = $_POST['estatus'];
         $tolerancia = intval($_POST['tolerancia']);
         $periodo = intval($_POST['periodo']);
-
+        if ($subtotal == 0) {
+            $errors['costo'] = "Falta indicar el cantidad del pago";
+        }
+        if ($status == 2 && $fecha_pago == "NULL") {
+            $errors['fecha_pago'] = "Falta indicar la fecha en la que se realizó el pago.";
+        }
+        if ($status == 3 && $tolerancia == 0) {
+            $errors['tolerancia'] = "Falta indicar los días de tolerancia";
+        }
+        if (!empty($errors)) {
+            header('HTTP/1.1 422 Unprocessable Entity');
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode([
+                'errors'    => $errors
+            ]);
+            exit;
+        }
         $conceptos->setPagoId($pago);
         $conceptos->setFechaCobro($fecha_cobro);
         $conceptos->setFechaLimite($fecha_limite);
@@ -537,7 +555,8 @@ switch ($opcion) {
         $conceptos->setTolerancia($tolerancia);
         $conceptos->setStatus($status);
         $conceptos->setPeriodo($periodo);
-        $conceptos->actualizar_pago();
+        $conceptos->setUserId($_SESSION['User']['userId']);
+        $conceptos->actualizar_pago(); 
 
         $infoPago = $conceptos->pago();
         $curso = $infoPago['course_id'];

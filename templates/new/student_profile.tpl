@@ -56,7 +56,7 @@
                 </div>
             </div>
         {else}
-            {if isset($pago) and $pago.fecha_limite < date('Y-m-d') and $pago.status eq 1} 
+            {* {if isset($pago) and $pago.fecha_limite < date('Y-m-d') and $pago.status eq 1} 
                 <div class="col-md-12 stretch-card grid-margin">
                     <div class="card text-white bg-info">
                         <div class="card-body">
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                 </div> 
-            {else}
+            {else} *}
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <h3 class="page-title">
@@ -343,7 +343,7 @@
                         </div>
                     </div>
                 </div>
-            {/if}
+            {* {/if} *}
         {/if}
     </div>
 </div>

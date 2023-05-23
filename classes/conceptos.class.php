@@ -21,7 +21,7 @@ class Conceptos extends Module
     private $pagoId;
     private $descuento;
     private $status;
-    private $total;
+    private $total; 
 
     public function setNombre($nombre)
     {
@@ -128,6 +128,7 @@ class Conceptos extends Module
         $this->status = $status;
     }
 
+    
     public function getConcepto()
     {
         $sql = "SELECT * FROM conceptos WHERE concepto_id = {$this->conceptoId}";
@@ -260,6 +261,15 @@ class Conceptos extends Module
         return $existe;
     }
 
+    //Verfica que no exista una currícula con periodos cero
+    public function conceptos_subjects_periodos_count()
+    {
+        $sql = "SELECT COUNT(*) as existe FROM conceptos_subject INNER JOIN conceptos_subject_periodos csp ON csp.concepto_subject_id = conceptos_subject.concepto_subject_id WHERE subject_id = {$this->getSubjectId()} AND periodo = 0";
+        $this->Util()->DB()->setQuery($sql);
+        $existe = $this->Util()->DB()->GetSingle();
+        return $existe;
+    }
+
     //Obtiene solo los conceptos relacionados con la currícula
     public function conceptos_subjects_relacionados()
     {
@@ -369,12 +379,12 @@ class Conceptos extends Module
         return $resultado;
     }
 
-    public function guardar_concepto()
+    public function guardar_pago()
     {
         $sql = "INSERT INTO pagos(alumno_id, course_id, concepto_id, fecha_cobro, fecha_limite, fecha_pago, total, iva, subtotal, status, descuento, beca, periodo) VALUES({$this->alumno},{$this->getCourseId()},{$this->conceptoId}, {$this->fecha_cobro}, {$this->fecha_limite}, {$this->fecha_pago}, {$this->total}, 0, {$this->costo}, 1, {$this->descuento}, {$this->beca}, {$this->periodo})";
-        $this->Util()->DB()->setQuery();
-        $this->Util()->DB()->InsertData();
         // echo $sql;
+        $this->Util()->DB()->setQuery($sql);
+        $this->Util()->DB()->InsertData();
     }
 
     public function actualizar_pago()
@@ -382,6 +392,12 @@ class Conceptos extends Module
         $sql = "UPDATE pagos SET total = {$this->total}, subtotal = {$this->costo}, fecha_cobro = {$this->fecha_cobro}, fecha_limite = {$this->fecha_limite}, fecha_pago = {$this->fecha_pago}, descuento = {$this->descuento}, beca = {$this->beca}, status = {$this->status}, tolerancia = {$this->tolerancia}, periodo = {$this->periodo} WHERE pago_id = {$this->pagoId}";
         // echo $sql;
         $this->Util()->DB()->setQuery($sql);
-        $this->Util()->DB()->UpdateData();
+        $actualizado = $this->Util()->DB()->UpdateData();
+        if($actualizado){ 
+            $sql = "INSERT INTO pagos_historial(`pago_id`, `user_id`, `fecha_cobro`, `fecha_limite`, `fecha_pago`, `total`, `iva`, `subtotal`, `status`, `descuento`, `beca`, `tolerancia`, `periodo`) VALUES({$this->pagoId},{$this->getUserId()}, {$this->fecha_cobro},{$this->fecha_limite},{$this->fecha_pago}, {$this->costo}, 0,{$this->total}, {$this->status},{$this->descuento}, {$this->beca}, {$this->tolerancia},{$this->periodo}) ";
+            // echo $sql;
+            $this->Util()->DB()->setQuery($sql);
+            $this->Util()->DB()->InsertData();
+        }
     }
 }

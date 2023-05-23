@@ -67,8 +67,8 @@ $( document ).ready(function() {
                 growl("Existe un error con los campos requeridos, revise por favor.","danger");
                 actionPostAjax(form, response);
                 $.each(response.errors,function(index, value){
-                    form.find("input[name="+index+"],textarea[name="+index+"]").addClass('is-invalid').focus();
-                    form.find("input[name="+index+"],textarea[name="+index+"]").parent().append(`<span class="invalid-feedback d-block">${value}</span>`).focus(); 
+                    // form.find("input[name="+index+"],textarea[name="+index+"],select[name="+index+"]").addClass('is-invalid').focus();
+                    form.find("input[name="+index+"],textarea[name="+index+"],select[name="+index+"]").addClass('is-invalid').parent().append(`<span class="invalid-feedback d-block">${value}</span>`).focus(); 
                 });
             }
         });
