@@ -1,6 +1,6 @@
 <div class="card mb-4">
     <div class="card-header bg-primary text-white">
-        <i class="fas fa-cogs"></i> Historial de pagos
+        <i class="fas fa-cogs"></i> Historial de pagos xd
     </div>
     <div class="card-body">
         <div class="row">
@@ -62,6 +62,7 @@
                                             {if $item.periodo == $period}
                                                 {$contador[$item.concepto_id] = $contador[$item.concepto_id] + 1}
                                                 <tr>
+                                               
                                                     <td>{$item.concepto_nombre} {$contador[$item.concepto_id]}</td>
                                                     <td>{$item.subtotal}</td>
                                                     <td>{$item.subtotal * ($item.beca / 100)}</td>

@@ -19,13 +19,7 @@
     <div class="card">
         <div class="card-header bg-primary text-white">
             <i class="fas fa-cogs"></i> Configurar Calendario
-            <form action="{$WEB_ROOT}/ajax/new/conceptos.php" method="POST" class="form" id="form_agregar_conceptos">
-                <input type="hidden" name="opcion" value="agregar_conceptos_curso">
-                <input type="hidden" name="curso" value="{$courseId}">
-                <button type="submit" class="btn btn-info float-right" data-target="#ajax" data-toggle="modal">
-                    <i class="fas fa-plus"></i> Agregar
-                </button>
-            </form>
+            
         </div>
         <div class="card-body">
             <div class="row">

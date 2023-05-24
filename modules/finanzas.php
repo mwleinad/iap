@@ -1,22 +1,27 @@
 <?php
-    $student->setUserId($_SESSION['User']["userId"]);
-    $activeCourses = $student->StudentCourses("activo", "si");
-    $infoStudent   = $student->GetInfo();
-    $totalCourses  = count($activeCourses);
-    
-    if($totalCourses == 1)
-    {
-        $calendar->setCourseId($activeCourses[0]['courseId']);
-        $calendar->setUserId($_SESSION['User']['userId']);
-        $distribution = $calendar->getCalendar();
-        $course->setCourseId($activeCourses[0]['courseId']);
+$student->setUserId($_SESSION['User']["userId"]);
+$activeCourses = $student->StudentCourses("activo", "si"); 
+$inactiveCourses = $student->StudentCourses("inactivo", "si"); 
+$finishedCourses = $student->StudentCourses("finalizado");
+// $pagos = $student->pagos(); 
+$conceptos->setAlumno($_SESSION['User']['userId']);
+foreach ($activeCourses as $key => $value) {
+    $conceptos->setCourseId($value['courseId']);
+    $course->setCourseId($value['courseId']);
+    $pagos = $conceptos->historial_pagos();
+    if (count($pagos) > 0) {
         $info = $course->Info();
-        $smarty->assign("info", $info);
-        $smarty->assign("distribution", $distribution);
+        $activeCourses[$key] = $info;
+        $activeCourses[$key]['pagos'] = $pagos;
+    }else{
+        unset($activeCourses[$key]);
     }
-    elseif($totalCourses > 1)
-    {
-        $smarty->assign("activeCourses", $activeCourses);
-    }
-    $smarty->assign("infoStudent", $info);
-    $smarty->assign("totalCourses", $totalCourses);
+}
+// echo "<pre>"; 
+// print_r($activeCourses);
+// print_r($inactiveCourses);
+// print_r($finishedCourses);
+// echo "</pre>";
+$smarty->assign("activeCourse", $activeCourses);
+$smarty->assign("inactiveCourse", $inactiveCourses);
+$smarty->assign("finishedCourse", $finishedCourses);

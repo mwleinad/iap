@@ -850,7 +850,7 @@ class Student extends User
 				$conceptos->setBeca(0);
 				$conceptos->setCourseId($item['course_id']);
 				$conceptos->setConcepto($item['concepto_id']);
-				$conceptos->guardar_pago(); 
+				$conceptos->guardar_pago();
 			}
 		} else {
 			// Se inscribe a curricula 
@@ -878,7 +878,7 @@ class Student extends User
 					$conceptos->setBeca(0);
 					$conceptos->setCourseId($item['course_id']);
 					$conceptos->setConcepto($item['concepto_id']);
-					$conceptos->guardar_pago(); 
+					$conceptos->guardar_pago();
 				}
 			} else {
 				$complete["status"] = false;

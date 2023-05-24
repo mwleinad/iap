@@ -465,17 +465,9 @@ switch ($opcion) {
         $beca = intval($_POST['beca']);
         $total = $descuento == 1 && $beca > 0 ? $subtotal - ($subtotal * ($beca/100)) : $subtotal;
         $periodo = intval($_POST['periodo']);
-        $fecha_cobro = $_POST['fecha_cobro'] != "" && $periodo > 0 ? "'{$_POST['fecha_cobro']}'" : "NULL";
-        $fecha_limite = $_POST['fecha_limite'] != "" && $periodo > 0 ? "'{$_POST['fecha_limite']}'" : "NULL";
-        $fecha_pago = $_POST['fecha_pago'] != "" ? "'{$_POST['fecha_pago']}'" : "NULL";
-        if ($periodo > 0) {
-            if ($fecha_cobro == "NULL") {
-                $errors['fecha_cobro'] = "La fecha de cobro es un campo requerido";
-            }
-            if ($fecha_limite == "NULL") {
-                $errors['fecha_limite'] = "La fecha límite es un campo requerido";
-            }
-        }
+        $fecha_cobro = $_POST['fecha_cobro'] != "" ? "'{$_POST['fecha_cobro']}'" : "NULL";
+        $fecha_limite = $_POST['fecha_limite'] != "" ? "'{$_POST['fecha_limite']}'" : "NULL";
+        $fecha_pago = $_POST['fecha_pago'] != "" ? "'{$_POST['fecha_pago']}'" : "NULL"; 
         if ($subtotal == 0) {
             $errors['costo'] = "Falta indicar el cantidad del pago";
         }
@@ -501,6 +493,21 @@ switch ($opcion) {
         $conceptos->setPeriodo($periodo);
         $conceptos->setUserId($_SESSION['User']['userId']);  
         $conceptos->guardar_pago();
+        
+        $course->setCourseId($curso);
+        $info = $course->Info();
+        $student->setUserId($alumno);
+        $infoAlumno = $student->GetInfo();
+        $pagos = $conceptos->historial_pagos();
+        $smarty->assign("info", $info);
+        $smarty->assign("alumno", $infoAlumno);
+        $smarty->assign("pagos", $pagos);
+        echo json_encode([
+            'modal'     => true,
+            'html'      => $smarty->fetch(DOC_ROOT . "/templates/new/history-calendar.tpl"),
+            'growl'     => true,
+            'message'   => 'Pago actualizado'
+        ]);
         break;
     case 'editar-pago':
         $pago = intval($_POST['pago']);
