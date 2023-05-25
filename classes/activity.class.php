@@ -310,6 +310,11 @@ class Activity extends Module
 		$this->Util()->DB()->setQuery($sql);
 		//ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
 		$result = $this->Util()->DB()->UpdateData();
+		if ($result) {
+			$sql = "UPDATE topicsub SET descripcion = '" . $this->getDescription() . "' WHERE activityId = '".$this->activityId."' ";
+			$this->Util()->DB()->setQuery($sql); 
+			$this->Util()->DB()->UpdateData();
+		}
 		$this->Util()->setError(90000, 'complete', "Se ha editado la actividad");
 		$this->Util()->PrintErrors();
 		return $result;

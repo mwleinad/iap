@@ -552,9 +552,18 @@ switch ($opcion) {
             exit;
         }
         $conceptos->setPagoId($pago);
+        $infoPago = $conceptos->pago();
+        if($infoPago['cobros'] > 0){
+            $fecha_cobro = "'{$infoPago['fecha_cobro']}'";
+            $fecha_limite = "'{$infoPago['fecha_limite']}'";
+            $subtototal = $infoPago['subtototal'];
+            $total = $infoPago['total'];
+            $descuento = $infoPago['descuento'];
+            $beca = $infoPago['beca'];
+            $periodo = $infoPago['periodo']; 
+        }
         $conceptos->setFechaCobro($fecha_cobro);
-        $conceptos->setFechaLimite($fecha_limite);
-        $conceptos->setFechaPago($fecha_pago);
+        $conceptos->setFechaLimite($fecha_limite); 
         $conceptos->setCosto($subtotal);
         $conceptos->setTotal($total);
         $conceptos->setDescuento($descuento);
@@ -564,8 +573,7 @@ switch ($opcion) {
         $conceptos->setPeriodo($periodo);
         $conceptos->setUserId($_SESSION['User']['userId']);
         $conceptos->actualizar_pago(); 
-
-        $infoPago = $conceptos->pago();
+        
         $curso = $infoPago['course_id'];
         $alumno = $infoPago['alumno_id'];
         $conceptos->setCourseId($curso);
@@ -583,6 +591,81 @@ switch ($opcion) {
             'html'      => $smarty->fetch(DOC_ROOT . "/templates/new/history-calendar.tpl"),
             'growl'     => true,
             'message'   => 'Pago actualizado'
+        ]);
+        break;
+
+    case 'agregar-cobro':
+        $pagoId = intval($_POST['pago']);
+        $conceptos->setPagoId($pagoId);
+        $pago = $conceptos->pago();
+        $montoPagado = $conceptos->monto();
+        $total = $pago['total'] - $montoPagado;
+        $pago['total'] = $total;
+        $smarty->assign("opcion", "guardar-cobro");
+        $smarty->assign("pago", $pago);
+        $smarty->assign("monto", $montoPagado);
+        $smarty->assign("edicion", false);
+        echo json_encode([
+            'modal'  => true,
+            'html'   => $smarty->fetch(DOC_ROOT . "/templates/forms/new/cobro.tpl")
+        ]); 
+        break;
+    case 'guardar-cobro':
+        $errors = [];
+        $pagoId = intval($_POST['pago']);
+        $monto = floatval($_POST['monto']);
+        $fecha_pago = "'{$_POST['fecha_pago']}'";
+        // echo $fecha_pago;
+        if ($monto == 0) {
+            $errors['monto'] = "Falta indicar el monto del pago";
+        }
+        if ($fecha_pago == '') {
+            $errors['fecha_pago'] = "El campo fecha de pago es requerido";
+        }
+        if (!empty($errors)) {
+            header('HTTP/1.1 422 Unprocessable Entity');
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode([
+                'errors'    => $errors
+            ]);
+            exit;
+        }
+        $conceptos->setPagoId($pagoId);
+        $conceptos->setMonto($monto);
+        $conceptos->setFechaPago($fecha_pago);
+        $conceptos->guardar_cobro(); 
+        $montoTotalCobrado = $conceptos->monto(); 
+        $infoPago = $conceptos->pago();
+        $conceptos->setAlumno($infoPago['alumno_id']);
+        $conceptos->setCourseId($infoPago['course_id']);
+        if ($montoTotalCobrado == $infoPago['total']) {
+            $conceptos->setFechaCobro("'{$infoPago['fecha_cobro']}'");
+            $conceptos->setFechaLimite("'{$infoPago['fecha_limite']}'"); 
+            $conceptos->setCosto($infoPago['subtotal']);
+            $conceptos->setTotal($infoPago['total']);
+            $conceptos->setDescuento($infoPago['descuento']);
+            $conceptos->setBeca($infoPago['beca']);
+            $conceptos->setTolerancia($infoPago['tolerancia']);
+            $conceptos->setStatus(2);
+            $conceptos->setPeriodo($infoPago['periodo']);
+            $conceptos->setUserId($_SESSION['User']['userId']);
+            $conceptos->actualizar_pago(); 
+        }
+        $pagos = $conceptos->historial_pagos();
+        $curso = $infoPago['course_id'];
+        $alumno = $infoPago['alumno_id'];
+        $course->setCourseId($curso);
+        $info = $course->Info();
+        $student->setUserId($alumno);
+        $infoAlumno = $student->GetInfo();
+        $smarty->assign("info", $info);
+        $smarty->assign("alumno", $infoAlumno);
+        $smarty->assign("pagos", $pagos);
+        echo json_encode([
+            'modal'     => true,
+            'html'      => $smarty->fetch(DOC_ROOT . "/templates/new/history-calendar.tpl"),
+            'growl'     => true,
+            'message'   => 'Cobro generado'
         ]);
         break;
 }

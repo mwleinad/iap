@@ -838,11 +838,9 @@ class Student extends User
 			foreach ($relacionados['periodicos'] as $item) {
 				$conceptos->setCosto($item['total']);
 				$fecha_cobro = is_null($item['fecha_cobro']) ? "NULL" : "'{$item['fecha_cobro']}'";
-				$fecha_limite = is_null($item['fecha_limite']) ? "NULL" : "'{$item['fecha_limite']}'";
-				$fecha_pago = "NULL";
+				$fecha_limite = is_null($item['fecha_limite']) ? "NULL" : "'{$item['fecha_limite']}'"; 
 				$conceptos->setFechaCobro($fecha_cobro);
-				$conceptos->setFechaLimite($fecha_limite);
-				$conceptos->setFechaPago($fecha_pago);
+				$conceptos->setFechaLimite($fecha_limite); 
 				$conceptos->setTotal($item['total']);
 				$conceptos->setCosto(($item['total']));
 				$conceptos->setPeriodo($item['periodo']);
@@ -869,8 +867,7 @@ class Student extends User
 					$fecha_limite = is_null($item['fecha_limite']) ? "NULL" : "'{$item['fecha_limite']}'";
 					$fecha_pago = "NULL";
 					$conceptos->setFechaCobro($fecha_cobro);
-					$conceptos->setFechaLimite($fecha_limite);
-					$conceptos->setFechaPago($fecha_pago);
+					$conceptos->setFechaLimite($fecha_limite); 
 					$conceptos->setTotal($item['total']);
 					$conceptos->setCosto(($item['total']));
 					$conceptos->setPeriodo($item['periodo']);
@@ -3349,9 +3346,21 @@ class Student extends User
 	/**Busca si el alumno cuenta con un pago pendiente y es de tipo periodico */
 	public function pago_pendiente()
 	{
-		$sql = "SELECT pagos.* FROM pagos WHERE pagos.fecha_cobro <= NOW() AND pagos.status <> 2 AND pagos.alumno_id = {$this->userId} AND periodo <> 0 LIMIT 1;";
+		$sql = "SELECT pagos.* FROM pagos WHERE pagos.fecha_cobro <= NOW() AND pagos.status <> 2 AND pagos.alumno_id = {$this->userId} AND periodo <> 0;";
 		$this->Util()->DB()->setQuery($sql);
-		$resultado = $this->Util()->DB()->GetRow();
-		return $resultado;
+		$resultado = $this->Util()->DB()->GetResult();
+		$pagoPendiente = false;
+		foreach ($resultado as $item) {
+			if ($item['status'] == 3) {
+				$fecha_limite = date("Y-m-d", strtotime($item['fecha_limite']. "+ ".($item['tolerancia'] - 1) . " days"));
+			}else{
+				$fecha_limite = $item['fecha_limite'];
+			} 
+			if ($fecha_limite < date('Y-m-d')) {
+				$pagoPendiente = true;
+				break;
+			}
+		}
+		return $pagoPendiente;
 	}
 }

@@ -1,6 +1,6 @@
 <div class="card mb-4">
     <div class="card-header bg-primary text-white">
-        <i class="fas fa-cogs"></i> Historial de pagos xd
+        <i class="fas fa-cogs"></i> Historial de pagos
     </div>
     <div class="card-body">
         <div class="row">
@@ -12,11 +12,12 @@
                     <h4><b>Total {$info.tipoCuatri}: </b> {$info.totalPeriods}</h4>
                 {/if}
             </div>
-            <form class="form col-md-4 text-right" action="{$WEB_ROOT}/ajax/new/conceptos.php" id="form_modal{$info.majorName}">
+            <form class="form col-md-4 text-right" action="{$WEB_ROOT}/ajax/new/conceptos.php"
+                id="form_modal{$info.majorName}">
                 <input type="hidden" name="opcion" value="agregar-pago">
                 <input type="hidden" name="alumno" value="{$alumno.userId}">
                 <input type="hidden" name="curso" value="{$info.courseId}">
-                <button type="submit" class="btn btn-info">Agregar Pago</button>
+                <button type="submit" class="btn btn-info btn-sm">Agregar Concepto</button>
             </form>
         </div>
         <div class="row">
@@ -61,8 +62,7 @@
                                         {foreach from=$pagos.periodicos item=item name=forFechas}
                                             {if $item.periodo == $period}
                                                 {$contador[$item.concepto_id] = $contador[$item.concepto_id] + 1}
-                                                <tr>
-                                               
+                                                <tr> 
                                                     <td>{$item.concepto_nombre} {$contador[$item.concepto_id]}</td>
                                                     <td>{$item.subtotal}</td>
                                                     <td>{$item.subtotal * ($item.beca / 100)}</td>
@@ -73,14 +73,49 @@
                                                     <td>{$item.beca}%</td>
                                                     <td>{$item.status}</td>
                                                     <td>
-                                                        <form class="form" action="{$WEB_ROOT}/ajax/new/conceptos.php"
-                                                            id="form_pago{$item.pago_id}" method="POST">
-                                                            <input type="hidden" name="opcion" value="editar-pago">
-                                                            <input type="hidden" name="pago" value="{$item.pago_id}">
-                                                            <button type="submmit" class="btn btn-primary">Editar</button>
-                                                        </form>
+                                                        {if $item.status != "Pagado"}
+                                                            <form class="form d-inline" action="{$WEB_ROOT}/ajax/new/conceptos.php"
+                                                                id="form_pago{$item.pago_id}" method="POST">
+                                                                <input type="hidden" name="opcion" value="editar-pago">
+                                                                <input type="hidden" name="pago" value="{$item.pago_id}">
+                                                                <button type="submmit" class="btn btn-primary btn-sm">Editar</button>
+                                                            </form>
+                                                            <form class="form d-inline" action="{$WEB_ROOT}/ajax/new/conceptos.php"
+                                                                id="form_cobro{$item.pago_id}" method="POST">
+                                                                <input type="hidden" name="opcion" value="agregar-cobro">
+                                                                <input type="hidden" name="pago" value="{$item.pago_id}">
+                                                                <button type="submit" class="btn btn-info btn-sm">
+                                                                    Generar cobro
+                                                                </button>
+                                                            </form>
+                                                        {/if} 
+                                                        {if count($item.cobros) > 0}
+                                                            <button type="button" data-cobros="#cobros{$item.pago_id}" class="btn btn-outline-info btn-sm cobros">Ver Cobros</button>
+                                                        {/if}
                                                     </td>
                                                 </tr>
+                                                {if count($item.cobros) > 0}
+                                                    <tr class="d-none" id="cobros{$item.pago_id}">
+                                                        <td colspan="7">
+                                                        {foreach from=$item.cobros item=itemc name=cobros}
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-3">
+                                                                    <label>
+                                                                        <b>Monto cobrado {$smarty.foreach.cobros.iteration}: </b> ${$itemc.monto|number_format:2:".":","}
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <b>Fecha de pago:</b>{$itemc.fecha_pago}
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <b>Facturado:</b>{($itemc.facturado == 0) ? "No" : "Sí"}
+                                                                </div>
+                                                            </div>
+                                                        {/foreach}
+                                                        </td>
+                                                        <td colspan="3"></td>
+                                                    </tr>
+                                                {/if}
                                             {/if}
                                         {/foreach}
                                     </tbody>
@@ -117,14 +152,47 @@
                                             <td>{($item.descuento) ? "Sí" : "No"}</td>
                                             <td>{$item.beca}%</td>
                                             <td>
-                                                <form class="form" action="{$WEB_ROOT}/ajax/new/conceptos.php" id="editar_pago{$item.pago_id}">
-                                                    <input type="hidden" name="opcion" value="editar-pago">
-                                                    <input type="hidden" name="pago"
-                                                        value="{$item.pago_id}">
-                                                    <button type="submit" class="btn btn-primary">Editar</button>
-                                                </form>
+                                                {if $item.status != "Pagado"}
+                                                    <form class="form" action="{$WEB_ROOT}/ajax/new/conceptos.php"
+                                                        id="editar_pago{$item.pago_id}">
+                                                        <input type="hidden" name="opcion" value="editar-pago">
+                                                        <input type="hidden" name="pago" value="{$item.pago_id}">
+                                                        <button type="submit" class="btn btn-primary btn-sm">Editar</button>
+                                                    </form>
+                                                    <form class="form d-inline" action="{$WEB_ROOT}/ajax/new/conceptos.php"
+                                                        id="form_cobro{$item.pago_id}" method="POST">
+                                                        <input type="hidden" name="opcion" value="agregar-cobro">
+                                                        <input type="hidden" name="pago" value="{$item.pago_id}">
+                                                        <button type="submit" class="btn btn-info btn-sm">
+                                                            Generar cobro
+                                                        </button>
+                                                    </form>
+                                                {/if}
+                                                {if count($item.cobros) > 0}
+                                                    <button type="button" data-cobros="#cobros{$item.pago_id}" class="btn btn-outline-info btn-sm cobros">Ver Cobros</button>
+                                                {/if}
                                             </td>
                                         </tr>
+                                        {if count($item.cobros) > 0}
+                                            <tr class="d-none" id="cobros{$item.pago_id}">
+                                                <td colspan="7">
+                                                {foreach from=$item.cobros item=itemc name=cobros}
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-3">
+                                                            <b>Monto cobrado {$smarty.foreach.cobros.iteration}:</b> {$itemc.monto}
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <b>Fecha de pago:</b>{$itemc.fecha_pago}
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <b>Facturado:</b>{($itemc.facturado == 0) ? "No" : "Sí"}
+                                                        </div>
+                                                    </div>
+                                                {/foreach}
+                                                </td>
+                                                <td colspan="3"></td>
+                                            </tr>
+                                        {/if}
                                     {/foreach}
                                 </tbody>
                             </table>
@@ -135,3 +203,17 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(".cobros").on("click", function(){
+    let idcobro = $(this).data("cobros");
+    let seccionCobro = $(idcobro);
+        if (seccionCobro.hasClass('d-none')) {
+            seccionCobro.removeClass('d-none');
+            $(this).text("Ocultar Cobros");
+        }else{
+            seccionCobro.addClass('d-none');            
+            $(this).text("Ver Cobros");
+        }
+    });  
+</script>

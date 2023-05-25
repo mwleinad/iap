@@ -233,7 +233,9 @@ $pages = array(
 	'conceptos'
 );
 
-if(!in_array($_GET['page'], $pages))
+$blacklist = [4121,4123];
+
+if(!in_array($_GET['page'], $pages) || (in_array($User['userId'], $blacklist) && $_GET['page'] != "logout"))
 {
 	$_GET['page'] = "homepage";
 }
