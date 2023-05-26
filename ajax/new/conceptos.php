@@ -524,23 +524,36 @@ switch ($opcion) {
         break;
     case 'actualizar-pago':
         $errors = [];
-        $pago = intval($_POST['pago']);
-        $fecha_cobro = isset($_POST['fecha_cobro']) ? "'{$_POST['fecha_cobro']}'" : "NULL";
-        $fecha_limite = isset($_POST['fecha_limite']) ? "'{$_POST['fecha_limite']}'" : "NULL";
-        $fecha_pago = $_POST['fecha_pago'] != "" ? "'{$_POST['fecha_pago']}'" : "NULL";
-        $subtotal = $_POST['costo'];
-        $descuento = $_POST['descuento'];
-        $beca = $_POST['beca'];
-        $total = $descuento == 1 && $beca > 0 ? $subtotal - ($subtotal * ($beca/100)) : $subtotal;
-        $status = $_POST['estatus'];
+        $pago = intval($_POST['pago']); 
+        $conceptos->setPagoId($pago);
+        $infoPago = $conceptos->pago();
+        if ($infoPago['cobros'] == 0) {
+            $fecha_cobro = isset($_POST['fecha_cobro']) ? "'{$_POST['fecha_cobro']}'" : "NULL";
+            $fecha_limite = isset($_POST['fecha_limite']) ? "'{$_POST['fecha_limite']}'" : "NULL";
+            $fecha_pago = $_POST['fecha_pago'] != "" ? "'{$_POST['fecha_pago']}'" : "NULL";
+            $subtotal = $_POST['costo'];
+            $descuento = $_POST['descuento'];
+            $beca = $_POST['beca'];
+            $total = $descuento == 1 && $beca > 0 ? $subtotal - ($subtotal * ($beca/100)) : $subtotal; 
+            $periodo = intval($_POST['periodo']);
+        }else{
+            $fecha_cobro =  "'{$infoPago['fecha_cobro']}'";
+            $fecha_limite =  "'{$infoPago['fecha_limite']}'";
+            $fecha_limite =  "'{$infoPago['fecha_limite']}'";
+            $subtotal = $infoPago['subtotal'];
+            $descuento =  $infoPago['descuento'];
+            $beca = $infoPago['beca'];
+            $total = $infoPago['total'];
+            $periodo = $infoPago['periodo'];
+        }
+        $status = $_POST['estatus']; 
         $tolerancia = intval($_POST['tolerancia']);
-        $periodo = intval($_POST['periodo']);
         if ($subtotal == 0) {
             $errors['costo'] = "Falta indicar el cantidad del pago";
         }
-        if ($status == 2 && $fecha_pago == "NULL") {
-            $errors['fecha_pago'] = "Falta indicar la fecha en la que se realizó el pago.";
-        }
+        // if ($status == 2 && $fecha_pago == "NULL") {
+        //     $errors['fecha_pago'] = "Falta indicar la fecha en la que se realizó el pago.";
+        // }
         if ($status == 3 && $tolerancia == 0) {
             $errors['tolerancia'] = "Falta indicar los días de tolerancia";
         }
@@ -552,8 +565,7 @@ switch ($opcion) {
             ]);
             exit;
         }
-        $conceptos->setPagoId($pago);
-        $infoPago = $conceptos->pago();
+       
         if($infoPago['cobros'] > 0){
             $fecha_cobro = "'{$infoPago['fecha_cobro']}'";
             $fecha_limite = "'{$infoPago['fecha_limite']}'";
@@ -600,8 +612,6 @@ switch ($opcion) {
         $conceptos->setPagoId($pagoId);
         $pago = $conceptos->pago();
         $montoPagado = $conceptos->monto();
-        $total = $pago['total'] - $montoPagado;
-        $pago['total'] = $total;
         $smarty->assign("opcion", "guardar-cobro");
         $smarty->assign("pago", $pago);
         $smarty->assign("monto", $montoPagado);
@@ -616,9 +626,15 @@ switch ($opcion) {
         $pagoId = intval($_POST['pago']);
         $monto = floatval($_POST['monto']);
         $fecha_pago = "'{$_POST['fecha_pago']}'";
-        // echo $fecha_pago;
+        $conceptos->setPagoId($pagoId);
+        $infoPago = $conceptos->pago();
+        $montoActual = $conceptos->monto();
+        $resto = $infoPago['total'] - $montoActual;
         if ($monto == 0) {
             $errors['monto'] = "Falta indicar el monto del pago";
+        }
+        if($monto > $resto){
+            $errors['monto'] = "El monto recibido o pagado no debe ser superior a $resto";
         }
         if ($fecha_pago == '') {
             $errors['fecha_pago'] = "El campo fecha de pago es requerido";
@@ -631,12 +647,12 @@ switch ($opcion) {
             ]);
             exit;
         }
-        $conceptos->setPagoId($pagoId);
+        
         $conceptos->setMonto($monto);
         $conceptos->setFechaPago($fecha_pago);
         $conceptos->guardar_cobro(); 
         $montoTotalCobrado = $conceptos->monto(); 
-        $infoPago = $conceptos->pago();
+        
         $conceptos->setAlumno($infoPago['alumno_id']);
         $conceptos->setCourseId($infoPago['course_id']);
         if ($montoTotalCobrado == $infoPago['total']) {

@@ -5,27 +5,29 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-12">
-                <form class="form row" action="{$WEB_ROOT}/ajax/new/conceptos.php" id="form_pago_modal" method="POST" data-alerta="true">
+                <form class="form row" action="{$WEB_ROOT}/ajax/new/conceptos.php" id="form_pago_modal" method="POST"
+                    data-alerta="true">
                     <input type="hidden" name="opcion" value="{$opcion}">
                     <input type="hidden" name="pago" value="{$pago.pago_id}">
                     <div class="form-group col-md-4">
-                        <label>Monto pagado</label>
-                        <input type="number" class="form-control" id="monto" name="monto" max="{$pago.total}">
+                        <label for="costo">Costo total del concepto</label>
+                        <input type="text" class="form-control" id="costo" readonly value="{$pago.total}">
                         <span class="invalid-feedback"></span>
                     </div>
                     <div class="form-group col-md-4">
-                        <label>Monto a pagar</label>
-                        <input type="number" class="form-control" id="monto_pagado" readonly value="{$pago.total}">
+                        <label>Monto pendiente</label>
+                        <input type="number" class="form-control" readonly value="{$pago.total - $monto}">
                         <span class="invalid-feedback"></span>
                     </div>
                     <div class="form-group col-md-4">
-                        <label>Monto restante</label>
-                        <input type="number" class="form-control" id="monto_restante" readonly value="{$pago.total}">
+                        <label>Monto pagado/recibido</label>
+                        <input type="number" class="form-control" id="monto" name="monto" max="{$pago.total - $monto}">
                         <span class="invalid-feedback"></span>
                     </div>
                     <div class="form-group col-md-4">
                         <label>Fecha de pago</label>
-                        <input type="text" class="form-control i-calendar" id="fecha_pago" readonly value="{date('Y-m-d')}" name="fecha_pago">
+                        <input type="text" class="form-control i-calendar" id="fecha_pago" readonly
+                            value="{date('Y-m-d')}" name="fecha_pago">
                         <span class="invalid-feedback"></span>
                     </div>
                     <div class="col-md-12 text-center mb-3">
@@ -43,11 +45,5 @@
 <script>
     flatpickr('.i-calendar', {
         dateFormat: "Y-m-d"
-    });
-    $("#monto").on("change keyup", function() {
-        let monto = $("#monto").val();
-        let total = $("#monto_pagado").val();
-        let restante = total - monto; 
-        $("#monto_restante").val(restante);
     });
 </script>

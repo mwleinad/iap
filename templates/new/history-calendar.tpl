@@ -46,6 +46,7 @@
                                 <table class="table table-sm">
                                     <thead>
                                         <tr class="text-center">
+                                            <th></th>
                                             <th>Concepto</th>
                                             <th>Subtotal</th>
                                             <th>Descuento</th>
@@ -63,7 +64,15 @@
                                         {foreach from=$pagos.periodicos item=item name=forFechas}
                                             {if $item.periodo == $period}
                                                 {$contador[$item.concepto_id] = $contador[$item.concepto_id] + 1}
-                                                <tr>
+                                                <tr {($item.fecha_limite < date('Y-m-d') && $item.status != 2) ? 'class="alert alert-danger" ' : ""}>
+                                                    <td>
+                                                        {if count($item.cobros) > 0}
+                                                            <button type="button" data-cobros="#cobros{$item.pago_id}"
+                                                                class="btn btn-outline-info btn-sm cobros p-2">
+                                                                <i class="fa fa-plus"></i>
+                                                            </button>
+                                                        {/if}
+                                                    </td>
                                                     <td>{$item.concepto_nombre} {$contador[$item.concepto_id]}</td>
                                                     <td>${$item.subtotal|number_format:2:".":","}</td>
                                                     <td>${$item.subtotal * ($item.beca / 100)|number_format:2:".":","}</td>
@@ -90,10 +99,6 @@
                                                                     Generar cobro
                                                                 </button>
                                                             </form>
-                                                        {/if}
-                                                        {if count($item.cobros) > 0}
-                                                            <button type="button" data-cobros="#cobros{$item.pago_id}"
-                                                                class="btn btn-outline-info btn-sm cobros">Ver Cobros</button>
                                                         {/if}
                                                     </td>
                                                 </tr>
@@ -137,13 +142,12 @@
                             <table class="table table-sm">
                                 <thead>
                                     <tr class="text-center">
+                                        <th></th>
                                         <th>Concepto</th>
                                         <th>Subtotal</th>
                                         <th>Descuento</th>
                                         <th>Total a pagar</th>
                                         <th>Monto pendiente</th>
-                                        <th>Fecha Cobro</th>
-                                        <th>Fecha Límite</th>
                                         <th>¿Aplica Beca?</th>
                                         <th>Beca</th>
                                         <th>Estatus</th>
@@ -153,19 +157,25 @@
                                 <tbody class="text-center">
                                     {foreach from=$pagos.otros item=item}
                                         <tr>
+                                            <td>
+                                                {if count($item.cobros) > 0}
+                                                    <button type="button" data-cobros="#cobros{$item.pago_id}"
+                                                        class="btn btn-outline-info btn-sm cobros">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                {/if}
+                                            </td>
                                             <td>{$item.concepto_nombre} {$contador[$item.concepto_id]}</td>
                                             <td>${$item.subtotal|number_format:2:".":","}</td>
                                             <td>${$item.subtotal * ($item.beca / 100)|number_format:2:".":","}</td>
                                             <td>${$item.total|number_format:2:".":","}</td>
                                             <td>${$item.total - $item.monto|number_format:2:".":","}</td>
-                                            <td>{$item.fecha_cobro}</td>
-                                            <td>{$item.fecha_limite}</td>
                                             <td>{($item.descuento) ? "Sí" : "No"}</td>
                                             <td>{$item.beca}%</td>
                                             <td>{$item.status_btn}</td>
                                             <td>
                                                 {if $item.status != 2}
-                                                    <form class="form" action="{$WEB_ROOT}/ajax/new/conceptos.php"
+                                                    <form class="form d-inline" action="{$WEB_ROOT}/ajax/new/conceptos.php"
                                                         id="editar_pago{$item.pago_id}">
                                                         <input type="hidden" name="opcion" value="editar-pago">
                                                         <input type="hidden" name="pago" value="{$item.pago_id}">
@@ -180,16 +190,13 @@
                                                         </button>
                                                     </form>
                                                 {/if}
-                                                {if count($item.cobros) > 0}
-                                                    <button type="button" data-cobros="#cobros{$item.pago_id}"
-                                                        class="btn btn-outline-info btn-sm cobros">Ver Cobros</button>
-                                                {/if}
+
                                             </td>
                                         </tr>
                                         {if count($item.cobros) > 0}
                                             <tr class="d-none" id="cobros{$item.pago_id}">
                                                 <td colspan="2"></td>
-                                                <td colspan="8">
+                                                <td colspan="7">
                                                     {foreach from=$item.cobros item=itemc name=cobros}
                                                         <div class="row mb-3">
                                                             <div class="col-md-3">
@@ -224,10 +231,10 @@
         let seccionCobro = $(idcobro);
         if (seccionCobro.hasClass('d-none')) {
             seccionCobro.removeClass('d-none');
-            $(this).text("Ocultar Cobros");
+            $(this).html('<i class="fa fa-minus"></i>');
         } else {
             seccionCobro.addClass('d-none');
-            $(this).text("Ver Cobros");
+            $(this).html('<i class="fa fa-plus"></i>');
         }
     });
 </script>
