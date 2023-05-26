@@ -678,6 +678,7 @@ switch ($_POST["type"]) {
 		// exit;
 		$course->setCourseId($_POST['courseId']);
 		$courseInfo = $course->Info();
+		$student->setYoId($_SESSION['User']['userId']);
 		$student->setUserId($_POST['userId']);
 		$student->setCourseId($_POST['courseId']);
 		$student->setSubjectId($courseInfo['subjectId']); 

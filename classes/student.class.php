@@ -848,6 +848,7 @@ class Student extends User
 				$conceptos->setBeca(0);
 				$conceptos->setCourseId($item['course_id']);
 				$conceptos->setConcepto($item['concepto_id']);
+				$conceptos->setUserId($this->yoId);
 				$conceptos->guardar_pago();
 			}
 		} else {
@@ -875,6 +876,7 @@ class Student extends User
 					$conceptos->setBeca(0);
 					$conceptos->setCourseId($item['course_id']);
 					$conceptos->setConcepto($item['concepto_id']);
+					$conceptos->setUserId($this->yoId);
 					$conceptos->guardar_pago();
 				}
 			} else {

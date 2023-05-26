@@ -336,7 +336,7 @@ class Conceptos extends Module
 
     public function historial_pagos()
     {
-        $sql = "SELECT pagos.pago_id, pagos.course_id, pagos.alumno_id, pagos.concepto_id, pagos.fecha_cobro, pagos.fecha_limite, pagos.total, pagos.iva, pagos.subtotal, CASE WHEN pagos.status = 1 THEN 'Pendiente' WHEN pagos.status = 3 THEN 'Prórroga' ELSE 'Pagado' END AS status, pagos.descuento, pagos.beca, pagos.archivo, pagos.tolerancia, pagos.fecha_cobro, pagos.fecha_limite, pagos.periodo, conceptos.nombre AS concepto_nombre FROM pagos INNER JOIN conceptos ON conceptos.concepto_id = pagos.concepto_id WHERE pagos.alumno_id = {$this->alumno} AND pagos.course_id = {$this->getCourseId()} ORDER BY fecha_cobro;";
+        $sql = "SELECT pagos.pago_id, pagos.course_id, pagos.alumno_id, pagos.concepto_id, pagos.fecha_cobro, pagos.fecha_limite, pagos.total, pagos.iva, pagos.subtotal, CASE WHEN pagos.status = 1 THEN '<span class=\"badge badge-warning\">Pendiente</span>' WHEN pagos.status = 3 THEN '<span class=\"badge badge-info\">Prorroga</span>' ELSE '<spanclass=\"badge badge-success\">Pagado</span>' END AS status_btn, pagos.status, pagos.descuento, pagos.beca, pagos.archivo, pagos.tolerancia, pagos.fecha_cobro, pagos.fecha_limite, pagos.periodo, conceptos.nombre AS concepto_nombre FROM pagos INNER JOIN conceptos ON conceptos.concepto_id = pagos.concepto_id WHERE pagos.alumno_id = {$this->alumno} AND pagos.course_id = {$this->getCourseId()} ORDER BY fecha_cobro;";
         // echo $sql;
         $this->Util()->DB()->setQuery($sql);
         $resultado = $this->Util()->DB()->GetResult();
@@ -345,32 +345,39 @@ class Conceptos extends Module
         foreach ($resultado as $item) {
             $this->pagoId = $item['pago_id']; 
             $item['cobros'] = $this->cobros();
+            $item['monto'] = $this->monto();
             if ($item['periodo'] == 0) {
                 $clasificados['otros'][] = $item;
             } else {
                 $clasificados['periodicos'][] = $item;
             }
         }
+        // print_r($clasificados);
         return $clasificados;
     }
 
     public function actualizar_beca()
     {
         $adicional = ""; //$this->beca == 100 ? ",pagos.status =  2" : ",pagos.status = 1";
-        $sql = "SELECT pagos.* FROM `pagos` WHERE pagos.alumno_id = {$this->alumno} AND pagos.course_id = {$this->getCourseId()} AND pagos.periodo = {$this->periodo} AND pagos.descuento = 1;";
+        $sql = "SELECT pagos.*, (SELECT count(*) FROM cobros WHERE cobros.pago_id = pagos.pago_id) as cobros FROM `pagos` WHERE pagos.alumno_id = {$this->alumno} AND pagos.course_id = {$this->getCourseId()} AND pagos.periodo = {$this->periodo} AND pagos.descuento = 1;";
         // echo $sql;
         $this->Util()->DB()->setQuery($sql);
         $resultado = $this->Util()->DB()->GetResult();
         foreach ($resultado as $item) {
-           
-            $descuento = $item['subtotal'] * ($this->beca / 100);
-            // echo $this->beca."\n";
-            // echo $item['subtotal']."\n";
-            $total = $item['subtotal'] - $descuento;
-            $sql = "UPDATE pagos SET beca = {$this->beca}, total = {$total} WHERE pagos.pago_id = {$item['pago_id']}";
-            $this->Util()->DB()->setQuery($sql);
-            $resultado = $this->Util()->DB()->UpdateData();
-           
+            if ($item['cobros'] == 0) {
+                $descuento = $item['subtotal'] * ($this->beca / 100);
+                $total = $item['subtotal'] - $descuento;
+                $this->total = $total;
+                $this->costo = $item['subtotal'];
+                $this->fecha_cobro = "'{$item['fecha_cobro']}'";
+                $this->fecha_limite = "'{$item['fecha_limite']}'"; 
+                $this->descuento = $item['descuento']; 
+                $this->tolerancia = intval($item['tolerancia']);
+                $this->status = $item['status'];
+                $this->periodo = $item['periodo'];
+                $this->pagoId = $item['pago_id'];
+                $this->actualizar_pago();
+            }
         }
         // echo $sql;
 
@@ -391,12 +398,17 @@ class Conceptos extends Module
         $sql = "INSERT INTO pagos(alumno_id, course_id, concepto_id, fecha_cobro, fecha_limite, total, iva, subtotal, status, descuento, beca, periodo) VALUES({$this->alumno},{$this->getCourseId()},{$this->conceptoId}, {$this->fecha_cobro}, {$this->fecha_limite}, {$this->total}, 0, {$this->costo}, 1, {$this->descuento}, {$this->beca}, {$this->periodo})";
         // echo $sql;
         $this->Util()->DB()->setQuery($sql);
+        $pago = $this->Util()->DB()->InsertData();
+
+        $sql = "INSERT INTO pagos_historial(`pago_id`, `user_id`, `fecha_cobro`, `fecha_limite`, `total`, `iva`, `subtotal`, `status`, `descuento`, `beca`, `periodo`) VALUES({$pago},{$this->getUserId()}, {$this->fecha_cobro},{$this->fecha_limite}, {$this->costo}, 0,{$this->total}, 1 ,{$this->descuento}, {$this->beca},{$this->periodo}) "; 
+        echo $sql;
+        $this->Util()->DB()->setQuery($sql);
         $this->Util()->DB()->InsertData();
     }
 
     public function actualizar_pago()
     {
-        $sql = "UPDATE pagos SET total = {$this->total}, subtotal = {$this->costo}, fecha_cobro = {$this->fecha_cobro}, fecha_limite = {$this->fecha_limite}, descuento = {$this->descuento}, beca = {$this->beca}, status = {$this->status}, tolerancia = '{$this->tolerancia}', periodo = {$this->periodo} WHERE pago_id = {$this->pagoId}";
+        $sql = "UPDATE pagos SET total = {$this->total}, subtotal = {$this->costo}, fecha_cobro = {$this->fecha_cobro}, fecha_limite = {$this->fecha_limite}, descuento = {$this->descuento}, beca = {$this->beca}, status = {$this->status}, tolerancia = '{$this->tolerancia}', periodo = {$this->periodo} WHERE pago_id = {$this->pagoId};";
         // echo $sql;
         $this->Util()->DB()->setQuery($sql);
         $actualizado = $this->Util()->DB()->UpdateData();

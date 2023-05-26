@@ -404,7 +404,8 @@ switch ($opcion) {
         $conceptos->setBeca($beca);
         $conceptos->setCourseId($curso);
         $conceptos->setAlumno($alumno);
-        $conceptos->setPeriodo($periodo);
+        $conceptos->setPeriodo($periodo); 
+        $conceptos->setUserId($_SESSION['User']['userId']);
         $conceptos->actualizar_beca();
 
         $course->setCourseId($curso);

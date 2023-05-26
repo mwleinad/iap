@@ -49,7 +49,8 @@
                                             <th>Concepto</th>
                                             <th>Subtotal</th>
                                             <th>Descuento</th>
-                                            <th>Total</th>
+                                            <th>Total a pagar</th>
+                                            <th>Monto pendiente</th>
                                             <th>Fecha Cobro</th>
                                             <th>Fecha Límite</th>
                                             <th>¿Aplica Beca?</th>
@@ -62,18 +63,19 @@
                                         {foreach from=$pagos.periodicos item=item name=forFechas}
                                             {if $item.periodo == $period}
                                                 {$contador[$item.concepto_id] = $contador[$item.concepto_id] + 1}
-                                                <tr> 
+                                                <tr>
                                                     <td>{$item.concepto_nombre} {$contador[$item.concepto_id]}</td>
-                                                    <td>{$item.subtotal}</td>
-                                                    <td>{$item.subtotal * ($item.beca / 100)}</td>
-                                                    <td>{$item.total}</td>
+                                                    <td>${$item.subtotal|number_format:2:".":","}</td>
+                                                    <td>${$item.subtotal * ($item.beca / 100)|number_format:2:".":","}</td>
+                                                    <td>${$item.total|number_format:2:".":","}</td>
+                                                    <td>${$item.total - $item.monto|number_format:2:".":","}</td>
                                                     <td>{$item.fecha_cobro}</td>
                                                     <td>{$item.fecha_limite}</td>
                                                     <td>{($item.descuento) ? "Sí" : "No"}</td>
                                                     <td>{$item.beca}%</td>
-                                                    <td>{$item.status}</td>
+                                                    <td>{$item.status_btn}</td>
                                                     <td>
-                                                        {if $item.status != "Pagado"}
+                                                        {if $item.status != 2}
                                                             <form class="form d-inline" action="{$WEB_ROOT}/ajax/new/conceptos.php"
                                                                 id="form_pago{$item.pago_id}" method="POST">
                                                                 <input type="hidden" name="opcion" value="editar-pago">
@@ -88,32 +90,34 @@
                                                                     Generar cobro
                                                                 </button>
                                                             </form>
-                                                        {/if} 
+                                                        {/if}
                                                         {if count($item.cobros) > 0}
-                                                            <button type="button" data-cobros="#cobros{$item.pago_id}" class="btn btn-outline-info btn-sm cobros">Ver Cobros</button>
+                                                            <button type="button" data-cobros="#cobros{$item.pago_id}"
+                                                                class="btn btn-outline-info btn-sm cobros">Ver Cobros</button>
                                                         {/if}
                                                     </td>
                                                 </tr>
                                                 {if count($item.cobros) > 0}
                                                     <tr class="d-none" id="cobros{$item.pago_id}">
-                                                        <td colspan="7">
-                                                        {foreach from=$item.cobros item=itemc name=cobros}
-                                                            <div class="row mb-3">
-                                                                <div class="col-md-3">
-                                                                    <label>
-                                                                        <b>Monto cobrado {$smarty.foreach.cobros.iteration}: </b> ${$itemc.monto|number_format:2:".":","}
-                                                                    </label>
+                                                        <td colspan="2"></td>
+                                                        <td colspan="8">
+                                                            {foreach from=$item.cobros item=itemc name=cobros}
+                                                                <div class="row mb-3">
+                                                                    <div class="col-md-3">
+                                                                        <label>
+                                                                            <b>Monto cobrado {$smarty.foreach.cobros.iteration}: </b>
+                                                                            ${$itemc.monto|number_format:2:".":","}
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <b>Fecha de pago:</b>{$itemc.fecha_pago}
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <b>Facturado:</b>{($itemc.facturado == 0) ? "No" : "Sí"}
+                                                                    </div>
                                                                 </div>
-                                                                <div class="col-md-3">
-                                                                    <b>Fecha de pago:</b>{$itemc.fecha_pago}
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <b>Facturado:</b>{($itemc.facturado == 0) ? "No" : "Sí"}
-                                                                </div>
-                                                            </div>
-                                                        {/foreach}
+                                                            {/foreach}
                                                         </td>
-                                                        <td colspan="3"></td>
                                                     </tr>
                                                 {/if}
                                             {/if}
@@ -136,23 +140,31 @@
                                         <th>Concepto</th>
                                         <th>Subtotal</th>
                                         <th>Descuento</th>
-                                        <th>Total</th>
+                                        <th>Total a pagar</th>
+                                        <th>Monto pendiente</th>
+                                        <th>Fecha Cobro</th>
+                                        <th>Fecha Límite</th>
                                         <th>¿Aplica Beca?</th>
                                         <th>Beca</th>
+                                        <th>Estatus</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-center">
                                     {foreach from=$pagos.otros item=item}
                                         <tr>
-                                            <td>{$item.concepto_nombre}</td>
-                                            <td>{$item.subtotal}</td>
-                                            <td>{$item.subtotal * ($item.beca / 100)}</td>
-                                            <td>{$item.total}</td>
+                                            <td>{$item.concepto_nombre} {$contador[$item.concepto_id]}</td>
+                                            <td>${$item.subtotal|number_format:2:".":","}</td>
+                                            <td>${$item.subtotal * ($item.beca / 100)|number_format:2:".":","}</td>
+                                            <td>${$item.total|number_format:2:".":","}</td>
+                                            <td>${$item.total - $item.monto|number_format:2:".":","}</td>
+                                            <td>{$item.fecha_cobro}</td>
+                                            <td>{$item.fecha_limite}</td>
                                             <td>{($item.descuento) ? "Sí" : "No"}</td>
                                             <td>{$item.beca}%</td>
+                                            <td>{$item.status_btn}</td>
                                             <td>
-                                                {if $item.status != "Pagado"}
+                                                {if $item.status != 2}
                                                     <form class="form" action="{$WEB_ROOT}/ajax/new/conceptos.php"
                                                         id="editar_pago{$item.pago_id}">
                                                         <input type="hidden" name="opcion" value="editar-pago">
@@ -169,28 +181,30 @@
                                                     </form>
                                                 {/if}
                                                 {if count($item.cobros) > 0}
-                                                    <button type="button" data-cobros="#cobros{$item.pago_id}" class="btn btn-outline-info btn-sm cobros">Ver Cobros</button>
+                                                    <button type="button" data-cobros="#cobros{$item.pago_id}"
+                                                        class="btn btn-outline-info btn-sm cobros">Ver Cobros</button>
                                                 {/if}
                                             </td>
                                         </tr>
                                         {if count($item.cobros) > 0}
                                             <tr class="d-none" id="cobros{$item.pago_id}">
-                                                <td colspan="7">
-                                                {foreach from=$item.cobros item=itemc name=cobros}
-                                                    <div class="row mb-3">
-                                                        <div class="col-md-3">
-                                                            <b>Monto cobrado {$smarty.foreach.cobros.iteration}:</b> {$itemc.monto}
+                                                <td colspan="2"></td>
+                                                <td colspan="8">
+                                                    {foreach from=$item.cobros item=itemc name=cobros}
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-3">
+                                                                <b>Monto cobrado {$smarty.foreach.cobros.iteration}:</b>
+                                                                {$itemc.monto}
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <b>Fecha de pago:</b>{$itemc.fecha_pago}
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <b>Facturado:</b>{($itemc.facturado == 0) ? "No" : "Sí"}
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-3">
-                                                            <b>Fecha de pago:</b>{$itemc.fecha_pago}
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <b>Facturado:</b>{($itemc.facturado == 0) ? "No" : "Sí"}
-                                                        </div>
-                                                    </div>
-                                                {/foreach}
+                                                    {/foreach}
                                                 </td>
-                                                <td colspan="3"></td>
                                             </tr>
                                         {/if}
                                     {/foreach}
@@ -205,15 +219,15 @@
 </div>
 
 <script>
-    $(".cobros").on("click", function(){
-    let idcobro = $(this).data("cobros");
-    let seccionCobro = $(idcobro);
+    $(".cobros").on("click", function() {
+        let idcobro = $(this).data("cobros");
+        let seccionCobro = $(idcobro);
         if (seccionCobro.hasClass('d-none')) {
             seccionCobro.removeClass('d-none');
             $(this).text("Ocultar Cobros");
-        }else{
-            seccionCobro.addClass('d-none');            
+        } else {
+            seccionCobro.addClass('d-none');
             $(this).text("Ver Cobros");
         }
-    });  
+    });
 </script>

@@ -26,12 +26,12 @@ $sheet->setCellValue('B1','Apellidos');
 $sheet->setCellValue('C1','Correo');
 $sheet->setCellValue('D1','Contraseña'); 
 
-for ($i=2; $i < count($students) ; $i++) {
-    $sheet->setCellValue('A'.$i,$students[$i-2]['names']);
-    $sheet->setCellValue('B'.$i,$students[$i-2]['lastNamePaterno']." ".$students[$i-2]['lastNameMaterno']);
-    $sheet->setCellValue('C'.$i,$students[$i-2]['controlNumber']."@iapchiapas.edu.mx"); 
+for ($i=0; $i < (count($students)) ; $i++) {
+    $sheet->setCellValue('A'.($i+2),mb_strtoupper($students[$i]['names']));
+    $sheet->setCellValue('B'.($i+2),mb_strtoupper($students[$i]['lastNamePaterno'])." ".mb_strtoupper($students[$i]['lastNameMaterno']));
+    $sheet->setCellValue('C'.($i+2),$students[$i]['controlNumber']."@iapchiapas.edu.mx"); 
     $password = "iap2023_".rand(100,999);
-    $sheet->setCellValue('D'.$i,$password);
+    $sheet->setCellValue('D'.($i+2),$password);
 }
 
 // Redirect output to a client’s web browser (Xls)
