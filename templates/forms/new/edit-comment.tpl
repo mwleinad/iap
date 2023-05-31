@@ -2,7 +2,7 @@
     <input type="hidden" id="replyId" name="replyId" value="{$comentario.replyId}" />
     <div class="form-group col-md-12">
         <label for="reply">Comentario:</label>
-        <textarea name="reply" id="reply" class="form-control" required>{$comentario.content}</textarea>
+        <textarea name="reply" id="replyModal" class="form-control" required>{$comentario.content}</textarea>
     </div>
     <div class="form-group col-md-12">
         <label for="path">Subir imagen (solo formato jpg):</label>
@@ -12,3 +12,14 @@
         <input type="submit" class="btn btn-primary" value="Enviar Comentario" />
     </div>
 </form>
+
+<script>
+    var editor = new Jodit('#replyModal', {
+        language: "es",
+        toolbarButtonSize: "small",
+        autofocus: true,
+        toolbarAdaptive: false,
+        limitChars: 2500,
+        limitHTML: false
+    });
+</script>
