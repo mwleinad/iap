@@ -24,10 +24,10 @@ $agrupacion = [];
 
 foreach ($pagos['periodicos'] as $item) {
     $anio = date("Y", strtotime($item['fecha_cobro']));
-    $mes = date('m', strtotime($item['fecha_cobro'])); 
+    $mes = date('m', strtotime($item['fecha_cobro']));
     $agrupacion[$anio][$meses[intval($mes) - 1]][] = $item;
 }
-echo "<pre>";
+// echo "<pre>";
 // print_r($agrupacion);
 // exit;
 
@@ -70,25 +70,33 @@ $pdf->SetPrintHeader(false);
 $pdf->SetPrintFooter(false);
 $pdf->AddPage();
 $logo = DOC_ROOT . "/images/logo_correo.jpg";
-$body = ""; 
-foreach ($agrupacion as $year => $months) {  
+$body = "";
+foreach ($agrupacion as $year => $months) {
+    $body .= '<tr>
+                <td colspan="4" style="border:1px solid black;text-align:center;">' . $year . '</td>
+            <tr>
+            <tr>
+                <td style="border:1px solid black; text-align:center;">Periodo</td>
+                <td style="border:1px solid black; text-align:center;">Nombre</td>
+                <td style="border:1px solid black; text-align:center;">Fecha de pago</td>
+                <td style="border:1px solid black; text-align:center;">Monto</td>
+            </tr>
+            ';
     foreach ($months as $month => $pagos) {
-        $body.='<tr>
-                    <td style="border:1px solid black;text-align:center;">'.$year.' '.$month.'</td>
-                ';
-        foreach ($pagos as $pago) {
-            $body.=' 
-                    <td style="border:1px solid black;text-align:center;">'.$pagos['concepto_nombre'].'</td>
-                    <td style="border:1px solid black;text-align:center;">'.$pagos['fecha_cobro'].'</td>
-                    <td style="border:1px solid black;text-align:center;">'.$pagos['total'].'</td>
-                </tr>                
-                ';
-        } 
-    } 
-}   
 
-echo $body;
-exit;
+        foreach ($pagos as $pago) {
+            $bodyPagos .= '<table style="width:100%">
+                            </table>
+                            ';
+        }
+
+        $body .= '<tr>
+            <td>' . $month . '</td>
+            ';
+    }
+}
+
+
 $html = '<table style="width:100%; border-collapse: collapse; border-spacing: 0px;" cellpadding="10" >
     <tr>
         <td colspan="5" style="text-align:center; font-size:40px"><b>CALENDARIO DE PAGOS</b></td>
@@ -96,15 +104,11 @@ $html = '<table style="width:100%; border-collapse: collapse; border-spacing: 0p
     <tr>
         <td colspan="5"style="text-align:center;"><b>"' . mb_strtoupper($cursoInfo['majorName'], 'UTF-8') . " EN " . mb_strtoupper($cursoInfo['name'], 'UTF-8') . '"</b></td>
     </tr>
-    <tr>
-        <td style="border:1px solid black; text-align:center;">Periodo</td>
-        <td style="border:1px solid black; text-align:center;">Nombre</td>
-        <td style="border:1px solid black; text-align:center;">Fecha de pago</td>
-        <td style="border:1px solid black; text-align:center;">Monto</td>
-    </tr>
-    '.$body.'
+    
+    ' . $body . '
 </table>';
-
+echo $html;
+exit;
 // Print text using writeHTMLCell()
 $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = false);
 
@@ -112,7 +116,7 @@ $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 
 
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output(DOC_ROOT . "/files/solicitudes/calendario" . $alumno. "_" . $curso . ".pdf", 'I');
+$pdf->Output(DOC_ROOT . "/files/solicitudes/calendario" . $alumno . "_" . $curso . ".pdf", 'I');
 // echo "<pre>";
 // print_r($agrupacion);
 // echo "Calendario pagos";

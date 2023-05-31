@@ -123,8 +123,8 @@ class Resource extends Module
 		$sql = "UPDATE
 					resource
 					SET
-						name = '" . utf8_decode($this->getName()) . "',
-						description = '" . $this->getDescription() . "',
+						name = '" . mb_convert_encoding($this->getName(), 'UTF-8') . "',
+						description = '" . mb_convert_encoding($this->getDescription(), 'UTF-8') . "',
 						semana = '{$this->semana}'
 					WHERE resourceId = '" . $this->resourceId . "'";
 		//configuramos la consulta con la cadena de insercion
