@@ -1494,6 +1494,7 @@ class Util extends ErrorLms
 					$response['mensaje'] = "Error, hubo un problema una extensión del sistema que paró la subida del archivo."; 
 					break;
 				default:
+					// print_r($validaciones);
 					foreach ($validaciones as $keyv => $value) {
 						switch ($keyv) { //Validamos que no exista ningún error con la validación de archivos después de la subida.
 							case "size": //Validamos el máximo tamaño permitido
@@ -1503,6 +1504,13 @@ class Util extends ErrorLms
 									$response['validacion'] = true; //Existe error en las validaciones
 								}
 								break;  
+							case 'types':
+								// print_r($value);
+								if (!in_array($archivo['type'], $value)) {
+									$response['mensaje'] = "Error, archivo no permitido";
+									$response['validacion'] = true;
+								}
+								break;
 						}
 					} 
 					if (!$response['validacion']) {

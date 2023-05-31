@@ -26,7 +26,7 @@ $( document ).ready(function() {
         var form = $(this);
         var data = new FormData(document.getElementById(form.attr('id')));
         var btnSubmit = form.find("button[type='submit'], input[type='submit']");
-        var textoBtn = btnSubmit.html();
+        var textoBtn = btnSubmit.prop("tagName") == "BUTTON" ? btnSubmit.html() : btnSubmit.val();
         $.ajax({
             type: "POST",
             url: form.attr('action'),
@@ -35,7 +35,11 @@ $( document ).ready(function() {
             contentType: false,   // tell jQuery not to set contentType
             beforeSend: function () {
                 btnSubmit.prop('disabled',true);
-                btnSubmit.html("<i class='fa fa-spinner'><i>");
+                if(btnSubmit.prop("tagName") == "BUTTON"){
+                    btnSubmit.html("<i class='fa fa-spinner'><i>Espere, por favor...");
+                }else{
+                    btnSubmit.val("Espere, por favor...");
+                }
                 form.find(".is-invalid").removeClass('is-invalid');
                 form.find(".invalid-feedback").remove();
             }
@@ -44,23 +48,27 @@ $( document ).ready(function() {
             try {
                 response = JSON.parse(response);
                 console.log(response)
-                actionPostAjax(form, response);
-                setTimeout(() => {
-                    btnSubmit.prop('disabled',false);
-                    btnSubmit.html(textoBtn);
-                }, 2000); 
-            } catch (error) {
-                console.error(error);
-                growl("Ocurrió un error, intente de nuevo.","danger");
-                btnSubmit.prop('disabled',false);
-                btnSubmit.html(textoBtn);
+                actionPostAjax(form, response); 
+            } catch (error) { 
+                growl("Ocurrió un error, intente de nuevo.","danger"); 
             }
-            
+            setTimeout(() => {
+                btnSubmit.prop('disabled',false);
+                if(btnSubmit.prop("tagName") == "BUTTON"){
+                    btnSubmit.html(textoBtn);
+                }else{
+                    btnSubmit.val(textoBtn);
+                }
+            }, 2000); 
         })
         .fail(function(response){
             setTimeout(() => {
                 btnSubmit.prop('disabled',false);
-                btnSubmit.html(textoBtn);
+                if(btnSubmit.prop("tagName") == "BUTTON"){
+                    btnSubmit.html(textoBtn);
+                }else{
+                    btnSubmit.val(textoBtn);
+                }
             }, 2000);   
             if (response.status == 422) {
                 response = JSON.parse(response.responseText);

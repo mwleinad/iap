@@ -231,7 +231,8 @@ $pages = array(
     "estudiante-informacion-adicional",
     "ficha-registro",
     'foro-estadisticas',
-    'conceptos'
+    'conceptos',
+    'edit-comment'
 );
 
 if(!in_array($_GET['page'], $pages))

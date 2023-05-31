@@ -4,6 +4,19 @@ class Forum extends Main
 {
 	private $topicId;
 	private $courseModuleId;
+	private $replyId;
+	private $archivo;
+	private $archivoActual;
+
+	public function setArchivo($archivo)
+	{
+		$this->archivo = $archivo;
+	}
+
+	public function setArchivoActual($archivoActual)
+	{
+		$this->archivoActual = $archivoActual;
+	}
 
 	public function setCourseModuleId($value)
 	{
@@ -326,7 +339,7 @@ class Forum extends Main
 	public function ReplyInfo()
 	{
 		$this->Util()->DB()->setQuery("
-				SELECT * FROM reply
+				SELECT reply.* FROM reply
 				LEFT JOIN topic ON topic.topicId = reply.topicId
 				WHERE replyId = '" . $this->replyId . "'");
 		$result = $this->Util()->DB()->GetRow();
@@ -661,27 +674,6 @@ class Forum extends Main
                             '" . $this->replyId . "'
                             )";
 
-		//$target_path =""; 
-		//---------------ALE -fin del agregado
-
-		/*	$sql = "INSERT INTO
-						reply
-						( 	
-						 	content,
-							replyDate,
-							topicId,
-							userId,
-							personalId,
-							notificado
-						)
-					VALUES (
-							'" . $this->reply . "', 
-							'" . date("Y-m-d H:i:s"). "',
-							'" . $this->topicsubId . "',
-							'" . $this->userId . "',
-							'" . $this->personalId . "',
-							'".$_SESSION['User']['userId']."'
-							)"; */
 		$this->Util()->DB()->setQuery($sql);
 		//ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
 		$this->Util()->DB()->InsertData();
@@ -755,6 +747,31 @@ class Forum extends Main
 		$this->Util()->setError(90000, 'complete', "Has respondido al Topico");
 		$this->Util()->PrintErrors();
 		return true;
+	}
+
+	public function EditReply()
+	{
+		$sql = "UPDATE reply SET content = '{$this->reply}' WHERE replyId = {$this->replyId}";
+		// echo $sql;
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->UpdateData($sql);
+		if ($this->archivo) {
+			$target_path = DOC_ROOT . "/forofiles/"; // carpeta destino de los archivos
+			if ($this->archivoActual && file_exists($target_path . $this->archivoActual)) {
+				unlink($target_path . $this->archivoActual);
+			}
+
+			$extension = pathinfo($this->archivo['path']['name'], PATHINFO_EXTENSION);
+			$random = bin2hex(random_bytes(5));
+			$nombreArchivo = $this->userId . "_" . $this->topicId . "_" . $random . "." . $extension;
+			$target_path = $target_path . $nombreArchivo;
+			move_uploaded_file($this->archivo['path']['tmp_name'], $target_path);
+
+			$sql = "UPDATE reply SET path = '$nombreArchivo' WHERE replyId = {$this->replyId}";
+			// echo $sql;
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->UpdateData($sql);
+		}
 	}
 
 	public function DeleteReply()
@@ -897,7 +914,7 @@ class Forum extends Main
 	 */
 	public function getTopicActivity()
 	{
-		$sql = "SELECT * FROM topicsub WHERE activityId = '{$this->actividadId}'"; 
+		$sql = "SELECT * FROM topicsub WHERE activityId = '{$this->actividadId}'";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetRow();
 		return $result;

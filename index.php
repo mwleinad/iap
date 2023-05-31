@@ -230,7 +230,8 @@ $pages = array(
 	'configuracion-certificados',
 	'reporte-indicadores',
 	'reportes-extras',
-	'conceptos'
+	'conceptos',
+	'edit-comment'
 );
 
 $blacklist = [4121,4123];

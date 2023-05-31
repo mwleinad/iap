@@ -22,10 +22,27 @@ if($_POST)
             $forum->setUserId(0);
             $forum->setPersonalId($User["userId"]);
         }
+        if (empty($_POST['reply'])) {
+            $errors['reply'] = "El campo comentario es requerido";
+        }
+        if (!empty($errors)) {
+            header('HTTP/1.1 422 Unprocessable Entity');
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode([
+                'errors'    => $errors
+            ]);
+            exit;
+        }
         $forum->AddReply();
+        echo json_encode([
+            'growl'     =>true,
+            'message'   =>"Comentario agregado",
+            'reload'    =>true
+        ]);
+        exit;
     }
 
-	header("Location:".WEB_ROOT."/add-reply/id/".$_POST["moduleId"]."/topicsubId/".$_POST["topicsubId"]."");
+	 
 	exit;
 }
 

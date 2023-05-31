@@ -124,7 +124,7 @@ class Resource extends Module
 					resource
 					SET
 						name = '" . utf8_decode($this->getName()) . "',
-						description = '" . utf8_decode($this->getDescription()) . "',
+						description = '" . $this->getDescription() . "',
 						semana = '{$this->semana}'
 					WHERE resourceId = '" . $this->resourceId . "'";
 		//configuramos la consulta con la cadena de insercion
@@ -266,8 +266,8 @@ class Resource extends Module
 		$sql = "UPDATE
 					resource_config
 					SET
-						name = '" . utf8_decode($this->getName()) . "',
-						description = '" . utf8_decode($this->getDescription()) . "'
+						name = '" . mb_convert_encoding($this->getName(), "UTF-8") . "',
+						description = '" . mb_convert_encoding($this->getDescription(), "UTF-8") . "'
 					WHERE resourceConfigId = '" . $Id . "'";
 		//configuramos la consulta con la cadena de insercion
 		$this->Util()->DB()->setQuery($sql);
