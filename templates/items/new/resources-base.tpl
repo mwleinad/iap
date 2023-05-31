@@ -1,5 +1,5 @@
 {foreach from=$resources item=subject}
-<tr class="text-center">
+<tr>
 	<td class="break-line">{$subject.name}</td>
 	<td class="break-line">{$subject.semana}</td>
 	<td class="break-line">{$subject.description}</td>
