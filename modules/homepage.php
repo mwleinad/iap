@@ -71,17 +71,17 @@
 	{
 		$activeCourses = $student->StudentCourses("activo", "si");
 		$smarty->assign("activeCourses", $activeCourses);
+		
 		$inactiveCourses = $student->StudentCourses("inactivo", "si");
 		$smarty->assign("inactiveCourses", $inactiveCourses);	
+
+		$finishedCourses = $student->StudentCourses("finalizado");
+		$smarty->assign("finishedCourses", $finishedCourses);	
 	}	
+
 	$showRegulation = $student->blockRegulation("activo", "si", "119, 129");
 	$smarty->assign("showRegulation", $showRegulation);	 
-
-	if($tipo_curricula == 'Finalizada') 
-	{
-		$finishedCourses = $student->StudentCourses("finalizado");
-		$smarty->assign("activeCourses", $finishedCourses);	
-	} 
+ 
 	$pagoPendiente = $student->pago_pendiente();
 	$smarty->assign("pago", $pagoPendiente);
 	$announcements = $announcement->Enumerate(0, 0);

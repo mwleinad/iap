@@ -207,6 +207,72 @@
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <h3 class="page-title">
+                            <span class="page-title-icon bg-gradient-danger text-white mr-2">
+                                <i class="mdi mdi-school"></i>
+                            </span>
+                            Currícula Finalizada
+                        </h3>
+                    </div>
+                    {* CURRICULA Finalizada *}
+                    {foreach from=$finishedCourses item=subject}
+                        <div class="col-md-4 stretch-card grid-margin">
+                            <div class="card card-img-holder text-white bg-gradient-primary">
+                                <div class="text-center">
+                                    <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula">
+                                        {if $subject.icon eq ''}
+                                            <i class="far fa-image fa-6x text-white mt-4"></i>
+                                        {else}
+                                            <img class="card-img-top" src="{$WEB_ROOT}/images/new/curricula/{$subject.icon}" alt="">
+                                        {/if}
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="font-weight-normal mb-3">{$subject.majorName}
+                                        <i class="fas fa-chalkboard float-right fa-lg"></i>
+                                    </h4>
+                                    <p class="mb-3">
+                                        {$subject.name}<br>
+                                        <small>Grupo: {$subject.group} ({if $subject.modality eq 'Local'}Escolar
+                                            {else}No
+                                            Escolar{/if})<br>
+                                            Periodo: {$subject.initialDate|date_format:"%d-%m-%Y"} -
+                                            {$subject.finalDate|date_format:"%d-%m-%Y"}</small><br>
+                                        {if $subject.situation eq 'Ordinario'}
+                                            <small>Módulos: {$subject.courseModule}</small>
+                                        {/if}
+                                        {if $subject.situation eq 'Recursador'}
+                                            <small>Recursando Materia(s)</small>
+                                        {/if}
+                                    </p>
+                                    <div class="text-center">
+                                        {if $subject.situation eq 'Ordinario'}
+                                            <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
+                                                <i class="fas fa-link"></i> Ver
+                                            </a>
+                                        {/if}
+                                        {if $subject.situation eq 'Recursador'}
+                                            <a href="{$WEB_ROOT}/modulos-recursar/id/{$subject.courseId}" title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
+                                                <i class="fas fa-link"></i> Ver
+                                            </a>
+                                        {/if}<br><br> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {foreachelse}
+                        <div class="col-md-12">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="far fa-smile fa-lg"></i> No Cuentas Con Currículas Inactivas.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    {/foreach}
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <h3 class="page-title">
                             <span class="page-title-icon bg-gradient-success text-white mr-2">
                                 <i class="mdi mdi-view-dashboard"></i>
                             </span>

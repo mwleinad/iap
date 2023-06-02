@@ -30,10 +30,14 @@
                             aria-controls="collapseActive{$smarty.foreach.cursos.iteration}">
                             <b>Currícula:</b>[{$item.majorName}] {$item.name}
                         </button>
-                        <div>
-                            <a href="{$WEB_ROOT}/pdf/calendario-pagos.php?alumno={$User.userId}&curso={$item.courseId}"
-                                target="_blank" title="Descargar Calendario">
+                        <div class="d-flex">
+                            <a href="{$WEB_ROOT}/pdf/calendario-pagos.php?alumno={$User.userId}&curso={$item.courseId}" class="text-center mr-4" target="_blank" title="Descargar Calendario">
+                                Descargar Calendario<br>
                                 <i class="fa fa-download"></i>
+                            </a>
+                            <a href="{$WEB_ROOT}/graybox.php?page=cuenta-deposito" class="text-center" title="Cuenta para depósito" data-target="#ajax" data-toggle="modal">
+                                Cuenta para depósito<br>
+                                <i class="fa fa-piggy-bank"></i>
                             </a>
                         </div>
                     </h5>
@@ -80,7 +84,7 @@
                                                                 </td>
                                                                 <td>{$itemp.concepto_nombre} {$contador[$item.concepto_id]}</td>
                                                                 <td>${$itemp.subtotal|number_format:2:".":","}</td>
-                                                                <td>${$itemp.subtotal * ($item.beca / 100)|number_format:2:".":","}</td>
+                                                                <td>${$itemp.subtotal * ($itemp.beca / 100)|number_format:2:".":","}</td>
                                                                 <td>${$itemp.total|number_format:2:".":","}</td>
                                                                 <td>${$itemp.total - $itemp.monto|number_format:2:".":","}</td>
                                                                 <td>{$itemp.fecha_cobro}</td>
