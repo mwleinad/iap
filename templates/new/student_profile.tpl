@@ -255,6 +255,10 @@
                                                 <i class="fas fa-link"></i> Ver
                                             </a>
                                         {/if}<br><br> 
+                                        <a href="{$WEB_ROOT}/boletas/id/{$subject.courseId}"
+                                            class="btn btn-outline-light btn-fw btn-sm">
+                                            <i class="far fa-list-alt"></i> Boletas de Calificaciones
+                                        </a>
                                     </div>
                                 </div>
                             </div>

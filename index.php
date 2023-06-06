@@ -234,7 +234,7 @@ $pages = array(
 	'edit-comment'
 );
 
-$blacklist = [4121,4123];
+$blacklist = [];
 
 if(!in_array($_GET['page'], $pages) || (in_array($User['userId'], $blacklist) && $_GET['page'] != "logout"))
 {

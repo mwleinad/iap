@@ -208,7 +208,7 @@
 			</script>
 		{/if}
 		{if $User.type eq "student" and $page eq "homepage"}
-			{if $User.announcement neq true and ($User.userId eq 4121 || $User.userId eq 4123)}
+			{*{if $User.announcement neq true and ($User.userId eq 4121 || $User.userId eq 4123)}
 				<script>
 					Swal.fire({
 						html: '<p>Estimado alumno: <br>Por el momento, la currícula correspondiente a la Maestría en Administración y Políticas Públicas, Grupo A; se encuentra inactiva, por favor, comunicarse a Dirección Académica del IAP Chiapas para solucionar este detalle.<br>961 125 15 08 Ext. 105<br> Horario de 08:00 a 16:00 horas</p>',
@@ -218,7 +218,7 @@
 						confirmButtonText: 'Enterado'
 					});
 				</script>
-			{/if}  
+			{/if} *}
 		{/if}
 	</body>
 

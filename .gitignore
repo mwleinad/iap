@@ -34,3 +34,7 @@ error_log
 /ajax/error_log
 /ajax/new/error_log
 error_log
+.htaccess
+.user.ini
+modules
+php.ini
