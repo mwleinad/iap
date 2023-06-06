@@ -19,13 +19,14 @@
                                 {foreach from=$conceptos.otros item=item}
                                     <option value="{$item.concepto_id}">{$item.concepto_nombre}</option>
                                 {/foreach}
-                                <select>
+                            </select>
                         </div>
                     {/if}
                     <div class="col-md-4 mb-3" id="seccion-costo">
                         <label for="costo">Costo</label>
                         <input type="number" class="form-control" name="costo" id="costo"
-                            value="{($edicion) ? $pago.subtotal : ""}" {($edicion && $pago.cobros > 0) ?"disabled" : ""}>
+                            value="{($edicion) ? $pago.subtotal : ""}"
+                            {($edicion && $pago.cobros > 0) ?"disabled" : ""}>
                         <span class="invalid-feedback"></span>
                     </div>
                     <div class="col-md-4 mb-3 d-none" id="seccion-descuento">
@@ -39,13 +40,15 @@
                     </div>
                     <div class="col-md-4 mb-3" id="seccion-fecha-cobro">
                         <label for="fecha_cobro">Fecha de cobro</label>
-                        <input type="text" class="form-control {($edicion && $pago.cobros > 0) ? "" : " i-calendar"}" {($edicion && $pago.cobros > 0) ?"disabled" : ""} name="fecha_cobro" id="fecha_cobro"
+                        <input type="text" class="form-control {($edicion && $pago.cobros > 0) ? "" : " i-calendar"}"
+                            {($edicion && $pago.cobros > 0) ?"disabled" : ""} name="fecha_cobro" id="fecha_cobro"
                             value="{($edicion) ? $pago.fecha_cobro : ""}">
                         <span class="invalid-feedback"></span>
                     </div>
                     <div class="col-md-4 mb-3" id="seccion-fecha-limite">
                         <label for="fecha_limite">Fecha Límite</label>
-                        <input type="text" class="form-control{($edicion && $pago.cobros > 0) ? "" : " i-calendar"}" {($edicion && $pago.cobros > 0) ?"disabled" : ""} name="fecha_limite" id="fecha_limite"
+                        <input type="text" class="form-control{($edicion && $pago.cobros > 0) ? "" : " i-calendar"}"
+                            {($edicion && $pago.cobros > 0) ?"disabled" : ""} name="fecha_limite" id="fecha_limite"
                             value="{($edicion) ? $pago.fecha_limite : ""}">
                         <span class="invalid-feedback"></span>
                     </div>
@@ -56,7 +59,8 @@
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="descuento">¿Aplica Beca?</label>
-                        <select class="form-control" id="descuento" name="descuento" {($edicion && $pago.cobros > 0) ?"disabled" : ""}>
+                        <select class="form-control" id="descuento" name="descuento"
+                            {($edicion && $pago.cobros > 0) ?"disabled" : ""}>
                             <option value="1">Sí</option>
                             <option value="0" {($edicion && $pago.descuento == 0) ? "selected" : ""}>No</option>
                         </select>

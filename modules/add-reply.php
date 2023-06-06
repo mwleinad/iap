@@ -8,6 +8,19 @@
 
 if ($_POST) {
 	if (isset($_POST['reply'])) {
+		$errors = [];
+		if (empty($_POST['reply'])) {
+			$errors['reply'] = 'Por favor, no se olvide de agregar la aportación.';
+		}
+         
+        if (!empty($errors)) {
+            header('HTTP/1.1 422 Unprocessable Entity');
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode([
+                'errors'    => $errors
+            ]);
+            exit;
+        }
 		$forum->setTopicsubId($_POST["topicsubId"]);
 		$forum->setModuleId($_POST["moduleId"]);
 		$forum->setReply($_POST["reply"]);
@@ -20,6 +33,12 @@ if ($_POST) {
 			$forum->setPersonalId($_POST["userId"]);
 		}
 		$forum->AddReply();
+		echo json_encode([
+			'growl'		=> true,
+			'message'	=> 'Se ha creado con éxito la aportación', 
+			'reload'	=> true
+		]);
+		exit;
 	} else {
 		$forum->setModuleId($_POST["moduleId"]);
 		//print_r($_POST); EXIT;
