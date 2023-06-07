@@ -55,7 +55,7 @@
                                                     {$contador[$item.concepto_id] = $contador[$item.concepto_id] + 1}
                                                     <tr>
                                                         <td>{$item.concepto_nombre} {$contador[$item.concepto_id]}</td>
-                                                        <td>{$item.total}</td>
+                                                        <td>${$item.total|number_format:2:".":","} {$total = $item.total + $total}</td>
                                                         <td>{$item.fecha_cobro}</td>
                                                         <td>{$item.fecha_limite}</td>
                                                         <td>{($item.descuento) ? "Sí" : "No"}</td>
@@ -72,6 +72,13 @@
                                                 {/if}
                                             {/foreach}
                                         </tbody>
+                                        <tfoot class="text-center">
+                                            <tr>
+                                                <td>Costo Total:</td>
+                                                <td>${$total|number_format:2:".":","} {$total = 0}</td>
+                                                <td colspan="4"></td>
+                                            </tr>
+                                        </tfoot> 
                                     </table>
                                 </div>
                             </div>

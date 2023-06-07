@@ -525,6 +525,7 @@ switch ($opcion) {
     case 'actualizar-pago':
         $errors = [];
         $pago = intval($_POST['pago']); 
+        $status = $_POST['estatus']; 
         $conceptos->setPagoId($pago);
         $infoPago = $conceptos->pago();
         if ($infoPago['cobros'] == 0) {
@@ -536,9 +537,9 @@ switch ($opcion) {
             $beca = $_POST['beca'];
             $total = $descuento == 1 && $beca > 0 ? $subtotal - ($subtotal * ($beca/100)) : $subtotal; 
             $periodo = intval($_POST['periodo']);
+            $status = $total == 0 ? 2 : $status;
         }else{
             $fecha_cobro =  "'{$infoPago['fecha_cobro']}'";
-            $fecha_limite =  "'{$infoPago['fecha_limite']}'";
             $fecha_limite =  "'{$infoPago['fecha_limite']}'";
             $subtotal = $infoPago['subtotal'];
             $descuento =  $infoPago['descuento'];
@@ -546,7 +547,7 @@ switch ($opcion) {
             $total = $infoPago['total'];
             $periodo = $infoPago['periodo'];
         }
-        $status = $_POST['estatus']; 
+        
         $tolerancia = intval($_POST['tolerancia']);
         if ($subtotal == 0) {
             $errors['costo'] = "Falta indicar el cantidad del pago";
@@ -566,15 +567,6 @@ switch ($opcion) {
             exit;
         }
        
-        if($infoPago['cobros'] > 0){
-            $fecha_cobro = "'{$infoPago['fecha_cobro']}'";
-            $fecha_limite = "'{$infoPago['fecha_limite']}'";
-            $subtototal = $infoPago['subtototal'];
-            $total = $infoPago['total'];
-            $descuento = $infoPago['descuento'];
-            $beca = $infoPago['beca'];
-            $periodo = $infoPago['periodo']; 
-        }
         $conceptos->setFechaCobro($fecha_cobro);
         $conceptos->setFechaLimite($fecha_limite); 
         $conceptos->setCosto($subtotal);

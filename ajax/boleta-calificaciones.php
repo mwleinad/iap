@@ -32,7 +32,7 @@ if(count($students) > 1)
         $flag = true;
         $student->setUserId($item);
         $infoStudent = $student->GetInfo();
-        $modules = $student->BoletaCalificacion($_POST['course'], $_POST['semester'], false);
+        $modules = $student->BoletaCalificacion($_POST['course'], $_POST['semester'], true);
         foreach($modules as $element)
         {
             if($element['calificacionValida'] == 'no')

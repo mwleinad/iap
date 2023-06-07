@@ -365,9 +365,10 @@ class Conceptos extends Module
         $this->Util()->DB()->setQuery($sql);
         $resultado = $this->Util()->DB()->GetResult();
         foreach ($resultado as $item) {
-            if ($item['cobros'] == 0) {
+            if ($item['cobros'] == 0 && $item['status'] != 2) {
                 $descuento = $item['subtotal'] * ($this->beca / 100);
                 $total = $item['subtotal'] - $descuento;
+                $item['status'] = $total == 0 ? 2 : $item['status'];
                 $this->total = $total;
                 $this->costo = $item['subtotal'];
                 $this->fecha_cobro = "'{$item['fecha_cobro']}'";
