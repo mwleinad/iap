@@ -150,6 +150,10 @@
                                 <i class="mdi mdi-information mr-2 text-primary"></i>
                                 Actualizar Información
                             </a>
+                            <a class="dropdown-item" href="{$WEB_ROOT}/datos-fiscales">
+                                <i class="mdi mdi-clipboard-text mr-2 text-primary"></i>
+                                Datos Fiscales
+                            </a>
                             <a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=contra" data-target="#ajax" data-toggle="modal" data-width="1000px">
                                 <i class="mdi mdi-key mr-2 text-primary"></i>
                                 Cambiar Contraseña

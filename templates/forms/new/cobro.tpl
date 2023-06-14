@@ -25,6 +25,16 @@
                         <span class="invalid-feedback"></span>
                     </div>
                     <div class="form-group col-md-4">
+                        <label>Método de pago</label>
+                        <select class="form-control" id="metodo_pago" name="metodo_pago">
+                            <option value="">--Selecciona el método de pago--</option>
+                            {foreach from=$metodos_pago item=item}
+                                <option value="{$item.id}">{$item.name}</option>
+                            {/foreach}
+                        </select>
+                        <span class="invalid-feedback"></span>
+                    </div>
+                    <div class="form-group col-md-4">
                         <label>Fecha de pago</label>
                         <input type="text" class="form-control i-calendar" id="fecha_pago" readonly
                             value="{date('Y-m-d')}" name="fecha_pago">

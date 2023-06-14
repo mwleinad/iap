@@ -361,6 +361,7 @@ switch ($opcion) {
         $conceptos->setCosto($costo);
         $conceptos->setBeca($beca);
         $conceptos->setPeriodo($periodo);
+        $conceptos->setFechaEliminacion("NULL");
         if ($periodo == 0) {
             $conceptos->setFechaCobro("NULL");
             $conceptos->setFechaLimite("NULL");
@@ -375,7 +376,28 @@ switch ($opcion) {
         $conceptos->setCourseId($infoConcepto['course_id']);
         $listConceptos = $conceptos->conceptos_cursos_relacionados();
         $course->setCourseId($infoConcepto['course_id']);
-        $info = $course->Info();
+        $info = $course->Info(); 
+        $pagos_actuales = $conceptos->pagos_curso_concepto(); 
+        foreach ($pagos_actuales as $item) {
+            if($item['cobros'] == 0){ //si no existen cobros
+                $conceptos->setStatus($item['status']);
+                $conceptos->setPagoId($item['pago_id']);
+                $conceptos->setUserId($_SESSION['User']['userId']);
+                if($item['beca'] == 0){ //Si la beca no ha sido cambiada
+                    $conceptos->setTotal($costo);
+                    $conceptos->setDescuento($beca);
+                    $conceptos->setBeca(0);
+                }else{
+                    $descuento = $costo * ($item['beca'] / 100);
+                    $total = $costo - $descuento;
+                    $conceptos->setTotal($total);
+                    $conceptos->setDescuento($item['descuento']);
+                    $conceptos->setBeca($item['beca']);
+                }
+                $conceptos->actualizar_pago();
+            }
+        }
+
         $smarty->assign('info', $info);
         $smarty->assign("opcion", "conceptos-curso");
         $smarty->assign("conceptos", $listConceptos);
@@ -393,6 +415,39 @@ switch ($opcion) {
                 'message'   => 'Concepto actualizado',
                 'modal'     => true,
                 'html'      => $smarty->fetch(DOC_ROOT . "/templates/forms/new/conceptos-curso.tpl")
+            ]);
+        }
+        break;
+    case 'eliminar-curso-concepto':
+        $conceptoCurso = intval($_POST['concepto_curso']);
+        $conceptos->setConceptoCurso($conceptoCurso);
+        $infoConcepto = $conceptos->concepto_curso();
+        $conceptos->setFechaEliminacion("NOW()");
+        $conceptos->eliminar_concepto_curso();
+
+        $pagos_actuales = $conceptos->pagos_curso_concepto(); 
+        foreach ($pagos_actuales as $item) {
+            if($item['cobros'] == 0){ 
+                $conceptos->setPagoId($item['pago_id']);
+                $conceptos->eliminar_pago();
+            }
+        }
+        
+        $conceptos->setCourseId($infoConcepto['course_id']);
+        $listConceptos = $conceptos->conceptos_cursos_relacionados();
+        $course->setCourseId($infoConcepto['course_id']);
+        $info = $course->Info(); 
+
+        $smarty->assign('info', $info);
+        $smarty->assign("opcion", "conceptos-curso");
+        $smarty->assign("conceptos", $listConceptos);
+        if ($_POST['calendario']) {
+            echo json_encode([
+                'growl'         => true,
+                'message'       => 'Concepto eliminado',
+                'modal_close'   => true,
+                'selector'      => "#calendario-pagos",
+                'html'          => $smarty->fetch(DOC_ROOT . "/templates/new/configurar-calendario.tpl"),
             ]);
         }
         break;
@@ -450,7 +505,7 @@ switch ($opcion) {
         $smarty->assign("opcion", "guardar-pago");
         $smarty->assign("curso", $curso); 
         $smarty->assign("alumno", $alumno);
-        $smarty->assign("edicion", false); 
+        $smarty->assign("edicion", false);       
         echo json_encode([
             'modal'  => true,
             'html'   => $smarty->fetch(DOC_ROOT . "/templates/forms/new/pago.tpl")
@@ -604,10 +659,12 @@ switch ($opcion) {
         $conceptos->setPagoId($pagoId);
         $pago = $conceptos->pago();
         $montoPagado = $conceptos->monto();
+        $metodosPago = $invoice->cfdi_payment_methods();
         $smarty->assign("opcion", "guardar-cobro");
         $smarty->assign("pago", $pago);
         $smarty->assign("monto", $montoPagado);
         $smarty->assign("edicion", false);
+        $smarty->assign("metodos_pago", $metodosPago);
         echo json_encode([
             'modal'  => true,
             'html'   => $smarty->fetch(DOC_ROOT . "/templates/forms/new/cobro.tpl")
@@ -621,6 +678,7 @@ switch ($opcion) {
         $conceptos->setPagoId($pagoId);
         $infoPago = $conceptos->pago();
         $montoActual = $conceptos->monto();
+        $metodosPago = intval($_POST['metodo_pago']);
         $resto = $infoPago['total'] - $montoActual;
         if ($monto == 0) {
             $errors['monto'] = "Falta indicar el monto del pago";
@@ -630,6 +688,9 @@ switch ($opcion) {
         }
         if ($fecha_pago == '') {
             $errors['fecha_pago'] = "El campo fecha de pago es requerido";
+        }
+        if(empty($metodosPago)){
+            $errors['metodo_pago'] = "El campo método de pago es requerido.";
         }
         if (!empty($errors)) {
             header('HTTP/1.1 422 Unprocessable Entity');
@@ -642,6 +703,7 @@ switch ($opcion) {
         
         $conceptos->setMonto($monto);
         $conceptos->setFechaPago($fecha_pago);
+        $conceptos->setMetodoPago($metodosPago);
         $conceptos->guardar_cobro(); 
         $montoTotalCobrado = $conceptos->monto(); 
         

@@ -1,7 +1,7 @@
 <?php 	  
 	$estudianteID = $_GET['id'];
-	$student->setUserId($estudianteID); 
-	$calendar->setUserId($estudianteID);
+	$student->setUserId($estudianteID);  
+	$conceptos->setAlumno($estudianteID);
 	/**
 	 * Sección calificaciones
 	 */
@@ -38,8 +38,7 @@
 		}
 		
 		$course->setCourseId($curso['courseId']);
-		$infoCourse = $course->Info(); 
-		$calendar->setCourseId($curso['courseId']);
+		$infoCourse = $course->Info();  
 		$baja = $student->bajaCurso($curso['courseId']);
 		$alta = $student->periodoAltaCurso($curso['courseId']);
 		$alta = $alta > 0 ? $alta : 1;
@@ -50,11 +49,11 @@
 			$baja = $infoCourse['totalPeriods']; 
 			$cursos[$key]['status']	= 'activo';
 		}
-
-    	$distribution = $calendar->getCalendar();
+		$conceptos->setCourseId($curso['courseId']);
+		$pagos = $conceptos->historial_pagos();
 		$cursos[$key]["tipoCuatri"] = $infoCourse['tipoCuatri'] == '' ? "Cuatrimestre" : $infoCourse['tipoCuatri'];
 		$cursos[$key]["totalPeriods"] = $infoCourse['totalPeriods'];
-		$cursos[$key]["distribucion"] = $distribution;  
+		$cursos[$key]["pagos"] = $pagos;  
 		if($curso['situation'] == 'Recursador'){
 			continue;
 		}

@@ -2,12 +2,21 @@
 
 class Util extends ErrorLms
 {
+	private $DBErp;
 	public function DB()
 	{
 		if ($this->DB == null) {
 			$this->DB = new DB();
 		}
 		return $this->DB;
+	}
+
+	public function DBErp()
+	{
+		if ($this->DBErp == null) {
+			$this->DBErp = new DBErp();
+		}
+		return $this->DBErp;
 	}
 
 	public function DBSelect($empresaId)
@@ -1520,5 +1529,28 @@ class Util extends ErrorLms
 			}
 		}
 		return $response;
+	}
+
+	public function estados()
+	{
+		$sql = "SELECT * FROM municipalities GROUP BY cve_ent";
+		$this->DBErp()->setQuery($sql);
+		$resultado = $this->DBErp()->GetResult();
+		return $resultado;
+	}
+
+	public function municipios($estado)
+	{
+		$sql = "SELECT * FROM municipalities WHERE cve_ent = '{$estado}' GROUP BY cve_mun ORDER BY nom_mun";
+		$this->DBErp()->setQuery($sql);
+		$resultado = $this->DBErp()->GetResult();
+		return $resultado;
+	}
+	public function localidades($estado, $municipio)
+	{
+		$sql = "SELECT * FROM municipalities WHERE cve_ent = '{$estado}' AND cve_mun = {$municipio} GROUP BY nom_loc ORDER BY nom_loc ASC";
+		$this->DBErp()->setQuery($sql);
+		$resultado = $this->DBErp()->GetResult();
+		return $resultado;
 	}
 }

@@ -29,21 +29,14 @@
 	
 	$course->setTotalPeriods(true);
 	$result = $course->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/cobranza-calendario', $arrPage);
-
-	// $result = $util->orderMultiDimensionalArray($result,'active',true);
-	
-	//checar a que curriculas tengo permiso
-	if(in_array(2, $info["roles"]))
+	  
+	foreach($result as $key => $value)
 	{
-		$smarty->assign('docente', 1);
-		$permisosDocente = $user->PermisosDocente();
-		
-		foreach($result as $key => $value)
+		$conceptos->setCourseId($value['courseId']);
+		$tieneConceptos = $conceptos->conceptos_cursos_relacionados(); //checamos si el curso tiene conceptos de pago  
+		if(count($tieneConceptos) == 0)
 		{
-			if(!in_array($value["courseId"], $permisosDocente["course"]))
-			{
-				unset($result[$key]);
-			}
+			unset($result[$key]);
 		}
 	}
 	
@@ -57,9 +50,7 @@
 	$smarty->assign('lstMajor', $lstMajor);
 	$smarty->assign('subjects', $result);
 	$smarty->assign('arrPage', $arrPage);
-	$smarty->assign('coursesCount', $coursesCount);
-	// -------------------------------------------------------------------------------------------------
-	
+	$smarty->assign('coursesCount', $coursesCount); 
 	$smarty->assign('mnuMain', 'cobranza');
 	$smarty->assign('mnuSubmain', 'calendario');
 ?>

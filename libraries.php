@@ -25,6 +25,7 @@ require_once(DOC_ROOT.'/phpmailer/class.phpmailer.php');
 
 include_once(DOC_ROOT."/classes/db.class.php");
 include_once(DOC_ROOT."/classes/dbcrm.class.php");
+include_once(DOC_ROOT."/classes/dberp.class.php");
 
 include_once(DOC_ROOT."/classes/error.class.php");
 include_once(DOC_ROOT."/classes/util.class.php");

@@ -823,7 +823,7 @@ class Student extends User
 				$this->setPeriodo(1);
 			}
 		}
-
+		$periodoAlta = $this->periodo;
 		if ($temporalGroup > 0 && $registrationId > 0) {
 			// Actualiza la curricula temporal por la oficial
 			$sql = "UPDATE user_subject SET courseId = " . $curricula . ", status = 'activo' WHERE alumnoId = " . $id . " AND courseId = " . $temporalGroup;
@@ -836,20 +836,23 @@ class Student extends User
 			$conceptos->setAlumno($id);
 			$relacionados = $conceptos->conceptos_cursos_relacionados();
 			foreach ($relacionados['periodicos'] as $item) {
-				$conceptos->setCosto($item['total']);
-				$fecha_cobro = is_null($item['fecha_cobro']) ? "NULL" : "'{$item['fecha_cobro']}'";
-				$fecha_limite = is_null($item['fecha_limite']) ? "NULL" : "'{$item['fecha_limite']}'"; 
-				$conceptos->setFechaCobro($fecha_cobro);
-				$conceptos->setFechaLimite($fecha_limite); 
-				$conceptos->setTotal($item['total']);
-				$conceptos->setCosto(($item['total']));
-				$conceptos->setPeriodo($item['periodo']);
-				$conceptos->setDescuento($item['descuento']);
-				$conceptos->setBeca(0);
-				$conceptos->setCourseId($item['course_id']);
-				$conceptos->setConcepto($item['concepto_id']);
-				$conceptos->setUserId($this->yoId);
-				$conceptos->guardar_pago();
+				if ($periodoAlta <= $item['periodo']) {
+					$conceptos->setCosto($item['total']);
+					$fecha_cobro = is_null($item['fecha_cobro']) ? "NULL" : "'{$item['fecha_cobro']}'";
+					$fecha_limite = is_null($item['fecha_limite']) ? "NULL" : "'{$item['fecha_limite']}'";
+					$conceptos->setConceptoCurso($item['concepto_course_id']);
+					$conceptos->setFechaCobro($fecha_cobro);
+					$conceptos->setFechaLimite($fecha_limite);
+					$conceptos->setTotal($item['total']);
+					$conceptos->setCosto(($item['total']));
+					$conceptos->setPeriodo($item['periodo']);
+					$conceptos->setDescuento($item['descuento']);
+					$conceptos->setBeca(0);
+					$conceptos->setCourseId($item['course_id']);
+					$conceptos->setConcepto($item['concepto_id']);
+					$conceptos->setUserId($this->yoId);
+					$conceptos->guardar_pago();
+				}
 			}
 		} else {
 			// Se inscribe a curricula 
@@ -863,21 +866,24 @@ class Student extends User
 				$conceptos->setAlumno($id);
 				$relacionados = $conceptos->conceptos_cursos_relacionados();
 				foreach ($relacionados['periodicos'] as $item) {
-					$conceptos->setCosto($item['total']);
-					$fecha_cobro = is_null($item['fecha_cobro']) ? "NULL" : "'{$item['fecha_cobro']}'";
-					$fecha_limite = is_null($item['fecha_limite']) ? "NULL" : "'{$item['fecha_limite']}'";
-					$fecha_pago = "NULL";
-					$conceptos->setFechaCobro($fecha_cobro);
-					$conceptos->setFechaLimite($fecha_limite); 
-					$conceptos->setTotal($item['total']);
-					$conceptos->setCosto(($item['total']));
-					$conceptos->setPeriodo($item['periodo']);
-					$conceptos->setDescuento($item['descuento']);
-					$conceptos->setBeca(0);
-					$conceptos->setCourseId($item['course_id']);
-					$conceptos->setConcepto($item['concepto_id']);
-					$conceptos->setUserId($this->yoId);
-					$conceptos->guardar_pago();
+					if ($periodoAlta <= $item['periodo']) {
+						$conceptos->setCosto($item['total']);
+						$fecha_cobro = is_null($item['fecha_cobro']) ? "NULL" : "'{$item['fecha_cobro']}'";
+						$fecha_limite = is_null($item['fecha_limite']) ? "NULL" : "'{$item['fecha_limite']}'";
+						$fecha_pago = "NULL";
+						$conceptos->setConceptoCurso($item['concepto_course_id']);
+						$conceptos->setFechaCobro($fecha_cobro);
+						$conceptos->setFechaLimite($fecha_limite);
+						$conceptos->setTotal($item['total']);
+						$conceptos->setCosto(($item['total']));
+						$conceptos->setPeriodo($item['periodo']);
+						$conceptos->setDescuento($item['descuento']);
+						$conceptos->setBeca(0);
+						$conceptos->setCourseId($item['course_id']);
+						$conceptos->setConcepto($item['concepto_id']);
+						$conceptos->setUserId($this->yoId);
+						$conceptos->guardar_pago();
+					}
 				}
 			} else {
 				$complete["status"] = false;
@@ -3354,15 +3360,24 @@ class Student extends User
 		$pagoPendiente = false;
 		foreach ($resultado as $item) {
 			if ($item['status'] == 3) {
-				$fecha_limite = date("Y-m-d", strtotime($item['fecha_limite']. "+ ".($item['tolerancia'] - 1) . " days"));
-			}else{
+				$fecha_limite = date("Y-m-d", strtotime($item['fecha_limite'] . "+ " . ($item['tolerancia'] - 1) . " days"));
+			} else {
 				$fecha_limite = $item['fecha_limite'];
-			} 
+			}
 			if ($fecha_limite < date('Y-m-d')) {
 				$pagoPendiente = true;
 				break;
 			}
 		}
 		return $pagoPendiente;
+	}
+
+	public function datos_fiscales()
+	{
+		$sql = "SELECT fsid.*, (SELECT nom_ent FROM municipalities WHERE cve_ent = fsid.cve_ent LIMIT 1) as estado, (SELECT nom_mun FROM municipalities WHERE cve_ent = fsid.cve_ent AND cve_mun = fsid.cve_mun LIMIT 1) as municipio, (SELECT nom_loc FROM municipalities WHERE cve_ent = fsid.cve_ent AND cve_mun = fsid.cve_mun AND cve_loc = fsid.cve_loc LIMIT 1) as localidad FROM fn_student_invoice_data fsid WHERE userId = {$this->userId}";
+		// echo $sql;
+		$this->Util()->DBErp()->setQuery($sql);
+		$resultado = $this->Util()->DBErp()->GetResult();
+		return $resultado;
 	}
 }
