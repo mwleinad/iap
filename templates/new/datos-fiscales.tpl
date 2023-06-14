@@ -5,10 +5,12 @@
         </span>
         Datos Fiscales
     </h3>
-    <form class="text-right form" id="form-fiscal" action="{$WEB_ROOT}/ajax/new/finanzas.php">
-        <input type="hidden" name="opcion" value="crear-datos-fiscales">
-        <button class="btn btn-primary" data-target="#ajax" data-toggle="modal">Añadir otro regimen</button>
-    </form>
+    {if count($datos_fiscales) > 0}
+        <form class="text-right form" id="form-fiscal" action="{$WEB_ROOT}/ajax/new/finanzas.php">
+            <input type="hidden" name="opcion" value="crear-datos-fiscales">
+            <button class="btn btn-primary" data-target="#ajax" data-toggle="modal">Añadir otro regimen</button>
+        </form>
+    {/if}
     <nav aria-label="breadcrumb">
         <ul class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page">
@@ -53,7 +55,10 @@
                                         Editar <i class="fa fa-edit"></i>
                                     </button>
                                 </form>
-                                <form class="d-inline form">
+                                <form class="d-inline form" action="{$WEB_ROOT}/ajax/new/finanzas.php" data-alert="true"
+                                id="form_eliminar_{$item.id}">
+                                    <input type="hidden" name="opcion" value="eliminar-datos-fiscales">
+                                    <input type="hidden" name="dato_fiscal" value="{$item.id}">
                                     <button type="submit" class="btn btn-danger">
                                         Eliminar <i class="fa fa-trash"></i>
                                     </button>

@@ -110,10 +110,25 @@ class Invoice extends Util
 
 	public function guardar()
 	{
-		$sql = "INSERT INTO  `fn_student_invoice_data`(`userId`, `cfdi_tax_regime_id`, `commercial_name`, `company_name`, `rfc`, `phone`, `email`, `street`, `ext_number`, `int_number`, `zip_code`, `cve_ent`, `cve_mun`, `cve_loc`, `created_at`, `updated_at`) VALUES ('{$this->alumnoId}','{$this->regimenId}',{$this->nombre_comercial},'{$this->nombre_empresa}','{$this->rfc}',{$this->telefono},{$this->correo},{$this->calle},{$this->num_ext},{$this->num_int},'{$this->codigo_postal}',{$this->estado},{$this->municipio},{$this->localidad},NOW(),NOW())";
+		$sql = "INSERT INTO  `fn_student_invoice_data`(`userId`, `cfdi_tax_regime_id`, `commercial_name`, `company_name`, `rfc`, `phone`, `email`, `street`, `ext_number`, `int_number`, `zip_code`, `cve_ent`, `cve_mun`, `cve_loc`, `created_at`, `updated_at`) VALUES ('{$this->alumnoId}','{$this->regimenId}','{$this->nombre_comercial}','{$this->nombre_empresa}','{$this->rfc}','{$this->telefono}','{$this->correo}','{$this->calle}','{$this->num_ext}','{$this->num_int}','{$this->codigo_postal}',{$this->estado},{$this->municipio},{$this->localidad},NOW(),NOW())";
 		// echo $sql;
 		$this->Util()->DBErp()->setQuery($sql);
 		$resultado = $this->Util()->DBErp()->InsertData();
+		return $resultado;
+	}
+
+	public function actualizar() {
+		$sql = "UPDATE fn_student_invoice_data SET userId = '{$this->alumnoId}', cfdi_tax_regime_id = '{$this->regimenId}', commercial_name = '{$this->nombre_comercial}', company_name = '{$this->nombre_empresa}', rfc = '{$this->rfc}', phone = '{$this->telefono}', email = '{$this->correo}', street = '{$this->calle}', ext_number = '{$this->num_ext}', int_number = '{$this->num_int}', zip_code = '{$this->codigo_postal}', cve_ent = '{$this->estado}', cve_mun = '{$this->municipio}', cve_loc = '{$this->localidad}', updated_at = NOW() WHERE id = {$this->datoFiscalId} ";
+		// echo $sql;
+		$this->Util()->DBErp()->setQuery($sql);
+		$resultado = $this->Util()->DBErp()->InsertData();
+		return $resultado;
+	}
+
+	function eliminar() {
+		$sql = "UPDATE fn_student_invoice_data SET deleted_at = NOW() WHERE id = {$this->datoFiscalId}";
+		$this->Util()->DBErp()->setQuery($sql);
+		$resultado = $this->Util()->DBErp()->UpdateData();
 		return $resultado;
 	}
 

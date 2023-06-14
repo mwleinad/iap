@@ -4,6 +4,7 @@
     </div>
     <form class="card-body row form" id="form_actualizar_regimen" action="{$WEB_ROOT}/ajax/new/finanzas.php">
         <input type="hidden" name="opcion" value="actualizar-datos-fiscales">
+        <input type="hidden" name="dato_fiscal" value="{$datos_fiscales.id}">
         <div class="form-group col-md-4">
             <label for="regimen">Régimen Fiscal<span class="text-danger">*</span></label>
             <select class="form-control" id="regimen" name="regimen" required>

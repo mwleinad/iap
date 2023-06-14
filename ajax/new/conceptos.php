@@ -379,7 +379,7 @@ switch ($opcion) {
         $info = $course->Info(); 
         $pagos_actuales = $conceptos->pagos_curso_concepto(); 
         foreach ($pagos_actuales as $item) {
-            if($item['cobros'] == 0){ //si no existen cobros
+            if($item['cobros'] == 0 && $item['status'] != 2){ //si no existen cobros
                 $conceptos->setStatus($item['status']);
                 $conceptos->setPagoId($item['pago_id']);
                 $conceptos->setUserId($_SESSION['User']['userId']);
@@ -427,7 +427,7 @@ switch ($opcion) {
 
         $pagos_actuales = $conceptos->pagos_curso_concepto(); 
         foreach ($pagos_actuales as $item) {
-            if($item['cobros'] == 0){ 
+            if($item['cobros'] == 0 && $item['status'] != 2){ 
                 $conceptos->setPagoId($item['pago_id']);
                 $conceptos->eliminar_pago();
             }

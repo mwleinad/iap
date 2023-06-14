@@ -167,4 +167,75 @@ switch ($_POST["opcion"]) {
             'html'  => $smarty->fetch(DOC_ROOT . "/templates/forms/new/editar-datos-fiscales.tpl")
         ]);
         break;
+
+    case 'actualizar-datos-fiscales':
+        $regimen = intval($_POST['regimen']);
+        $nombreComercial = !empty(strip_tags($_POST['nombre_comercial'])) ? strip_tags($_POST['nombre_comercial']) : "NULL";
+        $nombreEmpresa = strip_tags($_POST['nombre_empresa']);
+        $rfc = strip_tags($_POST['rfc']);
+        $telefono = !empty(strip_tags($_POST['telefono'])) ? strip_tags($_POST['telefono']) : "NULL";
+        $correoElectronico = !empty(strip_tags($_POST['correo'])) ? strip_tags($_POST['correo']) : "NULL";
+        $estado = !empty(intval($_POST['estado'])) ? intval($_POST['estado']) : "NULL";
+        $municipio = !empty(intval($_POST['municipio'])) ? intval($_POST['municipio']) : "NULL";
+        $localidad = !empty(intval($_POST['localidad'])) ? intval($_POST['localidad']) : "NULL";
+        $calle = !empty(strip_tags($_POST['calle'])) ? strip_tags($_POST['calle']) : "NULL";
+        $num_int = !empty(strip_tags($_POST['num_int'])) ? strip_tags($_POST['num_int']) : "NULL";
+        $num_ext = !empty(strip_tags($_POST['num_ext'])) ? strip_tags($_POST['num_ext']) : "NULL";
+        $codigoPostal = $_POST['codigo_postal'];
+
+        $errors = [];
+        if (empty($regimen)) {
+            $errors['regimen'] = 'El campo regimen fiscal es requerido';
+        }
+        // if (empty($nombreComercial)) {
+        //     $errors['nombre_comercial'] = 'El campo nombre comercial es requerido';
+        // }
+        if (empty($nombreEmpresa)) {
+            $errors['nombre_empresa'] = 'El campo razon social es requerido';
+        }
+        if (empty($rfc)) {
+            $errors['rfc'] = 'El campo RFC es requerido';
+        }
+        if (empty($codigoPostal)) {
+            $errors['codigo_postal'] = 'El campo RFC es requerido';
+        }
+        if (!empty($errors)) {
+            header('HTTP/1.1 422 Unprocessable Entity');
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode([
+                'errors'    => $errors
+            ]);
+            exit;
+        }
+        $invoice->setDatoFiscalId($_POST['dato_fiscal']);
+        $invoice->setAlumnoId($_SESSION['User']['userId']);
+        $invoice->setRegimenId($regimen);
+        $invoice->setNombreComercial($nombreComercial);
+        $invoice->setNombreEmpresa($nombreEmpresa);
+        $invoice->setRFC($rfc);
+        $invoice->setTelefono($telefono);
+        $invoice->setCorreo($correoElectronico);
+        $invoice->setCalle($calle);
+        $invoice->setNumExt($num_ext);
+        $invoice->setNumInt($num_int);
+        $invoice->setCodigoPostal($codigoPostal);
+        $invoice->setEstado($estado);
+        $invoice->setMunicipio($municipio);
+        $invoice->setLocalidad($localidad);
+        $invoice->actualizar();
+        echo json_encode([
+            'growl'     => true,
+            'message'   => 'Se han actualizado los datos fiscales',
+            'reload'    => true
+        ]);
+        break;
+    case 'eliminar-datos-fiscales':
+        $invoice->setDatoFiscalId($_POST['dato_fiscal']);
+        $invoice->eliminar();
+        echo json_encode([
+            'growl'     => true,
+            'message'   => 'Se ha eliminado el dato fiscal',
+            'reload'    => true
+        ]);
+        break;
 }

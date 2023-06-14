@@ -3374,7 +3374,7 @@ class Student extends User
 
 	public function datos_fiscales()
 	{
-		$sql = "SELECT fsid.*, (SELECT nom_ent FROM municipalities WHERE cve_ent = fsid.cve_ent LIMIT 1) as estado, (SELECT nom_mun FROM municipalities WHERE cve_ent = fsid.cve_ent AND cve_mun = fsid.cve_mun LIMIT 1) as municipio, (SELECT nom_loc FROM municipalities WHERE cve_ent = fsid.cve_ent AND cve_mun = fsid.cve_mun AND cve_loc = fsid.cve_loc LIMIT 1) as localidad FROM fn_student_invoice_data fsid WHERE userId = {$this->userId}";
+		$sql = "SELECT fsid.*, (SELECT nom_ent FROM municipalities WHERE cve_ent = fsid.cve_ent LIMIT 1) as estado, (SELECT nom_mun FROM municipalities WHERE cve_ent = fsid.cve_ent AND cve_mun = fsid.cve_mun LIMIT 1) as municipio, (SELECT nom_loc FROM municipalities WHERE cve_ent = fsid.cve_ent AND cve_mun = fsid.cve_mun AND cve_loc = fsid.cve_loc LIMIT 1) as localidad FROM fn_student_invoice_data fsid WHERE userId = {$this->userId} AND deleted_at IS NULL";
 		// echo $sql;
 		$this->Util()->DBErp()->setQuery($sql);
 		$resultado = $this->Util()->DBErp()->GetResult();
