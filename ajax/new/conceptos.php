@@ -20,15 +20,16 @@ switch ($opcion) {
         $beca = intval($_POST['beca']);
         $clave_sat = strip_tags($_POST['clave_sat']);
         $unidad_sat = strip_tags($_POST['unidad_sat']);
+        $nombre_unidad_sat = strip_tags($_POST['nombre_unidad_sat']);
         $periodicidad = intval($_POST['periodicidad']);
         $tolerancia = intval($_POST['tolerancia']);
         $cobros = intval($_POST['cobros']);
         if (empty($nombre)) {
             $errors['nombre'] = "El campo nombre es requerido";
         }
-        if (empty($clave_sat)) {
-            $errors['clave_sat'] = "El campo clave sat es requerido";
-        }
+        // if (empty($clave_sat)) {
+        //     $errors['clave_sat'] = "El campo clave sat es requerido";
+        // }
         if ($costo == 0) {
             $errors['costo'] = "El campo costo es requerido o debe ser mayor a 0";
         }
@@ -49,6 +50,7 @@ switch ($opcion) {
         $conceptos->setBeca($beca);
         $conceptos->setClave($clave_sat);
         $conceptos->setUnidad($unidad_sat);
+        $conceptos->setNombreUnidad($nombre_unidad_sat);
         $conceptos->setPeriodicidad($periodicidad);
         $conceptos->setTolerancia($tolerancia);
         $conceptos->setCobros($cobros);
@@ -83,6 +85,7 @@ switch ($opcion) {
         $costo = floatval(str_replace(",", "", strip_tags($_POST['costo'])));
         $beca = intval($_POST['beca']);
         $clave_sat = strip_tags($_POST['clave_sat']);
+        $nombre_unidad_sat = strip_tags($_POST['nombre_unidad_sat']);
         $unidad_sat = strip_tags($_POST['unidad_sat']);
         $periodicidad = intval($_POST['periodicidad']);
         $tolerancia = intval($_POST['tolerancia']);
@@ -114,6 +117,7 @@ switch ($opcion) {
         $conceptos->setBeca($beca);
         $conceptos->setClave($clave_sat);
         $conceptos->setUnidad($unidad_sat);
+        $conceptos->setNombreUnidad($nombre_unidad_sat);
         $conceptos->setPeriodicidad($periodicidad);
         $conceptos->setTolerancia($tolerancia);
         $conceptos->setCobros($cobros);

@@ -158,7 +158,7 @@
                                 <i class="mdi mdi-key mr-2 text-primary"></i>
                                 Cambiar Contraseña
                             </a>
-                            <a class="dropdown-item" href="{$WEB_ROOT}">
+                            {* <a class="dropdown-item" href="{$WEB_ROOT}">
                                 <i class="mdi mdi-play-circle mr-2 text-success"></i>
                                 Currícula Activa
                             </a>
@@ -169,7 +169,7 @@
                             <a class="dropdown-item" href="{$WEB_ROOT}/homepage/cur/3">
                                 <i class="mdi mdi-checkbox-marked-circle mr-2 text-info"></i>
                                 Currícula Finalizada
-                            </a>
+                            </a> *}
                             <a class="dropdown-item" href="https://youtu.be/oiaW2gl57Fk" data-fancybox="Tutorial">
                                 <i class="mdi mdi-comment-account-outline mr-2 text-info"></i>
                                 Tutorial

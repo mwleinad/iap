@@ -207,7 +207,7 @@
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <h3 class="page-title">
-                            <span class="page-title-icon bg-gradient-danger text-white mr-2">
+                            <span class="page-title-icon bg-gradient-info text-white mr-2">
                                 <i class="mdi mdi-school"></i>
                             </span>
                             Currícula Finalizada

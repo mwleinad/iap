@@ -6,6 +6,7 @@ class Conceptos extends Module
     private $beca; //Aplica Beca
     private $clave;
     private $unidad;
+    private $nombre_unidad;
     private $periodicidad;
     private $tolerancia;
     private $cobros;
@@ -54,6 +55,11 @@ class Conceptos extends Module
     public function setUnidad($unidad)
     {
         $this->unidad = $unidad;
+    }
+
+    public function setNombreUnidad($nombre_unidad)
+    {
+        $this->nombre_unidad = $nombre_unidad;
     }
 
     public function setPeriodicidad($periodicidad)
@@ -154,14 +160,16 @@ class Conceptos extends Module
 
     public function crear()
     {
-        $this->Util()->DB()->setQuery("INSERT INTO `conceptos`(`nombre`, `descuento`, `clave_sat`, `unidad_sat`, `total`, `subtotal`, `iva`, `periodicidad`, `cobros`, `tolerancia`) VALUES ('{$this->nombre}','{$this->beca}','{$this->clave}','{$this->unidad}','{$this->costo}',0,0,'{$this->periodicidad}','{$this->cobros}','{$this->tolerancia}') ");
+        $sql = "INSERT INTO `conceptos`(`nombre`, `descuento`, `clave_sat`, `unidad_sat`, `nombre_unidad_sat`, `total`, `subtotal`, `iva`, `periodicidad`, `cobros`, `tolerancia`) VALUES ('{$this->nombre}','{$this->beca}','{$this->clave}','{$this->unidad}', '{$this->nombre_unidad}','{$this->costo}',0,0,'{$this->periodicidad}','{$this->cobros}','{$this->tolerancia}') ";
+        // echo $sql;
+        $this->Util()->DB()->setQuery($sql);
         $result = $this->Util()->DB()->InsertData();
         return $result;
     }
 
     public function actualizar()
     {
-        $sql = "UPDATE conceptos SET nombre = '{$this->nombre}', descuento = '{$this->beca}', clave_sat = '{$this->clave}', unidad_sat ='{$this->unidad}', total ='{$this->costo}', subtotal = 0, iva = 0, periodicidad = '{$this->periodicidad}', cobros = '{$this->cobros}', tolerancia = '{$this->tolerancia}' WHERE concepto_id = '{$this->conceptoId}' ";
+        $sql = "UPDATE conceptos SET nombre = '{$this->nombre}', descuento = '{$this->beca}', clave_sat = '{$this->clave}', unidad_sat ='{$this->unidad}', nombre_unidad_sat = '{$this->nombre_unidad}', total ='{$this->costo}', subtotal = 0, iva = 0, periodicidad = '{$this->periodicidad}', cobros = '{$this->cobros}', tolerancia = '{$this->tolerancia}' WHERE concepto_id = '{$this->conceptoId}' ";
         $this->Util()->DB()->setQuery($sql);
         $result = $this->Util()->DB()->UpdateData();
         return $result;

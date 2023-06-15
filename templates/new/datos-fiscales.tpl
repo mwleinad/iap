@@ -41,11 +41,13 @@
                                     class="w-100"><b>Correo:</b>{(empty($item.email)) ? "Sin correo" : $item.email}</label>
                                 <label class="w-100">
                                     <b>
-                                        Dirección: {$item.street} {$item.localidad}
-                                        {(!empty($item.ext_number)) ? "Num.Ext {$item.ext_number} " :
-                                        ""}{(!empty($item.int_number)) ? "Num.Int {$item.int_number} " : ""}
-                                        C.P:{$item.zip_code}.{$item.municipio}, {$item.estado}
+                                        Dirección:
                                     </b>
+                                    {$item.street} {$item.localidad}
+                                    {(!empty($item.ext_number)) ? "Num.Ext {$item.ext_number} " :
+                                    ""}{(!empty($item.int_number)) ? "Num.Int {$item.int_number} " : ""}
+                                    C.P:{$item.zip_code}. {$item.municipio}, {$item.estado}
+
                                 </label>
                                 <form class="d-inline form" action="{$WEB_ROOT}/ajax/new/finanzas.php"
                                     id="form_edicion_{$item.id}">
@@ -56,7 +58,7 @@
                                     </button>
                                 </form>
                                 <form class="d-inline form" action="{$WEB_ROOT}/ajax/new/finanzas.php" data-alert="true"
-                                id="form_eliminar_{$item.id}">
+                                    id="form_eliminar_{$item.id}">
                                     <input type="hidden" name="opcion" value="eliminar-datos-fiscales">
                                     <input type="hidden" name="dato_fiscal" value="{$item.id}">
                                     <button type="submit" class="btn btn-danger">

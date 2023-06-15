@@ -14,7 +14,24 @@
         </ul>
     </nav>
 </div>
-
+<div class="row">
+    <div class="col-md-8"></div>
+    <div class="col-md-2 ">
+        <a class="btn btn-info btn-block" href="{$WEB_ROOT}/datos-fiscales" title="Datos Fiscales">
+            Datos Fiscales
+            <i class="fa fa-clipboard"></i>
+        </a>
+    </div>
+    <form action="{$WEB_ROOT}/ajax/new/finanzas.php" class="form col-md-2 mb-3 text-center"
+        id="form_deposito{$item.courseId}" title="Cuenta para depósito" data-target="#ajax" data-toggle="modal"
+        data-width="900">
+        <input type="hidden" name="opcion" value="cuenta-deposito">
+        <button type="submit" class="btn btn-info btn-block">
+            Cuenta para depósito
+            <i class="fa fa-piggy-bank"></i>
+        </button>
+    </form>
+</div>
 <div class="col-md-12 py-3 card card-img-holder bg-gradient-primary">
     <h3 class="page-title text-white"> Currículas Activas </h3>
 </div>
@@ -36,16 +53,9 @@
                                 Descargar Calendario<br>
                                 <i class="fa fa-download"></i>
                             </a>
-                            <form action="{$WEB_ROOT}/ajax/new/finanzas.php" class="form text-center" id="form_deposito"
-                                title="Cuenta para depósito" data-target="#ajax" data-toggle="modal" data-width="900">
-                                <input type="hidden" name="opcion" value="cuenta-deposito">
-                                <button type="submit" class="btn btn-link px-3">
-                                    Cuenta para depósito<br>
-                                    <i class="fa fa-piggy-bank"></i>
-                                </button>
-                            </form>
-                            <form action="{$WEB_ROOT}/ajax/new/finanzas.php" class="form text-center" id="form_pago"
-                                title="Nuevo Pago" data-target="#ajax" data-toggle="modal" data-width="500">
+                            <form action="{$WEB_ROOT}/ajax/new/finanzas.php" class="form text-center"
+                                id="form_pago{$item.courseId}" title="Nuevo Pago" data-target="#ajax" data-toggle="modal"
+                                data-width="500">
                                 <input type="hidden" name="opcion" value="nuevo-pago">
                                 <input type="hidden" name="alumno" value="{$User.userId}">
                                 <input type="hidden" name="curso" value="{$item.courseId}">
@@ -53,7 +63,7 @@
                                     Solicitar pago<br>
                                     <i class="fa fa-file-invoice-dollar"></i>
                                 </button>
-                                </a>
+                            </form>
                         </div>
                     </h5>
                 </div>
@@ -149,9 +159,9 @@
                                                 <tr class="text-center">
                                                     <th></th>
                                                     <th>Concepto</th>
-                                                    <th>Subtotal</th> 
+                                                    <th>Subtotal</th>
                                                     <th>Total a pagar</th>
-                                                    <th>Monto pendiente</th> 
+                                                    <th>Monto pendiente</th>
                                                     <th>Estatus</th>
                                                 </tr>
                                             </thead>
@@ -159,7 +169,7 @@
                                                 {* <pre>
                                                     {$item.pagos.otros|print_r}
                                                 </pre> *}
-                                                {foreach from=$item.pagos.otros item=itemp name=forFechas} 
+                                                {foreach from=$item.pagos.otros item=itemp name=forFechas}
                                                     {$contador[$itemp.concepto_id] = $contador[$itemp.concepto_id] + 1}
                                                     <tr>
                                                         <td>
@@ -171,9 +181,9 @@
                                                             {/if}
                                                         </td>
                                                         <td>{$itemp.concepto_nombre} {$contador[$item.concepto_id]}</td>
-                                                        <td>${$itemp.subtotal|number_format:2:".":","}</td> 
+                                                        <td>${$itemp.subtotal|number_format:2:".":","}</td>
                                                         <td>${$itemp.total|number_format:2:".":","}</td>
-                                                        <td>${$itemp.total - $itemp.monto|number_format:2:".":","}</td> 
+                                                        <td>${$itemp.total - $itemp.monto|number_format:2:".":","}</td>
                                                         <td>{$itemp.status_btn}</td>
                                                     </tr>
                                                     {if count($itemp.cobros) > 0}
@@ -198,7 +208,7 @@
                                                                 {/foreach}
                                                             </td>
                                                         </tr>
-                                                    {/if} 
+                                                    {/if}
                                                 {/foreach}
                                             </tbody>
                                         </table>
