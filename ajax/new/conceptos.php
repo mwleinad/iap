@@ -146,11 +146,14 @@ switch ($opcion) {
     case 'curricula-conceptos': //Muestra los conceptos de la currícula
         $subjectId = intval($_POST['subjectId']);
         $conceptos->setSubjectId($subjectId);
+        $subject->setSubjectId($subjectId);
+        $infoSubject = $subject->Enumerate_p();
         $listaConceptos = $conceptos->conceptos_subjects();
-        // print_r($listaConceptos);
+        // print_r($infoSubject);
         $smarty->assign("subjectId", $subjectId);
         $smarty->assign("opcion", "guardar-curricula-concepto");
         $smarty->assign("conceptos", $listaConceptos);
+        $smarty->assign("infoSubject", $infoSubject);
         echo json_encode([
             'modal' => true,
             'html'  => $smarty->fetch(DOC_ROOT . "/templates/forms/new/conceptos-curricula.tpl")

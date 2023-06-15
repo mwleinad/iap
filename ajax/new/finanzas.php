@@ -92,17 +92,17 @@ switch ($_POST["opcion"]) {
         break;
     case 'guardar-datos-fiscales':
         $regimen = intval($_POST['regimen']);
-        $nombreComercial = !empty(strip_tags($_POST['nombre_comercial'])) ? strip_tags($_POST['nombre_comercial']) : "NULL";
+        $nombreComercial = strip_tags($_POST['nombre_comercial']);
         $nombreEmpresa = strip_tags($_POST['nombre_empresa']);
         $rfc = strip_tags($_POST['rfc']);
-        $telefono = !empty(strip_tags($_POST['telefono'])) ? strip_tags($_POST['telefono']) : "NULL";
-        $correoElectronico = !empty(strip_tags($_POST['correo'])) ? strip_tags($_POST['correo']) : "NULL";
-        $estado = !empty(intval($_POST['estado'])) ? intval($_POST['estado']) : "NULL";
-        $municipio = !empty(intval($_POST['municipio'])) ? intval($_POST['municipio']) : "NULL";
-        $localidad = !empty(intval($_POST['localidad'])) ? intval($_POST['localidad']) : "NULL";
-        $calle = !empty(strip_tags($_POST['calle'])) ? strip_tags($_POST['calle']) : "NULL";
-        $num_int = !empty(strip_tags($_POST['num_int'])) ? strip_tags($_POST['num_int']) : "NULL";
-        $num_ext = !empty(strip_tags($_POST['num_ext'])) ? strip_tags($_POST['num_ext']) : "NULL";
+        $telefono = strip_tags($_POST['telefono']);
+        $correoElectronico = strip_tags($_POST['correo']);
+        $estado = intval($_POST['estado']);
+        $municipio = intval($_POST['municipio']);
+        $localidad = intval($_POST['localidad']);
+        $calle = strip_tags($_POST['calle']);
+        $num_int = strip_tags($_POST['num_int']);
+        $num_ext = strip_tags($_POST['num_ext']);
         $codigoPostal = $_POST['codigo_postal'];
 
         $errors = [];
@@ -154,9 +154,9 @@ switch ($_POST["opcion"]) {
         $invoice->setDatoFiscalId($_POST['dato_fiscal']);
         $datos_fiscales = $invoice->getDatoFiscal();
         $regimenes = $invoice->tax_regime();
-        $estados = $util->estados();
-        $municipios = $util->municipios($datos_fiscales['cve_ent']);
-        $localidades= $util->localidades($datos_fiscales['cve_ent'], $datos_fiscales['cve_mun']);
+        $estados = $util->estados();  
+        $municipios = !empty($datos_fiscales['cve_ent']) ? $util->municipios($datos_fiscales['cve_ent']) : [];
+        $localidades= !empty($datos_fiscales['cve_mun']) ? $util->localidades($datos_fiscales['cve_ent'], $datos_fiscales['cve_mun']) : [];
         $smarty->assign("regimenes", $regimenes);
         $smarty->assign("estados", $estados);
         $smarty->assign("municipios", $municipios);
@@ -170,19 +170,18 @@ switch ($_POST["opcion"]) {
 
     case 'actualizar-datos-fiscales':
         $regimen = intval($_POST['regimen']);
-        $nombreComercial = !empty(strip_tags($_POST['nombre_comercial'])) ? strip_tags($_POST['nombre_comercial']) : "NULL";
+        $nombreComercial = strip_tags($_POST['nombre_comercial']);
         $nombreEmpresa = strip_tags($_POST['nombre_empresa']);
         $rfc = strip_tags($_POST['rfc']);
-        $telefono = !empty(strip_tags($_POST['telefono'])) ? strip_tags($_POST['telefono']) : "NULL";
-        $correoElectronico = !empty(strip_tags($_POST['correo'])) ? strip_tags($_POST['correo']) : "NULL";
-        $estado = !empty(intval($_POST['estado'])) ? intval($_POST['estado']) : "NULL";
-        $municipio = !empty(intval($_POST['municipio'])) ? intval($_POST['municipio']) : "NULL";
-        $localidad = !empty(intval($_POST['localidad'])) ? intval($_POST['localidad']) : "NULL";
-        $calle = !empty(strip_tags($_POST['calle'])) ? strip_tags($_POST['calle']) : "NULL";
-        $num_int = !empty(strip_tags($_POST['num_int'])) ? strip_tags($_POST['num_int']) : "NULL";
-        $num_ext = !empty(strip_tags($_POST['num_ext'])) ? strip_tags($_POST['num_ext']) : "NULL";
+        $telefono = strip_tags($_POST['telefono']);
+        $correoElectronico = strip_tags($_POST['correo']);
+        $estado = intval($_POST['estado']);
+        $municipio = intval($_POST['municipio']);
+        $localidad = intval($_POST['localidad']);
+        $calle = strip_tags($_POST['calle']);
+        $num_int = strip_tags($_POST['num_int']);
+        $num_ext = strip_tags($_POST['num_ext']);
         $codigoPostal = $_POST['codigo_postal'];
-
         $errors = [];
         if (empty($regimen)) {
             $errors['regimen'] = 'El campo regimen fiscal es requerido';

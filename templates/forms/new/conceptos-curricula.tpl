@@ -2,7 +2,8 @@
     <div class="card">
         <div class="card-header bg-primary text-white">
             <h4>
-                <i class="fas fa-money-check-alt"></i> Relación de conceptos
+                <i class="fas fa-money-check-alt"></i> Relación de conceptos {$infoSubject.majorName} - {$infoSubject.name}({$infoSubject.subjectId})
+                 
             </h4>
         </div>
         <form class="form row card-body" id="form_concepto" action="{$WEB_ROOT}/ajax/new/conceptos.php" method="POST">
