@@ -2,11 +2,11 @@ $(".list-group-item").on("click", function(){
 	$(".list-group-item").removeClass("active");
 	$(this).addClass("active"); 
 });
-function cargaInbox(tipo){   
+function cargaInbox(tipo, modulo){   
 	$.ajax({
 	  	type: "POST",
 	  	url: WEB_ROOT+'/ajax/student.php',
-	  	data: $("#editStudentForm").serialize(true)+'&type=cargaInbox&tipo='+tipo,
+	  	data: $("#editStudentForm").serialize(true)+'&type=cargaInbox&tipo='+tipo+'&courseMId='+modulo,
 		beforeSend: function(){			
 			
 		},

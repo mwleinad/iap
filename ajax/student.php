@@ -759,11 +759,6 @@ switch ($_POST["type"]) {
 
 
 	case "cargaInbox":
-
-
-
-		// echo '<pre>'; print_r($_POST);
-		// exit;
 		if ($_SESSION['User']['perfil'] == 'Administrador') {
 			if ($_POST['tipo'] == 'entrada') {
 				$module->setStatusIn('activo');
@@ -806,12 +801,11 @@ switch ($_POST["type"]) {
 
 			$lstMsj = $module->EnumerateInboxAdmin();
 		} else {
-
 			if ($_POST['tipo'] == 'entrada') {
 				$module->setStatusIn('activo');
 				$module->setTipoReporte('entrada');
 				$module->setRecibeId($_SESSION['User']['userId']);
-				$module->setCMId($_GET["courseMId"]);
+				$module->setCMId($_POST["courseMId"]);
 				if ($_SESSION['User']['type'] == 'student') {
 					$module->setQuienEnviaId('personal');
 				} else {
@@ -851,19 +845,11 @@ switch ($_POST["type"]) {
 
 			$lstMsj = $module->EnumerateInbox();
 		}
-
-
-
 		$smarty->assign("courseMId", $_POST['courseMId']);
 		$smarty->assign("tipo", $_POST['tipo']);
 		$smarty->assign("lstMsj", $lstMsj);
 		$smarty->display(DOC_ROOT . '/templates/lists/inbox.tpl');
-
 		break;
-
-
-
-
 	case 'onChangePicture':
 
 		if ($url = $student->onChangePicture($_POST["userId"])) {

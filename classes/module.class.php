@@ -745,30 +745,23 @@ class Module extends Course
 
 	public function EnumerateInbox()
 	{
-
-
 		$filtro = "";
-
 		if ($this->statusIn) {
 			$filtro .= " and c.estatus = '" . $this->statusIn . "'";
 		}
-
 		if ($this->yoId) {
 			$filtro .= " and yoId = " . $this->yoId . "";
 		}
-
-
-
 		if ($this->recibeId) {
 			$filtro .= " and c.usuarioId = '" . $this->recibeId . "'";
 		}
-
 		if ($this->cmId) {
 			$filtro .= " and c.courseModuleId = " . $this->cmId . "";
 		}
-
+		$campos = "";
+		$left = "";
+		$leftEnviado = "";
 		if ($this->tipoReporte == 'entrada') {
-
 			if ($this->quienEnviaId) {
 				$filtro .= " and quienEnvia = '" . $this->quienEnviaId . "'";
 				if ($this->quienEnviaId == 'personal') {
@@ -824,7 +817,7 @@ class Module extends Course
 					WHERE
 						1 " . $filtro . " order by chatId DESC";
 		}
-
+		// echo $sql;
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 
