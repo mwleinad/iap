@@ -127,7 +127,7 @@ else
                 $score = 'A';
                 $score_txt = 'APROBADO';
             }
-            if($item['score'] == 0 && !in_array($item['semesterId'], $nivelesValidos[$qualification['userId']])) 
+            if($item['score'] == 0 && !in_array($item['semesterId'], $nivelesValidos[$students[0]])) 
             {
                 $text_color = 'text-danger';
                 $score = 'NP';
