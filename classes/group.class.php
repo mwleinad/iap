@@ -898,32 +898,29 @@ class Group extends Module
 	{
 		if ($this->getCourseModuleId() == '')
 		{
-			$sql = "SELECT teamNumber FROM team WHERE team.courseModuleId = '" . $this->coursemoduleId . "' GROUP BY team.teamNumber ORDER BY teamNumber ASC";
-			$sqlMax = "SELECT MAX(teamNumber) as teamNumber FROM team WHERE team.courseModuleId = '" . $this->coursemoduleId . "'";
+			$sql = "SELECT MAX(teamNumber) as maximo, MIN(teamNumber) as minimo FROM team WHERE team.courseModuleId = '" . $this->coursemoduleId . "' "; 
+			$sqlTeams = "SELECT GROUP_CONCAT(DISTINCT(teamNumber)) as teamNumber FROM team WHERE team.courseModuleId = '" . $this->coursemoduleId . "' GROUP BY courseModuleId";
 		}
 		else
 		{
-			$sql = "SELECT teamNumber FROM team WHERE team.courseModuleId = '" . $this->getCourseModuleId() . "' GROUP BY team.teamNumber ORDER BY teamNumber ASC"; 
-			$sqlMax = "SELECT MAX(teamNumber) as teamNumber FROM team WHERE team.courseModuleId = '" . $this->getCourseModuleId() . "'";
-		}
+			$sql = "SELECT MAX(teamNumber) as maximo, MIN(teamNumber) as minimo FROM team WHERE team.courseModuleId = '" . $this->getCourseModuleId() . "' "; 
+			$sqlTeams = "SELECT GROUP_CONCAT(DISTINCT(teamNumber)) as teamNumber FROM team WHERE team.courseModuleId = '" . $this->getCourseModuleId() . "' GROUP BY courseModuleId";
+		} 
+		$max = 1;
 		$this->Util()->DB()->setQuery($sql);
-		$teams = $this->Util()->DB()->GetResult();
-
-		$this->Util()->DB()->setQuery($sqlMax);
-		$max = $this->Util()->DB()->GetSingle()+1;
-		$arreglo = [];  
-		foreach ($teams as $item) {
-			 $arreglo[] = $item['teamNumber'];
-		}
-		for ($i=1; $i < $max ; $i++) { 
-			if(!in_array($i, $arreglo)){
-				$max = $i;
-				break;
+		$minmax = $this->Util()->DB()->GetRow();  
+		$this->Util()->DB()->setQuery($sqlTeams);
+		$teams = $this->Util()->DB()->GetRow(); 
+		$teams = explode(",", $teams['teamNumber']);
+		if ($minmax['minimo'] == 1) {
+			$max = $minmax['maximo'] + 1;
+			for ($i=1; $i <= $minmax['maximo']; $i++) {  
+				if (!in_array($i, $teams)) {
+					$max = $i;
+					break;
+				}
 			}
-		}
-		// print_r($arreglo);
-		// echo $max;
-		// exit;
+		} 
 		return $max;	
 	}
 

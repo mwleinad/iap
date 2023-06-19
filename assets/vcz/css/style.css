@@ -4765,7 +4765,7 @@ pre code {
 .form-control {
   display: block;
   width: 100%;
-  height: 2.875rem;
+  /* height: 2.875rem; */
   padding: 0.8rem 1.375rem;
   font-size: 0.8125rem;
   font-weight: 400;
@@ -6648,7 +6648,7 @@ input[type="button"].btn-block {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 0.94rem 1.375rem;
+  padding: 0.8rem 1.375rem;
   margin-bottom: 0;
   font-size: 0.8125rem;
   font-weight: 400;
@@ -17763,7 +17763,7 @@ code {
 .input-group-append .input-group-text,
 .input-group-prepend .input-group-text {
   border-color: #9d9fa3;
-  padding: 0.94rem 0.75rem;
+  padding: 0.8rem 0.75rem;
   color: #9d9fa3;
 }
 

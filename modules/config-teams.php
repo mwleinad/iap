@@ -19,9 +19,16 @@
 	{  
 		switch ($_POST['opcion']) {
 			case 'crear-equipo':
-				$group->CreateTeam($_POST["inTeam"]);
-				$mensaje = "Grupo creado";
-				$type = "success";
+				if (isset($_POST['number']) && !empty($_POST['number'])) { 
+					$group->AgregarEquipo($_POST["inTeam"], $_POST['number']);
+					$mensaje = "Grupo agregado al equipo {$_POST['number']}";
+					$type = "success";
+				}else{
+					$group->CreateTeam($_POST["inTeam"]);
+					$mensaje = "Grupo creado";
+					$type = "success"; 
+					 
+				} 
 			break; 
 			case 'eliminar-de-equipo':
 				$group->quitarDeEquipo($_POST['alumno']);
