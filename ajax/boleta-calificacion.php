@@ -38,8 +38,9 @@ $myInstitution = $institution->Info();
 $html_modules = "";
 $html_extra_modules = "";
 $i = 1;
-/* echo "<pre>";
-print_r($modules_qualifications);
+echo "<pre>";
+// echo $qualification['userId'];
+/* print_r($modules_qualifications);
 exit; */
 foreach($modules as $item)
 {
@@ -69,18 +70,22 @@ foreach($modules as $item)
     $text_color = '';
     if($modules_qualifications[$item['courseModuleId']]->extra == 1)
     {
+        print_r($item);
+        $nivelesValidos = $course->GetEnglishLevels();  //Obtenemos los niveles de inglés válidos(si tiene)
+        print_r($nivelesValidos[$qualification['userId']]);
         if($modules_qualifications[$item['courseModuleId']]->score < $minCal)
         {
             $text_color = 'text-danger';
             $score = 'NA';
             $score_txt = 'NO APROBADO';
         }
-        if($modules_qualifications[$item['courseModuleId']]->score >= $minCal)
+        if($modules_qualifications[$item['courseModuleId']]->score >= $minCal || in_array($item['semesterId'], $nivelesValidos[$qualification['userId']]))
         {
             $score = 'A';
             $score_txt = 'APROBADO';
+            echo "Hola";
         }
-        if($modules_qualifications[$item['courseModuleId']]->score == 0) 
+        if($modules_qualifications[$item['courseModuleId']]->score == 0 && !in_array($item['semesterId'], $nivelesValidos[$qualification['userId']])) 
         {
             $text_color = 'text-danger';
             $score = 'NP';
@@ -95,6 +100,7 @@ foreach($modules as $item)
         $i++;
     }
 }
+echo $html_extra_modules;
 $html .="<html>
             <head>
                 <title>Boleta de Calificaciones</title>
@@ -228,10 +234,10 @@ $html .="<html>
                 <img src='" . DOC_ROOT . "/images/new/docs/doc_footer.png' class='img-footer'>
             </body>
         </html>";
-$mipdf = new DOMPDF();
-$mipdf ->set_paper("A4", "portrait");
-$mipdf ->load_html($html);
-$mipdf ->render();
-$mipdf ->stream('BoletaCalificaciones.pdf', array('Attachment' => 0));
-unlink($target_path);
+// $mipdf = new DOMPDF();
+// $mipdf ->set_paper("A4", "portrait");
+// $mipdf ->load_html($html);
+// $mipdf ->render();
+// $mipdf ->stream('BoletaCalificaciones.pdf', array('Attachment' => 0));
+// unlink($target_path);
 ?>

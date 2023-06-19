@@ -236,8 +236,6 @@ switch ($_POST["type"]) {
 		break;
 
 	case 'adjuntarDocDocente':
-
-
 		$personal->setDocumentoId($_POST['catId']);
 		$personal->setPersonalId($_POST["personalId"]);
 		$response = $personal->adjuntarDocDocente();
@@ -255,7 +253,7 @@ switch ($_POST["type"]) {
 				'selector'	=>"#contenido",
 				'html'		=>$smarty->fetch(DOC_ROOT . '/templates/lists/new/doc-docente.tpl'),
 				'modal_close'=>true,
-				'reload'	=>true
+				// 'reload'	=>true
 			]); 
 			 
 		} else {

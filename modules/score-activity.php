@@ -16,9 +16,6 @@
 		$group->EditScore($_POST["modality"], $_GET["id"], $_POST["ponderation"], $_POST["retro"]);
 		
 		if($_POST["auxTpl"] == "admin"){
-			
-			
-			
 			header("Location:".WEB_ROOT."/edit-modules-course/id/". $_POST["cId"]."");
 			exit;
 		}

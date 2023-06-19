@@ -210,7 +210,7 @@ class Personal extends Main
 	}
 
 	public function setRfc($value)
-	{ 
+	{
 		$this->Util()->ValidateString($value, $max_chars = 60, $minChars = 1, "RFC");
 		$this->rfc = $value;
 	}
@@ -919,7 +919,7 @@ class Personal extends Main
 		$this->Util()->DB()->setQuery($sql);
 		$count = $this->Util()->DB()->GetSingle();
 
-		if($count > 0){
+		if ($count > 0) {
 			$this->Util()->setError(10078, "error", "", "RFC");
 			$this->Util()->PrintErrors();
 			return false;
@@ -1313,28 +1313,29 @@ class Personal extends Main
 			$lastId = $this->Util()->DB()->InsertData();
 		} else {
 			$lastId = $count['documentosprofesorId'];
-		} 
-		
-		$response = $this->Util()->validarSubida(['size'=>5242880]); 
-		if($response['estatus']){
+		}
+
+		$response = $this->Util()->validarSubida(['size' => 5242880]);
+		if ($response['estatus']) {
 			$aux = explode(".", $_FILES['comprobante']["name"]);
 			$extencion = end($aux);
-			$temporal =  $_FILES['comprobante']['tmp_name']; 
+			$temporal =  $_FILES['comprobante']['tmp_name'];
+			$nuevoCodigo = bin2hex(random_bytes(4));
 			$url = DOC_ROOT;
-			$foto_name = "doc_" . $lastId . "." . $extencion; 
-			if (move_uploaded_file($temporal, $url . "/docentes/documentos/" . $foto_name)) {  
+			$documento = "doc_" . $lastId . $nuevoCodigo . "." . $extencion;
+			if (move_uploaded_file($temporal, $url . "/docentes/documentos/" . $documento)) {
 				$sql = 'UPDATE 		
 					documentosprofesor SET 		
-					ruta = "' . $foto_name . '"			      		
+					ruta = "' . $documento . '"			      		
 					WHERE documentosprofesorId = ' . $lastId . '';
 
 				$this->Util()->DB()->setQuery($sql);
 				$this->Util()->DB()->UpdateData();
-			}else{
+			} else {
 				$response['estatus'] = false;
 				$response['mensaje'] = "Hubo un problema al guardar el archivo, intente de nuevo, por favor.";
 			}
-		}	 
+		}
 		return $response;
 	}
 
@@ -1621,7 +1622,7 @@ class Personal extends Main
 
 		return $result;
 	}
-	
+
 	public function enumeratePersonalAcademico()
 	{
 

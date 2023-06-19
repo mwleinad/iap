@@ -107,7 +107,7 @@
                                                                         </button>
                                                                     {/if}
                                                                 </td>
-                                                                <td>{$itemp.concepto_nombre} {$contador[$item.concepto_id]}</td>
+                                                                <td>{$itemp.concepto_nombre} {$contador[$itemp.concepto_id]}</td>
                                                                 <td>${$itemp.subtotal|number_format:2:".":","}</td>
                                                                 <td>${$itemp.subtotal * ($itemp.beca / 100)|number_format:2:".":","}</td>
                                                                 <td>${$itemp.total|number_format:2:".":","}</td>

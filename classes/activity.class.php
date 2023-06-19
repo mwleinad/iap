@@ -14,7 +14,7 @@ class Activity extends Module
 	private $usuarioId;
 	private $horaInicial;
 	private $verponderation;
-
+	private $respuesta;
 	public function setVerponderation($value)
 	{
 		// $this->Util()->ValidateInteger($value);
@@ -444,8 +444,7 @@ class Activity extends Module
 			$result[$key]["retroFile"] = $this->RetroFile();
 
 			$realScore = $result[$key]["ponderation"] * $result[$key]["score"] / 100;
-			$result[$key]{
-			"realScore"} = $realScore;
+			$result[$key]["realScore"] = $realScore;
 		}
 
 		// echo "<pre>"; print_r($result);
@@ -624,7 +623,7 @@ class Activity extends Module
 		$result["finalDate"] = $this->Util()->FormatDateBack($f[0]);
 		$result["horaFinal"] = $f[1];
 		if ($result)
-			$result = $this->Util->EncodeRow($result);
+			$result = $this->Util()->EncodeRow($result);
 
 		// echo "<pre>"; print_r($result);
 		// exit;
@@ -795,7 +794,7 @@ class Activity extends Module
 		$count++;
 		$result["descriptionShort"] = substr($result["description"], 0, 30);
 		$this->setActivityId($this->activityId);
-
+		$resultado = [];
 		if ($tipo == "Tarea") {
 			$result["numreq"] = $resultado["rownum"];
 			$result["tipo"] = "Examen";
@@ -916,7 +915,7 @@ class Activity extends Module
 		$result["finalDate"] = $this->Util()->FormatDateBack($f[0]);
 		$result["horaFinal"] = $f[1];
 		if ($result)
-			$result = $this->Util->EncodeRow($result);
+			$result = $this->Util()->EncodeRow($result);
 
 		// echo "<pre>"; print_r($result);
 		// exit;

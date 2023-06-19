@@ -108,10 +108,12 @@ else
             $i++;
         }
     }
+    // echo "<pre>";
     foreach($modules as $item)
     {
         if($item['extra'] == 1)
         {
+            $nivelesValidos = $course->GetEnglishLevels();  //Obtenemos los niveles de inglés válidos(si tiene)
             $text_color = '';
             if($item['score'] < $minCal)
             {
@@ -119,18 +121,19 @@ else
                 $score = 'NA';
                 $score_txt = 'NO APROBADO';
             }
-            if($item['score'] >= $minCal)
+            if($item['score'] >= $minCal || in_array($item['semesterId'], $nivelesValidos[$students[0]]))
             {
                 $text_color = '';
                 $score = 'A';
                 $score_txt = 'APROBADO';
             }
-            if($item['score'] == 0) 
+            if($item['score'] == 0 && !in_array($item['semesterId'], $nivelesValidos[$qualification['userId']])) 
             {
                 $text_color = 'text-danger';
                 $score = 'NP';
                 $score_txt = 'NO PRESENTÓ';
             }
+            
             $html_extra_modules .= "<tr>
                                 <td class='text-center'>" . $i . "</td>
                                 <td>" . mb_strtoupper($item['name']) . "</td>
