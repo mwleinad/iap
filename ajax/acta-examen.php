@@ -131,12 +131,12 @@ foreach ($students as $item) {
     $infoStudent = $student->GetInfo();
     $testHistory = $test->getTestHistory($_POST['course'],$item['userId']);
     if($testHistory){
-        $test->updateTestHistory($_POST['course'], $item['userId'], $_POST['fecha'], $_POST['folio'],$_POST['noActa'],$_POST['noAutorizacion'],$_POST['hora'],$_POST['ubicacion'],$_POST['opcionExamen'],$_POST['tesis'],$_POST['nombrePresidente'],$_POST['nombreSecretario'],$_POST['nombreVocal'],$_POST['cedulaPresidente'],$_POST['cedulaSecretario'],$_POST['cedulaVocal']);
+        $test->updateTestHistory($_POST['course'], $item['userId'], $_POST['fecha'], $_POST['folio'],$_POST['noActa'],$_POST['noAutorizacion'],$_POST['hora'],$_POST['ubicacion'],$_POST['opcionExamen'],$_POST['tesis'],$_POST['nombrePresidente'],$_POST['nombreSecretario'],$_POST['nombreVocal'],$_POST['cedulaPresidente'],$_POST['cedulaSecretario'],$_POST['cedulaVocal'], $_POST['nombreJefe']);
     }else{
         //$date, $folio, $act, $auth, $hour, $location, $option, $tesis, $president, $secretary, $vocal, $presidentCedula, $secretaryCedula, $vocalCedula
-        $test->addTestHistory($_POST['course'], $item['userId'], $_POST['fecha'], $_POST['folio'],$_POST['noActa'],$_POST['noAutorizacion'],$_POST['hora'],$_POST['ubicacion'],$_POST['opcionExamen'],$_POST['tesis'],$_POST['nombrePresidente'],$_POST['nombreSecretario'],$_POST['nombreVocal'],$_POST['cedulaPresidente'],$_POST['cedulaSecretario'],$_POST['cedulaVocal']);
+        $test->addTestHistory($_POST['course'], $item['userId'], $_POST['fecha'], $_POST['folio'],$_POST['noActa'],$_POST['noAutorizacion'],$_POST['hora'],$_POST['ubicacion'],$_POST['opcionExamen'],$_POST['tesis'],$_POST['nombrePresidente'],$_POST['nombreSecretario'],$_POST['nombreVocal'],$_POST['cedulaPresidente'],$_POST['cedulaSecretario'],$_POST['cedulaVocal'],$_POST['nombreJefe']);
     }
-
+    $curriculaNombre = " EN ".str_replace("EN", "", mb_strtoupper($infoCourse['name']));
     $html.="<div>
                 <table width='100%'>
                     <tr>
@@ -150,7 +150,7 @@ foreach ($students as $item) {
                                 <label style='font-size: 14pt;'><b>SUBSECRETARÍA DE EDUCACIÓN ESTATAL</b></label><br>
                                 <label style='font-size: 14pt;'><b>DIRECCIÓN DE EDUCACIÓN SUPERIOR</b></label><br>
                                 <label style='font-size: 13pt;'><b>DEPARTAMENTO DE SERVICIOS ESCOLARES</b></label><br>
-                                <label style='font-size: 8pt; font-family: sans-serif;'>RVOE: <b> ACUERDO NÚMERO" . $rvoe . "</b> VIGENTE: A PARTIR DEL <b>" . mb_strtoupper($util->FormatReadableDate($fechaRvoe)) . "</b></label><br>
+                                <label style='font-size: 8pt; font-family: sans-serif;'>RVOE: <b> ACUERDO NÚMERO " . $rvoe . "</b> VIGENTE: A PARTIR DEL <b>" . mb_strtoupper($util->FormatReadableDate($fechaRvoe)) . "</b></label><br>
                                 <label style='font-size: 9pt; font-family: sans-serif;'>RÉGIMEN PARTICULAR</label>
                             </p>
                         </td>
@@ -225,17 +225,17 @@ foreach ($students as $item) {
                 <div style='font-size: 9pt; position: absolute; left: 180px; top: 665px; width: 500px; font-weight: bold;'>
                     " . $student->GetMatricula($infoCourse['courseId']) . "
                 </div>
-                <div style='font-size: " . $optionSize . "; position: absolute; left: " . $optionPx . "; top: 696px; width: 500px; font-weight: bold;'>
+                <div style='font-size: " . $optionSize . "; position: absolute; left: 0px; top: 696px; width: 100%; font-weight: bold; text-align:center'>
                     " . $option . "
                 </div>
-                <div style='font-size: 9pt; position: absolute; left: 220px; top: 726px; width: 500px; font-weight: bold;'>
-                    " . $title . " EN " . mb_strtoupper($infoCourse['name']) . "
+                <div style='font-size: 9pt; position: absolute; left: 0px; top: 729px; width: 100%; font-weight: bold; text-align:center;'>
+                &nbsp;&nbsp;&nbsp;" . $title . $curriculaNombre . "
                 </div>
-                <div style='font-size: 9pt; position: absolute; left: 325px; top: 835px; width: 500px; font-weight: bold;'>
-                    APROBARLO
+                <div style='font-size: 9pt; position: absolute; left: 0px; top: 840px; width: 100%; font-weight: bold; text-align:center;'>
+                APROBARLO
                 </div>
-                <div style='font-size: 9pt; position: absolute; left: 200px; top: 930px; width: 500px; font-weight: bold;'>
-                    " . $title . " EN " . mb_strtoupper($infoCourse['name']) . "
+                <div style='font-size: 9pt; position: absolute; left: 0px; top: 930px; width: 100%; font-weight: bold; text-align:center;'>
+                &nbsp;&nbsp;&nbsp;" . $title . $curriculaNombre . "
                 </div>
                 <table width='100%'>
                     <tr>
@@ -357,28 +357,30 @@ foreach ($students as $item) {
                             </td>
                         </tr>
                     </table>
-                    <br><br><br><br><br>
-                    <table width='100%'>
+                    <br><br><br>
+                    <table width='100%' vertical='top'>
                         <tr style='border-spacing: 0px !important;'>
-                            <td style='width: 40%; padding:0 20px;'>
+                            <td style='width: 40%;'>
                                 <table align='center' border='1' class='border'>
                                     <tr>
-                                        <td class='text-center bg-gray border' style='font-size: 7pt; padding:5px 0;'>
-                                            REGISTRADO EN EL DEPARTAMENTO DE SERVICIOS ESCOLARES
+                                        <td class='text-center bg-gray border' style='font-size: 8pt;'>
+                                            <div style='padding:5px 50px;'>
+                                                REGISTRADO EN EL DEPARTAMENTO DE SERVICIOS ESCOLARES
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class='border' style='padding:0; margin:0'>
-                                            <p style='text-align: right; font-size: 8pt; line-height:25px; padding:0; margin:0;'>
-                                                NO: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_______________________________<br>
-                                                LIBRO: &nbsp;_______________________________<br>
-                                                FOJA: &nbsp;&nbsp;&nbsp;_______________________________<br>
-                                                FECHA: _______________________________<br>
+                                            <p style='text-align: left; font-size: 8pt; line-height:25px; padding-left:10px; margin:0; border:none;'>
+                                                CON EL No: __________________________________<br>
+                                                EN EL LIBRO:&nbsp; ________________________________<br>
+                                                FOJA: _______________________________________<br>
+                                                FECHA:
                                             </p>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class='text-center bg-gray border' style='font-size: 7pt; padding:5px 0;'>
+                                        <td class='text-center bg-gray border' style='font-size: 8pt; padding:5px 0;'>
                                             COTEJÓ
                                         </td>
                                     </tr>
@@ -388,7 +390,7 @@ foreach ($students as $item) {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class='text-center bg-gray border' style='font-size: 7pt; padding:5px;'>{$head['genre']} DE LA OFICINA</td>
+                                        <td class='text-center bg-gray border' style='font-size: 8pt; padding:5px;'>{$head['genre']} DE LA OFICINA</td>
                                     </tr>
                                     <tr>
                                         <td class='border' style='text-align: center;'>
@@ -400,26 +402,25 @@ foreach ($students as $item) {
                                     </tr>
                                 </table>                        
                             </td>
-                            <td style='width: 60%; padding-left: 20px;'>
-                                <p style='font-size: 7pt; text-align: justify;'>
-                                    CON FUNDAMENTO EN EL ARTÍCULO 29, FRACCIÓN X DE LA LEY ÓRGANICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, 27 FRACCIÓN XX DEL REGLAMENTO INTERIOR DE LA SECRETARÍA GENERAL DE GOBIERNO.
+                            <td style='width: 60%; padding:0px 0px 0px 20px; vertical-align: top;'>
+                                <p style='font-size: 7.5pt; text-align: justify;'>
+                                    CON FUNDAMENTO EN EL ARTÍCULO 29, FRACCIÓN X DE LA LEY ÓRGANICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, 27 FRACCIÓN XX DEL REGLAMENTO INTERIOR DE LA SECRETARÍA GENERAL DE GOBIERNO:
                                 </p>
-                                <p style='font-size: 7pt; text-align: justify;'>
-                                    SE LEGALIZA, PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO, LA FIRMA QUE ANTECEDE CORRESPONDE A LA DIRECTORA DE EDUCACIÓN SUPERIOR:
+                                <p style='font-size: 8pt; text-align: justify;'>
+                                    SE LEGALIZA, PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO, LA FIRMA QUE ANTECEDE CORRESPONDE A LA DIRECTORA DE EDUCACIÓN SUPERIOR:<br><br><br>
                                 </p>
-                                <p style='font-size: 7pt; text-align: center;'>
-                                    {$director['name']}<br>
-                                    _____________________________________________________________
-                                </p>
-                                <p style='font-size: 7pt; text-align: center;'>
-                                    TUXTLA GUTIÉRREZ, CHIAPAS A: _________________________________ 
-                                </p>
-                                <p style='font-size: 7pt; text-align: center;'>
-                                    {$coordinator['genre']} DE ASUNTOS JURÍDICOS DE GOBIERNO
+                                <p style='font-size: 8pt; text-align: center; border-bottom:.5px solid;'> 
+                                    {$director['name']}
                                 </p><br>
-                                <p style='font-size: 7pt; text-align: center;'>
-                                ________________________________________<br>
-                                    {$coordinator['name']}
+                                <p style='font-size: 8pt;'>
+                                    TUXTLA GUTIÉRREZ, CHIAPAS A: &nbsp;&nbsp;&nbsp;___________________________________
+                                </p>
+                                <p style='font-size: 8pt; text-align: center;'>
+                                    <b>{$coordinator['genre']} DE ASUNTOS JURÍDICOS DE GOBIERNO</b>
+                                </p><br>
+                                <p style='font-size: 8pt; text-align: center;'>
+                                ____________________________________________<br>
+                                    <label style='padding-top: 20px;'>{$coordinator['name']}</label>
                                 </p>
                             </td>
                         </tr>

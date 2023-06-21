@@ -321,21 +321,21 @@ class Test extends Activity
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetRow(); 
 		if ($result)
-			$result = $this->Util->EncodeRow($result); 
+			$result = $this->Util()->EncodeRow($result); 
 		return $result;
 	}
 
-	public function addTestHistory($courseId, $studentId, $date, $folio, $act, $auth, $hour, $location, $option, $tesis, $president, $secretary, $vocal, $presidentCedula, $secretaryCedula, $vocalCedula)
+	public function addTestHistory($courseId, $studentId, $date, $folio, $act, $auth, $hour, $location, $option, $tesis, $president, $secretary, $vocal, $presidentCedula, $secretaryCedula, $vocalCedula, $boss)
 	{
-		$sql = "INSERT INTO `examination_records`(`courseId`, `studentId`, `date`, `folioSEP`, `actNumber`, `authNumber`, `hour`, `location`, `testOption`, `tesis`, `president`, `secretary`, `vocal`, `presidentCedula`, `secretaryCedula`, `vocalCedula`) VALUES ('{$courseId}','{$studentId}', '{$date}', '{$folio}', '{$act}', '{$auth}','{$hour}','{$location}','{$option}','{$tesis}','{$president}','{$secretary}','{$vocal}','{$presidentCedula}','{$secretaryCedula}','{$vocalCedula}')";
+		$sql = "INSERT INTO `examination_records`(`courseId`, `studentId`, `date`, `folioSEP`, `actNumber`, `authNumber`, `hour`, `location`, `testOption`, `tesis`, `president`, `secretary`, `vocal`, `presidentCedula`, `secretaryCedula`, `vocalCedula`, `boss`) VALUES ('{$courseId}','{$studentId}', '{$date}', '{$folio}', '{$act}', '{$auth}','{$hour}','{$location}','{$option}','{$tesis}','{$president}','{$secretary}','{$vocal}','{$presidentCedula}','{$secretaryCedula}','{$vocalCedula}', '{$boss}')";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->InsertData();
 		return $result;
 	}
 
-	public function updateTestHistory($courseId, $studentId, $date, $folio, $act, $auth, $hour, $location, $option, $tesis, $president, $secretary, $vocal, $presidentCedula, $secretaryCedula, $vocalCedula)
+	public function updateTestHistory($courseId, $studentId, $date, $folio, $act, $auth, $hour, $location, $option, $tesis, $president, $secretary, $vocal, $presidentCedula, $secretaryCedula, $vocalCedula, $boss)
 	{
-		$sql = "UPDATE `examination_records` SET `date`='{$date}',`folioSEP`='{$folio}',`actNumber`='{$act}',`authNumber`='{$auth}',`hour`='{$hour}',`location`='{$location}',`testOption`='{$option}',`tesis`='{$tesis}',`president`='{$president}',`secretary`='{$secretary}',`vocal`='{$vocal}',`presidentCedula`='{$presidentCedula}',`secretaryCedula`='{$secretaryCedula}',`vocalCedula`='{$vocalCedula}' WHERE courseId = '{$courseId}' AND studentId = '{$studentId}'";
+		$sql = "UPDATE `examination_records` SET `date`='{$date}',`folioSEP`='{$folio}',`actNumber`='{$act}',`authNumber`='{$auth}',`hour`='{$hour}',`location`='{$location}',`testOption`='{$option}',`tesis`='{$tesis}',`president`='{$president}',`secretary`='{$secretary}',`vocal`='{$vocal}',`presidentCedula`='{$presidentCedula}',`secretaryCedula`='{$secretaryCedula}',`vocalCedula`='{$vocalCedula}', boss = '{$boss}' WHERE courseId = '{$courseId}' AND studentId = '{$studentId}'";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->UpdateData();
 		return $result;
