@@ -154,6 +154,7 @@ class Conceptos extends Module
     {
         $sql = "SELECT * FROM conceptos WHERE concepto_id = {$this->conceptoId}";
         $this->Util()->DB()->setQuery($sql);
+        // echo $sql;
         $result = $this->Util()->DB()->GetRow();
         return $result;
     }
@@ -482,13 +483,21 @@ class Conceptos extends Module
         $sql = "SELECT * FROM cobros WHERE pago_id = {$this->pagoId}";
         $this->Util()->DB()->setQuery($sql);
         $cobros = $this->Util()->DB()->GetResult();
+        foreach ($cobros as $key => $value) {
+            if($value['facturado'] == 1){
+                $sql = "SELECT fei.files FROM fn_education_charge_invoice feci INNER JOIN fn_education_invoices fei ON fei.id = feci.invoice_id WHERE feci.charge_id = {$value['id']}";
+                $this->Util()->DBErp()->setQuery($sql);
+                $facturas = $this->Util()->DBErp()->GetSingle();
+                $cobros[$key]['facturas'] = json_decode($facturas, true);
+            }
+        }
         return $cobros;
     }
     
     public function guardar_cobro()
     {
         $sql = "INSERT INTO cobros(pago_id, monto, fecha_pago, facturado, metodo_pago) VALUES({$this->pagoId},{$this->monto}, {$this->fecha_pago},0, {$this->metodo_pago})";
-        echo $sql;
+        // echo $sql;
         $this->Util()->DB()->setQuery($sql);
         $resultado = $this->Util()->DB()->InsertData();
         return $resultado;

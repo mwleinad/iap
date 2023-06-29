@@ -406,7 +406,7 @@ foreach ($students as $item) {
                                 <p style='font-size: 7.5pt; text-align: justify;'>
                                     CON FUNDAMENTO EN EL ARTÍCULO 29, FRACCIÓN X DE LA LEY ÓRGANICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, 27 FRACCIÓN XX DEL REGLAMENTO INTERIOR DE LA SECRETARÍA GENERAL DE GOBIERNO:
                                 </p>
-                                <p style='font-size: 8pt; text-align: justify;'>
+                                <p style='font-size: 7.5pt; text-align: justify;'>
                                     SE LEGALIZA, PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO, LA FIRMA QUE ANTECEDE CORRESPONDE A LA DIRECTORA DE EDUCACIÓN SUPERIOR:<br><br><br>
                                 </p>
                                 <p style='font-size: 8pt; text-align: center; border-bottom:.5px solid;'> 

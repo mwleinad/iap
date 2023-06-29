@@ -114,7 +114,7 @@ foreach ($agrupacion as $year => $months) {
             $nombres .= '<div style="line-height:3px;">' . $pago['concepto_nombre'] . ' ' . $contador[$pago['concepto_id']] . '</div>';
             $fechas .= '<div style="line-height:3px;">' . $pago['fecha_cobro'] . ' - ' . $pago['fecha_limite'] . '</div>';
             $subtotales .= '<div style="line-height:3px;">$' . number_format($pago['subtotal'], 2) . '</div>';
-            $becas .= '<div style="line-height:3px;">'.$pago['beca'].'%</div>';
+            $becas .= '<div style="line-height:3px;">' . $pago['beca'] . '%</div>';
             $totales .= '<div style="line-height:3px;">$' . number_format($pago['total'], 2) . '</div>';
         }
         $body .= '<tr >
@@ -133,9 +133,7 @@ foreach ($agrupacion as $year => $months) {
     }
 }
 //<img style="" src="' . $logo . '" width="150px">
-$html = '
-    
-    <table style="width:100%; border-collapse: collapse; border-spacing: 0px;" cellpadding="5">
+$html = '<table style="width:100%; border-collapse: collapse; border-spacing: 0px;" cellpadding="5">
         <thead>
             <tr>
                 <td colspan="6" style="text-align:center; font-size:40px;">
@@ -144,11 +142,11 @@ $html = '
             </tr>
             <tr>
                 <td colspan="6" style="text-align:center; font-size:40px;">
-                <b>' . mb_strtoupper($alumnoInfo['names']) . ' ' . mb_strtoupper($alumnoInfo['lastNamePaterno']) . ' ' . mb_strtoupper($alumnoInfo['lastNameMaterno']) . '</b>
+                <b>' . mb_strtoupper($alumnoInfo['names'], 'UTF-8') . ' ' . mb_strtoupper($alumnoInfo['lastNamePaterno'], 'UTF-8') . ' ' . mb_strtoupper($alumnoInfo['lastNameMaterno'], 'UTF-8') . '</b>
                 </td>
             </tr>
             <tr>
-                <td colspan="6" style="text-align:center;"><b>"' . mb_strtoupper($cursoInfo['majorName'], 'UTF-8') . " EN " . mb_strtoupper($cursoInfo['name'], 'UTF-8') . '"</b></td>
+                <td colspan="6" style="text-align:center;"><b>"' . mb_strtoupper($cursoInfo['majorName'], 'UTF-8') . " EN " . trim(preg_replace('/[0-9]/', '', mb_strtoupper($cursoInfo['name'], 'UTF-8'))) . '"</b></td>
             </tr> 
         </thead> 
         <tbody>
@@ -166,7 +164,7 @@ $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 
 
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output(DOC_ROOT . "/files/solicitudes/calendario" . $alumno . "_" . $curso . ".pdf", 'I');
+$pdf->Output($alumno . "_" . $curso . ".pdf", 'I');
 // echo "<pre>";
 // print_r($agrupacion);
 // echo "Calendario pagos";

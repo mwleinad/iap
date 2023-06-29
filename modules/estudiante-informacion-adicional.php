@@ -36,7 +36,7 @@
 			unset($cursos[$key]);
 			continue;
 		}
-		
+		$matricula = $student->GetMatricula($curso['courseId']);
 		$course->setCourseId($curso['courseId']);
 		$infoCourse = $course->Info();  
 		$baja = $student->bajaCurso($curso['courseId']);
@@ -51,6 +51,7 @@
 		}
 		$conceptos->setCourseId($curso['courseId']);
 		$pagos = $conceptos->historial_pagos();
+		$cursos[$key]['matricula'] = $matricula;
 		$cursos[$key]["tipoCuatri"] = $infoCourse['tipoCuatri'] == '' ? "Cuatrimestre" : $infoCourse['tipoCuatri'];
 		$cursos[$key]["totalPeriods"] = $infoCourse['totalPeriods'];
 		$cursos[$key]["pagos"] = $pagos;  

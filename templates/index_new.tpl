@@ -87,6 +87,9 @@
         <link rel="stylesheet" href="{$WEB_ROOT}/assets/vcz/vendor/fancybox/dist/jquery.fancybox.min.css">
 		<link rel="shortcut icon" href="{$WEB_ROOT}/images/logos/iconIap.png" />
 		{* End new styles *}
+		{if $User.type ne "student"}
+			<link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+		{/if}
 	</head>
 	<body>
 		<div class="container-scroller">
@@ -189,6 +192,9 @@
 			<script src="{$WEB_ROOT}/assets/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
 			<script src="{$WEB_ROOT}/assets/fullcalendar/app.js" type="text/javascript"></script>
 		{/if}
+		{if $User.type ne "student"}
+			<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+		{/if}
 		<script src="{$WEB_ROOT}/javascript/new/{$page}.js?{$timestamp}" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/pages/scripts/profile.min.js" type="text/javascript"></script>
 		<script src="{$WEB_ROOT}/assets/vcz/js/general.js?v={$timestamp}"></script>
@@ -219,7 +225,7 @@
 					});
 				</script>
 			{/if} *}
-		{/if}
+		{/if} 
 	</body>
 
 </html>

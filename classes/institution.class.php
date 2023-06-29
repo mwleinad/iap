@@ -153,7 +153,7 @@ class Institution extends Main
 	public function Info()
 	{
 		$this->Util()->DB()->setQuery("SELECT * FROM institution WHERE institutionId = '".$this->institutionId."'");
-		$row = $this->Util->EncodeRow($this->Util()->DB()->GetRow());
+		$row = $this->Util()->EncodeRow($this->Util()->DB()->GetRow());
 		return $row;
 	}
 

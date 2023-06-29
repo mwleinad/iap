@@ -93,6 +93,7 @@ include_once(DOC_ROOT . '/classes/calendar.class.php');
 include_once(DOC_ROOT . '/classes/certificates.class.php');
 include_once(DOC_ROOT . '/classes/conceptos.class.php');
 include_once(DOC_ROOT . '/classes/pagination.class.php');
+include_once(DOC_ROOT . '/classes/ssp.class.php');
 $docente = new Docente();
 
 $db = new DB;
@@ -152,7 +153,7 @@ $encuesta= new Encuesta;
 $calendar = new Calendar;
 $certificates = new Certificates;
 $conceptos = new Conceptos;
-$pagination = new Pagination;
+$pagination = new Pagination; 
 
 $smarty = new Smarty;
 

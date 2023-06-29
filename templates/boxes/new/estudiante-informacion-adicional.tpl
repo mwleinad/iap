@@ -33,6 +33,9 @@
                                             type="button" data-toggle="collapse" data-target="#collapse{$curso.courseId}"
                                             aria-expanded="true" aria-controls="collapse{$curso.courseId}">
                                             <h3>{$curso.majorName} - {$curso.name} [{$curso.group}]</h3>
+                                            {if $curso.matricula}
+                                                <h4 class="text-center">Matrícula: {$curso.matricula}</h4>
+                                            {/if}
                                         </button>
                                     </h2>
                                 </div>
@@ -200,18 +203,29 @@
                                                                                     <td colspan="8">
                                                                                         {foreach from=$itemp.cobros item=itemc name=cobros}
                                                                                             <div class="row mb-3">
-                                                                                                <div class="col-md-3">
+                                                                                                <div class="col-md-4">
                                                                                                     <label>
                                                                                                         <b>Monto cobrado
                                                                                                             {$smarty.foreach.cobros.iteration}: </b>
                                                                                                         ${$itemc.monto|number_format:2:".":","}
                                                                                                     </label>
                                                                                                 </div>
-                                                                                                <div class="col-md-3">
+                                                                                                <div class="col-md-4">
                                                                                                     <b>Fecha de pago:</b>{$itemc.fecha_pago}
                                                                                                 </div>
-                                                                                                <div class="col-md-3">
-                                                                                                    <b>Facturado:</b>{($itemc.facturado == 0) ? "No" : "Sí"}
+                                                                                                <div class="col-md-4">
+                                                                                                    {if $itemc.facturado}
+                                                                                                        <a href="{$itemc.facturas['pdf']['urlBlank']}"
+                                                                                                            target="_blank">
+                                                                                                            <i class="fa fa-file-pdf fa-2x"></i>
+                                                                                                        </a>
+                                                                                                        <a href="{$itemc.facturas['xml']['urlBlank']}"
+                                                                                                            target="_blank">
+                                                                                                            <i class="fa fa-file-invoice fa-2x"></i>
+                                                                                                        </a>
+                                                                                                    {else}
+                                                                                                        <b>Facturado:</b> No
+                                                                                                    {/if}
                                                                                                 </div>
                                                                                             </div>
                                                                                         {/foreach}
@@ -244,9 +258,6 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="text-center">
-                                                                {* <pre>
-                                                    {$item.pagos.otros|print_r}
-                                                </pre> *}
                                                                 {foreach from=$curso.pagos.otros item=itemp name=forFechas}
                                                                     {$contador[$itemp.concepto_id] = $contador[$itemp.concepto_id] + 1}
                                                                     <tr>
@@ -284,7 +295,18 @@
                                                                                             <b>Fecha de pago:</b>{$itemc.fecha_pago}
                                                                                         </div>
                                                                                         <div class="col-md-3">
-                                                                                            <b>Facturado:</b>{($itemc.facturado == 0) ? "No" : "Sí"}
+                                                                                            {if $itemc.facturado}
+                                                                                                <a href="{$itemc.facturas['pdf']['urlBlank']}"
+                                                                                                    target="_blank">
+                                                                                                    <i class="fa fa-file-pdf fa-2x"></i>
+                                                                                                </a>
+                                                                                                <a href="{$itemc.facturas['xml']['urlBlank']}"
+                                                                                                    target="_blank">
+                                                                                                    <i class="fa fa-file-invoice fa-2x"></i>
+                                                                                                </a>
+                                                                                            {else}
+                                                                                                <b>Facturado:</b> No
+                                                                                            {/if}
                                                                                         </div>
                                                                                     </div>
                                                                                 {/foreach}

@@ -232,7 +232,8 @@ $pages = array(
 	'reportes-extras',
 	'conceptos',
 	'edit-comment',
-	'datos-fiscales'
+	'datos-fiscales',
+	'solicitudes-pagos'
 );
 
 $blacklist = [];
