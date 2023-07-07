@@ -2771,7 +2771,7 @@ class Student extends User
 	function StudentModulesRepeat($condition = "")
 	{
 		$sql = "SELECT
-					usr.*, s.name AS subjectName, m.name AS majorName, s.icon, c.group, cm.initialDate, cm.finalDate, sm.name AS subjectModuleName, cm.courseModuleId, c.courseId, sm.subjectModuleId
+					usr.*, s.name AS subjectName, m.name AS majorName, s.icon, c.group, cm.initialDate, cm.finalDate, sm.name AS subjectModuleName, cm.courseModuleId, c.courseId, sm.subjectModuleId, sm.semesterId
 				FROM
 					user_subject_repeat usr
 				LEFT JOIN course c 

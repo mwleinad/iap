@@ -17,7 +17,7 @@
                             <select class="form-control" id="concepto" name="concepto">
                                 <option value="">--Seleccione un concepto--</option>
                                 {foreach from=$conceptos.otros item=item}
-                                    <option value="{$item.concepto_id}">{$item.concepto_nombre}</option>
+                                    <option value="{$item.concepto_course_id}">{$item.concepto_nombre}</option>
                                 {/foreach}
                             </select>
                         </div>

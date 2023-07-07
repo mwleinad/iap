@@ -353,7 +353,9 @@
                                                             <th>Fecha Límite</th>
                                                             <th>Beca</th>
                                                             <th>Estatus</th>
-                                                            <th></th>
+                                                            {if $alumno.referenciaBancaria != ""}
+                                                                <th></th>
+                                                            {/if}
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-center">
@@ -379,25 +381,27 @@
                                                                     <td>{$itemp.fecha_limite}</td>
                                                                     <td>{$itemp.beca}%</td>
                                                                     <td>{$itemp.status_btn}</td>
-                                                                    <td>
-                                                                        {if $itemp.status != 2}
-                                                                            <div class="btn-group" role="group">
-                                                                                <button type="button" class="btn btn-primary dropdown-toggle"
-                                                                                    data-toggle="dropdown" aria-expanded="false">
-                                                                                    Realizar pago
-                                                                                </button>
-                                                                                <div class="dropdown-menu">
-                                                                                    <a class="dropdown-item"
-                                                                                        href="{$WEB_ROOT}/pdf/referencia.php?curso={$item.courseId}&concepto={$itemp.pago_id}&num={$contador[$itemp.concepto_id]}"
-                                                                                        target="_blank">En ventanilla</a>
-                                                                                    <a class="dropdown-item"
-                                                                                        href="{$WEB_ROOT}/pdf/transferencia.php?curso={$item.courseId}&concepto={$itemp.pago_id}&num={$contador[$itemp.concepto_id]}"
-                                                                                        target="_blank">Por transferencia</a>
-                                                                                    <a class="dropdown-item" href="#">Pago en línea</a>
+                                                                    {if $alumno.referenciaBancaria != ""}
+                                                                        <td>
+                                                                            {if $itemp.status != 2}
+                                                                                <div class="btn-group" role="group">
+                                                                                    <button type="button" class="btn btn-primary dropdown-toggle"
+                                                                                        data-toggle="dropdown" aria-expanded="false">
+                                                                                        Realizar pago
+                                                                                    </button>
+                                                                                    <div class="dropdown-menu">
+                                                                                        <a class="dropdown-item"
+                                                                                            href="{$WEB_ROOT}/pdf/referencia.php?curso={$item.courseId}&concepto={$itemp.pago_id}&num={$contador[$itemp.concepto_id]}"
+                                                                                            target="_blank">En ventanilla</a>
+                                                                                        <a class="dropdown-item"
+                                                                                            href="{$WEB_ROOT}/pdf/transferencia.php?curso={$item.courseId}&concepto={$itemp.pago_id}&num={$contador[$itemp.concepto_id]}"
+                                                                                            target="_blank">Por transferencia</a>
+                                                                                        <a class="dropdown-item" href="#">Pago en línea</a>
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
-                                                                        {/if}
-                                                                    </td>
+                                                                            {/if}
+                                                                        </td>
+                                                                    {/if}
                                                                 </tr>
                                                                 {if count($itemp.cobros) > 0}
                                                                     <tr class="d-none" id="cobros{$itemp.pago_id}">
@@ -453,8 +457,10 @@
                                                         <th>Subtotal</th>
                                                         <th>Total a pagar</th>
                                                         <th>Monto pendiente</th>
-                                                        <th>Estatus</th>
-                                                        <th>Realizar pago</th>
+                                                        <th>Estatus</th> 
+                                                        {if $alumno.referenciaBancaria != ""}
+                                                            <th></th>
+                                                        {/if}
                                                     </tr>
                                                 </thead>
                                                 <tbody class="text-center">
@@ -476,26 +482,28 @@
                                                             <td>${$itemp.subtotal|number_format:2:".":","}</td>
                                                             <td>${$itemp.total|number_format:2:".":","}</td>
                                                             <td>${$itemp.total - $itemp.monto|number_format:2:".":","}</td>
-                                                            <td>{$itemp.status_btn}</td>
-                                                            <td>
-                                                                {if $itemp.status != 2}
-                                                                    <div class="btn-group" role="group">
-                                                                        <button type="button" class="btn btn-primary dropdown-toggle"
-                                                                            data-toggle="dropdown" aria-expanded="false">
-                                                                            Realizar pago
-                                                                        </button>
-                                                                        <div class="dropdown-menu">
-                                                                            <a class="dropdown-item"
-                                                                                href="{$WEB_ROOT}/pdf/referencia.php?curso={$item.courseId}&concepto={$itemp.pago_id}&num={$contador[$itemp.concepto_id]}"
-                                                                                target="_blank">En ventanilla</a>
-                                                                            <a class="dropdown-item"
-                                                                                href="{$WEB_ROOT}/pdf/transferencia.php?curso={$item.courseId}&concepto={$itemp.pago_id}&num={$contador[$itemp.concepto_id]}"
-                                                                                target="_blank">Por transferencia</a>
-                                                                            <a class="dropdown-item" href="#">Pago en línea</a>
+                                                            <td>{$itemp.status_btn} {($itemp.archivo != "" && $itemp.status == 2) ? "<a class='badge badge-info' target='_blank' href='{$WEB_ROOT}/files/solicitudes/{$itemp.archivo}'>Ver documento <i class='fa fa-file-pdf'></i></a>" : ""}</td> 
+                                                            {if $alumno.referenciaBancaria != ""}
+                                                                <td>
+                                                                    {if $itemp.status != 2}
+                                                                        <div class="btn-group" role="group">
+                                                                            <button type="button" class="btn btn-primary dropdown-toggle"
+                                                                                data-toggle="dropdown" aria-expanded="false">
+                                                                                Realizar pago
+                                                                            </button>
+                                                                            <div class="dropdown-menu">
+                                                                                <a class="dropdown-item"
+                                                                                    href="{$WEB_ROOT}/pdf/referencia.php?curso={$item.courseId}&concepto={$itemp.pago_id}&num={$contador[$itemp.concepto_id]}"
+                                                                                    target="_blank">En ventanilla</a>
+                                                                                <a class="dropdown-item"
+                                                                                    href="{$WEB_ROOT}/pdf/transferencia.php?curso={$item.courseId}&concepto={$itemp.pago_id}&num={$contador[$itemp.concepto_id]}"
+                                                                                    target="_blank">Por transferencia</a>
+                                                                                <a class="dropdown-item" href="#">Pago en línea</a>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                {/if}
-                                                            </td>
+                                                                    {/if}
+                                                                </td>
+                                                            {/if}
                                                         </tr>
                                                         {if count($itemp.cobros) > 0}
                                                             <tr class="d-none" id="cobros{$itemp.pago_id}">

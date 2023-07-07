@@ -15,14 +15,35 @@ $("#datatable").DataTable({
     },
     columns: [
         { data: "pago_id" },
-        { data: "curricula" },
+        { data: "fecha" },
+        { data: "tipo" },
+        { data: "nombre" },
         { data: "grupo" },
         { data: "alumno" },
         { data: "concepto" },
-        { data: "estatus" },
         {
-            data: "btn",
-            "orderable": false
+            data: "estatus",
+            // "orderable": false
+        },
+        {
+            data: "acciones",
+            "orderable": false,
         }
-    ]
+    ],
+    columnDefs: [
+        {
+            targets: 3, className: 'compact'
+        },
+        {
+            targets: 5, className: 'compact'
+        },
+        {
+            targets: 6, className: 'compact'
+        },
+        {
+            targets: 1,
+            render: DataTable.render.datetime('YYYY-MM-DD HH:mm:ss', 'D [de] MMMM YYYY', 'es')
+        }
+    ],
+    order: [[7, 'desc'], [1, 'desc']]
 });

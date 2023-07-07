@@ -127,6 +127,10 @@ class Conceptos extends Module
         $this->pagoId = $pagoId;
     }
 
+    public function getPagoId() {
+        return $this->pagoId;
+    }
+
     public function setDescuento($descuento)
     {
         $this->descuento = $descuento;

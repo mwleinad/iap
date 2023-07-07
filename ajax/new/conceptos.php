@@ -522,7 +522,7 @@ switch ($opcion) {
         $errors = [];
         $curso = intval($_POST['curso']);
         $alumno = intval($_POST['alumno']);
-        $concepto = intval($_POST['concepto']);
+        $concepto_course_id = intval($_POST['concepto']);
         $subtotal = floatval($_POST['costo']);
         $descuento = intval($_POST['descuento']);
         $beca = intval($_POST['beca']);
@@ -543,9 +543,11 @@ switch ($opcion) {
             ]);
             exit;
         }
+        $conceptos->setConceptoCurso($concepto_course_id);
+        $infoConceptoCurso = $conceptos->concepto_curso();
         $conceptos->setAlumno($alumno);
         $conceptos->setCourseId($curso);
-        $conceptos->setConcepto($concepto);
+        $conceptos->setConcepto($infoConceptoCurso['concepto_id']);
         $conceptos->setCosto($subtotal);
         $conceptos->setTotal($total);
         $conceptos->setDescuento($descuento);
@@ -569,7 +571,7 @@ switch ($opcion) {
             'modal'     => true,
             'html'      => $smarty->fetch(DOC_ROOT . "/templates/new/history-calendar.tpl"),
             'growl'     => true,
-            'message'   => 'Pago actualizado'
+            'message'   => 'Pago creado'
         ]);
         break;
     case 'editar-pago':

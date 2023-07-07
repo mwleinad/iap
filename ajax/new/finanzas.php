@@ -154,9 +154,9 @@ switch ($_POST["opcion"]) {
         $invoice->setDatoFiscalId($_POST['dato_fiscal']);
         $datos_fiscales = $invoice->getDatoFiscal();
         $regimenes = $invoice->tax_regime();
-        $estados = $util->estados();  
+        $estados = $util->estados();
         $municipios = !empty($datos_fiscales['cve_ent']) ? $util->municipios($datos_fiscales['cve_ent']) : [];
-        $localidades= !empty($datos_fiscales['cve_mun']) ? $util->localidades($datos_fiscales['cve_ent'], $datos_fiscales['cve_mun']) : [];
+        $localidades = !empty($datos_fiscales['cve_mun']) ? $util->localidades($datos_fiscales['cve_ent'], $datos_fiscales['cve_mun']) : [];
         $smarty->assign("regimenes", $regimenes);
         $smarty->assign("estados", $estados);
         $smarty->assign("municipios", $municipios);
@@ -236,5 +236,53 @@ switch ($_POST["opcion"]) {
             'message'   => 'Se ha eliminado el dato fiscal',
             'reload'    => true
         ]);
+        break;
+    case 'subir-archivo':
+        $pago = $_POST['pago'];
+        $smarty->assign('pago', $pago);
+        $smarty->assign('opcion', 'guardar-archivo');
+        echo json_encode([
+            'modal' => true,
+            'html'  => $smarty->fetch(DOC_ROOT . "/templates/forms/new/solicitud-pago.tpl")
+        ]);
+        break;
+    case 'guardar-archivo':
+        $ruta = DOC_ROOT . "/files/solicitudes/";
+        $response = $util->Util()->validarSubida(['types' => ['application/pdf'], 'size' => 5242880], $ruta);
+        if (!$response['estatus']) {
+            $errors["archivo"] = $response['mensaje'];
+        }
+
+        if (!empty($errors)) {
+            header('HTTP/1.1 422 Unprocessable Entity');
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode([
+                'errors'    => $errors
+            ]);
+            exit;
+        }
+        $pago = $_POST['pago'];
+        $payments->setArchivo($response['archivo']);
+        $payments->setPagoId($pago);
+        $responsePayment = $payments->actualizar_archivo();
+        if ($responsePayment > 0) {
+            echo json_encode([
+                'growl'     => true,
+                'message'   => 'Archivo subido',
+                'type'      => 'success',
+                'dtreload'  => '#datatable',
+                'modal_close' => true
+            ]);
+        } else {
+            $archivo = $ruta . $response['archivo'];
+            if (file_exists($archivo)) {
+                unlink($archivo);
+            }
+            echo json_encode([
+                'growl'     => true,
+                'type'      => 'danger',
+                'message'   => 'No se pudo subir el archivo, intente de nuevo. ',
+            ]);
+        }
         break;
 }

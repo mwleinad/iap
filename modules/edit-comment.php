@@ -10,7 +10,7 @@ if ($_POST) {
         $errors['reply'] = "El campo comentario es requerido";
     }
     if (!empty($_FILES['path']['name'])) {
-        print_r($_FILES);
+        // print_r($_FILES);
         $response = $util->Util()->validarSubida(['types' => ['image/jpeg'], 'size' => 5242880]);
         if (!$response['estatus']) {
             $errors["path"] = $response['mensaje'];

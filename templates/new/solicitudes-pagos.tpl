@@ -7,7 +7,9 @@
             <thead>
                 <tr>
                     <th>Pago ID</th>
-                    <th>Currícula</th>
+                    <th>Fecha</th>
+                    <th>Tipo</th>
+                    <th>Nombre</th>
                     <th>Grupo</th>
                     <th>Alumno</th>
                     <th>Concepto</th>
@@ -19,3 +21,9 @@
         </table>
     </div>
 </div>
+<style>
+    .compact{
+        max-width: 200px;
+        white-space: normal !important;
+    }
+</style>

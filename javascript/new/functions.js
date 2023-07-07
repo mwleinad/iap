@@ -115,6 +115,7 @@ function actionAjax(form) {
             console.log(response)
             actionPostAjax(form, response);
         } catch (error) {
+            console.error(error);
             growl("Ocurrió un error, intente de nuevo.", "danger");
         }
         setTimeout(() => {
@@ -170,6 +171,9 @@ function actionPostAjax(form, response) {
         setTimeout(() => {
             window.location.href = response.location;
         }, duracion);
+    }
+    if (response.dtreload) {
+        $(response.dtreload).DataTable().ajax.reload(); 
     }
     if (response.reload) {
         var duracion = response.duracion ? response.duracion : 2000;

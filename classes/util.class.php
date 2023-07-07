@@ -1475,22 +1475,22 @@ class Util extends ErrorLms
 	/**
 	 * Valida subida de archivo desde formulario
 	 */
-	public function validarSubida($validaciones = [])
+	public function validarSubida($validaciones = [], $ruta = NULL)
 	{
-		$response = ["estatus"=>false, "validacion" => false];
-		foreach ($_FILES as $key => $archivo) { 
+		$response = ["estatus" => false, "validacion" => false];
+		foreach ($_FILES as $key => $archivo) {
 			// print_r($archivo);
 			switch ($archivo['error']) {  //Checamos que no exista ningún problema con la subida de archivo
-				case UPLOAD_ERR_INI_SIZE: 
+				case UPLOAD_ERR_INI_SIZE:
 					$response['mensaje'] = "Error, el archivo excede el tamaño máximo permitido por el sistema.";
 					break;
-				case UPLOAD_ERR_FORM_SIZE: 
+				case UPLOAD_ERR_FORM_SIZE:
 					$response['mensaje'] = "Error, el archivo excede el tamaño máximo permitido por el formulario.";
 					break;
-				case UPLOAD_ERR_PARTIAL: 
+				case UPLOAD_ERR_PARTIAL:
 					$response['mensaje'] = "Error, el archivo fue subido parcialmente.";
 					break;
-				case UPLOAD_ERR_NO_FILE: 
+				case UPLOAD_ERR_NO_FILE:
 					$response['mensaje'] = "Error, falta seleccionar el archivo.";
 					break;
 				case UPLOAD_ERR_NO_TMP_DIR:
@@ -1500,19 +1500,19 @@ class Util extends ErrorLms
 					$response['mensaje'] = "Error, hubo un problema con los permisos del archivo.";
 					break;
 				case UPLOAD_ERR_EXTENSION:
-					$response['mensaje'] = "Error, hubo un problema una extensión del sistema que paró la subida del archivo."; 
+					$response['mensaje'] = "Error, hubo un problema una extensión del sistema que paró la subida del archivo.";
 					break;
 				default:
 					// print_r($validaciones);
 					foreach ($validaciones as $keyv => $value) {
 						switch ($keyv) { //Validamos que no exista ningún error con la validación de archivos después de la subida.
 							case "size": //Validamos el máximo tamaño permitido
-								$maxValue = round($value/1048576);
-								if($archivo['size'] > $value){ 
+								$maxValue = round($value / 1048576);
+								if ($archivo['size'] > $value) {
 									$response['mensaje'] = "Error, el tamaño máximo del archivo debe ser de $maxValue MB";
 									$response['validacion'] = true; //Existe error en las validaciones
 								}
-								break;  
+								break;
 							case 'types':
 								// print_r($value);
 								if (!in_array($archivo['type'], $value)) {
@@ -1521,9 +1521,23 @@ class Util extends ErrorLms
 								}
 								break;
 						}
-					} 
+					}
 					if (!$response['validacion']) {
-						$response['estatus'] = true;
+						if (!is_null($ruta)) {
+							$aux = explode(".", $archivo["name"]);
+							$extension = end($aux);
+							$temporal =  $archivo['tmp_name'];
+							$nombre = bin2hex(random_bytes(8));
+							$documento =  $nombre . "." . $extension; 
+							if (!move_uploaded_file($temporal, $ruta. $documento)){ 
+								$response['mensaje'] = "Hubo un problema con la subida del archivo, intente de nuevo.";
+							}else{
+								$response['estatus'] = true;
+								$response['archivo'] = $documento;
+							}
+						}else{
+							$response['estatus'] = true;
+						}
 					}
 					break;
 			}
