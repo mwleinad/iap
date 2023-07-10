@@ -20,9 +20,11 @@ $conceptos->setPagoId($concepto);
 $pagoInfo = $conceptos->pago();
 $conceptos->setConcepto($pagoInfo['concepto_id']);
 $conceptoInfo = $conceptos->getConcepto();
-$nombreConcepto =  $conceptoInfo['cobros'] > 1 ? $conceptoInfo['nombre'] . " " . $indice : $$conceptoInfo['nombre'];
+$nombreConcepto =  $conceptoInfo['cobros'] > 1 ? $conceptoInfo['nombre'] . " " . $indice : $conceptoInfo['nombre'];
 // echo "<pre>";
-// print_r($alumno);
+// print_r($pagoInfo);
+// print_r($conceptoInfo);
+// echo "nombre: $nombreConcepto";
 // exit;
 //Sección inicial del PDF
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);

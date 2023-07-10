@@ -20,10 +20,9 @@
     $course->setCourseId($_GET['id']);
     $info = $course->Info();
     $group->setCourseId($_GET['id']);
-    $students = $group->DefaultGroup();
-    
+    $students = $group->AllGroup();
+    // echo "<pre>";
+    // print_r($students);
     $smarty->assign('info', $info);
     $smarty->assign('students', $students);
-    $smarty->assign('mnuMain', 'cobranza');
-	$smarty->assign('mnuSubmain', 'calendario');
 ?>

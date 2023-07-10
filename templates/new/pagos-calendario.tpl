@@ -20,18 +20,6 @@
         <i class="fas fa-history"></i> Historial de Pagos
     </div>
     <div class="card-body">
-        {if $msj == 'si'}
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="alert alert-info alert-dismissible fade show" role="alert">
-                        Los datos se guardaron correctamente.
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        {/if}
         <div class="row">
             <div class="col-md-12">
                 <h4><b>Curricula:</b> [{$info.majorName}] {$info.name}</h4>
@@ -50,6 +38,7 @@
                                 <th>Apellido Materno</th>
                                 <th>Nombre(s)</th>
                                 <th>No. Control</th>
+                                <th>Estatus</th>
                                 <th>Historial de Pagos</th>
                             </tr>
                         </thead>
@@ -60,6 +49,7 @@
                                     <td>{$item['lastNameMaterno']|upper}</td>
                                     <td>{$item['names']|upper}</td>
                                     <td class="text-center">{$item['controlNumber']}</td>
+                                    <td class="text-center">{($item['status'] == "inactivo") ? "<span class='badge badge-danger'>Inactivo</span>" : "<span class='badge badge-success'>Activo</span>"}</td>
                                     <td class="text-center">
                                         <a href="{$WEB_ROOT}/graybox.php?page=history-calendar&id={$item['alumnoId']}&course={$info.courseId}" title="Historial de Pagos" data-target="#ajax" data-toggle="modal" class="btn btn-info btn-sm">
                                             <i class="fas fa-money-bill-wave"></i>

@@ -20,7 +20,7 @@ $conceptos->setPagoId($concepto);
 $pagoInfo = $conceptos->pago();
 $conceptos->setConcepto($pagoInfo['concepto_id']);
 $conceptoInfo = $conceptos->getConcepto();
-$nombreConcepto =  $conceptoInfo['cobros'] > 1 ? $conceptoInfo['nombre'] . " " . $indice : $$conceptoInfo['nombre'];
+$nombreConcepto =  $conceptoInfo['cobros'] > 1 ? $conceptoInfo['nombre'] . " " . $indice : $conceptoInfo['nombre'];
 // echo "<pre>";
 // print_r($alumno);
 // exit;
