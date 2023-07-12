@@ -687,7 +687,6 @@ switch ($opcion) {
         $conceptos->setPagoId($pagoId);
         $infoPago = $conceptos->pago();
         $montoActual = $conceptos->monto();
-        $metodosPago = intval($_POST['metodo_pago']);
         $resto = $infoPago['total'] - $montoActual;
         if ($monto == 0) {
             $errors['monto'] = "Falta indicar el monto del pago";
@@ -698,9 +697,6 @@ switch ($opcion) {
         if ($fecha_pago == '') {
             $errors['fecha_pago'] = "El campo fecha de pago es requerido";
         }
-        if(empty($metodosPago)){
-            $errors['metodo_pago'] = "El campo método de pago es requerido.";
-        }
         if (!empty($errors)) {
             header('HTTP/1.1 422 Unprocessable Entity');
             header('Content-Type: application/json; charset=UTF-8');
@@ -709,10 +705,24 @@ switch ($opcion) {
             ]);
             exit;
         }
-        
+        $totaltemporal = $monto + $montoActual;
+        if($infoPago['cobros'] == 0 && $monto == $infoPago['total']){ //Pago único
+            $descuento = $infoPago['subtotal'] - $infoPago['total'];
+            $subtotal = $infoPago['subtotal']; 
+        }elseif($totaltemporal != $infoPago['total']){ //Si es un abono
+            $subtotal = $monto;
+            $descuento = 0;  
+        }else{ //Es el último abono
+            $descuento = $infoPago['subtotal'] - $infoPago['total'];
+            $subtotal = $infoPago['subtotal'] - $montoActual;
+        }
+
+        $conceptos->setCosto($subtotal); 
+        $conceptos->setDescuento($descuento);
+
         $conceptos->setMonto($monto);
         $conceptos->setFechaPago($fecha_pago);
-        $conceptos->setMetodoPago($metodosPago);
+        // $conceptos->setMetodoPago($metodosPago);
         $conceptos->guardar_cobro(); 
         $montoTotalCobrado = $conceptos->monto(); 
         

@@ -74,14 +74,12 @@ class Group extends Module
 	}
 
 	public function setCourseModuleId($value)
-	{
-		$this->Util()->ValidateInteger($value, 999, 1);
+	{ 
 		$this->coursemoduleId = $value;
 	}
 
 	public function setTeamNumber($value)
 	{
-		$this->Util()->ValidateInteger($value, 999, 1);
 		$this->teamNumber = $value;
 	}
 
@@ -797,18 +795,14 @@ class Group extends Module
 				$this->Util()->DB()->setQuery($sqlca);
 				$score = $this->Util()->DB()->GetSingle();
 
-				$result[$key]{
-				"score"}[] = $score;
+				$result[$key]["score"][] = $score;
 				$realScore = $score * $activity["score"] / 100;
-				$result[$key]{
-				"realScore"}[] = $realScore;
-				$result[$key]{
-				"addepUp"} += $realScore;
+				$result[$key]["realScore"][] = $realScore;
+				$result[$key]["addepUp"] += $realScore;
 			}
 
 			if ($infoCc["calificacion"] == null or $infoCc["calificacion"] == 0) {
-				$at = $result[$key]{
-				"addepUp"} / 10;
+				$at = $result[$key]["addepUp"] / 10;
 				if ($this->tipoMajor == "MAESTRIA" and $at < 7)
 					$at = floor($at);
 				else if ($this->tipoMajor == "DOCTORADO" and $at < 8)
@@ -907,9 +901,10 @@ class Group extends Module
 		$teamNumber = $this->GetTeamNumber();
 		foreach ($team as $member) {
 			$sql = "INSERT INTO team(userId, courseModuleId, teamNumber)
-					VALUES ('" . utf8_decode($member) . "', '" . utf8_decode($this->coursemoduleId) . "', '" . $teamNumber . "')";
-			$this->Util()->DB()->setQuery($sql);
-			$result = $this->Util()->DB()->InsertData();
+					VALUES ('" . utf8_decode($member) . "', '" . $this->coursemoduleId . "', '" . $teamNumber . "')";
+			echo $sql;
+			// $this->Util()->DB()->setQuery($sql);
+			// $result = $this->Util()->DB()->InsertData();
 		}
 		$this->Util()->setError(90000, 'complete', "Se ha creado un nuevo equipo");
 		$this->Util()->PrintErrors();

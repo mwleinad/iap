@@ -22,6 +22,10 @@
         </div>
         <div class="row">
             {for $period = 1 to $info.totalPeriods}
+                {$subtotalconcentrado = 0}
+                {$descuentoconcentrado = 0}
+                {$totalconcentrado = 0}
+                {$pendienteconcentrado = 0}
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header bg-dark text-white">
@@ -63,6 +67,12 @@
                                     <tbody class="text-center">
                                         {foreach from=$pagos.periodicos item=item name=forFechas}
                                             {if $item.periodo == $period}
+                                                {$descuento = $item.subtotal * ($item.beca / 100)}
+                                                {$pendiente = $item.total - $item.monto}
+                                                {$subtotalconcentrado = $subtotalconcentrado + $item.subtotal}
+                                                {$descuentoconcentrado = $descuentoconcentrado + $descuento}
+                                                {$totalconcentrado = $totalconcentrado + $item.total}
+                                                {$pendienteconcentrado = $pendienteconcentrado + $pendiente}
                                                 {$contador[$item.concepto_id] = $contador[$item.concepto_id] + 1}
                                                 <tr {($item.fecha_limite < date('Y-m-d') && $item.status != 2) ? 'class="alert alert-danger" ' : ""}>
                                                     <td>
@@ -75,9 +85,9 @@
                                                     </td>
                                                     <td>{$item.concepto_nombre} {$contador[$item.concepto_id]}</td>
                                                     <td>${$item.subtotal|number_format:2:".":","}</td>
-                                                    <td>${$item.subtotal * ($item.beca / 100)|number_format:2:".":","}</td>
+                                                    <td>${$descuento|number_format:2:".":","}</td>
                                                     <td>${$item.total|number_format:2:".":","}</td>
-                                                    <td>${$item.total - $item.monto|number_format:2:".":","}</td>
+                                                    <td>${$pendiente|number_format:2:".":","}</td>
                                                     <td>{$item.fecha_cobro}</td>
                                                     <td>{$item.fecha_limite}</td>
                                                     <td>{($item.descuento) ? "Sí" : "No"}</td>
@@ -128,6 +138,14 @@
                                             {/if}
                                         {/foreach}
                                     </tbody>
+                                    <tfoot class="text-center">
+                                        <td colspan="2"></td>
+                                        <td>${$subtotalconcentrado|number_format:2:'.':','}</td>
+                                        <td>${$descuentoconcentrado|number_format:2:'.':','}</td>
+                                        <td>${$totalconcentrado|number_format:2:'.':','}</td>
+                                        <td>${$pendienteconcentrado|number_format:2:'.':','}</td>
+                                        <td colspan="6"></td>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -154,7 +172,7 @@
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody class="text-center">
+                                <tbody class="text-center"> 
                                     {foreach from=$pagos.otros item=item}
                                         <tr>
                                             <td>

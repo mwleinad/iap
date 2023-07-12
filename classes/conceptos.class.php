@@ -12,8 +12,8 @@ class Conceptos extends Module
     private $cobros;
     private $conceptoId;
     private $fecha_cobro;
-    private $fecha_limite; 
-    private $fecha_pago; 
+    private $fecha_limite;
+    private $fecha_pago;
     private $conceptoSubject;
     private $conceptoCurso;
     private $alumno;
@@ -22,9 +22,8 @@ class Conceptos extends Module
     private $pagoId;
     private $descuento;
     private $status;
-    private $total; 
+    private $total;
     private $monto;
-    private $metodo_pago;
     private $fecha_eliminacion;
 
     public function setNombre($nombre)
@@ -90,12 +89,12 @@ class Conceptos extends Module
     public function setFechaLimite($fecha_limite)
     {
         $this->fecha_limite = $fecha_limite;
-    } 
+    }
 
     public function setFechaPago($fecha_pago)
     {
         $this->fecha_pago = $fecha_pago;
-    } 
+    }
 
     public function setConceptoCurso($conceptoCurso)
     {
@@ -127,7 +126,8 @@ class Conceptos extends Module
         $this->pagoId = $pagoId;
     }
 
-    public function getPagoId() {
+    public function getPagoId()
+    {
         return $this->pagoId;
     }
 
@@ -145,12 +145,9 @@ class Conceptos extends Module
     {
         $this->monto = $monto;
     }
-    
-    function setMetodoPago($metodoPago) {
-        $this->metodo_pago = $metodoPago;
-    }
 
-    function setFechaEliminacion($fecha_eliminacion) {
+    function setFechaEliminacion($fecha_eliminacion)
+    {
         $this->fecha_eliminacion = $fecha_eliminacion;
     }
 
@@ -351,7 +348,8 @@ class Conceptos extends Module
         return $resultado;
     }
 
-    public function eliminar_concepto_curso() {
+    public function eliminar_concepto_curso()
+    {
         $sql = "UPDATE conceptos_course SET deleted_at = {$this->fecha_eliminacion} WHERE concepto_course_id = {$this->conceptoCurso}";
         // echo $sql;
         $this->Util()->DB()->setQuery($sql);
@@ -376,7 +374,7 @@ class Conceptos extends Module
 
         $clasificados = [];
         foreach ($resultado as $item) {
-            $this->pagoId = $item['pago_id']; 
+            $this->pagoId = $item['pago_id'];
             $item['cobros'] = $this->cobros();
             $item['monto'] = $this->monto();
             if ($item['periodo'] == 0) {
@@ -404,8 +402,8 @@ class Conceptos extends Module
                 $this->total = $total;
                 $this->costo = $item['subtotal'];
                 $this->fecha_cobro = "'{$item['fecha_cobro']}'";
-                $this->fecha_limite = "'{$item['fecha_limite']}'"; 
-                $this->descuento = $item['descuento']; 
+                $this->fecha_limite = "'{$item['fecha_limite']}'";
+                $this->descuento = $item['descuento'];
                 $this->tolerancia = intval($item['tolerancia']);
                 $this->status = $item['status'];
                 $this->periodo = $item['periodo'];
@@ -425,18 +423,19 @@ class Conceptos extends Module
         $this->Util()->DB()->setQuery($sql);
         $resultado = $this->Util()->DB()->GetRow();
         return $resultado;
-    }  
+    }
 
     //Obtiene todos los pagos relacionados al concepto del curso
-    public function pagos_curso_concepto(){
+    public function pagos_curso_concepto()
+    {
         $sql = "SELECT *, (SELECT COUNT(*) FROM cobros WHERE pago_id = pagos.pago_id) as cobros FROM pagos WHERE concepto_course_id = {$this->conceptoCurso}";
         $this->Util()->DB()->setQuery($sql);
         $resultado = $this->Util()->DB()->GetResult();
         return $resultado;
     }
 
-    function eliminar_curso_concepto() {
-        
+    function eliminar_curso_concepto()
+    {
     }
 
     public function guardar_pago()
@@ -446,7 +445,7 @@ class Conceptos extends Module
         $this->Util()->DB()->setQuery($sql);
         $pago = $this->Util()->DB()->InsertData();
 
-        $sql = "INSERT INTO pagos_historial(`pago_id`, `user_id`, `fecha_cobro`, `fecha_limite`, `total`, `iva`, `subtotal`, `status`, `descuento`, `beca`, `periodo`) VALUES({$pago},{$this->getUserId()}, {$this->fecha_cobro},{$this->fecha_limite}, {$this->costo}, 0,{$this->total}, 1 ,{$this->descuento}, {$this->beca},{$this->periodo}) "; 
+        $sql = "INSERT INTO pagos_historial(`pago_id`, `user_id`, `fecha_cobro`, `fecha_limite`, `total`, `iva`, `subtotal`, `status`, `descuento`, `beca`, `periodo`) VALUES({$pago},{$this->getUserId()}, {$this->fecha_cobro},{$this->fecha_limite}, {$this->costo}, 0,{$this->total}, 1 ,{$this->descuento}, {$this->beca},{$this->periodo}) ";
         // echo $sql;
         $this->Util()->DB()->setQuery($sql);
         $this->Util()->DB()->InsertData();
@@ -458,7 +457,7 @@ class Conceptos extends Module
         // echo $sql;
         $this->Util()->DB()->setQuery($sql);
         $actualizado = $this->Util()->DB()->UpdateData();
-        if($actualizado){ 
+        if ($actualizado) {
             $sql = "INSERT INTO pagos_historial(`pago_id`, `user_id`, `fecha_cobro`, `fecha_limite`, `total`, `iva`, `subtotal`, `status`, `descuento`, `beca`, `tolerancia`, `periodo`) VALUES({$this->pagoId},{$this->getUserId()}, {$this->fecha_cobro},{$this->fecha_limite}, {$this->costo}, 0,{$this->total}, {$this->status},{$this->descuento}, {$this->beca}, '{$this->tolerancia}',{$this->periodo}) ";
             // echo $sql;
             $this->Util()->DB()->setQuery($sql);
@@ -466,7 +465,8 @@ class Conceptos extends Module
         }
     }
 
-    public function eliminar_pago() {
+    public function eliminar_pago()
+    {
         $sql = "UPDATE pagos SET deleted_at = {$this->fecha_eliminacion} WHERE pago_id = {$this->pagoId}";
         $this->Util()->DB()->setQuery($sql);
         $resultado = $this->Util()->DB()->UpdateData();
@@ -488,7 +488,7 @@ class Conceptos extends Module
         $this->Util()->DB()->setQuery($sql);
         $cobros = $this->Util()->DB()->GetResult();
         foreach ($cobros as $key => $value) {
-            if($value['facturado'] == 1){
+            if ($value['facturado'] == 1) {
                 $sql = "SELECT fei.files FROM fn_education_charge_invoice feci INNER JOIN fn_education_invoices fei ON fei.id = feci.invoice_id WHERE feci.charge_id = {$value['id']}";
                 $this->Util()->DBErp()->setQuery($sql);
                 $facturas = $this->Util()->DBErp()->GetSingle();
@@ -497,10 +497,10 @@ class Conceptos extends Module
         }
         return $cobros;
     }
-    
+
     public function guardar_cobro()
     {
-        $sql = "INSERT INTO cobros(pago_id, monto, fecha_pago, facturado, metodo_pago) VALUES({$this->pagoId},{$this->monto}, {$this->fecha_pago},0, {$this->metodo_pago})";
+        $sql = "INSERT INTO cobros(pago_id, monto, fecha_pago, facturado, subtotal, descuento) VALUES({$this->pagoId},{$this->monto}, {$this->fecha_pago},0, {$this->costo}, {$this->descuento})";
         // echo $sql;
         $this->Util()->DB()->setQuery($sql);
         $resultado = $this->Util()->DB()->InsertData();
