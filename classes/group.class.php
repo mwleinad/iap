@@ -902,8 +902,8 @@ class Group extends Module
 		foreach ($team as $member) {
 			$sql = "INSERT INTO team(userId, courseModuleId, teamNumber)
 					VALUES ('" . utf8_decode($member) . "', '" . $this->coursemoduleId . "', '" . $teamNumber . "')";
-			// $this->Util()->DB()->setQuery($sql);
-			// $result = $this->Util()->DB()->InsertData();
+			$this->Util()->DB()->setQuery($sql);
+			$result = $this->Util()->DB()->InsertData();
 		}
 		$this->Util()->setError(90000, 'complete', "Se ha creado un nuevo equipo");
 		$this->Util()->PrintErrors();
