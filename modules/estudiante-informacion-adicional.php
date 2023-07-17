@@ -38,6 +38,7 @@
 		}
 		$matricula = $student->GetMatricula($curso['courseId']);
 		$course->setCourseId($curso['courseId']);
+		$nivelesValidos = $course->GetEnglishLevels();  //Obtenemos los niveles de inglés válidos(si tiene)
 		$infoCourse = $course->Info();  
 		$baja = $student->bajaCurso($curso['courseId']);
 		$alta = $student->periodoAltaCurso($curso['courseId']);
@@ -75,6 +76,9 @@
 							'comments' => 'REC.'
 						];
 					} else {
+						if(in_array($period, $nivelesValidos[$estudianteID])){
+							$item['score'] = 100;
+						}
 						$qualifications[$period][] = [
 							'subjectModuleId' => $item['subjectModuleId'],
 							'name' => $item['name'],
