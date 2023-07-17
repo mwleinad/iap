@@ -39,7 +39,6 @@
 		$matricula = $student->GetMatricula($curso['courseId']);
 		$course->setCourseId($curso['courseId']);
 		$nivelesValidos = $course->GetEnglishLevels();  //Obtenemos los niveles de inglés válidos(si tiene)
-		print_r($nivelesValidos);
 		$infoCourse = $course->Info();  
 		$baja = $student->bajaCurso($curso['courseId']);
 		$alta = $student->periodoAltaCurso($curso['courseId']);
