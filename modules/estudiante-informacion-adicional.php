@@ -76,8 +76,8 @@
 							'comments' => 'REC.'
 						];
 					} else {
-						if(in_array($period, $nivelesValidos[$estudianteID])){
-							$item['score'] = 100;
+						if(in_array($period, $nivelesValidos[$estudianteID]) && $item['extra']){
+							$item['score'] = 10;
 						}
 						$qualifications[$period][] = [
 							'subjectModuleId' => $item['subjectModuleId'],
