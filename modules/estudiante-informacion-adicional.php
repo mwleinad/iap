@@ -76,7 +76,7 @@
 							'comments' => 'REC.'
 						];
 					} else {
-						if(in_array($period, $nivelesValidos[$estudianteID]) && $item['extra']){
+						if($item['extra'] && in_array($period, $nivelesValidos[$estudianteID])){
 							$item['score'] = 10;
 						}
 						$qualifications[$period][] = [
@@ -93,7 +93,6 @@
 		$cursos[$key]["calificaciones"] = $qualifications;  
 	} 
 	$recursamiento = [];
-	// print_r($qualifications_repeat);
 	foreach ($qualifications_repeat as $item) {
 		$recursamiento[$item['courseId']]['calificaciones'][$item['period']][] = [
 			'subjectModuleId' => $item['subjectModuleId'],
