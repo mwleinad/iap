@@ -94,7 +94,9 @@
 	<link rel="shortcut icon" href="{$WEB_ROOT}/images/logos/iconIap.png" />
 	{* End new styles *}
 	{if $User.type ne "student"}
-		<link href="https://cdn.datatables.net/v/bs4/dt-1.13.5/r-2.5.0/datatables.min.css" rel="stylesheet"/>
+		<link href="https://cdn.datatables.net/v/bs4/dt-1.13.5/r-2.5.0/datatables.min.css" rel="stylesheet" />
+		<link rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css"> 
 	{/if}
 </head>
 
@@ -215,16 +217,17 @@
 	{if $User.type ne "student"}
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
 		<script>
-		moment.lang('es', {
-			months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
-			monthsShort: 'Enero._Feb._Mar_Abr._May_Jun_Jul._Ago_Sept._Oct._Nov._Dec.'.split('_'),
-			weekdays: 'Domingo_Lunes_Martes_Miercoles_Jueves_Viernes_Sabado'.split('_'),
-			weekdaysShort: 'Dom._Lun._Mar._Mier._Jue._Vier._Sab.'.split('_'),
-			weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')
-			}
-		);
+			moment.lang('es', {
+				months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split(
+					'_'),
+				monthsShort: 'Enero._Feb._Mar_Abr._May_Jun_Jul._Ago_Sept._Oct._Nov._Dec.'.split('_'),
+				weekdays: 'Domingo_Lunes_Martes_Miercoles_Jueves_Viernes_Sabado'.split('_'),
+				weekdaysShort: 'Dom._Lun._Mar._Mier._Jue._Vier._Sab.'.split('_'),
+				weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')
+			});
 		</script>
 		<script src="https://cdn.datatables.net/v/bs4/dt-1.13.5/r-2.5.0/datatables.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 	{/if}
 	<script src="{$WEB_ROOT}/javascript/new/{$page}.js?{$timestamp}" type="text/javascript"></script>
 	<script src="{$WEB_ROOT}/assets/pages/scripts/profile.min.js" type="text/javascript"></script>

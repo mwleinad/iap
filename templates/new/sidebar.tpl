@@ -72,7 +72,7 @@
         {if in_array($User.positionId,[1,3])} 
             <li class="nav-item {if $page == "configurar-calendario" or $page == "cobranza-calendario"}active{/if}">
                 <a class="nav-link" data-toggle="collapse" href="#m-cobranza" aria-expanded="{if $page == "configurar-calendario" or $page == "cobranza-calendario"}true{else}false{/if}" aria-controls="m-cobranza">
-                    <span class="menu-title">Cobranza</span>
+                    <span class="menu-title">Finanzas</span>
                     <i class="menu-arrow"></i>
                     <i class="mdi mdi-cash-usd menu-icon"></i>
                 </a>
@@ -199,16 +199,12 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="{$WEB_ROOT}/reporte-indicadores">Indicadores</a>
-                                    </li>
-                                    {*<li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/report-docentes">Docentes</a>
-                                    </li>*}
-                                    {*<li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/doc-mat">Docentes/Materias</a>
-                                    </li>*}
-                                    {*<li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/reporte-general">Reporte General</a>
-                                    </li>*}
+                                    </li> 
+                                    {if in_array($User.positionId,[1])} 
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{$WEB_ROOT}/reporte-pagos">Pagos</a>
+                                        </li>
+                                    {/if}
                                 {/if}
                             </ul>
                         </div>

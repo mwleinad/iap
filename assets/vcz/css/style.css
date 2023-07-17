@@ -17778,7 +17778,7 @@ code {
   color: #000;
   outline: none;
 }
- 
+
 select.form-control:focus {
   outline: 1px solid #ebedf2;
 }
@@ -19572,19 +19572,39 @@ dl li {
   }
 }
 
-.grupo-inbox{
+.grupo-inbox {
   padding: 10px 20px;
-  background: #ebedf2; 
+  background: #ebedf2;
   border: 1px solid #c0c1c5;
   border-radius: 10px;
   flex: 1 1 auto;
 }
 
-.grupo-inbox:hover{
+.grupo-inbox:hover {
   background-color: #73b760;
   color: #fff;
 }
 
-.flatpickr-input[readonly]{
+.flatpickr-input[readonly] {
   background-color: #fff;
+}
+
+.bootstrap-select .dropdown-header,
+.bootstrap-select .dropdown-menu>li>a {
+  display: block;
+  padding: 10px 20px;
+  line-height: 1.42857;
+  white-space: nowrap;
+}
+
+.bootstrap-select .open>.dropdown-menu {
+  display: block;
+}
+
+.bootstrap-select .open>.dropdown-menu .selected.active {
+  background-color: #73b760;
+}
+
+.bootstrap-select .open>.dropdown-menu .selected.active a {
+  color: #fff;
 }
