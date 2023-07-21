@@ -86,21 +86,12 @@
 	$smarty->assign("pago", $pagoPendiente);
 	$announcements = $announcement->Enumerate(0, 0);
 	$smarty->assign('announcements', $announcements);
-	$smarty->assign("tipo_curricula", $tipo_curricula);
-	// echo '_'.$_SESSION['msjC'];
-	// exit;
+	$smarty->assign("tipo_curricula", $tipo_curricula); 
 	$notificaciones=$notificacion->Enumerate();
 	$smarty->assign('notificaciones', $notificaciones);
 	$smarty->assign('msjC', $_SESSION['msjC']);
 	$smarty->assign('msjCc', $_SESSION['msjCc']);
 	unset($_SESSION['msjC']);
 	unset($_SESSION['msjCc']);
-	// echo '<pre>'; print_r($notificaciones);
-	// exit;
-	/* $subforos=$forum->Enumeratesubf();
-    $smarty->assign('subforos', $subforos);
-	$foros=$forum->Enumerateforos();
-    $smarty->assign('foros', $foros);
-	$respuestasforos=$forum->RepliesEnumerate();
-	$smarty->assign('replyforum', $respuestasforos); */
+	$smarty->assign("referencia", $student->GetInfo()["referenciaBancaria"]); 
 ?>

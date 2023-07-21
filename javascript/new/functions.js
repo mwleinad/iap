@@ -60,7 +60,6 @@ $(document).ready(function () {
     $(document).on("click", ".ajax_sin_form", function (ev) {
         ev.preventDefault();
         let data = JSON.parse("{" + $(this).data("data") + "}");
-        console.log(data);
         $.ajax({
             url: $(this).attr('href'),
             data: data,

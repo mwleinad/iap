@@ -750,4 +750,10 @@ switch ($_POST["type"]) {
 			'growl'			=>true
 		]);
 		break;
+	case 'cursos':
+		$alumno = intval($_POST['alumno']);
+		$student->setUserId($alumno);
+		$cursos = $student->StudentCourses();
+		echo json_encode($cursos);
+		break;
 }

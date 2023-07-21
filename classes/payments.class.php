@@ -47,4 +47,11 @@ class Payments extends Conceptos
 		$resultado = $this->Util()->DB()->UpdateData();
 		return $resultado;
 	}
+
+	public function alumnos_con_pagos() {
+		$sql = "SELECT * FROM pagos INNER JOIN user ON user.userId = pagos.alumno_id GROUP BY pagos.alumno_id ORDER BY lastNamePaterno, lastNameMaterno";
+		$this->Util()->DB()->setQuery($sql);
+		$respuesta = $this->Util()->DB()->GetResult();
+		return $respuesta;
+	}
 }

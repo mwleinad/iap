@@ -96,7 +96,7 @@
 	{if $User.type ne "student"}
 		<link href="https://cdn.datatables.net/v/bs4/dt-1.13.5/r-2.5.0/datatables.min.css" rel="stylesheet" />
 		<link rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css"> 
+			href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 	{/if}
 </head>
 
@@ -158,16 +158,6 @@
 	<script type="text/javascript" src="{$WEB_ROOT}/GreyBox/greybox/AJS_fx.js"></script>
 	<script type="text/javascript" src="{$WEB_ROOT}/GreyBox/greybox/gb_scripts.js"></script>
 	<script type="text/javascript" src="{$WEB_ROOT}/javascript/inbox.js"></script>
-	<script src="{$WEB_ROOT}/assets/jquery.multiple.select.js"></script>
-	<script>
-		$(function() {
-			$('#ms').change(function() {
-				console.log($(this).val());
-			}).multipleSelect({
-				width: '100%'
-			});
-		});
-	</script>
 	{* End scripts headers *}
 	{* BEGIN CORE PLUGINS *}
 	<script src="{$WEB_ROOT}/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
@@ -217,7 +207,7 @@
 	{if $User.type ne "student"}
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
 		<script>
-			moment.lang('es', {
+			moment.locale('es', {
 				months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split(
 					'_'),
 				monthsShort: 'Enero._Feb._Mar_Abr._May_Jun_Jul._Ago_Sept._Oct._Nov._Dec.'.split('_'),
@@ -248,17 +238,32 @@
 		</script>
 	{/if}
 	{if $User.type eq "student" and $page eq "homepage"}
-		{*{if $User.announcement neq true and ($User.userId eq 4121 || $User.userId eq 4123)}
-				<script>
-					Swal.fire({
-						html: '<p>Estimado alumno: <br>Por el momento, la currícula correspondiente a la Maestría en Administración y Políticas Públicas, Grupo A; se encuentra inactiva, por favor, comunicarse a Dirección Académica del IAP Chiapas para solucionar este detalle.<br>961 125 15 08 Ext. 105<br> Horario de 08:00 a 16:00 horas</p>',
-						showCancelButton: false,
-						confirmButtonColor: '#58ff85',
-						cancelButtonColor: '#ff4545',
-						confirmButtonText: 'Enterado'
-					});
-				</script>
-			{/if} *}
+		{if $User.announcement neq true && $referencia > 0}
+			<style>
+				.swal2-show {
+					width: 850px !important;
+				}
+
+				.swal2-html-container p {
+					text-align: justify;
+					font-size: 1.2rem;
+				}
+			</style>
+			<script>
+				Swal.fire({
+					html: '<h2 class="text-danger"><strong>ATENTO AVISO</strong></h2>' +
+						'<p>A todos los estudiantes inscritos en los diversos programas académicos de este Instituto, se les hace del conocimiento que, a partir del <strong>lunes, 24 de julio de 2023</strong>, todos los pagos que se realicen mediante <strong>TRANSFERENCIA ELECTRÓNICA</strong>, en <strong>Ventanilla de la institución Bancaria</strong> o desde la <strong>Página del Sistema Educativo</strong> por los conceptos de <strong>INSCRIPCIÓN, REINSCRIPCIÓN, MATERIAS, CONSTANCIAS, CERTIFICADOS, TITULACIÓN, CONSTANCIAS, ENTRE OTROS</strong> deberán realizarse mediante <strong><em style="text-decoration:underline">PAGOS REFERENCIADOS.</em></strong></p>' +
+						'<p>La información para realizar un <strong>PAGO REFERENCIADO</strong> se encuentra en el <strong>Sistema de Educación</strong> en el <strong>Módulo de Finanzas</strong>, donde deberá elegir </strong>REALIZAR PAGO</strong> en el o los conceptos a pagar y elegir la forma de pago <em>(En Ventanilla / Por transferencia / Pago en línea)</em>. Una vez que haya elegido la forma de pago, le desplegará la información necesaria para realizar el <strong>PAGO REFERENCIADO.</strong></p>' +
+						'<p>Es importante mencionar que para los usuarios <strong>BANORTE</strong>, estos pagos lo podrán realizar desde su banca electrónica en la opción <strong>PAGO DE SERVICIOS / ESCUELA Y UNIVERSIDADES / 148126 – INSTITUTO DE ADMINISTRACIÓN PÚBLICA</strong>, con el número de referencia correspondiente.</p>' +
+						'<p>Para los pagos en efectivo y con Tarjetas (Débito/Crédito) que se hagan directamente en la Caja de Cobro del IAP, deberá realizarse en el Departamento de Finanzas y Contabilidad.</p>' +
+						'<p>Para responder a cualquier duda al respecto, favor de comunicarse al Departamento de Finanzas y Contabilidad, con el C.P. César Tomás Pérez Escobar, al teléfono 9611251508 ext. 116, en el horario de <strong>08:00 a.m.</strong> a <strong>04:00 p.m.</strong> o por medio del correo electrónico <a href="mailto:ctperez@iapchiapas.edu.mx">ctperez@iapchiapas.edu.mx.</a></p>',
+					showCancelButton: false,
+					confirmButtonColor: '#58ff85',
+					cancelButtonColor: '#ff4545',
+					confirmButtonText: 'Enterado'
+				});
+			</script>
+		{/if}
 	{/if}
 </body>
 
