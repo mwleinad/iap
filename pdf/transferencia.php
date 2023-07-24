@@ -80,10 +80,10 @@ $pdf->writeHTMLCell('', '', $xInicial, $y += 7, $html, 0, 0, 0, true, 'C', false
 // Total 
 $pdf->setFont('arial', '', '12', '', 'default', true);
 $pdf->writeHTMLCell('', '', $xInicial, $y += 15, "TOTAL", 0, 0, 0, true, 'C', false);
-$pdf->writeHTMLCell('', '', $xInicial, $y, "<b>$" . number_format($pagoInfo['subtotal'], 2)."</b>", 0, 0, 0, true, 'R', false);
+$pdf->writeHTMLCell('', '', $xInicial, $y, "<b>$" . number_format($pagoInfo['total'], 2)."</b>", 0, 0, 0, true, 'R', false);
 
 // Importe con letras
-$pagoLetra = "(" . $util->Util()->num2letras($pagoInfo['subtotal']) . " pesos)";
+$pagoLetra = "(" . $util->Util()->num2letras($pagoInfo['total']) . " pesos)";
 $pdf->writeHTMLCell('', '', $xInicial, $y += 5, "Importe con letras", 0, 0, 0, true, 'C', false);
 $pdf->writeHTMLCell('', '', $xInicial, $y, $pagoLetra, 0, 0, 0, true, 'R', false);
 
