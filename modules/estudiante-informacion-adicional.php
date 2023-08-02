@@ -76,7 +76,7 @@
 							'comments' => 'REC.'
 						];
 					} else {
-						if($item['extra'] && isset($nivelesValidos[$estudianteID]) && in_array($period, $nivelesValidos[$estudianteID])){
+						if($item['tipo'] == 0 && isset($nivelesValidos[$estudianteID]) && in_array($period, $nivelesValidos[$estudianteID])){
 							$item['score'] = 10;
 						}
 						$qualifications[$period][] = [

@@ -1,7 +1,7 @@
 <?php
 include_once('../initPdf.php');
 include_once('../config.php');
-include_once(DOC_ROOT.'/libraries.php');
+include_once(DOC_ROOT . '/libraries.php');
 
 use Dompdf\Adapter\CPDF;
 use Dompdf\Dompdf;
@@ -16,30 +16,26 @@ exit; */
 
 $course->setCourseId($_POST['course']);
 $infoCourse = $course->Info();
-if($infoCourse['tipoCuatri'] == 'Semestre')
+if ($infoCourse['tipoCuatri'] == 'Semestre')
     $typeCourse = 'semester';
-if($infoCourse['tipoCuatri'] == 'Cuatrimestre')
+if ($infoCourse['tipoCuatri'] == 'Cuatrimestre')
     $typeCourse = 'quarter';
 $minCal = 7;
-if($infoCourse['majorId'] == 18)
+if ($infoCourse['majorId'] == 18)
     $minCal = 8;
-
+$existenCurriculares = false;
 $students = $_POST['students'];
-if(count($students) > 1)
-{
-    foreach($students as $item)
-    {
+if (count($students) > 1) {
+    foreach ($students as $item) {
         $flag = true;
         $student->setUserId($item);
         $infoStudent = $student->GetInfo();
         $modules = $student->BoletaCalificacion($_POST['course'], $_POST['semester'], true);
-        foreach($modules as $element)
-        {
-            if($element['calificacionValida'] == 'no')
+        foreach ($modules as $element) {
+            if ($element['calificacionValida'] == 'no')
                 $flag = false;
         }
-        if(!$flag)
-        {
+        if (!$flag) {
             echo "<script>
                     alert('No se pudo generar la boleta, no se han publicado todas las calificaciones...');
                     window.close();
@@ -52,16 +48,13 @@ if(count($students) > 1)
                 window.close();
             </script>";
     }
-}
-else
-{
+} else {
     $flag = true;
     $student->setUserId($students[0]);
     $infoStudent = $student->GetInfo();
     $modules = $student->BoletaCalificacion($_POST['course'], $_POST['semester'], true);
-    foreach($modules as $item)
-    {
-        if($item['calificacionValida'] == 'no')
+    foreach ($modules as $item) {
+        if ($item['calificacionValida'] == 'no')
             $flag = false;
     }
     $qualificationsId = $student->SaveQualifications($_POST['course'], $_POST['semester'], $_POST['cycle'], $_POST['period'], $_POST['date'], $_POST['year'], $modules, $infoCourse, $_POST['notification']);
@@ -83,19 +76,17 @@ else
     $institution->setInstitutionId(1);
     $myInstitution = $institution->Info();
     $html_modules = "";
-    $html_extra_modules = "";    
+    $html_extra_modules = "";
+    $html_curriculares = "";
     $i = 1;
-    foreach($modules as $item)
-    {
-        if($item['extra'] == 0)
-        {
+    foreach ($modules as $item) { // Si es una materia
+        if ($item['tipo'] == 1) {
             $text_color = '';
-            if($item['score'] < $minCal)
+            if ($item['score'] < $minCal)
                 $text_color = 'text-danger';
             $score = $item['score'];
             $score_txt = $util->num2letras($item['score']);
-            if($score == 0) 
-            {
+            if ($score == 0) {
                 $score = 'NP';
                 $score_txt = 'NO PRESENTÓ';
             }
@@ -109,31 +100,27 @@ else
         }
     }
     // echo "<pre>";
-    foreach($modules as $item)
-    {
-        if($item['extra'] == 1)
-        {
+    foreach ($modules as $item) {   //Si es extracurrícular
+        if ($item['tipo'] == 0) {
+            $existenCurriculares = true;
             $nivelesValidos = $course->GetEnglishLevels();  //Obtenemos los niveles de inglés válidos(si tiene)
             $text_color = '';
-            if($item['score'] < $minCal)
-            {
+            if ($item['score'] < $minCal) {
                 $text_color = 'text-danger';
                 $score = 'NA';
                 $score_txt = 'NO APROBADO';
             }
-            if($item['score'] >= $minCal || in_array($item['semesterId'], $nivelesValidos[$students[0]]))
-            {
+            if ($item['score'] >= $minCal || in_array($item['semesterId'], $nivelesValidos[$students[0]])) {
                 $text_color = '';
                 $score = 'A';
                 $score_txt = 'APROBADO';
             }
-            if($item['score'] == 0 && !in_array($item['semesterId'], $nivelesValidos[$students[0]])) 
-            {
+            if ($item['score'] == 0 && !in_array($item['semesterId'], $nivelesValidos[$students[0]])) {
                 $text_color = 'text-danger';
                 $score = 'NP';
                 $score_txt = 'NO PRESENTÓ';
             }
-            
+
             $html_extra_modules .= "<tr>
                                 <td class='text-center'>" . $i . "</td>
                                 <td>" . mb_strtoupper($item['name']) . "</td>
@@ -143,7 +130,27 @@ else
             $i++;
         }
     }
-    $html .="<html>
+    if ($existenCurriculares) {
+        $html_curriculares = "<table align='center' width='100%' border='1' class='txtTicket'>
+            <tr>
+                <td colspan='4' class='text-center'><b>ASIGNATURAS EXTRACURRICULARES (SIN CRÉDITOS)</b></td>
+            </tr>
+            <tr>
+                <td rowspan='2' class='text-center'><b>No.</b></td>
+                <td rowspan='2' class='text-center'><b>Materias</b></td>
+                <td class='text-center'><b>Calificación</b></td>
+                <td class='text-center'><b>Calificación</b></td>
+            </tr>
+            <tr>
+                <td class='text-center'><b>En Número</b></td>
+                <td class='text-center'><b>En Letra</b></td>
+            </tr>
+            " . $html_extra_modules . "
+        </table><br>";
+    }else{
+        $html_curriculares = "<br><br><br><br>";
+    }
+    $html .= "<html>
                 <head>
                     <title>Boleta de Calificaciones</title>
                     <style type='text/css'>
@@ -243,22 +250,7 @@ else
                         </tr>
                         " . $html_modules . "
                     </table><br>
-                    <table align='center' width='100%' border='1' class='txtTicket'>
-                        <tr>
-                            <td colspan='4' class='text-center'><b>ASIGNATURAS EXTRACURRICULARES (SIN CRÉDITOS)</b></td>
-                        </tr>
-                        <tr>
-                            <td rowspan='2' class='text-center'><b>No.</b></td>
-                            <td rowspan='2' class='text-center'><b>Materias</b></td>
-                            <td class='text-center'><b>Calificación</b></td>
-                            <td class='text-center'><b>Calificación</b></td>
-                        </tr>
-                        <tr>
-                            <td class='text-center'><b>En Número</b></td>
-                            <td class='text-center'><b>En Letra</b></td>
-                        </tr>
-                        " . $html_extra_modules . "
-                    </table><br>
+                        " . $html_curriculares . "
                     <center>
                         <p>Tuxtla Gutiérrez, Chiapas; " . mb_strtolower($util->FormatReadableDate($_POST['date'])) . ".</p>
                     </center><br><br>
@@ -276,11 +268,10 @@ else
                     <img src='" . DOC_ROOT . "/images/new/docs/doc_footer.png' class='img-footer'>
                 </body>
             </html>";
-	$mipdf = new DOMPDF();
-	$mipdf ->set_paper("A4", "portrait");
-	$mipdf ->load_html($html);
-	$mipdf ->render();
-	$mipdf ->stream('BoletaCalificaciones.pdf', array('Attachment' => 0));
+    $mipdf = new DOMPDF();
+    $mipdf->set_paper("A4", "portrait");
+    $mipdf->load_html($html);
+    $mipdf->render();
+    $mipdf->stream('BoletaCalificaciones.pdf', array('Attachment' => 0));
     unlink($target_path);
 }
-?>

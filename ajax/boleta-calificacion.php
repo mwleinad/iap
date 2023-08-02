@@ -37,15 +37,17 @@ $institution->setInstitutionId(1);
 $myInstitution = $institution->Info();
 $html_modules = "";
 $html_extra_modules = "";
+$html_curriculares = "";
+$existenCurriculares = false;
 $i = 1;
 // echo "<pre>";
 // echo $qualification['userId'];
 /* print_r($modules_qualifications);
 exit; */
-foreach($modules as $item)
+foreach($modules as $item) //Para materias
 {
     $text_color = '';
-    if($modules_qualifications[$item['courseModuleId']]->extra == 0)
+    if($modules_qualifications[$item['courseModuleId']]->tipo == 1)
     {
         if($modules_qualifications[$item['courseModuleId']]->score < $minCal)
             $text_color = 'text-danger';
@@ -65,11 +67,12 @@ foreach($modules as $item)
         $i++;
     }
 }
-foreach($modules as $item)
+foreach($modules as $item) //Para extracurriculares
 {
     $text_color = '';
-    if($modules_qualifications[$item['courseModuleId']]->extra == 1)
+    if($modules_qualifications[$item['courseModuleId']]->tipo == 0)
     {
+        $existenCurriculares = true;
         // print_r($item);
         $nivelesValidos = $course->GetEnglishLevels();  //Obtenemos los niveles de inglés válidos(si tiene)
         // print_r($nivelesValidos[$qualification['userId']]);
@@ -99,6 +102,26 @@ foreach($modules as $item)
                         </tr>";
         $i++;
     }
+}
+if($existenCurriculares){
+    $html_curriculares = " <table align='center' width='100%' border='1' class='txtTicket'>
+                                <tr>
+                                    <td colspan='4' class='text-center'><b>ASIGNATURAS EXTRACURRICULARES (SIN CRÉDITOS)</b></td>
+                                </tr>
+                                <tr>
+                                    <td rowspan='2' class='text-center'><b>No.</b></td>
+                                    <td rowspan='2' class='text-center'><b>Materias</b></td>
+                                    <td class='text-center'><b>Calificación</b></td>
+                                    <td class='text-center'><b>Calificación</b></td>
+                                </tr>
+                                <tr>
+                                    <td class='text-center'><b>En Número</b></td>
+                                    <td class='text-center'><b>En Letra</b></td>
+                                </tr>
+                                " . $html_extra_modules . "
+                            </table><br>";
+}else{
+    $html_curriculares = "<br><br><br><br>";
 }
 // echo $html_extra_modules;
 $html .="<html>
@@ -201,22 +224,7 @@ $html .="<html>
                     </tr>
                     " . $html_modules . "
                 </table><br>
-                <table align='center' width='100%' border='1' class='txtTicket'>
-                    <tr>
-                        <td colspan='4' class='text-center'><b>ASIGNATURAS EXTRACURRICULARES (SIN CRÉDITOS)</b></td>
-                    </tr>
-                    <tr>
-                        <td rowspan='2' class='text-center'><b>No.</b></td>
-                        <td rowspan='2' class='text-center'><b>Materias</b></td>
-                        <td class='text-center'><b>Calificación</b></td>
-                        <td class='text-center'><b>Calificación</b></td>
-                    </tr>
-                    <tr>
-                        <td class='text-center'><b>En Número</b></td>
-                        <td class='text-center'><b>En Letra</b></td>
-                    </tr>
-                    " . $html_extra_modules . "
-                </table><br>
+                    ".$html_curriculares."
                 <center>
                     <p>Tuxtla Gutiérrez, Chiapas; " . mb_strtolower($util->FormatReadableDate($qualification['date'])) . ".</p>
                 </center><br><br>

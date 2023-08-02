@@ -2875,7 +2875,7 @@ class Student extends User
 		if ($moduloTerminado)
 			$condition .= "AND course_module.finalDate <= CURRENT_DATE()";
 		// Se obtienen las materias del curso
-		$sql = "SELECT *, IF(subject_module.clave LIKE '%ING%', 1, 0) AS extra
+		$sql = "SELECT *
 					FROM course_module
 						LEFT JOIN subject_module 
 							ON subject_module.subjectModuleId = course_module.subjectModuleId
