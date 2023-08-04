@@ -139,7 +139,8 @@
                                                                                         <a class="dropdown-item"
                                                                                             href="{$WEB_ROOT}/pdf/transferencia.php?curso={$item.courseId}&concepto={$itemp.pago_id}&num={$contador[$itemp.concepto_id]}"
                                                                                             target="_blank">Por transferencia</a>
-                                                                                        <a class="dropdown-item" href="#">Pago en línea</a>
+                                                                                        <a class="dropdown-item" 
+                                                                                            href="{$WEB_ROOT}/pagar/id/{$itemp.pago_id}">Pago en línea</a>
                                                                                     </div>
                                                                                 </div>
                                                                             {/if}

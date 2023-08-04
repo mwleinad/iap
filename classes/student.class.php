@@ -3380,4 +3380,28 @@ class Student extends User
 		$resultado = $this->Util()->DBErp()->GetResult();
 		return $resultado;
 	}
+
+	public function getCardholder()
+	{
+		$sql = "SELECT * FROM cardholder_data WHERE userId = " . $this->userId;
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetRow();
+		return $result;	
+	}
+
+	public function saveCardholder($city, $country, $email, $name, $last_name, $postal_code, $state_code, $street, $mobile)
+	{
+		$sql = "INSERT INTO cardholder_data(userId, city, country, email, name, last_name, postal_code, state_code, street, mobile, created_at, updated_at) VALUES(" . $this->userId . ", '" . $city . "', '" . $country . "', '" . $email . "', '" . $name . "', '" . $last_name . "', '" . $postal_code . "', '" . $state_code . "', '" . $street . "', '" . $mobile . "', NOW(), NOW())";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->InsertData();
+		return true;
+	}
+
+	public function updateCardholder($city, $email, $name, $last_name, $postal_code, $state_code, $street, $mobile)
+	{
+		$sql = "UPDATE cardholder_data SET city = '" . $city . "', email = '" . $email . "', name = '" . $name . "', last_name = '" . $last_name . "', postal_code = '" . $postal_code . "', state_code = '" . $state_code . "', street = '" . $street . "', mobile = '" . $mobile . "', updated_at = NOW() WHERE userId = " . $this->userId;
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->ExecuteQuery();
+		return true;
+	}
 }
