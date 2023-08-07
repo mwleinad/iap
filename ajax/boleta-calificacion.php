@@ -47,7 +47,7 @@ exit; */
 foreach($modules as $item) //Para materias
 {
     $text_color = '';
-    if($modules_qualifications[$item['courseModuleId']]->tipo == 1)
+    if($modules_qualifications[$item['courseModuleId']]->extra == 1)
     {
         if($modules_qualifications[$item['courseModuleId']]->score < $minCal)
             $text_color = 'text-danger';
@@ -70,7 +70,7 @@ foreach($modules as $item) //Para materias
 foreach($modules as $item) //Para extracurriculares
 {
     $text_color = '';
-    if($modules_qualifications[$item['courseModuleId']]->tipo == 0)
+    if($modules_qualifications[$item['courseModuleId']]->extra == 0)
     {
         $existenCurriculares = true;
         // print_r($item);

@@ -2957,7 +2957,7 @@ class Student extends User
 			if ($score == 0)
 				$score = 'NP';
 			$qualifications[] = [
-				'extra' => $item['extra'],
+				'extra' => $item['tipo'],
 				'courseModule' => $item['courseModuleId'],
 				'subjectModule' => $item['subjectModuleId'],
 				'start' => $item['initialDate'],

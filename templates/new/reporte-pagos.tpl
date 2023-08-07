@@ -17,7 +17,7 @@
 
 <div class="card mb-4">
     <div class="card-body">
-        <form class="row form" id="form_reportes" action="{$WEB_ROOT}/ajax/new/reportes.php">
+        <form class="row form" id="form_reportes" action="{$WEB_ROOT}/ajax/new/reportes.php" method="post">
             <input type="hidden" name="opcion" value="pagos">
             <div class="col-md-8 mx-auto">
                 <div class="row">
