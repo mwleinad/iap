@@ -11,7 +11,7 @@ if (!isset($_SESSION))
   session_start();
 }
 
-if((!isset($_SESSION['User'])) && $_GET['page'] != 'login' && $_GET['page'] != 'register' && $_GET['page'] != "recuperacion")
+if((!isset($_SESSION['User'])) && $_GET['page'] != 'login' && $_GET['page'] != 'register' && $_GET['page'] != "recuperacion" && $_GET['page'] != "procesar-pago")
 	header('Location: ' . WEB_ROOT . '/login');
 
 
@@ -235,7 +235,8 @@ $pages = array(
 	'datos-fiscales',
 	'solicitudes-pagos',
 	'reporte-pagos',
-	'pagar'
+	'pagar',
+	'procesar-pago'
 );
 
 $blacklist = [];

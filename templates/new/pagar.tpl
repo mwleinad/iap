@@ -34,7 +34,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="i-name"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="text" id="name" class="form-control" placeholder="Nombre" aria-describedby="i-name" required required maxlength="60" {if is_array($cardholder)} value="{$cardholder['name']}" {/if}>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Nombre" aria-describedby="i-name" required required maxlength="60" {if is_array($cardholder)} value="{$cardholder['name']}" {/if}>
                         </div>
                     </div>
                     <div class="form-group col-md-6">
@@ -43,7 +43,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="i-last_name"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="text" id="last_name" class="form-control" placeholder="Primer Apellido" aria-describedby="i-last_name" required required maxlength="60" {if is_array($cardholder)} value="{$cardholder['last_name']}" {/if}>
+                            <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Primer Apellido" aria-describedby="i-last_name" required required maxlength="60" {if is_array($cardholder)} value="{$cardholder['last_name']}" {/if}>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="i-card_number"><i class="fas fa-credit-card"></i></span>
                             </div>
-                            <input type="text" id="card_number" class="form-control" placeholder="Número de Tarjeta" aria-describedby="i-card_number" required maxlength="16">
+                            <input type="text" id="card_number" name="card_number" class="form-control" placeholder="Número de Tarjeta" aria-describedby="i-card_number" required maxlength="16" value="">
                         </div>
                     </div>
                     <div class="form-group col-md-4">
@@ -78,7 +78,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="i-expiration"><i class="fas fa-calendar-alt"></i></span>
                             </div>
-                            <input type="text" id="expiration" class="form-control" placeholder="MM/AAAA" aria-describedby="i-expiration" pattern="(((0[123456789]|10|11|12)/(([1][9][0-9][0-9])|([2][0-9][0-9][0-9]))))" maxlength="7" onkeypress="return validateExpiration(event);" required>
+                            <input type="text" id="expiration" name="expiration" class="form-control" placeholder="MM/AA" aria-describedby="i-expiration" pattern="^(0[1-9]|10|11|12)\/(1[9]|2[0-9])$" maxlength="5" onkeypress="return validateExpiration(event);" required value="">
                         </div>
                     </div>
                     <div class="form-group col-md-4">
@@ -87,7 +87,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="i-security"><i class="fas fa-lock"></i></span>
                             </div>
-                            <input type="text" id="security" class="form-control" placeholder="CVV" aria-describedby="i-security" required maxlength="3">
+                            <input type="password" id="security" name="security" class="form-control" placeholder="CVV" aria-describedby="i-security" required maxlength="3" value="">
                         </div>
                     </div>
                 </div>

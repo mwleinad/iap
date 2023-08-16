@@ -5,6 +5,9 @@ if($_SESSION['User']['type'] != 'student')
 $pagoId = $_GET['id'];
 $conceptos->setPagoId($pagoId);
 $pago = $conceptos->pago();
+/* echo "<pre>";
+print_r($pago);
+exit; */
 $smarty->assign('pago', $pago);
 $student->setUserId($_SESSION['User']["userId"]);
 if($_POST)
@@ -32,61 +35,94 @@ if($_POST)
 
     if($option == 'pay')
     {
-        $curl = curl_init('https://via.banorte.com/secure3d/Solucion3DSecure.htm');
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt( $curl, CURLOPT_FOLLOWLOCATION, true );
-        curl_setopt($curl, CURLOPT_POST, true);
-        $numero_tarjeta = $_POST['card_number'];
-        $fecha_exp = $_POST['expiration'];
-        $monto = 500;
-        $tmp = intval(substr($numero_tarjeta, 0, 1));
-        $marca_tarjeta = 'VISA';
-        if($tmp == 5)
-            $marca_tarjeta = 'MC';
-        $id_afiliacion = ID_AFILIACION;
-        $nombre_comercio = 'IAP Chiapas';
-        $ciudad_comercio = 'Tuxtla Gutiérrez';
-        $url_respuesta = WEB_ROOT . '/pagar/id/' . $pagoId . '/datos/Ok';
-        $referencia3d = 'TESTINGCZ';
-        $ciudad = $cardholder['city'];
-        $pais = $cardholder['country'];
-        $correo = $cardholder['email'];
-        $name = $_POST['name'];
-        $last_name = $_POST['last_name'];
-        $codigo_postal = $cardholder['postal_code'];
-        $estado = $cardholder['state_code'];
-        $calle = $cardholder['street'];
-        $numero_celular = $cardholder['mobile'];
-        $tipo_tarjeta = $_POST['type'];
-        $data = [
-            'NUMERO_TARJETA' => $numero_tarjeta,
-            'FECHA_EXP' => $fecha_exp,
-            'MONTO' => $monto,
-            'MARCA_TARJETA' => $marca_tarjeta,
-            'ID_AFILIACION' => $id_afiliacion,
-            'NOMBRE_COMERCIO' => $nombre_comercio,
-            'CIUDAD_COMERCIO' => $ciudad_comercio,
-            'URL_RESPUESTA' => $url_respuesta,
-            'CERTIFICACION_3D' => 03,
-            'REFERENCIA_3D' => $referencia3d,
-            'CIUDAD' => $ciudad,
-            'PAIS' => $pais,
-            'CORREO' => $email,
-            'NOMBRE' => $name,
-            'APELLIDO' => $last_name,
-            'CODIGO_POSTAL' => $codigo_postal,
-            'ESTADO' => $estado,
-            'CALLE' => $calle,
-            'VERSION_3D' => 2,
-            'NUMERO_CELULAR' => $numero_celular,
-            'TIPO_TARJETA' => $tipo_tarjeta
-        ];
-        $payload = json_encode($data);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
-        // curl_setopt($curl, CURLOPT_COOKIEJAR,  __DIR__.'/cookies.txt');
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-        $result = curl_exec($curl);
-        curl_close($curl);
+        $cobroTarjetaId = 0;
+        try
+        {
+            $conceptos->setConcepto($pago['concepto_id']);
+            $concepto = $conceptos->getConcepto();
+            $cobrosTarjeta = $conceptos->verificarCobroTarjeta();
+            $abonos = 0;
+            if ($pago['cobros'] > 0)
+                $abonos = $conceptos->monto();
+
+            $numero_tarjeta = $_POST['card_number'];
+            $fecha_exp = $_POST['expiration'];
+            $monto = $pago['total'] - $abonos;
+            $tmp = intval(substr($numero_tarjeta, 0, 1));
+            $marca_tarjeta = 'VISA';
+            if($tmp == 5)
+                $marca_tarjeta = 'MC';
+            $id_afiliacion = ID_AFILIACION;
+            $nombre_comercio = 'IAP Chiapas';
+            $ciudad_comercio = 'Tuxtla Gutiérrez';
+            $url_respuesta = WEB_ROOT . '/procesar-pago';
+            $referencia3d = str_pad(($cobrosTarjeta + 1), 2, '0', STR_PAD_LEFT) . 'IAP' . str_pad($pago['pago_id'], 10, '0', STR_PAD_LEFT);
+            $ciudad = $cardholder['city'];
+            $pais = $cardholder['country'];
+            $correo = $cardholder['email'];
+            $nombre = $_POST['name'];
+            $apellido = $_POST['last_name'];
+            $codigo_postal = $cardholder['postal_code'];
+            $estado = $cardholder['state_code'];
+            $calle = $cardholder['street'];
+            $numero_celular = $cardholder['mobile'];
+            $tipo_tarjeta = $_POST['type'];
+            $codigo_seguridad = $_POST['security'];
+            $data = [
+                'NUMERO_TARJETA' => $numero_tarjeta,
+                'FECHA_EXP' => $fecha_exp,
+                'MONTO' => 2, // $monto
+                'MARCA_TARJETA' => $marca_tarjeta,
+                'ID_AFILIACION' => $id_afiliacion,
+                'NOMBRE_COMERCIO' => $nombre_comercio,
+                'CIUDAD_COMERCIO' => $ciudad_comercio,
+                'URL_RESPUESTA' => $url_respuesta,
+                'CERTIFICACION_3D' => '03',
+                'REFERENCIA3D' => $referencia3d,
+                'CIUDAD' => $ciudad,
+                'PAIS' => $pais,
+                'CORREO' => $correo,
+                'NOMBRE' => $nombre,
+                'APELLIDO' => $apellido,
+                'CODIGO_POSTAL' => $codigo_postal,
+                'ESTADO' => $estado,
+                'CALLE' => $calle,
+                'VERSION_3D' => 2,
+                'NUMERO_CELULAR' => $numero_celular,
+                'TIPO_TARJETA' => $tipo_tarjeta
+            ];
+            $cobro_tarjeta = null;
+            if($cobrosTarjeta > 0)
+                $cobro_tarjeta = $conceptos->getCobroTarjeta($referencia3d);
+            $conceptos->setPagoId($pagoId);
+            $conceptos->setMonto($monto);
+            if($cobro_tarjeta == null)
+                $cobroTarjetaId = $conceptos->guardarCobroTarjeta($marca_tarjeta, $referencia3d, $correo, $nombre, $apellido, $codigo_postal, $numero_celular, $tipo_tarjeta, $numero_tarjeta, str_replace('/', '', $fecha_exp), $codigo_seguridad);
+            else
+                $cobroTarjetaId = $cobro_tarjeta['id'];
+            $conceptos->setCobroTarjetaId($cobroTarjetaId);
+            /* echo "<pre>";
+            print_r($data);
+            exit; */
+            $data_string = http_build_query($data);
+            $curl = curl_init();
+            if ($curl === false)
+                throw new Exception('Failed to initialize');
+            curl_setopt($curl, CURLOPT_URL, 'https://via.banorte.com/secure3d/Solucion3DSecure.htm');
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, BN_SSL);
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
+            $result = curl_exec($curl);
+            if ($result === false)
+                throw new Exception(curl_error($curl), curl_errno($curl));
+            curl_close($curl);
+            /* var_dump($result);
+            exit; */
+        }
+        catch(Exception $ex)
+        {
+            $conceptos->deleteCobroTarjeta('NoAuth');
+        }
     }
 }
 

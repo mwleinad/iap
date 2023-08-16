@@ -12,7 +12,6 @@ define("SQL_DATABASE_CRM", getenv('SQL_NAME_CRM'));
 define("SQL_USER_CRM", getenv('SQL_USER_CRM'));
 define("SQL_PASSWORD_CRM", getenv('SQL_PASSWORD_CRM'));
 
-
 define("SQL_HOST_ERP", getenv('SQL_HOST_ERP'));
 define("SQL_DATABASE_ERP", getenv('SQL_NAME_ERP'));
 define("SQL_USER_ERP", getenv('SQL_USER_ERP'));
@@ -27,3 +26,10 @@ define("EMAIL_HOST", getenv('EMAIL_HOST'));
 define("EMAIL_USERNAME", getenv('EMAIL_USERNAME'));
 define("EMAIL_PASSWORD", getenv('EMAIL_PASSWORD'));
 define("EMAIL_DEBUG", getenv('EMAIL_DEBUG'));
+
+define("ID_AFILIACION", getenv('ID_AFILIACION'));
+define("BN_USUARIO", getenv('BN_USUARIO'));
+define("BN_CLAVE", getenv('BN_CLAVE'));
+define("ID_TERMINAL", getenv('ID_TERMINAL'));
+define("BN_MODO", getenv('BN_MODO'));
+define("BN_SSL", getenv('BN_SSL'));

@@ -25,6 +25,7 @@ class Conceptos extends Module
     private $total;
     private $monto;
     private $fecha_eliminacion;
+    private $cobroTarjetaId;
 
     public function setNombre($nombre)
     {
@@ -149,6 +150,11 @@ class Conceptos extends Module
     function setFechaEliminacion($fecha_eliminacion)
     {
         $this->fecha_eliminacion = $fecha_eliminacion;
+    }
+
+    public function setCobroTarjetaId($value)
+    {
+        $this->cobroTarjetaId = intval($value);
     }
 
     public function getConcepto()
@@ -505,5 +511,39 @@ class Conceptos extends Module
         $this->Util()->DB()->setQuery($sql);
         $resultado = $this->Util()->DB()->InsertData();
         return $resultado;
+    }
+
+    public function guardarCobroTarjeta($marca_tarjeta, $referencia3d, $correo, $nombre, $apellido, $codigo_postal, $celular, $tipo_tarjeta, $numero_tarjeta, $fecha_exp, $codigo_seguridad)
+    {
+        $sql = "INSERT INTO cobros_tarjeta(pago_id, monto, marca_tarjeta, referencia3d, correo, nombre, apellido, codigo_postal, celular, tipo_tarjeta, estatus, numero_tarjeta, fecha_exp, codigo_seguridad, created_at, updated_at) VALUES(" . $this->pagoId . ", " . $this->monto . ", '" . $marca_tarjeta . "', '" . $referencia3d . "', '" . $correo . "', '" . $nombre . "', '" . $apellido . "', '" . $codigo_postal . "', '" . $celular . "', '" . $tipo_tarjeta . "', 'Auth', '" . $numero_tarjeta . "', '" . $fecha_exp . "', '" . $codigo_seguridad . "', NOW(), NOW())";
+        $this->Util()->DB()->setQuery($sql);
+        $resultado = $this->Util()->DB()->InsertData();
+        return $resultado;
+    }
+
+    public function getCobroTarjeta($referencia3d = null)
+    {
+        $sql = "SELECT * FROM cobros_tarjeta WHERE referencia3d = '" . $referencia3d . "'";
+        if($this->cobroTarjetaId > 0)
+            $sql = "SELECT * FROM cobros_tarjeta WHERE concepto_id = " . $this->cobroTarjetaId;
+        $this->Util()->DB()->setQuery($sql);
+        $result = $this->Util()->DB()->GetRow();
+        return $result;
+    }
+
+    public function deleteCobroTarjeta($estatus)
+    {
+        $sql = "UPDATE cobros_tarjeta SET estatus = '" . $estatus . "', numero_tarjeta = NULL, fecha_exp = NULL, codigo_seguridad = NULL, deleted_at = NOW() WHERE id = " . $this->cobroTarjetaId;
+        $this->Util()->DB()->setQuery($sql);
+        $result = $this->Util()->DB()->UpdateData();
+        return $result;
+    }
+
+    public function verificarCobroTarjeta()
+    {
+        $sql = "SELECT COUNT(*) AS qty FROM cobros_tarjeta WHERE pago_id = " . $this->pagoId;
+        $this->Util()->DB()->setQuery($sql);
+        $result = $this->Util()->DB()->GetSingle();
+        return $result;
     }
 }
