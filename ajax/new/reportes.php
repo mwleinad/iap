@@ -23,10 +23,10 @@ switch($_POST["opcion"]){
             ]);
             exit;
         }
+        $conceptos->setAlumno($alumno);
+        $conceptos->setCourseId($curricula);
+        $course->setCourseId($curricula);
         include_once('reportes/pagos.php');
-        echo json_encode([
-            'load'  =>'alumnos.xls'
-        ]);
         break;
 }
 
