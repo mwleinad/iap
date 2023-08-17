@@ -159,10 +159,7 @@ for ($periodo = 1; $periodo <= $curso['totalPeriods']; $periodo++) {
             $sheet->mergeCells("A{$fila}:O{$fila}");
             $fila++;
             $flag = false;
-        }
-        if ($pagos['fecha_limite'] < date('Y-m-d')) {
-            $importeActual += $pago['subtotal'];
-        }
+        } 
         $pagot += $pago['total'];
         $fechaLimite = new DateTime($pago['fecha_limite']);
         $fechaActual = new DateTime();
