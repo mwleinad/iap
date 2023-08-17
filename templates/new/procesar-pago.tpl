@@ -23,7 +23,8 @@
         <div class="row d-flex justify-content-center">
             <div class="col-md-8 col-md-offset-2 text-center">
                 {if $success}
-
+                    <p>Tu pago se realizó de manera correcta.</p>
+                    <p>Referencia: {$cobro_tarjeta.referencia}</p>
                 {else}
                     <p>{$message}</p>
                 {/if}

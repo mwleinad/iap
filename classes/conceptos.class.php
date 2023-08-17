@@ -523,7 +523,7 @@ class Conceptos extends Module
 
     public function getCobroTarjeta($referencia3d = null)
     {
-        $sql = "SELECT * FROM cobros_tarjeta WHERE referencia3d = '" . $referencia3d . "'";
+        $sql = "SELECT * FROM cobros_tarjeta WHERE deleted_at IS NULL AND referencia3d = '" . $referencia3d . "'";
         if($this->cobroTarjetaId > 0)
             $sql = "SELECT * FROM cobros_tarjeta WHERE concepto_id = " . $this->cobroTarjetaId;
         $this->Util()->DB()->setQuery($sql);
@@ -533,7 +533,7 @@ class Conceptos extends Module
 
     public function deleteCobroTarjeta($estatus)
     {
-        $sql = "UPDATE cobros_tarjeta SET estatus = '" . $estatus . "', numero_tarjeta = NULL, fecha_exp = NULL, codigo_seguridad = NULL, deleted_at = NOW() WHERE id = " . $this->cobroTarjetaId;
+        $sql = "UPDATE cobros_tarjeta SET estatus = '" . $estatus . "', numero_tarjeta = NULL, fecha_exp = NULL, codigo_seguridad = NULL, deleted_at = NOW() WHERE id = " . $this->cobroTarjetaId . " AND deleted_at IS NULL";
         $this->Util()->DB()->setQuery($sql);
         $result = $this->Util()->DB()->UpdateData();
         return $result;
@@ -541,9 +541,18 @@ class Conceptos extends Module
 
     public function verificarCobroTarjeta()
     {
-        $sql = "SELECT COUNT(*) AS qty FROM cobros_tarjeta WHERE pago_id = " . $this->pagoId;
+        $sql = "SELECT COUNT(*) AS qty FROM cobros_tarjeta WHERE pago_id = " . $this->pagoId . " AND cobro_id IS NULL AND estatus <> 'Auth' AND deleted_at IS NULL";
         $this->Util()->DB()->setQuery($sql);
         $result = $this->Util()->DB()->GetSingle();
+        return $result;
+    }
+
+    public function closeCobroTarjeta($estatus, $resultado_payw, $texto, $fecha_req_cte, $codigo_aut, $referencia, $fecha_rsp_cte, $cobroId = null)
+    {
+        $sql = "UPDATE cobros_tarjeta SET cobro_id = " . $cobroId . " estatus = '" . $estatus . "', numero_tarjeta = NULL, fecha_exp = NULL, codigo_seguridad = NULL, resultado_payw = '" . $resultado_payw . "', texto = '" . $texto . "', fecha_req_cte = '" . $fecha_req_cte . "', codigo_aut = '" . $codigo_aut . "', referencia = '" . $referencia . "', fecha_rsp_cte = '" . $fecha_rsp_cte . "',  WHERE id = " . $this->cobroTarjetaId . " AND deleted_at IS NULL";
+        echo $sql; exit;
+        $this->Util()->DB()->setQuery($sql);
+        $result = $this->Util()->DB()->UpdateData();
         return $result;
     }
 }

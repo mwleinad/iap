@@ -93,9 +93,15 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <button class="btn btn-primary">
-                            Realizar Pago
-                        </button>
+                        {if $processing}
+                            <button type="button" class="btn btn-primary" disabled>
+                                <i class="fas fa-spinner fa-pulse"></i> Espere por favor...
+                            </button>
+                        {else}
+                            <button type="submit" class="btn btn-primary">
+                                Realizar Pago
+                            </button>
+                        {/if}
                     </div>
                 </div>
             </form>
@@ -150,7 +156,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <button class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary">
                             Guardar Datos
                         </button>
                     </div>

@@ -10,6 +10,7 @@ print_r($pago);
 exit; */
 $smarty->assign('pago', $pago);
 $student->setUserId($_SESSION['User']["userId"]);
+$smarty->assign('processing', false);
 if($_POST)
 {
     $option = $_POST['option'];
@@ -35,6 +36,7 @@ if($_POST)
 
     if($option == 'pay')
     {
+        $smarty->assign('processing', true);
         $cobroTarjetaId = 0;
         try
         {
@@ -91,12 +93,10 @@ if($_POST)
                 'NUMERO_CELULAR' => $numero_celular,
                 'TIPO_TARJETA' => $tipo_tarjeta
             ];
-            $cobro_tarjeta = null;
-            if($cobrosTarjeta > 0)
-                $cobro_tarjeta = $conceptos->getCobroTarjeta($referencia3d);
+            $cobro_tarjeta = $conceptos->getCobroTarjeta($referencia3d);
             $conceptos->setPagoId($pagoId);
             $conceptos->setMonto($monto);
-            if($cobro_tarjeta == null)
+            if(!is_array($cobro_tarjeta))
                 $cobroTarjetaId = $conceptos->guardarCobroTarjeta($marca_tarjeta, $referencia3d, $correo, $nombre, $apellido, $codigo_postal, $numero_celular, $tipo_tarjeta, $numero_tarjeta, str_replace('/', '', $fecha_exp), $codigo_seguridad);
             else
                 $cobroTarjetaId = $cobro_tarjeta['id'];
