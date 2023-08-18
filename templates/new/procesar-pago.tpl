@@ -22,12 +22,9 @@
     <div class="card-body">
         <div class="row d-flex justify-content-center">
             <div class="col-md-8 col-md-offset-2 text-center">
-                {if $success}
-                    <p>Tu pago se realizó de manera correcta.</p>
-                    <p>Referencia: {$cobro_tarjeta.referencia}</p>
-                {else}
-                    <p>{$message}</p>
-                {/if}
+                <div class="alert {if $success} alert-success {else} alert-danger {/if}" role="alert">
+                    {$message}
+                </div>
                 <a href="{$WEB_ROOT}" class="btn btn-success mt-3">Volver</a>
             </div>
         </div>

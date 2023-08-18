@@ -507,7 +507,6 @@ class Conceptos extends Module
     public function guardar_cobro()
     {
         $sql = "INSERT INTO cobros(pago_id, monto, fecha_pago, facturado, subtotal, descuento) VALUES({$this->pagoId},{$this->monto}, {$this->fecha_pago},0, {$this->costo}, {$this->descuento})";
-        // echo $sql;
         $this->Util()->DB()->setQuery($sql);
         $resultado = $this->Util()->DB()->InsertData();
         return $resultado;
@@ -525,15 +524,15 @@ class Conceptos extends Module
     {
         $sql = "SELECT * FROM cobros_tarjeta WHERE deleted_at IS NULL AND referencia3d = '" . $referencia3d . "'";
         if($this->cobroTarjetaId > 0)
-            $sql = "SELECT * FROM cobros_tarjeta WHERE concepto_id = " . $this->cobroTarjetaId;
+            $sql = "SELECT * FROM cobros_tarjeta WHERE id = " . $this->cobroTarjetaId;
         $this->Util()->DB()->setQuery($sql);
         $result = $this->Util()->DB()->GetRow();
         return $result;
     }
 
-    public function deleteCobroTarjeta($estatus)
+    public function deleteCobroTarjeta($estatus, $numero_tarjeta = null)
     {
-        $sql = "UPDATE cobros_tarjeta SET estatus = '" . $estatus . "', numero_tarjeta = NULL, fecha_exp = NULL, codigo_seguridad = NULL, deleted_at = NOW() WHERE id = " . $this->cobroTarjetaId . " AND deleted_at IS NULL";
+        $sql = "UPDATE cobros_tarjeta SET estatus = '" . $estatus . "', numero_tarjeta = '" . $numero_tarjeta . "', fecha_exp = NULL, codigo_seguridad = NULL, deleted_at = NOW() WHERE id = " . $this->cobroTarjetaId . " AND deleted_at IS NULL";
         $this->Util()->DB()->setQuery($sql);
         $result = $this->Util()->DB()->UpdateData();
         return $result;
@@ -547,10 +546,10 @@ class Conceptos extends Module
         return $result;
     }
 
-    public function closeCobroTarjeta($estatus, $resultado_payw, $texto, $fecha_req_cte, $codigo_aut, $referencia, $fecha_rsp_cte, $cobroId = null)
+    public function closeCobroTarjeta($estatus, $resultado_payw, $texto, $fecha_req_cte, $codigo_aut, $referencia, $fecha_rsp_cte, $numero_tarjeta, $cobroId = null)
     {
-        $sql = "UPDATE cobros_tarjeta SET cobro_id = " . $cobroId . " estatus = '" . $estatus . "', numero_tarjeta = NULL, fecha_exp = NULL, codigo_seguridad = NULL, resultado_payw = '" . $resultado_payw . "', texto = '" . $texto . "', fecha_req_cte = '" . $fecha_req_cte . "', codigo_aut = '" . $codigo_aut . "', referencia = '" . $referencia . "', fecha_rsp_cte = '" . $fecha_rsp_cte . "',  WHERE id = " . $this->cobroTarjetaId . " AND deleted_at IS NULL";
-        echo $sql; exit;
+        $sql = "UPDATE cobros_tarjeta SET cobro_id = " . $cobroId . ", estatus = '" . $estatus . "', numero_tarjeta = '" . $numero_tarjeta . "', fecha_exp = NULL, codigo_seguridad = NULL, resultado_payw = '" . $resultado_payw . "', texto = '" . $texto . "', fecha_req_cte = '" . $fecha_req_cte . "', codigo_aut = '" . $codigo_aut . "', referencia = '" . $referencia . "', fecha_rsp_cte = '" . $fecha_rsp_cte . "' WHERE id = " . $this->cobroTarjetaId . " AND deleted_at IS NULL";
+        // echo $sql; exit;
         $this->Util()->DB()->setQuery($sql);
         $result = $this->Util()->DB()->UpdateData();
         return $result;

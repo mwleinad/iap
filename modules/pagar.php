@@ -5,9 +5,6 @@ if($_SESSION['User']['type'] != 'student')
 $pagoId = $_GET['id'];
 $conceptos->setPagoId($pagoId);
 $pago = $conceptos->pago();
-/* echo "<pre>";
-print_r($pago);
-exit; */
 $smarty->assign('pago', $pago);
 $student->setUserId($_SESSION['User']["userId"]);
 $smarty->assign('processing', false);
@@ -36,8 +33,11 @@ if($_POST)
 
     if($option == 'pay')
     {
+        setcookie('code', $_SESSION['User']['userId'], time() + 900);
+        setcookie('type', $_SESSION['User']['type'], time() + 900);
         $smarty->assign('processing', true);
         $cobroTarjetaId = 0;
+        $card_number = null;
         try
         {
             $conceptos->setConcepto($pago['concepto_id']);
@@ -48,6 +48,7 @@ if($_POST)
                 $abonos = $conceptos->monto();
 
             $numero_tarjeta = $_POST['card_number'];
+            $card_number = $util->cardFormat($numero_tarjeta);
             $fecha_exp = $_POST['expiration'];
             $monto = $pago['total'] - $abonos;
             $tmp = intval(substr($numero_tarjeta, 0, 1));
@@ -101,9 +102,6 @@ if($_POST)
             else
                 $cobroTarjetaId = $cobro_tarjeta['id'];
             $conceptos->setCobroTarjetaId($cobroTarjetaId);
-            /* echo "<pre>";
-            print_r($data);
-            exit; */
             $data_string = http_build_query($data);
             $curl = curl_init();
             if ($curl === false)
@@ -116,12 +114,10 @@ if($_POST)
             if ($result === false)
                 throw new Exception(curl_error($curl), curl_errno($curl));
             curl_close($curl);
-            /* var_dump($result);
-            exit; */
         }
         catch(Exception $ex)
         {
-            $conceptos->deleteCobroTarjeta('NoAuth');
+            $conceptos->deleteCobroTarjeta('NoAuth', $card_number);
         }
     }
 }

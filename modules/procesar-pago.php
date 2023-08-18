@@ -1,9 +1,19 @@
 <?php
 /* if($_SESSION['User']['type'] != 'student')
     exit; */
-/* echo "<pre>";
-print_r($_POST);
-exit; */
+
+if(!isset($_SESSION))
+{
+    if(isset($_COOKIE['code']) && isset($_COOKIE['type']))
+    {
+        $data = $user->getLoginData($_COOKIE['code'], $_COOKIE['type']);
+        $user->setUsername($data['username']);
+        $user->setPassword($data['password']);
+        $user->do_login();
+        setcookie('code', '', time() - 60);
+        setcookie('type', '', time() - 60);
+    }
+}
 if($_POST)
 {
     $estatus = intval($_POST['Estatus']);
@@ -12,6 +22,9 @@ if($_POST)
     $pagoId = intval($pagoId[1]);
     $cobro_tarjeta = $conceptos->getCobroTarjeta($referencia3d);
     $conceptos->setCobroTarjetaId($cobro_tarjeta['id']);
+    $card_number = $util->cardFormat($cobro_tarjeta['numero_tarjeta']);
+    $student->setUserId($_SESSION['User']["userId"]);
+	$info = $student->GetInfo();
     if($estatus == 200)
     {
         try
@@ -43,7 +56,11 @@ if($_POST)
                 'ECI' => $eci,
                 'XID' => $xid,
                 'CAVV' => $cavv,
-                'VERSION_3D' => 2
+                'VERSION_3D' => 2,
+                'REF_CLIENTE2' => $info['controlNumber'],
+                'REF_CLIENTE3' => $util->eliminar_acentos($info['names']),
+                'REF_CLIENTE4' => $util->eliminar_acentos($info['lastNamePaterno']),
+                'REF_CLIENTE5' => $util->eliminar_acentos($info['lastNameMaterno'])
             ];
             /* echo "<pre>";
             print_r($data);
@@ -109,7 +126,7 @@ if($_POST)
                 $conceptos->setMonto($monto);
                 $conceptos->setFechaPago($fecha_pago);
                 $cobroId = $conceptos->guardar_cobro(); 
-                $conceptos->closeCobroTarjeta('Paid', $resultado_payw, $texto, $fecha_req_cte, $codigo_aut, $referencia, $fecha_rsp_cte, $cobroId);
+                $conceptos->closeCobroTarjeta('Paid', $resultado_payw, $texto, $fecha_req_cte, $codigo_aut, $referencia, $fecha_rsp_cte, $card_number, $cobroId);
                 $cobro_tarjeta = $conceptos->getCobroTarjeta($referencia3d);
                 $montoTotalCobrado = $conceptos->monto(); 
                 if ($montoTotalCobrado == $pago['total']) 
@@ -126,12 +143,23 @@ if($_POST)
                     $conceptos->setUserId($pago['alumno_id']);
                     $conceptos->actualizar_pago(); 
                 }
+                $message = '<p>Pago aprobado</p>
+                            <p>El pago con su tarjeta fue procesado exitosamente.</p>
+                            <p>Detalles de la transacción:</p>
+                            <ul>
+                                <li>Monto total: #monto</li>
+                                <li>No. de referencia: #referencia</li>
+                                <li>Método de pago: #tipo_tarjeta #marca_tarjeta</li>
+                                <li>Fecha y hora: #fecha_rsp_cte</li>
+                            </ul>
+                            <p>En breve se le enviará esta información al correo electrónico #correo</p>
+                            <p>Si tiene alguna duda, puede comunicarse al Departamento de Finanzas y Contabilidad al teléfono 961 125 1508 Ext. 116 de lunes a viernes de 8:00 am a 4:00 pm</p>';
                 $smarty->assign('success', true);
                 $smarty->assign('cobro_tarjeta', $cobro_tarjeta);
             }
             else
             {
-                $conceptos->closeCobroTarjeta('Declined', $resultado_payw, $texto, $fecha_req_cte, $codigo_aut, $referencia, $fecha_rsp_cte);
+                $conceptos->closeCobroTarjeta('Declined', $resultado_payw, $texto, $fecha_req_cte, $codigo_aut, $referencia, $fecha_rsp_cte, $card_number);
             }
             /**
              * RESULTADO_PAYW
@@ -166,23 +194,15 @@ if($_POST)
     }
     else
     {
-        $conceptos->deleteCobroTarjeta('NoAuth');
+        $message = '<p><i class="fas fa-exclamation-triangle fa-3x"></i></p>
+                    <p>Error al procesar el pago</p>
+                    <p>Fallo en la autenticación 3D Secure de la tarjeta</p>
+                    <p>El pago que intento realizar con la referencia ' . $referencia3d . ' no pudo ser procesado debido a un problema con la autenticación 3D Secure.</p>
+                    <p>No se ha realizado ningún cargo a su tarjeta en relación con este intento de pago fallido.</p>
+                    <p>Para resolver esta situación y proceder con su pago, le sugerimos verifique que los detalles de su tarjeta sean correctos, incluidos el número de tarjeta, la fecha de vencimiento y el código de seguridad CVV. En caso de continuar con este error, le sugerimos intentar realizar su pago con otra tarjeta.</p>
+                    <p>Si tiene alguna duda, puede comunicarse al Departamento de Finanzas y Contabilidad al teléfono 961 125 1508 Ext. 116 de lunes a viernes de 8:00 am a 4:00 pm</p>';
+        $conceptos->deleteCobroTarjeta('NoAuth', $card_number);
         $smarty->assign('success', false);
-        $smarty->assign('message', 'El cobro ha sido declinado debido a que la tarjeta no pudo ser autentida mediante 3D Secure 2.0');
+        $smarty->assign('message', $message);
     } 
 }
-
-/* Variables GET
-Array
-(
-    [page] => procesar-pago
-)
-Variables POST
-Array
-(
-    [ECI] => 05
-    [XID] => 00050100582458000000C3504842267500000000
-    [CAVV] => 00050100582458000000C3504842267500000000
-    [Estatus] => 200
-    [REFERENCIA3D] => IAPDB0000000294
-) */

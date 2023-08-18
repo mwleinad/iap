@@ -54,7 +54,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="i-card_number"><i class="fas fa-credit-card"></i></span>
                             </div>
-                            <input type="text" id="card_number" name="card_number" class="form-control" placeholder="Número de Tarjeta" aria-describedby="i-card_number" required maxlength="16" value="">
+                            <input type="text" id="card_number" name="card_number" class="form-control" placeholder="Número de Tarjeta" aria-describedby="i-card_number" required maxlength="16">
                         </div>
                     </div>
                     <div class="form-group col-md-4">
@@ -78,7 +78,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="i-expiration"><i class="fas fa-calendar-alt"></i></span>
                             </div>
-                            <input type="text" id="expiration" name="expiration" class="form-control" placeholder="MM/AA" aria-describedby="i-expiration" pattern="^(0[1-9]|10|11|12)\/(1[9]|2[0-9])$" maxlength="5" onkeypress="return validateExpiration(event);" required value="">
+                            <input type="text" id="expiration" name="expiration" class="form-control" placeholder="MM/AA" aria-describedby="i-expiration" pattern="^(0[1-9]|10|11|12)\/(1[9]|2[0-9])$" maxlength="5" onkeypress="return validateExpiration(event);">
                         </div>
                     </div>
                     <div class="form-group col-md-4">
@@ -87,7 +87,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="i-security"><i class="fas fa-lock"></i></span>
                             </div>
-                            <input type="password" id="security" name="security" class="form-control" placeholder="CVV" aria-describedby="i-security" required maxlength="3" value="">
+                            <input type="password" id="security" name="security" class="form-control" placeholder="CVV" aria-describedby="i-security" required maxlength="3">
                         </div>
                     </div>
                 </div>
