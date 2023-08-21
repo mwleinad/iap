@@ -84,4 +84,14 @@ $message[5]["body"] = "
 
 	";
 
+$message[6]["subject"] = "Comprobante de Pago | Instituto de Administración Pública del Estado de Chiapas";
+$message[6]["body"] = "Pago aprobado
+						El pago con su tarjeta fue procesado exitosamente.
+						Detalles de la transacción:
+							<b>* Monto total:</b> $|monto|
+							<b>* No. de referencia:</b> |referencia|
+							<b>* Método de pago:</b> |metodo|
+							<b>* Fecha y hora:</b> |fecha|
+						Si tiene alguna duda, puede comunicarse al Departamento de Finanzas y Contabilidad al teléfono 961 125 1508 Ext. 116 de lunes a viernes de 8:00 am a 4:00 pm";
+
 ?>

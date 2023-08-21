@@ -98,7 +98,7 @@ if($_POST)
             $conceptos->setPagoId($pagoId);
             $conceptos->setMonto($monto);
             if(!is_array($cobro_tarjeta))
-                $cobroTarjetaId = $conceptos->guardarCobroTarjeta($marca_tarjeta, $referencia3d, $correo, $nombre, $apellido, $codigo_postal, $numero_celular, $tipo_tarjeta, $numero_tarjeta, str_replace('/', '', $fecha_exp), $codigo_seguridad);
+                $cobroTarjetaId = $conceptos->guardarCobroTarjeta($marca_tarjeta, $referencia3d, $correo, $nombre, $apellido, $codigo_postal, $numero_celular, $tipo_tarjeta, $numero_tarjeta, str_replace('/', '', $fecha_exp), $codigo_seguridad, session_id());
             else
                 $cobroTarjetaId = $cobro_tarjeta['id'];
             $conceptos->setCobroTarjetaId($cobroTarjetaId);

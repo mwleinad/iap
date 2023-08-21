@@ -23,7 +23,7 @@
         <div class="row d-flex justify-content-center">
             <div class="col-md-8 col-md-offset-2 text-center">
                 <div class="alert {if $success} alert-success {else} alert-danger {/if}" role="alert">
-                    {$message}
+                    {$message_txt}
                 </div>
                 <a href="{$WEB_ROOT}" class="btn btn-success mt-3">Volver</a>
             </div>

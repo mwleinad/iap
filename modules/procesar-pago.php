@@ -16,6 +16,7 @@ if(!isset($_SESSION))
 }
 if($_POST)
 {
+    include_once(DOC_ROOT . "/properties/messages.php");
     $estatus = intval($_POST['Estatus']);
     $referencia3d = $_POST['REFERENCIA3D'];
     $pagoId = explode('IAP', $referencia3d);
@@ -125,7 +126,7 @@ if($_POST)
                 $conceptos->setDescuento($descuento);
                 $conceptos->setMonto($monto);
                 $conceptos->setFechaPago($fecha_pago);
-                $cobroId = $conceptos->guardar_cobro(); 
+                $cobroId = $conceptos->guardar_cobro(3); 
                 $conceptos->closeCobroTarjeta('Paid', $resultado_payw, $texto, $fecha_req_cte, $codigo_aut, $referencia, $fecha_rsp_cte, $card_number, $cobroId);
                 $cobro_tarjeta = $conceptos->getCobroTarjeta($referencia3d);
                 $montoTotalCobrado = $conceptos->monto(); 
@@ -143,23 +144,51 @@ if($_POST)
                     $conceptos->setUserId($pago['alumno_id']);
                     $conceptos->actualizar_pago(); 
                 }
-                $message = '<p>Pago aprobado</p>
+                $message_txt = '<p>Pago aprobado</p>
                             <p>El pago con su tarjeta fue procesado exitosamente.</p>
                             <p>Detalles de la transacción:</p>
-                            <ul>
-                                <li>Monto total: #monto</li>
-                                <li>No. de referencia: #referencia</li>
-                                <li>Método de pago: #tipo_tarjeta #marca_tarjeta</li>
-                                <li>Fecha y hora: #fecha_rsp_cte</li>
+                            <ul style="list-style-type: none;">
+                                <li><i class="fas fa-caret-right"></i> Monto total: $' . number_format($cobro_tarjeta['monto'], 2) . '</li>
+                                <li><i class="fas fa-caret-right"></i> No. de referencia: ' . $referencia . '</li>
+                                <li><i class="fas fa-caret-right"></i> Método de pago: ' . $cobro_tarjeta['tipo_tarjeta'] . ' ' . $cobro_tarjeta['marca_tarjeta'] . '</li>
+                                <li><i class="fas fa-caret-right"></i> Fecha y hora: ' . $fecha_rsp_cte . '</li>
                             </ul>
-                            <p>En breve se le enviará esta información al correo electrónico #correo</p>
+                            <p>En breve se le enviará esta información al correo electrónico ' . $cobro_tarjeta['correo'] . '</p>
                             <p>Si tiene alguna duda, puede comunicarse al Departamento de Finanzas y Contabilidad al teléfono 961 125 1508 Ext. 116 de lunes a viernes de 8:00 am a 4:00 pm</p>';
                 $smarty->assign('success', true);
-                $smarty->assign('cobro_tarjeta', $cobro_tarjeta);
+                $smarty->assign('message_txt', $message_txt);
+                $sendmail = new SendMail;
+                $details_body = array(
+                    "monto" => utf8_decode(number_format($cobro_tarjeta['monto'], 2)),
+                    "referencia" => utf8_decode($referencia),
+                    "metodo" => utf8_decode($cobro_tarjeta['tipo_tarjeta'] . ' ' . $cobro_tarjeta['marca_tarjeta']),
+                    "fecha" => utf8_decode($fecha_rsp_cte)
+                );
+                $details_subject = array();
+                $attachment = [];
+                $fileName = [];
+                $email = $cobro_tarjeta['correo'];
+                if ($email != '')
+                    $sendmail->PrepareAttachment($message[6]["subject"], $message[6]["body"], $details_body, $details_subject, $email, '', $attachment, $fileName);
             }
             else
             {
                 $conceptos->closeCobroTarjeta('Declined', $resultado_payw, $texto, $fecha_req_cte, $codigo_aut, $referencia, $fecha_rsp_cte, $card_number);
+                $message_txt = '<p><i class="fas fa-exclamation-triangle fa-3x"></i></p>
+                                <p><b>Pago NO realizado</b></p>
+                                <p>El pago con su tarjeta no fue procesado.</p>
+                                <p>El pago que intentó realizar con la referencia ' . $referencia3d . ' por el monto $' . number_format($cobro_tarjeta['monto'], 2) . ' no pudo ser procesado. No se ha realizado ningún cargo a su tarjeta en relación con este intento de pago.</p>
+                                <p>Para resolver esta situación y proceder con su pago, le sugerimos seguir los siguientes pasos:</p>
+                                <ul style="list-style-type: none;">
+                                    <li><i class="fas fa-caret-right"></i> Verifique que los detalles de su tarjeta sean correctos, incluidos el número de tarjeta, la fecha de vencimiento y el código de seguridad CVV.</li>
+                                    <li><i class="fas fa-caret-right"></i> Revisar que el monto a pagar se encuentre disponible en su tarjeta.</li>
+                                    <li><i class="fas fa-caret-right"></i> Comunicarse al banco emisor de la tarjeta para obtener asistencia adicional.</li>
+                                    <li><i class="fas fa-caret-right"></i> Si el problema persiste, le sugerimos intentar realizar su pago con otra tarjeta.</li>
+                                </ul>
+                                <p>En breve se le enviará esta información al correo electrónico #correo</p>
+                                <p>Si tiene alguna duda, puede comunicarse al Departamento de Finanzas y Contabilidad al teléfono 961 125 1508 Ext. 116 de lunes a viernes de 8:00 am a 4:00 pm</p>';
+                $smarty->assign('success', true);
+                $smarty->assign('message_txt', $message_txt);
             }
             /**
              * RESULTADO_PAYW
@@ -194,7 +223,7 @@ if($_POST)
     }
     else
     {
-        $message = '<p><i class="fas fa-exclamation-triangle fa-3x"></i></p>
+        $message_txt = '<p><i class="fas fa-exclamation-triangle fa-3x"></i></p>
                     <p>Error al procesar el pago</p>
                     <p>Fallo en la autenticación 3D Secure de la tarjeta</p>
                     <p>El pago que intento realizar con la referencia ' . $referencia3d . ' no pudo ser procesado debido a un problema con la autenticación 3D Secure.</p>
@@ -203,6 +232,6 @@ if($_POST)
                     <p>Si tiene alguna duda, puede comunicarse al Departamento de Finanzas y Contabilidad al teléfono 961 125 1508 Ext. 116 de lunes a viernes de 8:00 am a 4:00 pm</p>';
         $conceptos->deleteCobroTarjeta('NoAuth', $card_number);
         $smarty->assign('success', false);
-        $smarty->assign('message', $message);
+        $smarty->assign('message_txt', $message_txt);
     } 
 }

@@ -8,22 +8,42 @@ include_once(DOC_ROOT.'/libraries.php');
 // exit;
 if (!isset($_SESSION)) 
 {
-  session_start();
+  	session_start();
 }
 
-if($_GET['page'] != "procesar-pago")
+if($_GET['page'] == "procesar-pago")
 {
 	if(!isset($_SESSION['User']))
 	{
-		if(isset($_COOKIE['code']) && isset($_COOKIE['type']))
+		if($_POST)
 		{
-			$data = $user->getLoginData($_COOKIE['code'], $_COOKIE['type']);
-			$user->setUsername($data['username']);
-			$user->setPassword($data['password']);
-			$user->do_login();
-			setcookie('code', '', time() - 60);
-			setcookie('type', '', time() - 60);
+			$referencia3d = $_POST['REFERENCIA3D'];
+			$cobro_tarjeta = $conceptos->getCobroTarjeta($referencia3d);
+			if(isset($cobro_tarjeta['session_id']))
+			{
+				session_id($cobro_tarjeta['session_id']);
+				session_start();
+				$student->setUserId($cobro_tarjeta['userId']);
+				$userInfo = $student->GetInfo();
+				$user->setUsername($userInfo['controlNumber']);
+				$user->setPassword($userInfo['password']);
+				$user->do_login();
+				setcookie('code', $_SESSION['User']['userId'], time() + 900);
+				setcookie('type', $_SESSION['User']['type'], time() + 900);
+			}
 		}
+	}
+}
+else
+{
+	if(isset($_COOKIE['code']) && isset($_COOKIE['type']))
+	{
+		$data = $user->getLoginData($_COOKIE['code'], $_COOKIE['type']);
+		$user->setUsername($data['username']);
+		$user->setPassword($data['password']);
+		$user->do_login();
+		setcookie('code', '', time() - 60);
+		setcookie('type', '', time() - 60);
 	}
 }
 
@@ -31,7 +51,7 @@ if($_GET['page'] != "procesar-pago")
 print_r($_SESSION);
 exit; */
 
-if((!isset($_SESSION['User'])) && $_GET['page'] != 'login' && $_GET['page'] != 'register' && $_GET['page'] != "recuperacion" && $_GET['page'] != "procesar-pago")
+if((!isset($_SESSION['User'])) && $_GET['page'] != 'login' && $_GET['page'] != 'register' && $_GET['page'] != "recuperacion")
 	header('Location: ' . WEB_ROOT . '/login');
 
 
