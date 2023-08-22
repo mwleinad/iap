@@ -139,8 +139,9 @@
                                                                                         <a class="dropdown-item"
                                                                                             href="{$WEB_ROOT}/pdf/transferencia.php?curso={$item.courseId}&concepto={$itemp.pago_id}&num={$contador[$itemp.concepto_id]}"
                                                                                             target="_blank">Por transferencia</a>
-                                                                                        <a class="dropdown-item" 
-                                                                                            href="{$WEB_ROOT}/pagar/id/{$itemp.pago_id}">Pago en línea</a>
+                                                                                        {if $User.userId eq 4449}
+                                                                                            <a class="dropdown-item" href="{$WEB_ROOT}/pagar/id/{$itemp.pago_id}">Pago en línea</a>
+                                                                                        {/if}
                                                                                     </div>
                                                                                 </div>
                                                                             {/if}
@@ -242,7 +243,9 @@
                                                                                 <a class="dropdown-item"
                                                                                     href="{$WEB_ROOT}/pdf/transferencia.php?curso={$item.courseId}&concepto={$itemp.pago_id}&num={$contador[$itemp.concepto_id]}"
                                                                                     target="_blank">Por transferencia</a>
-                                                                                <a class="dropdown-item" href="#">Pago en línea</a>
+                                                                                {if $User.userId eq 4449}
+                                                                                    <a class="dropdown-item" href="{$WEB_ROOT}/pagar/id/{$itemp.pago_id}">Pago en línea</a>
+                                                                                {/if}
                                                                             </div>
                                                                         </div>
                                                                     {/if}
@@ -397,7 +400,9 @@
                                                                                         <a class="dropdown-item"
                                                                                             href="{$WEB_ROOT}/pdf/transferencia.php?curso={$item.courseId}&concepto={$itemp.pago_id}&num={$contador[$itemp.concepto_id]}"
                                                                                             target="_blank">Por transferencia</a>
-                                                                                        <a class="dropdown-item" href="#">Pago en línea</a>
+                                                                                        {if $User.userId eq 4449}
+                                                                                            <a class="dropdown-item" href="{$WEB_ROOT}/pagar/id/{$itemp.pago_id}">Pago en línea</a>
+                                                                                        {/if}
                                                                                     </div>
                                                                                 </div>
                                                                             {/if}
@@ -499,7 +504,9 @@
                                                                                 <a class="dropdown-item"
                                                                                     href="{$WEB_ROOT}/pdf/transferencia.php?curso={$item.courseId}&concepto={$itemp.pago_id}&num={$contador[$itemp.concepto_id]}"
                                                                                     target="_blank">Por transferencia</a>
-                                                                                <a class="dropdown-item" href="#">Pago en línea</a>
+                                                                                {if $User.userId eq 4449}
+                                                                                    <a class="dropdown-item" href="{$WEB_ROOT}/pagar/id/{$itemp.pago_id}">Pago en línea</a>
+                                                                                {/if}
                                                                             </div>
                                                                         </div>
                                                                     {/if}
