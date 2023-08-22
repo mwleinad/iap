@@ -1567,4 +1567,11 @@ class Util extends ErrorLms
 		$resultado = $this->DBErp()->GetResult();
 		return $resultado;
 	}
+
+	public function cardFormat($card_number)
+	{
+		$search = substr($card_number, 8, 6);
+		$result = str_replace($search, '******', $card_number);
+		return $result;
+	}
 }

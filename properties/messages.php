@@ -84,4 +84,25 @@ $message[5]["body"] = "
 
 	";
 
+$message[6]["subject"] = "Comprobante de Pago | Instituto de Administración Pública del Estado de Chiapas";
+$message[6]["body"] = "Pago aprobado
+						El pago con su tarjeta fue procesado exitosamente.
+						Detalles de la transacción:
+							<b>* Monto total:</b> $|monto|
+							<b>* No. de referencia:</b> |referencia|
+							<b>* Método de pago:</b> |metodo|
+							<b>* Fecha y hora:</b> |fecha|
+						Si tiene alguna duda, puede comunicarse al Departamento de Finanzas y Contabilidad al teléfono 961 125 1508 Ext. 116 de lunes a viernes de 8:00 am a 4:00 pm";
+
+$message[7]["subject"] = "Pago Declinado | Instituto de Administración Pública del Estado de Chiapas";
+$message[7]["body"] = "<b>Pago NO realizado</b>
+						El pago con su tarjeta no fue procesado.
+						El pago que intentó realizar con la referencia |referencia| por el monto $|monto| no pudo ser procesado. No se ha realizado ningún cargo a su tarjeta en relación con este intento de pago.
+						Para resolver esta situación y proceder con su pago, le sugerimos seguir los siguientes pasos:
+							<b>* Verifique que los detalles de su tarjeta sean correctos, incluidos el número de tarjeta, la fecha de vencimiento y el código de seguridad CVV.</b>
+							<b>* Revisar que el monto a pagar se encuentre disponible en su tarjeta.</b>
+							<b>* Comunicarse al banco emisor de la tarjeta para obtener asistencia adicional.</b>
+							<b>* Si el problema persiste, le sugerimos intentar realizar su pago con otra tarjeta.</b>
+						Si tiene alguna duda, puede comunicarse al Departamento de Finanzas y Contabilidad al teléfono 961 125 1508 Ext. 116 de lunes a viernes de 8:00 am a 4:00 pm";
+
 ?>

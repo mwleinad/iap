@@ -265,6 +265,17 @@
 			</script>
 		{/if}
 	{/if}
+	{if $page eq 'pagar'}
+		{if $processing}
+			<script>
+				Swal.fire({
+					html: '<h2><i class="fas fa-spinner fa-pulse"></i> Espere por favor...</h2>',
+					showCancelButton: false,
+					showConfirmButton: false
+				});
+			</script>
+		{/if}
+	{/if}
 </body>
 
 </html>

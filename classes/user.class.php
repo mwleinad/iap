@@ -2237,4 +2237,14 @@ class User extends Main
 
 		return $result;
 	}
+
+	function getLoginData($id, $type)
+	{
+		$sql = "SELECT username, passwd AS password FROM personal WHERE personalId = " . $id;
+		if($type == 'student')
+			$sql = "SELECT controlNumber AS username, password FROM user WHERE userId = " . $id;
+        $this->Util()->DB()->setQuery($sql);
+        $result = $this->Util()->DB()->GetRow();
+		return $result;
+	}
 }
