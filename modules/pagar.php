@@ -74,7 +74,7 @@ if($_POST)
             $data = [
                 'NUMERO_TARJETA' => $numero_tarjeta,
                 'FECHA_EXP' => $fecha_exp,
-                'MONTO' => 2, // $monto
+                'MONTO' => $monto,
                 'MARCA_TARJETA' => $marca_tarjeta,
                 'ID_AFILIACION' => $id_afiliacion,
                 'NOMBRE_COMERCIO' => $nombre_comercio,

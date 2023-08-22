@@ -48,7 +48,7 @@ if($_POST)
                 'CLAVE_USR' => BN_CLAVE,
                 'CMD_TRANS' => 'VENTA',
                 'ID_TERMINAL' => ID_TERMINAL,
-                'MONTO' => 2, // $monto
+                'MONTO' => $monto,
                 'MODO' => BN_MODO,
                 'NUMERO_TARJETA' => $cobro_tarjeta['numero_tarjeta'],
                 'FECHA_EXP' => $cobro_tarjeta['fecha_exp'],
