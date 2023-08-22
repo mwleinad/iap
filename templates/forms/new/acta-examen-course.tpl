@@ -40,8 +40,10 @@
         <div class="form-group col-md-4">
             <label for="opcionExamen">Opción de Examen</label>
             <select name="opcionExamen" id="opcionExamen" class="form-control" required>
-                <option value="Promedio">Promedio</option>
+                <option value="Por Promedio">Promedio</option>
+                <option value="Promedio General de Calificaciones">Promedio General de Calificaciones</option>
                 <option value="Tesis">Tesis de Grado</option>
+                <option value="Examen General de Conocimientos">Examen General de Conocimientos</option>
             </select> 
         </div>
         <div class="form-group col-md-4">

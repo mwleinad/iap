@@ -96,9 +96,9 @@ $html = "<html>
 <body>";
 $optionPx = '325px';
 $optionSize = '9pt';
-$option = 'POR PROMEDIO';
+$option = mb_strtoupper($_POST['opcionExamen']);
 $line = '<p><b>________________________________________________________________________________________________________</b></p>';
-if($_POST['opcionExamen'] == 'Tesis')
+if($option == 'TESIS')
 {
     $optionPx = '40px';
     $optionSize = '8pt';
@@ -114,7 +114,7 @@ $schoolService['name'] = mb_strtoupper($settingCertificate['school_services']);
 $schoolService['genre'] = $settingCertificate['genre_school'] == 1 ? "JEFE" : "JEFA";
 $director['name'] = mb_strtoupper($settingCertificate['director_education']);
 $director['genre'] = $settingCertificate['genre_director'] == 1 ? "DIRECTOR" : "DIRECTORA";
-$head['name'] = mb_strtoupper($settingCertificate['head_office']);
+$head['name'] = mb_strtoupper($_POST['nombreJefe']);
 $head['genre'] = $settingCertificate['genre_head'] == 1 ? "JEFE" : "JEFA";
 $comparison['name'] = mb_strtoupper($settingCertificate['comparison']);
 $coordinator['name'] = mb_strtoupper($settingCertificate['coordinator']);
@@ -129,6 +129,7 @@ if ($_POST['student'] == 0) {
 foreach ($students as $item) {
     $student->setUserId($item['userId']);
     $infoStudent = $student->GetInfo();
+    $alumno =  mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']);
     $testHistory = $test->getTestHistory($_POST['course'],$item['userId']);
     if($testHistory){
         $test->updateTestHistory($_POST['course'], $item['userId'], $_POST['fecha'], $_POST['folio'],$_POST['noActa'],$_POST['noAutorizacion'],$_POST['hora'],$_POST['ubicacion'],$_POST['opcionExamen'],$_POST['tesis'],$_POST['nombrePresidente'],$_POST['nombreSecretario'],$_POST['nombreVocal'],$_POST['cedulaPresidente'],$_POST['cedulaSecretario'],$_POST['cedulaVocal'], $_POST['nombreJefe']);
@@ -219,8 +220,8 @@ foreach ($students as $item) {
                 <div style='font-size: 9pt; position: absolute; left: 95px; top: 572px; width: 500px; font-weight: bold;'>
                     " . $_POST['nombreVocal'] . "
                 </div>
-                <div style='font-size: 9pt; position: absolute; left: 230px; top: 635px; width: 500px; font-weight: bold;'>
-                    " . mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']) . "
+                <div style='font-size: 9pt; position: absolute; left: 0; top: 635px; width: 100%; font-weight: bold; text-align:center;'>
+                    " .$alumno. "
                 </div>
                 <div style='font-size: 9pt; position: absolute; left: 180px; top: 665px; width: 500px; font-weight: bold;'>
                     " . $student->GetMatricula($infoCourse['courseId']) . "
@@ -228,7 +229,7 @@ foreach ($students as $item) {
                 <div style='font-size: " . $optionSize . "; position: absolute; left: 0px; top: 696px; width: 100%; font-weight: bold; text-align:center'>
                     " . $option . "
                 </div>
-                <div style='font-size: 9pt; position: absolute; left: 0px; top: 729px; width: 100%; font-weight: bold; text-align:center;'>
+                <div style='font-size: 9pt; position: absolute; left: 40px; top: 729px; width: 100%; font-weight: bold; text-align:center;'>
                 &nbsp;&nbsp;&nbsp;" . $title . $curriculaNombre . "
                 </div>
                 <div style='font-size: 9pt; position: absolute; left: 0px; top: 840px; width: 100%; font-weight: bold; text-align:center;'>

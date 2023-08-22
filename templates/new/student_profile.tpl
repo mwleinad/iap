@@ -57,13 +57,16 @@
             </div>
         {else}
             {* {if $pago} 
-                <div class="col-md-12 stretch-card grid-margin">
-                    <div class="card text-white bg-info">
-                        <div class="card-body">
-                            <p class="text-justify" style="font-size: large;">Estimado alumno: <br>Por el momento, tu currícula se encuentra inactiva, por favor, comunicarse a  Dirección Académica del IAP Chiapas para solucionar este detalle.<br>961 125 15 08 Ext. 105<br> Horario de 08:00 a 16:00 horas</p>
-                        </div>
-                    </div>
-                </div> 
+                                        <div class="col-md-12 stretch-card grid-margin">
+                                            <div class="card text-white bg-info">
+                                                <div class="card-body">
+                                                    <p class="text-justify" style="font-size: large;">Estimado alumno: <br>Por el momento, tu currícula se encuentra inactiva, por favor, comunicarse a  Dirección Académica del IAP Chiapas para solucionar este detalle.<br>961 125 15 08 Ext. 105<br> Horario de 08:00 a 16:00 horas</p>
+                                                </div>
+                                            </div>
+                                        </div> 
+
+
+
             {else} *}
                 <div class="row">
                     <div class="col-md-12 mb-3">
@@ -246,15 +249,17 @@
                                     </p>
                                     <div class="text-center">
                                         {if $subject.situation eq 'Ordinario'}
-                                            <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
+                                            <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}"
+                                                title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
                                                 <i class="fas fa-link"></i> Ver
                                             </a>
                                         {/if}
                                         {if $subject.situation eq 'Recursador'}
-                                            <a href="{$WEB_ROOT}/modulos-recursar/id/{$subject.courseId}" title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
+                                            <a href="{$WEB_ROOT}/modulos-recursar/id/{$subject.courseId}"
+                                                title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
                                                 <i class="fas fa-link"></i> Ver
                                             </a>
-                                        {/if}<br><br> 
+                                        {/if}<br><br>
                                         <a href="{$WEB_ROOT}/boletas/id/{$subject.courseId}"
                                             class="btn btn-outline-light btn-fw btn-sm">
                                             <i class="far fa-list-alt"></i> Boletas de Calificaciones
@@ -415,5 +420,22 @@
                 </div>
             {* {/if} *}
         {/if}
+    </div>
+</div>
+<div class="cookies d-none">
+    <div class="container" style="background: #fff; border-radius: 20px 20px 0 0;">
+        <div class="row">
+            <div class="col-md-12">
+                <div style=" padding: 20px 40px; text-align: justify; font-size: 18px;">
+                    <h5 style="font-size:20px;">Esta página web hace uso de cookies</h5>
+                    Las cookies necesarias ayudan a hacer una página web utilizable activando funciones básicas como la
+                    navegación en la página y el acceso a áreas seguras de la página web. La página web no puede
+                    funcionar adecuadamente sin estas cookies.
+                </div>
+            </div>
+            <div class="col-md-12 text-center mb-3">
+                <button class="btn btn-success" type="button">Aceptar Cookies</button>
+            </div>
+        </div>
     </div>
 </div>
