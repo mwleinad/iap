@@ -130,6 +130,7 @@ foreach ($students as $item) {
     $student->setUserId($item['userId']);
     $infoStudent = $student->GetInfo();
     $alumno =  mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']);
+    $alumno = $util->eliminar_acentos($alumno); 
     $testHistory = $test->getTestHistory($_POST['course'],$item['userId']);
     if($testHistory){
         $test->updateTestHistory($_POST['course'], $item['userId'], $_POST['fecha'], $_POST['folio'],$_POST['noActa'],$_POST['noAutorizacion'],$_POST['hora'],$_POST['ubicacion'],$_POST['opcionExamen'],$_POST['tesis'],$_POST['nombrePresidente'],$_POST['nombreSecretario'],$_POST['nombreVocal'],$_POST['cedulaPresidente'],$_POST['cedulaSecretario'],$_POST['cedulaVocal'], $_POST['nombreJefe']);
