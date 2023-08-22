@@ -17,6 +17,7 @@ if(!isset($_SESSION))
 if($_POST)
 {
     include_once(DOC_ROOT . "/properties/messages.php");
+    $sendmail = new SendMail;
     $estatus = intval($_POST['Estatus']);
     $referencia3d = $_POST['REFERENCIA3D'];
     $pagoId = explode('IAP', $referencia3d);
@@ -157,7 +158,6 @@ if($_POST)
                             <p>Si tiene alguna duda, puede comunicarse al Departamento de Finanzas y Contabilidad al teléfono 961 125 1508 Ext. 116 de lunes a viernes de 8:00 am a 4:00 pm</p>';
                 $smarty->assign('success', true);
                 $smarty->assign('message_txt', $message_txt);
-                $sendmail = new SendMail;
                 $details_body = array(
                     "monto" => utf8_decode(number_format($cobro_tarjeta['monto'], 2)),
                     "referencia" => utf8_decode($referencia),
@@ -177,7 +177,7 @@ if($_POST)
                 $message_txt = '<p><i class="fas fa-exclamation-triangle fa-3x"></i></p>
                                 <p><b>Pago NO realizado</b></p>
                                 <p>El pago con su tarjeta no fue procesado.</p>
-                                <p>El pago que intentó realizar con la referencia ' . $referencia3d . ' por el monto $' . number_format($cobro_tarjeta['monto'], 2) . ' no pudo ser procesado. No se ha realizado ningún cargo a su tarjeta en relación con este intento de pago.</p>
+                                <p>El pago que intentó realizar con la referencia ' . $referencia . ' por el monto $' . number_format($cobro_tarjeta['monto'], 2) . ' no pudo ser procesado. No se ha realizado ningún cargo a su tarjeta en relación con este intento de pago.</p>
                                 <p>Para resolver esta situación y proceder con su pago, le sugerimos seguir los siguientes pasos:</p>
                                 <ul style="list-style-type: none;">
                                     <li><i class="fas fa-caret-right"></i> Verifique que los detalles de su tarjeta sean correctos, incluidos el número de tarjeta, la fecha de vencimiento y el código de seguridad CVV.</li>
@@ -185,10 +185,20 @@ if($_POST)
                                     <li><i class="fas fa-caret-right"></i> Comunicarse al banco emisor de la tarjeta para obtener asistencia adicional.</li>
                                     <li><i class="fas fa-caret-right"></i> Si el problema persiste, le sugerimos intentar realizar su pago con otra tarjeta.</li>
                                 </ul>
-                                <p>En breve se le enviará esta información al correo electrónico #correo</p>
+                                <p>En breve se le enviará esta información al correo electrónico ' . $cobro_tarjeta['correo'] . '</p>
                                 <p>Si tiene alguna duda, puede comunicarse al Departamento de Finanzas y Contabilidad al teléfono 961 125 1508 Ext. 116 de lunes a viernes de 8:00 am a 4:00 pm</p>';
-                $smarty->assign('success', true);
+                $smarty->assign('success', false);
                 $smarty->assign('message_txt', $message_txt);
+                $details_body = array(
+                    "monto" => utf8_decode(number_format($cobro_tarjeta['monto'], 2)),
+                    "referencia" => utf8_decode($referencia)
+                );
+                $details_subject = array();
+                $attachment = [];
+                $fileName = [];
+                $email = $cobro_tarjeta['correo'];
+                if ($email != '')
+                    $sendmail->PrepareAttachment($message[7]["subject"], $message[7]["body"], $details_body, $details_subject, $email, '', $attachment, $fileName);
             }
             /**
              * RESULTADO_PAYW
