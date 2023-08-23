@@ -427,14 +427,13 @@
         <div class="row">
             <div class="col-md-12">
                 <div style=" padding: 20px 40px; text-align: justify; font-size: 18px;">
-                    <h5 style="font-size:20px;">Esta página web hace uso de cookies</h5>
-                    Las cookies necesarias ayudan a hacer una página web utilizable activando funciones básicas como la
-                    navegación en la página y el acceso a áreas seguras de la página web. La página web no puede
-                    funcionar adecuadamente sin estas cookies.
+                    <h5 style="font-size:20px; text-align:center; font-weight: 700;">Esta página web hace uso de cookies</h5>
+                    Las cookies necesarias ayudan a hacer una página web utilizable activando funciones básicas como la navegación en la página y el acceso a áreas seguras. La página web no puede funcionar adecuadamente sin estas cookies.
                 </div>
             </div>
             <div class="col-md-12 text-center mb-3">
-                <button class="btn btn-success" type="button">Aceptar Cookies</button>
+                <button class="btn btn-success" type="button" onclick="aceptarCookies()">Aceptar Cookies</button>
+                <a class="btn btn-info" target="_blank" href="https://iapchiapas.edu.mx/aviso_privacidad">Aviso de privacidad</a>
             </div>
         </div>
     </div>
