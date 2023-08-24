@@ -44,6 +44,7 @@
                 <option value="Promedio General de Calificaciones">Promedio General de Calificaciones</option>
                 <option value="Tesis">Tesis de Grado</option>
                 <option value="Examen General de Conocimientos">Examen General de Conocimientos</option>
+                <option value="Estudio de Posgrado">Estudio de Posgrado (50% DOCTORADO)</option>
             </select> 
         </div>
         <div class="form-group col-md-4">

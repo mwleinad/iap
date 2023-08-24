@@ -18,6 +18,8 @@ $nombre = $alumno['names'] . " " . $alumno['lastNamePaterno'] . " " . $alumno['l
 $matricula = $student->GetMatricula($curso);
 $conceptos->setPagoId($concepto);
 $pagoInfo = $conceptos->pago();
+$montoActual = $conceptos->monto();
+$pagoInfo['total']  = $pagoInfo['total'] - $montoActual;
 $conceptos->setConcepto($pagoInfo['concepto_id']);
 $conceptoInfo = $conceptos->getConcepto();
 $nombreConcepto =  $conceptoInfo['cobros'] > 1 ? $conceptoInfo['nombre'] . " " . $indice : $conceptoInfo['nombre'];
@@ -82,7 +84,7 @@ $pdf->writeHTMLCell('', '', $xInicial, $y += 25, "Total", 0, 0, 0, true, 'C', fa
 $pdf->writeHTMLCell('', '', $xInicial, $y, "$" . number_format($pagoInfo['total'], 2), 0, 0, 0, true, 'R', false);
 
 // Importe con letras
-$pagoLetra = "(" . $util->Util()->num2letras($pagoInfo['total']) . " pesos)";
+$pagoLetra = "(" . $util->Util()->num2letras($pagoInfo['total'], false) . " pesos)";
 $pdf->writeHTMLCell('', '', $xInicial, $y += 5, "Importe con letras", 0, 0, 0, true, 'C', false);
 $pdf->writeHTMLCell('', '', $xInicial, $y, $pagoLetra, 0, 0, 0, true, 'R', false);
 
