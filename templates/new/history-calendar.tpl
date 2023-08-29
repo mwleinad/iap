@@ -74,7 +74,8 @@
                                                 {$totalconcentrado = $totalconcentrado + $item.total}
                                                 {$pendienteconcentrado = $pendienteconcentrado + $pendiente}
                                                 {$contador[$item.concepto_id] = $contador[$item.concepto_id] + 1}
-                                                <tr {($item.fecha_limite < date('Y-m-d') && $item.status != 2) ? 'class="alert alert-danger" ' : ""}>
+                                                <tr
+                                                    {($item.fecha_limite < date('Y-m-d') && $item.status != 2) ? 'class="alert alert-danger" ' : ""}>
                                                     <td>
                                                         {if count($item.cobros) > 0}
                                                             <button type="button" data-cobros="#cobros{$item.pago_id}"
@@ -109,6 +110,18 @@
                                                                     Generar cobro
                                                                 </button>
                                                             </form>
+                                                        {/if}
+                                                        {if $item.status == 2 && $item.beca == 100}
+                                                            {if $item.recibo['pdf']}
+                                                                <a href="" class="btn btn-success" target="_blank">Ver recibo</a>
+                                                            {else}
+                                                                <form class="form" id="form_generar{$item.pago_id}"
+                                                                    action="{$WEB_ROOT}/ajax/new/conceptos.php" method="post">
+                                                                    <input type="hidden" name="opcion" value="generar-recibo">
+                                                                    <input type="hidden" name="pago" value="{$item.pago_id}">
+                                                                    <button type="submit" class="btn btn-sm text-white" style="background-color: #970000; border-color: #970000;">Generar recibo</button>
+                                                                </form>
+                                                            {/if}
                                                         {/if}
                                                     </td>
                                                 </tr>
@@ -172,7 +185,7 @@
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody class="text-center"> 
+                                <tbody class="text-center">
                                     {foreach from=$pagos.otros item=item}
                                         <tr>
                                             <td>

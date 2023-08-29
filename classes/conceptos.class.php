@@ -384,6 +384,7 @@ class Conceptos extends Module
             $this->pagoId = $item['pago_id'];
             $item['cobros'] = $this->cobros();
             $item['monto'] = $this->monto();
+            $item['recibo'] = json_decode($item['archivo'], true);
             if ($item['periodo'] == 0) {
                 $clasificados['otros'][] = $item;
             } else {
@@ -560,6 +561,13 @@ class Conceptos extends Module
     public function closeCobroTarjeta($estatus, $resultado_payw, $texto, $fecha_req_cte, $codigo_aut, $referencia, $fecha_rsp_cte, $numero_tarjeta, $cobroId = 'NULL')
     {
         $sql = "UPDATE cobros_tarjeta SET session_id = NULL, cobro_id = " . $cobroId . ", estatus = '" . $estatus . "', numero_tarjeta = '" . $numero_tarjeta . "', fecha_exp = NULL, codigo_seguridad = NULL, resultado_payw = '" . $resultado_payw . "', texto = '" . $texto . "', fecha_req_cte = '" . $fecha_req_cte . "', codigo_aut = '" . $codigo_aut . "', referencia = '" . $referencia . "', fecha_rsp_cte = '" . $fecha_rsp_cte . "' WHERE id = " . $this->cobroTarjetaId . " AND deleted_at IS NULL";
+        $this->Util()->DB()->setQuery($sql);
+        $result = $this->Util()->DB()->UpdateData();
+        return $result;
+    }
+
+    public function guardar_recibo() {
+        $sql = "";
         $this->Util()->DB()->setQuery($sql);
         $result = $this->Util()->DB()->UpdateData();
         return $result;

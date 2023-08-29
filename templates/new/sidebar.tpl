@@ -79,7 +79,7 @@
                 <div class="collapse {if $page == "configurar-calendario" or $page == "cobranza-calendario"}show{/if}" id="m-cobranza">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
-                            {if in_array($User.positionId,[1])} 
+                            {if in_array($User.positionId,[1, 24])} 
                             <a class="nav-link {if $page == "cobranza-calendario"}active{/if}" href="{$WEB_ROOT}/cobranza-calendario">Calendario de Pagos</a>
                             {/if}
                             <a class="nav-link {if $page == "cobranza-calendario"}active{/if}" href="{$WEB_ROOT}/solicitudes-pagos">Solicitud de Pagos</a>
@@ -200,7 +200,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="{$WEB_ROOT}/reporte-indicadores">Indicadores</a>
                                     </li> 
-                                    {if in_array($User.positionId,[1])} 
+                                    {if in_array($User.positionId,[1,24])} 
                                         <li class="nav-item">
                                             <a class="nav-link" href="{$WEB_ROOT}/reporte-pagos">Pagos</a>
                                         </li>
