@@ -11,12 +11,12 @@ session_start();
 $util = new Util;
 $module->setCourseModuleId($_GET["Id"]);
 $info = $module->InfoCourseModule();	
-/* echo "<pre>";
-var_dump($info);
-exit; */
+// echo "<pre>";
+// var_dump($info);
+// exit;
 
 $isEnglish = false;
-if(substr($info['clave'], 0, 3) == 'ING')
+if($info['materia'] == 0)
 	$isEnglish = true;
 	
 if($info['modality'] == 'Online')

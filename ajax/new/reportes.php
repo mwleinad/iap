@@ -32,25 +32,25 @@ switch($_POST["opcion"]){
         }
         break;
     case 'cuenta-grupo': 
-        $payments->curricula_con_pagos();
-        // $curricula = intval($_POST['curricula-grupo']); 
-        // if(empty($curricula)){
-        //     $errors['curricula'] = "Debe seleccionar un curricula";
-        // }
-        // if (!empty($errors)) { 
-        //     foreach ($errors as $key => $item) {
-        //         echo "<div style='border-radius:15px;display:inline-block;margin-bottom:10px;'>
-        //                 <div style='padding:15px; background-color:#950606;color:#FFFFFF'>$item</div>
-        //             </div><br>";
-        //     }
-        //     // echo "<script>setInterval(() => {
-        //     //     window.close();
-        //     // }, 3000);</script>";
-        // }else{ 
-        //     $conceptos->setCourseId($curricula);
-        //     $course->setCourseId($curricula);
-        //     include_once('reportes/pagos-grupo.php');
-        // }
+        // $payments->curricula_con_pagos();
+        $curricula = intval($_POST['curricula-grupo']); 
+        if(empty($curricula)){
+            $errors['curricula'] = "Debe seleccionar un curricula";
+        }
+        if (!empty($errors)) { 
+            foreach ($errors as $key => $item) {
+                echo "<div style='border-radius:15px;display:inline-block;margin-bottom:10px;'>
+                        <div style='padding:15px; background-color:#950606;color:#FFFFFF'>$item</div>
+                    </div><br>";
+            }
+            // echo "<script>setInterval(() => {
+            //     window.close();
+            // }, 3000);</script>";
+        }else{ 
+            $conceptos->setCourseId($curricula);
+            $course->setCourseId($curricula);
+            include_once('reportes/pagos-grupo.php');
+        }
         break;
 }
 

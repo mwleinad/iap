@@ -683,6 +683,7 @@ switch ($opcion) {
         $errors = [];
         $pagoId = intval($_POST['pago']);
         $monto = floatval($_POST['monto']);
+        $forma_pago = intval($_POST['metodo_pago']);
         $fecha_pago = "'{$_POST['fecha_pago']}'";
         $conceptos->setPagoId($pagoId);
         $infoPago = $conceptos->pago();
@@ -723,7 +724,7 @@ switch ($opcion) {
         $conceptos->setMonto($monto);
         $conceptos->setFechaPago($fecha_pago);
         // $conceptos->setMetodoPago($metodosPago);
-        $conceptos->guardar_cobro(); 
+        $conceptos->guardar_cobro($forma_pago); 
         $montoTotalCobrado = $conceptos->monto(); 
         
         $conceptos->setAlumno($infoPago['alumno_id']);

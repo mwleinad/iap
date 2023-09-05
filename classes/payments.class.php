@@ -56,33 +56,13 @@ class Payments extends Conceptos
 	}
 
 	public function curricula_con_pagos() {
-		// $sql = "SELECT pagos.course_id, major.name as especialidad, subject.name, course.group FROM `pagos` INNER JOIN course ON course.courseId = pagos.course_id INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo GROUP BY course.courseId ORDER BY subject.tipo ASC, course.finalDate DESC;";
-		// $this->Util()->DB()->setQuery($sql);
-		// $respuesta = $this->Util()->DB()->GetResult();
-		// return $respuesta;
-
-		$sql = "SELECT * FROM `pagos` WHERE periodo <> 0 AND deleted_at IS NULL ORDER BY alumno_id, fecha_cobro";
+		$sql = "SELECT pagos.course_id, major.name as especialidad, subject.name, course.group FROM `pagos` INNER JOIN course ON course.courseId = pagos.course_id INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo GROUP BY course.courseId ORDER BY subject.tipo ASC, course.finalDate DESC;";
 		$this->Util()->DB()->setQuery($sql);
 		$respuesta = $this->Util()->DB()->GetResult();
-		echo "<pre>";
-		// print_r($respuesta);
-		$indices = [];
-		
-		foreach ($respuesta as $item) {
-			if(!isset($indices[$item['course_id']][$item['alumno_id']][$item['concepto_id']])){
-				$indices[$item['course_id']][$item['alumno_id']][$item['concepto_id']] = 1;
-				$sql = "UPDATE pagos SET indice = 1 WHERE pago_id = {$item['pago_id']}";
-				$this->Util()->DB()->setQuery($sql);
-				$this->Util()->DB()->UpdateData(); 
-			}else{
-				$contador = $indices[$item['course_id']][$item['alumno_id']][$item['concepto_id']] + 1;
-				$indices[$item['course_id']][$item['alumno_id']][$item['concepto_id']] = $contador;
-				$sql = "UPDATE pagos SET indice = {$contador} WHERE pago_id = {$item['pago_id']}";
-				$this->Util()->DB()->setQuery($sql);
-				$this->Util()->DB()->UpdateData();
-			}
-		}
-		// print_r($indices);
-		exit;
+		return $respuesta; 
+	}
+
+	public function historial_pagos_curso() {
+		$sql = "";
 	}
 }
