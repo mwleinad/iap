@@ -840,6 +840,7 @@ class Student extends User
 					$conceptos->setCosto($item['total']);
 					$fecha_cobro = is_null($item['fecha_cobro']) ? "NULL" : "'{$item['fecha_cobro']}'";
 					$fecha_limite = is_null($item['fecha_limite']) ? "NULL" : "'{$item['fecha_limite']}'";
+					$conceptos->setIndice($item['indice']);
 					$conceptos->setConceptoCurso($item['concepto_course_id']);
 					$conceptos->setFechaCobro($fecha_cobro);
 					$conceptos->setFechaLimite($fecha_limite);
@@ -871,6 +872,7 @@ class Student extends User
 						$fecha_cobro = is_null($item['fecha_cobro']) ? "NULL" : "'{$item['fecha_cobro']}'";
 						$fecha_limite = is_null($item['fecha_limite']) ? "NULL" : "'{$item['fecha_limite']}'";
 						$fecha_pago = "NULL";
+						$conceptos->setIndice($item['indice']);
 						$conceptos->setConceptoCurso($item['concepto_course_id']);
 						$conceptos->setFechaCobro($fecha_cobro);
 						$conceptos->setFechaLimite($fecha_limite);

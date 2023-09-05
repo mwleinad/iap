@@ -51,10 +51,9 @@
                                             </thead>
                                             <tbody class="text-center">
                                                 {foreach from=$conceptos.periodicos item=item name=forFechas}
-                                                    {if $item.periodo == $period}
-                                                        {$contador[$item.concepto_id] = $contador[$item.concepto_id] + 1}
+                                                    {if $item.periodo == $period} 
                                                         <tr>
-                                                            <td>{$item.concepto_nombre} {$contador[$item.concepto_id]}</td>
+                                                            <td>{$item.concepto_nombre} {$item.indice}</td>
                                                             <td>${$item.total|number_format:2:".":","} {$total = $item.total + $total}
                                                             </td>
                                                             <td>{$item.fecha_cobro}</td>

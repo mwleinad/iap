@@ -6,7 +6,7 @@ include_once(DOC_ROOT.'/libraries.php');
 session_start();
 
 switch($_POST["opcion"]){
-    case 'pagos':
+    case 'cuenta-alumno':
         $alumno = intval($_POST['alumno']);
         $curricula = intval($_POST['curricula']);
         if(empty($alumno)){
@@ -15,18 +15,42 @@ switch($_POST["opcion"]){
         if(empty($curricula)){
             $errors['curricula'] = "Debe seleccionar un curricula";
         }
-        if (!empty($errors)) {
-            header('HTTP/1.1 422 Unprocessable Entity');
-            header('Content-Type: application/json; charset=UTF-8');
-            echo json_encode([
-                'errors'    => $errors
-            ]);
-            exit;
+        if (!empty($errors)) { 
+            foreach ($errors as $key => $item) {
+                echo "<div style='border-radius:15px;display:inline-block;margin-bottom:10px;'>
+                        <div style='padding:15px; background-color:#950606;color:#FFFFFF'>$item</div>
+                    </div><br>";
+            }
+            echo "<script>setInterval(() => {
+                window.close();
+            }, 2000);</script>";
+        }else{
+            $conceptos->setAlumno($alumno);
+            $conceptos->setCourseId($curricula);
+            $course->setCourseId($curricula);
+            include_once('reportes/pagos.php');
         }
-        $conceptos->setAlumno($alumno);
-        $conceptos->setCourseId($curricula);
-        $course->setCourseId($curricula);
-        include_once('reportes/pagos.php');
+        break;
+    case 'cuenta-grupo': 
+        $payments->curricula_con_pagos();
+        // $curricula = intval($_POST['curricula-grupo']); 
+        // if(empty($curricula)){
+        //     $errors['curricula'] = "Debe seleccionar un curricula";
+        // }
+        // if (!empty($errors)) { 
+        //     foreach ($errors as $key => $item) {
+        //         echo "<div style='border-radius:15px;display:inline-block;margin-bottom:10px;'>
+        //                 <div style='padding:15px; background-color:#950606;color:#FFFFFF'>$item</div>
+        //             </div><br>";
+        //     }
+        //     // echo "<script>setInterval(() => {
+        //     //     window.close();
+        //     // }, 3000);</script>";
+        // }else{ 
+        //     $conceptos->setCourseId($curricula);
+        //     $course->setCourseId($curricula);
+        //     include_once('reportes/pagos-grupo.php');
+        // }
         break;
 }
 

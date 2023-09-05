@@ -84,7 +84,7 @@
                                                             </button>
                                                         {/if}
                                                     </td>
-                                                    <td>{$item.concepto_nombre} {$contador[$item.concepto_id]}</td>
+                                                    <td>{$item.concepto_nombre} {$item.indice}</td>
                                                     <td>${$item.subtotal|number_format:2:".":","}</td>
                                                     <td>${$descuento|number_format:2:".":","}</td>
                                                     <td>${$item.total|number_format:2:".":","}</td>

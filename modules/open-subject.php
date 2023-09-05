@@ -78,12 +78,21 @@ if ($_POST) {
 		$fecha_inicial =  "";
 		$fecha_siguiente = "";
 		$fecha_anterior = "";
+		$indices = [];
 		foreach ($relacionados as $item) {
 			$conceptos->setConcepto($item['concepto_id']);
 			$conceptos->setCourseId($curso);
 			$conceptos->setCosto($item['total']);
 			$conceptos->setBeca($item['descuento']);
 			if ($item['cobros'] > 0) {
+				if(!isset($indices[$item['concepto_id']])){
+					$contador = 1;
+					$indices[$item['concepto_id']] = $contador;
+				}else{
+					$contador = $indices[$item['concepto_id']] + 1;
+					$indices[$item['concepto_id']] = $contador;
+				}
+				$conceptos->setIndice($contador);
 				$conceptos->setPeriodo($item['periodo']);
 				if ($conceptoActual != $item['concepto_id']) {
 					$fecha_siguiente = ""; 
@@ -104,6 +113,7 @@ if ($_POST) {
 				$conceptos->setFechaLimite("'$fecha_limite'");
 				$conceptos->crear_relacion_curso();
 			} else {
+				$conceptos->setIndice(0);
 				$conceptos->setPeriodo(0);
 				$conceptos->setFechaCobro("NULL");
 				$conceptos->setFechaLimite("NULL");

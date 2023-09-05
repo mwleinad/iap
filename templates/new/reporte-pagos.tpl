@@ -17,30 +17,32 @@
 
 <div class="card mb-4">
     <div class="card-body">
-        <form class="row" target="_blank" id="form_reportes" action="{$WEB_ROOT}/ajax/new/reportes.php?page=export-excel" method="post">
-            <input type="hidden" name="opcion" value="pagos">
+        <form class="row" target="_blank" id="form_reportes"
+            action="{$WEB_ROOT}/ajax/new/reportes.php?page=export-excel" method="post">
             <div class="col-md-8 mx-auto">
                 <div class="row">
                     <div class="col-md-7 mb-3 mx-auto">
-                        <label>Alumno</label>
-                        <select class="selectpicker alumnos form-control"
-                            data-url="{$WEB_ROOT}/ajax/new/studentCurricula.php" data-live-search="true" name="alumno" required>
-                            <option value="">--Selecciona el alumno--</option>
-                            {foreach from=$alumnos item=item}
-                                <option value="{$item.userId}">{$item.lastNamePaterno|upper} {$item.lastNameMaterno|upper}
-                                    {$item.names|upper}</option>
-                            {/foreach}
+                        <label for="opcion">Tipo de reporte</label>
+                        <select class="form-control selectpicker" id="opcion" name="opcion">
+                            <option value="">--Selecciona el tipo de reporte--</option>
+                            <option value="cuenta-alumno" data-icon="fa fa-user">Estado de cuenta - Por alumno</option>
+                            <option value="cuenta-grupo" data-icon="fa fa-users">Estado de cuenta - Por grupo</option>
+                            <option value="cuenta-fechas" data-icon="fa fa-calendar-alt">Ingresos Generales - Por rango de fechas
+                            </option>
                         </select>
                     </div>
-                    <div class="col-md-7 mb-3 mx-auto">
-                        <label>Currícula</label>
-                        <select data-none-selected-text="--Selecciona la currícula--"
-                            class="selectpicker curricula form-control" data-max-options="1" name="curricula"
-                            id="curricula" required>
-                        </select>
+                    <div id="reporte-1" class="col-md-12 d-none">
+                        <div class="row">
+                            {include file="items/new/pagos-alumnos.tpl"}
+                        </div>
+                    </div>
+                    <div id="reporte-2" class="col-md-12 d-none">
+                        <div class="row">
+                            {include file="items/new/pagos-grupo.tpl"}
+                        </div>
                     </div>
                 </div>
-            </div> 
+            </div>
             <div class="col-md-12 text-center">
                 <button class="btn btn-success" type="submit">Generar reporte</button>
             </div>

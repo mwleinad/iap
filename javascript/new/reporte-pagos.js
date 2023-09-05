@@ -34,3 +34,15 @@ $('.selectpicker.alumnos').on('changed.bs.select', function (e, clickedIndex, is
         console.log(response);
     });
 });
+
+$("body").on("change", "#opcion", function(){
+    console.log($(this).val());
+    if ($(this).val() == "cuenta-alumno") {
+        $("#reporte-1").removeClass("d-none");
+        $("#reporte-2, #reporte-3").addClass("d-none");
+    }
+    if ($(this).val() == "cuenta-grupo") {
+        $("#reporte-2").removeClass("d-none");
+        $("#reporte-1, #reporte-3").addClass("d-none");
+    }
+});
