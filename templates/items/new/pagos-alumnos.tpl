@@ -1,4 +1,4 @@
-<div class="col-md-7 mb-3 mx-auto">
+<div class="col-md-6 mb-3">
     <label>Alumno</label>
     <select class="selectpicker alumnos form-control" data-url="{$WEB_ROOT}/ajax/new/studentCurricula.php"
         data-live-search="true" name="alumno">
@@ -9,7 +9,7 @@
         {/foreach}
     </select>
 </div>
-<div class="col-md-7 mb-3 mx-auto">
+<div class="col-md-6 mb-3">
     <label>Currícula</label>
     <select data-none-selected-text="--Selecciona la currícula--" class="selectpicker curricula form-control"
         data-max-options="1" name="curricula" id="curricula">

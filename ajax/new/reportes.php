@@ -34,6 +34,7 @@ switch($_POST["opcion"]){
     case 'cuenta-grupo': 
         // $payments->curricula_con_pagos();
         $curricula = intval($_POST['curricula-grupo']); 
+        $estatus = intval($_POST['estatus']);
         if(empty($curricula)){
             $errors['curricula'] = "Debe seleccionar un curricula";
         }
@@ -46,8 +47,10 @@ switch($_POST["opcion"]){
             // echo "<script>setInterval(() => {
             //     window.close();
             // }, 3000);</script>";
-        }else{ 
-            $conceptos->setCourseId($curricula);
+        }else{  
+            $resultado = $payments->historial_pagos_curso($curricula, $estatus);
+            // echo "<pre>";
+            // print_r($resultado);
             $course->setCourseId($curricula);
             include_once('reportes/pagos-grupo.php');
         }

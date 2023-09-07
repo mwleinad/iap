@@ -72,6 +72,7 @@ switch ($_POST["opcion"]) {
         $conceptos->setFechaLimite("NULL");
         $conceptos->setFechaPago("NULL");
         $conceptos->setPeriodo(0);
+        $conceptos->setIndice(0);
         $conceptos->setUserId($_SESSION['User']['userId']);
         $conceptos->guardar_pago();
         echo json_encode([

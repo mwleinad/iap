@@ -51,18 +51,31 @@ class Payments extends Conceptos
 	public function alumnos_con_pagos() {
 		$sql = "SELECT * FROM pagos INNER JOIN user ON user.userId = pagos.alumno_id GROUP BY pagos.alumno_id ORDER BY lastNamePaterno, lastNameMaterno";
 		$this->Util()->DB()->setQuery($sql);
-		$respuesta = $this->Util()->DB()->GetResult();
-		return $respuesta;
+		$resultado = $this->Util()->DB()->GetResult();
+		return $resultado;
 	}
 
 	public function curricula_con_pagos() {
 		$sql = "SELECT pagos.course_id, major.name as especialidad, subject.name, course.group FROM `pagos` INNER JOIN course ON course.courseId = pagos.course_id INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo GROUP BY course.courseId ORDER BY subject.tipo ASC, course.finalDate DESC;";
 		$this->Util()->DB()->setQuery($sql);
-		$respuesta = $this->Util()->DB()->GetResult();
-		return $respuesta; 
+		$resultado = $this->Util()->DB()->GetResult();
+		return $resultado; 
 	}
 
-	public function historial_pagos_curso() {
-		$sql = "";
+	public function historial_pagos_curso($curso, $estatus = 1) {
+		$estatus = $estatus == 1 ? "activo" : "inactivo";
+		$sql = "SELECT pagos.pago_id, pagos.alumno_id, pagos.concepto_id, conceptos.nombre as concepto, pagos.indice, pagos.periodo, pagos.fecha_limite, SUM(pagos.subtotal) as subtotal, SUM(pagos.total) as total, SUM(cobros.monto) as pagado, (SUM(pagos.subtotal) - SUM(pagos.total)) as descuento FROM pagos INNER JOIN conceptos ON conceptos.concepto_id = pagos.concepto_id LEFT JOIN cobros ON cobros.pago_id = pagos.pago_id INNER JOIN user_subject ON user_subject.alumnoId = pagos.alumno_id AND user_subject.status = '{$estatus}' WHERE pagos.course_id = $curso AND pagos.deleted_at IS NULL GROUP BY pagos.concepto_id, pagos.indice ORDER BY pagos.periodo, pagos.fecha_limite;";
+		$this->Util()->DB()->setQuery($sql);
+		$resultado = $this->Util()->DB()->GetResult();
+		$resultadoMap = ["periodicos"=>[], "otros"=>[]];
+		foreach ($resultado as $item) {
+			$item['pagado'] = is_null($item['pagado']) ? 0 : $item['pagado'];
+			if($item['periodo'] == 0){
+				$resultadoMap['otros'][] = $item;
+			}else{
+				$resultadoMap['periodicos'][$item['periodo']][] = $item;
+			}
+		}
+		return $resultadoMap;
 	}
 }

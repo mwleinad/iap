@@ -139,9 +139,11 @@
                                                                                         <a class="dropdown-item"
                                                                                             href="{$WEB_ROOT}/pdf/transferencia.php?curso={$item.courseId}&concepto={$itemp.pago_id}&num={$contador[$itemp.concepto_id]}"
                                                                                             target="_blank">Por transferencia</a>
-                                                                                        {if $User.userId eq 4449}
-                                                                                            <a class="dropdown-item" href="{$WEB_ROOT}/pagar/id/{$itemp.pago_id}">Pago en línea</a>
-                                                                                        {/if}
+
+                                                                                        <a class="dropdown-item"
+                                                                                            href="{$WEB_ROOT}/pagar/id/{$itemp.pago_id}">Pago en
+                                                                                            línea</a>
+
                                                                                     </div>
                                                                                 </div>
                                                                             {/if}
@@ -243,9 +245,9 @@
                                                                                 <a class="dropdown-item"
                                                                                     href="{$WEB_ROOT}/pdf/transferencia.php?curso={$item.courseId}&concepto={$itemp.pago_id}&num={$contador[$itemp.concepto_id]}"
                                                                                     target="_blank">Por transferencia</a>
-                                                                                {if $User.userId eq 4449}
-                                                                                    <a class="dropdown-item" href="{$WEB_ROOT}/pagar/id/{$itemp.pago_id}">Pago en línea</a>
-                                                                                {/if}
+                                                                                <a class="dropdown-item"
+                                                                                    href="{$WEB_ROOT}/pagar/id/{$itemp.pago_id}">Pago en
+                                                                                    línea</a>
                                                                             </div>
                                                                         </div>
                                                                     {/if}
@@ -400,9 +402,9 @@
                                                                                         <a class="dropdown-item"
                                                                                             href="{$WEB_ROOT}/pdf/transferencia.php?curso={$item.courseId}&concepto={$itemp.pago_id}&num={$contador[$itemp.concepto_id]}"
                                                                                             target="_blank">Por transferencia</a>
-                                                                                        {if $User.userId eq 4449}
-                                                                                            <a class="dropdown-item" href="{$WEB_ROOT}/pagar/id/{$itemp.pago_id}">Pago en línea</a>
-                                                                                        {/if}
+                                                                                        <a class="dropdown-item"
+                                                                                            href="{$WEB_ROOT}/pagar/id/{$itemp.pago_id}">Pago en
+                                                                                            línea</a>
                                                                                     </div>
                                                                                 </div>
                                                                             {/if}
@@ -463,7 +465,7 @@
                                                         <th>Subtotal</th>
                                                         <th>Total a pagar</th>
                                                         <th>Monto pendiente</th>
-                                                        <th>Estatus</th> 
+                                                        <th>Estatus</th>
                                                         {if $alumno.referenciaBancaria != ""}
                                                             <th></th>
                                                         {/if}
@@ -488,7 +490,9 @@
                                                             <td>${$itemp.subtotal|number_format:2:".":","}</td>
                                                             <td>${$itemp.total|number_format:2:".":","}</td>
                                                             <td>${$itemp.total - $itemp.monto|number_format:2:".":","}</td>
-                                                            <td>{$itemp.status_btn} {($itemp.archivo != "" && $itemp.status == 2) ? "<a class='badge badge-info' target='_blank' href='{$WEB_ROOT}/files/solicitudes/{$itemp.archivo}'>Ver documento <i class='fa fa-file-pdf'></i></a>" : ""}</td> 
+                                                            <td>{$itemp.status_btn}
+                                                                {($itemp.archivo != "" && $itemp.status == 2) ? "<a class='badge badge-info' target='_blank' href='{$WEB_ROOT}/files/solicitudes/{$itemp.archivo}'>Ver
+                                                documento <i class='fa fa-file-pdf'></i></a>" : ""}</td>
                                                             {if $alumno.referenciaBancaria != ""}
                                                                 <td>
                                                                     {if $itemp.status != 2}
@@ -504,9 +508,10 @@
                                                                                 <a class="dropdown-item"
                                                                                     href="{$WEB_ROOT}/pdf/transferencia.php?curso={$item.courseId}&concepto={$itemp.pago_id}&num={$contador[$itemp.concepto_id]}"
                                                                                     target="_blank">Por transferencia</a>
-                                                                                {if $User.userId eq 4449}
-                                                                                    <a class="dropdown-item" href="{$WEB_ROOT}/pagar/id/{$itemp.pago_id}">Pago en línea</a>
-                                                                                {/if}
+
+                                                                                <a class="dropdown-item"
+                                                                                    href="{$WEB_ROOT}/pagar/id/{$itemp.pago_id}">Pago en
+                                                                                    línea</a>
                                                                             </div>
                                                                         </div>
                                                                     {/if}

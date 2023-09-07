@@ -1,4 +1,4 @@
-<div class="col-md-7 mb-3 mx-auto">
+<div class="col-md-6 mb-3">
     <label>Currícula</label>
     <select class="selectpicker form-control"
         data-live-search="true" name="curricula-grupo">
@@ -8,9 +8,9 @@
         {/foreach}
     </select>
 </div> 
-<div class="col-md-7 mb-3 mx-auto">
-    <label>Estatus</label>
-    <select class="form-control">
+<div class="col-md-6 mb-3">
+    <label for="estatus">Estatus</label>
+    <select class="form-control" id="estatus" name="estatus">
         <option value="1">Activos</option> 
         <option value="2">Inactivos</option> 
     </select>
