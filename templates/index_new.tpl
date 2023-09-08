@@ -251,12 +251,13 @@
 			</style>
 			<script>
 				Swal.fire({
-					html: '<h2 class="text-danger"><strong>ATENTO AVISO</strong></h2>' +
-						'<p>A todos los estudiantes inscritos en los diversos programas académicos de este Instituto, se les hace del conocimiento que, a partir del <strong>lunes, 24 de julio de 2023</strong>, todos los pagos que se realicen mediante <strong>TRANSFERENCIA ELECTRÓNICA</strong>, en <strong>Ventanilla de la institución Bancaria</strong> o desde la <strong>Página del Sistema Educativo</strong> por los conceptos de <strong>INSCRIPCIÓN, REINSCRIPCIÓN, MATERIAS, CONSTANCIAS, CERTIFICADOS, TITULACIÓN, CONSTANCIAS, ENTRE OTROS</strong> deberán realizarse mediante <strong><em style="text-decoration:underline">PAGOS REFERENCIADOS.</em></strong></p>' +
-						'<p>La información para realizar un <strong>PAGO REFERENCIADO</strong> se encuentra en el <strong>Sistema de Educación</strong> en el <strong>Módulo de Finanzas</strong>, donde deberá elegir </strong>REALIZAR PAGO</strong> en el o los conceptos a pagar y elegir la forma de pago <em>(En Ventanilla / Por transferencia / Pago en línea)</em>. Una vez que haya elegido la forma de pago, le desplegará la información necesaria para realizar el <strong>PAGO REFERENCIADO.</strong></p>' +
-						'<p>Es importante mencionar que para los usuarios <strong>BANORTE</strong>, estos pagos lo podrán realizar desde su banca electrónica en la opción <strong>PAGO DE SERVICIOS / ESCUELA Y UNIVERSIDADES / 148126 – INSTITUTO DE ADMINISTRACIÓN PÚBLICA</strong>, con el número de referencia correspondiente.</p>' +
-						'<p>Para los pagos en efectivo y con Tarjetas (Débito/Crédito) que se hagan directamente en la Caja de Cobro del IAP, deberá realizarse en el Departamento de Finanzas y Contabilidad.</p>' +
-						'<p>Para responder a cualquier duda al respecto, favor de comunicarse al Departamento de Finanzas y Contabilidad, con el C.P. César Tomás Pérez Escobar, al teléfono 9611251508 ext. 116, en el horario de <strong>08:00 a.m.</strong> a <strong>04:00 p.m.</strong> o por medio del correo electrónico <a href="mailto:ctperez@iapchiapas.edu.mx">ctperez@iapchiapas.edu.mx.</a></p>',
+					html: '<h2 class="text-danger"><strong>ESTIMADO ALUMNO</strong></h2>' +
+						'<p>Te informamos, que a partir de esta fecha,  los pagos relativos al posgrado en el cual te encuentras inscrito, serán en los primeros 10 días de cada mes, de acuerdo al calendario de pagos establecidos por este Instituto.</p>' +
+						'<p>Asimismo, se les hace del conocimiento que podrán realizar sus pagos mediante <strong>ventanilla bancaria, transferencia electrónica o directamente desde la plataforma educativa</strong>, en el modulo de Finanzas.</p>' +
+						'<pEs importante contar con los pagos al corriente para tener activo el acceso a la plataforma educativa. </p>' +
+						'<p>Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en ponerte en contacto con nuestro Departamento de Contabilidad y Finanzas, al 961 125 15 08 Ext. 116 en un horario de 08:00 a 16:00 horas de lunes a viernes.</p>' +
+						'<p>Agradecemos tu atención y compromiso con tu educación.</p>'+
+						'<p>Atentamente, IAP Chiapas</p>',
 					showCancelButton: false,
 					confirmButtonColor: '#58ff85',
 					cancelButtonColor: '#ff4545',
