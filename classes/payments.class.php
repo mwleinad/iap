@@ -64,8 +64,25 @@ class Payments extends Conceptos
 
 	public function historial_pagos_curso($curso, $estatus = 1) {
 		$estatus = $estatus == 1 ? "activo" : "inactivo";
-		$sql = "SELECT pagos.pago_id, pagos.alumno_id, pagos.concepto_id, conceptos.nombre as concepto, pagos.indice, pagos.periodo, pagos.fecha_limite, SUM(pagos.subtotal) as subtotal, SUM(pagos.total) as total, SUM(cobros.monto) as pagado, (SUM(pagos.subtotal) - SUM(pagos.total)) as descuento FROM pagos INNER JOIN conceptos ON conceptos.concepto_id = pagos.concepto_id LEFT JOIN cobros ON cobros.pago_id = pagos.pago_id INNER JOIN user_subject ON user_subject.alumnoId = pagos.alumno_id AND user_subject.status = '{$estatus}' WHERE pagos.course_id = $curso AND pagos.deleted_at IS NULL GROUP BY pagos.concepto_id, pagos.indice ORDER BY pagos.periodo, pagos.fecha_limite;";
+		$sql = "SELECT pagos.pago_id, pagos.alumno_id, pagos.concepto_id, conceptos.nombre as concepto, pagos.indice, pagos.periodo, pagos.fecha_limite, SUM(pagos.subtotal) as subtotal, SUM(pagos.total) as total, SUM(cobros.monto) as pagado, (SUM(pagos.subtotal) - SUM(pagos.total)) as descuento FROM pagos INNER JOIN conceptos ON conceptos.concepto_id = pagos.concepto_id LEFT JOIN cobros ON cobros.pago_id = pagos.pago_id INNER JOIN user_subject ON user_subject.alumnoId = pagos.alumno_id AND user_subject.courseId = {$curso} WHERE user_subject.status = '{$estatus}' AND pagos.deleted_at IS NULL GROUP BY pagos.concepto_id, pagos.indice ORDER BY pagos.periodo, pagos.fecha_limite;";
 		$this->Util()->DB()->setQuery($sql);
+		$resultado = $this->Util()->DB()->GetResult();
+		$resultadoMap = ["periodicos"=>[], "otros"=>[]];
+		foreach ($resultado as $item) {
+			$item['pagado'] = is_null($item['pagado']) ? 0 : $item['pagado'];
+			if($item['periodo'] == 0){
+				$resultadoMap['otros'][] = $item;
+			}else{
+				$resultadoMap['periodicos'][$item['periodo']][] = $item;
+			}
+		}
+		return $resultadoMap;
+	}
+	
+	public function historial_pagos_fecha($fecha_inicial, $fecha_final, $estatus = 1) {
+		$estatus = $estatus == 1 ? "activo" : "inactivo";
+		$sql = "SELECT pagos.pago_id, pagos.alumno_id, pagos.concepto_id, conceptos.nombre as concepto, pagos.indice, pagos.periodo, pagos.fecha_limite, SUM(pagos.subtotal) as subtotal, SUM(pagos.total) as total, SUM(cobros.monto) as pagado, (SUM(pagos.subtotal) - SUM(pagos.total)) as descuento FROM pagos INNER JOIN conceptos ON conceptos.concepto_id = pagos.concepto_id LEFT JOIN cobros ON cobros.pago_id = pagos.pago_id INNER JOIN user_subject ON user_subject.alumnoId = pagos.alumno_id WHERE user_subject.status = '{$estatus}' AND pagos.fecha_limite >= '$fecha_inicial' AND fecha_limite <= '$fecha_final' AND pagos.deleted_at IS NULL GROUP BY pagos.concepto_id ORDER BY pagos.concepto_id, pagos.indice;";
+		$this->Util()->DB()->setQuery($sql); 
 		$resultado = $this->Util()->DB()->GetResult();
 		$resultadoMap = ["periodicos"=>[], "otros"=>[]];
 		foreach ($resultado as $item) {

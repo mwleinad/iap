@@ -45,4 +45,8 @@ $("body").on("change", "#opcion", function(){
         $("#reporte-2").removeClass("d-none");
         $("#reporte-1, #reporte-3").addClass("d-none");
     }
+    if ($(this).val() == "cuenta-fechas") {
+        $("#reporte-3").removeClass("d-none");
+        $("#reporte-1, #reporte-2").addClass("d-none");
+    }
 });

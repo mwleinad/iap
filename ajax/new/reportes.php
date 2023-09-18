@@ -31,8 +31,7 @@ switch($_POST["opcion"]){
             include_once('reportes/pagos.php');
         }
         break;
-    case 'cuenta-grupo': 
-        // $payments->curricula_con_pagos();
+    case 'cuenta-grupo':  
         $curricula = intval($_POST['curricula-grupo']); 
         $estatus = intval($_POST['estatus']);
         if(empty($curricula)){
@@ -44,15 +43,39 @@ switch($_POST["opcion"]){
                         <div style='padding:15px; background-color:#950606;color:#FFFFFF'>$item</div>
                     </div><br>";
             }
+            echo "<script>setInterval(() => {
+                window.close();
+            }, 3000);</script>";
+        }else{  
+            $resultado = $payments->historial_pagos_curso($curricula, $estatus); 
+            $course->setCourseId($curricula);
+            include_once('reportes/pagos-grupo.php');
+        }
+        break;
+    case 'cuenta-fechas':   
+        $estatus = intval($_POST['estatus']);
+        $fecha_inicio = $_POST['fecha_inicial'];
+        $fecha_fin = $_POST['fecha_final']; 
+        if(empty($fecha_inicio)){
+            $errors['fecha_inicio'] = "Debe seleccionar un fecha de inicio";
+        } 
+        if(empty($fecha_fin)){
+            $errors['fecha_fin'] = "Debe seleccionar un fecha final";
+        } 
+        if (!empty($errors)) { 
+            foreach ($errors as $key => $item) {
+                echo "<div style='border-radius:15px;display:inline-block;margin-bottom:10px;'>
+                        <div style='padding:15px; background-color:#950606;color:#FFFFFF'>$item</div>
+                    </div><br>";
+            }
             // echo "<script>setInterval(() => {
             //     window.close();
             // }, 3000);</script>";
         }else{  
-            $resultado = $payments->historial_pagos_curso($curricula, $estatus);
+            $resultado = $payments->historial_pagos_fecha($fecha_inicio, $fecha_fin, $estatus);
             // echo "<pre>";
             // print_r($resultado);
-            $course->setCourseId($curricula);
-            include_once('reportes/pagos-grupo.php');
+            include_once('reportes/pagos-fechas.php');
         }
         break;
 }

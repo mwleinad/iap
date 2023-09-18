@@ -41,6 +41,11 @@
                             {include file="items/new/pagos-grupo.tpl"}
                         </div>
                     </div>
+                    <div id="reporte-3" class="col-md-12 d-none">
+                        <div class="row">
+                            {include file="items/new/pagos-fechas.tpl"}
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-12 text-center">
