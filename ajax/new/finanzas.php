@@ -285,5 +285,5 @@ switch ($_POST["opcion"]) {
                 'message'   => 'No se pudo subir el archivo, intente de nuevo. ',
             ]);
         }
-        break;
+        break; 
 }

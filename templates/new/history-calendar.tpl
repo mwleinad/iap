@@ -112,16 +112,12 @@
                                                             </form>
                                                         {/if}
                                                         {if $item.status == 2 && $item.beca == 100}
-                                                            {if $item.recibo['pdf']}
-                                                                <a href="" class="btn btn-success" target="_blank">Ver recibo</a>
-                                                            {else}
-                                                                <form class="form" id="form_generar{$item.pago_id}"
-                                                                    action="{$WEB_ROOT}/ajax/new/conceptos.php" method="post">
-                                                                    <input type="hidden" name="opcion" value="generar-recibo">
-                                                                    <input type="hidden" name="pago" value="{$item.pago_id}">
-                                                                    <button type="submit" class="btn btn-sm text-white" style="background-color: #970000; border-color: #970000;">Generar recibo</button>
-                                                                </form>
-                                                            {/if}
+                                                            <a href="{$WEB_ROOT}/pdf/recibo.php?pago={$item.pago_id}"
+                                                                class="btn btn-sm text-white"
+                                                                style="background-color: #970000; border-color: #970000;"
+                                                                target="_blank">
+                                                                Ver recibo
+                                                            </a>
                                                         {/if}
                                                     </td>
                                                 </tr>

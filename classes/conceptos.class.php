@@ -570,11 +570,4 @@ class Conceptos extends Module
         $result = $this->Util()->DB()->UpdateData();
         return $result;
     }
-
-    public function guardar_recibo() {
-        $sql = "";
-        $this->Util()->DB()->setQuery($sql);
-        $result = $this->Util()->DB()->UpdateData();
-        return $result;
-    }
 }

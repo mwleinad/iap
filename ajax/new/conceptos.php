@@ -759,9 +759,4 @@ switch ($opcion) {
             'message'   => 'Cobro generado'
         ]);
         break;
-
-    case 'generar-recibo':
-        $pago = $_POST['pago'];
-        include_once(DOC_ROOT."/pdf/recibo.php");
-        break;
 }

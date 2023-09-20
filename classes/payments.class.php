@@ -37,7 +37,7 @@ class Payments extends Conceptos
 				}
 			)
 		);
-		$where = "conceptos.cobros = 0";
+		$where = "conceptos.cobros = 0 AND pagos.deleted_at IS NULL";
 		return SSP::complex($_POST, $table, $primaryKey, $columns, $where);
 	} 
 
