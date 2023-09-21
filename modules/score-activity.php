@@ -13,13 +13,24 @@
   	    $activity->setActivityId($_GET["id"]);
 		$actividad = $activity->Info();
 		$group->setCourseModuleId($actividad["courseModuleId"]);
-		$group->EditScore($_POST["modality"], $_GET["id"], $_POST["ponderation"], $_POST["retro"]);
-		
+		$respuesta = $group->EditScore($_POST["modality"], $_GET["id"], $_POST["ponderation"], $_POST["retro"]);
+		$warning = error_get_last();
 		if($_POST["auxTpl"] == "admin"){
-			header("Location:".WEB_ROOT."/edit-modules-course/id/". $_POST["cId"]."");
+			echo json_encode([ 
+                'location'   => WEB_ROOT."/edit-modules-course/id/". $_POST["cId"],
+            ]); 
+			exit;
+		}else{
+			if ($respuesta) {
+				echo json_encode([
+					'growl'     => true,
+					'type'      => 'success',
+					'message'   => 'Calificaciones actualizadas. ',
+					'reload'	=> true
+				]);
+			} 
 			exit;
 		}
-	 
 	 }
 
 	$activity->setActivityId($_GET["id"]);

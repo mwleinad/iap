@@ -15,6 +15,10 @@ $course->setCourseId($pagoInfo['course_id']);
 $curso = $course->Info();
 $conceptos->setConcepto($pagoInfo['concepto_id']);
 $concepto = $conceptos->getConcepto();
+$recibo = $payments->recibo($pago);
+if($recibo == 0){
+    $recibo = $payments->crear_recibo($pago);
+}
 // print_r($curso);
 // exit;
 class MYPDF extends TCPDF
@@ -28,7 +32,7 @@ class MYPDF extends TCPDF
 } 
 
 $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false); 
-$pdf->pago = $pago;
+$pdf->pago = str_pad($recibo, 6, '0', STR_PAD_LEFT);
 $pdf->SetCreator("William Ramírez");
 $pdf->SetAuthor('Instituto de Administración Pública');
 $pdf->SetTitle('Recibo');
@@ -59,7 +63,7 @@ $html = '
     </tr>
     <tr>
         <td><strong>GRADO:</strong> '.$curso['group'].'</td>
-        <td><strong>CICLO:</strong> </td>
+        <td><strong>PERIODO:'.$pagoInfo['periodo'].'</strong> </td>
     </tr>
 </table>
 <div></div>

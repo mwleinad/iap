@@ -143,6 +143,7 @@ class Group extends Module
 									FROM activity_score
 								WHERE activityId = '" . $id . "' AND userId = '" . $key . "'";
 						$this->Util()->DB()->setQuery($sql);
+						// echo $sql."<br>";
 						$result = $this->Util()->DB()->GetSingle();
 
 						$hecho = $_SESSION['User']['userId'] . "p";
@@ -167,7 +168,9 @@ class Group extends Module
 
 					$arch = "fileRetro_" . $key;
 					$url = DOC_ROOT;
+					// print_r($result);
 					foreach ($_FILES as $key => $var) {
+						// print_r($_FILES);
 						switch ($key) {
 							case $arch:
 								if ($var["name"] <> "") {
@@ -240,9 +243,7 @@ class Group extends Module
 						}
 					}
 			}
-		}
-		$this->Util()->setError(90000, 'complete', "Has modificado las calificaciones");
-		$this->Util()->PrintErrors();
+		} 
 		return true;
 	}
 
