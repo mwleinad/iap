@@ -276,7 +276,8 @@ $pages = array(
 	'solicitudes-pagos',
 	'reporte-pagos',
 	'pagar',
-	'procesar-pago'
+	'procesar-pago',
+	'mi-credencial-digital'
 );
 
 $blacklist = [];
