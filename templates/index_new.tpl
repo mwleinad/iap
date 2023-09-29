@@ -254,7 +254,7 @@
 					html: '<h2 class="text-danger"><strong>ESTIMADO ALUMNO</strong></h2>' +
 						'<p>Lamentamos informarte que tu acceso al sistema de educación ha sido bloqueado debido a saldos pendientes en tu cuenta. Para poder desbloquear tu acceso y continuar con tu proceso educativo, te pedimos que regularices tu situación de pago lo antes posible.</p>' +
 						'<p>Por favor, sigue estos pasos:</p>'+
-						'<ol style="text-align: justify; font-size: 1.2rem;">'+
+						'<ol style="text-align: justify; font-size: 1rem;">'+
 							'<li>Verifica el detalle de tus colegiaturas pendientes en el módulo de "Finanzas" de este sistema.</li>'+
 							'<li>Realiza el pago correspondiente a través de los métodos de pago disponibles.</li>'+
 							'<li>Una vez realizado el pago, permite un período máximo de 48 horas para que el sistema actualice tu estado de cuenta.</li>'+
