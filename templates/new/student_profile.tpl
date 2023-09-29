@@ -57,13 +57,15 @@
             </div>
         {else}
             {* {if $pago} 
-                                        <div class="col-md-12 stretch-card grid-margin">
-                                            <div class="card text-white bg-info">
-                                                <div class="card-body">
-                                                    <p class="text-justify" style="font-size: large;">Estimado alumno: <br>Por el momento, tu currícula se encuentra inactiva, por favor, comunicarse a  Dirección Académica del IAP Chiapas para solucionar este detalle.<br>961 125 15 08 Ext. 105<br> Horario de 08:00 a 16:00 horas</p>
-                                                </div>
-                                            </div>
-                                        </div> 
+                                                        <div class="col-md-12 stretch-card grid-margin">
+                                                            <div class="card text-white bg-info">
+                                                                <div class="card-body">
+                                                                    <p class="text-justify" style="font-size: large;">Estimado alumno: <br>Por el momento, tu currícula se encuentra inactiva, por favor, comunicarse a  Dirección Académica del IAP Chiapas para solucionar este detalle.<br>961 125 15 08 Ext. 105<br> Horario de 08:00 a 16:00 horas</p>
+                                                                </div>
+                                                            </div>
+                                                        </div> 
+
+
 
 
 
@@ -78,37 +80,38 @@
                         </h3>
                     </div>
                     {* CURRICULA ACTIVA *}
-                    {if $User.bloqueado == 0}
-                        {foreach from=$activeCourses item=subject}
-                            <div class="col-md-4 stretch-card grid-margin">
-                                <div class="card card-img-holder text-white bg-gradient-primary">
-                                    <div class="text-center">
-                                        <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula">
-                                            {if $subject.icon eq ''}
-                                                <i class="far fa-image fa-6x text-white mt-4"></i>
-                                            {else}
-                                                <img class="card-img-top" src="{$WEB_ROOT}/images/new/curricula/{$subject.icon}" alt="">
-                                            {/if}
-                                        </a>
-                                    </div>
-                                    <div class="card-body">
-                                        <h4 class="font-weight-normal mb-3">{$subject.majorName}
-                                            <i class="fas fa-chalkboard float-right fa-lg"></i>
-                                        </h4>
-                                        <p class="mb-3">
-                                            {$subject.name}<br>
-                                            <small>Grupo: {$subject.group} ({if $subject.modality eq 'Local'}Escolar
-                                                {else}No
-                                                Escolar{/if})<br>
-                                                Periodo: {$subject.initialDate|date_format:"%d-%m-%Y"} -
-                                                {$subject.finalDate|date_format:"%d-%m-%Y"}</small><br>
-                                            {if $subject.situation eq 'Ordinario'}
-                                                <small>Módulos: {$subject.courseModule}</small>
-                                            {/if}
-                                            {if $subject.situation eq 'Recursador'}
-                                                <small>Recursando Materia(s)</small>
-                                            {/if}
-                                        </p>
+
+                    {foreach from=$activeCourses item=subject}
+                        <div class="col-md-4 stretch-card grid-margin">
+                            <div class="card card-img-holder text-white bg-gradient-primary">
+                                <div class="text-center">
+                                    <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula">
+                                        {if $subject.icon eq ''}
+                                            <i class="far fa-image fa-6x text-white mt-4"></i>
+                                        {else}
+                                            <img class="card-img-top" src="{$WEB_ROOT}/images/new/curricula/{$subject.icon}" alt="">
+                                        {/if}
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="font-weight-normal mb-3">{$subject.majorName}
+                                        <i class="fas fa-chalkboard float-right fa-lg"></i>
+                                    </h4>
+                                    <p class="mb-3">
+                                        {$subject.name}<br>
+                                        <small>Grupo: {$subject.group} ({if $subject.modality eq 'Local'}Escolar
+                                            {else}No
+                                            Escolar{/if})<br>
+                                            Periodo: {$subject.initialDate|date_format:"%d-%m-%Y"} -
+                                            {$subject.finalDate|date_format:"%d-%m-%Y"}</small><br>
+                                        {if $subject.situation eq 'Ordinario'}
+                                            <small>Módulos: {$subject.courseModule}</small>
+                                        {/if}
+                                        {if $subject.situation eq 'Recursador'}
+                                            <small>Recursando Materia(s)</small>
+                                        {/if}
+                                    </p>
+                                    {if $User.bloqueado == 0}
                                         <div class="text-center">
                                             {if $subject.situation eq 'Ordinario'}
                                                 <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}"
@@ -127,21 +130,21 @@
                                                 <i class="far fa-list-alt"></i> Boletas de Calificaciones
                                             </a>
                                         </div>
-                                    </div>
+                                    {/if}
                                 </div>
                             </div>
-                        {foreachelse}
-                            <div class="col-md-12">
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <i class="far fa-frown fa-lg"></i> <strong>¡Lo sentimos!</strong> No Cuentas Con Currícula
-                                    {$tipo_curricula}.
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
+                        </div>
+                    {foreachelse}
+                        <div class="col-md-12">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="far fa-frown fa-lg"></i> <strong>¡Lo sentimos!</strong> No Cuentas Con Currícula
+                                {$tipo_curricula}.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                        {/foreach}
-                    {/if} 
+                        </div>
+                    {/foreach}
                 </div>
                 <div class="row">
                     <div class="col-md-12 mb-3">
@@ -218,70 +221,70 @@
                             Currícula Finalizada
                         </h3>
                     </div>
-                    {* CURRICULA Finalizada *}
-                    {if $User.bloqueado == 0}
-                        {foreach from=$finishedCourses item=subject}
-                            <div class="col-md-4 stretch-card grid-margin">
-                                <div class="card card-img-holder text-white bg-gradient-primary">
+                    {* CURRICULA Finalizada *} 
+                    {foreach from=$finishedCourses item=subject}
+                        <div class="col-md-4 stretch-card grid-margin">
+                            <div class="card card-img-holder text-white bg-gradient-primary">
+                                <div class="text-center">
+                                    <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula">
+                                        {if $subject.icon eq ''}
+                                            <i class="far fa-image fa-6x text-white mt-4"></i>
+                                        {else}
+                                            <img class="card-img-top" src="{$WEB_ROOT}/images/new/curricula/{$subject.icon}" alt="">
+                                        {/if}
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="font-weight-normal mb-3">{$subject.majorName}
+                                        <i class="fas fa-chalkboard float-right fa-lg"></i>
+                                    </h4>
+                                    <p class="mb-3">
+                                        {$subject.name}<br>
+                                        <small>Grupo: {$subject.group} ({if $subject.modality eq 'Local'}Escolar
+                                            {else}No
+                                            Escolar{/if})<br>
+                                            Periodo: {$subject.initialDate|date_format:"%d-%m-%Y"} -
+                                            {$subject.finalDate|date_format:"%d-%m-%Y"}</small><br>
+                                        {if $subject.situation eq 'Ordinario'}
+                                            <small>Módulos: {$subject.courseModule}</small>
+                                        {/if}
+                                        {if $subject.situation eq 'Recursador'}
+                                            <small>Recursando Materia(s)</small>
+                                        {/if}
+                                    </p>
+                                    {if $User.bloqueado == 0}
                                     <div class="text-center">
-                                        <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula">
-                                            {if $subject.icon eq ''}
-                                                <i class="far fa-image fa-6x text-white mt-4"></i>
-                                            {else}
-                                                <img class="card-img-top" src="{$WEB_ROOT}/images/new/curricula/{$subject.icon}" alt="">
-                                            {/if}
+                                        {if $subject.situation eq 'Ordinario'}
+                                            <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}"
+                                                title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
+                                                <i class="fas fa-link"></i> Ver
+                                            </a>
+                                        {/if}
+                                        {if $subject.situation eq 'Recursador'}
+                                            <a href="{$WEB_ROOT}/modulos-recursar/id/{$subject.courseId}"
+                                                title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
+                                                <i class="fas fa-link"></i> Ver
+                                            </a>
+                                        {/if}<br><br>
+                                        <a href="{$WEB_ROOT}/boletas/id/{$subject.courseId}"
+                                            class="btn btn-outline-light btn-fw btn-sm">
+                                            <i class="far fa-list-alt"></i> Boletas de Calificaciones
                                         </a>
                                     </div>
-                                    <div class="card-body">
-                                        <h4 class="font-weight-normal mb-3">{$subject.majorName}
-                                            <i class="fas fa-chalkboard float-right fa-lg"></i>
-                                        </h4>
-                                        <p class="mb-3">
-                                            {$subject.name}<br>
-                                            <small>Grupo: {$subject.group} ({if $subject.modality eq 'Local'}Escolar
-                                                {else}No
-                                                Escolar{/if})<br>
-                                                Periodo: {$subject.initialDate|date_format:"%d-%m-%Y"} -
-                                                {$subject.finalDate|date_format:"%d-%m-%Y"}</small><br>
-                                            {if $subject.situation eq 'Ordinario'}
-                                                <small>Módulos: {$subject.courseModule}</small>
-                                            {/if}
-                                            {if $subject.situation eq 'Recursador'}
-                                                <small>Recursando Materia(s)</small>
-                                            {/if}
-                                        </p>
-                                        <div class="text-center">
-                                            {if $subject.situation eq 'Ordinario'}
-                                                <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}"
-                                                    title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
-                                                    <i class="fas fa-link"></i> Ver
-                                                </a>
-                                            {/if}
-                                            {if $subject.situation eq 'Recursador'}
-                                                <a href="{$WEB_ROOT}/modulos-recursar/id/{$subject.courseId}"
-                                                    title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
-                                                    <i class="fas fa-link"></i> Ver
-                                                </a>
-                                            {/if}<br><br>
-                                            <a href="{$WEB_ROOT}/boletas/id/{$subject.courseId}"
-                                                class="btn btn-outline-light btn-fw btn-sm">
-                                                <i class="far fa-list-alt"></i> Boletas de Calificaciones
-                                            </a>
-                                        </div>
-                                    </div>
+                                    {/if}
                                 </div>
                             </div>
-                        {foreachelse}
-                            <div class="col-md-12">
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <i class="far fa-smile fa-lg"></i> No Cuentas Con Currículas Inactivas.
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
+                        </div>
+                    {foreachelse}
+                        <div class="col-md-12">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="far fa-smile fa-lg"></i> No Cuentas Con Currículas Inactivas.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                        {/foreach}
-                    {/if}
+                        </div>
+                    {/foreach}
                 </div>
                 <div class="row">
                     <div class="col-md-12 mb-3">
@@ -431,13 +434,17 @@
         <div class="row">
             <div class="col-md-12">
                 <div style=" padding: 20px 40px; text-align: justify; font-size: 18px;">
-                    <h5 style="font-size:20px; text-align:center; font-weight: 700;">Esta página web hace uso de cookies</h5>
-                    Las cookies necesarias ayudan a hacer una página web utilizable activando funciones básicas como la navegación en la página y el acceso a áreas seguras. La página web no puede funcionar adecuadamente sin estas cookies.
+                    <h5 style="font-size:20px; text-align:center; font-weight: 700;">Esta página web hace uso de cookies
+                    </h5>
+                    Las cookies necesarias ayudan a hacer una página web utilizable activando funciones básicas como la
+                    navegación en la página y el acceso a áreas seguras. La página web no puede funcionar adecuadamente
+                    sin estas cookies.
                 </div>
             </div>
             <div class="col-md-12 text-center mb-3">
                 <button class="btn btn-success" type="button" onclick="aceptarCookies()">Aceptar Cookies</button>
-                <a class="btn btn-info" target="_blank" href="https://iapchiapas.edu.mx/aviso_privacidad">Aviso de privacidad</a>
+                <a class="btn btn-info" target="_blank" href="https://iapchiapas.edu.mx/aviso_privacidad">Aviso de
+                    privacidad</a>
             </div>
         </div>
     </div>
