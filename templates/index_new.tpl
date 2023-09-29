@@ -237,7 +237,7 @@
 			});
 		</script>
 	{/if}
-	{if $User.type eq "student" and $page eq "homepage"}
+	{if $User.type eq "student" and $page eq "homepage" && $User.bloqueado}
 		{if $User.announcement neq true && $referencia > 0}
 			<style>
 				.swal2-show {
@@ -250,13 +250,18 @@
 				}
 			</style>
 			<script>
-				Swal.fire({
+				Swal.fire({  
 					html: '<h2 class="text-danger"><strong>ESTIMADO ALUMNO</strong></h2>' +
-						'<p>Te informamos, que a partir de esta fecha,  los pagos relativos al posgrado en el cual te encuentras inscrito, serán en los primeros 10 días de cada mes, de acuerdo al calendario de pagos establecidos por este Instituto.</p>' +
-						'<p>Asimismo, se les hace del conocimiento que podrán realizar sus pagos mediante <strong>ventanilla bancaria, transferencia electrónica o directamente desde la plataforma educativa</strong>, en el modulo de Finanzas.</p>' +
-						'<pEs importante contar con los pagos al corriente para tener activo el acceso a la plataforma educativa. </p>' +
+						'<p>Lamentamos informarte que tu acceso al sistema de educación ha sido bloqueado debido a saldos pendientes en tu cuenta. Para poder desbloquear tu acceso y continuar con tu proceso educativo, te pedimos que regularices tu situación de pago lo antes posible.</p>' +
+						'<p>Por favor, sigue estos pasos:</p>'+
+						'<ol>'+
+							'<li>Verifica el detalle de tus colegiaturas pendientes en el módulo de "Finanzas" de este sistema.</li>'+
+							'<li>Realiza el pago correspondiente a través de los métodos de pago disponibles.</li>'+
+							'<li>Una vez realizado el pago, permite un período máximo de 48 horas para que el sistema actualice tu estado de cuenta.</li>'+
+							'<li>Una vez que tu pago haya sido procesado y tu situación esté regularizada, podrás acceder nuevamente al sistema de educación y continuar con tus estudios sin interrupciones.</li>'+
+						'</ol>'+  
 						'<p>Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en ponerte en contacto con nuestro Departamento de Contabilidad y Finanzas, al 961 125 15 08 Ext. 116 en un horario de 08:00 a 16:00 horas de lunes a viernes.</p>' +
-						'<p>Agradecemos tu atención y compromiso con tu educación.</p>'+
+						'<p>Agradecemos tu pronta atención y compromiso con tu educación.</p>'+
 						'<p>Atentamente, IAP Chiapas</p>',
 					showCancelButton: false,
 					confirmButtonColor: '#58ff85',

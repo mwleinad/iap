@@ -266,6 +266,7 @@ class SSP
 		// print_r($pluck);
 		// print_r(implode(", ", $pluck));
 		$sql = "SELECT " . implode(", ", $pluck) . " FROM $table $where $order $limit";
+		// echo $sql;
 		$data = self::sql_exec($db, $bindings, $sql);
 		// echo "Data:";
 		// print_r($data);
@@ -315,7 +316,7 @@ class SSP
 	static function data_output ( $columns, $data )
 	{
 		$out = array();
-
+		print_r($data);
 		for ( $i=0, $ien=count($data) ; $i<$ien ; $i++ ) {
 			$row = array();
 
@@ -329,6 +330,7 @@ class SSP
                     }
                     else{
                         $row[ $column['dt'] ] = $column['formatter']( $data[$i][ $column['db'] ], $data[$i] );
+						echo $row."<br>\n";
                     }
 				}
 				else {
@@ -396,7 +398,7 @@ class SSP
 		}
 
 		$stmt = $db->prepare($sql);
-		//echo $sql;
+		// echo $sql;
 		// echo "Bindings\n";
 		// print_r($bindings); 
 		// Bind parameters

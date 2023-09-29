@@ -104,17 +104,17 @@ class Payments extends Conceptos
 
 	public function recibo($pago)
 	{
-		$sql = "SELECT id FROM fn_student_receipt WHERE pago_id = {$pago}";
-		$this->Util()->DBErp()->setQuery($sql);
-		$resultado = $this->Util()->DBErp()->GetSingle();
+		$sql = "SELECT id FROM recibos WHERE pago_id = {$pago}";
+		$this->Util()->DB()->setQuery($sql);
+		$resultado = $this->Util()->DB()->GetSingle();
 		return $resultado;
 	}
 
 	public function crear_recibo($pago)
 	{
-		$sql = "INSERT INTO fn_student_receipt(pago_id, created_at, updated_at) VALUES ('{$pago}', NOW(), NOW())";
-		$this->Util()->DBErp()->setQuery($sql);
-		$id = $this->Util()->DBErp()->InsertData();
+		$sql = "INSERT INTO recibos(pago_id, created_at, updated_at) VALUES ('{$pago}', NOW(), NOW())";
+		$this->Util()->DB()->setQuery($sql);
+		$id = $this->Util()->DB()->InsertData();
 		return $id;
 	}
 }

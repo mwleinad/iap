@@ -277,13 +277,16 @@ $pages = array(
 	'reporte-pagos',
 	'pagar',
 	'procesar-pago',
-	'mi-credencial-digital'
+	'mi-credencial-digital',
+	'credenciales'
 );
-
-$blacklist = [];
-
-if(!in_array($_GET['page'], $pages) || (in_array($User['userId'], $blacklist) && $_GET['page'] != "logout"))
+if(!in_array($_GET['page'], $pages) && $_GET['page'] != "logout" )
 {
+	$_GET['page'] = "homepage";
+}
+$pagesBlackList = ['modulos-curricula', 'view-modules-student', 'calendar-modules-student'];
+
+if(in_array($_GET['page'], $pagesBlackList) && $User['bloqueado'] == 1 && $_GET['page'] != "logout" ){
 	$_GET['page'] = "homepage";
 }
 

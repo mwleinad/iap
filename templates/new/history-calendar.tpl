@@ -116,7 +116,7 @@
                                                                 class="btn btn-sm text-white"
                                                                 style="background-color: #970000; border-color: #970000;"
                                                                 target="_blank">
-                                                                Ver recibo
+                                                                {($item.recibo) ? "Ver" : "Generar"} recibo
                                                             </a>
                                                         {/if}
                                                     </td>

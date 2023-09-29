@@ -3406,4 +3406,24 @@ class Student extends User
 		$this->Util()->DB()->ExecuteQuery();
 		return true;
 	}
+
+	//Retorna la información de la credencial del alumno por curso
+	public function getCredential($student, $course) {
+		$sql = "SELECT * FROM user_credentials WHERE course_id = $course AND user_id = $student";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetRow();
+		return $result;
+	}
+
+	public function createCredential($student, $course, $image) {
+		$sql = "INSERT INTO user_credentials(user_id, course_id, image, status, created_at, updated_at) VALUES($student, $course, '{$image}', 0, NOW(), NOW())";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->InsertData();
+	}
+
+	public function editCredential($student, $course, $image, $status) {
+		$sql = "UPDATE user_credentials SET image = '$image', status = $status, updated_at = NOW() WHERE user_id = $student AND course_id = $course";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->UpdateData();
+	}
 }

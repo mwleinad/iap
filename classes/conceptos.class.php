@@ -379,7 +379,11 @@ class Conceptos extends Module
     public function historial_pagos($orderBy = "fecha_cobro")
     {
         
-        $sql = "SELECT pagos.pago_id, pagos.course_id, pagos.alumno_id, pagos.concepto_id, pagos.fecha_cobro, if(pagos.status = 3, DATE_ADD(pagos.fecha_limite, INTERVAL pagos.tolerancia DAY), pagos.fecha_limite) as fecha_limite, pagos.total, pagos.iva, pagos.subtotal, CASE WHEN pagos.status = 1 THEN '<span class=\"badge badge-warning\">Pendiente</span>' WHEN pagos.status = 3 THEN '<span class=\"badge badge-info\">Prórroga</span>' ELSE '<span class=\"badge badge-primary\">Pagado</span>' END AS status_btn, pagos.status, pagos.descuento, pagos.beca, pagos.archivo, pagos.tolerancia, pagos.periodo, conceptos.nombre AS concepto_nombre, pagos.indice FROM pagos INNER JOIN conceptos ON conceptos.concepto_id = pagos.concepto_id WHERE pagos.alumno_id = {$this->alumno} AND pagos.course_id = {$this->getCourseId()} AND pagos.deleted_at IS NULL ORDER BY $orderBy;";
+        $sql = "SELECT pagos.pago_id, pagos.course_id, pagos.alumno_id, pagos.concepto_id, pagos.fecha_cobro, if(pagos.status = 3, DATE_ADD(pagos.fecha_limite, INTERVAL pagos.tolerancia DAY), pagos.fecha_limite) as fecha_limite, pagos.total, pagos.iva, pagos.subtotal, CASE WHEN pagos.status = 1 THEN '<span class=\"badge badge-warning\">Pendiente</span>' WHEN pagos.status = 3 THEN '<span class=\"badge badge-info\">Prórroga</span>' ELSE '<span class=\"badge badge-primary\">Pagado</span>' END AS status_btn, pagos.status, pagos.descuento, pagos.beca, pagos.archivo, pagos.tolerancia, pagos.periodo, conceptos.nombre AS concepto_nombre, pagos.indice, recibos.id as recibo
+        FROM pagos 
+        INNER JOIN conceptos ON conceptos.concepto_id = pagos.concepto_id 
+        LEFT JOIN recibos ON recibos.pago_id = pagos.pago_id
+        WHERE pagos.alumno_id = {$this->alumno} AND pagos.course_id = {$this->getCourseId()} AND pagos.deleted_at IS NULL ORDER BY $orderBy;";
         // echo $sql;
         $this->Util()->DB()->setQuery($sql);
         $resultado = $this->Util()->DB()->GetResult();
@@ -388,8 +392,7 @@ class Conceptos extends Module
         foreach ($resultado as $item) {
             $this->pagoId = $item['pago_id'];
             $item['cobros'] = $this->cobros();
-            $item['monto'] = $this->monto();
-            $item['recibo'] = json_decode($item['archivo'], true);
+            $item['monto'] = $this->monto(); 
             if ($item['periodo'] == 0) {
                 $clasificados['otros'][] = $item;
             } else {

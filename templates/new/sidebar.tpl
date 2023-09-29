@@ -41,6 +41,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link {if $page == "student"}active{/if}" href="{$WEB_ROOT}/student">Alumnos</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {if $page == "credenciales"}active{/if}" href="{$WEB_ROOT}/credenciales">Credenciales</a>
+                                </li>
                                 {if $AccessMod[38] != 1}
                                     <li class="nav-item">
                                         <a class="nav-link {if $page == "position"}active{/if}" href="{$WEB_ROOT}/position">Puestos</a>

@@ -88,6 +88,7 @@ include_once(DOC_ROOT . '/classes/calendar.class.php');
 include_once(DOC_ROOT . '/classes/certificates.class.php');
 include_once(DOC_ROOT . '/classes/conceptos.class.php');
 include_once(DOC_ROOT . "/classes/payments.class.php");
+include_once(DOC_ROOT . "/classes/credentials.class.php");
 include_once(DOC_ROOT . '/classes/pagination.class.php');
 include_once(DOC_ROOT . '/classes/ssp.class.php');
 $docente = new Docente();
@@ -149,6 +150,7 @@ $calendar = new Calendar;
 $certificates = new Certificates;
 $conceptos = new Conceptos;
 $payments = new Payments;
+$credentials = new Credentials;
 $pagination = new Pagination;
 
 $smarty = new Smarty;
