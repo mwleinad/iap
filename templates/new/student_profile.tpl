@@ -73,17 +73,17 @@
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <h3 class="page-title">
-                            <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                            <span class="page-title-icon {if $User.bloqueado == 0} bg-gradient-primary {else}  bg-gradient-danger{/if} text-white mr-2">
                                 <i class="mdi mdi-school"></i>
                             </span>
-                            Currícula Activa
+                            Currícula   {if $User.bloqueado == 0} Activa {else} Inactiva{/if}
                         </h3>
                     </div>
                     {* CURRICULA ACTIVA *}
 
                     {foreach from=$activeCourses item=subject}
                         <div class="col-md-4 stretch-card grid-margin">
-                            <div class="card card-img-holder text-white bg-gradient-primary">
+                            <div class="card card-img-holder text-white {if $User.bloqueado == 0} bg-gradient-primary {else}  bg-gradient-danger{/if}">
                                 <div class="text-center">
                                     <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula">
                                         {if $subject.icon eq ''}
