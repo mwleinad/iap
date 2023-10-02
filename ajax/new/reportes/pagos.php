@@ -105,6 +105,7 @@ for ($periodo = 1; $periodo <= $curso['totalPeriods']; $periodo++) {
     $fila++;
     $sheet->mergeCells("A{$fila}:O{$fila}");
     $sheet->setCellValue("A{$fila}", "DEUDA");
+    $fila++;
     //Adeudos
     foreach ($pagos['periodicos'] as $key => $pago) {
         if ($pago['status'] == 2 || $pago['periodo'] != $periodo) {
@@ -138,8 +139,7 @@ for ($periodo = 1; $periodo <= $curso['totalPeriods']; $periodo++) {
         $sheet->setCellValue("O{$fila}", $pendiente)->getStyle("O{$fila}")->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
         $fila++;
         unset($pagos['periodicos'][$key]);
-    }
-    $fila++;
+    } 
     $sheet->setCellValue("M{$fila}", "DEUDA TOTAL")->mergeCells("M{$fila}:N{$fila}")->getStyle("M{$fila}")->getAlignment()->setHorizontal('right');
     $sheet->setCellValue("O{$fila}", $deuda)->getStyle("O{$fila}")->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
     $deuda = 0;
