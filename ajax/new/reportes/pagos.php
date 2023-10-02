@@ -93,28 +93,23 @@ for ($periodo = 1; $periodo <= $curso['totalPeriods']; $periodo++) {
     $pagot = 0;
     $flag = true;
     $existeDeuda = false;
+    $sheet->setCellValue("A{$fila}", "FECHA")->mergeCells("A{$fila}:B{$fila}");
+    $sheet->setCellValue("C{$fila}", "CONCEPTO")->mergeCells("C{$fila}:D{$fila}");
+    $sheet->setCellValue("E{$fila}", "IMPORTE")->mergeCells("E{$fila}:F{$fila}");
+    $sheet->setCellValue("G{$fila}", "DESCTO")->mergeCells("G{$fila}:H{$fila}");
+    $sheet->setCellValue("I{$fila}", "BECA")->mergeCells("I{$fila}:J{$fila}");
+    $sheet->setCellValue("K{$fila}", "ABONO")->mergeCells("K{$fila}:L{$fila}");
+    $sheet->setCellValue("M{$fila}", "DIAS ATRASO")->mergeCells("M{$fila}:N{$fila}");
+    $sheet->setCellValue("O{$fila}", "TOTAL");
+    $sheet->getStyle("A{$fila}:O{$fila}")->getFont()->setBold(true);
+    $fila++;
+    $sheet->mergeCells("A{$fila}:O{$fila}");
+    $sheet->setCellValue("A{$fila}", "DEUDA");
     //Adeudos
     foreach ($pagos['periodicos'] as $key => $pago) {
         if ($pago['status'] == 2 || $pago['periodo'] != $periodo) {
             break;
-        }
-        if ($flag) {
-            $sheet->setCellValue("A{$fila}", "FECHA")->mergeCells("A{$fila}:B{$fila}");
-            $sheet->setCellValue("C{$fila}", "CONCEPTO")->mergeCells("C{$fila}:D{$fila}");
-            $sheet->setCellValue("E{$fila}", "IMPORTE")->mergeCells("E{$fila}:F{$fila}");
-            $sheet->setCellValue("G{$fila}", "DESCTO")->mergeCells("G{$fila}:H{$fila}");
-            $sheet->setCellValue("I{$fila}", "BECA")->mergeCells("I{$fila}:J{$fila}");
-            $sheet->setCellValue("K{$fila}", "ABONO")->mergeCells("K{$fila}:L{$fila}");
-            $sheet->setCellValue("M{$fila}", "DIAS ATRASO")->mergeCells("M{$fila}:N{$fila}");
-            $sheet->setCellValue("O{$fila}", "TOTAL");
-            $sheet->getStyle("A{$fila}:O{$fila}")->getFont()->setBold(true);
-            $fila++;
-            $sheet->mergeCells("A{$fila}:O{$fila}");
-            $sheet->setCellValue("A{$fila}", "DEUDA");
-            $fila++;
-            $flag = false;
-            $existeDeuda = true;
-        }
+        } 
         $abonos = 0;
         if ($pago['cobros'][0] != $pago['total']) { //No fue un cobro único
             foreach ($pago['cobros'] as $item) {
@@ -140,11 +135,11 @@ for ($periodo = 1; $periodo <= $curso['totalPeriods']; $periodo++) {
         $sheet->setCellValue("I{$fila}", ($pago['beca'] / 100))->mergeCells("I{$fila}:J{$fila}")->getStyle("I{$fila}")->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_PERCENTAGE);
         $sheet->setCellValue("K{$fila}", $abonos)->mergeCells("K{$fila}:L{$fila}")->getStyle("K{$fila}")->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);;
         $sheet->setCellValue("M{$fila}", $dias_atraso)->mergeCells("M{$fila}:N{$fila}")->mergeCells("M{$fila}:M{$fila}");
-        $sheet->setCellValue("O{$fila}", $pendiente)->getStyle("O{$fila}")->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);;
-
+        $sheet->setCellValue("O{$fila}", $pendiente)->getStyle("O{$fila}")->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
         $fila++;
         unset($pagos['periodicos'][$key]);
     }
+    $fila++;
     $sheet->setCellValue("M{$fila}", "DEUDA TOTAL")->mergeCells("M{$fila}:N{$fila}")->getStyle("M{$fila}")->getAlignment()->setHorizontal('right');
     $sheet->setCellValue("O{$fila}", $deuda)->getStyle("O{$fila}")->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
     $deuda = 0;

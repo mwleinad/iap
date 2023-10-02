@@ -123,37 +123,37 @@ const llenarSelectConDispositivosDisponibles = () => {
 
                         //Pausar reproducción
                         $video.pause();
-
+                        $estado.innerHTML = "Tomando foto. Por favor, espera...";
                         //Obtener contexto del canvas y dibujar sobre él
                         let contexto = $canvas.getContext("2d");
                         $canvas.width = $video.videoWidth;
                         $canvas.height = $video.videoHeight;
                         contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
+                        $video.classList.add('d-none');
+                        $canvas.classList.remove('d-none');
+                        $estado.innerHTML = "Foto tomada";
+                        // let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
+                        // 
+                        // fetch(window.location, {
+                        //     method: "POST",
+                        //     body: encodeURIComponent(foto),
+                        //     headers: {
+                        //         "Content-type": "application/x-www-form-urlencoded",
+                        //     }
+                        // }).then(resultado => {
+                        //     // A los datos los decodificamos como texto plano
+                        //     return resultado.text()
+                        // }).then(rutaFoto => {
+                        //     // console.log("La foto fue enviada correctamente");
+                        //     // $estado.innerHTML = `Foto guardada con éxito, espera validación del Departamento de Servicios Escolares.`;
+                        //     // $boton.remove();
+                        //     // setTimeout(() => {
+                        //     //     location.reload();
+                        //     // }, 5000);
+                        // });
 
-                        let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
-                        $estado.innerHTML = "Enviando foto. Por favor, espera...";
-                        fetch(window.location, {
-                            method: "POST",
-                            body: encodeURIComponent(foto),
-                            headers: {
-                                "Content-type": "application/x-www-form-urlencoded",
-                            }
-                        })
-                            .then(resultado => {
-                                // A los datos los decodificamos como texto plano
-                                return resultado.text()
-                            })
-                            .then(rutaFoto => {
-                                console.log("La foto fue enviada correctamente");
-                                $estado.innerHTML = `Foto guardada con éxito, espera validación del Departamento de Servicios Escolares.`;
-                                $boton.remove();
-                                setTimeout(() => {
-                                    location.reload();
-                                }, 5000);
-                            })
-
-                        //Reanudar reproducción
-                        $video.play();
+                        // //Reanudar reproducción
+                        // $video.play();
                     });
                 }, (error) => {
                     console.log("Permiso denegado o error: ", error);

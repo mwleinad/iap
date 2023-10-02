@@ -1,6 +1,6 @@
 <style>
     ol li {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .warning {
@@ -36,7 +36,7 @@
         <div class="row row-cols-1 row-cols-md-2">
             {if empty($credential)}
                 <div id="use-media"></div>
-                <div class="col mb-4">
+                <div class="col col-md-4 mb-4">
                     <div class="card h-100">
                         <div class="card-body">
                             <ol class="">
@@ -75,15 +75,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="col mb-4">
+                <div class="col col-md-8 mb-4">
                     <div class="card h-100">
                         <div class="card-body">
                             <div class="d-none">
                                 <h1>Selecciona un dispositivo</h1>
                                 <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
                             </div>
-                            <video muted="muted" id="video" class="col-12"></video>
-                            <canvas id="canvas" style="display: none;"></canvas>
+                            <div class="col-md-12 col-xl-6 mx-auto">
+                                <div class="row">
+                                    <video muted="muted" id="video" class="col-12"></video> 
+                                    <canvas id="canvas" class="d-none col-md-12"></canvas>
+                                </div>
+                            </div>
                             <p id="estado" class="col-12"></p>
                             <div style="width: 100%;" class="text-center my-3">
                                 <button class="btn btn-success" id="boton">Tomar Fotografía</button>
@@ -95,16 +99,23 @@
                 {if $credential.status == 0}
                     <div class="col col-md-6 mx-auto mb-4">
                         <div class="card h-100">
-                            <div class="card-body"> 
+                            <div class="card-body">
                                 <span class="warning text-justify">
-                                    Actualmente, tu foto se encuentra en proceso de validación por el Departamento de Servicios Escolares,
-                                    cuando tu información sea validada, se activará en la parte inferior de tu currícula activa el botón "Mi Credencial Digital". La credencial digital podrás descargarla en un archivo PDF, sin embargo la versión impresa de tu credencial podrás solicitarlo desde el módulo finanzas para realizar el pago correspondiente y comenzar con el proceso de impresión de aproximadamente 15 días hábiles, por lo que te será notificado a tu correo institucional cuando ya esté lista para recogerla en la ventanilla de servicios escolares de Lunes a Viernes de 8:00 am a 16:00 pm.
+                                    Actualmente, tu foto se encuentra en proceso de validación por el Departamento de Servicios
+                                    Escolares,
+                                    cuando tu información sea validada, se activará en la parte inferior de tu currícula activa
+                                    el botón "Mi Credencial Digital". La credencial digital podrás descargarla en un archivo
+                                    PDF, sin embargo la versión impresa de tu credencial podrás solicitarlo desde el módulo
+                                    finanzas para realizar el pago correspondiente y comenzar con el proceso de impresión de
+                                    aproximadamente 15 días hábiles, por lo que te será notificado a tu correo institucional
+                                    cuando ya esté lista para recogerla en la ventanilla de servicios escolares de Lunes a
+                                    Viernes de 8:00 am a 16:00 pm.
                                 </span>
                             </div>
                         </div>
                     </div>
                 {else}
-                    
+
                 {/if}
             {/if}
         </div>

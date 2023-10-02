@@ -20,20 +20,18 @@ class Credentials extends Student
 			array(
 				'db' => 'image', 'dt' => 'foto',
 				'formatter' => function ($d, $row) {
-					return $d;
+					return "<img src='".WEB_ROOT."/files/credentials/".$row['foto']."' style='width:250px; height:auto;border-radius:25px;'>";
 				},
 			),
 			array('db' => 'CASE WHEN user_credentials.status = 0 THEN "<span class=\"badge badge-warning\">Pendiente</span>" WHEN user_credentials.status = 1 THEN "<span class=\"badge badge-info\">Aprobada</span>" ELSE "<span class=\"badge badge-primary\">Rechazada</span>" END', 'dt' => 'estatus'),
 			array(
 				
 				'db' => 'id', 'dt' => 'acciones',
-				'formatter' => function ($d, $row) { 
-
-					return '<form class="form mt-1" id="form_subida' . $d . '" action="' . WEB_ROOT . '/ajax/new/finanzas.php">
-								<input type="hidden" name="pago" value="' . $d . '">
-								<input type="hidden" name="opcion" value="subir-archivo">
-								<button type="submit" class="btn btn-success btn-sm" data-target="#ajax" data-width="500px" data-toggle="modal">btn</button>
-							</form>';
+				'formatter' => function ($d, $row) {  
+					return "<form>
+								<button>Aceptar</button>
+								<button>Rechazar</button>
+							</form>";
 				}
 			)
 		);

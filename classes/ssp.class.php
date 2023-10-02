@@ -316,7 +316,7 @@ class SSP
 	static function data_output ( $columns, $data )
 	{
 		$out = array();
-		print_r($data);
+		// print_r($data);
 		for ( $i=0, $ien=count($data) ; $i<$ien ; $i++ ) {
 			$row = array();
 
@@ -330,7 +330,7 @@ class SSP
                     }
                     else{
                         $row[ $column['dt'] ] = $column['formatter']( $data[$i][ $column['db'] ], $data[$i] );
-						echo $row."<br>\n";
+						// echo $row."<br>\n";
                     }
 				}
 				else {
