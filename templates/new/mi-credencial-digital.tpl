@@ -25,11 +25,7 @@
         border-radius: 10px;
     }
 
-    @media (max-width: 720px) {
-        #video {
-            min-height: 380px;
-        }
-    }
+
 
     #canvas-credencial {
         border-radius: 13% 13%;
@@ -93,8 +89,30 @@
         font-size: .8rem;
         font-weight: 400;
     }
-    #vigencia span{
+
+    #vigencia span {
         font-weight: 600;
+    }
+
+    @media (max-width: 720px) {
+        #video {
+            min-height: 380px;
+        }
+
+        #nombre,
+        #vigencia {
+            font-size: .45rem;
+        }
+
+        #curricula {
+            font-size: .5rem;
+        }
+        #usuario {
+            font-size: .6rem;
+        }
+        #usuario span {
+            font-size: .4rem;
+        }
     }
 </style>
 <div class="page-header">
