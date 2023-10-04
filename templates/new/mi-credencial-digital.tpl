@@ -4,15 +4,97 @@
     }
 
     .warning {
-        padding: 20px 10px;
+        padding: 20px;
         background-color: #ffe29a;
         display: block;
         border-radius: 10px;
-        font-size: 1.2rem;
+        font-size: 1rem;
+        font-weight: 600;
     }
 
     .resalte {
         color: #006e00;
+    }
+
+    #video {
+        object-fit: cover;
+    }
+
+    .img-credencial {
+        border: 2px solid #bdb7b7;
+        border-radius: 10px;
+    }
+
+    @media (max-width: 720px) {
+        #video {
+            min-height: 380px;
+        }
+    }
+
+    #canvas-credencial {
+        border-radius: 13% 13%;
+        position: absolute;
+        right: 8%;
+        top: 21.8%;
+        background: #ff000047;
+        height: 47.5%;
+        width: 26.4%;
+        z-index: 100;
+    }
+
+    #nombre {
+        position: absolute;
+        top: 25%;
+        left: 4%;
+        width: 40%;
+        height: 28%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        word-wrap: break-word;
+        font-size: 1rem;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    #usuario {
+        position: absolute;
+        top: 60%;
+        left: 4%;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    #usuario span {
+        font-size: .8rem;
+    }
+
+    #curricula {
+        position: absolute;
+        bottom: 10%;
+        left: 4%;
+        background: #0088ff4f;
+        width: 55%;
+        height: 20%;
+        padding: 0% 4%;
+        font-size: .8rem;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 600;
+    }
+
+    #vigencia {
+        position: absolute;
+        right: 8%;
+        bottom: 13%;
+        text-align: center;
+        font-size: .8rem;
+        font-weight: 400;
+    }
+    #vigencia span{
+        font-weight: 600;
     }
 </style>
 <div class="page-header">
@@ -36,7 +118,7 @@
         <div class="row row-cols-1 row-cols-md-2">
             {if empty($credential)}
                 <div id="use-media"></div>
-                <div class="col col-md-4 mb-4">
+                <div class="col col-md-4 col-lg-5 mb-4">
                     <div class="card h-100">
                         <div class="card-body">
                             <ol class="">
@@ -75,17 +157,33 @@
                         </div>
                     </div>
                 </div>
-                <div class="col col-md-8 mb-4">
+                <div class="col col-md-8 col-lg-7 mb-4">
                     <div class="card h-100">
-                        <div class="card-body">
+                        <div class="card-body row">
                             <div class="d-none">
                                 <h1>Selecciona un dispositivo</h1>
                                 <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
                             </div>
-                            <div class="col-md-12 col-xl-6 mx-auto">
+                            <div class="col-12">
                                 <div class="row">
-                                    <video muted="muted" id="video" class="col-12"></video> 
-                                    <canvas id="canvas" class="d-none col-md-12"></canvas>
+                                    <div class="col-12 col-md-8 col-lg-8 col-xl-6 mx-auto d-flex" id="section-video">
+                                        <video muted="muted" id="video" class="w-100"></video>
+                                        <canvas id="canvas" class="d-none"></canvas>
+                                    </div>
+                                    <div class="col-12 col-md-8 col-lg-8 col-xl-6 mx-auto">
+                                        <h3 class="text-center w-100">Parte Frontal</h3>
+                                        <div id="section-credencial" class="position-relative">
+                                            <img src="{$WEB_ROOT}/images/credencial/frontal.png"
+                                                class="img-fluid img-credencial" id="credencial-frontal">
+                                            <canvas id="canvas-credencial"></canvas>
+                                            <div id="nombre">{$User.nombreCompleto}</div>
+                                            <div id="usuario"><span>No. Usuario:</span> {$User.numControl}</div>
+                                            <div id="curricula">{$curso}</div>
+                                            <div id="vigencia"><span>Vigencia:</span><br>31 de diciembre {date('Y')}</div>
+                                        </div>
+                                        <h3 class="text-center w-100">Parte de Atrás</h3>
+                                        <img src="{$WEB_ROOT}/images/credencial/atras.png" class="img-fluid img-credencial">
+                                    </div>
                                 </div>
                             </div>
                             <p id="estado" class="col-12"></p>

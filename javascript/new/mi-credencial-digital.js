@@ -11,7 +11,10 @@ const _getUserMedia = (...arguments) =>
 
 // Declaramos elementos del DOM
 const $video = document.querySelector("#video"),
+    $sectionVideo = document.querySelector("#section-video"),
     $canvas = document.querySelector("#canvas"),
+    $canvasCredencial = document.querySelector("#canvas-credencial"),
+    $credencialFrontal = document.querySelector("#credencial-frontal"),
     $estado = document.querySelector("#estado"),
     $boton = document.querySelector("#boton"),
     $listaDeDispositivos = document.querySelector("#listaDeDispositivos");
@@ -53,6 +56,52 @@ const llenarSelectConDispositivosDisponibles = () => {
         });
 }
 
+function drawImageProp(ctx, source, iw, ih, x, y, w, h, offsetX, offsetY) {
+    if (arguments.length === 2) {
+        x = y = 0;
+        w = ctx.canvas.width;
+        h = ctx.canvas.height;
+    }
+    console.log(w);
+    console.log(h);
+    // default offset is center
+    offsetX = typeof offsetX === "number" ? offsetX : 0.5;
+    offsetY = typeof offsetY === "number" ? offsetY : 0.5;
+
+    // keep bounds [0.0, 1.0]
+    if (offsetX < 0) offsetX = 0;
+    if (offsetY < 0) offsetY = 0;
+    if (offsetX > 1) offsetX = 1;
+    if (offsetY > 1) offsetY = 1;
+
+    var iw = iw,
+        ih = ih,
+        r = Math.min(w / iw, h / ih),
+        nw = iw * r,   // new prop. width
+        nh = ih * r,   // new prop. height  
+        cx, cy, cw, ch, ar = 1;
+    console.log(nw);
+    console.log(nh);
+    // decide which gap to fill
+    if (nw < w) ar = w / nw;
+    if (nh < h) ar = h / nh;
+    nw *= ar;
+    nh *= ar;
+
+    // calc source rectangle
+    cw = iw / (nw / w);
+    ch = ih / (nh / h);
+
+    cx = (iw - cw) * offsetX;
+    cy = (ih - ch) * offsetY;
+
+    // make sure source rectangle is valid
+    if (cx < 0) cx = 0;
+    if (cy < 0) cy = 0;
+    if (cw > iw) cw = iw;
+    if (ch > ih) ch = ih;
+    ctx.drawImage(source, cx, cy, cw, ch, x, y, w, h);
+};
 (function () {
     // Comenzamos viendo si tiene soporte, si no, nos detenemos
     if (!tieneSoporteUserMedia()) {
@@ -126,11 +175,17 @@ const llenarSelectConDispositivosDisponibles = () => {
                         $estado.innerHTML = "Tomando foto. Por favor, espera...";
                         //Obtener contexto del canvas y dibujar sobre él
                         let contexto = $canvas.getContext("2d");
-                        $canvas.width = $video.videoWidth;
-                        $canvas.height = $video.videoHeight;
-                        contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
+                        let contexto2 = $canvasCredencial.getContext("2d");
+                        $canvas.width = $video.offsetWidth;
+                        $canvas.height = $video.offsetHeight;
+                        $canvasCredencial.width = $canvasCredencial.offsetWidth;
+                        $canvasCredencial.height = $canvasCredencial.offsetHeight;
+
+                        drawImageProp(contexto, $video, $video.videoWidth, $video.videoHeight, 0, 0, $canvas.width, $canvas.height);
+                        drawImageProp(contexto2, $canvas, $canvas.width, $canvas.height, 0, 0, $canvasCredencial.width, $canvasCredencial.height, 0, 50);
                         $video.classList.add('d-none');
                         $canvas.classList.remove('d-none');
+                        $canvasCredencial.classList.remove('d-none');
                         $estado.innerHTML = "Foto tomada";
                         // let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
                         // 
@@ -153,7 +208,7 @@ const llenarSelectConDispositivosDisponibles = () => {
                         // });
 
                         // //Reanudar reproducción
-                        // $video.play();
+                        $video.play();
                     });
                 }, (error) => {
                     console.log("Permiso denegado o error: ", error);
