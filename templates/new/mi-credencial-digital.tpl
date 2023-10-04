@@ -100,16 +100,15 @@
         }
 
         #nombre,
-        #vigencia {
-            font-size: .45rem;
+        #vigencia,
+        #curricula {
+            font-size: .4rem;
         }
 
-        #curricula {
-            font-size: .5rem;
-        }
         #usuario {
             font-size: .6rem;
         }
+
         #usuario span {
             font-size: .4rem;
         }
