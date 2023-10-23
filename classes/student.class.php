@@ -3193,12 +3193,8 @@ class Student extends User
 			"courseId" => $courseId
 		);
 		$details_subject = array();
-		$attachment[0] = DOC_ROOT . "/files/solicitudes/" . $file;
-		$fileName[0] = "Solicitud_de_Inscripcion.pdf";
-		$attachment[1] = DOC_ROOT . "/manual_alumno.pdf";
-		$fileName[1] = "Manual_Alumno.pdf";
 		$nombre = $info['names'] . ' ' . $info['lastNamePaterno'] . ' ' . $info['lastNameMaterno'];
-		$sendmail->PrepareAttachment($message[5]['subject'], $message[5]['body'], $details_body, $details_subject, $info['email'], $nombre, $attachment, $fileName);
+		$sendmail->Prepare($message[5]['subject'], $message[5]['body'], $details_body, $details_subject, $info['email'], $nombre);
 		return true;
 	}
 

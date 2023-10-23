@@ -118,10 +118,19 @@ switch ($_POST['opcion']) {
 		}  
 		$student->setCurpDrive($files['curp']);
 		$student->setFoto($files['foto']); 
+		$_POST['curricula'] = 155;
 		// Estudios
 		$student->setAcademicDegree($_POST['academicDegree']);
 
 		if (!$student->Save("createCurricula")) {
+			$json = json_decode($files['curp'], true); 
+			$google->setArchivoID($json['googleId']);
+			$respuesta = $google->eliminarArchivo(); 
+
+			$json = json_decode($files['foto'], true); 
+			$google->setArchivoID($json['googleId']);
+			$respuesta = $google->eliminarArchivo();
+
 			echo json_encode([
 				'errorOld'    => "fail[#]".$smarty->fetch(DOC_ROOT . '/templates/boxes/status.tpl'),
 			]); 
