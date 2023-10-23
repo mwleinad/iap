@@ -1,4 +1,5 @@
 <?php
+include_once 'google-api/vendor/autoload.php';
 $courseId = $_GET['id'];
 $credential = $student->getCredential($User['userId'], $courseId);
 $course->setCourseId($courseId);
@@ -20,22 +21,32 @@ if ($_POST) {
 
     $token = bin2hex(random_bytes(8));
     //Calcular un nombre único
-    $nombreImagen = "foto_$token.png";
     $carpeta = "files/credentials";
     if (!file_exists($carpeta)) {
         mkdir($carpeta);
     }
-    if (!$credential) { //No existe la credencial
-        $student->createCredential($User['userId'], $courseId, $nombreImagen);
-    } else {
-        if (file_exists($carpeta . "/" . $credential['image'])) {
-            unlink($carpeta . "/" . $credential['image']);
-        }
-        $student->editCredential($User['userId'], $courseId, $nombreImagen, 0);
-    }
-    //Escribir el archivo
+    $nombreImagen = "foto_$token.png";  
     file_put_contents($carpeta . "/" . $nombreImagen, $imagenDecodificada);
-
-    //Terminar y regresar el nombre de la foto
-    exit(WEB_ROOT . "/" . $carpeta . "/" . $nombreImagen);
+    $carpetaId = "1tsqsqiwewa2BRadf8UvXnQpshXAPyWPX";
+    $google = new Google($carpetaId);
+    $google->setArchivoNombre($nombreImagen); 
+    $google->setArchivo(DOC_ROOT."/".$carpeta."/".$nombreImagen);
+    $respuesta = $google->subirArchivo();
+    $files = '{
+        "filename": "'.$respuesta['name'].'",
+        "googleId": "'.$respuesta['id'].'",
+        "mimeType": "'.$respuesta['mimeType'].'",
+        "urlBlank": "https://drive.google.com/open?id='.$respuesta['id'].'",
+        "urlEmbed": "https://drive.google.com/uc?id='.$respuesta['id'].'"
+    }'; 
+    unlink(DOC_ROOT."/".$carpeta."/".$nombreImagen);
+    if (!$credential) { //No existe la credencial  
+        $student->createCredential($User['userId'], $courseId, $files);
+    } else {  
+        $archivoID = $credential['files'];
+        $jsonFiles = json_decode($archivoID, true);
+        $google->setArchivoID($jsonFiles['googleId']);
+        $respuesta = $google->eliminarArchivo();
+        $student->editCredential($User['userId'], $courseId, $files, 0);
+    } 
 }

@@ -61,23 +61,22 @@
 	$smarty->assign("positionId", $_SESSION['positionId']);	
 	
 	$curricula = $course->EnumerateActive();
-	$smarty->assign("curricula", $curricula);	
-	
-	//$student->setUserId($_GET["id"]);
-	$activeCourses = $student->StudentCourses();
-	$smarty->assign("courses", $activeCourses);	
-	// echo "$tipo_curricula \n";
-	if($tipo_curricula == 'Activa')
-	{
-		$activeCourses = $student->StudentCourses("activo", "si");
-		$smarty->assign("activeCourses", $activeCourses);
-		
-		$inactiveCourses = $student->StudentCourses("inactivo", "si");
-		$smarty->assign("inactiveCourses", $inactiveCourses);	
+	$smarty->assign("curricula", $curricula);	  
+	$activeCourses = $student->StudentCourses("activo", "si"); 
+	$inactiveCourses = $student->StudentCourses("inactivo", "si");
+	if ($User['bloqueado'] == 1) {
+		foreach ($activeCourses as $item) {
+			$inactiveCourses[] = $item;
+		}
+		$activeCourses = [];
+	}
+	// print_r($activeCourses);
+	$smarty->assign("activeCourses", $activeCourses); 
+	$smarty->assign("inactiveCourses", $inactiveCourses);	
 
-		$finishedCourses = $student->StudentCourses("finalizado");
-		$smarty->assign("finishedCourses", $finishedCourses);	
-	}	
+	$finishedCourses = $student->StudentCourses("finalizado");
+	$smarty->assign("finishedCourses", $finishedCourses);	
+	 	
 
 	$showRegulation = $student->blockRegulation("activo", "si", "119, 129");
 	$smarty->assign("showRegulation", $showRegulation);	 
@@ -93,5 +92,4 @@
 	$smarty->assign('msjCc', $_SESSION['msjCc']);
 	unset($_SESSION['msjC']);
 	unset($_SESSION['msjCc']);
-	$smarty->assign("referencia", $student->GetInfo()["referenciaBancaria"]); 
-?>
+	$smarty->assign("referencia", $student->GetInfo()["referenciaBancaria"]);

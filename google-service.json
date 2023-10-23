@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "canvas-fulcrum-379821",
+  "private_key_id": "030b5407b4a0fd9a2bcd388c74e17f1b0ee545c5",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDYEvLkCPTxeljr\nuWUO3xTcdxmMtAEoJK0J3kzk4ynfE041e1UczUMHFjyfl0VI4cS6ZkfhyRhl5Lbf\nI8aoI0xkXA8k2VjrKH+GTGPcY0sGbgUyjWaxhz34bv4cvmlWdzT/5MhW52Wp0s3e\njSje1dhbzwh87uq764jDL8jARRN2MaUqJ7Z++BY8L+8fssmBEWWqkbEiGuScoyAL\nd5Nc5hyqwOEgdqudK4T5gWHkRnDwVSP0h3Yy8dYtcTGR7A+LFZiBIJ0Is+cIXKRt\nHgXMA2Eiv691cMLW/UavKnw3Xi47NVv5lpgUzETYIGiamfTkI+s3S6fasnhGKO6z\nc9Kw+R4ZAgMBAAECggEAKC4l4sfTnNAOlw8rvr83JuQy6RpUGL3xO6OOEwY3NBdn\n9MQRiMCW1UuKTHcZ2Dq7lZoNhewaUGBerVH+0Cd4PjVsT4LnaRtn03aDH2mLew+c\ngdEPprWqjXc+Y+P4vK6AOZG2u4peOl1METWYww9rI291eZ4IIpfjH8DUCQUPYGv1\nYeRKD2OT9wnU+hvqPzuoeloIJdA50dO4bv8lwuNnh/GFxwm8Xt83pxCBU5qFsLhj\nsoP9MAyp9u2ZNn0d18XqvhGX88uNvH1ihJEOIEod12hcvV2TRf1aCLvAf80PJP/v\nkv8D8/hVj//1SW0q2pT7G21AMl173yIA4sQEbjHZzQKBgQD3DUW8mjIyV6MuldwD\nfE5+GThJf8fv0Jage544Bt6OSSEtzfBbw4RypJMbTDboYwfzIgh2RqBvUH40oxdP\nPB3s+EocL8LaO+NXenyOx1rwHRCQpqjh2CcT7ysDaqZ5wTMsCkAXfHgqouAB/MNM\nBXNWgDh06HfWEYa0rVnS5ZnWmwKBgQDf5nEszERBOv5k6Vr/rUtdlEeEquhbyc+T\nUEBwMbpJjvQhIUE8UqfhPB6PcML7PVR99U9CYqB30s/9NEUa854RlPjpIk4NqLgW\nWq6vI5Ldl1XXf4TAVxycHT9+RUe+hCcajV/koDiCpI0mlQxoeIUlpd0TETLV3gy0\npAFwZzBPWwKBgQCS6TWbHibTgQHs5fjbqcQTgHPUYURH+8ZW0KwZrRwTiLFOR7Sz\nHOVaNzuzc/MC5kEH+CkIDJ/DEh66tnFaEOnKzStk75HzrMFYd+IyFaKiPuZm3nR3\nOM6kMAloErfEl3sSqVXLoZzj3c9P3ztTrboUqlLoUoVQq0Nrldpga2C8GQKBgQDC\nObIFjXDMMTPLMA8LajXNiLp9oJCOR0O049HyQYD7HHI0ZxejD4SoQzGzdrr9nNc1\nqN5HlSzkpNBeMsCbv6doUxWVj3esK6b9ZU7RiQd3CDekB++NtkOQPWL903WIFDWj\nt+3ucvpygfIb/QHVgm7mGLrtNmcl1UiqTvccnbbvrwKBgGyhP7lAWSMefgntJ4ix\nu48ITOLgFH9RLBo59exBjz5YnTX06uAsBKBCJIalIiBg5v3GX0Kr3g+vRxE/igtk\nXH5FoFr9rdFNCi5v9MLTxtcX3vLIU7HmSWyZs3yRMdI+RYoZlhcLITtLyHd4Co9r\nr1pldsjjpUPwIrWVVQenZrKl\n-----END PRIVATE KEY-----\n",
+  "client_email": "educationapp@canvas-fulcrum-379821.iam.gserviceaccount.com",
+  "client_id": "117244290353254377829",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/educationapp%40canvas-fulcrum-379821.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

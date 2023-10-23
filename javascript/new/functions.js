@@ -160,6 +160,7 @@ function actionPostAjax(form, response) {
     }
     if (response.html) {
         if (response.modal) {
+            $("#ajax").modal();
             $("#ajax .modal-content").html(response.html);
         } else {
             $(document).find(response.selector).html(response.html);
@@ -172,13 +173,25 @@ function actionPostAjax(form, response) {
         }, duracion);
     }
     if (response.dtreload) {
-        $(response.dtreload).DataTable().ajax.reload(); 
+        $(response.dtreload).DataTable().ajax.reload();
     }
     if (response.reload) {
         var duracion = response.duracion ? response.duracion : 2000;
         setTimeout(() => {
             location.reload();
         }, duracion);
+    }
+    if (response.errorOld) {
+        var splitResponse = response.errorOld.split("[#]");
+        if ($.trim(splitResponse[0]) == "ok") {
+            ShowStatus($(splitResponse[1]));
+            CloseFview();
+        }else{ 
+            ShowStatusPopUp($(splitResponse[1]));
+        }
+    }
+    if (response.blank) {
+        window.open(response.blank, '_blank');
     }
 }
 

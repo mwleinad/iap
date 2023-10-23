@@ -51,7 +51,7 @@ else
 print_r($_SESSION);
 exit; */
 
-if((!isset($_SESSION['User'])) && $_GET['page'] != 'login' && $_GET['page'] != 'register' && $_GET['page'] != "recuperacion")
+if((!isset($_SESSION['User'])) && $_GET['page'] != 'login' && $_GET['page'] != 'register' && $_GET['page'] != "registro" && $_GET['page'] != "recuperacion")
 	header('Location: ' . WEB_ROOT . '/login');
 
 
@@ -73,11 +73,8 @@ if($_SESSION["User"])
 
 $User = $_SESSION['User'];
 
-
-
-
-
 $pages = array(	
+	'prueba',
 	'login',
 	'logout',
 	'personal1',
@@ -278,7 +275,8 @@ $pages = array(
 	'pagar',
 	'procesar-pago',
 	'mi-credencial-digital',
-	'credenciales'
+	'credenciales',
+	'registro'
 );
 if(!in_array($_GET['page'], $pages) && $_GET['page'] != "logout" )
 {

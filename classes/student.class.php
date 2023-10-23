@@ -28,7 +28,8 @@ class Student extends User
 	private $validar = true;
 	private $periodo;
 	private $correoInstitucional;
-
+	private $foto;
+	private $curpDrive;
 	public function setValidar($value)
 	{
 		$this->validar = $value;
@@ -165,6 +166,16 @@ class Student extends User
 	public function setCorreoInstitucional($value)
 	{
 		$this->correoInstitucional = $value;
+	}
+	
+	public function setCurpDrive($value)
+	{
+		$this->curpDrive = $value;
+	}
+
+	public function setFoto($value)
+	{
+		$this->foto = $value;
 	}
 
 
@@ -336,6 +347,12 @@ class Student extends User
 		if ($this->Util()->PrintErrors())
 			return false;
 
+		if ($this->curpDrive == "") {
+			$this->curpDrive = '{"archivo":""}';
+		}
+		if ($this->foto == "") {
+			$this->foto = '{"archivo":""}';
+		}
 		$sql = "SELECT COUNT(*) FROM user WHERE email = '" . $this->getEmail() . "'";
 		// Verificando que no se duplique el correo electronico
 		$this->Util()->DB()->setQuery($sql);
@@ -496,7 +513,9 @@ class Student extends User
 							masters,
 							mastersSchool,
 							highSchool,
-							actualizado
+							actualizado,
+							curpDrive,
+							foto
 						)
 							VALUES
 						(
@@ -537,8 +556,11 @@ class Student extends User
 							'" . $this->getMasters() . "', 
 							'" . $this->getMastersSchool() . "', 
 							'" . $this->getHighSchool() . "',
-							'no'
+							'no',
+							'{$this->curpDrive}',
+							'{$this->foto}'
 						)";
+						// echo $sqlQuery;
 		$this->Util()->DB()->setQuery($sqlQuery);
 
 		if ($id = $this->Util()->DB()->InsertData()) {
@@ -1662,6 +1684,10 @@ class Student extends User
 			$sql = "SELECT COUNT(*) FROM course_module WHERE courseId ='" . $res["courseId"] . "'";
 			$this->Util()->DB()->setQuery($sql);
 			$result[$key]["courseModule"] = $this->Util()->DB()->GetSingle();
+
+			$sql = "SELECT * FROM user_credentials WHERE course_id = '".$res['courseId']."' AND user_id ='".$res['alumnoId']."' "; 
+			$this->Util()->DB()->setQuery($sql);
+			$result[$key]["credential"] = $this->Util()->DB()->GetRow();
 		}
 		return $result;
 	}
@@ -3412,17 +3438,24 @@ class Student extends User
 		$sql = "SELECT * FROM user_credentials WHERE course_id = $course AND user_id = $student";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetRow();
+		if($result){
+			$result['files'] = json_decode($result['files'], true);
+		}
 		return $result;
 	}
 
-	public function createCredential($student, $course, $image) {
-		$sql = "INSERT INTO user_credentials(user_id, course_id, image, status, created_at, updated_at) VALUES($student, $course, '{$image}', 0, NOW(), NOW())";
+	public function createCredential($student, $course, $files) {
+		$sql = "INSERT INTO user_credentials(user_id, course_id, files, status, created_at, updated_at) VALUES($student, $course, '{$files}', 0, NOW(), NOW())"; 
 		$this->Util()->DB()->setQuery($sql);
-		$this->Util()->DB()->InsertData();
+		$id = $this->Util()->DB()->InsertData();
+		$token = password_hash($id.$student.$course, PASSWORD_BCRYPT);
+		$sql = "UPDATE user_credentials SET token = '$token' WHERE id = {$id}";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->UpdateData();
 	}
 
-	public function editCredential($student, $course, $image, $status) {
-		$sql = "UPDATE user_credentials SET image = '$image', status = $status, updated_at = NOW() WHERE user_id = $student AND course_id = $course";
+	public function editCredential($student, $course, $files, $status) {
+		$sql = "UPDATE user_credentials SET files = '{$files}', status = $status, updated_at = NOW() WHERE user_id = $student AND course_id = $course";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->UpdateData();
 	}

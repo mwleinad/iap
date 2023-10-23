@@ -8,7 +8,7 @@
         </a>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-stretch">
-        {if (($User.type ne "Docente") and ($User.type ne "student") and ($page ne "register"))}
+        {if (($User.type ne "Docente") and ($User.type ne "student") and ($page ne "register") and ($page ne "registro"))}
             <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
                 <span class="fas fa-bars text-white"></span>
             </button>

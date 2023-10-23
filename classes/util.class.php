@@ -1482,24 +1482,31 @@ class Util extends ErrorLms
 			// print_r($archivo);
 			switch ($archivo['error']) {  //Checamos que no exista ningún problema con la subida de archivo
 				case UPLOAD_ERR_INI_SIZE:
+					$response['archivo'][] = $key;
 					$response['mensaje'] = "Error, el archivo excede el tamaño máximo permitido por el sistema.";
 					break;
 				case UPLOAD_ERR_FORM_SIZE:
+					$response['archivo'][] = $key;
 					$response['mensaje'] = "Error, el archivo excede el tamaño máximo permitido por el formulario.";
 					break;
 				case UPLOAD_ERR_PARTIAL:
+					$response['archivo'][] = $key;
 					$response['mensaje'] = "Error, el archivo fue subido parcialmente.";
 					break;
 				case UPLOAD_ERR_NO_FILE:
+					$response['archivo'][] = $key;
 					$response['mensaje'] = "Error, falta seleccionar el archivo.";
 					break;
 				case UPLOAD_ERR_NO_TMP_DIR:
+					$response['archivo'][] = $key;
 					$response['mensaje'] = "Error, hubo un problema con la carpeta temporal.";
 					break;
 				case UPLOAD_ERR_CANT_WRITE:
+					$response['archivo'][] = $key;
 					$response['mensaje'] = "Error, hubo un problema con los permisos del archivo.";
 					break;
 				case UPLOAD_ERR_EXTENSION:
+					$response['archivo'][] = $key;
 					$response['mensaje'] = "Error, hubo un problema una extensión del sistema que paró la subida del archivo.";
 					break;
 				default:

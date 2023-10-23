@@ -91,6 +91,7 @@ include_once(DOC_ROOT . "/classes/payments.class.php");
 include_once(DOC_ROOT . "/classes/credentials.class.php");
 include_once(DOC_ROOT . '/classes/pagination.class.php');
 include_once(DOC_ROOT . '/classes/ssp.class.php');
+include_once(DOC_ROOT . '/classes/google.class.php');
 $docente = new Docente();
 
 $db = new DB;

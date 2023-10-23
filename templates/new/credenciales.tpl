@@ -13,8 +13,7 @@
                     <th>Currícula</th>
                     <th>Grupo</th>
                     <th>Foto</th>
-                    <th>Estatus</th>
-                    <th>Acciones</th>
+                    <th>Estatus</th> 
                 </tr>
             </thead>
             <tbody></tbody>
@@ -27,3 +26,4 @@
         white-space: normal !important;
     }
 </style>
+<script src="{$WEB_ROOT}/javascript/new/html2canvas.js"></script> 

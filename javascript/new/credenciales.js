@@ -24,11 +24,7 @@ $("#datatable").DataTable({
         {
             data: "estatus",
             // "orderable": false
-        },
-        {
-            data: "acciones",
-            "orderable": false,
-        }
+        }, 
     ],
     columnDefs: [
         {
@@ -46,4 +42,4 @@ $("#datatable").DataTable({
         }
     ],
     order: [[5, 'desc'], [1, 'desc']]
-});
+}); 

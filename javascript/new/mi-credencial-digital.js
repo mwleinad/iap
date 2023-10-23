@@ -1,9 +1,10 @@
-/*
-    Tomar una fotografía y guardarla en un archivo v3
-    @date 2018-10-22
-    @author parzibyte
-    @web parzibyte.me/blog
-*/
+
+// /*
+//     Tomar una fotografía y guardarla en un archivo v3
+//     @date 2018-10-22
+//     @author parzibyte
+//     @web parzibyte.me/blog
+// */
 const tieneSoporteUserMedia = () =>
     !!(navigator.getUserMedia || (navigator.mozGetUserMedia || navigator.mediaDevices.getUserMedia) || navigator.webkitGetUserMedia || navigator.msGetUserMedia)
 const _getUserMedia = (...arguments) =>
@@ -12,13 +13,16 @@ const _getUserMedia = (...arguments) =>
 // Declaramos elementos del DOM
 const $video = document.querySelector("#video"),
     $sectionVideo = document.querySelector("#section-video"),
+    $seccionFoto = document.querySelector("#seccion-foto"),
+    $seccionSubmit = document.querySelector("#seccion-submit"),
     $canvas = document.querySelector("#canvas"),
     $canvasCredencial = document.querySelector("#canvas-credencial"),
     $credencialFrontal = document.querySelector("#credencial-frontal"),
     $estado = document.querySelector("#estado"),
     $boton = document.querySelector("#boton"),
+    $nuevaFoto = document.querySelector("#nueva-foto"),
+    $enviarFoto = document.querySelector("#enviar-foto"),
     $listaDeDispositivos = document.querySelector("#listaDeDispositivos");
-
 const limpiarSelect = () => {
     for (let x = $listaDeDispositivos.options.length - 1; x >= 0; x--)
         $listaDeDispositivos.remove(x);
@@ -62,8 +66,6 @@ function drawImageProp(ctx, source, iw, ih, x, y, w, h, offsetX, offsetY) {
         w = ctx.canvas.width;
         h = ctx.canvas.height;
     }
-    console.log(w);
-    console.log(h);
     // default offset is center
     offsetX = typeof offsetX === "number" ? offsetX : 0.5;
     offsetY = typeof offsetY === "number" ? offsetY : 0.5;
@@ -103,12 +105,47 @@ function drawImageProp(ctx, source, iw, ih, x, y, w, h, offsetX, offsetY) {
     ctx.drawImage(source, cx, cy, cw, ch, x, y, w, h);
 };
 (function () {
+    if (!$nuevaFoto) {
+        return false;
+    }
+    $nuevaFoto.addEventListener('click', function () {
+        $seccionSubmit.classList.add('d-none');
+        $seccionFoto.classList.remove('d-none');
+        $canvas.classList.add('d-none');
+        document.getElementById("video").classList.remove('d-none');
+    });
+
+    $enviarFoto.addEventListener('click', function () {
+        let foto = $canvas.toDataURL();
+        fetch(window.location, {
+            method: "POST",
+            body: encodeURIComponent(foto),
+            headers: {
+                "Content-type": "application/x-www-form-urlencoded",
+            }
+        }).then(resultado => {
+            console.log(resultado);
+            return resultado.text()
+        }).then(rutaFoto => {
+            // console.log("La foto fue enviada correctamente");
+            $estado.innerHTML = `Foto guardada con éxito, espera validación del Departamento de Servicios Escolares.`;
+            $seccionFoto.classList.add('d-none');
+            $seccionSubmit.classList.add('d-none');
+            setTimeout(() => {
+                location.reload();
+            }, 5000);
+        });
+    });
     // Comenzamos viendo si tiene soporte, si no, nos detenemos
     if (!tieneSoporteUserMedia()) {
         alert("Lo siento. Tu navegador no soporta esta característica");
         $estado.innerHTML = "Parece que tu navegador no soporta esta característica. Intenta actualizarlo.";
         return;
     }
+
+    let newHeight = (900 / 720) * $video.offsetWidth;
+    console.log(newHeight);
+    $sectionVideo.style.height = newHeight + "px";
     //Aquí guardaremos el stream globalmente
     let stream;
 
@@ -139,6 +176,7 @@ function drawImageProp(ctx, source, iw, ih, x, y, w, h, offsetX, offsetY) {
             _getUserMedia({
                 video: {
                     // Justo aquí indicamos cuál dispositivo usar
+                    width: 1920,
                     deviceId: idDeDispositivo,
                 }
             },
@@ -176,37 +214,18 @@ function drawImageProp(ctx, source, iw, ih, x, y, w, h, offsetX, offsetY) {
                         //Obtener contexto del canvas y dibujar sobre él
                         let contexto = $canvas.getContext("2d");
                         let contexto2 = $canvasCredencial.getContext("2d");
-                        $canvas.width = $video.offsetWidth;
-                        $canvas.height = $video.offsetHeight;
+                        $canvas.width = 720;
+                        $canvas.height = 900;
                         $canvasCredencial.width = $canvasCredencial.offsetWidth;
                         $canvasCredencial.height = $canvasCredencial.offsetHeight;
-
                         drawImageProp(contexto, $video, $video.videoWidth, $video.videoHeight, 0, 0, $canvas.width, $canvas.height);
                         drawImageProp(contexto2, $canvas, $canvas.width, $canvas.height, 0, 0, $canvasCredencial.width, $canvasCredencial.height, 0, 50);
                         $video.classList.add('d-none');
                         $canvas.classList.remove('d-none');
                         $canvasCredencial.classList.remove('d-none');
                         $estado.innerHTML = "Foto tomada";
-                        // let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
-                        // 
-                        // fetch(window.location, {
-                        //     method: "POST",
-                        //     body: encodeURIComponent(foto),
-                        //     headers: {
-                        //         "Content-type": "application/x-www-form-urlencoded",
-                        //     }
-                        // }).then(resultado => {
-                        //     // A los datos los decodificamos como texto plano
-                        //     return resultado.text()
-                        // }).then(rutaFoto => {
-                        //     // console.log("La foto fue enviada correctamente");
-                        //     // $estado.innerHTML = `Foto guardada con éxito, espera validación del Departamento de Servicios Escolares.`;
-                        //     // $boton.remove();
-                        //     // setTimeout(() => {
-                        //     //     location.reload();
-                        //     // }, 5000);
-                        // });
-
+                        $seccionFoto.classList.add('d-none');
+                        $seccionSubmit.classList.remove('d-none');
                         // //Reanudar reproducción
                         $video.play();
                     });
@@ -217,3 +236,16 @@ function drawImageProp(ctx, source, iw, ih, x, y, w, h, offsetX, offsetY) {
         }
     }
 })();
+
+if (document.getElementById('credencial')) {
+    $.getScript(WEB_ROOT + "/javascript/new/qrcode.js", function () {
+        const codigoQRDiv = document.getElementById('codigo-qr');
+        let token = codigoQRDiv.dataset.token;
+        console.log(token);
+        const codigoQR = new QRious({
+            element: codigoQRDiv,
+            value: token,
+            size: 256
+        });
+    });
+}
