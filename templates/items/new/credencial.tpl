@@ -1,26 +1,32 @@
 <div class='modal-title text-center mt-3'>
-    <h1>Previo de credencial</h1>
+    <h1>{($credencial.status == 0) ? "Vista previa de la credencial" : "Credencial aceptada"}</h1>
 </div>
 <div class="col-md-9 col-lg-7 col-lx-6 mx-auto p-5 seccion-credencial">
-    <div class="credencial_previo">
-        <div class="nombre_previo">
-            {$alumno.names|upper} {$alumno.lastNamePaterno|upper} {$alumno.lastNameMaterno|upper}
+    {if $credencial.status == 0}
+        <div class="credencial_previo">
+            <div class="nombre_previo">
+                {$alumno.names|upper} {$alumno.lastNamePaterno|upper} {$alumno.lastNameMaterno|upper}
+            </div>
+            <div class="usuario_previo">
+                <span>No. Usuario:</span> {$alumno.controlNumber}
+            </div>
+            <div class="curricula_previa">
+                {$curso}
+            </div>
+            <img src="{$WEB_ROOT}/images/credencial/frontal.png" class="img-fluid">
+            <picture class='img_credencial_previo'>
+                <img src="{$credencial.files['urlEmbed']}" class="img-fluid">
+            </picture>
+            <div class="vigencia">
+                <span>Vigencia</span><br>
+                31 de diciembre {date('Y')}
+            </div>
         </div>
-        <div class="usuario_previo">
-            <span>No. Usuario:</span> {$alumno.controlNumber}
-        </div>
-        <div class="curricula_previa">
-            {$curso}
-        </div>
-        <img src="{$WEB_ROOT}/images/credencial/frontal.png" class="img-fluid">
-        <picture class='img_credencial_previo'>
-            <img src="{$credencial.files['urlEmbed']}" class="img-fluid">
-        </picture>
-        <div class="vigencia">
-            <span>Vigencia</span><br>
-            31 de diciembre {date('Y')}
-        </div>
-    </div>
+    {/if}
+    {if $credencial.status == 1}
+        <img src="{$credencial.files['urlEmbed']}" class="img-fluid">
+    {/if}
+
 </div>
 {if $credencial.status == 0}
     <div class="col-md-12 text-center mb-3">
@@ -42,7 +48,7 @@
     </div>
 
     <div id="credencial_frontal"
-        style="position:absolute; right:-1000%;min-width: 1110px; max-width:1110px; min-height: 700px; max-height:700px;">
+        style="/*position:absolute; right:-1000%;*/min-width: 1110px; max-width:1110px; min-height: 700px; max-height:700px;">
         <div class="p-0 credencial_previo position-relative">
             <img src="{$WEB_ROOT}/images/credencial/frontal.png" class="img-fluid">
             <div class="nombre_previo">
@@ -55,19 +61,19 @@
                 {$curso}
             </div>
             <picture class='img_credencial_previo'>
-                <img src="{$credencial.files['urlEmbed']}" class="img-fluid">
+                <img src="{$WEB_ROOT}/files/credentials/{$credencial.files['filename']}" class="img-fluid">
             </picture>
             <div class="vigencia"><span>Vigencia:</span><br>31 de diciembre {date('Y')} </div>
         </div>
     </div>
     <script src="{$WEB_ROOT}/javascript/new/html2canvas.js"></script>
     {literal}
-    <script>
-        const credencialFrontal = document.getElementById('credencial_frontal');
-        html2canvas(credencialFrontal,{scale:1}).then(canvas => {
+        <script>
+            const credencialFrontal = document.getElementById('credencial_frontal');
+            html2canvas(credencialFrontal,{scale:1}).then(canvas => {
             let foto = canvas.toDataURL();
-            document.getElementById('foto64').setAttribute('value', foto); 
-        });
-    </script>
-     {/literal}
+            document.getElementById('foto64').setAttribute('value', foto);
+            });
+        </script>
+    {/literal}
 {/if}

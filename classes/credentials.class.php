@@ -39,18 +39,20 @@ class Credentials extends Main
 			array('db' => 'CONCAT(user.names, " ", user.lastNamePaterno," ", user.lastNameMaterno)',  'dt' => 'alumno'),
 			array('db' => 'major.name',  		'dt' => 'tipo'),
 			array('db' => 'subject.name',  	'dt' => 'curricula'),
-			array('db' => 'course.group',  	'dt' => 'grupo'),
+			array('db' => 'course.group',  	'dt' => 'grupo'), 
+			array('db' => 'CASE WHEN user_credentials.status = 0 THEN "<span class=\"badge badge-warning\">Pendiente</span>" WHEN user_credentials.status = 1 THEN "<span class=\"badge badge-success\">Aprobada</span>" ELSE "<span class=\"badge badge-danger\">Rechazada</span>" END', 'dt' => 'estatus'),
+			array('db'	=>'user_credentials.status','status'), 
 			array(
 				'db' => 'files', 'dt' => 'foto',
 				'formatter' => function ($d, $row) { 
-					$jsonFile = json_decode($row['foto'], true); 
-					$curricula = $row['tipo'] . " EN " . str_replace("EN", "", mb_strtoupper($row['curricula']));
-					$alumno = mb_strtoupper($row['alumno']);
-					return "<a class='ajax_sin_form' data-data='\"opcion\":\"previo\",\"credencial\":{$row['credencial_id']}' href='".WEB_ROOT."/ajax/new/credenciales.php'><img src='".$jsonFile['urlEmbed']."' style='width:150px; height:auto;border-radius:25px; cursor:pointer;'></a>";
+					if($row['status'] != 2 ){
+						$jsonFile = json_decode($row['foto'], true);  
+						return "<a class='ajax_sin_form' data-data='\"opcion\":\"previo\",\"credencial\":{$row['credencial_id']}' href='".WEB_ROOT."/ajax/new/credenciales.php'><img src='".$jsonFile['urlEmbed']."' style='width:150px; height:auto;border-radius:25px; cursor:pointer;'></a>";
+					}else{
+						return "No cuenta con foto";
+					} 
 				},
 			),
-			array('db' => 'CASE WHEN user_credentials.status = 0 THEN "<span class=\"badge badge-warning\">Pendiente</span>" WHEN user_credentials.status = 1 THEN "<span class=\"badge badge-success\">Aprobada</span>" ELSE "<span class=\"badge badge-danger\">Rechazada</span>" END', 'dt' => 'estatus'),
-			array('db'	=>'user_credentials.status','status'), 
 		);
 		$where = "user_credentials.deleted_at IS NULL";
 		return SSP::complex($_POST, $table, $primaryKey, $columns, $where);
@@ -67,7 +69,15 @@ class Credentials extends Main
 		$sql = "SELECT * FROM user_credentials WHERE id = {$this->credential}";
 		$this->Util()->DB()->setQuery($sql);
 		$response = $this->Util()->DB()->GetRow();
-		$response['files'] = json_decode($response['files'], true);
+		if ($response) { 
+			$response['files'] = json_decode($response['files'], true);
+		}
 		return $response;
+	}
+
+	function updateDownload() {
+		$sql = "UPDATE user_credentials SET download = 1 WHERE id = {$this->credential}"; 
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->UpdateData($sql);
 	}
 }

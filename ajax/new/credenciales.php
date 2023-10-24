@@ -11,18 +11,17 @@ switch ($opcion) {
         $aceptado = boolval($_POST['aceptado']);
         $aceptado =  $aceptado ? 1 : 2;
         $credentials->setCredential($credencial);
+        $credencial = $credentials->getCredential();
         if ($aceptado == 1) {
-            $imagenCodificadaLimpia = str_replace("data:image/png;base64,", "", $imagenCodificada); 
-            //Venía en base64 pero sólo la codificamos así para que viajara por la red, ahora la decodificamos y
-            //todo el contenido lo guardamos en un archivo
-            $imagenDecodificada = base64_decode($imagenCodificadaLimpia); 
+            $imagenCodificadaLimpia = str_replace("data:image/png;base64,", "", $imagenCodificada);
+            $imagenDecodificada = base64_decode($imagenCodificadaLimpia);
             $token = bin2hex(random_bytes(8));
             $carpeta = "files/credentials";
-            if (!file_exists(DOC_ROOT."/".$carpeta)) {
-                mkdir(DOC_ROOT."/".$carpeta);
+            if (!file_exists(DOC_ROOT . "/" . $carpeta)) {
+                mkdir(DOC_ROOT . "/" . $carpeta);
             }
-            $nombreImagen = "credencial_$token.png";  
-            file_put_contents(DOC_ROOT."/".$carpeta . "/" . $nombreImagen, $imagenDecodificada);
+            $nombreImagen = "credencial_$token.png";
+            file_put_contents(DOC_ROOT . "/" . $carpeta . "/" . $nombreImagen, $imagenDecodificada);
             $carpetaId = "1tsqsqiwewa2BRadf8UvXnQpshXAPyWPX";
             $google = new Google($carpetaId);
             $google->setArchivoNombre($nombreImagen); 
@@ -36,6 +35,9 @@ switch ($opcion) {
                 "urlEmbed": "https://drive.google.com/uc?id='.$respuesta['id'].'"
             }'; 
             unlink(DOC_ROOT."/".$carpeta."/".$nombreImagen);
+            if (file_exists(DOC_ROOT . "/" . $carpeta."/".$credencial['files']['filename'])) {
+                unlink(DOC_ROOT."/".$carpeta."/".$credencial['files']['filename']); 
+            }
             $credentials->setFiles($files);
             $credentials->setStatus($aceptado);
             $credentials->updateCredential();
@@ -47,7 +49,7 @@ switch ($opcion) {
                 'modal_close'   => true
             ]);
         } else {
-            $smarty->assign("credencial", $credencial);
+            $smarty->assign("credencial", $credencial['id']);
             echo json_encode([
                 'html'      => $smarty->fetch(DOC_ROOT . "/templates/items/new/motivo-rechazo.tpl"),
                 'selector'  => '.modal-content'
@@ -64,9 +66,18 @@ switch ($opcion) {
         $courseInfo = $course->Info();
         $courseInfo['name'] = preg_replace('/[0-9]+/', '', $courseInfo['name']);
         $curso = $courseInfo['majorName'] . " EN " . str_replace("EN", "", $courseInfo['name']);
+
+        if ($credencial['status'] == 0) {
+            $image = $credencial['files']['urlEmbed'];
+            $nombreImagen = $credencial['files']['filename'];
+            $carpeta = "files/credentials";
+            if (!file_exists(DOC_ROOT . "/" . $carpeta."/".$nombreImagen)) {
+                file_put_contents(DOC_ROOT . "/" . $carpeta . "/" . $nombreImagen, file_get_contents($image));
+            } 
+        }
         $smarty->assign("alumno", $alumno);
         $smarty->assign("curso", $curso);
-        $smarty->assign("credencial", $credencial);
+        $smarty->assign("credencial", $credencial); 
         // print_r($alumno);
         echo json_encode([
             'modal'     => true,
@@ -91,13 +102,16 @@ switch ($opcion) {
         $credentials->setCredential($credencial);
         $credentials->setMotivo($motivo);
         $credentials->setStatus(2);
-        $credencial = $credentials->getCredential(); 
+        $credencial = $credentials->getCredential();
+        if (file_exists(DOC_ROOT . "/files/credentials/".$credencial['files']['filename'])) {
+            unlink(DOC_ROOT."/files/credentials/".$credencial['files']['filename']); 
+        }
         $credentials->setFiles(json_encode($credencial['files']));
         $carpetaId = "1tsqsqiwewa2BRadf8UvXnQpshXAPyWPX";
-        $google = new Google($carpetaId); 
+        $google = new Google($carpetaId);
         $google->setArchivoID($credencial['files']['googleId']);
         $respuesta = $google->eliminarArchivo();
-        $credentials->updateCredential(); 
+        $credentials->updateCredential();
         echo json_encode([
             'modal'         => true,
             'growl'         => true,
@@ -106,14 +120,15 @@ switch ($opcion) {
             'modal_close'   => true
         ]);
         break;
-    case 'descargar':
-        $credencial = $_GET['credencial'];
-        // echo json_encode([
-        //     'modal'         => true,
-        //     'growl'         => true,
-        //     'message'       => 'Credencial rechazada',
-        //     'dtreload'      => '#datatable',
-        //     'modal_close'   => true
-        // ]);
+    case 'descarga':
+        $credencial = $_POST['credencial'];
+        $credentials->setCredential($credencial);
+        $credentials->updateDownload();
+        $urlPdf = WEB_ROOT."/pdf/credencial.php?credencial={$credencial}";
+        echo json_encode([
+            "selector"  => "#form_descarga",
+            "html"      => " ",
+            'blank'     => $urlPdf
+        ]);
         break;
 }

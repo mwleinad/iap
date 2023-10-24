@@ -244,11 +244,13 @@
                         <canvas id="codigo-qr" data-token="{$credential.token}"></canvas>
                     </div>
                 </div> 
-                <form class="col-md-12 text-center mt-4 form" data-alert="true" data-mensaje="Solo podrás descargar una vez la credencial, para posteriores descargas deberás comunicarte con Servicios Escolares" method="post" id="form_descarga" action="{$WEB_ROOT}/ajax/new/credenciales.php" method="POST">
-                    <input type="hidden" name="opcion" value="descarga">
-                    <input type="hidden" name="credencial" value="{$credential.id}">
-                    <button class="btn btn-primary" type="submit">Descargar</button>
-                </form>
+                {if $credential.download == 0}
+                    <form class="col-md-12 text-center mt-4 form" data-alert="true" data-mensaje="Solo podrás descargar una vez la credencial, para posteriores descargas deberás comunicarte con Servicios Escolares" method="post" id="form_descarga" action="{$WEB_ROOT}/ajax/new/credenciales.php" method="POST">
+                        <input type="hidden" name="opcion" value="descarga">
+                        <input type="hidden" name="credencial" value="{$credential.id}">
+                        <button class="btn btn-primary" type="submit">Descargar</button>
+                    </form>
+                {/if}
             {/if}
         </div>
     </div>

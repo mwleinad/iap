@@ -241,7 +241,6 @@ if (document.getElementById('credencial')) {
     $.getScript(WEB_ROOT + "/javascript/new/qrcode.js", function () {
         const codigoQRDiv = document.getElementById('codigo-qr');
         let token = codigoQRDiv.dataset.token;
-        console.log(token);
         const codigoQR = new QRious({
             element: codigoQRDiv,
             value: token,

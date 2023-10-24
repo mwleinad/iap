@@ -26,4 +26,3 @@
         white-space: normal !important;
     }
 </style>
-<script src="{$WEB_ROOT}/javascript/new/html2canvas.js"></script> 
