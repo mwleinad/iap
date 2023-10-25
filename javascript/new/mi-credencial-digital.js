@@ -116,7 +116,11 @@ function drawImageProp(ctx, source, iw, ih, x, y, w, h, offsetX, offsetY) {
     });
 
     $enviarFoto.addEventListener('click', function () {
+
         let foto = $canvas.toDataURL();
+        $enviarFoto.text = "Espere, por favor..."
+        $enviarFoto.disabled = true;
+        $nuevaFoto.disabled = true;
         fetch(window.location, {
             method: "POST",
             body: encodeURIComponent(foto),

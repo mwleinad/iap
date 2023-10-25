@@ -48,7 +48,7 @@
     </div>
 
     <div id="credencial_frontal"
-        style="/*position:absolute; right:-1000%;*/min-width: 1110px; max-width:1110px; min-height: 700px; max-height:700px;">
+        style="position:absolute; right:-1000%;min-width: 1110px; max-width:1110px; min-height: 700px; max-height:700px;">
         <div class="p-0 credencial_previo position-relative">
             <img src="{$WEB_ROOT}/images/credencial/frontal.png" class="img-fluid">
             <div class="nombre_previo">

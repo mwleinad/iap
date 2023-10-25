@@ -105,4 +105,11 @@ $message[7]["body"] = "<b>Pago NO realizado</b>
 							<b>* Si el problema persiste, le sugerimos intentar realizar su pago con otra tarjeta.</b>
 						Si tiene alguna duda, puede comunicarse al Departamento de Finanzas y Contabilidad al teléfono 961 125 1508 Ext. 116 de lunes a viernes de 8:00 am a 4:00 pm";
 
+
+$message[8]["subject"] = "Credencial Digital Aprobada | Instituto de Administración Pública del Estado de Chiapas";
+$message[8]["body"]	= "Te informamos que la foto de tu credencial digital ha sido aprobada, puedes revisar en la opción \"Mi credencial digital\" de tu currícula activa.";
+
+$message[9]["subject"] = "Credencial Digital Rechazada | Instituto de Administración Pública del Estado de Chiapas";
+$message[9]["body"]	= "Te informamos que la foto de tu credencial digital ha sido rechazada debido a los siguientes motivos: <br>
+|motivos|";
 ?>

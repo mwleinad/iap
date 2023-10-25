@@ -2,7 +2,9 @@
 include_once('../../init.php');
 include_once('../../config.php');
 include_once(DOC_ROOT . '/libraries.php');
+include_once(DOC_ROOT . "/properties/messages.php");
 session_start();
+
 $opcion = $_POST['opcion'];
 switch ($opcion) {
     case 'validar':
@@ -41,6 +43,25 @@ switch ($opcion) {
             $credentials->setFiles($files);
             $credentials->setStatus($aceptado);
             $credentials->updateCredential();
+
+            $student->setUserId($credencial['user_id']);
+            $alumno = $student->GetInfo(); 
+
+            $hecho = $_SESSION['User']['userId'] . "p";
+            $vista = "p," . $hecho . "," . $credencial['user_id'] . "u";
+            $actividad = "Se ha aprobado la foto de tu credencial";
+            $notificacion->setActividad($actividad);
+            $notificacion->setVista($vista);
+            $notificacion->setHecho($hecho);
+            $notificacion->setTablas("reply");
+            $notificacion->setEnlace("/mi-credencial-digital/id/{$credencial['course_id']}");
+            $notificacion->saveNotificacion(); 
+
+            $sendmail = new SendMail;
+            $details_body = "";
+            $details_subject = array();
+            $sendmail->Prepare($message[8]["subject"], $message[8]["body"], $details_body, $details_subject, $alumno['email'], $alumno['names']." ".$alumno['lastNamePaterno']." ".$alumno['lastNameMaterno']);
+
             echo json_encode([
                 'modal'         => true,
                 'growl'         => true,
@@ -112,6 +133,27 @@ switch ($opcion) {
         $google->setArchivoID($credencial['files']['googleId']);
         $respuesta = $google->eliminarArchivo();
         $credentials->updateCredential();
+
+
+        $student->setUserId($credencial['user_id']);
+        $alumno = $student->GetInfo(); 
+        $hecho = $_SESSION['User']['userId'] . "p";
+        $vista = "p," . $hecho . "," . $credencial['user_id'] . "u";
+        $actividad = "Se ha rechazado la foto de tu credencial";
+        $notificacion->setActividad($actividad);
+        $notificacion->setVista($vista);
+        $notificacion->setHecho($hecho);
+        $notificacion->setTablas("reply");
+        $notificacion->setEnlace("/mi-credencial-digital/id/{$credencial['course_id']}");
+        $notificacion->saveNotificacion();
+
+        $sendmail = new SendMail;
+        $details_body = array(
+            'motivos'   => $motivo
+		);
+        $details_subject = array();
+        $sendmail->Prepare($message[9]["subject"], $message[9]["body"], $details_body, $details_subject, $alumno['email'], $alumno['names']." ".$alumno['lastNamePaterno']." ".$alumno['lastNameMaterno']);
+        
         echo json_encode([
             'modal'         => true,
             'growl'         => true,

@@ -87,7 +87,7 @@
         right: 10%;
         bottom: 14%;
         text-align: center;
-        font-size: 1.4rem;
+        font-size: .8rem;
         font-weight: 400;
     }
 

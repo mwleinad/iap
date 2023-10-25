@@ -39,3 +39,4 @@ error_log
 php.ini
 consultas
 /google-api
+google-service.json

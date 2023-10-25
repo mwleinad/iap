@@ -22,6 +22,8 @@ switch ($_POST['opcion']) {
 		$pais = $_POST['paist'];
 		$estado = $_POST['estadot'];
 		$ciudad = $_POST['ciudadt'];
+		$curp = $_POST['curp'];
+		$funcion = $_POST['funcion'];
 		$errors = [];
 		if ($nombre == '') {
 			$errors['names'] = "Por favor, no se olvide de poner el nombre.";
@@ -56,17 +58,29 @@ switch ($_POST['opcion']) {
 		if (empty($ciudad)) {
 			$errors['ciudadt'] = "Por favor, no se olvide de seleccionar la ciudad.";
 		}
+		if (empty($curp)) {
+			$errors['curp'] = "Por favor, no se olvide de poner la curp.";
+		}
 
 		$nombreAlumno = $util->eliminar_acentos(trim($nombre . "_" . $paterno . "_" . $materno));
 		$nombreAlumno = strtolower($nombreAlumno);
 
-		$response = $util->Util()->validarSubida(['types' => ['application/pdf', 'image/jpeg', 'image/png'], 'size' => 5242880], $ruta);
-		if (!empty($response['archivo'])) {
-			foreach ($response['archivo'] as $item) {
-				$errors[$item] = $response['mensaje'];
+		$response = $util->Util()->validarSubidaPorArchivo([
+			"curparchivo" => [
+				'types' => ['application/pdf'],
+				'size' => 5242880
+			],
+			"foto"	=>[
+				'types' =>['image/jpeg', 'image/png'],
+				'size' => 5242880
+			]
+		]); 
+		foreach ($response as $key => $value) {
+			if(!$value['status']){
+				$errors[$key] = $value['mensaje'];
 			}
 		}
-
+	
 		if (!empty($errors)) {
 			header('HTTP/1.1 422 Unprocessable Entity');
 			header('Content-Type: application/json; charset=UTF-8');
@@ -91,7 +105,8 @@ switch ($_POST['opcion']) {
 		$student->setPaisT($pais);
 		$student->setEstadoT($estado);
 		$student->setCiudadT($ciudad);
-
+		$student->setCurp($curp);
+		$student->setFuncion($funcion);
 
 		$carpetaId = "1dIsKbt6QM4Y7I56Lgfv8NDyjFlreTD0T";
 		$google = new Google($carpetaId);
@@ -115,30 +130,29 @@ switch ($_POST['opcion']) {
 				"urlEmbed": "https://drive.google.com/uc?id=' . $respuesta['id'] . '"
 			}';
 			unlink($ruta . $documento);
-		}  
-		$student->setCurpDrive($files['curp']);
-		$student->setFoto($files['foto']); 
-		$_POST['curricula'] = 155;
+		}
+		$student->setCurpDrive($files['curparchivo']);
+		$student->setFoto($files['foto']);
 		// Estudios
 		$student->setAcademicDegree($_POST['academicDegree']);
-
+		 
 		if (!$student->Save("createCurricula")) {
-			$json = json_decode($files['curp'], true); 
+			$json = json_decode($files['curparchivo'], true);
 			$google->setArchivoID($json['googleId']);
-			$respuesta = $google->eliminarArchivo(); 
+			$respuesta = $google->eliminarArchivo();
 
-			$json = json_decode($files['foto'], true); 
+			$json = json_decode($files['foto'], true);
 			$google->setArchivoID($json['googleId']);
 			$respuesta = $google->eliminarArchivo();
 
 			echo json_encode([
-				'errorOld'    => "fail[#]".$smarty->fetch(DOC_ROOT . '/templates/boxes/status.tpl'),
-			]); 
+				'errorOld'    => "fail[#]" . $smarty->fetch(DOC_ROOT . '/templates/boxes/status.tpl'),
+			]);
 		} else {
 			echo json_encode([
-				'errorOld'	=> "ok[#]".$smarty->fetch(DOC_ROOT . '/templates/boxes/status.tpl'),
-				'location'	=> WEB_ROOT.'/login',
-			]);  
+				'errorOld'	=> "ok[#]" . $smarty->fetch(DOC_ROOT . '/templates/boxes/status.tpl'),
+				'location'	=> WEB_ROOT . '/login',
+			]);
 		}
 		break;
 

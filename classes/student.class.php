@@ -30,6 +30,8 @@ class Student extends User
 	private $correoInstitucional;
 	private $foto;
 	private $curpDrive;
+	private $funcion;
+
 	public function setValidar($value)
 	{
 		$this->validar = $value;
@@ -173,11 +175,19 @@ class Student extends User
 		$this->curpDrive = $value;
 	}
 
+	public function setCurp($value)
+	{
+		$this->curp = $value;
+	}
+
 	public function setFoto($value)
 	{
 		$this->foto = $value;
 	}
 
+	function setFuncion($value) {
+		$this->funcion = $value;
+	}
 
 	public function AddAcademicHistory($type, $situation, $semesterId = 1)
 	{
@@ -515,7 +525,9 @@ class Student extends User
 							highSchool,
 							actualizado,
 							curpDrive,
-							foto
+							curp,
+							foto,
+							funcion
 						)
 							VALUES
 						(
@@ -558,7 +570,9 @@ class Student extends User
 							'" . $this->getHighSchool() . "',
 							'no',
 							'{$this->curpDrive}',
-							'{$this->foto}'
+							'{$this->curp}',
+							'{$this->foto}',
+							'{$this->funcion}'
 						)";
 						// echo $sqlQuery;
 		$this->Util()->DB()->setQuery($sqlQuery);

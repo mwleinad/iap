@@ -1551,6 +1551,62 @@ class Util extends ErrorLms
 		}
 		return $response;
 	}
+	public function validarSubidaPorArchivo($validaciones = [])
+	{
+		$response = [];
+		foreach ($_FILES as $key => $archivo) {
+			$response[$key]['status'] = true;
+			switch ($archivo['error']) {  //Checamos que no exista ningún problema con la subida de archivo
+				case UPLOAD_ERR_INI_SIZE:
+					$response[$key]['mensaje'] = "Error, el archivo excede el tamaño máximo permitido por el sistema.";
+					break;
+				case UPLOAD_ERR_FORM_SIZE:
+					$response[$key]['mensaje'] = "Error, el archivo excede el tamaño máximo permitido por el formulario.";
+					break;
+				case UPLOAD_ERR_PARTIAL: 
+					$response[$key]['mensaje'] = "Error, el archivo fue subido parcialmente.";
+					break;
+				case UPLOAD_ERR_NO_FILE:
+					$response[$key]['mensaje'] = "Error, falta seleccionar el archivo.";
+					break;
+				case UPLOAD_ERR_NO_TMP_DIR:
+					$response[$key]['mensaje'] = "Error, hubo un problema con la carpeta temporal.";
+					break;
+				case UPLOAD_ERR_CANT_WRITE:
+					$response[$key]['mensaje'] = "Error, hubo un problema con los permisos del archivo.";
+					break;
+				case UPLOAD_ERR_EXTENSION:
+					$response[$key]['mensaje'] = "Error, hubo un problema una extensión del sistema que paró la subida del archivo.";
+					break;
+				default:   
+					foreach ($validaciones[$key] as $keyv => $value) {
+						switch ($keyv) { //Validamos que no exista ningún error con la validación de archivos después de la subida.
+							case "size": //Validamos el máximo tamaño permitido
+								$maxValue = round($value / 1048576);
+								if ($archivo['size'] > $value) {
+									$response[$key]['mensaje'] = "Error, el tamaño máximo del archivo debe ser de $maxValue MB";
+									$response[$key]['status'] = false; //Existe error en las validaciones
+								}
+								break;
+							case 'types':
+								// print_r($value);
+								if (!in_array($archivo['type'], $value)) {
+									$permitidos = "";
+									foreach ($value as $extension) {
+										$permitidos.= $extension.", ";
+									} 
+									$permitidos = trim($permitidos, ', ');
+									$response[$key]['mensaje'] = "Error, solo se permiten archivos: {$permitidos}";
+									$response[$key]['status'] = false;
+								}
+								break;
+						}
+					} 
+					break;
+			}
+		}
+		return $response;
+	}
 
 	public function estados()
 	{

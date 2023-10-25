@@ -20,7 +20,7 @@
             <span class="invalid-feedback"></span>
         </div>
     </div>
-    <div class="row">
+    <div class="row align-items-end">
         <div class="form-group col-md-4">
             <label for="sexo">Sexo:</label>
             <select name="sexo" id="sexo" class="form-control">
@@ -29,8 +29,13 @@
             </select>
         </div>
         <div class="form-group col-md-4">
-            <label>CURP</label>
-            <input type="file" class="form-control" id="curp" name="curp">
+            <label for="curparchivo">Favor de subir su CURP en formato PDF, si no cuenta con ella puede descargarla en el siguiente enlace: <a href="https://www.gob.mx/curp/" target="_blank">https://www.gob.mx/curp/</a></label>
+            <input type="file" class="form-control" id="curparchivo" name="curparchivo">
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label>Escribe tu curp:</label>
+            <input type="text" class="form-control" id="curp" name="curp">
             <span class="invalid-feedback"></span>
         </div>
         <div class="form-group col-md-4">
@@ -56,6 +61,8 @@
                 <li>Rostro y cuerpo centrado</li>
                 <li>Bien iluminada</li>
                 <li>Fondo claro</li>
+                <li>Sin cubrebocas</li>
+                <li>Sin lentes</li>
             </ul>
         </div>
         <div class="form-group col-md-4">
@@ -83,6 +90,19 @@
     <span class="badge badge-dark"><i class="fas fa-briefcase"></i> Datos laborales</span>
     <hr />
     <div class="row">
+        <div class="form-group col-md-4">
+            <label for="funcion">Función archivística que desempeña</label>
+            <select class="form-control" id="funcion" name="funcion">
+                <option>Coordinador de archivos</option>
+                <option>Correspondencia</option>
+                <option>Archivo de trámite</option>
+                <option>Archivo de concentración</option>
+                <option>Archivo histórico</option>
+                <option>Grupo interdisciplinario</option>
+                <option>Ninguna de las anteriores</option>
+            </select>
+            <span class="invalid-feedback"></span>
+        </div>
         <div class="form-group col-md-4">
             <label for="workplaceOcupation">Ocupacion:</label>
             <select name="workplaceOcupation" id="workplaceOcupation" class="form-control">
