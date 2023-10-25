@@ -54,10 +54,7 @@ switch ($_POST['opcion']) {
 		}
 		if (empty($estado)) {
 			$errors['estadot'] = "Por favor, no se olvide de seleccionar el estado.";
-		}
-		if (empty($ciudad)) {
-			$errors['ciudadt'] = "Por favor, no se olvide de seleccionar la ciudad.";
-		}
+		} 
 		if (empty($curp)) {
 			$errors['curp'] = "Por favor, no se olvide de poner la curp.";
 		}
@@ -104,14 +101,14 @@ switch ($_POST['opcion']) {
 		$student->setWorkplacePosition($cargo);
 		$student->setPaisT($pais);
 		$student->setEstadoT($estado);
-		$student->setCiudadT($ciudad);
+		$student->setCiudadT(1);
 		$student->setCurp($curp);
 		$student->setFuncion($funcion);
-
+		$student->setActualizado("si"); 
 		$carpetaId = "1dIsKbt6QM4Y7I56Lgfv8NDyjFlreTD0T";
 		$google = new Google($carpetaId);
 		foreach ($_FILES as $key => $archivo) {
-			$ruta = DOC_ROOT . "/files/";
+			$ruta = DOC_ROOT . "/tmp/";
 			$aux = explode(".", $archivo["name"]);
 			$extension = end($aux);
 			$temporal =  $archivo['tmp_name'];

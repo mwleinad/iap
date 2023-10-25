@@ -146,16 +146,7 @@
                 </select>
                 <span class="invalid-feedback"></span>
             </div>
-        </div>
-        <div class="form-group col-md-4">
-            <label for="ciudadt"> Municipio:</label>
-            <div id="Citypositiont">
-                <select id="ciudadt" name="ciudadt" class="form-control">
-                    <option value="0">Selecciona tu Ciudad</option>
-                </select>
-                <span class="invalid-feedback"></span>
-            </div>
-        </div>
+        </div> 
     </div>
 
     <span class="badge badge-dark"><i class="fas fa-graduation-cap"></i> Estudios</span>

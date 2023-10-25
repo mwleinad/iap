@@ -31,7 +31,12 @@ class Student extends User
 	private $foto;
 	private $curpDrive;
 	private $funcion;
+	private $actualizado;
 
+	public function setActualizado($value)
+	{
+		$this->actualizado = $value;
+	}
 	public function setValidar($value)
 	{
 		$this->validar = $value;
@@ -169,7 +174,7 @@ class Student extends User
 	{
 		$this->correoInstitucional = $value;
 	}
-	
+
 	public function setCurpDrive($value)
 	{
 		$this->curpDrive = $value;
@@ -185,7 +190,8 @@ class Student extends User
 		$this->foto = $value;
 	}
 
-	function setFuncion($value) {
+	function setFuncion($value)
+	{
 		$this->funcion = $value;
 	}
 
@@ -362,6 +368,9 @@ class Student extends User
 		}
 		if ($this->foto == "") {
 			$this->foto = '{"archivo":""}';
+		}
+		if ($this->actualizado == "") {
+			$this->actualizado = 'no';
 		}
 		$sql = "SELECT COUNT(*) FROM user WHERE email = '" . $this->getEmail() . "'";
 		// Verificando que no se duplique el correo electronico
@@ -568,13 +577,13 @@ class Student extends User
 							'" . $this->getMasters() . "', 
 							'" . $this->getMastersSchool() . "', 
 							'" . $this->getHighSchool() . "',
-							'no',
+							'" . $this->actualizado . "',
 							'{$this->curpDrive}',
 							'{$this->curp}',
 							'{$this->foto}',
 							'{$this->funcion}'
 						)";
-						// echo $sqlQuery;
+		// echo $sqlQuery;
 		$this->Util()->DB()->setQuery($sqlQuery);
 
 		if ($id = $this->Util()->DB()->InsertData()) {
@@ -1699,7 +1708,7 @@ class Student extends User
 			$this->Util()->DB()->setQuery($sql);
 			$result[$key]["courseModule"] = $this->Util()->DB()->GetSingle();
 
-			$sql = "SELECT * FROM user_credentials WHERE course_id = '".$res['courseId']."' AND user_id ='".$res['alumnoId']."' "; 
+			$sql = "SELECT * FROM user_credentials WHERE course_id = '" . $res['courseId'] . "' AND user_id ='" . $res['alumnoId'] . "' ";
 			$this->Util()->DB()->setQuery($sql);
 			$result[$key]["credential"] = $this->Util()->DB()->GetRow();
 		}
@@ -3424,7 +3433,7 @@ class Student extends User
 		$sql = "SELECT * FROM cardholder_data WHERE userId = " . $this->userId;
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetRow();
-		return $result;	
+		return $result;
 	}
 
 	public function saveCardholder($city, $country, $email, $name, $last_name, $postal_code, $state_code, $street, $mobile)
@@ -3444,27 +3453,30 @@ class Student extends User
 	}
 
 	//Retorna la información de la credencial del alumno por curso
-	public function getCredential($student, $course) {
+	public function getCredential($student, $course)
+	{
 		$sql = "SELECT * FROM user_credentials WHERE course_id = $course AND user_id = $student";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetRow();
-		if($result){
+		if ($result) {
 			$result['files'] = json_decode($result['files'], true);
 		}
 		return $result;
 	}
 
-	public function createCredential($student, $course, $files) {
-		$sql = "INSERT INTO user_credentials(user_id, course_id, files, status, created_at, updated_at) VALUES($student, $course, '{$files}', 0, NOW(), NOW())"; 
+	public function createCredential($student, $course, $files)
+	{
+		$sql = "INSERT INTO user_credentials(user_id, course_id, files, status, created_at, updated_at) VALUES($student, $course, '{$files}', 0, NOW(), NOW())";
 		$this->Util()->DB()->setQuery($sql);
 		$id = $this->Util()->DB()->InsertData();
-		$token = password_hash($id.$student.$course, PASSWORD_BCRYPT);
+		$token = password_hash($id . $student . $course, PASSWORD_BCRYPT);
 		$sql = "UPDATE user_credentials SET token = '$token' WHERE id = {$id}";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->UpdateData();
 	}
 
-	public function editCredential($student, $course, $files, $status) {
+	public function editCredential($student, $course, $files, $status)
+	{
 		$sql = "UPDATE user_credentials SET files = '{$files}', status = $status, updated_at = NOW() WHERE user_id = $student AND course_id = $course";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->UpdateData();
