@@ -243,7 +243,7 @@
                         <img src="{$WEB_ROOT}/images/credencial/atras.png" class="img-fluid">
                         <canvas id="codigo-qr" data-token="{$credential.token}"></canvas>
                     </div>
-                </div> 
+                </div>
                 {if $credential.download == 0}
                     <form class="col-md-12 text-center mt-4 form" data-alert="true" data-mensaje="Solo podrás descargar una vez la credencial, para posteriores descargas deberás comunicarte con Servicios Escolares" method="post" id="form_descarga" action="{$WEB_ROOT}/ajax/new/credenciales.php" method="POST">
                         <input type="hidden" name="opcion" value="descarga">
