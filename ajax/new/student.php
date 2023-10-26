@@ -123,7 +123,8 @@ switch ($_POST['opcion']) {
 				"googleId": "' . $respuesta['id'] . '",
 				"mimeType": "' . $respuesta['mimeType'] . '",
 				"urlBlank": "https://drive.google.com/open?id=' . $respuesta['id'] . '",
-				"urlEmbed": "https://drive.google.com/uc?id=' . $respuesta['id'] . '"
+				"urlEmbed": "https://drive.google.com/uc?id=' . $respuesta['id'] . '",
+				"mimeTypeOriginal":"'.$archivo['type'].'"
 			}';
 			unlink($ruta . $documento);
 		}
