@@ -107,7 +107,6 @@ switch ($_POST['opcion']) {
 		$student->setActualizado("si"); 
 		$carpetaId = "1dIsKbt6QM4Y7I56Lgfv8NDyjFlreTD0T";
 		$google = new Google($carpetaId);
-		$_POST['curricula'] = 155;
 		foreach ($_FILES as $key => $archivo) {
 			$ruta = DOC_ROOT . "/tmp/";
 			$extension = pathinfo($archivo['name'], PATHINFO_EXTENSION);
