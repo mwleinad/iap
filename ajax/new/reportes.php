@@ -4,7 +4,9 @@ include_once('../../init.php');
 include_once('../../config.php');
 include_once(DOC_ROOT.'/libraries.php');
 session_start();
-
+if ($_GET['opcion']) {
+    $_POST['opcion'] = $_GET['opcion'];
+}
 switch($_POST["opcion"]){
     case 'cuenta-alumno':
         $alumno = intval($_POST['alumno']);
@@ -77,6 +79,9 @@ switch($_POST["opcion"]){
             // print_r($resultado);
             include_once('reportes/pagos-fechas.php');
         }
+        break;
+    case 'diplomados': 
+        include_once('reportes/diplomados.php');
         break;
 }
 

@@ -208,6 +208,11 @@
                                             <a class="nav-link" href="{$WEB_ROOT}/reporte-pagos">Pagos</a>
                                         </li>
                                     {/if}
+                                    {if in_array($User.positionId,[1])} 
+                                        <li class="nav-item">
+                                            <a class="nav-link" target="_blank" href="{$WEB_ROOT}/ajax/new/reportes.php?opcion=diplomados&page=export-excel">Diplomados</a>
+                                        </li>
+                                    {/if}
                                 {/if}
                             </ul>
                         </div>
