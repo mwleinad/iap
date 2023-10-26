@@ -93,13 +93,13 @@
         <div class="form-group col-md-4">
             <label for="funcion">Función archivística que desempeña</label>
             <select class="form-control" id="funcion" name="funcion">
-                <option>Coordinador de archivos</option>
-                <option>Correspondencia</option>
-                <option>Archivo de trámite</option>
-                <option>Archivo de concentración</option>
-                <option>Archivo histórico</option>
-                <option>Grupo interdisciplinario</option>
-                <option>Ninguna de las anteriores</option>
+                <option value="1">Coordinador de archivos</option>
+                <option value="2">Correspondencia</option>
+                <option value="3">Archivo de trámite</option>
+                <option value="4">Archivo de concentración</option>
+                <option value="5">Archivo histórico</option>
+                <option value="6">Grupo interdisciplinario</option>
+                <option value="7">Ninguna de las anteriores</option>
             </select>
             <span class="invalid-feedback"></span>
         </div>
