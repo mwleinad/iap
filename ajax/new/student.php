@@ -126,7 +126,9 @@ switch ($_POST['opcion']) {
 				"urlEmbed": "https://drive.google.com/uc?id=' . $respuesta['id'] . '",
 				"mimeTypeOriginal":"'.$archivo['type'].'"
 			}';
-			unlink($ruta . $documento);
+			if ($respuesta['mimeType'] != "application/json") { 
+				unlink($ruta . $documento);
+			}
 		}
 		$student->setCurpDrive($files['curparchivo']);
 		$student->setFoto($files['foto']);
