@@ -10,7 +10,7 @@ $students = $group->DefaultGroup();
 // print_r($students);
 // Create new Spreadsheet object
 $spreadsheet = new Spreadsheet();
-
+$spreadsheet->getActiveSheet()->getDefaultColumnDimension()->setWidth(30);
 // Set document properties
 $spreadsheet->getProperties()->setCreator('William Ramírez')
     ->setLastModifiedBy('William Ramírez')
@@ -29,6 +29,24 @@ $sheet->setCellValue('E1', 'Función');
 $sheet->setCellValue('F1', 'Foto');
 $sheet->setCellValue('G1', 'Curp');
 $sheet->setCellValue('H1', 'Curp Archivo');
+
+$sheet->getStyle('A')->getAlignment()->setHorizontal('center')->setVertical('center');
+$sheet->getStyle('A')->getFont()->setSize(14)->setBold(true); 
+$sheet->getStyle('B')->getAlignment()->setHorizontal('center')->setVertical('center');
+$sheet->getStyle('B')->getFont()->setSize(14)->setBold(true); 
+$sheet->getStyle('C')->getAlignment()->setHorizontal('center')->setVertical('center');
+$sheet->getStyle('C')->getFont()->setSize(14)->setBold(true); 
+$sheet->getStyle('D')->getAlignment()->setHorizontal('center')->setVertical('center');
+$sheet->getStyle('D')->getFont()->setSize(14)->setBold(true); 
+$sheet->getStyle('E')->getAlignment()->setHorizontal('center')->setVertical('center');
+$sheet->getStyle('E')->getFont()->setSize(14)->setBold(true); 
+$sheet->getStyle('F')->getAlignment()->setHorizontal('center')->setVertical('center');
+$sheet->getStyle('F')->getFont()->setSize(14)->setBold(true); 
+$sheet->getStyle('G')->getAlignment()->setHorizontal('center')->setVertical('center');
+$sheet->getStyle('G')->getFont()->setSize(14)->setBold(true); 
+$sheet->getStyle('H')->getAlignment()->setHorizontal('center')->setVertical('center');
+$sheet->getStyle('H')->getFont()->setSize(14)->setBold(true); 
+
 $funciones = [
     0 =>"",
     1 =>"Coordinador de archivos",
@@ -48,11 +66,13 @@ for ($i=0; $i < (count($students)); $i++) {
     $sheet->setCellValue("D".($i+2), $students[$i]['mobile']);
     $sheet->setCellValue("E".($i+2), $funciones[$students[$i]["funcion"]]);
     $sheet->setCellValue("F".($i+2), $foto['urlBlank']);
+    $sheet->getCell('F'.($i+2))->getHyperlink()->setUrl($foto['urlBlank']);
     $sheet->setCellValue("G".($i+2), $students[$i]['curp']);
     $sheet->setCellValue("H".($i+2), $curp['urlBlank']);
+    $sheet->getCell('H'.($i+2))->getHyperlink()->setUrl($curp['urlBlank']);
 }
 
-$sheet->getStyle("A2:H".(count($students)))->getAlignment()->setHorizontal('center')->setVertical('center')->setWrapText(true);
+$sheet->getStyle("A2:H".(count($students) + 1))->getAlignment()->setHorizontal('center')->setVertical('center')->setWrapText(true);
 
 $fileName = bin2hex(random_bytes(4));
 // Redirect output to a client’s web browser (Xls)
