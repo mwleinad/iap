@@ -1,4 +1,5 @@
 <?php
+
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -21,63 +22,67 @@ $spreadsheet->getProperties()->setCreator('William Ramírez')
     ->setCategory('Diplomados');
 $sheet = $spreadsheet->getActiveSheet();
 
-$sheet->setCellValue('A1','Numero de Control'); 
-$sheet->setCellValue('B1','Nombre'); 
-$sheet->setCellValue('C1','Correo'); 
+$sheet->setCellValue('A1', 'Numero de Control');
+$sheet->setCellValue('B1', 'Nombre');
+$sheet->setCellValue('C1', 'Correo');
 $sheet->setCellValue('D1', 'Telefono');
-$sheet->setCellValue('E1', 'Función');
-$sheet->setCellValue('F1', 'Foto');
-$sheet->setCellValue('G1', 'Curp');
-$sheet->setCellValue('H1', 'Curp Archivo');
+$sheet->setCellValue('E1', 'Lugar de Trabajo');
+$sheet->setCellValue('F1', 'Funcion');
+$sheet->setCellValue('G1', 'Foto');
+$sheet->setCellValue('H1', 'Curp');
+$sheet->setCellValue('I1', 'Curp Archivo');
 
 $sheet->getStyle('A')->getAlignment()->setHorizontal('center')->setVertical('center');
-$sheet->getStyle('A')->getFont()->setSize(14)->setBold(true); 
+$sheet->getStyle('A')->getFont()->setSize(14)->setBold(true);
 $sheet->getStyle('B')->getAlignment()->setHorizontal('center')->setVertical('center');
-$sheet->getStyle('B')->getFont()->setSize(14)->setBold(true); 
+$sheet->getStyle('B')->getFont()->setSize(14)->setBold(true);
 $sheet->getStyle('C')->getAlignment()->setHorizontal('center')->setVertical('center');
-$sheet->getStyle('C')->getFont()->setSize(14)->setBold(true); 
+$sheet->getStyle('C')->getFont()->setSize(14)->setBold(true);
 $sheet->getStyle('D')->getAlignment()->setHorizontal('center')->setVertical('center');
-$sheet->getStyle('D')->getFont()->setSize(14)->setBold(true); 
+$sheet->getStyle('D')->getFont()->setSize(14)->setBold(true);
 $sheet->getStyle('E')->getAlignment()->setHorizontal('center')->setVertical('center');
-$sheet->getStyle('E')->getFont()->setSize(14)->setBold(true); 
+$sheet->getStyle('E')->getFont()->setSize(14)->setBold(true);
 $sheet->getStyle('F')->getAlignment()->setHorizontal('center')->setVertical('center');
-$sheet->getStyle('F')->getFont()->setSize(14)->setBold(true); 
+$sheet->getStyle('F')->getFont()->setSize(14)->setBold(true);
 $sheet->getStyle('G')->getAlignment()->setHorizontal('center')->setVertical('center');
-$sheet->getStyle('G')->getFont()->setSize(14)->setBold(true); 
+$sheet->getStyle('G')->getFont()->setSize(14)->setBold(true);
 $sheet->getStyle('H')->getAlignment()->setHorizontal('center')->setVertical('center');
-$sheet->getStyle('H')->getFont()->setSize(14)->setBold(true); 
+$sheet->getStyle('H')->getFont()->setSize(14)->setBold(true);
+$sheet->getStyle('I')->getAlignment()->setHorizontal('center')->setVertical('center');
+$sheet->getStyle('I')->getFont()->setSize(14)->setBold(true);
 
 $funciones = [
-    0 =>"",
-    1 =>"Coordinador de archivos",
-    2 =>"Correspondencia",
+    0 => "",
+    1 => "Coordinador de archivos",
+    2 => "Correspondencia",
     3 => "Archivo de trámite",
     4 => "Archivo de concentración",
     5 => "Archivo histórico",
     6 => "Grupo interdisciplinario",
-    7 => "Ninguna de las anteriores",    
+    7 => "Ninguna de las anteriores",
 ];
-for ($i=0; $i < (count($students)); $i++) {
-    $foto = json_decode($students[$i]['foto'], true); 
-    $curp = json_decode($students[$i]['curpDrive'], true); 
-    $sheet->setCellValue('A'.($i+2), $students[$i]['controlNumber']);
-    $sheet->setCellValue('B'.($i+2), mb_strtoupper($students[$i]['names'])." ".mb_strtoupper($students[$i]['lastNamePaterno'])." ".mb_strtoupper($students[$i]['lastNameMaterno'])); 
-    $sheet->setCellValue("C".($i+2), $students[$i]['email']);
-    $sheet->setCellValue("D".($i+2), $students[$i]['mobile']);
-    $sheet->setCellValue("E".($i+2), $funciones[$students[$i]["funcion"]]);
-    $sheet->setCellValue("F".($i+2), $foto['urlBlank']);
-    $sheet->getCell('F'.($i+2))->getHyperlink()->setUrl($foto['urlBlank']);
-    $sheet->setCellValue("G".($i+2), $students[$i]['curp']);
-    $sheet->setCellValue("H".($i+2), $curp['urlBlank']);
-    $sheet->getCell('H'.($i+2))->getHyperlink()->setUrl($curp['urlBlank']);
+for ($i = 0; $i < (count($students)); $i++) {
+    $foto = json_decode($students[$i]['foto'], true);
+    $curp = json_decode($students[$i]['curpDrive'], true);
+    $sheet->setCellValue('A' . ($i + 2), $students[$i]['controlNumber']);
+    $sheet->setCellValue('B' . ($i + 2), mb_strtoupper($students[$i]['names']) . " " . mb_strtoupper($students[$i]['lastNamePaterno']) . " " . mb_strtoupper($students[$i]['lastNameMaterno']));
+    $sheet->setCellValue("C" . ($i + 2), $students[$i]['email']);
+    $sheet->setCellValue("D" . ($i + 2), $students[$i]['mobile']);
+    $sheet->setCellValue("E" . ($i + 2), $students[$i]['workplace']);
+    $sheet->setCellValue("F" . ($i + 2), $funciones[$students[$i]["funcion"]]);
+    $sheet->setCellValue("G" . ($i + 2), $foto['urlBlank']);
+    $sheet->getCell('G' . ($i + 2))->getHyperlink()->setUrl($foto['urlBlank']);
+    $sheet->setCellValue("H" . ($i + 2), $students[$i]['curp']);
+    $sheet->setCellValue("I" . ($i + 2), $curp['urlBlank']);
+    $sheet->getCell('I' . ($i + 2))->getHyperlink()->setUrl($curp['urlBlank']);
 }
 
-$sheet->getStyle("A2:H".(count($students) + 1))->getAlignment()->setHorizontal('center')->setVertical('center')->setWrapText(true);
+$sheet->getStyle("A2:I" . (count($students) + 1))->getAlignment()->setHorizontal('center')->setVertical('center')->setWrapText(true);
 
 $fileName = bin2hex(random_bytes(4));
 // Redirect output to a client’s web browser (Xls)
 header('Content-Type: application/vnd.ms-excel; charset=utf-8');
-header('Content-Disposition: attachment;filename="registros_diplomado_'.$fileName.'.xls"');
+header('Content-Disposition: attachment;filename="registros_diplomado_' . $fileName . '.xls"');
 header('Cache-Control: max-age=0');
 // If you're serving to IE 9, then the following may be needed
 header('Cache-Control: max-age=1');
