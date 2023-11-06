@@ -746,7 +746,7 @@ class Module extends Course
 
 	public function EnumerateInbox()
 	{
-		$filtro = "";
+		$filtro = "AND deleted_at IS NULL";
 		if ($this->statusIn) {
 			$filtro .= " and c.estatus = '" . $this->statusIn . "'";
 		}
@@ -860,11 +860,14 @@ class Module extends Course
 
 	public function deleteInbox($chatId)
 	{
-		$sql = "UPDATE 
-						chat
-					SET
-						estatus='eliminado'
-						WHERE 	chatId = '" . $chatId . "'";
+		$sql = "SELECT * FROM chat WHERE chatId = '{$chatId}'";
+		$this->Util()->DB()->setQuery($sql);
+		$row = $this->Util()->DB()->GetRow();
+		if ($row['estatus'] == "eliminado") {
+			$sql = "UPDATE chat SET deleted_at = NOW() WHERE chatId = '" . $chatId . "'";
+		}else{
+			$sql = "UPDATE chat SET estatus='eliminado', updated_at = NOW() WHERE chatId = '" . $chatId . "'" ;
+		} 
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->UpdateData();
 

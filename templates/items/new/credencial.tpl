@@ -15,7 +15,7 @@
             </div>
             <img src="{$WEB_ROOT}/images/credencial/frontal.png" class="img-fluid">
             <picture class='img_credencial_previo'>
-                <img src="{$credencial.files['urlEmbed']}" class="img-fluid">
+                <img src="{$credencial.files['photo']['urlEmbed']}" class="img-fluid">
             </picture>
             <div class="vigencia">
                 <span>Vigencia</span><br>
@@ -24,7 +24,7 @@
         </div>
     {/if}
     {if $credencial.status == 1}
-        <img src="{$credencial.files['urlEmbed']}" class="img-fluid">
+        <img src="{$credencial.files['credential']['urlEmbed']}" class="img-fluid">
     {/if}
 
 </div>
@@ -61,7 +61,7 @@
                 {$curso}
             </div>
             <picture class='img_credencial_previo'>
-                <img src="{$WEB_ROOT}/files/credentials/{$credencial.files['filename']}" class="img-fluid">
+                <img src="{$WEB_ROOT}/files/credentials/{$credencial.files['photo']['filename']}" class="img-fluid">
             </picture>
             <div class="vigencia"><span>Vigencia:</span><br>31 de diciembre {date('Y')} </div>
         </div>

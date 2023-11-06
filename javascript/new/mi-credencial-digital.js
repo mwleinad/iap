@@ -104,6 +104,7 @@ function drawImageProp(ctx, source, iw, ih, x, y, w, h, offsetX, offsetY) {
     if (ch > ih) ch = ih;
     ctx.drawImage(source, cx, cy, cw, ch, x, y, w, h);
 };
+
 (function () {
     if (!$nuevaFoto) {
         return false;
@@ -121,17 +122,18 @@ function drawImageProp(ctx, source, iw, ih, x, y, w, h, offsetX, offsetY) {
         $enviarFoto.text = "Espere, por favor..."
         $enviarFoto.disabled = true;
         $nuevaFoto.disabled = true;
+        let perfil = document.getElementById('perfil').value; 
+        var formData = new FormData();
+        formData.append("imagen", encodeURIComponent(foto));
+        formData.append("perfil", perfil); 
         fetch(window.location, {
             method: "POST",
-            body: encodeURIComponent(foto),
-            headers: {
-                "Content-type": "application/x-www-form-urlencoded",
-            }
+            body: formData 
         }).then(resultado => {
             console.log(resultado);
-            return resultado.text()
-        }).then(rutaFoto => {
-            // console.log("La foto fue enviada correctamente");
+            return resultado.json();
+        }).then(respuesta => {
+            console.log("La foto fue enviada correctamente");
             $estado.innerHTML = `Foto guardada con éxito, espera validación del Departamento de Servicios Escolares.`;
             $seccionFoto.classList.add('d-none');
             $seccionSubmit.classList.add('d-none');

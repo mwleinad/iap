@@ -26,7 +26,7 @@
 			<input type="hidden" name="userId" class="form-control" value="{$info.userId}" />
 			<div class="form-group col-md-12 text-center">
 				<div class="profile-userpic">
-					<img src="{{$infoStudent.imagen}}?{$rand}" class="img-fluid img-thumbnail rounded-circle" style="max-width: 300px;" alt="" />
+					<img src="{{$infoStudent.imagen}}" class="img-fluid img-thumbnail rounded-circle" style="max-width: 300px;" alt="" />
 				</div>
 				<div id="#progress_{$info.userId}"></div>
 				<div id="porcentaje_{$info.userId}"></div>

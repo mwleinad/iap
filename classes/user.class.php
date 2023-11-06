@@ -929,8 +929,8 @@ class User extends Main
 	public function getMastersSchool()
 	{
 		return $this->mastersSchool;
-	} 
-	
+	}
+
 	function PermisosDocente()
 	{
 		$sql = "SELECT course_module.*,
@@ -989,18 +989,28 @@ class User extends Main
 		$sql = "SELECT * FROM user WHERE userId = '" . $this->userId . "'";
 		$this->Util()->DB()->setQuery($sql);
 		$row = $this->Util()->DB()->GetRow();
-
-
-		if (file_exists(DOC_ROOT . "/alumnos/" . $row["rutaFoto"] . "")) {
-			// echo DOC_ROOT."/alumnos/".$row["rutaFoto"]."";
-			// exit;
+		if ($row['avatar_credential'] == 1) {
+			$sql = "SELECT * FROM user_credentials WHERE user_id = {$row['userId']} ORDER BY id DESC LIMIT 1";
+			// echo $sql;
+			$this->Util()->DB()->setQuery($sql);
+			$credencial = $this->Util()->DB()->GetRow();
+			$json = json_decode($credencial['photo']);
+			// print_r($json);
 			$row["foto"] = '
-					<img src="' . WEB_ROOT . '/alumnos/' . $row["rutaFoto"] . '" width="110" height="110"/>';
-			$row["imagen"] = WEB_ROOT . '/alumnos/' . $row["rutaFoto"] . '';
+				<img src="' . $json->urlEmbed . '" width="110" height="110"/>';
+			$row["imagen"] = $json->urlEmbed;
 		} else {
-			$row["foto"] = '<img src="' . WEB_ROOT . '/alumnos/no_foto.JPG" width="110" height="110"/>';
-			$row["imagen"] = WEB_ROOT . '/alumnos/no_foto.JPG';
-		}
+			if (file_exists(DOC_ROOT . "/alumnos/" . $row["rutaFoto"] . "")) {
+				// echo DOC_ROOT."/alumnos/".$row["rutaFoto"]."";
+				// exit; 
+				$row["foto"] = '
+							<img src="' . WEB_ROOT . '/alumnos/' . $row["rutaFoto"] . '" width="110" height="110"/>';
+				$row["imagen"] = WEB_ROOT . '/alumnos/' . $row["rutaFoto"] . '';
+			} else {
+				$row["foto"] = '<img src="' . WEB_ROOT . '/alumnos/no_foto.JPG" width="110" height="110"/>';
+				$row["imagen"] = WEB_ROOT . '/alumnos/no_foto.JPG';
+			}
+		} 
 		return $row;
 	}
 
@@ -1202,7 +1212,7 @@ class User extends Main
 		);
 		$row = $this->Util()->DB()->GetRow();
 
-		if ($row) {
+		if ($row) { //Si es usuario de tipo personal
 
 			$card['userId'] = $row['personalId'];
 			$card['positionId'] = $row['positionId'];
@@ -1216,17 +1226,14 @@ class User extends Main
 			$_SESSION['empresaId'] = 15;
 			$_SESSION["lastClick"] = time();
 			return true;
-		} else {
-
+		} else { //Si es un estudiante 
 			$this->Util()->DB()->setQuery(
 				"SELECT 
 					* 
 			   FROM 
 					user 
 				WHERE 
-					controlNumber = '" . $this->username . "' 
-				
-			"
+					controlNumber = '" . $this->username . "'"
 			);
 			$row = $this->Util()->DB()->GetRow();
 
@@ -2242,10 +2249,10 @@ class User extends Main
 	function getLoginData($id, $type)
 	{
 		$sql = "SELECT username, passwd AS password FROM personal WHERE personalId = " . $id;
-		if($type == 'student')
+		if ($type == 'student')
 			$sql = "SELECT controlNumber AS username, password FROM user WHERE userId = " . $id;
-        $this->Util()->DB()->setQuery($sql);
-        $result = $this->Util()->DB()->GetRow();
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetRow();
 		return $result;
 	}
 }

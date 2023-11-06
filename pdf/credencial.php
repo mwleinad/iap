@@ -58,7 +58,7 @@ $png = QRcode::png($credencial['token'], $target_path);
 
 $html = '<div>
             <h3>Parte frontal</h3>
-            <img src="'.$credencial['files']['urlEmbed'].'">
+            <img src="'.$credencial['files']['credential']['urlEmbed'].'">
         </div>
         <div>
             <h3>Parte trasera</h3>

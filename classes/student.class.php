@@ -3459,16 +3459,20 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetRow();
 		if ($result) {
-			$result['files'] = json_decode($result['files'], true);
+			$result['files'] = [
+				"photo" => json_decode($result['photo'],true),
+				"credential" => json_decode($result['credential'], true)
+			];
 		}
 		return $result;
 	}
 
 	public function createCredential($student, $course, $files)
 	{
-		$sql = "INSERT INTO user_credentials(user_id, course_id, files, status, created_at, updated_at) VALUES($student, $course, '{$files}', 0, NOW(), NOW())";
+		$sql = "INSERT INTO user_credentials(user_id, course_id, photo, status, created_at, updated_at) VALUES($student, $course, '{$files}', 0, NOW(), NOW())";
 		$this->Util()->DB()->setQuery($sql);
 		$id = $this->Util()->DB()->InsertData();
+
 		$token = password_hash($id . $student . $course, PASSWORD_BCRYPT);
 		$sql = "UPDATE user_credentials SET token = '$token' WHERE id = {$id}";
 		$this->Util()->DB()->setQuery($sql);
@@ -3477,8 +3481,14 @@ class Student extends User
 
 	public function editCredential($student, $course, $files, $status)
 	{
-		$sql = "UPDATE user_credentials SET files = '{$files}', status = $status, updated_at = NOW() WHERE user_id = $student AND course_id = $course";
+		$sql = "UPDATE user_credentials SET photo = '{$files}', status = $status, updated_at = NOW() WHERE user_id = $student AND course_id = $course";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->UpdateData();
+	}
+
+	public function UpdateAvatarCredential($userId, $photoCredential) {
+		$sql = "UPDATE user SET avatar_credential = {$photoCredential} WHERE userId = {$userId}";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->UpdateData($sql);
 	}
 }

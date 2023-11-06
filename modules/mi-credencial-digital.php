@@ -1,18 +1,17 @@
 <?php
 include_once 'google-api/vendor/autoload.php';
 $courseId = $_GET['id'];
-$credential = $student->getCredential($User['userId'], $courseId);
+$credential = $student->getCredential($User['userId'], $courseId); 
 $course->setCourseId($courseId);
 $courseInfo = $course->Info();
 $smarty->assign("credential", $credential);
 $courseInfo['name'] = preg_replace('/[0-9]+/', '', $courseInfo['name']);
 $curso = $courseInfo['majorName'] . " EN " . str_replace("EN", "", $courseInfo['name']);
-$smarty->assign("curso", $curso);
-
-if ($_POST) {
-    $imagenCodificada = file_get_contents("php://input"); //Obtener la imagen
+$smarty->assign("curso", $curso);  
+if ($_POST) { 
+    $imagenCodificada = $_POST['imagen']; 
     if (strlen($imagenCodificada) <= 0) exit("No se recibió ninguna imagen");
-    //La imagen traerá al inicio data:image/png;base64, cosa que debemos remover
+    //La imagen traerá al inicio data:image/png;base64, cosa que debemos remover 
     $imagenCodificadaLimpia = str_replace("data:image/png;base64,", "", urldecode($imagenCodificada));
 
     //Venía en base64 pero sólo la codificamos así para que viajara por la red, ahora la decodificamos y
@@ -40,13 +39,20 @@ if ($_POST) {
         "urlEmbed": "https://drive.google.com/uc?id='.$respuesta['id'].'"
     }'; 
     unlink(DOC_ROOT."/".$carpeta."/".$nombreImagen);
-    if (!$credential) { //No existe la credencial  
+    if (!$credential) { //No existe la credencial
         $student->createCredential($User['userId'], $courseId, $files);
     } else {  
-        $archivoID = $credential['files'];
-        $jsonFiles = json_decode($archivoID, true);
-        $google->setArchivoID($jsonFiles['googleId']);
+        $response = $credential['files']['photo'];
+        $google->setArchivoID($response['googleId']);
         $respuesta = $google->eliminarArchivo();
         $student->editCredential($User['userId'], $courseId, $files, 0);
-    } 
+    }
+
+    $photoCredential = $_POST['perfil']; 
+    $student->UpdateAvatarCredential($User['userId'], $photoCredential);
+    
+    print_r(json_encode([
+        'respuesta' =>true
+    ]));
+    exit;
 }

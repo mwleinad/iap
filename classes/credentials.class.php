@@ -5,7 +5,9 @@ class Credentials extends Main
 	private $credential;
 	private $status;
 	private $motivo;
-	private $archivos;
+	private $photo;
+	private $credentialDrive;
+
 	function setCredential($credential)
 	{
 		$this->credential = $credential;
@@ -16,12 +18,19 @@ class Credentials extends Main
 		$this->status = $status;
 	}
 
-	function setMotivo($data) {
+	function setMotivo($data)
+	{
 		$this->motivo = $data;
 	}
 
-	function setFiles($data) {
-		$this->archivos = $data;
+	function setPhoto($data)
+	{
+		$this->photo = $data;
+	}
+
+	function setCredentialDrive($data)
+	{
+		$this->credentialDrive = $data;
 	}
 
 	public function dt_credentials_request()
@@ -39,18 +48,19 @@ class Credentials extends Main
 			array('db' => 'CONCAT(user.names, " ", user.lastNamePaterno," ", user.lastNameMaterno)',  'dt' => 'alumno'),
 			array('db' => 'major.name',  		'dt' => 'tipo'),
 			array('db' => 'subject.name',  	'dt' => 'curricula'),
-			array('db' => 'course.group',  	'dt' => 'grupo'), 
+			array('db' => 'course.group',  	'dt' => 'grupo'),
 			array('db' => 'CASE WHEN user_credentials.status = 0 THEN "<span class=\"badge badge-warning\">Pendiente</span>" WHEN user_credentials.status = 1 THEN "<span class=\"badge badge-success\">Aprobada</span>" ELSE "<span class=\"badge badge-danger\">Rechazada</span>" END', 'dt' => 'estatus'),
-			array('db'	=>'user_credentials.status','status'), 
+			array('db'	=> 'user_credentials.status', 'status'),
+			array('db'	=> 'credential', 'status'),
 			array(
-				'db' => 'files', 'dt' => 'foto',
-				'formatter' => function ($d, $row) { 
-					if($row['status'] != 2 ){
-						$jsonFile = json_decode($row['foto'], true);  
-						return "<a class='ajax_sin_form' data-data='\"opcion\":\"previo\",\"credencial\":{$row['credencial_id']}' href='".WEB_ROOT."/ajax/new/credenciales.php'><img src='".$jsonFile['urlEmbed']."' style='width:150px; height:auto;border-radius:25px; cursor:pointer;'></a>";
-					}else{
+				'db' => 'photo', 'dt' => 'foto',
+				'formatter' => function ($d, $row) {
+					if ($row['status'] != 2) {
+						$jsonFile = json_decode($row['foto'], true);
+						return "<a class='ajax_sin_form' data-data='\"opcion\":\"previo\",\"credencial\":{$row['credencial_id']}' href='" . WEB_ROOT . "/ajax/new/credenciales.php'><img src='" . $jsonFile['urlEmbed'] . "' style='width:150px; height:auto;border-radius:25px; cursor:pointer;'></a>";
+					} else {
 						return "No cuenta con foto";
-					} 
+					}
 				},
 			),
 		);
@@ -60,23 +70,28 @@ class Credentials extends Main
 
 	public function updateCredential()
 	{
-		$sql = "UPDATE user_credentials SET status = {$this->status}, content = '{$this->motivo}', files = '{$this->archivos}' WHERE id = {$this->credential}";
+		$sql = "UPDATE user_credentials SET status = {$this->status}, content = '{$this->motivo}', photo = '{$this->photo}', credential = '{$this->credentialDrive}' WHERE id = {$this->credential}";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->UpdateData($sql);
 	}
 
-	function getCredential() {
+	function getCredential()
+	{
 		$sql = "SELECT * FROM user_credentials WHERE id = {$this->credential}";
 		$this->Util()->DB()->setQuery($sql);
 		$response = $this->Util()->DB()->GetRow();
-		if ($response) { 
-			$response['files'] = json_decode($response['files'], true);
+		if ($response) {
+			$response['files'] = [
+				"photo" => json_decode($response['photo'],true),
+				"credential" => json_decode($response['credential'], true)
+			];
 		}
 		return $response;
 	}
 
-	function updateDownload() {
-		$sql = "UPDATE user_credentials SET download = 1 WHERE id = {$this->credential}"; 
+	function updateDownload()
+	{
+		$sql = "UPDATE user_credentials SET download = 1 WHERE id = {$this->credential}";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->UpdateData($sql);
 	}

@@ -114,7 +114,7 @@
 <section class="row">
     <div class="col-12 my-4">
         <div class="row row-cols-1 row-cols-md-2">
-            {if empty($credential) || $credential.status == 2}
+            {if empty($credential) || $credential.status == 2}<!--Credencial rechazada o sin foto-->
                 {if $credential}
                     <div class="alert alert-danger alert-dismissible fade show w-100" role="alert">
                         <strong>La foto de tu credencial ha sido rechazada.</strong>
@@ -205,13 +205,23 @@
                                             <div id="curricula">{$curso}</div>
                                             <div id="vigencia"><span>Vigencia:</span><br>31 de diciembre {date('Y')}</div>
                                         </div>
+                                        {if $User.photo == ""}
+                                            <div class="col-md-12 mt-3">
+                                                <label for="perfil" class="w-100">¿Deseas utilizar esta foto como foto de perfil?</label>
+                                                <select class="form-control" id="perfil" name="perfil">
+                                                    <option value="1">Sí</option>
+                                                    <option value="0">No</option>
+                                                </select>
+                                            </div>
+                                        {/if}
                                     </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            {elseif $credential.status == 0}
+            {elseif $credential.status == 0}<!--Credencial en espera de validación-->
                 <div class="col col-md-6 mx-auto mb-4">
                     <div class="card h-100">
                         <div class="card-body">
@@ -229,12 +239,12 @@
                         </div>
                     </div>
                 </div>
-            {else}
+            {else} <!--Credencial validada-->
                 <div id="credencial"></div>
                 <div class="col-md-6">
                     <h3 class="w-100 text-center">Parte Frontal</h3>
                     <div class="w-100 p-0 credencial_previo position-relative">
-                        <img src="{$credential.files['urlEmbed']}" class="img-fluid">
+                        <img src="{$credential.files['credential']['urlEmbed']}" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-md-6">

@@ -37,30 +37,28 @@ switch ($opcion) {
                 "urlEmbed": "https://drive.google.com/uc?id='.$respuesta['id'].'"
             }'; 
             unlink(DOC_ROOT."/".$carpeta."/".$nombreImagen);
-            if (file_exists(DOC_ROOT . "/" . $carpeta."/".$credencial['files']['filename'])) {
-                unlink(DOC_ROOT."/".$carpeta."/".$credencial['files']['filename']); 
-            }
-            $credentials->setFiles($files);
+            $credentials->setPhoto($credencial['photo']);
+            $credentials->setCredentialDrive($files);
             $credentials->setStatus($aceptado);
             $credentials->updateCredential();
 
             $student->setUserId($credencial['user_id']);
             $alumno = $student->GetInfo(); 
 
-            $hecho = $_SESSION['User']['userId'] . "p";
-            $vista = "p," . $hecho . "," . $credencial['user_id'] . "u";
-            $actividad = "Se ha aprobado la foto de tu credencial";
-            $notificacion->setActividad($actividad);
-            $notificacion->setVista($vista);
-            $notificacion->setHecho($hecho);
-            $notificacion->setTablas("reply");
-            $notificacion->setEnlace("/mi-credencial-digital/id/{$credencial['course_id']}");
-            $notificacion->saveNotificacion(); 
+            // $hecho = $_SESSION['User']['userId'] . "p";
+            // $vista = "p," . $hecho . "," . $credencial['user_id'] . "u";
+            // $actividad = "Se ha aprobado la foto de tu credencial";
+            // $notificacion->setActividad($actividad);
+            // $notificacion->setVista($vista);
+            // $notificacion->setHecho($hecho);
+            // $notificacion->setTablas("reply");
+            // $notificacion->setEnlace("/mi-credencial-digital/id/{$credencial['course_id']}");
+            // $notificacion->saveNotificacion(); 
 
-            $sendmail = new SendMail;
-            $details_body = "";
-            $details_subject = array();
-            $sendmail->Prepare($message[8]["subject"], $message[8]["body"], $details_body, $details_subject, $alumno['email'], $alumno['names']." ".$alumno['lastNamePaterno']." ".$alumno['lastNameMaterno']);
+            // $sendmail = new SendMail;
+            // $details_body = "";
+            // $details_subject = array();
+            // $sendmail->Prepare($message[8]["subject"], $message[8]["body"], $details_body, $details_subject, $alumno['email'], $alumno['names']." ".$alumno['lastNamePaterno']." ".$alumno['lastNameMaterno']);
 
             echo json_encode([
                 'modal'         => true,
@@ -80,25 +78,24 @@ switch ($opcion) {
     case 'previo':
         $credencial = $_POST['credencial'];
         $credentials->setCredential($credencial);
-        $credencial = $credentials->getCredential();
+        $credencial = $credentials->getCredential(); 
         $student->setUserId($credencial['user_id']);
         $alumno = $student->GetInfo();
         $course->setCourseId($credencial['course_id']);
         $courseInfo = $course->Info();
         $courseInfo['name'] = preg_replace('/[0-9]+/', '', $courseInfo['name']);
         $curso = $courseInfo['majorName'] . " EN " . str_replace("EN", "", $courseInfo['name']);
-
+        $smarty->assign("alumno", $alumno);
+        $smarty->assign("curso", $curso);
+        $smarty->assign("credencial", $credencial); 
         if ($credencial['status'] == 0) {
-            $image = $credencial['files']['urlEmbed'];
-            $nombreImagen = $credencial['files']['filename'];
+            $image = $credencial['files']['photo']['urlEmbed'];
+            $nombreImagen = $credencial['files']['photo']['filename'];
             $carpeta = "files/credentials";
             if (!file_exists(DOC_ROOT . "/" . $carpeta."/".$nombreImagen)) {
                 file_put_contents(DOC_ROOT . "/" . $carpeta . "/" . $nombreImagen, file_get_contents($image));
             } 
         }
-        $smarty->assign("alumno", $alumno);
-        $smarty->assign("curso", $curso);
-        $smarty->assign("credencial", $credencial); 
         // print_r($alumno);
         echo json_encode([
             'modal'     => true,
@@ -123,17 +120,18 @@ switch ($opcion) {
         $credentials->setCredential($credencial);
         $credentials->setMotivo($motivo);
         $credentials->setStatus(2);
-        $credencial = $credentials->getCredential();
-        if (file_exists(DOC_ROOT . "/files/credentials/".$credencial['files']['filename'])) {
-            unlink(DOC_ROOT."/files/credentials/".$credencial['files']['filename']); 
+        $credencial = $credentials->getCredential(); 
+        $credentials->setPhoto("{}");
+        $credentials->setCredentialDrive("{}");
+        if (file_exists(DOC_ROOT . "/files/credentials/".$credencial['files']['photo']['filename'])) {
+            unlink(DOC_ROOT."/files/credentials/".$credencial['files']['photo']['filename']); 
         }
-        $credentials->setFiles(json_encode($credencial['files']));
+        
         $carpetaId = "1tsqsqiwewa2BRadf8UvXnQpshXAPyWPX";
         $google = new Google($carpetaId);
-        $google->setArchivoID($credencial['files']['googleId']);
+        $google->setArchivoID($credencial['files']['photo']['googleId']);
         $respuesta = $google->eliminarArchivo();
         $credentials->updateCredential();
-
 
         $student->setUserId($credencial['user_id']);
         $alumno = $student->GetInfo(); 

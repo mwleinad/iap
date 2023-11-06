@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card"> 
     {if $infoStudent.imagen ne ''}
         <img class="card-img-top" src="{$infoStudent.imagen}" alt="" />
     {else}
