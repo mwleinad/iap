@@ -4,6 +4,7 @@
 include_once('../../init.php');
 include_once('../../config.php');
 include_once(DOC_ROOT . '/libraries.php');
+include_once(DOC_ROOT . "/properties/messages.php");
 session_start();
 
 switch ($_POST["type"]) {
@@ -239,15 +240,17 @@ switch ($_POST["type"]) {
 		$docente->setId($_POST['catId']);
 		$documento = $docente->infoDocumento();
 
+		$personal->setPersonalId(250);
+		$encargado = $personal->Info();
+
 		$personal->setDocumentoId($_POST['catId']);
 		$personal->setPersonalId($_POST["personalId"]);
 		$docenteInfo = $personal->Info();
-
+		
 		$response = $personal->adjuntarDocDocente();
-		if ($response['estatus']) { 
-			$encargado = 250; 
+		if ($response['estatus']) {  
 			$hecho = $docenteInfo['personalId'] . "p";
-            $vista = $encargado . "p";
+            $vista = $encargado['persoanlId'] . "p";
             $actividad = "El docente {$docenteInfo['name']} {$docenteInfo['lastaname_materno']} {$docenteInfo['lastname_paterno']} ha actualizado el documento {$documento['nombre']}";
             $notificacion->setActividad($actividad);
             $notificacion->setVista($vista);
@@ -255,6 +258,13 @@ switch ($_POST["type"]) {
             $notificacion->setTablas("reply");
             $notificacion->setEnlace("/docentes/documentos/{$response['documento']}");
             $notificacion->saveNotificacion(); 
+
+			$details_body = array(
+				'docente'   => $docenteInfo['name'].$docenteInfo['lastaname_materno'].$docenteInfo['lastname_paterno'],
+				'documento'	=> $documento['nombre']
+			);
+			$details_subject = array();
+            $sendmail->Prepare($message[10]["subject"], $message[10]["body"], $details_body, $details_subject, $encargado['correo'], $encargado['name']." ".$encargado['lastname_paterno']." ".$encargado['lastname_materno'], DOC_ROOT."/docentes/documentos/{$response['documento']}", $response['documento']);
 
 			$personal->setPersonalId($_POST["personalId"]);
 			$registros = $personal->enumerateCatProductos();

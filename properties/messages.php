@@ -113,7 +113,8 @@ $message[9]["subject"] = "Credencial Digital Rechazada | Instituto de Administra
 $message[9]["body"]	= "Te informamos que la foto de tu credencial digital ha sido rechazada debido a los siguientes motivos: <br>
 |motivos|
 <br>
-Favor de realizar de nueva cuenta el proceso para generar tu credencial digital."
+Favor de realizar de nueva cuenta el proceso para generar tu credencial digital.";
 
-;
+$message[10]['subject'] = "Actualización de documentación | Instituto de Administración Pública del Estado de Chiapas";
+$message[10]['body'] = "El docente |docente| ha actualizado el siguiente documento |documento|";
 ?>
