@@ -200,6 +200,10 @@ class Student extends User
 		$sql = "INSERT INTO academic_history(subjectId, courseId, userId, semesterId, dateHistory, type, situation) VALUES(" . $this->subjectId . ", " . $this->courseId . ", " . $this->userId . ", " . $semesterId . ", CURDATE(), '" . $type . "', '" . $situation . "')";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->InsertData();
+
+		$sql = "UPDATE pagos SET deleted_at = NOW() WHERE course_id = {$this->courseId} AND alumno_id = {$this->userId} AND periodo >= {$semesterId} AND status <> 2 AND deleted_at IS NULL";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->UpdateData();
 		return true;
 	}
 
@@ -1269,6 +1273,7 @@ class Student extends User
 			else
 				$filtro .= " and activo = '" . $this->estatus . "'";
 		}
+		$sqlSearch = "";
 		$totalTableRows = $this->CountTotalRows($sqlSearch);
 		$totalPages = ceil($totalTableRows / $rowsPerPage);
 		if ($currentPage < 1)
@@ -1297,9 +1302,9 @@ class Student extends User
 				$courseId = $this->Util()->DB()->GetResult();
 			}
 			$card["courseId"] = $courseId;
-			$card["lastNameMaterno"] = $this->Util->DecodeTiny($card["lastNameMaterno"]);
-			$card["lastNamePaterno"] = $this->Util->DecodeTiny($card["lastNamePaterno"]);
-			$card["names"] = $this->Util->DecodeTiny($card["names"]);
+			$card["lastNameMaterno"] = $this->Util()->DecodeTiny($card["lastNameMaterno"]);
+			$card["lastNamePaterno"] = $this->Util()->DecodeTiny($card["lastNamePaterno"]);
+			$card["names"] = $this->Util()->DecodeTiny($card["names"]);
 
 			if (file_exists(DOC_ROOT . "/alumnos/" . $res["userId"] . ".jpg")) {
 				$card["foto"] = '<a href="#open-' . $res["userId"] . '" id="foto-' . $res["userId"] . '">
@@ -1312,6 +1317,7 @@ class Student extends User
 			}
 			$result[$key] = $card;
 		}
+		$rowsPerPages = 0;
 		$countPageRows = count($result);
 		$arrPages['countPageRows'] = $countPageRows;
 		$arrPages['rowEnd']		= $arrPages['rowBegin'] + $countPageRows - 1;
@@ -1722,7 +1728,7 @@ class Student extends User
 		$activity->setCourseModuleId($id);
 		$activity->setUserId($alumnoId);
 		$actividades = $activity->Enumerate();
-		$realScore = 0;
+		$totalScore = 0;
 		$countAc = count($actividades);
 		foreach ($actividades as $res)
 			$totalScore += $res["ponderation"];
@@ -1737,8 +1743,8 @@ class Student extends User
 		$activity->setCourseModuleId($id);
 		if ($alumnoId)
 			$activity->setUserId($alumnoId);
-		$actividades = $activity->Enumerate();
-		$realScore = 0;
+		$actividades = $activity->Enumerate(); 
+		$totalScore = 0;
 		foreach ($actividades as $res)
 			$totalScore += $res["realScore"];
 		return $totalScore;
@@ -2725,7 +2731,7 @@ class Student extends User
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->InsertData();
 		}
-		return $accepted;
+		return $hasAccepted;
 	}
 
 	function getAcceptedRegulation()
@@ -3406,12 +3412,12 @@ class Student extends User
 		$resultado = $this->Util()->DB()->GetResult();
 		$pagoPendiente = false;
 		foreach ($resultado as $item) {
-			if ($item['status'] == 3) {
-				$fecha_limite = date("Y-m-d", strtotime($item['fecha_limite'] . "+ " . ($item['tolerancia'] - 1) . " days"));
+			if ($item['status'] == 3) { //Si hay prórroga
+				$fecha_limite = date("Y-m-d", strtotime($item['fecha_limite'] . "+ " . ($item['tolerancia']) . " days")); //Se obtiene la fecha límite de acuerdo a los días de prórroga
 			} else {
-				$fecha_limite = $item['fecha_limite'];
+				$fecha_limite = $item['fecha_limite']; //Se obtiene la fecha límite real
 			}
-			if ($fecha_limite < date('Y-m-d')) {
+			if ($fecha_limite < date('Y-m-d')) { //Si la fecha límite es menor al día actual, ya es un pago pendiente.
 				$pagoPendiente = true;
 				break;
 			}
@@ -3490,5 +3496,12 @@ class Student extends User
 		$sql = "UPDATE user SET avatar_credential = {$photoCredential} WHERE userId = {$userId}";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->UpdateData($sql);
+	}
+
+	//Actualiza el bloqueo para privilegios de pagos
+	function actualizarBloqueo($userId, $bloqueo) {
+		$sql = "UPDATE user SET bloqueado = {$bloqueo} WHERE userId = {$userId}";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->UpdateData();
 	}
 }

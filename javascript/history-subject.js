@@ -44,7 +44,7 @@ new Ajax.Request(WEB_ROOT+'/ajax/matricula.php',
 function DeleteStudentCurricula(userId,courseId){
 //alert(userId)
 
-if(confirm("Estas seguro que deseas eliminar este alumno de esta curricula?"))
+if(confirm("¿Estás seguro que deseas eliminar este alumno de esta curricula?"))
 {
 new Ajax.Request(WEB_ROOT+'/ajax/studentCurricula.php', 
 	{

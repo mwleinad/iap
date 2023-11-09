@@ -34,7 +34,19 @@
             <tfoot>
                 <tr>
                     <td colspan="2">
-                        <a target="_blank" style="font-size: 2rem;" class="btn btn-link" href="{$WEB_ROOT}/pdf/CUENTA_PARA_DEPOSITO_POSGRADOS.pdf">
+                        <p style="font-size: 1rem;">
+                            Nota Aclaratoria:<br>
+                            - Correo de notificación: <a
+                                href="mailto:ctperez@iapchiapas.edu.mx">ctperez@iapchiapas.edu.mx</a><br>
+                            - Correo de notificación: <a
+                                href="mailto:facturaelectronica@iapchiapas.edu.mx">facturaelectronica@iapchiapas.edu.mx</a>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <a target="_blank" style="font-size: 2rem;" class="btn btn-link"
+                            href="{$WEB_ROOT}/pdf/CUENTA_PARA_DEPOSITO_POSGRADOS.pdf">
                             Descargar pdf <i class="fa fa-file-pdf"></i>
                         </a>
                     </td>

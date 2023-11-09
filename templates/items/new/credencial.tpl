@@ -2,6 +2,7 @@
     <h1>{($credencial.status == 0) ? "Vista previa de la credencial" : "Credencial aceptada"}</h1>
 </div>
 <div class="col-md-9 col-lg-7 col-lx-6 mx-auto p-5 seccion-credencial">
+    {* Credencial pendiente *}
     {if $credencial.status == 0}
         <div class="credencial_previo">
             <div class="nombre_previo">
@@ -23,11 +24,15 @@
             </div>
         </div>
     {/if}
+    {* Credencial aceptada *}
     {if $credencial.status == 1}
-        <img src="{$credencial.files['credential']['urlEmbed']}" class="img-fluid">
+        <a href=" https://drive.google.com/uc?export=download&id={$credencial.files['credential']['googleId']}">
+            <img src="{$credencial.files['credential']['urlEmbed']}" class="img-fluid">
+        </a>
     {/if}
 
 </div>
+{* Si la credencial se encuentra pendiente *}
 {if $credencial.status == 0}
     <div class="col-md-12 text-center mb-3">
         <form class='d-inline form' action='{$WEB_ROOT}/ajax/new/credenciales.php' method='POST'

@@ -79,10 +79,7 @@
 	 	
 
 	$showRegulation = $student->blockRegulation("activo", "si", "119, 129");
-	$smarty->assign("showRegulation", $showRegulation);	 
- 
-	$pagoPendiente = $student->pago_pendiente();
-	$smarty->assign("pago", $pagoPendiente);
+	$smarty->assign("showRegulation", $showRegulation);
 	$announcements = $announcement->Enumerate(0, 0);
 	$smarty->assign('announcements', $announcements);
 	$smarty->assign("tipo_curricula", $tipo_curricula); 

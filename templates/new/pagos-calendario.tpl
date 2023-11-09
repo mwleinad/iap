@@ -39,7 +39,7 @@
                                 <th>Nombre(s)</th>
                                 <th>No. Control</th>
                                 <th>Estatus</th>
-                                <th>Historial de Pagos</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,6 +54,16 @@
                                         <a href="{$WEB_ROOT}/graybox.php?page=history-calendar&id={$item['alumnoId']}&course={$info.courseId}" title="Historial de Pagos" data-target="#ajax" data-toggle="modal" class="btn btn-info btn-sm">
                                             <i class="fas fa-money-bill-wave"></i>
                                         </a>
+                                        {if $item['status'] != "inactivo"}
+                                            <form class="form d-inline" id="form_excepcion{$item.alumnoId}" action="{$WEB_ROOT}/ajax/new/finanzas.php">
+                                                <input type="hidden" name="opcion" value="excepcion">
+                                                <input type="hidden" name="alumno" value="{$item.alumnoId}">
+                                                <input type="hidden" name="excepcion" value="{($item.bloqueado == 0) ? 1 : 0}">
+                                                <button class="btn btn-primary btn-sm" title="{($item.bloqueado == 0) ? "Quitar excepción de pago" :"Agregar excepción de pago"}">
+                                                    <i class="fas fa-{($item.bloqueado == 0) ? "ban": "check"}"></i>
+                                                </button>
+                                            </form>
+                                        {/if}
                                     </td>
                                 </tr>
                             {/foreach}

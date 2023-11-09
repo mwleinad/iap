@@ -285,5 +285,16 @@ switch ($_POST["opcion"]) {
                 'message'   => 'No se pudo subir el archivo, intente de nuevo. ',
             ]);
         }
-        break; 
+        break;
+    case 'excepcion': //Exceptua el pago del alumno
+        $bloqueo = intval($_POST['excepcion']);
+        $alumno = intval($_POST['alumno']);
+        $student->actualizarBloqueo($alumno, $bloqueo);
+        echo json_encode([
+            'growl'     => true,
+            'message'   => 'Privilegios actualizados',
+            'type'      => 'success',
+            'reload'    => true,             
+        ]);
+        break;
 }
