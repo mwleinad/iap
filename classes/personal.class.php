@@ -457,8 +457,7 @@ class Personal extends Main
 
 		$row = $info;		// anexado hrsc
 		if ($info)			// para evitar errores cuando no hay registros que coinciden con $this->personalId
-			$row = $this->Util->EncodeRow($info);
-
+			$row = $this->Util()->EncodeRow($info);
 		return $row;
 	}
 
@@ -1284,8 +1283,6 @@ class Personal extends Main
 
 	public function adjuntarDocDocente()
 	{
-
-
 		$sql = "SELECT 
 					*
 				FROM 
@@ -1323,6 +1320,7 @@ class Personal extends Main
 			$nuevoCodigo = bin2hex(random_bytes(4));
 			$url = DOC_ROOT;
 			$documento = "doc_" . $lastId . $nuevoCodigo . "." . $extencion;
+			$response['documento'] = $documento;
 			if (move_uploaded_file($temporal, $url . "/docentes/documentos/" . $documento)) {
 				$sql = 'UPDATE 		
 					documentosprofesor SET 		
@@ -1330,7 +1328,7 @@ class Personal extends Main
 					WHERE documentosprofesorId = ' . $lastId . '';
 
 				$this->Util()->DB()->setQuery($sql);
-				$this->Util()->DB()->UpdateData();
+				$this->Util()->DB()->UpdateData(); 
 			} else {
 				$response['estatus'] = false;
 				$response['mensaje'] = "Hubo un problema al guardar el archivo, intente de nuevo, por favor.";

@@ -395,106 +395,108 @@ class Student extends User
 		$course = new Course();
 		$course->setCourseId($_POST["curricula"]);
 		$courseData = $course->Info();
-		// CRM
-		$sql = "SELECT uuid()";
-		$this->Util()->DBCrm()->setQuery($sql);
-		$leadId = $this->Util()->DBCrm()->GetSingle();
-		$sql = "INSERT INTO leads(
-					id, 
-					date_entered, 
-					date_modified, 
-					modified_user_id, 
-					created_by, 
-					deleted, 
-					assigned_user_id, 
-					first_name, 
-					last_name, 
-					do_not_call, 
-					phone_mobile, 
-					phone_work, 
-					converted, 
-					lead_source, 
-					status, 
-					account_name, 
-					account_id) 
+		if ($_POST['curricula'] != 162) {
+			// CRM
+			$sql = "SELECT uuid()";
+			$this->Util()->DBCrm()->setQuery($sql);
+			$leadId = $this->Util()->DBCrm()->GetSingle();
+			$sql = "INSERT INTO leads(
+						id, 
+						date_entered, 
+						date_modified, 
+						modified_user_id, 
+						created_by, 
+						deleted, 
+						assigned_user_id, 
+						first_name, 
+						last_name, 
+						do_not_call, 
+						phone_mobile, 
+						phone_work, 
+						converted, 
+						lead_source, 
+						status, 
+						account_name, 
+						account_id) 
+					VALUES(
+						'" . $leadId . "',
+						NOW(),
+						NOW(),
+						1,
+						1,
+						0,
+						1,
+						'" . ucfirst(mb_strtolower($this->getNames())) . "',
+						'" . ucfirst(mb_strtolower($this->getLastNamePaterno())) . " " . ucfirst(mb_strtolower($this->getLastNameMaterno())) . "',
+						0,
+						'" . $this->getMobile() . "',
+						'" . $this->getMobile() . "',
+						0,
+						'Education System',
+						'New',
+						'" . $courseData['crm_name'] . "',
+						'" . $courseData['crm_id'] . "'
+						)";
+	
+			$this->Util()->DBCrm()->setQuery($sql);
+			$this->Util()->DBCrm()->InsertData();
+	
+			$sql = "SELECT uuid()";
+			$this->Util()->DBCrm()->setQuery($sql);
+			$emailId = $this->Util()->DBCrm()->GetSingle();
+			$sql = "INSERT INTO email_addresses(
+					id,
+					email_address,
+					email_address_caps,
+					invalid_email,
+					opt_out,
+					confirm_opt_in,
+					date_created,
+					date_modified,
+					deleted
+				) 
 				VALUES(
+					'" . $emailId . "',
+					'" . mb_strtolower($this->getEmail()) . "',
+					'" . mb_strtoupper($this->getEmail()) . "',
+					0,
+					0,
+					'not-opt-in',
+					NOW(),
+					NOW(),
+					0
+				)";
+			$this->Util()->DBCrm()->setQuery($sql);
+			$this->Util()->DBCrm()->InsertData();
+	
+			$sql = "SELECT uuid()";
+			$this->Util()->DBCrm()->setQuery($sql);
+			$uuId = $this->Util()->DBCrm()->GetSingle();
+			$sql = "INSERT INTO email_addr_bean_rel(
+					id,
+					email_address_id,
+					bean_id,
+					bean_module,
+					primary_address, 
+					reply_to_address,
+					date_created, 
+					date_modified,
+					deleted
+				) 
+				VALUES(
+					'" . $uuId . "',
+					'" . $emailId . "',
 					'" . $leadId . "',
+					'Leads',
+					1,
+					0,
 					NOW(),
 					NOW(),
-					1,
-					1,
-					0,
-					1,
-					'" . ucfirst(mb_strtolower($this->getNames())) . "',
-					'" . ucfirst(mb_strtolower($this->getLastNamePaterno())) . " " . ucfirst(mb_strtolower($this->getLastNameMaterno())) . "',
-					0,
-					'" . $this->getMobile() . "',
-					'" . $this->getMobile() . "',
-					0,
-					'Education System',
-					'New',
-					'" . $courseData['crm_name'] . "',
-					'" . $courseData['crm_id'] . "'
-					)";
-
-		$this->Util()->DBCrm()->setQuery($sql);
-		$this->Util()->DBCrm()->InsertData();
-
-		$sql = "SELECT uuid()";
-		$this->Util()->DBCrm()->setQuery($sql);
-		$emailId = $this->Util()->DBCrm()->GetSingle();
-		$sql = "INSERT INTO email_addresses(
-				id,
-				email_address,
-				email_address_caps,
-				invalid_email,
-				opt_out,
-				confirm_opt_in,
-				date_created,
-				date_modified,
-				deleted
-			) 
-			VALUES(
-				'" . $emailId . "',
-				'" . mb_strtolower($this->getEmail()) . "',
-				'" . mb_strtoupper($this->getEmail()) . "',
-				0,
-				0,
-				'not-opt-in',
-				NOW(),
-				NOW(),
-				0
-			)";
-		$this->Util()->DBCrm()->setQuery($sql);
-		$this->Util()->DBCrm()->InsertData();
-
-		$sql = "SELECT uuid()";
-		$this->Util()->DBCrm()->setQuery($sql);
-		$uuId = $this->Util()->DBCrm()->GetSingle();
-		$sql = "INSERT INTO email_addr_bean_rel(
-				id,
-				email_address_id,
-				bean_id,
-				bean_module,
-				primary_address, 
-				reply_to_address,
-				date_created, 
-				date_modified,
-				deleted
-			) 
-			VALUES(
-				'" . $uuId . "',
-				'" . $emailId . "',
-				'" . $leadId . "',
-				'Leads',
-				1,
-				0,
-				NOW(),
-				NOW(),
-				0
-			)";
-		$this->Util()->DBCrm()->setQuery($sql);
-		$this->Util()->DBCrm()->InsertData();
+					0
+				)";
+			$this->Util()->DBCrm()->setQuery($sql);
+			$this->Util()->DBCrm()->InsertData();
+		}
 
 		$sqlQuery = "INSERT INTO 
 						user 

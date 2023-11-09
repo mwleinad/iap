@@ -45,20 +45,20 @@ switch ($opcion) {
             $student->setUserId($credencial['user_id']);
             $alumno = $student->GetInfo(); 
 
-            // $hecho = $_SESSION['User']['userId'] . "p";
-            // $vista = "p," . $hecho . "," . $credencial['user_id'] . "u";
-            // $actividad = "Se ha aprobado la foto de tu credencial";
-            // $notificacion->setActividad($actividad);
-            // $notificacion->setVista($vista);
-            // $notificacion->setHecho($hecho);
-            // $notificacion->setTablas("reply");
-            // $notificacion->setEnlace("/mi-credencial-digital/id/{$credencial['course_id']}");
-            // $notificacion->saveNotificacion(); 
+            $hecho = $_SESSION['User']['userId'] . "p";
+            $vista = "p," . $hecho . "," . $credencial['user_id'] . "u";
+            $actividad = "Se ha aprobado la foto de tu credencial";
+            $notificacion->setActividad($actividad);
+            $notificacion->setVista($vista);
+            $notificacion->setHecho($hecho);
+            $notificacion->setTablas("reply");
+            $notificacion->setEnlace("/mi-credencial-digital/id/{$credencial['course_id']}");
+            $notificacion->saveNotificacion(); 
 
-            // $sendmail = new SendMail;
-            // $details_body = "";
-            // $details_subject = array();
-            // $sendmail->Prepare($message[8]["subject"], $message[8]["body"], $details_body, $details_subject, $alumno['email'], $alumno['names']." ".$alumno['lastNamePaterno']." ".$alumno['lastNameMaterno']);
+            $sendmail = new SendMail;
+            $details_body = "";
+            $details_subject = array();
+            $sendmail->Prepare($message[8]["subject"], $message[8]["body"], $details_body, $details_subject, $alumno['email'], $alumno['names']." ".$alumno['lastNamePaterno']." ".$alumno['lastNameMaterno']);
 
             echo json_encode([
                 'modal'         => true,

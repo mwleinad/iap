@@ -236,10 +236,26 @@ switch ($_POST["type"]) {
 		break;
 
 	case 'adjuntarDocDocente':
+		$docente->setId($_POST['catId']);
+		$documento = $docente->infoDocumento();
+
 		$personal->setDocumentoId($_POST['catId']);
 		$personal->setPersonalId($_POST["personalId"]);
+		$docenteInfo = $personal->Info();
+
 		$response = $personal->adjuntarDocDocente();
 		if ($response['estatus']) { 
+			$encargado = 250; 
+			$hecho = $docenteInfo['personalId'] . "p";
+            $vista = $encargado . "p";
+            $actividad = "El docente {$docenteInfo['name']} {$docenteInfo['lastaname_materno']} {$docenteInfo['lastname_paterno']} ha actualizado el documento {$documento['nombre']}";
+            $notificacion->setActividad($actividad);
+            $notificacion->setVista($vista);
+            $notificacion->setHecho($hecho);
+            $notificacion->setTablas("reply");
+            $notificacion->setEnlace("/docentes/documentos/{$response['documento']}");
+            $notificacion->saveNotificacion(); 
+
 			$personal->setPersonalId($_POST["personalId"]);
 			$registros = $personal->enumerateCatProductos();
 			$smarty->assign("cId", $_POST['cId']);
@@ -266,9 +282,7 @@ switch ($_POST["type"]) {
 
 		break;
 
-	case 'onDelete':
-
-
+	case 'onDelete': 
 		// echo '<pre>'; print_r($_POST);	
 		$personal->setPersonalId($_POST["Id"]);
 		if ($personal->onDelete()) {
@@ -293,21 +307,15 @@ switch ($_POST["type"]) {
 
 		break;
 
-	case 'onBuscar':
-
+	case 'onBuscar': 
 		// echo '<pre>'; print_r($_POST);
 		$personal->setTipo('Docente');
 		$personal->setName($_POST['nombre']);
 		$personals = $personal->EnumerateNew();
-		$smarty->assign("personals", $personals);
-
-		$smarty->display(DOC_ROOT . '/templates/lists/lst-docentes.tpl');
-
-		break;
-
-
-	case 'onSave':
-
+		$smarty->assign("personals", $personals); 
+		$smarty->display(DOC_ROOT . '/templates/lists/lst-docentes.tpl'); 
+		break; 
+	case 'onSave': 
 		// echo '<pre>'; print_r($_POST);
 		// exit;
 		$personal->setPersonalId($_POST['personalId']);
@@ -338,8 +346,7 @@ switch ($_POST["type"]) {
 			// $util->PrintErrors();
 			$smarty->display(DOC_ROOT . '/templates/boxes/status.tpl');
 		}
-		break;
-
+		break; 
 	case 'onSaveDocumento':
 
 
