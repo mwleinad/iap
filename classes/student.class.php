@@ -3506,4 +3506,12 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->UpdateData();
 	}
+
+	//Checa si el alumno está en el diplomado  Gestión Documental y Administración de Archivos
+	function existeDiplomado($alumnoId) {
+		$sql = "SELECT * FROM `user_subject` B WHERE alumnoId = {$alumnoId} AND EXISTS(SELECT * FROM user_subject A WHERE A.alumnoId = B.alumnoId AND A.courseId = 162);";
+		$this->Util()->DB()->setQuery($sql);
+		$resultado = $this->Util()->GetTotalRows();
+		return $resultado > 0 ? true : false;
+	}
 }

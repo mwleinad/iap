@@ -1258,7 +1258,7 @@ class Personal extends Main
 		foreach ($res as $key => $aux) {
 
 			$sql = "SELECT 
-					ruta
+					ruta, updated_at
 				FROM 
 					documentosprofesor
 				WHERE
@@ -1266,7 +1266,7 @@ class Personal extends Main
 			// exit;
 			$this->Util()->DB()->setQuery($sql);
 			$count = $this->Util()->DB()->GetRow();
-
+			$res[$key]['actualizacion'] = $count["updated_at"];
 			if ($count['ruta'] <> '') {
 				$res[$key]['existArchivo'] = 'si';
 				$res[$key]['ruta'] = $count['ruta'];

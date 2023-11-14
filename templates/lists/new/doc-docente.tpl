@@ -3,7 +3,8 @@
     	<tr class="text-center">
 			<th></th>	 
 			<th>Documento</th>	 
-			<th>Descripción</th>	 
+			<th>Descripción</th>
+			<th>Actualización</th>	 
 			<th>Archivo</th>		 
 			<th></th>		 
 		</tr>
@@ -20,6 +21,7 @@
 				</td>
 				<td>{$subject.nombre}</td>
 				<td class="break-line">{$subject.descripcion}</td>
+				<td>{$subject.actualizacion}</td>
 				<td>
 					{if $subject.existArchivo eq 'si'}
 						<a href="{$WEB_ROOT}/docentes/documentos/{$subject.ruta}" title="Descargar Documento" target="_blank">
@@ -53,17 +55,15 @@
 		 	</tr>
 			{if $cId eq 'admin'}
 				<tr class="text-center">
-					<td colspan="5" id="tr_{$subject.catalogodocumentoId}" style="display:none">
-						<form class="form-horizontal" id="frmDoc_{$subject.catalogodocumentoId}" method="post"> 
+					<td colspan="6" id="tr_{$subject.catalogodocumentoId}" style="display:none">
+						<form class="form" action="{$WEB_ROOT}/ajax/new/personal.php" id="frmDoc_{$subject.catalogodocumentoId}" method="post"> 
 							<input type="hidden" id="cId" name="cId" value="admin" />
 							<input type="hidden" id="type" name="type" value="adjuntarDocDocente" />
 							<input type="hidden" name="personalId" value="{$personalId}" />
 							<input type="hidden" id="solicitudId" name="catId" value="{$subject.catalogodocumentoId}" />
-							<input type="file" name="comprobante" />
+							<input type="file" name="comprobante" class="form-control"/>
+							<button type="submit" class="btn btn-primary mt-3">Guardar</button>
 						</form>
-						<progress id="progress_{$subject.catalogodocumentoId}" value="0" min="0" max="100"></progress>
-						<div id="porcentaje_{$subject.catalogodocumentoId}">0%</div>
-						<button class="btn btn-primary" id="addMajor" name="addMajor" onClick="enviarArchivo('{$subject.catalogodocumentoId}')">Guardar</button>
 					</td>
 				</tr>
 			{/if}
