@@ -578,16 +578,18 @@ class Forum extends Main
 		$group = new Group;
 		$group->setCourseId($detalleModulo['courseId']);
 		$grupo = $group->DefaultGroup();
-
-		$x = 0;
-		foreach ($grupo as $alumnos) {
-			if ($x == 0)
-				$visto = $detalleModulo['access'][0] . "p,1p," . $alumnos['alumnoId'] . "u";
-			else
-				$visto = $visto . "," . $alumnos['alumnoId'] . "u";
-
-
-			$x++;
+		$visto = "";
+		if($detalleModulo['courseId'] != 162){
+			$x = 0;
+			foreach ($grupo as $alumnos) {
+				if ($x == 0)
+					$visto = $detalleModulo['access'][0] . "p,1p," . $alumnos['alumnoId'] . "u";
+				else
+					$visto = $visto . "," . $alumnos['alumnoId'] . "u";
+				$x++;
+			}
+		}else{
+			$visto = $detalleModulo['access'][0] . "p,1p";
 		}
 
 		//print_r($visto);exit;

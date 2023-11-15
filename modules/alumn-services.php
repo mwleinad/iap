@@ -71,6 +71,8 @@ if (file_exists(DOC_ROOT . "/alumnos/" . $info["userId"] . ".jpg")) {
 } else {
 	$exFoto = "no";
 }
+
+$diplomados = $student->alumnoConDiplomado($info['userId']);
 // exit;
 $bd = explode('-', $info['birthdate']);
 $info['dayBirthdate'] = $bd[0];
@@ -81,3 +83,4 @@ $smarty->assign("exFoto", $exFoto);
 $smarty->assign("alumnoSer", "si");
 $smarty->assign("msjConfirma", $msjConfirma);
 $smarty->assign("info", $info);
+$smarty->assign("diplomado", $diplomados);

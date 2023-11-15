@@ -503,11 +503,8 @@ switch ($_POST["type"]) {
 		break;
 
 	case "saveEditStudentAlumn":
-
-
 		// echo "<pre>"; print_r($_POST);
 		// exit;
-
 		$status = $_POST['status'];
 		$student->setPermiso($_POST['permiso']);
 		$student->setUserId($_POST['id']);
@@ -569,29 +566,6 @@ switch ($_POST["type"]) {
 					<button class="close" data-dismiss="alert"></button>
 							El Alumno fue editado correctamente
 					</div>';
-			// $smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
-			//					header("Location: ".WEB_ROOT."/alumn-services");
-			/*					$smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
-				echo "[#]";
-				
-				$arrPage = array();		
-				$viewPage = 1;			
-				$rowsPerPage = 30;		
-				
-				$pageVar = 'p';	
-				
-				if(isset($_GET["$pageVar"]))
-					$viewPage = $_GET["$pageVar"];	
-				
-				$students = $student->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/student', $arrPage, ' semesterId ASC, ');
-				
-				$students = $util->EncodeResult($students);
-				$smarty->assign('students', $students);	
-				$smarty->assign('arrPage', $arrPage);
-				
-				$smarty->assign("DOC_ROOT", DOC_ROOT);
-				$smarty->display(DOC_ROOT.'/templates/lists/student.tpl');
-			*/
 		}
 		break;
 

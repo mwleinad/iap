@@ -288,6 +288,8 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		$row = $this->Util()->DB()->GetRow();
 		$row["names"] = $this->Util()->DecodeTiny($row["names"]);
+		$row["curpDrive"] = json_decode($this->Util()->DecodeTiny($row['curpDrive']));
+		$row["foto"] = json_decode($this->Util()->DecodeTiny($row['foto']));
 		$row["lastNamePaterno"] = $this->Util()->DecodeTiny($row["lastNamePaterno"]);
 		$row["lastNameMaterno"] = $this->Util()->DecodeTiny($row["lastNameMaterno"]);
 		return $row;
@@ -3507,11 +3509,11 @@ class Student extends User
 		$this->Util()->DB()->UpdateData();
 	}
 
-	//Checa si el alumno está en el diplomado  Gestión Documental y Administración de Archivos
-	function existeDiplomado($alumnoId) {
-		$sql = "SELECT * FROM `user_subject` B WHERE alumnoId = {$alumnoId} AND EXISTS(SELECT * FROM user_subject A WHERE A.alumnoId = B.alumnoId AND A.courseId = 162);";
+	//Retorna el alumno inscrito en el curso Gestión Documental y Administración de Archivos y, si tiene, la curricula adicional activa. 
+	function alumnoConDiplomado($alumnoId) {
+		$sql = "SELECT * FROM `user_subject` B WHERE alumnoId = {$alumnoId} AND status = 'activo' AND EXISTS(SELECT * FROM user_subject A WHERE A.alumnoId = B.alumnoId AND A.courseId = 162);";
 		$this->Util()->DB()->setQuery($sql);
-		$resultado = $this->Util()->GetTotalRows();
-		return $resultado > 0 ? true : false;
+		$resultado = $this->Util()->DB()->GetTotalRows();
+		return $resultado;
 	}
 }
