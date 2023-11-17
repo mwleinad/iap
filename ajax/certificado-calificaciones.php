@@ -52,8 +52,15 @@ $datePeriod = $_POST['period'];
 $html = '<html>
             <head>
                 <style type="text/css">
+                    @font-face {
+                        font-family: "Arial";
+                        font-style: normal;
+                        font-weight: normal;
+                        src: url("' . WEB_ROOT . '/assets/vcz/fonts/Arial/arial.ttf") format("truetype");
+                    }
                     body {
-                        font-family: sans-serif; 
+                        font-family: "Arial", sans-serif; 
+                        line-height: 1;
                     }
                     table.border,td.border {
                         border: 1px solid black;
@@ -223,6 +230,7 @@ foreach ($students as $itemStudent) {
     $prefijoDirector = $director['genre'] == "DIRECTOR" ? "DEL " : "A LA " . $director['genre'];
     $nameStudent =  mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']);
     $nameStudent = $util->eliminar_acentos($nameStudent);
+    $curso = str_replace("EN", "", $infoCourse["name"]);
     $html .= '<table width="100%">
                 <tr>
                     <td width="17%">
@@ -234,23 +242,23 @@ foreach ($students as $itemStudent) {
                         <div style="font-size: 9pt; position:absolute; right: 5px; width: 80px; top:105px;"><strong>Folio:</strong> <b style="color: red;">' . mb_strtoupper($folios[$itemStudent]) . '</b></div> 
                         <div style="height:8.5cm;">
                             <div class="text-center" style="margin-top:15px;">
-                                <label style="font-size: 15pt;"><b>GOBIERNO CONSTITUCIONAL DEL ESTADO DE CHIAPAS</b></label><br>
+                                <label style="font-size: 18px;"><b>GOBIERNO CONSTITUCIONAL DEL ESTADO DE CHIAPAS</b></label><br>
                                 <label style="font-size: 13pt;">SECRETARÍA DE EDUCACIÓN</label><br>
                                 <label style="font-size: 11pt;">SUBSECRETARÍA DE EDUCACIÓN ESTATAL</label><br>
                                 <label style="font-size: 11pt;">DIRECCIÓN DE EDUCACIÓN SUPERIOR</label><br>
                                 <label style="font-size: 11pt;">DEPARTAMENTO DE SERVICIOS ESCOLARES</label>
                             </div>
-                            <p style="font-size: 8.6pt; text-align: justify;line-height:0.5cm; margin-top:0.4cm;">
+                            <p style="font-size:10.5px; text-align: justify;line-height:1.2; margin-top:0.4cm;">
                                 LA DIRECCIÓN DEL INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, RÉGIMEN PARTICULAR, TURNO ' . mb_strtoupper($infoCourse["turn"]) . ' MODALIDAD ' . $modality . ', CLAVE ' . $myInstitution["identifier"] . ', CERTIFICA QUE:<br>
                                 EL (LA) C. <b>' . $nameStudent . '</b><br>
                                 CON No. DE CONTROL: <b>' . $student->GetMatricula($infoCourse["courseId"]) . '</b> ACREDITÓ LAS MATERIAS QUE INTEGRAN EL PLAN DE ESTUDIOS ' . $plan . ' EN:
                             </p>
-                            <p style="font-size: 9.5pt; text-align: center;"><b>' . $infoCourse["name"] . '</b></p>
-                            <p style="font-size: 9pt; text-align: justify;">
+                            <p style="font-size: 11px; text-align: center;"><b>' . $curso . '</b></p>
+                            <p style="font-size: 10.5px; text-align: justify; line-height:1.5">
                                 ACUERDO NÚMERO: <b>' . $rvoe . '</b>, VIGENTE A PARTIR DEL ' . mb_strtoupper($util->FormatReadableDate($fechaRvoe)) . ', DURANTE EL PERIODO:<br> 
                             </p>
-                            <p class="text-center" style="font-size: 9.5pt;;"><b>' . mb_strtoupper($datePeriod) . '</b></p>
-                            <p style="font-size: 8pt; text-align: center; margin-bottom:0px;">CON LOS RESULTADOS QUE A CONTINUACIÓN SE ANOTAN:</p> 
+                            <p class="text-center" style="font-size:11px;"><b>' . mb_strtoupper($datePeriod) . '</b></p>
+                            <p style="font-size: 10.5px; text-align: center; margin-bottom:0px; line-height:1">CON LOS RESULTADOS QUE A CONTINUACIÓN SE ANOTAN:</p> 
                         </div>
                     </td>
                 </tr>
@@ -277,23 +285,23 @@ foreach ($students as $itemStudent) {
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="8" style="border:none; text-align:right; padding: 15px 0; font-weight: 900; font-size:10pt;">PROMEDIO GENERAL ' . $promedio . ' ' . mb_strtoupper($util->num2letras($promedio, false)) . '</td>
+                        <td colspan="8" style="border:none; text-align:right; padding: 15px 0; font-weight: 900; font-size:11px;">PROMEDIO GENERAL ' . $promedio . ' ' . mb_strtoupper($util->num2letras($promedio, false)) . '</td>
                     </tr>
                 </tfoot>
             </table>
-            <p style="font-size: 8pt;">La escala oficial de calificaciones es de 6 (SEIS) a 10 (DIEZ), considerando como mínima aprobatoria ' . $minCal . ' (' . mb_strtoupper($util->num2letras($minCal)) . '). Este certificado ampara <b>' . mb_strtoupper($util->num2letras($total_modules)) . '</b> materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ' . $array_date[2] . ' días del mes de ' . mb_strtolower($util->ConvertirMes(intval($array_date[1]))) . ' del año ' . $array_date[0] . '.</p>
+            <p style="font-size: 10px;">La escala oficial de calificaciones es de 6 (SEIS) a 10 (DIEZ), considerando como mínima aprobatoria ' . $minCal . ' (' . mb_strtoupper($util->num2letras($minCal)) . '). Este certificado ampara <b>' . mb_strtoupper($util->num2letras($total_modules)) . '</b> materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ' . $array_date[2] . ' días del mes de ' . mb_strtolower($util->ConvertirMes(intval($array_date[1]))) . ' del año ' . $array_date[0] . '.</p>
             <table width="100%">
                 <tr>
                     <td style="font-size: 9pt; text-align: center;">
-                        <b>'.$rector["genre"].'</b>
+                        <b>' . $rector["genre"] . '</b>
                         <br><br><br> 
                         _________________________________________________
                         <br>
-                        '.$rector["name"].'
+                        ' . $rector["name"] . '
                     </td>
                     <td style="width: 10%"></td>
                     <td style="font-size: 9pt; text-align: center;">
-                        <b>'.$secretary["genre"].'</b>
+                        <b>' . $secretary["genre"] . '</b>
                         <br><br><br> 
                         _________________________________________________
                         <br>
@@ -303,7 +311,7 @@ foreach ($students as $itemStudent) {
                 <tr>
                     <td style="font-size: 9pt; text-align: center;">
                         <br><br><br>
-                        <b>'.$schoolService["genre"].' DEL DEPARTAMENTO DE SERVICIOS ESCOLARES</b>
+                        <b>' . $schoolService["genre"] . ' DEL DEPARTAMENTO DE SERVICIOS ESCOLARES</b>
                         <br><br><br> 
                         _________________________________________________
                         <br>
@@ -312,7 +320,7 @@ foreach ($students as $itemStudent) {
                     <td style="width: 10%"></td>
                     <td style="font-size: 9pt; text-align: center;">
                         <br><br><br>
-                        <b>{$director["genre"]} DE EDUCACIÓN SUPERIOR</b>
+                        <b>'.$director["genre"].' DE EDUCACIÓN SUPERIOR</b>
                         <br><br><br> 
                         _________________________________________________
                         <br>
@@ -320,46 +328,49 @@ foreach ($students as $itemStudent) {
                     </td>
                 </tr>
             </table>
+            <div style="margin-top:15px;"></div>
             <table width="100%">
                 <tr style="border-spacing: 0px !important;">
                     <td style="width:45%;line-height:0.5cm;">
                         <table align="center" border="1" class="border" style="padding-right:20px; margin:0; width:100%">
                             <tr>
-                                <td class="text-center bg-gray border" style="font-size: 7pt;">
-                                    DEPARTAMENTO DE SERVICIOS ESCOLARES
+                                <td class="bg-gray" style="margin:0; padding:0;"> 
+                                    <p style="font-size: 10px; text-align:center; line-height:1;margin-top:5px; margin-bottom:5px;">DEPARTAMENTO DE SERVICIOS ESCOLARES</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="border">
                                     <p style="text-align: right; font-size: 8pt; line-height:0.5cm">
                                         <b>
-                                        NO. ____________________________________________<br>
-                                        LIBRO. ____________________________________________<br>
-                                        FOJA. ____________________________________________<br>
-                                        FECHA. ____________________________________________<br>
+                                        NO. __________________________________________<br>
+                                     LIBRO. __________________________________________<br>
+                                      FOJA. __________________________________________<br>
+                                     FECHA. __________________________________________<br>
                                         </b>
                                     </p>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-center bg-gray border" style="font-size: 7pt; padding:5px;">
-                                    COTEJÓ
+                                <td class="bg-gray" style="margin:0; padding:0;">
+                                    <p style="font-size: 10px; text-align:center; line-height:1;margin-top:5px; margin-bottom:5px;">COTEJÓ</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="border" style="text-align: center;">
-                                    <br><br><br>
+                                    <br><br>
                                     <span style="font-size: 6pt;">
                                         ' . $comparison["name"] . '  
                                     </span>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-center bg-gray border" style="font-size: 7pt; padding:5px;">' . $head["genre"] . ' DE LA OFICINA</td>
+                                <td class="bg-gray" style="margin:0; padding:0;"> 
+                                    <p style="font-size: 10px; text-align:center; line-height:1;margin-top:5px; margin-bottom:5px;">' . $head["genre"] . ' DE LA OFICINA</p>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="border" style="text-align: center;">
-                                    <br><br><br>
+                                    <br><br>
                                     <span style="font-size: 6pt;">
                                         ' . $head["name"] . '
                                     </span>
@@ -367,26 +378,26 @@ foreach ($students as $itemStudent) {
                             </tr>
                         </table>                        
                     </td>
-                    <td style="vertical-align: top; line-height:0.5cm;">
-                        <p style="font-size: 7pt;">
+                    <td style="width:55%;" valign="top">
+                        <p style="font-size: 9px;line-height:1.5;">
                             CON FUNDAMENTO EN EL ARTÍCULO 29, FRACCIÓN X DE LA LEY ORGÁNICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, 27 FRACCIÓN XX DEL REGLAMENTO INTERIOR DE LA SECRETARÍA GENERAL DE GOBIERNO:
                         </p>
-                        <p style="font-size: 7pt;">
-                            SE LEGALIZA, PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO, LA FIRMA QUE ANTECEDE CORRESPONDE '.$prefijoDirector.' DE EDUCACIÓN SUPERIOR:
+                        <p style="font-size: 9px;line-height:1.5;">
+                            SE LEGALIZA, PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO, LA FIRMA QUE ANTECEDE CORRESPONDE ' . $prefijoDirector . ' DE EDUCACIÓN SUPERIOR:
                         </p>
                         <p style="font-size: 7pt; text-align: center;">
-                            '.$director["name"].'<br>
+                            ' . $director["name"] . '<br>
                             ___________________________________________________________________________
                         </p>
                         <p style="font-size: 7pt; text-align: center;">
                             TUXTLA GUTIÉRREZ, CHIAPAS A: _____________________________________________
                         </p><br>
                         <p style="font-size: 7pt; text-align: center;">
-                            '.$coordinator["genre"].' DE ASUNTOS JURÍDICOS DE GOBIERNO
-                        </p><br>
+                            ' . $coordinator["genre"] . ' DE ASUNTOS JURÍDICOS DE GOBIERNO
+                        </p><br><br>
                         <p style="font-size: 7pt; text-align: center;">
                         ____________________________________________<br>
-                            '.$coordinator["name"].'
+                            ' . $coordinator["name"] . '
                         </p>
                     </td>
                 </tr>

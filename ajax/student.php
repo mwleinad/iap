@@ -192,8 +192,8 @@ switch ($_POST["type"]) {
 			echo $ids = implode(",", $ids);
 		}
 		break;
-	case "saveAddStudentRegister": 
-		$status = $_POST['status']; 
+	case "saveAddStudentRegister":
+		$status = $_POST['status'];
 		// Información Personal
 		$student->setPermiso($_POST['permiso']);
 		$student->setControlNumber();
@@ -213,9 +213,9 @@ switch ($_POST["type"]) {
 		$student->setWorkplacePosition($_POST['workplacePosition']);
 		$student->setPaisT($_POST['paist']);
 		$student->setEstadoT($_POST['estadot']);
-		$student->setCiudadT($_POST['ciudadt']); 
+		$student->setCiudadT($_POST['ciudadt']);
 		// Estudios
-		$student->setAcademicDegree($_POST['academicDegree']); 
+		$student->setAcademicDegree($_POST['academicDegree']);
 
 		if (!$student->Save("createCurricula")) {
 			echo "fail[#]";
@@ -501,74 +501,6 @@ switch ($_POST["type"]) {
 		$smarty->display(DOC_ROOT . '/templates/lists/list-group.tpl');
 
 		break;
-
-	case "saveEditStudentAlumn":
-		// echo "<pre>"; print_r($_POST);
-		// exit;
-		$status = $_POST['status'];
-		$student->setPermiso($_POST['permiso']);
-		$student->setUserId($_POST['id']);
-
-		//datos personales
-		$student->setNames($_POST['names']);
-		$student->setLastNamePaterno($_POST['lastNamePaterno']);
-		$student->setLastNameMaterno($_POST['lastNameMaterno']);
-		$student->setSexo($_POST['sexo']);
-		$birthday = explode('-', $_POST['birthday']);
-		$student->setBirthdate(intval($birthday[2]), intval($birthday[1]), intval($birthday[0]));
-		$student->setMaritalStatus($_POST['maritalStatus']);
-		$student->setPassword(trim($_POST['password']));
-
-		//domicilio
-		$student->setStreet($_POST['street']);
-		$student->setNumber($_POST['number']);
-		$student->setColony($_POST['colony']);
-		$student->setCity($_POST['ciudad']);
-		$student->setState($_POST['estado']);
-		$student->setCountry($_POST['pais']);
-		$student->setPostalCode($_POST['postalCode']);
-
-		//datos de contacto
-		$student->setEmail($_POST['email']);
-		$student->setPhone($_POST['phone']);
-		// $student->setFax($_POST['fax']);
-		$student->setMobile($_POST['mobile']);
-
-		//datos laborales
-		$student->setWorkplace($_POST['workplace']);
-		$student->setWorkplaceAddress($_POST['workplaceAddress']);
-		$student->setWorkplaceArea($_POST['workplaceArea']);
-		$student->setWorkplaceOcupation($_POST['workplaceOcupation']);
-		// $student->setWorkplacePosition($_POST['workplacePosition']); 
-		$student->setPaisT($_POST['paist']);
-		$student->setEstadoT($_POST['estadot']);
-		$student->setCiudadT($_POST['ciudadt']);
-		//$student->setWorkplaceCity($_POST['workplaceCity']);
-		$student->setWorkplacePhone($_POST['workplacePhone']);
-		$student->setWorkplaceEmail($_POST['workplaceEmail']);
-
-		//Estudios
-		$student->setAcademicDegree($_POST['academicDegree']);
-		$student->setProfesion($_POST['profesion']);
-		$student->setSchool($_POST['school']);
-		$student->setHighSchool($_POST['highSchool']);
-		$student->setMasters($_POST['masters']);
-		$student->setMastersSchool($_POST['mastersSchool']);
-
-		if (!$student->UpdateAlumn()) {
-			echo "fail[#]";
-
-			$smarty->assign("auxMsj", $_POST["auxMsj"]);
-			$smarty->display(DOC_ROOT . '/templates/boxes/status_on_popup.tpl');
-		} else {
-			echo "ok[#]";
-			echo '<div class="alert alert-success">
-					<button class="close" data-dismiss="alert"></button>
-							El Alumno fue editado correctamente
-					</div>';
-		}
-		break;
-
 	case 'desactivar':
 
 		//	print_r($_POST);
@@ -655,25 +587,25 @@ switch ($_POST["type"]) {
 		$student->setYoId($_SESSION['User']['userId']);
 		$student->setUserId($_POST['userId']);
 		$student->setCourseId($_POST['courseId']);
-		$student->setSubjectId($courseInfo['subjectId']); 
-		if($_POST['periodo'] && !empty($_POST['periodo'])){
+		$student->setSubjectId($courseInfo['subjectId']);
+		if ($_POST['periodo'] && !empty($_POST['periodo'])) {
 			$student->setPeriodo($_POST['periodo']);
 			$student->setValidar(false);
 		}
 		$complete = $student->AddUserToCurriculaFromCatalog($_POST["userId"], $_POST["courseId"], "Ninguno", 0);
 		if (!$complete["status"]) {
 			echo "fail[#]";
-			if(isset($complete['period'])){
+			if (isset($complete['period'])) {
 				echo $complete['message'];
 				$select = "<select class='form-control' style='text-transform:uppercase;' name='periodo'><option value=''>--Seleccione el periodo--</option><option value='1'>Desde el primer periodo</option> <option value='{$complete['period']}'>Desde el periodo actual({$complete['period']})</option> </select>";
 				echo '<script>
 					if($("#frmAddCurricula").find("#periodos").length > 0){
-						$("#frmAddCurricula").find("#periodos").html("'.$select.'");
+						$("#frmAddCurricula").find("#periodos").html("' . $select . '");
 					}else{
-						$("#frmAddCurricula").append("<div id=periodos>'.$select.'</div>");
+						$("#frmAddCurricula").append("<div id=periodos>' . $select . '</div>");
 					}
 				</script>';
-			}else{
+			} else {
 				$smarty->display(DOC_ROOT . '/templates/boxes/status.tpl');
 			}
 		} else {
@@ -682,7 +614,7 @@ switch ($_POST["type"]) {
 			$activeCourses = $student->StudentCourses("activo", "si");
 			$inactiveCourses = $student->StudentCourses("inactivo", "si");
 			$finishedCourses = $student->StudentCourses("finalizado");
-			
+
 			$smarty->assign("finishedCourses", $finishedCourses);
 			$smarty->assign("inactiveCourses", $inactiveCourses);
 			$smarty->assign("activeCourses", $activeCourses);

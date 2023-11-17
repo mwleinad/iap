@@ -114,19 +114,16 @@ class User extends Main
 
 	public function setNames($value)
 	{
-		$this->Util()->ValidateString($value, $max_chars = 60, $minChars = 1, "Nombre");
 		$this->names = $value;
 	}
 
 	public function setLastNamePaterno($value)
 	{
-		$this->Util()->ValidateString($value, $max_chars = 60, $minChars = 1, "Apellido Paterno");
 		$this->lastNamePaterno = $value;
 	}
 
 	public function setLastNameMaterno($value)
 	{
-		$this->Util()->ValidateString($value, $max_chars = 60, $minChars = 1, "Apellido Materno");
 		$this->lastNameMaterno = $value;
 	}
 	/********************************************************************************/
@@ -162,16 +159,9 @@ class User extends Main
 		$this->average = $value;
 	}
 
-	public function setBirthdate($day, $month, $year)
+	public function setBirthdate($data)
 	{
-		if (empty($year)) {
-			$this->Util()->setError(10049, "error", "");
-		}
-
-		if ($day <= 9) $day = '0' . $day;
-		if ($month <= 9) $month = '0' . $month;
-
-		$this->birthdate = $day . '-' . $month . '-' . $year;
+		$this->birthdate = $data;
 	}
 
 
