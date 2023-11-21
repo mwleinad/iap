@@ -294,8 +294,8 @@ class Util extends ErrorLms
 
 		//Reemplazamos la N, n, C y c
 		$cadena = str_replace(
-			array('Ñ', 'ñ', 'Ç', 'ç'),
-			array('N', 'n', 'C', 'c'),
+			array('Ç', 'ç'),
+			array('C', 'c'),
 			$cadena
 		);
 
