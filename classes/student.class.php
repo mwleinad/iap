@@ -288,8 +288,8 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		$row = $this->Util()->DB()->GetRow();
 		$row["names"] = $this->Util()->DecodeTiny($row["names"]);
-		// $row["curpDrive"] = json_decode($this->Util()->DecodeTiny($row['curpDrive']));
-		// $row["foto"] = json_decode($this->Util()->DecodeTiny($row['foto']));
+		$row["curpDrive"] = json_decode($this->Util()->DecodeTiny($row['curpDrive']));
+		$row["foto"] = json_decode($this->Util()->DecodeTiny($row['foto']));
 		$row["lastNamePaterno"] = $this->Util()->DecodeTiny($row["lastNamePaterno"]);
 		$row["lastNameMaterno"] = $this->Util()->DecodeTiny($row["lastNameMaterno"]);
 		return $row;

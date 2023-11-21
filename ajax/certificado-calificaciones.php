@@ -100,6 +100,7 @@ $html = '<html>
             <body style="boder:1px solid;">';
 
 foreach ($students as $itemStudent) {
+    $total_modules = 0;
     $student->setUserId($itemStudent);
     $infoStudent = $student->GetInfo();
     $has_modules_repeat = $student->hasModulesRepeat();
@@ -379,10 +380,10 @@ foreach ($students as $itemStudent) {
                         </table>                        
                     </td>
                     <td style="width:55%;" valign="top">
-                        <p style="font-size: 9px;line-height:1.5;">
+                        <p style="font-size: 9px;line-height:1.5; text-align:justify;">
                             CON FUNDAMENTO EN EL ARTÍCULO 29, FRACCIÓN X DE LA LEY ORGÁNICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, 27 FRACCIÓN XX DEL REGLAMENTO INTERIOR DE LA SECRETARÍA GENERAL DE GOBIERNO:
                         </p>
-                        <p style="font-size: 9px;line-height:1.5;">
+                        <p style="font-size: 9px;line-height:1.5; text-align:justify;">
                             SE LEGALIZA, PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO, LA FIRMA QUE ANTECEDE CORRESPONDE ' . $prefijoDirector . ' DE EDUCACIÓN SUPERIOR:
                         </p>
                         <p style="font-size: 7pt; text-align: center;">
