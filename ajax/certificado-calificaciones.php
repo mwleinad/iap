@@ -244,7 +244,7 @@ foreach ($students as $itemStudent) {
                     </td>
                     <td width="83%"> 
                         <div style="font-size: 6.5pt; position: absolute; right: -.6cm; top: -10px; width: 80px;"><b>SE-' . $prefix . 'IAP-' . $array_date[0] . '<b></div> 
-                        <div style="font-size: 9pt; position:absolute; right: 5px; width: 80px; top:105px;"><strong>Folio:</strong> <b style="color: red;">' . mb_strtoupper($folios[$itemStudent]) . '</b></div> 
+                        <div style="font-size: 9pt; position:absolute; right: 0; width: 80px; top:105px; text-align:right;"><strong>Folio:</strong> <b style="color: red;">' . mb_strtoupper($folios[$itemStudent]) . '</b></div> 
                         <div style="height:8.5cm;">
                             <div class="text-center" style="margin-top:15px;">
                                 <label style="font-size: 18px;"><b>GOBIERNO CONSTITUCIONAL DEL ESTADO DE CHIAPAS</b></label><br>
@@ -294,7 +294,7 @@ foreach ($students as $itemStudent) {
                     </tr>
                 </tfoot>
             </table>
-            <p style="font-size: 10px;">La escala oficial de calificaciones es de 6 (SEIS) a 10 (DIEZ), considerando como mínima aprobatoria ' . $minCal . ' (' . mb_strtoupper($util->num2letras($minCal)) . '). Este certificado ampara <b>' . mb_strtoupper($util->num2letras($total_modules)) . '</b> materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ' . $array_date[2] . ' días del mes de ' . mb_strtolower($util->ConvertirMes(intval($array_date[1]))) . ' del año ' . $array_date[0] . '.</p>
+            <p style="font-size:9.5px">La escala oficial de calificaciones es de 6 (SEIS) a 10 (DIEZ), considerando como mínima aprobatoria ' . $minCal . ' (' . mb_strtoupper($util->num2letras($minCal)) . '). Este certificado ampara <b>'.mb_strtoupper($util->num2letras($total_modules)).'</b> materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ' . $array_date[2] . ' días del mes de ' . mb_strtolower($util->ConvertirMes(intval($array_date[1]))) . ' del año ' .mb_strtolower($util->num2letras($array_date[0])) . '.</p>
             <table width="100%">
                 <tr>
                     <td style="font-size: 9pt; text-align: center;">
@@ -395,7 +395,7 @@ foreach ($students as $itemStudent) {
                             ___________________________________________________________________________
                         </p>
                         <p style="font-size: 7pt; text-align: center;">
-                            TUXTLA GUTIÉRREZ, CHIAPAS A: _____________________________________________
+                            TUXTLA GUTIÉRREZ, CHIAPAS A; _____________________________________________
                         </p><br>
                         <p style="font-size: 7pt; text-align: center;">
                             ' . $coordinator["genre"] . ' DE ASUNTOS JURÍDICOS DE GOBIERNO
