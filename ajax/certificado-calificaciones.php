@@ -203,9 +203,9 @@ foreach ($students as $itemStudent) {
             $next = true;
         }
         $tbody .= ' <tr style="border-style: none;">
-                        <td style="text-align: center; border-style: none; padding:7px 0;"><b>' . mb_strtoupper($position[$period] . ' ' . $infoCourse['tipoCuatri']) . '</b></td>
+                        <td style="text-align: center; border-style: none; padding:7px 0;font-size:'.$fuenteMateria.'"><b>' . mb_strtoupper($position[$period] . ' ' . $infoCourse['tipoCuatri']) . '</b></td>
                         <td colspan="3" style="border-style: none; padding:5px 0;"></td>
-                        <td style="text-align: center; border-style: none; padding:7px 0;"><b>' . ($next ? mb_strtoupper($position[$period + 1] . ' ' . $infoCourse['tipoCuatri']) : '') . '</b></td>
+                        <td style="text-align: center; border-style: none; padding:7px 0;font-size:'.$fuenteMateria.'"><b>' . ($next ? mb_strtoupper($position[$period + 1] . ' ' . $infoCourse['tipoCuatri']) : '') . '</b></td>
                         <td colspan="3" style="border-style: none; padding:5px 0;"></td>
                     </tr>';
         for ($element = 0; $element < $max_modules; $element++) {
