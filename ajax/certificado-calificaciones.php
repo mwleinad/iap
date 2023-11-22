@@ -174,7 +174,7 @@ foreach ($students as $itemStudent) {
     $comparison['name'] = mb_strtoupper($settingCertificate['comparison']);
     $head['name'] = mb_strtoupper($settingCertificate['head_office']);
     $rector['genre'] = $settingCertificate['genre_rector'] == 1 ? "RECTOR" : "RECTORA";
-    $secretary['genre'] = $settingCertificate['genre_secretary'] == 1 ? "SECRETARIO EJECUTIVO" : "SECRETARIA EJECUTIVA";
+    $secretary['genre'] = $settingCertificate['genre_secretary'] == 1 ? "SECRETARIO ACADÉMICO" : "SECRETARIA ACADÉMICA";
     $director['genre'] = $settingCertificate['genre_director'] == 1 ? "DIRECTOR" : "DIRECTORA";
     $schoolService['genre'] = $settingCertificate['genre_school'] == 1 ? "JEFE" : "JEFA";
     $coordinator['genre'] = $settingCertificate['genre_coordinator'] == 1 ? "COORDINADOR" : "COORDINADORA";
@@ -347,10 +347,10 @@ foreach ($students as $itemStudent) {
                                 <td class="border">
                                     <p style="text-align: right; font-size: 8pt; line-height:0.5cm">
                                         <b>
-                                        NO. __________________________________________<br>
-                                     LIBRO. __________________________________________<br>
-                                      FOJA. __________________________________________<br>
-                                     FECHA. __________________________________________<br>
+                                        No. __________________________________________<br>
+                                     LIBRO: __________________________________________<br>
+                                      FOJA: __________________________________________<br>
+                                     FECHA: __________________________________________<br>
                                         </b>
                                     </p>
                                 </td>
@@ -395,7 +395,7 @@ foreach ($students as $itemStudent) {
                             ___________________________________________________________________________
                         </p>
                         <p style="font-size: 7pt; text-align: center;">
-                            TUXTLA GUTIÉRREZ, CHIAPAS A; _____________________________________________
+                            TUXTLA GUTIÉRREZ, CHIAPAS; A _____________________________________________
                         </p><br>
                         <p style="font-size: 7pt; text-align: center;">
                             ' . $coordinator["genre"] . ' DE ASUNTOS JURÍDICOS DE GOBIERNO
