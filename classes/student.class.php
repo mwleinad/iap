@@ -2933,7 +2933,7 @@ class Student extends User
 		if ($period > 0)
 			$condition .= " AND subject_module.semesterId = " . $period;
 		if (!$english)
-			$condition .= " AND subject_module.subjectModuleId NOT IN (246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257)";
+			$condition .= " AND subject_module.tipo <> 0";
 		if ($moduloTerminado)
 			$condition .= "AND course_module.finalDate <= CURRENT_DATE()";
 		// Se obtienen las materias del curso

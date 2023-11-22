@@ -41,7 +41,9 @@ $position = [
     1 => 'PRIMER',
     2 => 'SEGUNDO',
     3 => 'TERCER',
-    4 => 'CUARTO'
+    4 => 'CUARTO',
+    5 => 'QUINTO',
+    6 => 'SEXTO'
 ];
 
 $students = $_POST['student'];
@@ -56,7 +58,7 @@ $html = '<html>
                         font-family: "Arial";
                         font-style: normal;
                         font-weight: normal;
-                        src: url("' . WEB_ROOT . '/assets/vcz/fonts/Arial/arial.ttf") format("truetype");
+                        src: url("' . WEB_ROOT . '/assets/vcz/fonts/Calibri/calibri-regular.ttf") format("truetype");
                     }
                     body {
                         font-family: "Arial", sans-serif; 
@@ -192,6 +194,8 @@ foreach ($students as $itemStudent) {
     $tbody = '';
     $sumCal = 0;
     $materias = 0;
+    $fuenteMateria = $infoCourse['totalPeriods'] <= 4 ? "9px" : "7px";
+    
     for ($period = 1; $period <= $infoCourse['totalPeriods']; $period += 2) {
         $max_modules = count($qualifications[$period]);
         $next = false;
@@ -210,14 +214,14 @@ foreach ($students as $itemStudent) {
                 $next = true;
             }
             $tbody .= '<tr style="border-style: none;">';
-            $tbody .= '<td style="border-style: none;">' . $qualifications[$period][$element]['name'] . '</td>
-                        <td style="text-align: center; border-style: none;">' . $qualifications[$period][$element]['score'] . '</td>
-                        <td style="text-align: center; border-style: none;">' . mb_strtoupper($util->num2letras($qualifications[$period][$element]['score'])) . '</td>
-                        <td style="border-style: none; text-align: center;">' . mb_strtoupper($qualifications[$period][$element]['comments']) . '</td>
-                        <td style="border-style: none;">' . ($next ? $qualifications[$period + 1][$element]['name'] : '') . '</td>
-                        <td style="text-align: center; border-style: none;">' . ($next ? $qualifications[$period + 1][$element]['score'] : '') . '</td>
-                        <td style="text-align: center; border-style: none;">' . ($next ? mb_strtoupper($util->num2letras($qualifications[$period + 1][$element]['score'])) : '') . '</td>
-                        <td style="border-style: none; text-align: center;">' . mb_strtoupper($qualifications[$period + 1][$element]['comments']) . '</td>';
+            $tbody .= '<td style="border-style: none; font-size:'.$fuenteMateria.'">' . $qualifications[$period][$element]['name'] . '</td>
+                        <td style="text-align: center; border-style: none; font-size:'.$fuenteMateria.'">' . $qualifications[$period][$element]['score'] . '</td>
+                        <td style="text-align: center; border-style: none; font-size:'.$fuenteMateria.'">' . mb_strtoupper($util->num2letras($qualifications[$period][$element]['score'])) . '</td>
+                        <td style="border-style: none; text-align: center; font-size:'.$fuenteMateria.'">' . mb_strtoupper($qualifications[$period][$element]['comments']) . '</td>
+                        <td style="border-style: none; font-size:'.$fuenteMateria.'">' . ($next ? $qualifications[$period + 1][$element]['name'] : '') . '</td>
+                        <td style="text-align: center; border-style: none; font-size:'.$fuenteMateria.'">' . ($next ? $qualifications[$period + 1][$element]['score'] : '') . '</td>
+                        <td style="text-align: center; border-style: none; font-size:'.$fuenteMateria.'">' . ($next ? mb_strtoupper($util->num2letras($qualifications[$period + 1][$element]['score'])) : '') . '</td>
+                        <td style="border-style: none; text-align: center; font-size:'.$fuenteMateria.'">' . mb_strtoupper($qualifications[$period + 1][$element]['comments']) . '</td>';
             $tbody .= '</tr>';
             $sumCal += $qualifications[$period][$element]['score'] + ($next ? $qualifications[$period + 1][$element]['score'] : 0);
             $materias++;
@@ -264,7 +268,7 @@ foreach ($students as $itemStudent) {
                     </td>
                 </tr>
             </table>
-            <table align="center" width="100%" style="font-size: 6.8pt; border-collapse: collapse; border: 1px solid white;" border="1">
+            <table align="center" width="100%" style="font-size: 9px; margin-top: -10px; border-collapse: collapse; border: 1px solid white;" border="1">
                 <thead>
                     <tr>
                         <th class="text-center" rowspan="2" width="5.8cm" style="padding:5px">MATERIAS</th>
@@ -286,7 +290,7 @@ foreach ($students as $itemStudent) {
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="8" style="border:none; text-align:right; padding: 15px 0; font-weight: 900; font-size:11px;">PROMEDIO GENERAL ' . $promedio . ' ' . mb_strtoupper($util->num2letras($promedio, false)) . '</td>
+                        <td colspan="8" style="border:none; text-align:right; padding: 15px 0 0 0; font-weight: 900; font-size:11px;">PROMEDIO GENERAL ' . $promedio . ' ' . mb_strtoupper($util->num2letras($promedio, false)) . '</td>
                     </tr>
                 </tfoot>
             </table>
