@@ -229,7 +229,7 @@ foreach ($students as $itemStudent) {
             // print_r($qualifications[$period+1][$element]);
         }
         $promedio = bcdiv($sumCal, $materias, 1);
-        $promedio = intval($promedio) == floatval($promedio) ? intval($promedio) : $promedio;
+        $promedio = intval($promedio) == 10 ? intval($promedio) : $promedio;
     }
     $plan = ($infoCourse['majorName'] == "DOCTORADO" ? "DEL " : "DE LA ") . $infoCourse['majorName'];
     $prefijoDirector = $director['genre'] == "DIRECTOR" ? "DEL " : "A LA " . $director['genre'];

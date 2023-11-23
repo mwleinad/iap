@@ -81,8 +81,18 @@ class Files extends Main
 		$diferencia = $ahora->diff($nacimiento);
 
 		// $estado = $data->InfoEstado($data->getState());
-		$municipio = $data->InfoMunicipio($data->getCity());
-		
+		if ($data->getCity() == 0) {
+			 $municipio['nombre'] = "S/N";
+		}else{
+			$municipio = $data->InfoMunicipio($data->getCity());
+		}
+
+		if($course == 162){
+			$municipioTrabajo = "";
+		}else{
+			$municipioTrabajo = mb_strtoupper($data->getWorkplaceCity());
+		}
+		 
 		$html = '
 		<table><tr><td><img src="'.$logo.'" width="150px"></td></tr></table>
 		<table>
@@ -217,7 +227,7 @@ class Files extends Main
 		<table style="padding:5px 0px 0px 0px;">
 			<tr>
 				<td align="left" width="20%">Municipio: </td>
-				<td width="80%" style="text-align:center; border-bottom:1px solid black;">'.mb_strtoupper($data->getWorkplaceCity(),'UTF-8').'</td>
+				<td width="80%" style="text-align:center; border-bottom:1px solid black;">'.mb_strtoupper($municipioTrabajo,'UTF-8').'</td>
 			</tr>
 		</table>
 		<table style="padding:5px 0px 0px 0px;">
