@@ -15,9 +15,6 @@ $total_modules = 0;
 $course->setCourseId($_POST['course']);
 $infoCourse = $course->Info();
 $settingCertificate = $certificates->getSettings();
-// echo "<pre>";
-// print_r($infoCourse);
-
 // Calificacion Minima Aprobatoria
 $minCal = 7;
 $prefix = 'CM';
@@ -31,8 +28,8 @@ if ($infoCourse['modality'] == 'Online') {
     $rvoe = $infoCourse['rvoeLinea'];
     $fechaRvoe = $infoCourse['fechaRvoeLinea'];
 }
-if ($infoCourse['modality'] == 'Local') {
-    $modality = 'ESCOLAR';
+if ($infoCourse['modality'] == 'Local' || $infoCourse['modality'] == "Mixta") {
+    $modality = $infoCourse['modality'] == "Local" ? 'ESCOLAR' : "MIXTA";
     $rvoe = $infoCourse['rvoe'];
     $fechaRvoe = $infoCourse['fechaRvoe'];
 }
@@ -229,7 +226,13 @@ foreach ($students as $itemStudent) {
             // print_r($qualifications[$period+1][$element]);
         }
         $promedio = bcdiv($sumCal, $materias, 1);
+        if (intval($promedio) == 10) {
+            $promedioLetras = $util->num2letras(10,false, false);
+        }else{
+            $promedioLetras = $util->num2letras($promedio,false, true);
+        }
         $promedio = intval($promedio) == 10 ? intval($promedio) : $promedio;
+        // exit;
     }
     $plan = ($infoCourse['majorName'] == "DOCTORADO" ? "DEL " : "DE LA ") . $infoCourse['majorName'];
     $prefijoDirector = $director['genre'] == "DIRECTOR" ? "DEL " : "A LA " . $director['genre'];
@@ -290,11 +293,12 @@ foreach ($students as $itemStudent) {
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="8" style="border:none; text-align:right; padding: 15px 0 0 0; font-weight: 900; font-size:11px;">PROMEDIO GENERAL ' . $promedio . ' ' . mb_strtoupper($util->num2letras($promedio, false)) . '</td>
+                        <td colspan="8" style="border:none; text-align:right; padding: 15px 0 0 0; font-weight: 900; font-size:11px;">PROMEDIO GENERAL ' . $promedio . ' ' . mb_strtoupper($promedioLetras) . '</td>
                     </tr>
                 </tfoot>
             </table>
-            <p style="font-size:9.5px">La escala oficial de calificaciones es de 6 (SEIS) a 10 (DIEZ), considerando como mínima aprobatoria ' . $minCal . ' (' . mb_strtoupper($util->num2letras($minCal)) . '). Este certificado ampara <b>'.mb_strtoupper($util->num2letras($total_modules)).'</b> materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ' . $array_date[2] . ' días del mes de ' . mb_strtolower($util->ConvertirMes(intval($array_date[1]))) . ' del año ' .mb_strtolower($util->num2letras($array_date[0])) . '.</p>
+            <p style="font-size:9.5px">La escala oficial de calificaciones es de 6 (SEIS) a 10 (DIEZ), considerando como mínima aprobatoria ' . $minCal . ' (' . mb_strtoupper($util->num2letras($minCal)) . '). Este certificado ampara <b>'.mb_strtoupper($util->num2letras($total_modules
+            )).'</b> materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ' . $array_date[2] . ' días del mes de ' . mb_strtolower($util->ConvertirMes(intval($array_date[1]))) . ' del año ' .mb_strtolower($util->num2letras($array_date[0])) . '.</p>
             <table width="100%">
                 <tr>
                     <td style="font-size: 9pt; text-align: center;">
@@ -314,7 +318,7 @@ foreach ($students as $itemStudent) {
                     </td>
                 </tr>
                 <tr>
-                    <td style="font-size: 9pt; text-align: center;">
+                    <td style="font-size: 9pt; text-align: center; vertical-align:top;">
                         <br><br><br>
                         <b>' . $schoolService["genre"] . ' DEL DEPARTAMENTO DE SERVICIOS ESCOLARES</b>
                         <br><br><br> 
@@ -323,10 +327,10 @@ foreach ($students as $itemStudent) {
                        ' . $schoolService["name"] . '
                     </td>
                     <td style="width: 10%"></td>
-                    <td style="font-size: 9pt; text-align: center;">
+                    <td style="font-size: 9pt; text-align: center; vertical-align:top;">
                         <br><br><br>
-                        <b>'.$director["genre"].' DE EDUCACIÓN SUPERIOR</b>
-                        <br><br><br> 
+                        <label><b>'.$director["genre"].' DE EDUCACIÓN SUPERIOR</b></label>
+                        <br><br><br><br>
                         _________________________________________________
                         <br>
                         ' . $director["name"] . '

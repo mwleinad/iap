@@ -370,10 +370,10 @@ class Student extends User
 			return false;
 
 		if ($this->curpDrive == "") {
-			$this->curpDrive = '{"archivo":""}';
+			$this->curpDrive = 'NULL';
 		}
 		if ($this->foto == "") {
-			$this->foto = '{"archivo":""}';
+			$this->foto = 'NULL';
 		}
 		if ($this->actualizado == "") {
 			$this->actualizado = 'no';
@@ -586,9 +586,9 @@ class Student extends User
 							'" . $this->getMastersSchool() . "', 
 							'" . $this->getHighSchool() . "',
 							'" . $this->actualizado . "',
-							'{$this->curpDrive}',
+							{$this->curpDrive},
 							'{$this->curp}',
-							'{$this->foto}',
+							{$this->foto},
 							'{$this->funcion}'
 						)";
 		// echo $sqlQuery;
@@ -1067,9 +1067,6 @@ class Student extends User
 
 	public function UpdateAlumn()
 	{
-		if ($this->Util()->PrintErrors())
-			return false;
-
 		$sqlQuery = "UPDATE user				
 						SET  
 							names = '" . $this->getNames() . "', 
@@ -1104,10 +1101,12 @@ class Student extends User
 							school = '" . $this->getSchool() . "', 
 							masters = '" . $this->getMasters() . "', 
 							mastersSchool = '" . $this->getMastersSchool() . "', 
-							highSchool = '" . $this->getHighSchool() . "'						
+							highSchool = '" . $this->getHighSchool() . "',
+							curpDrive = ".$this->curpDrive."					
 						WHERE 
 							userId = " . $this->getUserId();
 		echo $sqlQuery;
+		exit;
 		$this->Util()->DB()->setQuery($sqlQuery);
 		$this->Util()->DB()->ExecuteQuery();
 		return true;

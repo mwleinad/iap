@@ -132,8 +132,8 @@ switch ($_POST['opcion']) {
 				unlink($ruta . $documento);
 			}
 		}
-		$student->setCurpDrive($files['curparchivo']);
-		$student->setFoto($files['foto']);
+		$student->setCurpDrive("'{$files['curparchivo']}'");
+		$student->setFoto("'{$files['foto']}'");
 		// Estudios
 		$student->setAcademicDegree($_POST['academicDegree']);
 
@@ -160,6 +160,11 @@ switch ($_POST['opcion']) {
 	case 'actualizacion':
 		$permiso = $_POST['permiso'];
 		$alumno = $_POST['id'];
+		$student->setPermiso($permiso);
+		$student->setUserId($alumno);
+		$infoAlumno = $student->GetInfo();
+		// print_r($infoAlumno);
+		exit;
 		$diplomados = $student->alumnoConDiplomado($_POST['id']);
 		$errors = [];
 
@@ -192,9 +197,9 @@ switch ($_POST['opcion']) {
 		}
 		if (empty($correo)) {
 			$errors['email'] = "Por favor, no se olvide de poner el correo de contacto";
-		}elseif (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+		} elseif (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
 			$errors['email'] = "Por favor, no se olvide de poner un correo de contacto válido";
-		}  
+		}
 		if (empty($movil)) {
 			$errors['mobile'] = "Por favor, no se olvide de poner el celular";
 		}
@@ -213,63 +218,123 @@ switch ($_POST['opcion']) {
 
 		//Campo para los que tienen currícula y tienen o no el diplomado. 
 		$fechaNacimiento = $diplomados != 1 ? date('d-m-Y', strtotime(strip_tags($_POST['birthday']))) : "";
-		echo $fechaNacimiento;
+		$estadoCivil = $diplomados != 1 ? strip_tags($_POST['maritalStatus']) : "";
+		$calle = $diplomados != 1 ? strip_tags(trim($_POST['street'])) : "";
+		$numero = $diplomados != 1 ? strip_tags(trim($_POST['number'])) : "";
+		$colonia = $diplomados != 1 ? strip_tags(trim($_POST['colony'])) : "";
+		$ciudad = $diplomados != 1 ? intval(trim($_POST['ciudad'])) : 0;
+		$estado = $diplomados != 1 ? intval(trim($_POST['estado'])) : 0;
+		$pais = $diplomados != 1 ? intval(trim($_POST['pais'])) : 0;
+		$codigoPostal = $diplomados != 1 ? strip_tags($_POST['postalCode']) : 0;
+		$trabajoDireccion = $diplomados != 1 ? strip_tags(trim($_POST['workplaceAddress'])) : "";
+		$trabajoCiudad =  $diplomados != 1 ? intval($_POST['ciudadt']) : 0;
+		$trabajoArea = $diplomados != 1 ? strip_tags($_POST['workplaceArea']) : 0;
+		$trabajoTelefono = $diplomados != 1 ? strip_tags($_POST['workplacePhone']) : "";
+		$trabajoCorreo = $diplomados != 1 ? strip_tags($_POST['workplaceEmail']) : "";
+		$gradoAcademico = $diplomados != 1 ? strip_tags($_POST['academicDegree']) : "OTROS";
+		$profesion = $diplomados != 1 ? intval($_POST['profesion']) : 38;
+		$escuela = $diplomados != 1 ? strip_tags($_POST['school']) : "";
+		$maestria = $diplomados != 1 ? strip_tags($_POST['masters']) : "";
+		$escuelaMaestria = $diplomados != 1 ? strip_tags($_POST['mastersSchool']) : "";
+		$bachillerato = $diplomados != 1 ? strip_tags($_POST['highSchool']) : "";
+		$telefono = $diplomados != 1 ? strip_tags($_POST['phone']) : "";
+		$curp = $diplomados != 0 ? strip_tags($_POST['curp']) : "";
 		//Validaciones para los que tienen currícula y tienen o no el diplomado
 		if ($diplomados != 1) {
-			 
+			if (empty($calle)) {
+				$errors['street'] = "Por favor, no se olvide de poner la calle.";
+			}
+			if (empty($numero)) {
+				$errors['number'] = "Por favor, no se olvide de poner el número.";
+			}
+			if (empty($colonia)) {
+				$errors['colony'] = "Por favor, no se olvide de poner la colonia, fraccionamiento, etc...";
+			}
+			if (empty($pais)) {
+				$errors['pais'] = "Por favor, no se olvide de seleccionar el país.";
+			}
+			if (empty($estado)) {
+				$errors['estado'] = "Por favor, no se olvide de seleccionar el estado.";
+			}
+			if (empty($ciudad)) {
+				$errors['ciudad'] = "Por favor, no se olvide de seleccionar la ciudad.";
+			}
+			if (empty($codigoPostal)) {
+				$errors['postalCode'] = "Por favor, no se olvide de poner el código postal.";
+			}
+			if (empty($trabajoDireccion)) {
+				$errors['workplaceAddress'] = "Por favor, no se olvide de poner el domicilio.";
+			}
+			if (empty($trabajoCiudad)) {
+				$errors['ciudadt'] = "Por favor, no se olvide de seleccionar la ciudad.";
+			}
+			if (empty($trabajoArea)) {
+				$errors['workplaceArea'] = "Por favor, no se olvide de poner el área.";
+			}
+			if (empty($trabajoTelefono)) {
+				$errors['workplacePhone'] = "Por favor, no se olvide de poner el teléfono.";
+			}
+			if (empty($trabajoCorreo)) {
+				$errors['workplaceEmail'] = "Por favor, no se olvide de poner el correo.";
+			}
 		}
-		
-		// $trabajoDireccion = strip_tags($_POST['workplaceAddress']);
-		// $trabajoCiudad = intval($_POST['ciudadt']);
-		
-		// $gradoAcademico = strip_tags($_POST['academicDegree']);
-		
-		// $estadoCivil = strip_tags($_POST['maritalStatus']);
-		// $calle = strip_tags($_POST['street']);
-		// $numero = strip_tags($_POST['number']);
-		// $colonia = strip_tags($_POST['colony']);
-		// $ciudad = strip_tags($_POST['ciudad']);
-		// $estado = strip_tags($_POST['estado']);
-		
-		// $codigoPostal = strip_tags($_POST['postalCode']);
-		
-		
-		// $trabajoArea = strip_tags($_POST['workplaceArea']);
-		
-		// $trabajoTelefono = strip_tags($_POST['workplacePhone']);
-		// $trabajoCorreo = strip_tags($_POST['workplaceEmail']);
-		// $trabajoPais = strip_tags($_POST['pais']);
-		// $profesion = intval($_POST['profesion']);
-		// $escuela = strip_tags($_POST['school']);
-		// $maestria = strip_tags($_POST['masters']);
-		// $escuelaMaestria = strip_tags($_POST['mastersSchool']);
-		// $bachillerato = strip_tags($_POST['highSchool']);
 
-		
-		// // echo $diplomados;
-		
-		
-		// if ($diplomados != 0) {
-		// 	$nombreAlumno = $util->eliminar_acentos(trim($nombre . "_" . $apellidoPaterno . "_" . $apellidoMaterno));
-		// 	$nombreAlumno = strtolower($nombreAlumno);
+		//Validaciones solo a alumnos con el diplomado o que cuentan con este.
+		$curpArchivo = is_null($infoAlumno['curpDrive']) ? 'NULL' : "'" . json_encode($infoAlumno['curpDrive']) . "'";
+		// echo $curpArchivo;
+		if ($diplomados != 0) {
+			$carpetaId = "1vcnIGSGCWExDXJtt49_XBzA1bmveT1O7";
+			$google = new Google($carpetaId);
+			if ($_FILES['curparchivo']['error'] == UPLOAD_ERR_OK) {
+				$response = $util->Util()->validarSubidaPorArchivo([
+					"curparchivo" => [
+						'types' 	=> ['application/pdf'],
+						'size' 		=> 5242880
+					],
+				]);
+				if (!$response['curparchivo']['status']) { //No cumple con las validaciones el archivo
+					$errors['curparchivo'] = $response['curparchivo']['mensaje'];
+				} else {
+					$nombreAlumno = $util->eliminar_acentos(trim($infoAlumno['names'] . "_" . $infoAlumno['lastNamePaterno'] . "_" . $infoAlumno['lastNameMaterno']));
+					$nombreAlumno = strtolower($nombreAlumno);
+					$archivo = $_FILES['curparchivo'];
+					$ruta = DOC_ROOT . "/tmp/";
+					$extension = pathinfo($archivo['name'], PATHINFO_EXTENSION);
+					$temporal =  $archivo['tmp_name'];
+					$nombre = "curp_" . $nombreAlumno;
+					$documento =  $nombre . "." . $extension;
+					move_uploaded_file($temporal, $ruta . $documento);
 
-		// 	$response = $util->Util()->validarSubidaPorArchivo([
-		// 		"curparchivo" => [
-		// 			'types' => ['application/pdf'],
-		// 			'size' => 5242880
-		// 		],
-		// 		"foto"	=> [
-		// 			'types' => ['image/jpeg', 'image/png'],
-		// 			'size' => 5242880
-		// 		]
-		// 	]);
-		// 	foreach ($response as $key => $value) {
-		// 		if (!$value['status']) {
-		// 			$errors[$key] = $value['mensaje'];
-		// 		}
-		// 	}
-		// }
+					$google->setArchivoNombre($documento);
+					$google->setArchivo($ruta . $documento);
+					$respuesta = $google->subirArchivo();
+					$files[$key] = '{
+									"filename": "' . $respuesta['name'] . '",
+									"googleId": "' . $respuesta['id'] . '",
+									"mimeType": "' . $respuesta['mimeType'] . '",
+									"urlBlank": "https://drive.google.com/open?id=' . $respuesta['id'] . '",
+									"urlEmbed": "https://drive.google.com/uc?id=' . $respuesta['id'] . '",
+									"mimeTypeOriginal":"' . $archivo['type'] . '"
+								}';
+					if ($respuesta['mimeType'] != "application/json") {
+						unlink($ruta . $documento);
+					}
+				}
+			}
+			$response = $util->Util()->validarSubidaPorArchivo([
+				"foto"	=> [
+					'types' 	=> ['image/jpeg', 'image/png'],
+					'size' 		=> 5242880,
+					'required'	=> true
+				]
+			]);
 
+			foreach ($response as $key => $value) {
+				if (!$value['status']) {
+					$errors[$key] = $value['mensaje'];
+				}
+			}
+		}
 		if (!empty($errors)) {
 			header('HTTP/1.1 422 Unprocessable Entity');
 			header('Content-Type: application/json; charset=UTF-8');
@@ -279,45 +344,44 @@ switch ($_POST['opcion']) {
 			exit;
 		}
 
-		// $student->setPermiso($permiso);
-		// $student->setUserId($alumno);
-		// $student->setNames($nombre);
-		// $student->setLastNamePaterno($apellidoPaterno);
-		// $student->setLastNameMaterno($apellidoMaterno);
-		// $student->setSexo($sexo);
-		// $student->setPassword(trim($contrasena));
-		// $student->setEmail($correo);
-		// $student->setMobile($movil);
-		// $student->setWorkplace($trabajoLugar);
-		// $student->setWorkplaceOcupation($trabajoOcupacion);
-		// $student->setWorkplacePosition($trabajoPuesto);
-		// $student->setPaisT($trabajoPais);
-		// $student->setEstadoT($trabajoEstado);
-		// $student->setAcademicDegree($gradoAcademico);
-		// $student->setBirthdate($fechaNacimiento);
-		// $student->setMaritalStatus($estadoCivil);
-		// $student->setStreet($calle);
-		// $student->setNumber($numero);
-		// $student->setColony($colonia);
-		// $student->setCity($ciudad);
-		// $student->setState($estado);
-		// $student->setCountry($pais);
-		// $student->setPostalCode($codigoPostal);
-		// $student->setPhone($telefono);
-		// $student->setWorkplaceAddress($trabajoDireccion);
-		// $student->setWorkplaceArea($trabajoArea);
-		// $student->setWorkplacePosition($trabajoPuesto);
-		// $student->setPaisT($trabajoPais);
-		// $student->setEstadoT($trabajoEstado);
-		// $student->setCiudadT($trabajoCiudad);
-		// $student->setWorkplacePhone($trabajoTelefono);
-		// $student->setWorkplaceEmail($trabajoCorreo);
-		// $student->setProfesion($profesion);
-		// $student->setSchool($escuela);
-		// $student->setHighSchool($bachillerato);
-		// $student->setMasters($maestria);
-		// $student->setMastersSchool($escuelaMaestria);
-
+		$student->setNames($nombre);
+		$student->setLastNamePaterno($apellidoPaterno);
+		$student->setLastNameMaterno($apellidoMaterno);
+		$student->setSexo($sexo);
+		$student->setPassword(trim($contrasena));
+		$student->setEmail($correo);
+		$student->setMobile($movil);
+		$student->setWorkplace($trabajoLugar);
+		$student->setWorkplaceOcupation($trabajoOcupacion);
+		$student->setWorkplacePosition($trabajoPuesto);
+		$student->setPaisT($trabajoPais);
+		$student->setEstadoT($trabajoEstado);
+		$student->setAcademicDegree($gradoAcademico);
+		$student->setBirthdate($fechaNacimiento);
+		$student->setMaritalStatus($estadoCivil);
+		$student->setStreet($calle);
+		$student->setNumber($numero);
+		$student->setColony($colonia);
+		$student->setCity($ciudad);
+		$student->setState($estado);
+		$student->setCountry($pais);
+		$student->setPostalCode($codigoPostal);
+		$student->setPhone($telefono);
+		$student->setWorkplaceAddress($trabajoDireccion);
+		$student->setWorkplaceArea($trabajoArea);
+		$student->setWorkplacePosition($trabajoPuesto);
+		$student->setPaisT($trabajoPais);
+		$student->setEstadoT($trabajoEstado);
+		$student->setCiudadT($trabajoCiudad);
+		$student->setWorkplacePhone($trabajoTelefono);
+		$student->setWorkplaceEmail($trabajoCorreo);
+		$student->setProfesion($profesion);
+		$student->setSchool($escuela);
+		$student->setHighSchool($bachillerato);
+		$student->setMasters($maestria);
+		$student->setMastersSchool($escuelaMaestria);
+		$student->setCurpDrive($curpArchivo);
+		$student->UpdateAlumn();
 		// if (!$student->UpdateAlumn()) {
 		// 	echo "fail[#]";
 

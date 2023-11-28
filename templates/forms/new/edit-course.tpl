@@ -15,7 +15,7 @@
             <select name="modality" id="modality"  class="form-control">
                 <option value="Local" {if $post.modality == "Local"} selected="selected"{/if}>Escolar</option>
                 <option value="Online" {if $post.modality == "Online"} selected="selected"{/if}>No Escolar</option>
-                <option value="Mixto" {if $post.modality == "Mixto"} selected="selected"{/if}>Mixto</option>
+                <option value="Mixta" {if $post.modality == "Mixta"} selected="selected"{/if}>Mixta</option>
             </select>
         </div>
     </div>
