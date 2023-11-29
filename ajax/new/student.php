@@ -384,6 +384,9 @@ switch ($_POST['opcion']) {
 			}elseif ($foto != "NULL") {
 				$foto = "'".json_encode($foto)."'";
 			} 
+			if (empty($curp)) {
+				$errors['curp'] = "Por favor, no se olvide de poner la curp.";
+			}
 		}
 		
 		if (!empty($errors)) {

@@ -286,13 +286,13 @@
             <div class="form-group col-md-4">
                 <label for="funcion">Función archivística que desempeña</label>
                 <select class="form-control" id="funcion" name="funcion">
-                    <option value="1">Coordinador de archivos</option>
-                    <option value="2">Correspondencia</option>
-                    <option value="3">Archivo de trámite</option>
-                    <option value="4">Archivo de concentración</option>
-                    <option value="5">Archivo histórico</option>
-                    <option value="6">Grupo interdisciplinario</option>
-                    <option value="7">Ninguna de las anteriores</option>
+                    <option value="1" {($info.funcion == 1) ? "selected" : ""}>Coordinador de archivos</option>
+                    <option value="2" {($info.funcion == 2) ? "selected" : ""}>Correspondencia</option>
+                    <option value="3" {($info.funcion == 3) ? "selected" : ""}>Archivo de trámite</option>
+                    <option value="4" {($info.funcion == 4) ? "selected" : ""}>Archivo de concentración</option>
+                    <option value="5" {($info.funcion == 5) ? "selected" : ""}>Archivo histórico</option>
+                    <option value="6" {($info.funcion == 6) ? "selected" : ""}>Grupo interdisciplinario</option>
+                    <option value="7" {($info.funcion == 7) ? "selected" : ""}>Ninguna de las anteriores</option>
                 </select>
                 <span class="invalid-feedback"></span>
             </div>
@@ -325,7 +325,7 @@
         <div class="row">
             <div class="form-group col-md-4">
                 <label for="curp">Curp</label>
-                <input type="text" class="form-control" id="curp" name="curp">
+                <input type="text" class="form-control" id="curp" name="curp" value="{$info.curp}">
             </div>
             <div class="form-group col-md-4">
                 <label>Archivo curp</label>
