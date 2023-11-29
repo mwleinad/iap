@@ -66,7 +66,7 @@ class Google
             return $e->getMessage();
         }
     } 
-
+    
     function eliminarArchivo() {
         $client = new Google_Client();
         $client->useApplicationDefaultCredentials();

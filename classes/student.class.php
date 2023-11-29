@@ -1102,63 +1102,12 @@ class Student extends User
 							masters = '" . $this->getMasters() . "', 
 							mastersSchool = '" . $this->getMastersSchool() . "', 
 							highSchool = '" . $this->getHighSchool() . "',
-							curpDrive = ".$this->curpDrive."					
+							curpDrive = ".$this->curpDrive.",
+							foto = ".$this->foto."
 						WHERE 
 							userId = " . $this->getUserId();
-		echo $sqlQuery;
-		exit;
 		$this->Util()->DB()->setQuery($sqlQuery);
 		$this->Util()->DB()->ExecuteQuery();
-		return true;
-		// $this->setUserId($this->getUserId());
-		// $info = $this->GetInfo();
-		// // Datos Personales
-		// $this->setControlNumber();
-		// $this->setNames($info['names']);
-		// $this->setLastNamePaterno($info['lastNamePaterno']);
-		// $this->setLastNameMaterno($info['lastNameMaterno']);
-		// $this->setSexo($info['sexo']);
-		// $info['birthdate'] = explode("-", $info['birthdate']);
-		// $this->setBirthdate($info['birthdate'][2], $info['birthdate'][1], $info['birthdate'][0]);
-		// $this->setMaritalStatus($info['maritalStatus']);
-		// $this->setPassword(trim($info['password']));
-		// // Domicilio
-		// $this->setStreet($info['street']);
-		// $this->setNumber($info['number']);
-		// $this->setColony($info['colony']);
-		// $this->setCity($info['city']);
-		// $this->setState($info['state']);
-		// $this->setCountry($info['country']);
-		// $this->setPostalCode($info['postalCode']);
-		// // Datos de Contacto
-		// $this->setEmail($info['email']);
-		// $this->setPhone($info['phone']);
-		// $this->setFax($info['fax']);
-		// $this->setMobile($info['mobile']);
-		// // Datos Laborales
-		// $this->setWorkplace($info['workplace']);
-		// $this->setWorkplaceOcupation($info['workplaceOcupation']);
-		// $this->setWorkplaceAddress($info['workplaceAddress']);
-		// $this->setWorkplaceArea($info['workplaceArea']);
-		// $this->setWorkplacePosition($info['workplacePosition']);
-		// $this->setWorkplaceCity($info['nombreciudad']);
-		// $this->setWorkplacePhone($info['workplacePhone']);
-		// $this->setWorkplaceEmail($info['workplaceEmail']);
-		// // Estudios
-		// $this->setAcademicDegree($info['academicDegree']);
-		// $this->setSchool($info['school']);
-		// $this->setHighSchool($info['highSchool']);
-		// $this->setMasters($info['masters']);
-		// $this->setMastersSchool($info['mastersSchool']);
-		// $this->setProfesion($info['profesion']);
-		// $sql = "SELECT * FROM user_subject WHERE alumnoId = " . $this->getUserId() . " ";
-		// $this->Util()->DB()->setQuery($sql);
-		// $infoUS = $this->Util()->DB()->GetRow();
-
-		// // $files  = new Files;
-		// // $file = $files->CedulaInscripcion($this->getUserId(), $infoUS["courseId"], $this, $major, $course);
-		// $this->Util()->setError(10030, "complete");
-		// $this->Util()->PrintErrors();
 		return true;
 	}
 

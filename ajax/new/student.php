@@ -128,9 +128,7 @@ switch ($_POST['opcion']) {
 				"urlEmbed": "https://drive.google.com/uc?id=' . $respuesta['id'] . '",
 				"mimeTypeOriginal":"' . $archivo['type'] . '"
 			}';
-			if ($respuesta['mimeType'] != "application/json") {
-				unlink($ruta . $documento);
-			}
+			unlink($ruta . $documento);
 		}
 		$student->setCurpDrive("'{$files['curparchivo']}'");
 		$student->setFoto("'{$files['foto']}'");
@@ -164,7 +162,7 @@ switch ($_POST['opcion']) {
 		$student->setUserId($alumno);
 		$infoAlumno = $student->GetInfo();
 		// print_r($infoAlumno);
-		exit;
+		// exit;
 		$diplomados = $student->alumnoConDiplomado($_POST['id']);
 		$errors = [];
 
@@ -280,10 +278,10 @@ switch ($_POST['opcion']) {
 		}
 
 		//Validaciones solo a alumnos con el diplomado o que cuentan con este.
-		$curpArchivo = is_null($infoAlumno['curpDrive']) ? 'NULL' : "'" . json_encode($infoAlumno['curpDrive']) . "'";
-		// echo $curpArchivo;
+		$curpArchivo = is_null($infoAlumno['curpDrive']) ? 'NULL' : $infoAlumno['curpDrive'];
+		$foto = is_null($infoAlumno['foto']) ? 'NULL' : $infoAlumno['foto'];
 		if ($diplomados != 0) {
-			$carpetaId = "1vcnIGSGCWExDXJtt49_XBzA1bmveT1O7";
+			$carpetaId = "1dIsKbt6QM4Y7I56Lgfv8NDyjFlreTD0T";
 			$google = new Google($carpetaId);
 			if ($_FILES['curparchivo']['error'] == UPLOAD_ERR_OK) {
 				$response = $util->Util()->validarSubidaPorArchivo([
@@ -301,40 +299,92 @@ switch ($_POST['opcion']) {
 					$ruta = DOC_ROOT . "/tmp/";
 					$extension = pathinfo($archivo['name'], PATHINFO_EXTENSION);
 					$temporal =  $archivo['tmp_name'];
-					$nombre = "curp_" . $nombreAlumno;
-					$documento =  $nombre . "." . $extension;
+					$nombreArchivo = "curparchivo_" . $nombreAlumno;
+					$documento =  $nombreArchivo . "." . $extension;
 					move_uploaded_file($temporal, $ruta . $documento);
 
 					$google->setArchivoNombre($documento);
-					$google->setArchivo($ruta . $documento);
-					$respuesta = $google->subirArchivo();
-					$files[$key] = '{
-									"filename": "' . $respuesta['name'] . '",
-									"googleId": "' . $respuesta['id'] . '",
-									"mimeType": "' . $respuesta['mimeType'] . '",
-									"urlBlank": "https://drive.google.com/open?id=' . $respuesta['id'] . '",
-									"urlEmbed": "https://drive.google.com/uc?id=' . $respuesta['id'] . '",
-									"mimeTypeOriginal":"' . $archivo['type'] . '"
-								}';
-					if ($respuesta['mimeType'] != "application/json") {
-						unlink($ruta . $documento);
-					}
+					$google->setArchivo($ruta . $documento); 
+					if ($curpArchivo != "NULL") { 
+						$google->setArchivoID($curpArchivo->googleId);
+						$google->eliminarArchivo();
+						$respuesta = $google->subirArchivo();
+						$curpArchivo = '\'{
+							"filename": "' . $respuesta['name'] . '",
+							"googleId": "' . $respuesta['id'] . '",
+							"mimeType": "' . $respuesta['mimeType'] . '",
+							"urlBlank": "https://drive.google.com/open?id=' . $respuesta['id'] . '",
+							"urlEmbed": "https://drive.google.com/uc?id=' . $respuesta['id'] . '",
+							"mimeTypeOriginal":"' . $archivo['type'] . '"
+						}\'';
+					}else{
+						$respuesta = $google->subirArchivo();
+						$curpArchivo = '\'{
+							"filename": "' . $respuesta['name'] . '",
+							"googleId": "' . $respuesta['id'] . '",
+							"mimeType": "' . $respuesta['mimeType'] . '",
+							"urlBlank": "https://drive.google.com/open?id=' . $respuesta['id'] . '",
+							"urlEmbed": "https://drive.google.com/uc?id=' . $respuesta['id'] . '",
+							"mimeTypeOriginal":"' . $archivo['type'] . '"
+						}\'';
+					} 
+					unlink($ruta . $documento);
 				}
-			}
-			$response = $util->Util()->validarSubidaPorArchivo([
-				"foto"	=> [
-					'types' 	=> ['image/jpeg', 'image/png'],
-					'size' 		=> 5242880,
-					'required'	=> true
-				]
-			]);
+			}elseif ($curpArchivo != "NULL") {
+				$curpArchivo = "'".json_encode($curpArchivo)."'";
+			} 
+			if ($_FILES['foto']['error'] == UPLOAD_ERR_OK) {
+				$response = $util->Util()->validarSubidaPorArchivo([
+					"foto" => [
+						'types' 	=> ['image/jpeg', 'image/png'],
+						'size' 		=> 5242880
+					],
+				]);
+				if (!$response['foto']['status']) { //No cumple con las validaciones el archivo
+					$errors['foto'] = $response['foto']['mensaje'];
+				} else {
+					$nombreAlumno = $util->eliminar_acentos(trim($infoAlumno['names'] . "_" . $infoAlumno['lastNamePaterno'] . "_" . $infoAlumno['lastNameMaterno']));
+					$nombreAlumno = strtolower($nombreAlumno);
+					$archivo = $_FILES['foto'];
+					$ruta = DOC_ROOT . "/tmp/";
+					$extension = pathinfo($archivo['name'], PATHINFO_EXTENSION);
+					$temporal =  $archivo['tmp_name'];
+					$nombreArchivo = "foto_" . $nombreAlumno;
+					$documento =  $nombreArchivo . "." . $extension;
+					move_uploaded_file($temporal, $ruta . $documento);
 
-			foreach ($response as $key => $value) {
-				if (!$value['status']) {
-					$errors[$key] = $value['mensaje'];
+					$google->setArchivoNombre($documento);
+					$google->setArchivo($ruta . $documento); 
+					if ($foto != "NULL") { 
+						$google->setArchivoID($foto->googleId);
+						$google->eliminarArchivo();
+						$respuesta = $google->subirArchivo();
+						$foto = '\'{
+							"filename": "' . $respuesta['name'] . '",
+							"googleId": "' . $respuesta['id'] . '",
+							"mimeType": "' . $respuesta['mimeType'] . '",
+							"urlBlank": "https://drive.google.com/open?id=' . $respuesta['id'] . '",
+							"urlEmbed": "https://drive.google.com/uc?id=' . $respuesta['id'] . '",
+							"mimeTypeOriginal":"' . $archivo['type'] . '"
+						}\'';
+					}else{
+						$respuesta = $google->subirArchivo();
+						$foto = '\'{
+							"filename": "' . $respuesta['name'] . '",
+							"googleId": "' . $respuesta['id'] . '",
+							"mimeType": "' . $respuesta['mimeType'] . '",
+							"urlBlank": "https://drive.google.com/open?id=' . $respuesta['id'] . '",
+							"urlEmbed": "https://drive.google.com/uc?id=' . $respuesta['id'] . '",
+							"mimeTypeOriginal":"' . $archivo['type'] . '"
+						}\'';
+					} 
+					unlink($ruta . $documento);
 				}
-			}
+			}elseif ($foto != "NULL") {
+				$foto = "'".json_encode($foto)."'";
+			} 
 		}
+		
 		if (!empty($errors)) {
 			header('HTTP/1.1 422 Unprocessable Entity');
 			header('Content-Type: application/json; charset=UTF-8');
@@ -342,8 +392,7 @@ switch ($_POST['opcion']) {
 				'errors'    => $errors
 			]);
 			exit;
-		}
-
+		} 
 		$student->setNames($nombre);
 		$student->setLastNamePaterno($apellidoPaterno);
 		$student->setLastNameMaterno($apellidoMaterno);
@@ -381,18 +430,20 @@ switch ($_POST['opcion']) {
 		$student->setMasters($maestria);
 		$student->setMastersSchool($escuelaMaestria);
 		$student->setCurpDrive($curpArchivo);
-		$student->UpdateAlumn();
-		// if (!$student->UpdateAlumn()) {
-		// 	echo "fail[#]";
-
-		// 	$smarty->assign("auxMsj", $_POST["auxMsj"]);
-		// 	$smarty->display(DOC_ROOT . '/templates/boxes/status_on_popup.tpl');
-		// } else {
-		// 	echo "ok[#]";
-		// 	echo '<div class="alert alert-success">
-		// 			<button class="close" data-dismiss="alert"></button>
-		// 					El Alumno fue editado correctamente
-		// 			</div>';
-		// }
+		$student->setFoto($foto);
+		if(!$student->UpdateAlumn()){
+			echo json_encode([
+				'growl'    	=> true,
+				'message'	=> 'Ocurrió un error, intente de nuevo',
+				'type'		=> 'error'
+			]);
+		} else {
+			echo json_encode([
+				'growl'    	=> true,
+				'message'	=> 'Se ha actualizado los datos',
+				'type'		=> 'success',
+				'reload'	=> true,
+			]);
+		}
 		break;
 }
