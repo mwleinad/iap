@@ -1103,7 +1103,8 @@ class Student extends User
 							mastersSchool = '" . $this->getMastersSchool() . "', 
 							highSchool = '" . $this->getHighSchool() . "',
 							curpDrive = ".$this->curpDrive.",
-							foto = ".$this->foto."
+							foto = ".$this->foto.",
+							funcion = ".$this->funcion."
 						WHERE 
 							userId = " . $this->getUserId();
 		$this->Util()->DB()->setQuery($sqlQuery);

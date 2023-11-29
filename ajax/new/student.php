@@ -237,6 +237,7 @@ switch ($_POST['opcion']) {
 		$bachillerato = $diplomados != 1 ? strip_tags($_POST['highSchool']) : "";
 		$telefono = $diplomados != 1 ? strip_tags($_POST['phone']) : "";
 		$curp = $diplomados != 0 ? strip_tags($_POST['curp']) : "";
+		$funcion = $diplomados != 0 ? $_POST['funcion'] : 0;
 		//Validaciones para los que tienen currícula y tienen o no el diplomado
 		if ($diplomados != 1) {
 			if (empty($calle)) {
@@ -431,6 +432,7 @@ switch ($_POST['opcion']) {
 		$student->setMastersSchool($escuelaMaestria);
 		$student->setCurpDrive($curpArchivo);
 		$student->setFoto($foto);
+		$student->setFuncion($funcion);
 		if(!$student->UpdateAlumn()){
 			echo json_encode([
 				'growl'    	=> true,
