@@ -19,22 +19,22 @@
                 <i class="mdi mdi-home menu-icon"></i>
             </a>
         </li>
-        {if $User.positionId == 1 || $AccessMod[38] == 1 || $AccessMod[38] == 1 || $AccessMod[1] == 1 || $AccessMod[2] == 1 || $AccessMod[3] == 1 || $AccessMod[4] == 1 || $AccessMod[5] == 1 || $AccessMod[6] == 1 || $AccessMod[7] == 1 || $AccessMod[9] == 1 || $AccessMod[10] == 1}
+        {if in_array($User.positionId,[1,2,3])}
             {if !$docente}
                 {if $vistaPrevia ne 1}
                     <li
-                        class="nav-item {if $page == "major" or $page == "personal1" or $page == "student" or $page == "position" or $page == "role" or $page == "profesion" or $page == "recording"}active{/if}">
+                        class="nav-item {if in_array($page,["major", "personal1", "student", "position", "role", "profesion", "recording"])}active{/if}">
                         <a class="nav-link" data-toggle="collapse" href="#m-catalogos"
-                            aria-expanded="{if $page == "major" or $page == "personal1" or $page == "student" or $page == "position" or $page == "role" or $page == "profesion" or $page == "recording"}true{else}false{/if}"
+                            aria-expanded="{if in_array($page, ["major", "personal1", "student", "position", "role", "profesion", "recording"])}true{else}false{/if}"
                             aria-controls="m-catalogos">
                             <span class="menu-title">Catálogos</span>
                             <i class="menu-arrow"></i>
                             <i class="mdi mdi-library-books menu-icon"></i>
                         </a>
-                        <div class="collapse {if $page == "major" or $page == "personal1" or $page == "student" or $page == "position" or $page == "role" or $page == "profesion" or $page == "recording"}show{/if}"
+                        <div class="collapse {if in_array($page, ["major", "personal1", "student", "position", "role", "profesion", "recording"])}show{/if}"
                             id="m-catalogos">
                             <ul class="nav flex-column sub-menu">
-                                {if $AccessMod[38] != 1}
+                                {if in_array($User.userId, [1, 142])}
                                     <li class="nav-item">
                                         <a class="nav-link {if $page == "major"}active{/if}" href="{$WEB_ROOT}/major">Programas
                                             Académicos</a>
@@ -47,11 +47,13 @@
                                 <li class="nav-item">
                                     <a class="nav-link {if $page == "student"}active{/if}" href="{$WEB_ROOT}/student">Alumnos</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link {if $page == "credenciales"}active{/if}"
-                                        href="{$WEB_ROOT}/credenciales">Credenciales</a>
-                                </li>
-                                {if $AccessMod[38] != 1}
+                                {if in_array($User.userId, [1, 142, 177])}
+                                    <li class="nav-item">
+                                        <a class="nav-link {if $page == "credenciales"}active{/if}"
+                                            href="{$WEB_ROOT}/credenciales">Credenciales</a>
+                                    </li>
+                                {/if}
+                                {if in_array($User.userId, [1, 142])}
                                     <li class="nav-item">
                                         <a class="nav-link {if $page == "position"}active{/if}" href="{$WEB_ROOT}/position">Puestos</a>
                                     </li>
@@ -62,14 +64,13 @@
                                         <a class="nav-link {if $page == "profesion"}active{/if}"
                                             href="{$WEB_ROOT}/profesion">Profesiones</a>
                                     </li>
-                                    {*<li class="nav-item">
-                                        <a class="nav-link {if $page == "recording"}active{/if}" href="{$WEB_ROOT}/recording">Videoconferencias</a>
-                                    </li>*}
                                 {/if}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{$WEB_ROOT}/cat-doc-alumno">Documentos Alumnos</a>
-                                </li>
-                                {if $User.userId == 1}
+                                {if in_array($User.userId, [1, 142, 177])}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{$WEB_ROOT}/cat-doc-alumno">Documentos Alumnos</a>
+                                    </li>
+                                {/if} 
+                                {if in_array($User.userId, [1, 142])}
                                     <li class="nav-item">
                                         <a class="nav-link" href="{$WEB_ROOT}/conceptos">Conceptos de pago</a>
                                     </li>
@@ -141,8 +142,6 @@
                 {/if}
             {/if}
         {/if}
-
-
 
         {if $User.positionId == 1 || $User.positionId == 10 || $AccessMod[40] == 1 || $AccessMod[1] == 1 || $AccessMod[2] == 1 || $AccessMod[3] == 1 || $AccessMod[4] == 1 || $AccessMod[5] == 1 || $AccessMod[6] == 1 || $AccessMod[7] == 1 || $AccessMod[9] == 1 || $AccessMod[10] == 1}
             {if $vistaPrevia ne 1}

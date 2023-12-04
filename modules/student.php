@@ -1,7 +1,9 @@
-<?php
-
+<?php 
 /* For Session Control - Don't remove this */
-$user->allow_access(4);
+if(!in_array($_SESSION['User']['positionId'], [1,2,3])){
+	header('Location: ' . WEB_ROOT);
+}
+// $user->allow_access(4);
 /* End Session Control */
 // echo "<pre>"; print_r($_FILES);
 // exit;

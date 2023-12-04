@@ -33,34 +33,38 @@
 			{else}
 				<i class="fas fa-times-circle fa-2x text-danger pointer" id="{$item.userId}" data-toggle="tooltip" data-placement="top" title="Dar de Alta" onclick="activar({$item.userId},{$item.activo});"></i>
 			{/if*}
-			<a href="{$WEB_ROOT}/graybox.php?page=edit-student&id={$item.userId}&auxImagen=1" data-target="#ajax" data-toggle="modal" data-width="1000px">
-				<i class="fas fa-pen-square fa-2x pointer spanEdit" id="{$item.userId}" data-toggle="tooltip" data-placement="top" title="Editar"></i>
-			</a>
-			<a href="{$WEB_ROOT}/graybox.php?page=doc-alumno&id={$item.userId}&cId=admin" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Documentos">
-				<i class="fas fa-folder-open fa-2x pointer"></i>
-			</a>
-			<a href="{$WEB_ROOT}/graybox.php?page=student-curricula&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px">
-				<i class="fas fa-book fa-2x text-dark pointer" data-toggle="tooltip" data-placement="top" title="Ver Curricula Estudiante"></i>
-			</a>   
-			<a href="{$WEB_ROOT}/graybox.php?page=student-repeat&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px">
-				<i class="fas fa-book fa-2x text-danger pointer" data-toggle="tooltip" data-placement="top" title="Recursar Materia"></i>
-			</a>   
+			{if $User.userId != 256}
+				<a href="{$WEB_ROOT}/graybox.php?page=edit-student&id={$item.userId}&auxImagen=1" data-target="#ajax" data-toggle="modal" data-width="1000px">
+					<i class="fas fa-pen-square fa-2x pointer spanEdit" id="{$item.userId}" data-toggle="tooltip" data-placement="top" title="Editar"></i>
+				</a>
+				<a href="{$WEB_ROOT}/graybox.php?page=doc-alumno&id={$item.userId}&cId=admin" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Documentos">
+					<i class="fas fa-folder-open fa-2x pointer"></i>
+				</a>
+				<a href="{$WEB_ROOT}/graybox.php?page=student-curricula&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px">
+					<i class="fas fa-book fa-2x text-dark pointer" data-toggle="tooltip" data-placement="top" title="Ver Curricula Estudiante"></i>
+				</a>
+				<a href="{$WEB_ROOT}/graybox.php?page=student-repeat&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px">
+					<i class="fas fa-book fa-2x text-danger pointer" data-toggle="tooltip" data-placement="top" title="Recursar Materia"></i>
+				</a>   
+			{/if}
 			<a href="{$WEB_ROOT}/graybox.php?page=estudiante-informacion-adicional&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px">
 				<i class="fas fa-book fa-2x text-primary pointer" data-toggle="tooltip" data-placement="top" title="Información adicional"></i>
 			</a>
-			{if count($item.courseId) > 1}
-				<a href="{$WEB_ROOT}/graybox.php?page=ficha-registro&id={$item.userId}" data-target="#ajax" data-toggle="modal" data-width="700px">
-					<i class="fas fa-file-export fa-2x text-info pointer" data-toggle="tooltip" data-placement="top" title="Ficha de Registro"></i>
-				</a>
-			{else}
-				<a href="{$WEB_ROOT}/pdf/solicitudes.php?alumnoId={$item.userId}&cursoId={$item.courseId[0].courseId}" target="_blank">
-					<i class="fas fa-file-export fa-2x text-info pointer" data-toggle="tooltip" data-placement="top" title="Ficha de Registro"></i>
-				</a> 
-			{/if} 
-			{if $item.hasRGP > 0}
-				<a href="{$WEB_ROOT}/ajax/acuse_rgp.php?u={$item.userId}" target="_blank">
-					<i class="fas fa-file-pdf fa-2x text-danger pointer" data-toggle="tooltip" data-placement="top" title="Acuse de Recibo del Reglamento General de Posgrado"></i>
-				</a>      
+			{if $User.userId != 256}
+				{if count($item.courseId) > 1}
+					<a href="{$WEB_ROOT}/graybox.php?page=ficha-registro&id={$item.userId}" data-target="#ajax" data-toggle="modal" data-width="700px">
+						<i class="fas fa-file-export fa-2x text-info pointer" data-toggle="tooltip" data-placement="top" title="Ficha de Registro"></i>
+					</a>
+				{else}
+					<a href="{$WEB_ROOT}/pdf/solicitudes.php?alumnoId={$item.userId}&cursoId={$item.courseId[0].courseId}" target="_blank">
+						<i class="fas fa-file-export fa-2x text-info pointer" data-toggle="tooltip" data-placement="top" title="Ficha de Registro"></i>
+					</a> 
+				{/if} 
+				{if $item.hasRGP > 0}
+					<a href="{$WEB_ROOT}/ajax/acuse_rgp.php?u={$item.userId}" target="_blank">
+						<i class="fas fa-file-pdf fa-2x text-danger pointer" data-toggle="tooltip" data-placement="top" title="Acuse de Recibo del Reglamento General de Posgrado"></i>
+					</a>      
+				{/if}
 			{/if}
 		{/if}
     </td>       

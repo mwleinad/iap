@@ -1000,7 +1000,7 @@ class User extends Main
 				$row["foto"] = '<img src="' . WEB_ROOT . '/alumnos/no_foto.JPG" width="110" height="110"/>';
 				$row["imagen"] = WEB_ROOT . '/alumnos/no_foto.JPG';
 			}
-		} 
+		}
 		return $row;
 	}
 
@@ -1104,24 +1104,9 @@ class User extends Main
 
 	public function allow_access_module($userId, $moduleId)
 	{
-
-		$this->Util()->DB()->setQuery(
-			"SELECT 
-				m.roleId 
-		   FROM 
-		   		personal AS p,
-				personal_role AS r,
-				role_modules AS m 
-			WHERE 
-				p.personalId = '" . $userId . "' 
-			AND
-				p.personalId = r.personalId
-			AND
-				r.roleId = m.roleId
-			AND
-				m.moduleId = '" . $moduleId . "'
-		"
-		);
+		$sql = "SELECT m.roleId FROM personal AS p, personal_role AS r, role_modules AS m WHERE 
+		p.personalId = '" . $userId . "' AND p.personalId = r.personalId AND r.roleId = m.roleId AND m.moduleId = '" . $moduleId . "'";
+		$this->Util()->DB()->setQuery($sql);
 		$allow = $this->Util()->DB()->GetSingle();
 
 		return $allow;
