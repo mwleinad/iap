@@ -225,7 +225,7 @@ foreach ($students as $itemStudent) {
             $materias = $next ? $materias + 1 : $materias;
             // print_r($qualifications[$period+1][$element]);
         }
-        $promedio = round(($sumCal/$materias),1);
+        $promedio = bcdiv($sumCal, $materias, 1);
         if (intval($promedio) == 10) {
             $promedioLetras = $util->num2letras(10,false, false);
         }else{
