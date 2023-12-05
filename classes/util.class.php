@@ -425,7 +425,7 @@ class Util extends ErrorLms
 		$matuni[13] = "trece";
 		$matuni[14] = "catorce";
 		$matuni[15] = "quince";
-		$matuni[16] = "dieciseis";
+		$matuni[16] = "dieciséis";
 		$matuni[17] = "diecisiete";
 		$matuni[18] = "dieciocho";
 		$matuni[19] = "diecinueve";
