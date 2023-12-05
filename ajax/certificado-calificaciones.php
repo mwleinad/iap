@@ -225,7 +225,7 @@ foreach ($students as $itemStudent) {
             $materias = $next ? $materias + 1 : $materias;
             // print_r($qualifications[$period+1][$element]);
         }
-        $promedio = bcdiv($sumCal, $materias, 1);
+        $promedio = round(($sumCal/$materias),1);
         if (intval($promedio) == 10) {
             $promedioLetras = $util->num2letras(10,false, false);
         }else{
@@ -238,7 +238,8 @@ foreach ($students as $itemStudent) {
     $prefijoDirector = $director['genre'] == "DIRECTOR" ? "DEL " : "A LA " . $director['genre'];
     $nameStudent =  mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']);
     $nameStudent = $util->eliminar_acentos($nameStudent);
-    $curso = str_replace("EN", "", $infoCourse["name"]);
+    $curso = str_replace("EN", "", $infoCourse["name"]); 
+    $letraAnio =  $array_date[0] == 2023 ? "veintitrés" : $util->num2letras(mb_strtolower($letraAnio));
     $html .= '<table width="100%">
                 <tr>
                     <td width="17%">
@@ -298,7 +299,7 @@ foreach ($students as $itemStudent) {
                 </tfoot>
             </table>
             <p style="font-size:9.5px">La escala oficial de calificaciones es de 6 (SEIS) a 10 (DIEZ), considerando como mínima aprobatoria ' . $minCal . ' (' . mb_strtoupper($util->num2letras($minCal)) . '). Este certificado ampara <b>'.mb_strtoupper($util->num2letras($total_modules
-            )).'</b> materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ' . $array_date[2] . ' días del mes de ' . mb_strtolower($util->ConvertirMes(intval($array_date[1]))) . ' del año ' .mb_strtolower($util->num2letras($array_date[0])) . '.</p>
+            )).'</b> materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ' . $array_date[2] . ' días del mes de ' . mb_strtolower($util->ConvertirMes(intval($array_date[1]))) . ' del año ' . $letraAnio . '.</p>
             <table width="100%">
                 <tr>
                     <td style="font-size: 9pt; text-align: center;">
