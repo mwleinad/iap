@@ -15,6 +15,30 @@
             </select>
         </div>
     </div>
+    <div class="row d-none" id="seccion_examen">
+        <div class="form-group col-md-6">
+            <label>¿El alumno puede volver a realizar el examen?</label>
+            <select id="reintento" class="form-control" name="reintento">
+                <option value="0">No</option>
+                <option value="1" {($actividad.reintento) ? "selected" : ""}>Sí</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6 d-none" id="tipo_oportunidad">
+            <label>Tipo de oportunidad</label>
+            <select id="oportunidad" class="form-control" name="oportunidad">
+                <option value="0">Por número máximo de intentos</option>
+                <option value="1" {($actividad.tipo) ? "selected" : ""}>Por calificación mínima</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6 d-none" id="seccion_calificacion">
+            <label>Calificación mínima</label>
+            <input class="form-control" id="calificacion" name="calificacion" type="number" max="100" value="{$actividad.calificacion}">
+        </div>
+        <div class="form-group col-md-6 d-none" id="seccion_intentos">
+            <label>Límite de intentos</label>
+            <input class="form-control" id="intentos" name="intentos" type="number" min="1" value="{$actividad.tries}">
+        </div>
+    </div>
     <div class="row">
         <div class="form-group col-md-6">
             <label for="initialDate">Fecha Inicial:</label>
@@ -88,4 +112,32 @@
     flatpickr('.i-calendar', {
         dateFormat: "d-m-Y"
     });
+    
+    $("#activityType").change(function() {
+        if ($(this).val() == "Examen") {
+            $("#seccion_examen").removeClass("d-none");
+        } else {
+            $("#seccion_examen").addClass("d-none");
+        }
+    });
+
+    $("#reintento").change(function() {
+        if ($(this).val() == 1) {
+            $("#tipo_oportunidad").removeClass("d-none");
+            $("#oportunidad").trigger("change");
+        } else {
+            $("#tipo_oportunidad, #seccion_intentos, #seccion_calificacion").addClass("d-none");
+        }
+    });
+
+    $("#oportunidad").change(function() {
+        if ($(this).val() == 1) {
+            $("#seccion_intentos").addClass("d-none");
+            $("#seccion_calificacion").removeClass("d-none");
+        } else {
+            $("#seccion_intentos").removeClass("d-none");
+            $("#seccion_calificacion").addClass("d-none");
+        }
+    });
+    $("#activityType, #reintento, #oportunidad").trigger("change");
 </script>

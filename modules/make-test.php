@@ -26,10 +26,9 @@
 	
 	//access
 	$test->setUserId($_SESSION["User"]["userId"]);
-	$access  = $test->Access($actividad["tries"]);
+	$access  = $test->Access($actividad);
 	$smarty->assign('access', $access);
-	
-	if(!$access)
+	if(!$access['acceso'])
 	{
 		$score  = $test->TestScore();
 		$smarty->assign('score', $score);

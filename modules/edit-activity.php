@@ -5,7 +5,8 @@
 	
 	// echo "<pre>"; print_r($_POST);
 	// exit;
-
+	$activity->setActivityId($_GET["id"]);
+	$actividad = $activity->Info();
 	if($_POST)
 	{
 		$errors = [];
@@ -29,7 +30,7 @@
 			]);
 			exit;
 		}
-		$activity->setActivityId($_GET["id"]);
+		 
 		$activity->setActivityType($_POST["activityType"]);
 
 		$activity->setInitialDate($_POST["initialDate"]);
@@ -41,7 +42,11 @@
 		$activity->setDescription($_POST["description"]);
 		$activity->setRequiredActivity($_POST["requiredActivity"]);
 		$activity->setPonderation($_POST["ponderation"]);
-		$activity->setHoraInicial($_POST["horaInicial"]);
+		$activity->setHoraInicial($_POST["horaInicial"]);  
+		$activity->setReintento($_POST['reintento']);
+		$activity->setTipo($_POST['oportunidad']);
+		$activity->setIntentos($_POST['intentos']);
+		$activity->setCalificacionMinima($_POST['calificacion']);
 		$activity->Edit();
 		
 		if($_POST["auxTpl"]=="admin"){
@@ -58,18 +63,10 @@
 	}
 
 	$date = date("d-m-Y");
-	$smarty->assign('date', $date);
-
-	$activity->setActivityId($_GET["id"]);
-	$smarty->assign('id', $_GET["id"]);
-	$actividad = $activity->Info();
-	
-	
-	$smarty->assign('actividad', $actividad);
-	
+	$smarty->assign('date', $date);  
+	$smarty->assign('id', $_GET["id"]); 
+	$smarty->assign('actividad', $actividad); 
 	$activity->setCourseModuleId($actividad["courseModuleId"]);
 	$actividades = $activity->Enumerate();
 	$smarty->assign('actividades', $actividades);
-	
-
 ?>

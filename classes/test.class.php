@@ -137,21 +137,31 @@ class Test extends Activity
 		return $returnArray;
 	}
 
-	public function Access($maxTries)
+	public function Access($actividad)
 	{
-
-		$sql = "
-				SELECT try FROM activity_score
-				WHERE activityId = '" . $this->getActivityId() . "'
-				AND userId = '" . $this->getUserId() . "'";
-		// exit;
+		$sql = "SELECT * FROM activity_score
+		WHERE activityId = '" . $this->getActivityId() . "'
+		AND userId = '" . $this->getUserId() . "'";
 		$this->Util()->DB()->setQuery($sql);
-		$try = $this->Util()->DB()->GetSingle();
-		if ($try < $maxTries) {
-			return 1;
+		$examenRealizado = $this->Util()->DB()->GetRow();
+		$response = ['acceso' => true];
+		if ($examenRealizado) {
+			if ($actividad['reintento']) {
+				$response['acceso'] =  $examenRealizado['ponderation'] == 0 ? true : false;
+				$response['tipo'] = $actividad['tipo'];
+				if (!$actividad['tipo'] && $examenRealizado['try'] < $actividad['tries']) { //Por intentos 
+					$response['intentos'] = $actividad['tries'] - $examenRealizado['try'];
+					return $response;
+				}
+				if ($actividad['tipo'] && $examenRealizado['ponderation'] < $actividad['calificacion']) { //Por calificacion 
+					$response['intentos'] = 1;
+					return $response;
+				}
+			}
+			$response['acceso'] = false;
+			return $response;
 		}
-
-		return 0;
+		return $response;
 	}
 
 	public function TestScore()
@@ -264,18 +274,9 @@ class Test extends Activity
 		$count = $this->Util()->DB()->GetSingle();
 
 		if ($count == 0) {
-			$this->Util()->DB()->setQuery("
-					INSERT INTO  `activity_score` (
-						`userId` ,
-						`activityId` ,
-						`try` ,
-						`ponderation`
-						)
-						VALUES (
-						'" . $this->getUserId() . "',  
-						'" . $this->getActivityId() . "',  
-						'1',  
-						'" . $score . "');");
+			$sql = "INSERT INTO  `activity_score` ( `userId` , `activityId` , `try` , `ponderation`)
+				VALUES ('" . $this->getUserId() . "', '" . $this->getActivityId() . "', '1', '" . $score . "');";
+			$this->Util()->DB()->setQuery($sql);
 			$result = $this->Util()->DB()->InsertData();
 		} else {
 			$this->Util()->DB()->setQuery("
@@ -294,12 +295,12 @@ class Test extends Activity
 		$infoStudent = $student->GetInfo();
 
 		$mail = new PHPMailer(); // defaults to using php "mail()"
-		//contenido del correo
+		// contenido del correo
 		$body = "Has hecho realizado examen correctament <br/> Calificacion obtenida:  " . $score;
 		//asunto o tema
 		$subject = "Examen finalizado Correctamente";
 		//("quienloenvia@hotmail.com", "nombre de quien lo envia");
-		$mail->SetFrom("admin@iapchiapasonline.com", "Administrador del Sistema");
+		$mail->SetFrom("enlinea@iapchiapas.edu.mx", "Administrador del Sistema");
 		//correo y nombre del destinatario
 		$mail->AddAddress($infoStudent['email'], $infoStudent['names']);
 
@@ -319,9 +320,9 @@ class Test extends Activity
 	{
 		$sql = "SELECT * FROM examination_records WHERE courseId = {$courseId} AND studentId = {$studentId} ";
 		$this->Util()->DB()->setQuery($sql);
-		$result = $this->Util()->DB()->GetRow(); 
+		$result = $this->Util()->DB()->GetRow();
 		if ($result)
-			$result = $this->Util()->EncodeRow($result); 
+			$result = $this->Util()->EncodeRow($result);
 		return $result;
 	}
 
@@ -339,5 +340,11 @@ class Test extends Activity
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->UpdateData();
 		return $result;
+	}
+
+	function reiniciarTest() {
+		$sql = "UPDATE activity_score SET ponderation = 0 WHERE activityId = {$this->getActivityId()} AND userId = {$this->getUserId()}";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->UpdateData();
 	}
 }

@@ -25,8 +25,32 @@ switch($_POST["type"])
         $smarty->display(DOC_ROOT.'/templates/lists/new/activities.tpl');
 
         break;
+    case 'completarExamen':
+        $test->setUserId($_SESSION["User"]["userId"]);
+		$test->setActivityId($_POST["actividad"]);
+		$test->SendTest($_POST["anwer"]);
+        echo json_encode([
+            'growl'    	=> true,
+            'message'	=> 'Examen contestado',
+            'type'		=> 'success',
+            'reload'    => true
+        ]);
+        break;
+    case 'reiniciarExamen':
+        $test->setUserId($_SESSION["User"]["userId"]);
+		$test->setActivityId($_POST["actividad"]);
+        $test->reiniciarTest();
 
-
+        $activity->setActivityId($_POST["actividad"]);
+        $actividad = $activity->Info();
+        $_SESSION["timeLimit"] = time() + $actividad["timeLimit"] * 60;
+        echo json_encode([
+            'growl'    	=> true,
+            'message'	=> 'Examen reiniciado',
+            'type'		=> 'success',
+            'reload'    => true
+        ]);
+        break;
 }
 
 ?>

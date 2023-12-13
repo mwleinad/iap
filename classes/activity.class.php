@@ -177,6 +177,30 @@ class Activity extends Module
 		$this->hora = $value;
 	}
 
+	private $reintento;
+	function setReintento($valor)
+	{
+		$this->reintento = $valor;
+	}
+
+	private $tipo;
+	function setTipo($valor)
+	{
+		$this->tipo = $valor;
+	}
+	
+	private $intentos;
+	function setIntentos($valor)
+	{
+		$this->intentos = $valor;
+	}
+
+	private $calificacionMinima;
+	function setCalificacionMinima($valor)
+	{
+		$this->calificacionMinima = $valor;
+	}
+
 	public function SaveModule()
 	{
 		if ($this->Util()->PrintErrors()) {
@@ -261,7 +285,11 @@ class Activity extends Module
 							description,
 							resumen,
 							ponderation,
-							requiredActivity
+							requiredActivity,
+							reintento,
+							tipo,
+							tries,
+							calificacion
 						)
 					VALUES (
 							'" . $this->getCourseModuleId() . "', 
@@ -273,7 +301,11 @@ class Activity extends Module
 							'" . $this->getDescription() . "',
 							'" . $this->resumen . "',
 							'" . $this->ponderation . "',
-							'" . $this->requiredActivity . "'
+							'" . $this->requiredActivity . "',
+							'" . $this->reintento . "',
+							'" . $this->tipo . "',
+							'" . $this->intentos . "',
+							'" . $this->calificacionMinima . "'
 							)";
 		//configuramos la consulta con la cadena de insercion
 		$this->Util()->DB()->setQuery($sql);
@@ -304,15 +336,20 @@ class Activity extends Module
 							description = '" . $this->getDescription() . "',
 							resumen = '" . $this->resumen . "',
 							ponderation = '" . $this->ponderation . "',
-							requiredActivity = '" . $this->requiredActivity . "'
+							requiredActivity = '" . $this->requiredActivity . "',
+							reintento = '" . $this->reintento . "',
+							tipo = '" . $this->tipo . "',
+							tries = '" . $this->intentos . "',
+							calificacion = '" . $this->calificacionMinima . "'
 						WHERE activityId = '" . $this->activityId . "'";
+ 
 		//configuramos la consulta con la cadena de insercion
 		$this->Util()->DB()->setQuery($sql);
 		//ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
 		$result = $this->Util()->DB()->UpdateData();
 		if ($result) {
-			$sql = "UPDATE topicsub SET descripcion = '" . $this->getDescription() . "' WHERE activityId = '".$this->activityId."' ";
-			$this->Util()->DB()->setQuery($sql); 
+			$sql = "UPDATE topicsub SET descripcion = '" . $this->getDescription() . "' WHERE activityId = '" . $this->activityId . "' ";
+			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->UpdateData();
 		}
 		$this->Util()->setError(90000, 'complete', "Se ha editado la actividad");

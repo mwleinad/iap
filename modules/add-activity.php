@@ -43,6 +43,24 @@
 		$activity->setRequiredActivity($_POST["requiredActivity"]);
 		$activity->setPonderation($_POST["ponderation"]);
 		$activity->setHoraInicial($_POST["horaInicial"]);
+		
+		$intentos = 1;
+		$calMinima = 0;
+		$tipo = 0;
+		$reintento = 0;
+		if ($_POST['reintento'] == 1) {
+			$reintento = 1;
+			$tipo = intval($_POST['oportunidad']);
+			if ($tipo == 0) { //Por número de intentos
+				$intentos = intval($_POST['intentos']);
+			}else{ //Calificación mínima
+				$calMinima = intval($_POST['calificacion']);
+			}
+		}
+		$activity->setReintento($reintento);
+		$activity->setTipo($tipo);
+		$activity->setIntentos($intentos);
+		$activity->setCalificacionMinima($calMinima);
 		$actidadCreada = $activity->Save();
 
 		$module->setCourseModuleId($_GET['id']);
