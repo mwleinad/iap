@@ -530,7 +530,7 @@ class Activity extends Module
 			$count++;
 			$result[$key]["descriptionShort"] = substr($result[$key]["description"], 0, 30);
 			$this->setActivityId($res["requiredActivity"]);
-
+			$result[$key]["oportunidad"] = $result[$key]["tipo"];
 			if ($tipo == "Tarea") {
 				foreach ($result as $keys => $resultado) {
 					if ($res["requiredActivity"] == $resultado["activityId"])
@@ -590,7 +590,7 @@ class Activity extends Module
 			$this->setUserId($this->getUserId());
 			$result[$key]["ponderation"] = $this->Score();
 			$result[$key]["retro"] = $this->Retro();
-
+			$result[$key]["try"] = $this->TryActivity();
 			$result[$key]["retroFile"] = $this->RetroFile();
 
 			$realScore = $result[$key]["ponderation"] * $result[$key]["score"] / 100;
@@ -629,6 +629,16 @@ class Activity extends Module
 	{
 		$this->Util()->DB()->setQuery("
 				SELECT ponderation FROM activity_score
+				WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $this->getUserId() . "'");
+		$result = $this->Util()->DB()->GetSingle();
+
+		return $result;
+	}
+
+	function TryActivity()
+	{
+		$this->Util()->DB()->setQuery("
+				SELECT try FROM activity_score
 				WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $this->getUserId() . "'");
 		$result = $this->Util()->DB()->GetSingle();
 

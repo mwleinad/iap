@@ -104,11 +104,12 @@
 							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=acta-examen-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Acta de Examen">
 								<i class="fas fa-file-contract"></i> Acta de Examen
 							</a>
-							{* Constancia Sencilla *}
+							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=constancias&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Constancias">
+								<i class="fas fa-certificate"></i> Constancias
+							</a>
 							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=constancia-sencilla-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Constancia Sencilla">
 								<i class="fas fa-file-alt"></i> Constancia Sencilla
 							</a>
-							{* Constancia del 50% *}
 							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=constancia-calificaciones-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Constancia Sencilla">
 								<i class="fas fa-file-alt"></i> Constancia del 50%
 							</a>
@@ -120,9 +121,6 @@
 							</a>
 							<a class="dropdown-item pointer spanActive" onclick="VerGrupo({$subject.courseId});" title="Referencia Bancaria" id="{$subject.courseId}">
 								<i class="fas fa-credit-card"></i> Referencia Bancaria
-							</a>
-							<a class="dropdown-item pointer spanActive" onclick="VerSolicitud({$subject.courseId});" title="CONSTANCIAS" id="{$subject.courseId}">
-								<i class="fas fa-file-alt"></i> Constancias
 							</a>
 							<a class="dropdown-item pointer spanActive" onclick="editPeriodos({$subject.courseId});" title="PERIODOS" id="{$subject.courseId}">
 								<i class="fas fa-calendar-alt"></i> Periodos

@@ -29,9 +29,9 @@
             Subir Tarea al Sistema de Tareas.
         {/if}
     {/if}
-    {if $item.activityType == "Examen"}
+    {if $item.activityType == "Examen"} 
         {if $vistaPrevia==0}
-            {if $item.realScore eq ''}
+            {if $item.acceso}
                 <a id="presentarExamen" style="display: none" class=" btn btn-outline-warning sbold" href="{$WEB_ROOT}/graybox.php?page=make-test&id={$item.activityId}" data-target="#ajax" data-toggle="modal">
                     <i class="fas fa-spell-check"></i> Presentar examen
                 </a>

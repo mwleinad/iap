@@ -233,6 +233,7 @@ $pages = array(
     'foro-estadisticas',
     'conceptos',
     'edit-comment',
+    'constancias'
 );
 
 if(!in_array($_GET['page'], $pages))
