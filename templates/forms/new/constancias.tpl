@@ -1,4 +1,4 @@
-<form action="{$WEB_ROOT}/ajax/new/cconstancia.php" method="POST" target="_blank" id="form_constancia">
+<form action="{$WEB_ROOT}/ajax/new/constancia.php" method="POST" target="_blank" id="form_constancia">
     <input type="hidden" id="course" name="course" value="{$info.courseId}" /> 
     <div class="row">
         <div class="form-group col-md-6">
@@ -11,7 +11,7 @@
         </div>
         <div class="form-group col-md-6">
             <label for="folio">Folio</label>
-            <input type="text" name="folio" id="folio" class="form-control text-uppercase" />
+            <input type="text" name="folio" id="folio" class="form-control text-uppercase" value="AIP/DA/040/{date('Y')}"/>
         </div>
         <div class="form-group col-md-6">
             <label for="rvoe">RVOE</label>
