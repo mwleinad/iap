@@ -10,8 +10,9 @@ switch ($opcion) {
         $grupos = $subject->grupos();
         print_r(json_encode($grupos));
         break;
-    
     default:
-        # code...
+        $course->setCourseId($_POST['curso']);
+        $periodo = $course->periodoActual();
+        echo $periodo;
         break;
 }

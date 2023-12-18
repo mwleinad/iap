@@ -22,7 +22,8 @@
         </a> *}
     </div>
     <div class="card-body">
-        <form id="frmGral" class="form" action="{$WEB_ROOT}/ajax/new/reporte-indicadores.php" method="post">
+        <form id="frmGral" target="_blank" action="{$WEB_ROOT}/ajax/new/reportes.php?page=export-excel" method="post">
+            <input type="hidden" value="becas" name="opcion">
             <div class="row">
                 <div class="col-md-3 form-group">
                     <label for="posgrado">Posgrado</label>
@@ -35,13 +36,13 @@
                 </div>
                 <div class="col-md-3 form-group">
                     <label for="grupo">Grupo</label>
-                    <select class="form-control" name="grupo" id="grupo">
+                    <select class="form-control" name="grupo" id="grupo" data-url="{$WEB_ROOT}/ajax/new/becas.php">
                         <option value="">Todos</option> 
                     </select>
                 </div>
                 <div class="col-md-3 form-group">
-                    <label for="grupo">Conceptos</label>
-                    <select class="form-control" name="grupo" id="grupo">
+                    <label for="concepto">Conceptos</label>
+                    <select class="form-control" name="concepto" id="concepto">
                         <option value="">Todos</option>
                         {foreach from=$conceptos item=concepto}
                             <option value="{$concepto.concepto_id}">{$concepto.nombre}</option>
@@ -49,8 +50,8 @@
                     </select>
                 </div>
                 <div class="col-md-3 form-group">
-                    <label for="grupo">Periodos</label>
-                    <select class="form-control" name="grupo" id="grupo">
+                    <label for="periodo">Periodos</label>
+                    <select class="form-control" name="periodo" id="periodo">
                         <option value="">Todos</option> 
                     </select>
                 </div>

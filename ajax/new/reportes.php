@@ -84,23 +84,22 @@ switch ($_POST["opcion"]) {
         include_once('reportes/diplomados.php');
         break;
     case 'becas':
-        $sql = "SELECT major.name as posgrado,subject.subjectId,subject.name as curricula,course.courseId,course.group,user.userId,user.names,user.lastNamePaterno,user.lastNameMaterno,conceptos.concepto_id, conceptos.nombre,pagos.periodo,pagos.beca FROM pagos INNER JOIN conceptos ON conceptos.concepto_id = pagos.concepto_id INNER JOIN course ON course.courseId = pagos.course_id INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo INNER JOIN user_subject ON user_subject.alumnoId = pagos.alumno_id AND user_subject.courseId = course.courseId AND user_subject.status = 'activo' INNER JOIN user ON user.userId = pagos.alumno_id WHERE course.finalDate >= NOW() AND pagos.deleted_at IS NULL AND pagos.indice > 0 GROUP BY subject.subjectId, course.courseId, pagos.alumno_id, pagos.concepto_id, pagos.periodo, pagos.beca ORDER BY major.name, subject.name, course.group, pagos.periodo, pagos.concepto_id, pagos.beca;";
-        $util->DB()->setQuery($sql);
-        $response = $util->DB()->GetResult();
-        // echo "<pre>";
-        // print_r($response);
-        $data = [];
-        $curricula = [];
-        foreach ($response as $item) {
-            if (isset($data[$item['courseId']][$item['periodo']][$item['nombre']][$item['beca']])) { 
-                $data[$item['courseId']][$item['periodo']][$item['nombre']][$item['beca']] =  $data[$item['courseId']][$item['periodo']][$item['nombre']][$item['beca']] + 1;
-            }else{
-                $data[$item['courseId']][$item['periodo']][$item['nombre']][$item['beca']] = 1;
-                $curricula[$item['courseId']] = $item;
-            }
+        $where = "";
+        if ($_POST['posgrado']) { 
+            $where.=" AND subject.subjectId = {$_POST['posgrado']}";
         }
-        // print_r($curricula);
-        // // echo count($data);
+        if ($_POST['grupo']) {
+            $where.=" AND course.courseId = {$_POST['grupo']}";
+        }
+        if ($_POST['concepto']) {
+            $where.=" AND pagos.concepto_id = {$_POST['concepto']}";
+        }
+        if ($_POST['periodo']) {
+            $where.=" AND pagos.periodo = {$_POST['periodo']}";
+        }
+        $sql = "SELECT major.name as posgrado, subject.subjectId, subject.name, course.courseId, course.group, user.userId, CONCAT(user.names,' ', user.lastNamePaterno, ' ', user.lastNameMaterno) AS alumno, CONCAT(conceptos.nombre,' ', pagos.indice) as concepto, pagos.periodo, pagos.beca FROM pagos INNER JOIN conceptos ON conceptos.concepto_id = pagos.concepto_id INNER JOIN course ON course.courseId = pagos.course_id INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo INNER JOIN user_subject ON user_subject.alumnoId = pagos.alumno_id AND user_subject.courseId = course.courseId AND user_subject.status = 'activo' INNER JOIN user ON user.userId = pagos.alumno_id WHERE course.finalDate >= NOW() AND pagos.deleted_at IS NULL AND pagos.indice > 0 {$where} GROUP BY subject.subjectId, course.courseId, pagos.alumno_id, pagos.concepto_id, pagos.indice, pagos.periodo, pagos.beca ORDER BY major.name, subject.name, course.group, user.lastNamePaterno, user.lastNameMaterno, user.names, pagos.periodo, pagos.concepto_id;";
+        $util->DB()->setQuery($sql);
+        $data = $util->DB()->GetResult();
         include_once('reportes/becas.php');
         break;
 }

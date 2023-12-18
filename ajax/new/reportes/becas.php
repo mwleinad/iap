@@ -5,7 +5,6 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
- 
 $spreadsheet = new Spreadsheet();
 $spreadsheet->getActiveSheet()->getDefaultColumnDimension()->setWidth(30);
 // Set document properties
@@ -21,11 +20,10 @@ $sheet = $spreadsheet->getActiveSheet();
 $sheet->setCellValue('A1', 'Posgrado');
 $sheet->setCellValue('B1', 'Currícula');
 $sheet->setCellValue('C1', 'Grupo');
-$sheet->setCellValue('D1', 'Periodo');
-$sheet->setCellValue('E1', 'Concepto');
-$sheet->setCellValue('F1', 'Beca');
-$sheet->setCellValue('G1', 'Cantidad');
-
+$sheet->setCellValue('D1', 'Alumno');
+$sheet->setCellValue('E1', 'Periodo');
+$sheet->setCellValue('F1', 'Concepto');
+$sheet->setCellValue('G1', 'Beca'); 
 $sheet->getStyle('A')->getAlignment()->setHorizontal('center')->setVertical('center');
 $sheet->getStyle('A')->getFont()->setSize(14)->setBold(true);
 $sheet->getStyle('B')->getAlignment()->setHorizontal('center')->setVertical('center');
@@ -40,35 +38,18 @@ $sheet->getStyle('F')->getAlignment()->setHorizontal('center')->setVertical('cen
 $sheet->getStyle('F')->getFont()->setSize(14)->setBold(true);
 $sheet->getStyle('G')->getAlignment()->setHorizontal('center')->setVertical('center');
 $sheet->getStyle('G')->getFont()->setSize(14)->setBold(true); 
-
 $row = 2;
-$rowInicial = 2;
-$rowCollapse = 0;
-foreach ($data as $key => $cursos) { //cursos
-    foreach ($cursos as $periodos => $periodo) { //Periodos
-        foreach ($periodo as $conceptos => $concepto) {
-            foreach ($concepto as $becas => $beca) { 
-                $sheet->setCellValue('D' .$row, $periodos);
-                $sheet->setCellValue('E' .$row, $conceptos);
-                $sheet->setCellValue('F' .$row, $becas);
-                $sheet->setCellValue('G' .$row, $beca);
-                $row++;
-            } 
-        } 
-    }
-    $sheet->setCellValue('A' .$rowInicial, $curricula[$key]['posgrado']);
-    $sheet->setCellValue('B' .$rowInicial, $curricula[$key]['curricula']);
-    $sheet->setCellValue('C' .$rowInicial, $curricula[$key]['group']);
-    $sheet->mergeCells('A'.$rowInicial.':A'.($row-1)); 
-    $sheet->mergeCells('B'.$rowInicial.':B'.($row-1)); 
-    $sheet->mergeCells('C'.$rowInicial.':C'.($row-1)); 
-    $sheet->getStyle('A')->getAlignment()->setHorizontal('center')->setVertical('center');
-    $sheet->getStyle('B')->getAlignment()->setHorizontal('center')->setVertical('center');
-    $sheet->getStyle('C')->getAlignment()->setHorizontal('center')->setVertical('center');
-    $rowInicial = $row;
-} 
+foreach ($data as $item) {
+    $sheet->setCellValue("A{$row}", $item['posgrado']);
+    $sheet->setCellValue("B{$row}", $item['name']);
+    $sheet->setCellValue("C{$row}", $item['group']);
+    $sheet->setCellValue("D{$row}", $item['alumno']);
+    $sheet->setCellValue("E{$row}", $item['periodo']);
+    $sheet->setCellValue("F{$row}", $item['concepto']); 
+    $sheet->setCellValue("G{$row}", $item['beca']); 
+    $row++;
+}
 
-// $sheet->getStyle("A2:I" . (count($students) + 1))->getAlignment()->setHorizontal('center')->setVertical('center')->setWrapText(true);
 
 $fileName = bin2hex(random_bytes(4));
 // Redirect output to a client’s web browser (Xls)
