@@ -4,11 +4,21 @@
 	<input type="hidden" id="activityId" name="activityId" value="{$activityId}" />
 	<table width="100%" class="tblGral table table-bordered table-striped table-condensed flip-content">
 		<thead>
+		<tr>
 			<tr class="text-center">
 				<th class="font-weight-bold">Titulo</th>
-				<th class="font-weight-bold">Tiempo Limite <span class="text-danger">*</span></th>
-				<th class="font-weight-bold">Numero de Preguntas <span class="text-danger">*</span></th>
+				<th class="font-weight-bold">Tiempo Limite(minutos) <span class="text-danger">*</span></th>
+				<th class="font-weight-bold">Numero de Preguntas para el examen <span class="text-danger">*</span></th>
+				<th class="font-weight-bold">Numero Total de Preguntas<span class="text-danger">*</span></th>
 			</tr>
+			{* <tr>
+				<td colspan="4" style="padding: 0;">
+					<div class="alert alert-info my-0">
+						Nota: si el total de preguntas es mayor al número de preguntas, el sistema tomará aleatoriamente las preguntas de éstas.
+						En caso contrario, dejar los dos campos con las misma cantidad. 
+					</div>
+				</td>
+			</tr> *}
 		</thead>
 		<tbody>
 			<tr>
@@ -17,15 +27,10 @@
 					<input type="text" name="timeLimit" id="timeLimit" value="{$activity.timeLimit}" class="form-control" />
 				</td>
 				<td>
-					<select name="noQuestions" id="noQuestions" class="form-control">
-						<option value="4" {if $activity.noQuestions == 4} selected {/if}>4</option>
-						<option value="5" {if $activity.noQuestions == 5} selected {/if}>5</option>
-						<option value="10" {if $activity.noQuestions == 10} selected {/if}>10</option>
-						<option value="20" {if $activity.noQuestions == 20} selected {/if}>20</option>
-						<option value="25" {if $activity.noQuestions == 25} selected {/if}>25</option>
-						<option value="50" {if $activity.noQuestions == 50} selected {/if}>50</option>
-						<option value="100" {if $activity.noQuestions == 100} selected {/if}>100</option>
-					</select>
+					<input type="number" name="noQuestions" id="noQuestions" class="form-control" value="10">
+				</td>
+				<td>
+					<input type="number" name="noQuestionTotals" id="noQuestionTotals" class="form-control" value="10">
 				</td>
 			</tr>
 		</tbody>
@@ -49,7 +54,7 @@
 		</thead
 		<tbody>
 			<tr class="text-center">
-				<td><span class="badge badge-dark">{$activity.noQuestions * 2}</span></td>
+				<td><span class="badge badge-dark">{$activity.noQuestionTotals}</span></td>
 				<td><span class="badge badge-dark">{$activity.noQuestions}</span></td>
 				<td><span class="badge badge-dark">{$ponderationPerQuestion}%</span></td>
 			</tr>

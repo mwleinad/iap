@@ -104,7 +104,7 @@
 							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=acta-examen-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Acta de Examen">
 								<i class="fas fa-file-contract"></i> Acta de Examen
 							</a>
-							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=constancias&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Constancias">
+							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=constancias&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Constancias" data-width="1100px">
 								<i class="fas fa-certificate"></i> Constancias
 							</a>
 							<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=constancia-sencilla-course&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Constancia Sencilla">

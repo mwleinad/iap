@@ -267,7 +267,8 @@ $pages = array(
 	'procesar-pago',
 	'mi-credencial-digital',
 	'credenciales',
-	'registro'
+	'registro', 
+	'reporte-becas'
 );
 
 $mensaje = "<h1>Recordatorio Importante: Fecha de pago para tu posgrado.</h1><p>Es un placer tenerte como parte de nuestra comunidad educativa. Queremos recordarte la importancia de mantener tus pagos al día para garantizar un acceso ininterrumpido a nuestra plataforma educativa.</p><p>Por ello te recordamos los pagos correspondientes al posgrado en el que te encuentras inscrito deben realizarse en los <strong>primeros 10 días de cada mes</strong>, siguiendo el calendario de pagos establecido por nuestro Instituto.</p><p>Estar al corriente con tus pagos es esencial para aprovechar al máximo tus estudios. Si tienes alguna pregunta o necesitas asistencia adicional relacionada con tus pagos, no dudes en ponerte en contacto con nuestro Departamento de Contabilidad y Finanzas. Puedes contactarnos al teléfono 961 125 15 08 Extensión 116, de lunes a viernes, en horario de 08:00 a 16:00 horas. Estamos aquí para ayudarte en todo momento.</p><p>Agradecemos tu compromiso con tu educación y tu dedicación. Tu éxito es nuestro objetivo y estamos aquí para apoyarte en cada paso del camino.</p><p>IAP Chiapas</p>"; 

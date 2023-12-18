@@ -10,23 +10,24 @@
             <input type="text" name="period" id="period" class="form-control text-uppercase" />
         </div>
         <div class="form-group col-md-6">
-            <label for="folio">Folio</label>
-            <input type="text" name="folio" id="folio" class="form-control text-uppercase" value="AIP/DA/040/{date('Y')}"/>
-        </div>
-        <div class="form-group col-md-6">
             <label for="rvoe">RVOE</label>
             <input type="text" name="rvoe" value="{($info.modality == "online") ? $info.rvoeLinea : $info.rvoe}" id="rvoe" class="form-control text-uppercase" />
         </div>
         <h3 class="col-md-12">Selecciona al alumno</h3>  
         {foreach from=$students item=item}
-            <div class="input-group mb-3 col-md-4 align-items-center form-group">
+            <div class="input-group mb-3 col-md-8 align-items-center form-group">
                 <div class="input-group-prepend">
                     <div class="input-group-text">
                     <input type="checkbox" id="student{$item.userId}" name="student[]" value="{$item.userId}" class="checkbox">
                     </div>
                 </div>
                 <label class="form-control" for="student{$item.userId}">{$item.lastNamePaterno|upper} {$item.lastNameMaterno|upper} {$item.names|upper}</label>
-            </div>  
+            </div> 
+            <div class="form-group col-md-3">
+                <label for="folio">Folio</label>
+                <input type="text" name="folio[{$item.userId}]" id="folio{$item.userId}" class="form-control text-uppercase folios" value="{$item.folio}"/>
+                <span class="invalid-feedback"></span>
+            </div>
         {/foreach} 
     </div> 
     <div class="row">

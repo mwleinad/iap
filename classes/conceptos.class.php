@@ -188,9 +188,9 @@ class Conceptos extends Module
         return $result;
     }
 
-    public function listar()
+    public function listar($condicion = "AND 1")
     {
-        $this->Util()->DB()->setQuery("SELECT concepto_id, nombre, descuento, clave_sat, unidad_sat, total, subtotal, iva, periodicidad, cobros, tolerancia FROM conceptos WHERE conceptos.deleted_at IS NULL");
+        $this->Util()->DB()->setQuery("SELECT concepto_id, nombre, descuento, clave_sat, unidad_sat, total, subtotal, iva, periodicidad, cobros, tolerancia FROM conceptos WHERE conceptos.deleted_at IS NULL {$condicion}");
         return $this->Util()->DB()->GetResult();
     }
 

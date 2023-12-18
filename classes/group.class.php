@@ -1592,9 +1592,9 @@ class Group extends Module
 		];
 	}
 
-	public function posgrados()
+	public function posgrados($condicion = "1")
 	{
-		$sql = "SELECT subject.subjectId, major.name as nivelPosgrado, subject.name as posgrado FROM `course` INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo GROUP BY major.majorId, subject.subjectId ORDER BY major.name ASC;";
+		$sql = "SELECT subject.subjectId, major.name as nivelPosgrado, subject.name as posgrado FROM `course` INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo WHERE {$condicion} GROUP BY major.majorId, subject.subjectId ORDER BY major.name ASC;";
 		$this->Util()->DB()->setQuery($sql);
 		$resultado = $this->Util()->DB()->GetResult();
 		return $resultado;

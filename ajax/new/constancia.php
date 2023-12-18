@@ -24,9 +24,7 @@ if ($infoCourse['modality'] == 'Online') {
 }
 if ($infoCourse['modality'] == 'Local' || $infoCourse['modality'] == "Mixta") {
     $modality = $infoCourse['modality'] == "Local" ? 'ESCOLAR' : "MIXTA";
-}
-$rvoe = $_POST['rvoe'];
-$folio = $_POST['folio'];
+} 
 
 $infoCourse['tipoCuatri'] = $infoCourse['tipoCuatri'] == '' ? "Cuatrimestre" : $infoCourse['tipoCuatri'];
 
@@ -41,8 +39,7 @@ $position = [
 
 $students = $_POST['student'];
 $institution->setInstitutionId(1);
-$myInstitution = $institution->Info();
-$datePeriod = $_POST['period'];
+$myInstitution = $institution->Info();  
 
 $html = '<html>
             <head>
@@ -86,6 +83,31 @@ $html = '<html>
             <body style="boder:1px solid;">';
 
 foreach ($students as $itemStudent) {
+    $folio = $_POST['folio'][$itemStudent];
+    $where = "alumno_id = {$itemStudent} AND course_id = {$_POST['course']}";
+    $constanciaAlumno = $constancias->getConstancia($where);
+    $fechaExpedicion = $_POST['date'];
+    $periodo = $_POST['period'];
+    $rvoe = $_POST['rvoe']; 
+    if(!$constanciaAlumno){ //No se ha guardado, hay que crearlo
+        $constancias->setFechaExpedicion($fechaExpedicion);
+        $constancias->setPeriodo($periodo);
+        $constancias->setRvoe($rvoe);
+        $constancias->setCurso($_POST['course']);
+        $constancias->setAlumno($itemStudent);
+        $constancias->setFolio($_POST['folio'][$itemStudent]);
+        $constancias->crearConstancia();
+    }else{//Actualizar registro
+        $fechaExpedicion = empty($fechaExpedicion) ? $constanciaAlumno['fecha_expedicion'] : $fechaExpedicion;
+        $periodo = empty($periodo) ? $constanciaAlumno['periodo'] : $periodo;
+        $rvoe = empty($rvoe) ? $constanciaAlumno['rvoe'] : $rvoe; 
+        $constancias->setFechaExpedicion($fechaExpedicion);
+        $constancias->setPeriodo($periodo);
+        $constancias->setRvoe($rvoe);
+        $constancias->setCurso($_POST['course']);
+        $constancias->setAlumno($itemStudent);
+        $constancias->setFolio($_POST['folio'][$itemStudent]);
+    }
     $total_modules = 0;
     $student->setUserId($itemStudent);
     $infoStudent = $student->GetInfo();
@@ -147,9 +169,8 @@ foreach ($students as $itemStudent) {
             }
             $total_modules++;
         }
-    }
-
-    $array_date = explode('-', $_POST['date']);
+    } 
+    $array_date = explode('-', $fechaExpedicion);
     $tbody = '';
     $sumCal = 0;
     $materias = 0;
@@ -227,7 +248,7 @@ foreach ($students as $itemStudent) {
                             <p style="font-size: 12px; text-align: center; line-height:1.5">
                                 ACUERDO NÚMERO: <b>' . $rvoe . '</b>, VIGENTE A PARTIR DEL ' . mb_strtoupper($util->FormatReadableDate($fechaRvoe)) . ', DURANTE EL PERIODO:<br> 
                             </p>
-                            <p class="text-center" style="font-size:12px;"><b>' . mb_strtoupper($datePeriod) . '</b></p>
+                            <p class="text-center" style="font-size:12px;"><b>' . mb_strtoupper($periodo) . '</b></p>
                             <p style="font-size: 12px; text-align: center; margin-bottom:20px; line-height:1">CON LOS RESULTADOS QUE A CONTINUACIÓN SE ANOTAN:</p> 
                         </div>
                     </td>

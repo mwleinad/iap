@@ -92,6 +92,7 @@ include_once(DOC_ROOT . "/classes/credentials.class.php");
 include_once(DOC_ROOT . '/classes/pagination.class.php');
 include_once(DOC_ROOT . '/classes/ssp.class.php');
 include_once(DOC_ROOT . '/classes/google.class.php');
+include_once(DOC_ROOT . '/classes/constancias.class.php');
 $docente = new Docente();
 
 $db = new DB;
@@ -153,6 +154,7 @@ $conceptos = new Conceptos;
 $payments = new Payments;
 $credentials = new Credentials;
 $pagination = new Pagination;
+$constancias = new Constancias;
 
 $smarty = new Smarty;
 

@@ -81,7 +81,7 @@
                 {/if}
             {/if}
         {/if}
-        {if in_array($User.positionId,[1,3])}
+        {if in_array($User.positionId,[1, 3, 24])}
             <li class="nav-item {if $page == "configurar-calendario" or $page == "cobranza-calendario"}active{/if}">
                 <a class="nav-link" data-toggle="collapse" href="#m-cobranza"
                     aria-expanded="{if $page == "configurar-calendario" or $page == "cobranza-calendario"}true{else}false{/if}"
@@ -215,9 +215,6 @@
                     <div class="collapse" id="m-reportes">
                         <ul class="nav flex-column sub-menu">
                             {if !$docente}
-                                {*<li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/vehiculos">Vehículos</a>
-                                    </li>*}
                                 {if in_array($User.positionId,[1,3,24])}
                                     <li class="nav-item">
                                         <a class="nav-link" href="{$WEB_ROOT}/report-materia">Materias</a>
@@ -225,11 +222,14 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="{$WEB_ROOT}/reporte-indicadores">Indicadores</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{$WEB_ROOT}/reporte-becas">Becas</a>
+                                    </li>
                                 {/if}
                                 {if in_array($User.positionId,[1,24])}
                                     <li class="nav-item">
                                         <a class="nav-link" href="{$WEB_ROOT}/reporte-pagos">Pagos</a>
-                                    </li>
+                                    </li> 
                                 {/if}
                                 {if in_array($User.positionId,[1,10])}
                                     <li class="nav-item">

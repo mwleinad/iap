@@ -59,6 +59,12 @@ class Activity extends Module
 		$this->noQuestions = $value;
 	}
 
+	private $noQuestionTotals;
+	public function setNoQuestionTotals($value)
+	{
+		$this->noQuestionTotals = $value;
+	}
+
 	public function getNoQuestions()
 	{
 		return $this->noQuestions;
@@ -700,8 +706,10 @@ class Activity extends Module
 						activity
 						SET
 							timeLimit = '" . $this->timeLimit . "',
-							noQuestions = '" . $this->noQuestions . "'
+							noQuestions = '" . $this->noQuestions . "',
+							noQuestionTotals = '" . $this->noQuestionTotals . "'
 						WHERE activityId = '" . $this->activityId . "'";
+		// echo $sql;
 		//configuramos la consulta con la cadena de insercion
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->UpdateData();
@@ -715,7 +723,7 @@ class Activity extends Module
 		$questions = $this->Util()->DB()->GetSingle();
 
 		//crear 2 preguntas para dar margen a examenes random
-		$extraQuestions = $this->noQuestions * 2;
+		$extraQuestions = $this->noQuestionTotals;
 
 		$missing = $extraQuestions - $questions;
 		if ($missing > 0) {

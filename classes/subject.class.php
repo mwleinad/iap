@@ -1522,4 +1522,11 @@ class Subject extends Main
 		$resultado = $this->Util()->DB()->GetResult();
 		return $resultado;
 	}
+
+	function grupos() {
+		$sql = "SELECT * FROM course WHERE  subjectId = {$this->subjectId} ORDER BY course.initialDate DESC";
+		$this->Util()->DB()->setQuery($sql);
+		$grupos = $this->Util()->DB()->GetResult();
+		return $grupos;
+	}
 }

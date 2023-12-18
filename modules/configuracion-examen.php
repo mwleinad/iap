@@ -4,10 +4,11 @@
 	$user->allow_access(37);	
 
 	if($_POST)
-	{
+	{ 
 		$activity->setActivityId($_GET["id"]);
 		$activity->setTimeLimit($_POST["timeLimit"]);
 		$activity->setNoQuestions($_POST["noQuestions"]);
+		$activity->setNoQuestionTotals($_POST["noQuestionTotals"]);
 		$activity->EditExamen();
 	}
 
