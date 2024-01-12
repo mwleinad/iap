@@ -98,6 +98,7 @@
 		<link rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 	{/if}
+	<meta name="google-site-verification" content="f6Gp4p1F2x8QqSyRTrGHSaW_6fzWtg2St5trtIZ4wcI" />
 </head>
 
 <body>
