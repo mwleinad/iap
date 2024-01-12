@@ -106,7 +106,7 @@
                                                             {if $itemp.periodo == $period}
                                                                 {$contador[$itemp.concepto_id] = $contador[$itemp.concepto_id] + 1}
                                                                 <tr
-                                                                    {($itemp.fecha_limite < date('Y-m-d') && $itemp.status != 2) ? 'class="alert alert-danger" ' : ""}>
+                                                                    {($itemp.fecha_limite < date('Y-m-d') && !in_array($itemp.status, [2,4])) ? 'class="alert alert-danger" ' : ""}>
                                                                     <td>
                                                                         {if count($itemp.cobros) > 0}
                                                                             <button type="button" data-cobros="#cobros{$itemp.pago_id}"
@@ -119,14 +119,14 @@
                                                                     <td>${$itemp.subtotal|number_format:2:".":","}</td>
                                                                     <td>${$itemp.subtotal * ($itemp.beca / 100)|number_format:2:".":","}</td>
                                                                     <td>${$itemp.total|number_format:2:".":","}</td>
-                                                                    <td>${$itemp.total - $itemp.monto|number_format:2:".":","}</td>
+                                                                    <td>${($itemp.status == 4) ? '0.00' : ($itemp.total - $itemp.monto)|number_format:2:".":","}</td>
                                                                     <td>{$itemp.fecha_cobro}</td>
                                                                     <td>{$itemp.fecha_limite}</td>
                                                                     <td>{$itemp.beca}%</td>
                                                                     <td>{$itemp.status_btn}</td>
                                                                     {if $alumno.referenciaBancaria != ""}
                                                                         <td>
-                                                                            {if $itemp.status != 2}
+                                                                            {if !in_array($itemp.status,[2,4])}
                                                                                 <div class="btn-group" role="group">
                                                                                     <button type="button" class="btn btn-primary dropdown-toggle"
                                                                                         data-toggle="dropdown" aria-expanded="false">

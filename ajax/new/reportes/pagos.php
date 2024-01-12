@@ -108,7 +108,7 @@ for ($periodo = 1; $periodo <= $curso['totalPeriods']; $periodo++) {
     $fila++;
     //Adeudos
     foreach ($pagos['periodicos'] as $key => $pago) {
-        if ($pago['status'] == 2 || $pago['periodo'] != $periodo) {
+        if ($pago['status'] == 2 || $pago['status'] == 4 || $pago['periodo'] != $periodo) {
             break;
         } 
         $abonos = 0;
@@ -155,6 +155,13 @@ for ($periodo = 1; $periodo <= $curso['totalPeriods']; $periodo++) {
             $fila++;
             $flag = false;
         } 
+        if ($pago['status'] == 4) {
+            $abonos = 0; 
+            foreach ($pago['cobros'] as $item) {
+                $abonos += $item['monto'];
+            }  
+            $pago['total'] = $pago['total'] - $abonos;
+        }
         $pagot += $pago['total'];
         $fechaLimite = new DateTime($pago['fecha_limite']);
         $fechaActual = new DateTime();
@@ -170,8 +177,12 @@ for ($periodo = 1; $periodo <= $curso['totalPeriods']; $periodo++) {
         $sheet->setCellValue("G{$fila}", $descuento)->mergeCells("G{$fila}:H{$fila}")->getStyle("G{$fila}")->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
         $sheet->setCellValue("I{$fila}", ($pago['beca'] / 100))->mergeCells("I{$fila}:J{$fila}")->getStyle("I{$fila}")->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_PERCENTAGE);
         $sheet->setCellValue("K{$fila}", "");
-        $sheet->setCellValue("M{$fila}", "")->mergeCells("M{$fila}:N{$fila}");
+        $sheet->setCellValue("M{$fila}", "")->mergeCells("M{$fila}:N{$fila}"); 
+       
         $sheet->setCellValue("O{$fila}", $pago['total'])->getStyle("O{$fila}")->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+        if ($pago['status'] == 4) {
+            $sheet->setCellValue("P{$fila}", "CONDONADO");
+        }
         $fila++;
         unset($pagos['periodicos'][$key]);
     }

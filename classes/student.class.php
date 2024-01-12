@@ -3361,7 +3361,7 @@ class Student extends User
 	/**Busca si el alumno cuenta con un pago pendiente y es de tipo periodico */
 	public function pago_pendiente()
 	{
-		$sql = "SELECT pagos.* FROM pagos INNER JOIN user_subject ON user_subject.alumnoId = pagos.alumno_id AND user_subject.courseId = pagos.course_id WHERE pagos.fecha_cobro <= NOW() AND pagos.status <> 2 AND pagos.alumno_id = {$this->userId} AND periodo <> 0 AND user_subject.status = 'activo' AND pagos.deleted_at IS NULL;";
+		$sql = "SELECT pagos.* FROM pagos INNER JOIN user_subject ON user_subject.alumnoId = pagos.alumno_id AND user_subject.courseId = pagos.course_id WHERE pagos.fecha_cobro <= NOW() AND pagos.status <> 2 AND pagos.status <> 4 AND pagos.alumno_id = {$this->userId} AND periodo <> 0 AND user_subject.status = 'activo' AND pagos.deleted_at IS NULL;";
 		$this->Util()->DB()->setQuery($sql);
 		$resultado = $this->Util()->DB()->GetResult();
 		$pagoPendiente = false;

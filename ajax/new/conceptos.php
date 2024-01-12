@@ -759,4 +759,32 @@ switch ($opcion) {
             'message'   => 'Cobro generado'
         ]);
         break;
+    case 'condonar-pago':
+        $pago = intval($_POST['pago']); 
+        $status = 4;
+        $conceptos->setPagoId($pago);
+        $conceptos->condonar();
+
+        $infoPago = $conceptos->pago();
+        $curso = $infoPago['course_id'];
+        $alumno = $infoPago['alumno_id'];
+        $course->setCourseId($curso);
+        $info = $course->Info();
+        $student->setUserId($alumno);
+        $infoAlumno = $student->GetInfo();
+         
+        $conceptos->setCourseId($curso);
+        $conceptos->setAlumno($alumno);
+        $pagos = $conceptos->historial_pagos();
+        $smarty->assign("info", $info);
+        $smarty->assign("alumno", $infoAlumno);
+        $smarty->assign("pagos", $pagos);
+
+        echo json_encode([
+            'modal'     => true,
+            'html'      => $smarty->fetch(DOC_ROOT . "/templates/new/history-calendar.tpl"),
+            'growl'     => true,
+            'message'   => 'Pago condonado'
+        ]);
+        break;
 }

@@ -75,7 +75,7 @@
                                                 {$pendienteconcentrado = $pendienteconcentrado + $pendiente}
                                                 {$contador[$item.concepto_id] = $contador[$item.concepto_id] + 1}
                                                 <tr
-                                                    {($item.fecha_limite < date('Y-m-d') && $item.status != 2) ? 'class="alert alert-danger" ' : ""}>
+                                                    {($item.fecha_limite < date('Y-m-d') && !in_array($item.status, [2,4])) ? 'class="alert alert-danger" ' : ""}>
                                                     <td>
                                                         {if count($item.cobros) > 0}
                                                             <button type="button" data-cobros="#cobros{$item.pago_id}"
@@ -95,7 +95,7 @@
                                                     <td>{$item.beca}%</td>
                                                     <td>{$item.status_btn}</td>
                                                     <td>
-                                                        {if $item.status != 2}
+                                                        {if !in_array($item.status,[2,4])}
                                                             <form class="form d-inline" action="{$WEB_ROOT}/ajax/new/conceptos.php"
                                                                 id="form_pago{$item.pago_id}" method="POST">
                                                                 <input type="hidden" name="opcion" value="editar-pago">
@@ -108,6 +108,14 @@
                                                                 <input type="hidden" name="pago" value="{$item.pago_id}">
                                                                 <button type="submit" class="btn btn-info btn-sm">
                                                                     Generar cobro
+                                                                </button>
+                                                            </form>
+                                                            <form class="form d-inline" action="{$WEB_ROOT}/ajax/new/conceptos.php"
+                                                                id="form_condonar{$item.pago_id}" method="post" data-alert="true" data-mensaje="El monto pendiente será tomado como pagado.">
+                                                                <input type="hidden" name="opcion" value="condonar-pago">
+                                                                <input type="hidden" name="pago" value="{$item.pago_id}">
+                                                                <button type="submit" class="btn btn-sm" style="background-color: #4056a5; color: #fff;">
+                                                                    Condonar pago
                                                                 </button>
                                                             </form>
                                                         {/if}

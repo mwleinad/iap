@@ -25,7 +25,7 @@
 
 <link type="text/css" href="{$WEB_ROOT}/cometchat/cometchatcss.php" rel="stylesheet" charset="utf-8">
 <script type="text/javascript" src="{$WEB_ROOT}/cometchat/cometchatjs.php" charset="utf-8"></script>
-
+<meta name="google-site-verification" content="f6Gp4p1F2x8QqSyRTrGHSaW_6fzWtg2St5trtIZ4wcI" />
 </head>
 <body>
 {if $page == 'new-payment' || 

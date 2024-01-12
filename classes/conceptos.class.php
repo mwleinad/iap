@@ -379,7 +379,7 @@ class Conceptos extends Module
     public function historial_pagos($orderBy = "fecha_cobro")
     {
         
-        $sql = "SELECT pagos.pago_id, pagos.course_id, pagos.alumno_id, pagos.concepto_id, pagos.fecha_cobro, if(pagos.status = 3, DATE_ADD(pagos.fecha_limite, INTERVAL pagos.tolerancia DAY), pagos.fecha_limite) as fecha_limite, pagos.total, pagos.iva, pagos.subtotal, CASE WHEN pagos.status = 1 THEN '<span class=\"badge badge-warning\">Pendiente</span>' WHEN pagos.status = 3 THEN '<span class=\"badge badge-info\">Prórroga</span>' ELSE '<span class=\"badge badge-primary\">Pagado</span>' END AS status_btn, pagos.status, pagos.descuento, pagos.beca, pagos.archivo, pagos.tolerancia, pagos.periodo, conceptos.nombre AS concepto_nombre, pagos.indice, recibos.id as recibo
+        $sql = "SELECT pagos.pago_id, pagos.course_id, pagos.alumno_id, pagos.concepto_id, pagos.fecha_cobro, if(pagos.status = 3, DATE_ADD(pagos.fecha_limite, INTERVAL pagos.tolerancia DAY), pagos.fecha_limite) as fecha_limite, pagos.total, pagos.iva, pagos.subtotal, CASE WHEN pagos.status = 1 THEN '<span class=\"badge badge-warning\">Pendiente</span>' WHEN pagos.status = 3 THEN '<span class=\"badge badge-info\">Prórroga</span>' WHEN pagos.status = 4 THEN '<span class=\"badge badge-outline-danger\">Condonado</span>' ELSE '<span class=\"badge badge-primary\">Pagado</span>' END AS status_btn, pagos.status, pagos.descuento, pagos.beca, pagos.archivo, pagos.tolerancia, pagos.periodo, conceptos.nombre AS concepto_nombre, pagos.indice, recibos.id as recibo
         FROM pagos 
         INNER JOIN conceptos ON conceptos.concepto_id = pagos.concepto_id 
         LEFT JOIN recibos ON recibos.pago_id = pagos.pago_id
@@ -572,5 +572,14 @@ class Conceptos extends Module
         $this->Util()->DB()->setQuery($sql);
         $result = $this->Util()->DB()->UpdateData();
         return $result;
+    }
+
+    /**
+     * Pasa un pago al estatus 4(pago condonado)
+     */
+    function condonar() {
+        $sql = "UPDATE pagos SET status = 4 WHERE pago_id = {$this->pagoId}";
+        $this->Util()->DB()->setQuery($sql); 
+        $this->Util()->DB()->UpdateData();
     }
 }
