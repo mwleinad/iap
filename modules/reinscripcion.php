@@ -97,6 +97,5 @@
 	$smarty->assign("subjectId", $_GET['s']);
 	$smarty->assign("courseId", $_GET['c']);
 	$smarty->assign("sId", $_GET['sId']);
-	
-	
+	$smarty->assign("opcion", "reinscripcion");
 ?>

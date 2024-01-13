@@ -84,3 +84,4 @@ $smarty->assign("alumnoSer", "si");
 $smarty->assign("msjConfirma", $msjConfirma);
 $smarty->assign("info", $info);
 $smarty->assign("diplomado", $diplomados);
+$smarty->assign("opcion", "actualizacion");

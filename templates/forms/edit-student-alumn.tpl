@@ -1,6 +1,6 @@
 <form class="form" id="editStudentForm" name="editStudentForm" method="post" action="{$WEB_ROOT}/ajax/new/student.php">
     <input type="hidden" name="cancelPeriodoId" id="cancelPeriodoId" value="{$info.cancelPeriodoId}" />
-    <input type="hidden" id="opcion" name="opcion" value="actualizacion" />
+    <input type="hidden" id="opcion" name="opcion" value="{$opcion}" />
     <input type="hidden" id="id" name="id" value="{$info.userId}" />
     <input type="hidden" id="tam" name="tam" value="1" />
     <input type="hidden" id="semestreId" name="semestreId" value="{$sId}" />

@@ -155,6 +155,7 @@ switch ($_POST['opcion']) {
 		}
 		break;
 
+	case 'reinscripcion':
 	case 'actualizacion':
 		$permiso = $_POST['permiso'];
 		$alumno = $_POST['id'];
@@ -305,8 +306,8 @@ switch ($_POST['opcion']) {
 					move_uploaded_file($temporal, $ruta . $documento);
 
 					$google->setArchivoNombre($documento);
-					$google->setArchivo($ruta . $documento); 
-					if ($curpArchivo != "NULL") { 
+					$google->setArchivo($ruta . $documento);
+					if ($curpArchivo != "NULL") {
 						$google->setArchivoID($curpArchivo->googleId);
 						$google->eliminarArchivo();
 						$respuesta = $google->subirArchivo();
@@ -318,7 +319,7 @@ switch ($_POST['opcion']) {
 							"urlEmbed": "https://drive.google.com/uc?id=' . $respuesta['id'] . '",
 							"mimeTypeOriginal":"' . $archivo['type'] . '"
 						}\'';
-					}else{
+					} else {
 						$respuesta = $google->subirArchivo();
 						$curpArchivo = '\'{
 							"filename": "' . $respuesta['name'] . '",
@@ -328,12 +329,12 @@ switch ($_POST['opcion']) {
 							"urlEmbed": "https://drive.google.com/uc?id=' . $respuesta['id'] . '",
 							"mimeTypeOriginal":"' . $archivo['type'] . '"
 						}\'';
-					} 
+					}
 					unlink($ruta . $documento);
 				}
-			}elseif ($curpArchivo != "NULL") {
-				$curpArchivo = "'".json_encode($curpArchivo)."'";
-			} 
+			} elseif ($curpArchivo != "NULL") {
+				$curpArchivo = "'" . json_encode($curpArchivo) . "'";
+			}
 			if ($_FILES['foto']['error'] == UPLOAD_ERR_OK) {
 				$response = $util->Util()->validarSubidaPorArchivo([
 					"foto" => [
@@ -355,8 +356,8 @@ switch ($_POST['opcion']) {
 					move_uploaded_file($temporal, $ruta . $documento);
 
 					$google->setArchivoNombre($documento);
-					$google->setArchivo($ruta . $documento); 
-					if ($foto != "NULL") { 
+					$google->setArchivo($ruta . $documento);
+					if ($foto != "NULL") {
 						$google->setArchivoID($foto->googleId);
 						$google->eliminarArchivo();
 						$respuesta = $google->subirArchivo();
@@ -368,7 +369,7 @@ switch ($_POST['opcion']) {
 							"urlEmbed": "https://drive.google.com/uc?id=' . $respuesta['id'] . '",
 							"mimeTypeOriginal":"' . $archivo['type'] . '"
 						}\'';
-					}else{
+					} else {
 						$respuesta = $google->subirArchivo();
 						$foto = '\'{
 							"filename": "' . $respuesta['name'] . '",
@@ -378,17 +379,17 @@ switch ($_POST['opcion']) {
 							"urlEmbed": "https://drive.google.com/uc?id=' . $respuesta['id'] . '",
 							"mimeTypeOriginal":"' . $archivo['type'] . '"
 						}\'';
-					} 
+					}
 					unlink($ruta . $documento);
 				}
-			}elseif ($foto != "NULL") {
-				$foto = "'".json_encode($foto)."'";
-			} 
+			} elseif ($foto != "NULL") {
+				$foto = "'" . json_encode($foto) . "'";
+			}
 			if (empty($curp)) {
 				$errors['curp'] = "Por favor, no se olvide de poner la curp.";
 			}
 		}
-		
+
 		if (!empty($errors)) {
 			header('HTTP/1.1 422 Unprocessable Entity');
 			header('Content-Type: application/json; charset=UTF-8');
@@ -396,7 +397,7 @@ switch ($_POST['opcion']) {
 				'errors'    => $errors
 			]);
 			exit;
-		} 
+		}
 		$student->setNames($nombre);
 		$student->setLastNamePaterno($apellidoPaterno);
 		$student->setLastNameMaterno($apellidoMaterno);
@@ -436,19 +437,34 @@ switch ($_POST['opcion']) {
 		$student->setCurpDrive($curpArchivo);
 		$student->setFoto($foto);
 		$student->setFuncion($funcion);
-		if(!$student->UpdateAlumn()){
+		if (!$student->UpdateAlumn()) {
 			echo json_encode([
 				'growl'    	=> true,
 				'message'	=> 'Ocurrió un error, intente de nuevo',
 				'type'		=> 'error'
 			]);
 		} else {
-			echo json_encode([
-				'growl'    	=> true,
-				'message'	=> 'Se ha actualizado los datos',
-				'type'		=> 'success',
-				'reload'	=> true,
-			]);
+			if ($_POST['opcion'] == "reinscripcion") {
+				if ($_POST['semestreId']) {
+					$_POST['semestreId'] = $_POST['semestreId'];
+				} else {
+					$_POST['semestreId'] = 0;
+				}
+				$student->ProcesoReinscripcion($_POST['courseMxId'], $_POST['subjecxtId'], $_POST['coursexId'], $_POST['semestreId']);
+				echo json_encode([
+					'growl'		=> true,
+					'message'	=> 'Actualización exitosa. Es necesario que descargue e imprima el formato de reinscripción que se encuentra en su menú principal y llevarlo al área de control escolar para recabar las firmas correspondientes',
+					'type'		=> 'success',
+					'location'	=> WEB_ROOT."/view-modules-student/id/".$_POST['courseMxId'],
+				]);
+			} else {
+				echo json_encode([
+					'growl'    	=> true,
+					'message'	=> 'Se ha actualizado los datos',
+					'type'		=> 'success',
+					'reload'	=> true,
+				]);
+			}
 		}
 		break;
 }

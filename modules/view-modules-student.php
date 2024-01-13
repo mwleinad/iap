@@ -12,7 +12,7 @@
 	$myModule = $module->InfoCourseModule();
     $courseId=$myModule["courseId"];
 	
-	if ($_GET['vp']<>1){
+	if ($_GET['vp']<>1 && $courseId != 162){
 		if($myModule['semesId']>1){
 			$countIns = $module->compruebaInscripcion($myModule['semesId'],$_GET["id"],$myModule['subjectId']);
 			if($countIns <= 0){
