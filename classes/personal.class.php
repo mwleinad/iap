@@ -896,7 +896,8 @@ class Personal extends Main
 					ciudad = '" . $this->ciudad . "',
 					fecha_nacimiento = '" . $this->fechaNacimiento . "',
 					facebook = '" . $this->face . "',
-					twitter = '" . $this->twitter . "'
+					twitter = '" . $this->twitter . "',
+					description = '".$this->description."'
 				WHERE 
 					personalId = " . $this->personalId;
 

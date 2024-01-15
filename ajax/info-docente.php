@@ -37,6 +37,7 @@
 			$personal->setFechaNacimiento($_POST['nacimiento']);
 			$personal->setFace($_POST['facebook']);
 			$personal->setTwitter($_POST['twitter']);
+			$personal->setDescription($_POST['descripcion']);
 			if($personal->updateDocente()){
 				echo 'ok[#]';
 				echo '
