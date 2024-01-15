@@ -294,7 +294,8 @@ class Forum extends Main
 			} else
 				$result[$key]["existeArchivo"] = "no";
 
-			if (file_exists(DOC_ROOT . "/alumnos/" . $res["userId"] . ".jpg")) {
+			$foto = $res["userId"] . ".jpg";
+			if (file_exists(DOC_ROOT . "/alumnos/" . $foto) && $foto != ".jpg") {
 				$result[$key]["foto"] = '<img src="' . WEB_ROOT . '/alumnos/' . $res["userId"] . '.jpg" width="40" height="40" style="height:auto; 
 					width: auto; max-width: 80px; max-height: 80px;" />';
 			} else {
