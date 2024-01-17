@@ -282,7 +282,7 @@ switch ($_POST['opcion']) {
 		//Validaciones solo a alumnos con el diplomado o que cuentan con este.
 		$curpArchivo = is_null($infoAlumno['curpDrive']) ? 'NULL' : $infoAlumno['curpDrive'];
 		$foto = is_null($infoAlumno['foto']) ? 'NULL' : $infoAlumno['foto'];
-		if ($diplomados != 0) {
+		if ($diplomados != 0 && $_POST['opcion'] != "reinscripcion") {
 			$carpetaId = "1dIsKbt6QM4Y7I56Lgfv8NDyjFlreTD0T";
 			$google = new Google($carpetaId);
 			if ($_FILES['curparchivo']['error'] == UPLOAD_ERR_OK) {
