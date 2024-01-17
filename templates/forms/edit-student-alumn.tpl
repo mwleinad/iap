@@ -343,8 +343,7 @@
     {/if}
     <button type="submit" class="btn btn-success">Guardar</button>
 </form>
-
-<img src="https://lh3.google.com/u/0/d/1U7ezU3T8HWj0UC_uXfu3ZzIv3ovri8jp">
+ 
 <script>
     flatpickr('.i-calendar', {
         dateFormat: "Y-m-d"
