@@ -1,6 +1,9 @@
 <?php
-	$course->setCourseId($_GET["id"]);
-	
+	$course->setCourseId($_GET["id"]); 
+	$hasSubject = $student->info_subject($_GET['id']);
+	if (!$hasSubject) {
+		header("Location:".WEB_ROOT);
+	}
 	$date = date("d-m-Y");
 	$infoCourses = $course->Info();
 	$addedModules = $course->StudentCourseModules();
