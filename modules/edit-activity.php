@@ -39,7 +39,7 @@
 
 		$activity->setModality($_POST["modality"]);
 		$activity->setResumen($_POST["resumen"]);
-		$activity->setDescription($_POST["description"]);
+		$activity->setDescription(addslashes($_POST["description"]));
 		$activity->setRequiredActivity($_POST["requiredActivity"]);
 		$activity->setPonderation($_POST["ponderation"]);
 		$activity->setHoraInicial($_POST["horaInicial"]);  
