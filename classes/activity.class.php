@@ -376,6 +376,13 @@ class Activity extends Module
 		$this->Util()->DB()->setQuery($sql);
 		//ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
 		$result = $this->Util()->DB()->DeleteData();
+		if ($this->getActivityType() == "Foro") {
+			$sql = "DELETE FROM topicsub WHERE activityId = ".$this->activityId;
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->DeleteData();
+		}
+
+
 		$this->Util()->setError(90000, 'complete', "Se ha eliminado la actividad");
 		$this->Util()->PrintErrors();
 		return $result;

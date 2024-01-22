@@ -11,6 +11,7 @@ switch($_POST["type"])
     case 'deleteActivity':
         $activity->setActivityId($_POST['activityId']);
         $info = $activity->Info();
+        $activity->setActivityType($info['activityType']);
 
         $activity->Delete();
         echo "ok[#]";
