@@ -7,6 +7,9 @@
     <input type="hidden" id="courseMxId" name="courseMxId" value="{$courseMId}" />
     <input type="hidden" id="subjecxtId" name="subjecxtId" value="{$subjectId}" />
     <input type="hidden" id="coursexId" name="coursexId" value="{$courseId}" />
+    {if $auxAdmin}
+        <input type="hidden" name="auxAdmin" value="true">
+    {/if} 
     <span class="badge badge-dark"><i class="fas fa-user"></i> Información Personal</span>
     <hr />
     <div class="row">

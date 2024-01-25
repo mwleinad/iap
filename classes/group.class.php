@@ -74,7 +74,7 @@ class Group extends Module
 	}
 
 	public function setCourseModuleId($value)
-	{ 
+	{
 		$this->coursemoduleId = $value;
 	}
 
@@ -243,7 +243,7 @@ class Group extends Module
 						}
 					}
 			}
-		} 
+		}
 		return true;
 	}
 
@@ -1139,77 +1139,89 @@ class Group extends Module
 
 	function onSendCarta($Id)
 	{
-		$archivo = 'cedula';
-		foreach ($_FILES as $key => $var) {
-			switch ($key) {
-				case $archivo:
-					if ($var["name"] <> "") {
-						$aux = explode(".", $var["name"]);
-						$extencion = end($aux);
-						$temporal = $var['tmp_name'];
-						$url = DOC_ROOT;
-						$foto_name = "carta_" . $Id . "." . $extencion;
-						if (move_uploaded_file($temporal, $url . "/docentes/carta/" . $foto_name)) {
-							$sql = 'UPDATE course_module SET rutaCarta = "' . $foto_name . '" WHERE courseModuleId = ' . $Id . '';
-							$this->Util()->DB()->setQuery($sql);
-							$this->Util()->DB()->UpdateData();
-						}
-					}
-					break;
+		$response = $this->Util()->validarSubida(['size' => 5242880, 'types' => ['application/pdf', 'application/msword']]);
+		if ($response['estatus']) {
+			$aux = explode(".", $_FILES['descriptiveLetter']["name"]);
+			$extencion = end($aux);
+			$temporal =  $_FILES['descriptiveLetter']['tmp_name'];
+			$nuevoCodigo = bin2hex(random_bytes(4));
+			$url = DOC_ROOT . "/docentes/carta/";
+			$documento = "carta_" . $nuevoCodigo . "." . $extencion;
+			$response['documento'] = $documento;
+			if (move_uploaded_file($temporal, $url . $documento)) {
+				$sql = "SELECT * FROM course_module WHERE courseModuleId = {$Id}";
+				$this->Util()->DB()->setQuery($sql);
+				$actual = $this->Util()->DB()->getRow();
+				if (!empty($actual['rutaCarta']) && file_exists($url . $actual['rutaCarta'])) {
+					unlink($url . $actual['rutaCarta']);
+				}
+				$sql = 'UPDATE course_module SET rutaCarta = "' . $documento . '", updated_letter = NOW() WHERE courseModuleId = ' . $Id;
+				$this->Util()->DB()->setQuery($sql);
+				$this->Util()->DB()->UpdateData();
+			} else {
+				$response['estatus'] = false;
+				$response['mensaje'] = "Hubo un problema al guardar el archivo, intente de nuevo, por favor.";
 			}
-		}
-		unset($_FILES);
-		return true;
+		} 
+		return $response;
 	}
 
 	function onSendInforme($Id)
 	{
-		$archivo = 'cedula';
-		foreach ($_FILES as $key => $var) {
-			switch ($key) {
-				case $archivo:
-					if ($var["name"] <> "") {
-						$aux = explode(".", $var["name"]);
-						$extencion = end($aux);
-						$temporal = $var['tmp_name'];
-						$url = DOC_ROOT;
-						$foto_name = "info_" . $Id . "." . $extencion;
-						if (move_uploaded_file($temporal, $url . "/docentes/informe/" . $foto_name)) {
-							$sql = 'UPDATE course_module SET rutaInforme = "' . $foto_name . '" WHERE courseModuleId = ' . $Id . '';
-							$this->Util()->DB()->setQuery($sql);
-							$this->Util()->DB()->UpdateData();
-						}
-					}
-					break;
+		$response = $this->Util()->validarSubida(['size' => 5242880, 'types' => ['application/pdf', 'application/msword']]);
+		if ($response['estatus']) {
+			$aux = explode(".", $_FILES['report']["name"]);
+			$extencion = end($aux);
+			$temporal =  $_FILES['report']['tmp_name'];
+			$nuevoCodigo = bin2hex(random_bytes(4));
+			$url = DOC_ROOT . "/docentes/informe/";
+			$documento = "informe_" . $nuevoCodigo . "." . $extencion;
+			$response['documento'] = $documento;
+			if (move_uploaded_file($temporal, $url . $documento)) {
+				$sql = "SELECT * FROM course_module WHERE courseModuleId = {$Id}";
+				$this->Util()->DB()->setQuery($sql);
+				$actual = $this->Util()->DB()->getRow();
+				if (!empty($actual['rutaInforme']) && file_exists($url . $actual['rutaInforme'])) {
+					unlink($url . $actual['rutaInforme']);
+				}
+				$sql = 'UPDATE course_module SET rutaInforme = "' . $documento . '", updated_report = NOW() WHERE courseModuleId = ' . $Id;
+				$this->Util()->DB()->setQuery($sql);
+				$this->Util()->DB()->UpdateData();
+			} else {
+				$response['estatus'] = false;
+				$response['mensaje'] = "Hubo un problema al guardar el archivo, intente de nuevo, por favor.";
 			}
-		}
-		unset($_FILES);
-		return true;
+		} 
+		return $response;
 	}
 
 	function onSendEncuadre($Id)
-	{
-		$archivo = 'cedula';
-		foreach ($_FILES as $key => $var) {
-			switch ($key) {
-				case $archivo:
-					if ($var["name"] <> "") {
-						$aux = explode(".", $var["name"]);
-						$extencion = end($aux);
-						$temporal = $var['tmp_name'];
-						$url = DOC_ROOT;
-						$foto_name = "encuadre_" . $Id . "." . $extencion;
-						if (move_uploaded_file($temporal, $url . "/docentes/encuadre/" . $foto_name)) {
-							$sql = 'UPDATE course_module SET rutaEncuadre = "' . $foto_name . '" WHERE courseModuleId = ' . $Id . '';
-							$this->Util()->DB()->setQuery($sql);
-							$this->Util()->DB()->UpdateData();
-						}
-					}
-					break;
+	{  
+		$response = $this->Util()->validarSubida(['size' => 5242880, 'types' => ['application/pdf', 'application/msword']]);
+		if ($response['estatus']) {
+			$aux = explode(".", $_FILES['framing']["name"]);
+			$extencion = end($aux);
+			$temporal =  $_FILES['framing']['tmp_name'];
+			$nuevoCodigo = bin2hex(random_bytes(4));
+			$url = DOC_ROOT . "/docentes/encuadre/";
+			$documento = "encuadre_" . $nuevoCodigo . "." . $extencion;
+			$response['documento'] = $documento;
+			if (move_uploaded_file($temporal, $url . $documento)) {
+				$sql = "SELECT * FROM course_module WHERE courseModuleId = {$Id}";
+				$this->Util()->DB()->setQuery($sql);
+				$actual = $this->Util()->DB()->getRow();
+				if (!empty($actual['rutaEncuadre']) && file_exists($url . $actual['rutaEncuadre'])) {
+					unlink($url . $actual['rutaEncuadre']);
+				}
+				$sql = 'UPDATE course_module SET rutaEncuadre = "' . $documento . '", updated_framing= NOW() WHERE courseModuleId = ' . $Id;
+				$this->Util()->DB()->setQuery($sql);
+				$this->Util()->DB()->UpdateData();
+			} else {
+				$response['estatus'] = false;
+				$response['mensaje'] = "Hubo un problema al guardar el archivo, intente de nuevo, por favor.";
 			}
-		}
-		unset($_FILES);
-		return true;
+		} 
+		return $response; 
 	}
 
 	function onSendRubrica($Id)

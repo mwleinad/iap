@@ -897,7 +897,7 @@ class Personal extends Main
 					fecha_nacimiento = '" . $this->fechaNacimiento . "',
 					facebook = '" . $this->face . "',
 					twitter = '" . $this->twitter . "',
-					description = '".$this->description."'
+					description = '" . $this->description . "'
 				WHERE 
 					personalId = " . $this->personalId;
 
@@ -1329,7 +1329,7 @@ class Personal extends Main
 					WHERE documentosprofesorId = ' . $lastId . '';
 
 				$this->Util()->DB()->setQuery($sql);
-				$this->Util()->DB()->UpdateData(); 
+				$this->Util()->DB()->UpdateData();
 			} else {
 				$response['estatus'] = false;
 				$response['mensaje'] = "Hubo un problema al guardar el archivo, intente de nuevo, por favor.";
@@ -1437,35 +1437,31 @@ class Personal extends Main
 
 	public function adjuntarPlan($lastId, $cmId)
 	{
-		foreach ($_FILES as $key => $var) {
-
-			switch ($key) {
-				case 'comprobante':
-					if ($var["name"] <> "") {
-						$aux = explode(".", $var["name"]);
-						$extencion = end($aux);
-						$temporal = $var['tmp_name'];
-
-						$url = DOC_ROOT;
-						$foto_name = "plan_" . $cmId . "." . $extencion;
-
-						if (move_uploaded_file($temporal, $url . "/materia/" . $foto_name)) {
-
-
-							$sql = 'UPDATE 		
-								course_module SET 		
-								rutaPlan = "' . $foto_name . '"			      		
-								WHERE courseModuleId = ' . $cmId . '';
-							// exit;
-							$this->Util()->DB()->setQuery($sql);
-							$this->Util()->DB()->UpdateData();
-						}
-					}
-					break;
+		$response = $this->Util()->validarSubida(['size' => 5242880, 'types' => ['application/pdf']]);
+		if ($response['estatus']) {
+			$aux = explode(".", $_FILES['comprobante']["name"]);
+			$extencion = end($aux);
+			$temporal =  $_FILES['comprobante']['tmp_name'];
+			$nuevoCodigo = bin2hex(random_bytes(4));
+			$url = DOC_ROOT . "/materia/";
+			$documento = "plan_" . $lastId . $nuevoCodigo . "." . $extencion;
+			$response['documento'] = $documento;
+			if (move_uploaded_file($temporal, $url . $documento)) {
+				$sql = "SELECT * FROM course_module WHERE courseModuleId = $cmId";
+				$this->Util()->DB()->setQuery($sql);
+				$actual = $this->Util()->DB()->getRow();
+				if (isset($actual['rutaPlan']) && file_exists($url . $actual['rutaPlan'])) {
+					unlink($url . $actual['rutaPlan']);
+				}
+				$sql = 'UPDATE course_module SET rutaPlan = "' . $documento . '" WHERE courseModuleId = ' . $cmId;
+				$this->Util()->DB()->setQuery($sql);
+				$this->Util()->DB()->UpdateData();
+			} else {
+				$response['estatus'] = false;
+				$response['mensaje'] = "Hubo un problema al guardar el archivo, intente de nuevo, por favor.";
 			}
 		}
-
-		return  true;
+		return $response;
 	}
 
 	public function onDeletePlan($cmId)
@@ -1486,33 +1482,22 @@ class Personal extends Main
 
 	public function onDeleteCarta($cmId)
 	{
-
-
 		$sql = "SELECT 
 					* 
 				FROM 
 					course_module
 				WHERE
 					courseModuleId = " . $cmId . "";
-		// exit;
 		$this->Util()->DB()->setQuery($sql);
 		$info = $this->Util()->DB()->GetRow();
-
-		// echo DOC_ROOT.'/docentes/carta/carta_'.$info['rutaCarta'];
 		@unlink(DOC_ROOT . '/docentes/carta/' . $info['rutaCarta']);
-
 		$sql = 'UPDATE 		
 				course_module SET 		
 				rutaCarta = ""			      		
 				WHERE courseModuleId = ' . $cmId . '';
-		// exit;
 		$this->Util()->DB()->setQuery($sql);
-		$this->Util()->DB()->UpdateData();
-
-
-
-
-		return true;
+		$response['estatus'] = $this->Util()->DB()->UpdateData();
+		return $response;
 	}
 
 	public function onDeleteInforme($cmId)
@@ -1584,13 +1569,10 @@ class Personal extends Main
 				FROM 
 					course_module
 				WHERE
-					courseModuleId = " . $cmId . "";
-		// exit;
+					courseModuleId = " . $cmId . ""; 
 		$this->Util()->DB()->setQuery($sql);
-		$info = $this->Util()->DB()->GetRow();
-
-		// echo DOC_ROOT.'/docentes/carta/carta_'.$info['rutaCarta'];
-		@unlink(DOC_ROOT . '/docentes/encuadre/' . $info['rutaRubrica']);
+		$info = $this->Util()->DB()->GetRow(); 
+		@unlink(DOC_ROOT . '/docentes/encuadre/' . $info['rutaEncuadre']);
 
 		$sql = 'UPDATE 		
 				course_module SET 		
@@ -1598,12 +1580,8 @@ class Personal extends Main
 				WHERE courseModuleId = ' . $cmId . '';
 		// exit;
 		$this->Util()->DB()->setQuery($sql);
-		$this->Util()->DB()->UpdateData();
-
-
-
-
-		return true;
+		$response['estatus'] = $this->Util()->DB()->UpdateData();
+		return $response;
 	}
 
 	public function EnumerateMsj()

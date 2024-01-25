@@ -165,6 +165,7 @@ switch ($_POST['opcion']) {
 		// print_r($infoAlumno);
 		// exit;
 		$diplomados = $student->alumnoConDiplomado($_POST['id']);
+		$diplomados = isset($_POST['auxAdmin']) ? 0 : $diplomados;
 		$errors = [];
 
 		//Campos para todos
@@ -466,5 +467,8 @@ switch ($_POST['opcion']) {
 				]);
 			}
 		}
+		break;
+	case 'actualizacion-admin':
+	
 		break;
 }

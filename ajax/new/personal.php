@@ -246,25 +246,25 @@ switch ($_POST["type"]) {
 		$personal->setDocumentoId($_POST['catId']);
 		$personal->setPersonalId($_POST["personalId"]);
 		$docenteInfo = $personal->Info();
-		
+
 		$response = $personal->adjuntarDocDocente();
-		if ($response['estatus']) {  
+		if ($response['estatus']) {
 			$hecho = $docenteInfo['personalId'] . "p";
-            $vista = $encargado['persoanlId'] . "p";
-            $actividad = "El docente {$docenteInfo['name']} {$docenteInfo['lastaname_materno']} {$docenteInfo['lastname_paterno']} ha actualizado el documento {$documento['nombre']}";
-            $notificacion->setActividad($actividad);
-            $notificacion->setVista($vista);
-            $notificacion->setHecho($hecho);
-            $notificacion->setTablas("reply");
-            $notificacion->setEnlace("/docentes/documentos/{$response['documento']}");
-            $notificacion->saveNotificacion(); 
+			$vista = $encargado['personalId'] . "p";
+			$actividad = "El docente {$docenteInfo['name']} {$docenteInfo['lastname_materno']} {$docenteInfo['lastname_paterno']} ha actualizado el documento {$documento['nombre']}";
+			$notificacion->setActividad($actividad);
+			$notificacion->setVista($vista);
+			$notificacion->setHecho($hecho);
+			$notificacion->setTablas("reply");
+			$notificacion->setEnlace("/docentes/documentos/{$response['documento']}");
+			$notificacion->saveNotificacion();
 
 			$details_body = array(
-				'docente'   => $docenteInfo['name'].$docenteInfo['lastaname_materno'].$docenteInfo['lastname_paterno'],
+				'docente'   => $docenteInfo['name'] . $docenteInfo['lastaname_materno'] . $docenteInfo['lastname_paterno'],
 				'documento'	=> $documento['nombre']
 			);
 			$details_subject = array();
-            $sendmail->Prepare($message[10]["subject"], $message[10]["body"], $details_body, $details_subject, $encargado['correo'], $encargado['name']." ".$encargado['lastname_paterno']." ".$encargado['lastname_materno'], DOC_ROOT."/docentes/documentos/{$response['documento']}", $response['documento']);
+			$sendmail->Prepare($message[10]["subject"], $message[10]["body"], $details_body, $details_subject, $encargado['correo'], $encargado['name'] . " " . $encargado['lastname_paterno'] . " " . $encargado['lastname_materno'], DOC_ROOT . "/docentes/documentos/{$response['documento']}", $response['documento']);
 
 			$personal->setPersonalId($_POST["personalId"]);
 			$registros = $personal->enumerateCatProductos();
@@ -273,26 +273,25 @@ switch ($_POST["type"]) {
 			$smarty->assign("registros", $registros);
 			$smarty->assign("DOC_ROOT", DOC_ROOT);
 			echo json_encode([
-				'growl'		=>true,
-				'message'	=>"Se ha adjuntado el archivo correctamente", 
-				'type'		=>"success",
-				'selector'	=>"#contenido",
-				'html'		=>$smarty->fetch(DOC_ROOT . '/templates/lists/new/doc-docente.tpl'),
-				'modal_close'=>true,
+				'growl'		=> true,
+				'message'	=> "Se ha adjuntado el archivo correctamente",
+				'type'		=> "success",
+				'selector'	=> "#contenido",
+				'html'		=> $smarty->fetch(DOC_ROOT . '/templates/lists/new/doc-docente.tpl'),
+				'modal_close' => true,
 				// 'reload'	=>true
-			]); 
-			 
+			]);
 		} else {
 			echo json_encode([
-				'growl' 	=>true,
-				'message'	=>$response['mensaje'],
-				'type'		=>'danger'
-			]); 
+				'growl' 	=> true,
+				'message'	=> $response['mensaje'],
+				'type'		=> 'danger'
+			]);
 		}
 
 		break;
 
-	case 'onDelete': 
+	case 'onDelete':
 		// echo '<pre>'; print_r($_POST);	
 		$personal->setPersonalId($_POST["Id"]);
 		if ($personal->onDelete()) {
@@ -317,15 +316,15 @@ switch ($_POST["type"]) {
 
 		break;
 
-	case 'onBuscar': 
+	case 'onBuscar':
 		// echo '<pre>'; print_r($_POST);
 		$personal->setTipo('Docente');
 		$personal->setName($_POST['nombre']);
 		$personals = $personal->EnumerateNew();
-		$smarty->assign("personals", $personals); 
-		$smarty->display(DOC_ROOT . '/templates/lists/lst-docentes.tpl'); 
-		break; 
-	case 'onSave': 
+		$smarty->assign("personals", $personals);
+		$smarty->display(DOC_ROOT . '/templates/lists/lst-docentes.tpl');
+		break;
+	case 'onSave':
 		// echo '<pre>'; print_r($_POST);
 		// exit;
 		$personal->setPersonalId($_POST['personalId']);
@@ -356,7 +355,7 @@ switch ($_POST["type"]) {
 			// $util->PrintErrors();
 			$smarty->display(DOC_ROOT . '/templates/boxes/status.tpl');
 		}
-		break; 
+		break;
 	case 'onSaveDocumento':
 
 
@@ -451,24 +450,19 @@ switch ($_POST["type"]) {
 		// exit;
 		// $personal->setDocumentoId($_POST['catId']);
 		// $personal->setPersonalId($_POST["personalId"]);
-		if ($personal->adjuntarPlan($_POST['id'], $_POST['cmId'])) {
-			// echo 'llea';
-			// exit;
-
-			echo "ok[#]";
-			echo '<div class="alert alert-info alert-dismissable">
-				  <button type="button" class="close" data-dismiss="alert">&times;</button>
-				  <strong>El Documento se adjunto correctamente</strong>
-				</div>';
-			echo '[#]';
-			$result = $course->getMateriaxCourse($_POST['id']);
-			$smarty->assign('result', $result);
-			$smarty->assign('cmId', $_POST["cmId"]);
-			$smarty->assign('id', $_POST["id"]);
-			$smarty->display(DOC_ROOT . '/templates/lists/new/prog-materia.tpl');
+		$response = $personal->adjuntarPlan($_POST['id'], $_POST['cmId']);
+		if ($response['estatus']) {  
+			echo json_encode([
+				'growl'		=> true,
+				'message'	=> 'Documento actualizado',
+				'type'		=> 'success'
+			]);
 		} else {
-			echo "fail[#]";
-			//$util->ShowErrors();
+			echo json_encode([
+				'growl' 	=> true,
+				'message'	=> $response['mensaje'],
+				'type'		=> 'danger'
+			]);
 		}
 
 		break;
