@@ -1225,29 +1225,63 @@ class Group extends Module
 	}
 
 	function onSendRubrica($Id)
-	{
-		$archivo = 'cedula';
-		foreach ($_FILES as $key => $var) {
-			switch ($key) {
-				case $archivo:
-					if ($var["name"] <> "") {
-						$aux = explode(".", $var["name"]);
-						$extencion = end($aux);
-						$temporal = $var['tmp_name'];
-						$url = DOC_ROOT;
-						$foto_name = "rubrica_" . $Id . "." . $extencion;
-						if (move_uploaded_file($temporal, $url . "/docentes/rubrica/" . $foto_name)) {
-							$sql = 'UPDATE course_module SET rutaRubrica = "' . $foto_name . '" WHERE courseModuleId = ' . $Id . '';
-							$this->Util()->DB()->setQuery($sql);
-							$this->Util()->DB()->UpdateData();
-						}
-					}
-					break;
+	{ 
+		$response = $this->Util()->validarSubida(['size' => 5242880, 'types' => ['application/pdf', 'application/msword']]);
+		if ($response['estatus']) {
+			$aux = explode(".", $_FILES['signature']["name"]);
+			$extencion = end($aux);
+			$temporal =  $_FILES['signature']['tmp_name'];
+			$nuevoCodigo = bin2hex(random_bytes(4));
+			$url = DOC_ROOT . "/docentes/rubrica/";
+			$documento = "rubrica_" . $nuevoCodigo . "." . $extencion;
+			$response['documento'] = $documento;
+			if (move_uploaded_file($temporal, $url . $documento)) {
+				$sql = "SELECT * FROM course_module WHERE courseModuleId = {$Id}";
+				$this->Util()->DB()->setQuery($sql);
+				$actual = $this->Util()->DB()->getRow();
+				if (!empty($actual['rutaRubrica']) && file_exists($url . $actual['rutaRubrica'])) {
+					unlink($url . $actual['rutaRubrica']);
+				}
+				$sql = 'UPDATE course_module SET rutaRubrica = "' . $documento . '", updated_signature = NOW() WHERE courseModuleId = ' . $Id;
+				$this->Util()->DB()->setQuery($sql);
+				$this->Util()->DB()->UpdateData();
+			} else {
+				$response['estatus'] = false;
+				$response['mensaje'] = "Hubo un problema al guardar el archivo, intente de nuevo, por favor.";
 			}
-		}
-		unset($_FILES);
-		return true;
+		} 
+		return $response;
 	}
+
+	function onSendGradeCetificate($Id)
+	{
+		$response = $this->Util()->validarSubida(['size' => 5242880, 'types' => ['application/pdf', 'application/msword']]);
+		if ($response['estatus']) {
+			$aux = explode(".", $_FILES['archivos']["name"]);
+			$extencion = end($aux);
+			$temporal =  $_FILES['archivos']['tmp_name'];
+			$nuevoCodigo = bin2hex(random_bytes(4));
+			$url = DOC_ROOT . "/docentes/calificaciones/";
+			$documento = "acta_" . $nuevoCodigo . "." . $extencion;
+			$response['documento'] = $documento;
+			if (move_uploaded_file($temporal, $url . $documento)) {
+				$sql = "SELECT * FROM course_module WHERE courseModuleId = {$Id}";
+				$this->Util()->DB()->setQuery($sql);
+				$actual = $this->Util()->DB()->getRow();
+				if (!empty($actual['rutaActa']) && file_exists($url . $actual['rutaActa'])) {
+					unlink($url . $actual['rutaActa']);
+				}
+				$sql = 'UPDATE course_module SET rutaActa = "' . $documento . '", updated_grade_certificate = NOW() WHERE courseModuleId = ' . $Id;
+				$this->Util()->DB()->setQuery($sql);
+				$this->Util()->DB()->UpdateData();
+			} else {
+				$response['estatus'] = false;
+				$response['mensaje'] = "Hubo un problema al guardar el archivo, intente de nuevo, por favor.";
+			}
+		} 
+		return $response;
+	}
+
 
 	function onChangePicture($Id)
 	{

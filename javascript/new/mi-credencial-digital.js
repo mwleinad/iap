@@ -34,7 +34,6 @@ const obtenerDispositivos = () => navigator
 // La función que es llamada después de que ya se dieron los permisos
 // Lo que hace es llenar el select con los dispositivos obtenidos
 const llenarSelectConDispositivosDisponibles = () => {
-
     limpiarSelect();
     obtenerDispositivos()
         .then(dispositivos => {
@@ -117,12 +116,11 @@ function drawImageProp(ctx, source, iw, ih, x, y, w, h, offsetX, offsetY) {
     });
 
     $enviarFoto.addEventListener('click', function () {
-
         let foto = $canvas.toDataURL();
         $enviarFoto.text = "Espere, por favor..."
         $enviarFoto.disabled = true;
         $nuevaFoto.disabled = true;
-        let perfil = document.getElementById('perfil').value; 
+        let perfil = document.getElementById('perfil') !== null ? document.getElementById('perfil').val : 0; 
         var formData = new FormData();
         formData.append("imagen", encodeURIComponent(foto));
         formData.append("perfil", perfil); 
@@ -241,16 +239,5 @@ function drawImageProp(ctx, source, iw, ih, x, y, w, h, offsetX, offsetY) {
                 });
         }
     }
-})();
-
-if (document.getElementById('credencial')) {
-    $.getScript(WEB_ROOT + "/javascript/new/qrcode.js", function () {
-        const codigoQRDiv = document.getElementById('codigo-qr');
-        let token = codigoQRDiv.dataset.token;
-        const codigoQR = new QRious({
-            element: codigoQRDiv,
-            value: token,
-            size: 256
-        });
-    });
-}
+})(); 
+ 

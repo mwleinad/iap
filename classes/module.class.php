@@ -230,7 +230,6 @@ class Module extends Course
 					LEFT JOIN	major ON major.majorId = subject.tipo	
 					WHERE
 							courseModuleId='" . $this->courseModuleId . "'";
-		// exit;
 		//configuramos la consulta con la cadena de actualizacion
 		$this->Util()->DB()->setQuery($sql);
 		//ejecutamos la consulta y obtenemos el resultado

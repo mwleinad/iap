@@ -239,9 +239,9 @@ function upFile(Id){
 
 	// En esta var va incluido $_POST y $_FILES
 	var fd = new FormData(document.getElementById("frmFile"));
-	fd.append('type','upFile');
+	fd.append('option','sendGradeCertificate');
 	$.ajax({
-		url: WEB_ROOT+'/ajax/edit-modules-course.php',
+		url: WEB_ROOT+'/ajax/new/modules.php',
 		data: fd,
 		processData: false,
 		contentType: false,
@@ -260,13 +260,12 @@ function upFile(Id){
 				},false);
 			return XHR;
 		},
-		success: function(response){
-
+		success: function(response){ 
 			console.log(response);
-			// var splitResp = response.split("[#]");
-			// $("#loader").html("");
-			// alert('llega')
-			reloadActa(Id)
+			if (response.type == "success") {
+				reloadActa(Id)
+			}
+			
 		},
 	})
 

@@ -30,7 +30,7 @@ if ($_POST) {
     $google = new Google($carpetaId);
     $google->setArchivoNombre($nombreImagen); 
     $google->setArchivo(DOC_ROOT."/".$carpeta."/".$nombreImagen);
-    $respuesta = $google->subirArchivo();
+    $respuesta = $google->subirArchivo(); 
     $files = '{
         "filename": "'.$respuesta['name'].'",
         "googleId": "'.$respuesta['id'].'",
@@ -48,8 +48,8 @@ if ($_POST) {
         $student->editCredential($User['userId'], $courseId, $files, 0);
     }
 
-    $photoCredential = $_POST['perfil']; 
-    $student->UpdateAvatarCredential($User['userId'], $photoCredential);
+    // $photoCredential = $_POST['perfil']; 
+    // $student->UpdateAvatarCredential($User['userId'], $photoCredential);
     
     print_r(json_encode([
         'respuesta' =>true

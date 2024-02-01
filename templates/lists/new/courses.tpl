@@ -2,8 +2,7 @@
     {foreach from=$uniqueSubjects item=item}
         <div class="card">
             <div class="card-header collapsed card-link pointer" data-toggle="collapse" href="#collapse{$item.subjectId}">
-                [{$item.majorName}] {$item.name} {if $item.rvoe != ""} {$item.rvoe} {/if}
-            </div>
+                [{$item.majorName}] {$item.name} </div>
             <div id="collapse{$item.subjectId}" class="collapse" data-parent="#accordion">
                 <div class="col-md-12 py-4">
                     <table class="table table-bordered table-striped table-sm">

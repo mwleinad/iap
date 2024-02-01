@@ -116,5 +116,5 @@ $message[9]["body"]	= "Te informamos que la foto de tu credencial digital ha sid
 Favor de realizar de nueva cuenta el proceso para generar tu credencial digital.";
 
 $message[10]['subject'] = "Actualización de documentación | Instituto de Administración Pública del Estado de Chiapas";
-$message[10]['body'] = "El docente |docente| ha actualizado el siguiente documento |documento|";
+$message[10]['body'] = "El docente |docente| ha actualizado el siguiente documento: \"|documento|\"";
 ?>

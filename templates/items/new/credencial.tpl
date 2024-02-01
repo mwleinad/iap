@@ -16,7 +16,7 @@
             </div>
             <img src="{$WEB_ROOT}/images/credencial/frontal.png" class="img-fluid">
             <picture class='img_credencial_previo'>
-                <img src="{$credencial.files['photo']['urlEmbed']}" class="img-fluid">
+                <img src="https://lh3.google.com/u/0/d/{$credencial.files['photo']['googleId']}" class="img-fluid">
             </picture>
             <div class="vigencia">
                 <span>Vigencia</span><br>
@@ -27,7 +27,7 @@
     {* Credencial aceptada *}
     {if $credencial.status == 1}
         <a href=" https://drive.google.com/uc?export=download&id={$credencial.files['credential']['googleId']}">
-            <img src="{$credencial.files['credential']['urlEmbed']}" class="img-fluid">
+            <img src="https://lh3.google.com/u/0/d/{$credencial.files['credential']['googleId']}" class="img-fluid">
         </a>
     {/if}
 

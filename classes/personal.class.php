@@ -1532,9 +1532,7 @@ class Personal extends Main
 	}
 
 	public function onDeleteRubrica($cmId)
-	{
-
-
+	{ 
 		$sql = "SELECT 
 					* 
 				FROM 
@@ -1543,23 +1541,16 @@ class Personal extends Main
 					courseModuleId = " . $cmId . "";
 		// exit;
 		$this->Util()->DB()->setQuery($sql);
-		$info = $this->Util()->DB()->GetRow();
-
-		// echo DOC_ROOT.'/docentes/carta/carta_'.$info['rutaCarta'];
+		$info = $this->Util()->DB()->GetRow(); 
 		@unlink(DOC_ROOT . '/docentes/rubrica/' . $info['rutaRubrica']);
 
 		$sql = 'UPDATE 		
 				course_module SET 		
 				rutaRubrica = ""			      		
-				WHERE courseModuleId = ' . $cmId . '';
-		// exit;
+				WHERE courseModuleId = ' . $cmId . ''; 
 		$this->Util()->DB()->setQuery($sql);
-		$this->Util()->DB()->UpdateData();
-
-
-
-
-		return true;
+		$response['estatus'] = $this->Util()->DB()->UpdateData(); 
+		return $response;
 	}
 
 	public function onDeleteEncuadre($cmId)
@@ -1577,8 +1568,7 @@ class Personal extends Main
 		$sql = 'UPDATE 		
 				course_module SET 		
 				rutaEncuadre = ""			      		
-				WHERE courseModuleId = ' . $cmId . '';
-		// exit;
+				WHERE courseModuleId = ' . $cmId . ''; 
 		$this->Util()->DB()->setQuery($sql);
 		$response['estatus'] = $this->Util()->DB()->UpdateData();
 		return $response;

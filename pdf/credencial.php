@@ -50,12 +50,8 @@ $pdf->AddPage();
 $credencial = $_GET['credencial'];
 $credentials->setCredential($credencial);
 $credencial = $credentials->getCredential();
-
-$token = bin2hex(random_bytes(8));
-$nombreQR = "QR_$token.png";
-$target_path = DOC_ROOT."/files/credentials/".$nombreQR;
-$png = QRcode::png($credencial['token'], $target_path);
-
+ 
+$target_path = $credencial['files']['token']['qr']['urlEmbed']; 
 $html = '<div>
             <h3>Parte frontal</h3>
             <img src="'.$credencial['files']['credential']['urlEmbed'].'">
@@ -63,12 +59,10 @@ $html = '<div>
         <div>
             <h3>Parte trasera</h3>
             <img src="'.DOC_ROOT.'/images/credencial/atras.png">
-        </div>
-        '; 
+        </div>'; 
 
 $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html , $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = false);
 
 $pdf->Image($target_path, 150, 233, 35, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
-unlink($target_path);
 
 $pdf->Output("mi-credencial-digital.pdf", 'I');

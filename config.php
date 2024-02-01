@@ -33,3 +33,6 @@ define("BN_CLAVE", getenv('BN_CLAVE'));
 define("ID_TERMINAL", getenv('ID_TERMINAL'));
 define("BN_MODO", getenv('BN_MODO'));
 define("BN_SSL", getenv('BN_SSL'));
+
+define("URL_API", getenv('URL_API'));
+define("BEARERTOKEN", getenv('BEARERTOKEN'));

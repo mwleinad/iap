@@ -205,7 +205,7 @@
                                             <div id="curricula">{$curso}</div>
                                             <div id="vigencia"><span>Vigencia:</span><br>31 de diciembre {date('Y')}</div>
                                         </div>
-                                        {if $User.photo == ""}
+                                        {* {if $User.photo == ""}
                                             <div class="col-md-12 mt-3">
                                                 <label for="perfil" class="w-100">¿Deseas utilizar esta foto como foto de perfil?</label>
                                                 <select class="form-control" id="perfil" name="perfil">
@@ -213,7 +213,7 @@
                                                     <option value="0">No</option>
                                                 </select>
                                             </div>
-                                        {/if}
+                                        {/if} *}
                                     </div>
 
                                 </div>
@@ -244,14 +244,14 @@
                 <div class="col-md-6">
                     <h3 class="w-100 text-center">Parte Frontal</h3>
                     <div class="w-100 p-0 credencial_previo position-relative">
-                        <img src="{$credential.files['credential']['urlEmbed']}" class="img-fluid">
+                        <img src="https://lh3.google.com/u/0/d/{$credential.files['credential']['googleId']}" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <h3 class="w-100 text-center">Parte Trasera</h3>
                     <div class="w-100 credencial_previo">
                         <img src="{$WEB_ROOT}/images/credencial/atras.png" class="img-fluid">
-                        <canvas id="codigo-qr" data-token="{$credential.token}"></canvas>
+                        <img id="codigo-qr" src="https://lh3.google.com/u/0/d/{$credential.files['token']['qr']['googleId']}"></img>
                     </div>
                 </div>
                 {if $credential.download == 0}

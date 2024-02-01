@@ -475,7 +475,7 @@ class Util extends ErrorLms
 		} else
 			$neg = '';
 		while ($num[0] == '0') $num = substr($num, 1);
-		if ($num[0] < '1' or $num[0] > 9) $num = '0' . $num; 
+		if ($num[0] < '1' or $num[0] > 9) $num = '0' . $num;
 		$zeros = true;
 		$punt = false;
 		$ent = '';
@@ -1556,6 +1556,7 @@ class Util extends ErrorLms
 		}
 		return $response;
 	}
+
 	public function validarSubidaPorArchivo($archivos = [])
 	{
 		$response = [];
@@ -1654,6 +1655,42 @@ class Util extends ErrorLms
 	{
 		$search = substr($card_number, 8, 6);
 		$result = str_replace($search, '******', $card_number);
+		return $result;
+	}
+
+	
+	function callAPI($method, $url, $data)
+	{
+		$curl = curl_init();
+		switch ($method) {
+			case "POST":
+				curl_setopt($curl, CURLOPT_POST, 1);
+				if ($data)
+					curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+				break;
+			case "PUT":
+				curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
+				if ($data)
+					curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+				break;
+			default:
+				if ($data)
+					$url = sprintf("%s?%s", $url, http_build_query($data));
+		}
+		// OPTIONS:
+		curl_setopt($curl, CURLOPT_URL, $url);
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+			'Authorization: Bearer '.BEARERTOKEN,
+			'Content-Type: application/json',
+		));
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		// EXECUTE:
+		$result = curl_exec($curl);
+		if (!$result) {
+			$result['estatus'] = "error";
+		}
+		curl_close($curl);
 		return $result;
 	}
 }

@@ -3421,7 +3421,8 @@ class Student extends User
 		if ($result) {
 			$result['files'] = [
 				"photo" => json_decode($result['photo'],true),
-				"credential" => json_decode($result['credential'], true)
+				"credential" => json_decode($result['credential'], true),
+				"token"	=> json_decode($result['token'], true)
 			];
 		}
 		return $result;
@@ -3433,10 +3434,10 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		$id = $this->Util()->DB()->InsertData();
 
-		$token = password_hash($id . $student . $course, PASSWORD_BCRYPT);
-		$sql = "UPDATE user_credentials SET token = '$token' WHERE id = {$id}";
-		$this->Util()->DB()->setQuery($sql);
-		$this->Util()->DB()->UpdateData();
+		// $token = password_hash($id . $student . $course, PASSWORD_BCRYPT);
+		// $sql = "UPDATE user_credentials SET token = '$token' WHERE id = {$id}";
+		// $this->Util()->DB()->setQuery($sql);
+		// $this->Util()->DB()->UpdateData();
 	}
 
 	public function editCredential($student, $course, $files, $status)

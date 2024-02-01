@@ -1,30 +1,35 @@
 <div class="card mb-4">
-    <div class="card-header bg-primary text-white">
+	<div class="card-header bg-primary text-white">
 		<i class="fas fa-pencil-alt"></i> Rúbrica
-    </div>
-    <div class="card-body text-center">
+	</div>
+	<div class="card-body text-center">
 		{if $info.rutaRubrica eq ''}
-			<form id="frmGral" name="frmGral" method="post" onsubmit="return false;">
-				<input type="hidden" name="type" value="onSendContrato" />
+			<form class="form" id="form_signature" method="post" action="{$WEB_ROOT}/ajax/new/modules.php">
+				<input type="hidden" name="option" value="sendSignature" />
 				<input type="hidden" id="personalId" name="personalId" value="{$personalId}" />
-				<input type="hidden" id="id" name="id" value="{$id}" /> 
-				<span class="btn btn-outline-info btn-file">
-					<input type="file" name="cedula" id="cedula" class="btn-file" onChange="onSendRubrica({$id})">
-					Subir Rúbrica
-				</span><br>
-				<progress id="progress" value="0" min="0" max="100"></progress>
-				<div id="porcentaje" >0%</div>
+				<input type="hidden" id="id" name="id" value="{$id}" />
+				<div class="col-md-6 mx-auto mb-3 text-center">
+					<label class="w-100" for="signature">Rúbrica(PDF/DOC)</label>
+					<input type="file" name='signature' id='signature' class="form-control" />
+				</div>
+				<div class="col-md-6 mx-auto mb-3 text-center">
+					<button class="btn btn-outline-info btn-file" type="submit">Subir rúbrica</button>
+				</div>
 			</form>
 		{else}
 			<a type="button" target="_blank" href="{$WEB_ROOT}/docentes/rubrica/{$info.rutaRubrica}" class="btn btn-info">
 				Visualizar
 			</a><br><br>
-			<a type="button" href="javascript:void(0)" class="btn btn-danger" onClick="onDeleteRubrica({$id})">
-				Eliminar
-			</a><br>
+			<form class="form d-inline" id="form_signature" method="POST" action="{$WEB_ROOT}/ajax/new/modules.php">
+				<input type="hidden" name="id" value="{$id}">
+				<input type="hidden" name="option" value="deleteSignature">
+				<button type="submit" class="btn btn-danger">
+					Eliminar
+				</button>
+			</form>
 		{/if}
-		<form id="frmGral" >
+		<form id="frmGral">
 			<input type="hidden" name="mId" value="{$mId}">
 		</form>
-    </div>
+	</div>
 </div>

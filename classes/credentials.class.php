@@ -33,6 +33,11 @@ class Credentials extends Main
 		$this->credentialDrive = $data;
 	}
 
+	private $token;
+	function setToken($token){
+		$this->token = $token;
+	}
+
 	public function dt_credentials_request()
 	{
 		$table = 'user_credentials 
@@ -51,13 +56,12 @@ class Credentials extends Main
 			array('db' => 'course.group',  	'dt' => 'grupo'),
 			array('db' => 'CASE WHEN user_credentials.status = 0 THEN "<span class=\"badge badge-warning\">Pendiente</span>" WHEN user_credentials.status = 1 THEN "<span class=\"badge badge-success\">Aprobada</span>" ELSE "<span class=\"badge badge-danger\">Rechazada</span>" END', 'dt' => 'estatus'),
 			array('db'	=> 'user_credentials.status', 'status'),
-			array('db'	=> 'credential', 'status'),
 			array(
 				'db' => 'photo', 'dt' => 'foto',
 				'formatter' => function ($d, $row) {
 					if ($row['status'] != 2) {
 						$jsonFile = json_decode($row['foto'], true);
-						return "<a class='ajax_sin_form' data-data='\"opcion\":\"previo\",\"credencial\":{$row['credencial_id']}' href='" . WEB_ROOT . "/ajax/new/credenciales.php'><img src='" . $jsonFile['urlEmbed'] . "' style='width:150px; height:auto;border-radius:25px; cursor:pointer;'></a>";
+						return "<a class='ajax_sin_form' data-data='\"opcion\":\"previo\",\"credencial\":{$row['credencial_id']}' href='" . WEB_ROOT . "/ajax/new/credenciales.php'><img src='https://drive.google.com/thumbnail?id=" . $jsonFile['googleId'] . "&sz=w1000' style='width:150px; height:auto;border-radius:25px; cursor:pointer;'></a>";
 					} else {
 						return "No cuenta con foto";
 					}
@@ -70,7 +74,7 @@ class Credentials extends Main
 
 	public function updateCredential()
 	{
-		$sql = "UPDATE user_credentials SET status = {$this->status}, content = '{$this->motivo}', photo = '{$this->photo}', credential = '{$this->credentialDrive}' WHERE id = {$this->credential}";
+		$sql = "UPDATE user_credentials SET status = {$this->status}, content = '{$this->motivo}', photo = '{$this->photo}', credential = '{$this->credentialDrive}', token = '{$this->token}' WHERE id = {$this->credential}";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->UpdateData($sql);
 	}
@@ -83,7 +87,8 @@ class Credentials extends Main
 		if ($response) {
 			$response['files'] = [
 				"photo" => json_decode($response['photo'],true),
-				"credential" => json_decode($response['credential'], true)
+				"credential" => json_decode($response['credential'], true),
+				"token"	=> json_decode($response['token'], true)
 			];
 		}
 		return $response;
