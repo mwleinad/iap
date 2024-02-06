@@ -18,6 +18,9 @@ function EditTest() {
 					$('body').removeClass('modal-open');
 					$('.modal-backdrop').remove();
 				};
+				setTimeout(() => {
+					location.reload();
+				}, 500);
 			} else {
 				$("#msj").html(splitResponse[1]);
 			} 
