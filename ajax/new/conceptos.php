@@ -557,6 +557,8 @@ switch ($opcion) {
         $conceptos->setFechaPago($fecha_pago); 
         $conceptos->setPeriodo($periodo);
         $conceptos->setUserId($_SESSION['User']['userId']);  
+        $conceptos->setPeriodo(0);
+        $conceptos->setIndice(0);
         $conceptos->guardar_pago();
         
         $course->setCourseId($curso);
