@@ -5,8 +5,8 @@
     <div class="card-body text-justify">
 		<p>Favor de colocar las calificaciones en una escala de 0 a 10 sin puntos decimales. En el caso de que usted considere puntos decimales la escala es:</p>
 		<ul>
-			<li> De .1 a .5 la calificiación baja</li>
-			<li> De .6 a .9 la calificiación sube</li>
+			<li> De .1 a .5 la calificación baja</li>
+			<li> De .6 a .9 la calificación sube</li>
 		</ul>
 		<p>Unicamente podra asignar en una sola ocasión estas calificaciones, si desea hacer modificaciones le pedimos de favor enviar un correo a tutor@iapchiapas.org.mx para habilitarle la edición.</p> 
 		<p>Le pedimos de favor descargar este formato, firmalo y subirlo escaneado en esta misma sección.</p>

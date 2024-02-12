@@ -19,11 +19,14 @@ $rector['genre'] = $settingCertificate['genre_rector'] == 1 ? "PRESIDENTE" : "PR
 // Calificacion Minima Aprobatoria
 $minCal = 7; 
 // Modalidad y RVOE
+$rvoe = $_POST['rvoe']; 
 if ($infoCourse['modality'] == 'Online') {
     $modality = 'NO ESCOLAR';
+    $fechaRvoe = $infoCourse['fechaRvoeLinea'];
 }
 if ($infoCourse['modality'] == 'Local' || $infoCourse['modality'] == "Mixta") {
     $modality = $infoCourse['modality'] == "Local" ? 'ESCOLAR' : "MIXTA";
+    $fechaRvoe = $infoCourse['fechaRvoe'];    
 } 
 
 $infoCourse['tipoCuatri'] = $infoCourse['tipoCuatri'] == '' ? "Cuatrimestre" : $infoCourse['tipoCuatri'];
@@ -87,8 +90,7 @@ foreach ($students as $itemStudent) {
     $where = "alumno_id = {$itemStudent} AND course_id = {$_POST['course']}";
     $constanciaAlumno = $constancias->getConstancia($where);
     $fechaExpedicion = $_POST['date'];
-    $periodo = $_POST['period'];
-    $rvoe = $_POST['rvoe']; 
+    $periodo = $_POST['period']; 
     if(!$constanciaAlumno){ //No se ha guardado, hay que crearlo
         $constancias->setFechaExpedicion($fechaExpedicion);
         $constancias->setPeriodo($periodo);
@@ -221,7 +223,7 @@ foreach ($students as $itemStudent) {
     $nameStudent =  mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']);
     $nameStudent = $util->eliminar_acentos($nameStudent);
     $curso = str_replace("EN", "", $infoCourse["name"]);
-    $letraAnio =  $array_date[0] == 2023 ? "dos mil veintitrés" : $util->num2letras(mb_strtolower($letraAnio));
+    $letraAnio =  $array_date[0] == 2023 ? "dos mil veintitrés" : mb_strtolower($util->num2letras($array_date[0]));  
     $html .= '<table width="100%">
                  <tr>
                     <td>
@@ -231,7 +233,7 @@ foreach ($students as $itemStudent) {
                 <tr>
                     <td>  
                         <h3 style="text-align:center; padding-top:20px;">INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS,  A.C.</h3>
-                        <div style="text-align:right; margin-top:0;font-size:12px;"><b>' . $folio . '</b></div>
+                        <div style="text-align:right; margin-top:0;font-size:12px; color:red;"><b>' . $folio . '</b></div>
                         <div> 
                             <p style="font-size:12px; text-align: justify;line-height:1.2; margin-top:0.2cm;">
                                 LA DIRECCIÓN DEL INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, RÉGIMEN PARTICULAR, TURNO ' . mb_strtoupper($infoCourse["turn"]) . ' MODALIDAD ' . $modality . ', CLAVE ' . $myInstitution["identifier"] . ', CERTIFICA QUE:  EL (LA) C. <br>

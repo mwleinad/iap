@@ -239,7 +239,7 @@ foreach ($students as $itemStudent) {
     $nameStudent =  mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']);
     $nameStudent = $util->eliminar_acentos($nameStudent);
     $curso = str_replace("EN", "", $infoCourse["name"]); 
-    $letraAnio =  $array_date[0] == 2023 ? "dos mil veintitrés" : $util->num2letras(mb_strtolower($letraAnio));
+    $letraAnio =  $array_date[0] == 2023 ? "dos mil veintitrés" : mb_strtolower($util->num2letras($array_date[0])); 
     $html .= '<table width="100%">
                 <tr>
                     <td width="17%">
