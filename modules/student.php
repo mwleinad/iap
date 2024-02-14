@@ -1,6 +1,6 @@
-<?php 
+<?php
 /* For Session Control - Don't remove this */
-if(!in_array($_SESSION['User']['positionId'], [1,2,3])){
+if (!in_array($_SESSION['User']['positionId'], [1, 2, 3, 5])) {
 	header('Location: ' . WEB_ROOT);
 }
 // $user->allow_access(4);
@@ -28,7 +28,7 @@ $pageVar = 'p';
 if (isset($_GET["$pageVar"]))
 	$viewPage = $_GET["$pageVar"];
 
-$studentsCount = $student->EnumerateCount(); 
+$studentsCount = $student->EnumerateCount();
 $student->setNombre($_GET["nombre"]);
 $student->setApaterno($_GET["paterno"]);
 $student->setAmaterno($_GET["materno"]);

@@ -19,7 +19,7 @@
                 <i class="mdi mdi-home menu-icon"></i>
             </a>
         </li>
-        {if in_array($User.positionId,[1,2,3])}
+        {if in_array($User.positionId,[1,2,3,5])}
             {if !$docente}
                 {if $vistaPrevia ne 1}
                     <li
@@ -69,7 +69,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="{$WEB_ROOT}/cat-doc-alumno">Documentos Alumnos</a>
                                     </li>
-                                {/if} 
+                                {/if}
                                 {if in_array($User.userId, [1, 142])}
                                     <li class="nav-item">
                                         <a class="nav-link" href="{$WEB_ROOT}/conceptos">Conceptos de pago</a>
@@ -229,7 +229,7 @@
                                 {if in_array($User.positionId,[1,24])}
                                     <li class="nav-item">
                                         <a class="nav-link" href="{$WEB_ROOT}/reporte-pagos">Pagos</a>
-                                    </li> 
+                                    </li>
                                 {/if}
                                 {if in_array($User.positionId,[1,10])}
                                     <li class="nav-item">
