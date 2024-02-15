@@ -21,10 +21,10 @@ foreach($theGroup as $item)
 {
     $child = "<tr>";
     $student->setUserId($item['userId']);
-    $downloaded = $student->DownloadedQualifications($_GET['id'], $courseInfo['totalPeriods']);
+    $downloaded = $student->DownloadedQualifications($_GET['id'], $courseInfo['totalPeriods']); 
     foreach($downloaded as $key => $value)
     {
-        $color = $value['downloaded'] == 1 ? '#c0ff89' : '#fe6f5e';
+        $color = $value['downloaded'] == '' ? '#fe6f5e' : ($value['downloaded'] == 0 ? '#ffd60a' : '#c0ff89');
         $child .= "<td style='text-align: center; width: 25%; background-color: " . $color . "'>
                     " . $key . "<br>
                     " . $value['downloaded_at'] . "
@@ -44,8 +44,8 @@ foreach($theGroup as $item)
 $downloaded = $student->DownloadedQualifications($_GET['id'], $courseInfo['totalPeriods']);
 echo "<pre>";
 print_r($downloaded);
-exit; */
-
+exit; 
+*/
 $html .="<html>
 	        <head>
 	            <title>Boleta de Calificaciones</title>

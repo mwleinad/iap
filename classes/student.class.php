@@ -3055,7 +3055,7 @@ class Student extends User
 				];
 			} else {
 				$result[$i] = [
-					'downloaded' => 0,
+					'downloaded' => '',
 					'downloaded_at' => ''
 				];
 			}
