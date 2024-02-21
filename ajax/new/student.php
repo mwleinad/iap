@@ -456,7 +456,7 @@ switch ($_POST['opcion']) {
 					'growl'		=> true,
 					'message'	=> 'Actualización exitosa. Es necesario que descargue e imprima el formato de reinscripción que se encuentra en su menú principal y llevarlo al área de control escolar para recabar las firmas correspondientes',
 					'type'		=> 'success',
-					'location'	=> WEB_ROOT."/view-modules-student/id/".$_POST['courseMxId'],
+					'location'	=> WEB_ROOT . "/view-modules-student/id/" . $_POST['courseMxId'],
 				]);
 			} else {
 				echo json_encode([
@@ -468,7 +468,73 @@ switch ($_POST['opcion']) {
 			}
 		}
 		break;
-	case 'actualizacion-admin':
-	
+	case 'registro-cobach':
+		$name = trim(strip_tags($_POST['name']));
+		$firstSurname = trim(strip_tags($_POST['firstSurname']));
+		$secondSurname = trim(strip_tags($_POST['secondSurname']));
+		$email = trim(strip_tags($_POST['email']));
+		$phone = str_replace(' ', '', strip_tags($_POST['phone']));
+		$password = trim($_POST['password']);
+		$workplacePosition = strip_tags($_POST['workplacePosition']);
+		$schoolNumber = intval($_POST['schoolNumber']);
+		$academicDegree = strip_tags($_POST['academicDegree']);
+		$city = intval($_POST['ciudad']);
+		$errors = [];
+		if ($name == '') {
+			$errors['name'] = "Por favor, no se olvide de poner el nombre.";
+		}
+		if ($firstSurname == '') {
+			$errors['firstSurname'] = "Por favor, no se olvide de poner el apellido parterno.";
+		}
+		if ($secondSurname == '') {
+			$errors['secondSurname'] = "Por favor, no se olvide de poner el apellido materno.";
+		}
+		if ($password == '') {
+			$errors['password'] = "Por favor, no se olvide de poner la contraseña.";
+		}
+		if ($email == '') {
+			$errors['email'] = "Por favor, no se olvide de poner el correo electrónico.";
+		}
+		if ($phone == '') {
+			$errors['phone'] = "Por favor, no se olvide de el número de celular.";
+		}
+		if ($workplacePosition == '') {
+			$errors['workplacePosition'] = "Por favor, no se olvide de poner el puesto.";
+		}
+		if ($schoolNumber == '') {
+			$errors['schoolNumber'] = "Por favor, no se olvide de poner el puesto.";
+		}
+		if (empty($city)) {
+			$errors['ciudad'] = "Por favor, no se olvide de seleccionar la ciudad.";
+		}
+
+		if (!empty($errors)) {
+			header('HTTP/1.1 422 Unprocessable Entity');
+			header('Content-Type: application/json; charset=UTF-8');
+			echo json_encode([
+				'errors'    => $errors
+			]);
+			exit;
+		}
+		$student->setName($name);
+		$student->setLastNamePaterno($firstSurname);
+		$student->setLastNameMaterno($secondSurname);
+		$student->setEmail($email);
+		$student->setPhone($phone);
+		$student->setPassword($password);
+		$student->setWorkplacePosition($workplacePosition);
+		$student->setCiudadT($city);
+		$student->setAcademicDegree($academicDegree);
+		$student->setSchoolNumber($schoolNumber);
+		$student->setControlNumber();
+		$student->setCourseId(0);
+		$student->setSubjectId(0);
+		$response = $student->saveCOBACH();
+		if ($response > 0) {
+			echo json_encode([
+				'errorOld'	=> "ok[#]" . $smarty->fetch(DOC_ROOT . '/templates/boxes/status.tpl'),
+				// 'location'	=> WEB_ROOT . '/login',
+			]);
+		}
 		break;
 }

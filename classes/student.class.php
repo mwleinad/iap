@@ -195,6 +195,11 @@ class Student extends User
 		$this->funcion = $value;
 	}
 
+	private $schoolNumber;
+	function setSchoolNumber($value){
+		$this->schoolNumber = $value;
+	}
+
 	public function AddAcademicHistory($type, $situation, $semesterId = 1)
 	{
 		$sql = "INSERT INTO academic_history(subjectId, courseId, userId, semesterId, dateHistory, type, situation) VALUES(" . $this->subjectId . ", " . $this->courseId . ", " . $this->userId . ", " . $semesterId . ", CURDATE(), '" . $type . "', '" . $situation . "')";
@@ -3465,6 +3470,22 @@ class Student extends User
 		$sql = "SELECT * FROM `user_subject` B WHERE alumnoId = {$alumnoId} AND status = 'activo' AND EXISTS(SELECT * FROM user_subject A WHERE A.alumnoId = B.alumnoId AND A.courseId = 162);";
 		$this->Util()->DB()->setQuery($sql);
 		$resultado = $this->Util()->DB()->GetTotalRows();
+		return $resultado;
+	}
+
+	function saveCOBACH() {
+		$sql = "INSERT INTO user(controlNumber, names, lastNamePaterno, lastNameMaterno, email, phone, password, workPlace, workplaceOcupation, workplacePosition, paist, estadot, ciudadt, academicDegree, plantel, actualizado, type, estado, ciudad) VALUES('".$this->getControlNumber()."', '".$this->name."', '".$this->lastNamePaterno."', '".$this->lastNameMaterno."', '".$this->email."', '".$this->phone."', '".$this->password."', 'COBACH', 'OTROS', '".$this->workplacePosition."', 1, 7, '".$this->getCiudadT()."', '".$this->getAcademicDegree()."', '".$this->schoolNumber."', 'si', 'student', 7, '".$this->getCiudadT()."')";
+		$this->Util()->DB()->setQuery($sql);
+		$resultado = $this->Util()->DB()->InsertData();
+
+		$sql = "INSERT INTO user_subject(alumnoId, status, courseId) VALUES('" . $resultado . "', 'activo' , '".$this->courseId."')";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->InsertData();
+
+		$date = date('Y-m-d');
+		$sql = "INSERT INTO academic_history(subjectId, courseId, userId, semesterId, dateHistory, type, situation) VALUES('".$this->subjectId."', '".$this->courseId."', '".$resultado."', 1, '".$date."', 'alta', 'A')";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->InsertData();
 		return $resultado;
 	}
 }

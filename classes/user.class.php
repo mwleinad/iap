@@ -1174,21 +1174,10 @@ class User extends Main
 		if ($this->Util()->PrintErrors()) {
 			return false;
 		}
-		$this->Util()->DB()->setQuery(
-			"SELECT 
-				* 
-		   FROM 
-				personal 
-			WHERE 
-				username = '" . $this->username . "' 
-			AND 
-				MD5(passwd) = '" . md5($this->password) . "' and estatus = 'activo'
-		"
-		);
+		$sql = "SELECT * FROM personal WHERE username = '" . $this->username . "' AND MD5(passwd) = '" . md5($this->password) . "' and estatus = 'activo'";
+		$this->Util()->DB()->setQuery($sql);
 		$row = $this->Util()->DB()->GetRow();
-
-		if ($row) { //Si es usuario de tipo personal
-
+		if ($row) { //Si es usuario de tipo personal 
 			$card['userId'] = $row['personalId'];
 			$card['positionId'] = $row['positionId'];
 			$card['perfil'] = $row['perfil'];
