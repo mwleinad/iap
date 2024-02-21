@@ -232,7 +232,6 @@ class Subject extends Main
 
 	public function setClave($value)
 	{
-		$this->Util()->ValidateString($value, 255, 0, 'Clave');
 		$this->clave = $value;
 	}
 
@@ -257,7 +256,6 @@ class Subject extends Main
 
 	public function setName($value)
 	{
-		$this->Util()->ValidateString($value, 255, 1, 'Nombre');
 		$this->name = $value;
 	}
 
@@ -328,7 +326,6 @@ class Subject extends Main
 
 	public function setTipo($value)
 	{
-		$this->Util()->ValidateOption($value, "Tipo");
 		$this->tipo = $value;
 	}
 
@@ -643,72 +640,32 @@ class Subject extends Main
 
 	public function Save()
 	{
-		if ($this->Util()->PrintErrors()) {
-			// si hay errores regresa false
-			return false;
-		}
-		//si no hay errores
-		//creamos la cadena de insercion
 		$sql = "INSERT INTO
 						subject
 						( 	
-						 	clave,
-						 	rvoe,
-						 	fechaRvoe,
-						 	rvoeLinea,
-						 	fechaRvoeLinea,
+						 	clave, 
 							name,
 							welcomeText,
 							introduction,
 							intentions,
 							objectives,
-							themes,
-							scheme,
 							methodology,
-							politics,
-							evaluation,
-							bibliography,							
-							cost,							
-							payments,							
-							tipo,
-							totalPeriods
+							politics, 
+							tipo
 						)
 					VALUES (
-							'" . $this->clave . "', 
-							'" . $this->rvoe . "', 
-							'" . $this->fechaRvoe . "', 
-							'" . $this->rvoeLinea . "', 
-							'" . $this->fechaRvoeLinea . "', 
+							'" . $this->clave . "',  
 							'" . $this->name . "',
 							'" . $this->welcomeText . "',
 							'" . $this->introduction . "',
 							'" . $this->intentions . "',
-							'" . $this->objectives . "',
-							'" . $this->themes . "',
-							'" . $this->scheme . "',
+							'" . $this->objectives . "', 
 							'" . $this->methodology . "',
-							'" . $this->politics . "',
-							'" . $this->evaluation . "',
-							'" . $this->bibliography . "',
-							'" . $this->cost . "',
-							'" . $this->payments . "',
-							'" . $this->tipo . "',
-							" . $this->totalPeriods . "
+							'" . $this->politics . "', 
+							'" . $this->tipo . "' 
 							)";
-		//configuramos la consulta con la cadena de insercion
 		$this->Util()->DB()->setQuery($sql);
-		//ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
 		$result = $this->Util()->DB()->InsertData();
-		if ($result > 0) {
-			//si el resultado es mayor a cero, se inserto el nuevo registro con exito...se regresara true
-			$result = true;
-			$this->Util()->setError(90000, 'complete', "Se ha creado un nuevo curso");
-		} else {
-			//si el resultado es cero, no se pudo insertar el nuevo registro...se regresara false
-			$result = false;
-			$this->Util()->setError(90010, 'error');
-		}
-		$this->Util()->PrintErrors();
 		return $result;
 	}
 
@@ -1523,10 +1480,51 @@ class Subject extends Main
 		return $resultado;
 	}
 
-	function grupos() {
+	function grupos()
+	{
 		$sql = "SELECT * FROM course WHERE  subjectId = {$this->subjectId} ORDER BY course.initialDate DESC";
 		$this->Util()->DB()->setQuery($sql);
 		$grupos = $this->Util()->DB()->GetResult();
 		return $grupos;
+	}
+
+	function dt_subjects_request()
+	{
+		//SELECT *,  major.name AS majorName, subject.name AS name FROM  subject LEFT JOIN  major ON major.majorId = subject.tipo ORDER BY  FIELD (major.name,"MAESTRIA","DOCTORADO","CURSO","ESPECIALIDAD") ASC, subject.name')
+		$table = 'subject INNER JOIN major ON major.majorId = subject.tipo';
+		$primaryKey = 'subjectId';
+		$columns = array(
+			array('db' => 'subject.subjectId',	'dt' => 'subjectId'),
+			array('db' => 'major.name', 		'dt' => 'tipo'),
+			array('db' => 'subject.clave',		'dt' => 'clave'),
+			array('db' => 'subject.name',  		'dt' => 'nombre'),
+			array('db' => '(SELECT COUNT(*) FROM subject_module WHERE subjectId = subject.subjectId)',  'dt' => 'modulos'),
+			array(
+				'db' => 'subjectId', 'dt' => 'acciones',
+				'formatter' => function ($d, $row) {
+					 
+					return "
+						<form action='".WEB_ROOT."/ajax/new/subject.php' id='form_modules".$d."' class='form d-inline' method='POST'>
+							<input type='hidden' name='opcion' value='viewModules'>
+							<input type='hidden' name='subject' value='".$d."'>
+							<button type='submit' class='btn btn-dark btn-sm text-white'>
+								<i class='fas fa-plus-circle'></i>
+							</button>
+						</form>
+						<form action='".WEB_ROOT."/ajax/new/subject.php' type='POST' id='form_delete".$d."' class='form d-inline' data-alert=true data-mensaje='Tome en cuenta que se podrían perder cursos, calificaciones, etc.'>
+							<input type='hidden' name='opcion' value='deleteSubject'>
+							<input type='hidden' name='subject' value='".$d."'>
+							<button type='submit' class='btn btn-danger btn-sm text-white' title='Eliminar'>
+								<i class='fas fa-trash-alt'></i>
+							</button>
+						</form>
+						<a href='".WEB_ROOT."/graybox.php?page=edit-subject&id=".$d."' data-target='#ajax' data-toggle='modal' class='btn btn-info btn-sm text-white'>
+							<i class='fas fa-edit'></i>
+						</a>";
+				}
+			)
+		);
+
+		return SSP::complex($_POST, $table, $primaryKey, $columns);
 	}
 }

@@ -1199,46 +1199,7 @@ class Util extends ErrorLms
 
 		return $generation;
 	}
-
-	function versionHorario()
-	{
-
-		$sql = 'SELECT valor FROM configuracion WHERE configId = 2';
-		$this->Util()->DB()->setQuery($sql);
-		$valor = $this->Util()->DB()->GetSingle();
-
-		return $valor;
-	}
-
-	function getNoCbta()
-	{
-
-		$sql = 'SELECT valor FROM configuracion WHERE configId = 3';
-		$this->Util()->DB()->setQuery($sql);
-		$valor = $this->Util()->DB()->GetSingle();
-
-		return $valor;
-	}
-
-	function getSubDirEnlaceOp()
-	{
-
-		$sql = 'SELECT valor FROM configuracion WHERE configId = 4';
-		$this->Util()->DB()->setQuery($sql);
-		$valor = $this->Util()->DB()->GetSingle();
-
-		return $valor;
-	}
-
-	function getDirTecnico()
-	{
-
-		$sql = 'SELECT valor FROM configuracion WHERE configId = 5';
-		$this->Util()->DB()->setQuery($sql);
-		$valor = $this->Util()->DB()->GetSingle();
-
-		return $valor;
-	}
+  
 
 	function NormalizeMark($mark)
 	{

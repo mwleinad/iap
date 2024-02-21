@@ -170,24 +170,4 @@ $lang = $util->ReturnLang();
 //Obtenemos la fecha
 $arrM = array('', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
 $fechaHoy = date('d') . ' ' . $arrM[date('n')] . ' ' . date('Y');
-$smarty->assign('fechaHoy', $fechaHoy);
-
-//Config. No del Cbta
-$noCbta = $util->getNoCbta();
-define('NO_CBTA', $noCbta);
-$smarty->assign('noCbta', $noCbta);
-
-//Conf. Directora de Enlace Operativo
-$subDirEnlaceOp = $util->getSubDirEnlaceOp();
-define('SUBDIR_ENLACE_OP', $subDirEnlaceOp);
-
-//Conf. Director Tecnico
-$dirTecnico = $util->getDirTecnico();
-define('DIR_TECNICO', $dirTecnico);
-
-//Conf. si es H o M.
-define('TIT_DIR', 'DIRECTORA');
-
-//Obtenemos la version del horario
-$schV1 = $util->versionHorario();
-$smarty->assign('schV1', $schV1);
+$smarty->assign('fechaHoy', $fechaHoy); 
