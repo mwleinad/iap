@@ -15,7 +15,7 @@ $course->setCourseId($_POST['course']);
 $infoCourse = $course->Info();
 $settingCertificate = $certificates->getSettings();
 $rector['name'] = mb_strtoupper($settingCertificate['rector']);
-$rector['genre'] = $settingCertificate['genre_rector'] == 1 ? "PRESIDENTE" : "PRESIDENTA";
+$rector['genre'] = $settingCertificate['genre_rector'] == 1 ? "RECTOR" : "RECTORA";
 // Calificacion Minima Aprobatoria
 $minCal = 7; 
 // Modalidad y RVOE
@@ -75,7 +75,7 @@ $html = '<html>
                         color: red;
                     }
                     #logo {
-                        width: 6cm; 
+                        width: 8cm; 
                     } 
                     .bg-gray {
                         background-color: #dddddd;
@@ -226,8 +226,8 @@ foreach ($students as $itemStudent) {
     $letraAnio =  $array_date[0] == 2023 ? "dos mil veintitrés" : mb_strtolower($util->num2letras($array_date[0]));  
     $html .= '<table width="100%">
                  <tr>
-                    <td>
-                        <img src="' . DOC_ROOT . '/images/logos/Logo_3.jpg" id="logo" /> 
+                    <td style="padding-top:60px;">
+                        <img src="' . DOC_ROOT . '/images/logos/Logo_3.jpg" id="logo"/> 
                     </td>
                 </tr>
                 <tr>
@@ -236,7 +236,7 @@ foreach ($students as $itemStudent) {
                         <div style="text-align:right; margin-top:0;font-size:12px; color:red;"><b>' . $folio . '</b></div>
                         <div> 
                             <p style="font-size:12px; text-align: justify;line-height:1.2; margin-top:0.2cm;">
-                                LA DIRECCIÓN DEL INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, RÉGIMEN PARTICULAR, TURNO ' . mb_strtoupper($infoCourse["turn"]) . ' MODALIDAD ' . $modality . ', CLAVE ' . $myInstitution["identifier"] . ', CERTIFICA QUE:  EL (LA) C. <br>
+                                LA DIRECCIÓN ACADÉMICA DEL INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, RÉGIMEN PARTICULAR, TURNO ' . mb_strtoupper($infoCourse["turn"]) . ' MODALIDAD ' . $modality . ', CLAVE ' . $myInstitution["identifier"] . ', HACE CONSTAR QUE: <br>
                             </p>
                             <div style="font-size: 14px; text-align: center; padding:10px 0;">
                                 <b>' . $nameStudent . '</b>
@@ -248,7 +248,7 @@ foreach ($students as $itemStudent) {
                                 <b>' .  $infoCourse['majorName'] . ' EN ' . $curso . '</b>
                             </p>
                             <p style="font-size: 12px; text-align: center; line-height:1.5">
-                                ACUERDO NÚMERO: <b>' . $rvoe . '</b>, VIGENTE A PARTIR DEL ' . mb_strtoupper($util->FormatReadableDate($fechaRvoe)) . ', DURANTE EL PERIODO:<br> 
+                                ACUERDO NÚMERO: <b>' . mb_strtoupper($rvoe) . '</b>, VIGENTE A PARTIR DEL ' . mb_strtoupper($util->FormatReadableDate($fechaRvoe)) . ', DURANTE EL PERIODO:<br> 
                             </p>
                             <p class="text-center" style="font-size:12px;"><b>' . mb_strtoupper($periodo) . '</b></p>
                             <p style="font-size: 12px; text-align: center; margin-bottom:20px; line-height:1">CON LOS RESULTADOS QUE A CONTINUACIÓN SE ANOTAN:</p> 
