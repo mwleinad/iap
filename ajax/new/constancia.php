@@ -18,6 +18,11 @@ $rector['name'] = mb_strtoupper($settingCertificate['rector']);
 $rector['genre'] = $settingCertificate['genre_rector'] == 1 ? "RECTOR" : "RECTORA";
 // Calificacion Minima Aprobatoria
 $minCal = 7; 
+$minCalOf = 6;
+if ($infoCourse['majorId'] == 18) { 
+    $minCal = 8;
+    $minCalOf = 7;
+}
 // Modalidad y RVOE
 $rvoe = $_POST['rvoe']; 
 if ($infoCourse['modality'] == 'Online') {
@@ -282,7 +287,7 @@ foreach ($students as $itemStudent) {
                     </tr>
                 </tfoot>
             </table>
-            <p style="font-size:12px; line-height:15px;">La escala oficial de calificaciones es de 6 (SEIS) a 10 (DIEZ), considerando como mínima aprobatoria ' . $minCal . ' (' . mb_strtoupper($util->num2letras($minCal)) . '). Esta constancia ampara <b>' . mb_strtoupper($util->num2letras($total_modules)) . '</b> materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ' . $array_date[2] . ' días del mes de ' . mb_strtolower($util->ConvertirMes(intval($array_date[1]))) . ' del año ' . $letraAnio . '.</p>
+            <p style="font-size:12px; line-height:15px;">La escala oficial de calificaciones es de '.$minCalOf.' ('. mb_strtoupper($util->num2letras($minCalOf)).') a 10 (DIEZ), considerando como mínima aprobatoria ' . $minCal . ' (' . mb_strtoupper($util->num2letras($minCal)) . '). Esta constancia ampara <b>' . mb_strtoupper($util->num2letras($total_modules)) . '</b> materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ' . $array_date[2] . ' días del mes de ' . mb_strtolower($util->ConvertirMes(intval($array_date[1]))) . ' del año ' . $letraAnio . '.</p>
             <table width="100%">
                 <tr>
                     <td style="font-size: 12px; text-align: center;"> 
