@@ -271,31 +271,62 @@ $pages = array(
 	'reporte-becas',
 	'registro-cobach'
 );
-$mensaje = "";
-if (in_array($User['userId'], [1076, 4070, 3618, 4269, 4338, 4405, 4404, 4219, 4278, 4407, 4411, 4412, 4420, 4421, 4423, 4336, 4459, 4480, 4487, 4488, 4531, 4538, 4548, 4549, 4550, 4553, 4533, 3306, 4568, 4570, 4572, 4576, 3983, 7055, 7056, 4558, 4561, 7098, 7101, 1508, 4452, 4045])) {
-	$mensaje = "<h1>Estimado(a) estudiante:</h1><p>Le informamos que hasta el momento no se ha formalizado el convenio de colaboración entre el Ayuntamiento en donde usted labora y el IAP Chiapas, el cual, entre otros beneficios, incluye un descuento importante para cursar un posgrado en el instituto.</p><p>Debido a esta situación, lamentamos notificarle que en un plazo de 24 horas se procederá a retirar el beneficio del descuento que ha estado recibiendo y así mismo el cierre del acceso a la plataforma educativa (a partir de las 15:00 horas del día 13 de marzo del 2024).</p><p>Por lo anterior, le solicitamos acercarse a las autoridades municipales de su Ayuntamiento, para instarlos a que formalicen el convenio de colaboración con el Instituto a la brevedad, y continuar con la formación de manera ininterrumpida en el posgrado.</p><p>Para cualquier duda o comentario, por favor no duden en contactar a la Mtra. Brenda López Gutiérrez, Jefa del Depto. de Gestión y Recaudación Municipal, al 961 125 15 08 Ext. 124.</p><p>Agradecemos su comprensión y colaboración.</p><p>Atentamente: IAP Chiapas</p>";
-} 
-
+$mensaje = ""; 
 if (!in_array($_GET['page'], $pages) && $_GET['page'] != "logout") {
 	$_GET['page'] = "homepage";
 }
-$pagesBlackList = ['modulos-curricula', 'view-modules-student', 'calendar-modules-student'];
+$pagesBlackList = [ 'view-modules-student', 'calendar-modules-student'];
+
+//Bloqueo por pago
 if ($User['bloqueado'] == 1) { //Comprobamos que realmente tenga un pago adeudado
 	$student->setUserId($_SESSION["User"]["userId"]);
 	$pagoPendiente = $student->pago_pendiente();
 	if (!$pagoPendiente) { //Si no cuenta con pago pendiente, se desbloquea al usuario
 		$User['bloqueado'] = 0;
 	} else {
-		$mensaje = "<h2 class='text-danger'><strong>ESTIMADO ALUMNO</strong></h2><p>Lamentamos informarte que tu acceso al sistema de educación ha sido bloqueado debido a saldos pendientes en tu cuenta. Para poder desbloquear tu acceso y continuar con tu proceso educativo, te pedimos que regularices tu situación de pago lo antes posible.</p><p>Por favor, sigue estos pasos:</p><ol style='text-align: justify; font-size: 1rem;'><li>Verifica el detalle de tus colegiaturas pendientes en el módulo de 'Finanzas' de este sistema.</li><li>Realiza el pago correspondiente a través de los métodos de pago disponibles.</li><li>Una vez realizado el pago, permite un período máximo de 48 horas para que el sistema actualice tu estado de cuenta.</li><li>Una vez que tu pago haya sido procesado y tu situación esté regularizada, podrás acceder nuevamente al sistema de educación y continuar con tus estudios sin interrupciones.</li></ol><p>Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en ponerte en contacto con nuestro Departamento de Contabilidad y Finanzas, al 961 125 15 08 Ext. 116 en un horario de 08:00 a 16:00 horas de lunes a viernes.</p><p>Agradecemos tu pronta atención y compromiso con tu educación.</p><p>Atentamente, <br>IAP Chiapas</p";
+		$mensaje = "<h2 class='text-danger'><strong>ESTIMADO ALUMNO</strong></h2><p>Lamentamos informarte que tu acceso al sistema de educación ha sido bloqueado debido a saldos pendientes en tu cuenta. Para poder desbloquear tu acceso y continuar con tu proceso educativo, te pedimos que regularices tu situación de pago lo antes posible.</p><p>Por favor, sigue estos pasos:</p><ol style='text-align: justify; font-size: 1rem;'><li>Verifica el detalle de tus colegiaturas pendientes en el módulo de 'Finanzas' de este sistema.</li><li>Realiza el pago correspondiente a través de los métodos de pago disponibles.</li><li>Una vez realizado el pago, permite un período máximo de 48 horas para que el sistema actualice tu estado de cuenta.</li><li>Una vez que tu pago haya sido procesado y tu situación esté regularizada, podrás acceder nuevamente al sistema de educación y continuar con tus estudios sin interrupciones.</li></ol><p>Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en ponerte en contacto con nuestro Departamento de Contabilidad y Finanzas, al 961 125 15 08 Ext. 116 en un horario de 08:00 a 16:00 horas de lunes a viernes.</p><p>Agradecemos tu pronta atención y compromiso con tu educación.</p><p>Atentamente, <br>IAP Chiapas</p>";
 	}
+}
+
+//Bloqueo por convenio
+if (in_array($User['userId'], [
+	4338,
+	4405,
+	4404,
+	4407,
+	4411,
+	4420,
+	4421,
+	4423,
+	4336,
+	4459,
+	4487,
+	4531,
+	4538,
+	4548,
+	4549,
+	4550,
+	4553,
+	3306,
+	4568,
+	4570,
+	4576,
+	3983,
+	7098,
+	7101
+])) {
+	$pagesBlackList[] = "finanzas";
+	$pagesBlackList[] = "inbox";
+	$pagesBlackList[] = "doc-alumno";
+	$User['bloqueado'] = 1;
+	$mensaje = "<h1>Estimado(a) estudiante:</h1><p>Le informamos que hasta el momento no se ha formalizado el convenio de colaboración entre el Ayuntamiento en donde usted labora y el IAP Chiapas, el cual, entre otros beneficios, incluye un descuento importante para cursar un posgrado en el instituto.</p><p>Debido a esta situación, lamentamos notificarle que se ha bloqueado el acceso a su posgrado en nuestro Sistema de Educación.</p><p>Por lo anterior, le solicitamos acercarse a las autoridades municipales de su Ayuntamiento, para instarlos a que formalicen el convenio de colaboración con el Instituto a la brevedad, y continuar con la formación de manera ininterrumpida en el posgrado.</p><p>Para cualquier duda o comentario, por favor no duden en contactar a la Mtra. Brenda López Gutiérrez, Jefa del Depto. de Gestión y Recaudación Municipal, al 961 125 15 08 Ext. 124.</p><p>Agradecemos su comprensión y colaboración.</p><p>Atentamente: IAP Chiapas</p>";
 }
 $smarty->assign("mensaje", $mensaje);
 if (in_array($_GET['page'], $pagesBlackList) && $User['bloqueado'] == 1 && $_GET['page'] != "logout") {
 	$_GET['page'] = "homepage";
 }
 
-// echo $_GET['page'];
-// exit;
+
 
 $smarty->assign('positionId', $User['positionId']);
 
