@@ -267,7 +267,7 @@ $pages = array(
 	'procesar-pago',
 	'mi-credencial-digital',
 	'credenciales',
-	'registro',
+	//'registro',
 	'reporte-becas',
 	'registro-cobach'
 );
