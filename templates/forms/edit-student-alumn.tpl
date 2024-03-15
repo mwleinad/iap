@@ -9,7 +9,7 @@
     <input type="hidden" id="coursexId" name="coursexId" value="{$courseId}" />
     {if $auxAdmin}
         <input type="hidden" name="auxAdmin" value="true">
-    {/if} 
+    {/if}
     <span class="badge badge-dark"><i class="fas fa-user"></i> Información Personal</span>
     <hr />
     <div class="row">
@@ -49,6 +49,10 @@
         <div class="form-group col-md-4">
             <label for="password">Contraseña del Sistema (Minimo 6 caracteres):</label>
             <input type="password" name="password" id="password" class="form-control" value="{$info.password}" />
+        </div>
+        <div class="form-group col-md-4">
+            <label for="curp">Curp</label>
+            <input type="text" class="form-control" id="curp" name="curp" value="{$info.curp}">
         </div>
     </div>
 
@@ -327,10 +331,6 @@
         </div>
         <div class="row">
             <div class="form-group col-md-4">
-                <label for="curp">Curp</label>
-                <input type="text" class="form-control" id="curp" name="curp" value="{$info.curp}">
-            </div>
-            <div class="form-group col-md-4">
                 <label>Archivo curp</label>
                 <iframe src="https://drive.google.com/file/d/{$info.curpDrive->googleId}/preview" width="640" height="480"
                     allow="autoplay" class="form-control"></iframe>
@@ -346,7 +346,7 @@
     {/if}
     <button type="submit" class="btn btn-success">Guardar</button>
 </form>
- 
+
 <script>
     flatpickr('.i-calendar', {
         dateFormat: "Y-m-d"

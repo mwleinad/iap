@@ -181,7 +181,7 @@ switch ($_POST['opcion']) {
 		$trabajoPuesto = strip_tags(trim($_POST['workplacePosition']));
 		$trabajoPais = intval($_POST['paist']);
 		$trabajoEstado = intval($_POST['estadot']);
-
+		$curp = $_POST['curp'];
 		//validaciones para todos
 		if (empty($nombre)) {
 			$errors['names'] = "Por favor, no se olvide de poner el nombre.";
@@ -215,6 +215,9 @@ switch ($_POST['opcion']) {
 		if (empty($trabajoEstado)) {
 			$errors['estadot'] = "Por favor, no se olvide de poner el estado.";
 		}
+		if (empty($curp)) {
+			$errors['curp'] = "Por favor, no se olvide de poner la curp.";
+		}
 
 		//Campo para los que tienen currícula y tienen o no el diplomado. 
 		$fechaNacimiento = $diplomados != 1 ? date('d-m-Y', strtotime(strip_tags($_POST['birthday']))) : "";
@@ -238,7 +241,6 @@ switch ($_POST['opcion']) {
 		$escuelaMaestria = $diplomados != 1 ? strip_tags($_POST['mastersSchool']) : "";
 		$bachillerato = $diplomados != 1 ? strip_tags($_POST['highSchool']) : "";
 		$telefono = $diplomados != 1 ? strip_tags($_POST['phone']) : "";
-		$curp = $diplomados != 0 ? strip_tags($_POST['curp']) : "";
 		$funcion = $diplomados != 0 && $_POST['funcion'] ? $_POST['funcion'] : 0;
 		//Validaciones para los que tienen currícula y tienen o no el diplomado
 		if ($diplomados != 1) {
@@ -385,10 +387,7 @@ switch ($_POST['opcion']) {
 				}
 			} elseif ($foto != "NULL") {
 				$foto = "'" . json_encode($foto) . "'";
-			}
-			if (empty($curp)) {
-				$errors['curp'] = "Por favor, no se olvide de poner la curp.";
-			}
+			} 
 		}
 
 		if (!empty($errors)) {
@@ -435,6 +434,7 @@ switch ($_POST['opcion']) {
 		$student->setHighSchool($bachillerato);
 		$student->setMasters($maestria);
 		$student->setMastersSchool($escuelaMaestria);
+		$student->setCurp($curp);
 		$student->setCurpDrive($curpArchivo);
 		$student->setFoto($foto);
 		$student->setFuncion($funcion);
