@@ -289,20 +289,13 @@ if ($User['bloqueado'] == 1) { //Comprobamos que realmente tenga un pago adeudad
 }
 
 //Bloqueo por convenio
-if (in_array($User['userId'], [
-	4338,
+if (in_array($User['userId'], [ 
 	4405,
-	4404,
-	4407,
-	4411,
-	4420,
-	4421,
-	4423,
+	4404, 
 	4336,
 	4459,
 	4487,
-	4531,
-	4538,
+	4531, 
 	4548,
 	4549,
 	4550, 
