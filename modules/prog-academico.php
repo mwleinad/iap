@@ -8,7 +8,7 @@
 	$course->setAparece('si');
 	$result = $course->EnumerateCourse();
 
-	$result = $util->orderMultiDimensionalArray($result,'active',true);
+	// $result = $util->orderMultiDimensionalArray($result,'active',true);
 	
 	//checar a que curriculas tengo permiso
 	if(in_array(2, $info["roles"]))
