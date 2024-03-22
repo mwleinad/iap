@@ -196,7 +196,8 @@ class Student extends User
 	}
 
 	private $schoolNumber;
-	function setSchoolNumber($value){
+	function setSchoolNumber($value)
+	{
 		$this->schoolNumber = $value;
 	}
 
@@ -444,10 +445,10 @@ class Student extends User
 						'" . $courseData['crm_name'] . "',
 						'" . $courseData['crm_id'] . "'
 						)";
-	
+
 			$this->Util()->DBCrm()->setQuery($sql);
 			$this->Util()->DBCrm()->InsertData();
-	
+
 			$sql = "SELECT uuid()";
 			$this->Util()->DBCrm()->setQuery($sql);
 			$emailId = $this->Util()->DBCrm()->GetSingle();
@@ -475,7 +476,7 @@ class Student extends User
 				)";
 			$this->Util()->DBCrm()->setQuery($sql);
 			$this->Util()->DBCrm()->InsertData();
-	
+
 			$sql = "SELECT uuid()";
 			$this->Util()->DBCrm()->setQuery($sql);
 			$uuId = $this->Util()->DBCrm()->GetSingle();
@@ -1107,10 +1108,10 @@ class Student extends User
 							masters = '" . $this->getMasters() . "', 
 							mastersSchool = '" . $this->getMastersSchool() . "', 
 							highSchool = '" . $this->getHighSchool() . "',
-							curpDrive = ".$this->curpDrive.",
-							foto = ".$this->foto.",
-							funcion = ".$this->funcion.",
-							curp = '".$this->curp."'
+							curpDrive = " . $this->curpDrive . ",
+							foto = " . $this->foto . ",
+							funcion = " . $this->funcion . ",
+							curp = '" . $this->curp . "'
 						WHERE 
 							userId = " . $this->getUserId();
 		$this->Util()->DB()->setQuery($sqlQuery);
@@ -1703,7 +1704,7 @@ class Student extends User
 		$activity->setCourseModuleId($id);
 		if ($alumnoId)
 			$activity->setUserId($alumnoId);
-		$actividades = $activity->Enumerate(); 
+		$actividades = $activity->Enumerate();
 		$totalScore = 0;
 		foreach ($actividades as $res)
 			$totalScore += $res["realScore"];
@@ -3426,7 +3427,7 @@ class Student extends User
 		$result = $this->Util()->DB()->GetRow();
 		if ($result) {
 			$result['files'] = [
-				"photo" => json_decode($result['photo'],true),
+				"photo" => json_decode($result['photo'], true),
 				"credential" => json_decode($result['credential'], true),
 				"token"	=> json_decode($result['token'], true)
 			];
@@ -3453,40 +3454,65 @@ class Student extends User
 		$this->Util()->DB()->UpdateData();
 	}
 
-	public function UpdateAvatarCredential($userId, $photoCredential) {
+	public function UpdateAvatarCredential($userId, $photoCredential)
+	{
 		$sql = "UPDATE user SET avatar_credential = {$photoCredential} WHERE userId = {$userId}";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->UpdateData($sql);
 	}
 
 	//Actualiza el bloqueo para privilegios de pagos
-	function actualizarBloqueo($userId, $bloqueo) {
+	function actualizarBloqueo($userId, $bloqueo)
+	{
 		$sql = "UPDATE user SET bloqueado = {$bloqueo} WHERE userId = {$userId}";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->UpdateData();
 	}
 
 	//Retorna el alumno inscrito en el curso Gestión Documental y Administración de Archivos y, si tiene, la curricula adicional activa. 
-	function alumnoConDiplomado($alumnoId) {
+	function alumnoConDiplomado($alumnoId)
+	{
 		$sql = "SELECT * FROM `user_subject` B WHERE alumnoId = {$alumnoId} AND status = 'activo' AND EXISTS(SELECT * FROM user_subject A WHERE A.alumnoId = B.alumnoId AND A.courseId = 162);";
 		$this->Util()->DB()->setQuery($sql);
 		$resultado = $this->Util()->DB()->GetTotalRows();
 		return $resultado;
 	}
 
-	function saveCOBACH() {
-		$sql = "INSERT INTO user(controlNumber, names, lastNamePaterno, lastNameMaterno, email, phone, password, workPlace, workplaceOcupation, workplacePosition, paist, estadot, ciudadt, academicDegree, plantel, actualizado, type, estado, ciudad) VALUES('".$this->getControlNumber()."', '".$this->name."', '".$this->lastNamePaterno."', '".$this->lastNameMaterno."', '".$this->email."', '".$this->phone."', '".$this->password."', 'COBACH', 'OTROS', '".$this->workplacePosition."', 1, 7, '".$this->getCiudadT()."', '".$this->getAcademicDegree()."', '".$this->schoolNumber."', 'si', 'student', 7, '".$this->getCiudadT()."')";
+	public function evaluaciones_diplomado()
+	{
+		$sql = 'SELECT
+			user.controlNumber as usuario,
+			user.names,
+			user.lastNamePaterno,
+			user.lastNameMaterno,
+			subject_module.name AS modulo,
+			IFNULL(MAX(CASE WHEN activity.activityId = 6214 THEN activity_score.ponderation ELSE NULL END), 0) AS "actividad_1",
+			IFNULL(MAX(CASE WHEN activity.activityId = 6219 THEN activity_score.ponderation ELSE NULL END), 0) AS "actividad_2",
+			IFNULL(MAX(CASE WHEN activity.activityId = 6228 THEN activity_score.ponderation ELSE NULL END), 0) AS "actividad_3",
+			IFNULL(MAX(CASE WHEN activity.activityId = 6243 THEN activity_score.ponderation ELSE NULL END), 0) AS "actividad_4",
+			IFNULL(MAX(CASE WHEN activity.activityId = 6256 THEN activity_score.ponderation ELSE NULL END), 0) AS "actividad_5", 
+			IFNULL(MAX(CASE WHEN activity.activityId = 6282 THEN activity_score.ponderation ELSE NULL END), 0) AS "actividad_6", 
+			IFNULL(MAX(CASE WHEN activity.activityId = 6288 THEN activity_score.ponderation ELSE NULL END), 0) AS "actividad_7",
+			IFNULL(MAX(CASE WHEN activity.activityId = 6304 THEN activity_score.ponderation ELSE NULL END), 0) AS "actividad_8",
+			IFNULL(MAX(CASE WHEN activity.activityId = 6310 THEN activity_score.ponderation ELSE NULL END), 0) AS "actividad_9",
+			IFNULL(MAX(CASE WHEN activity.activityId = 6317 THEN activity_score.ponderation ELSE NULL END), 0) AS "actividad_10",
+			IFNULL(MAX(CASE WHEN activity.activityId = 6335 THEN activity_score.ponderation ELSE NULL END), 0) AS "actividad_11",
+			IFNULL(MAX(CASE WHEN activity.activityId = 6341 THEN activity_score.ponderation ELSE NULL END), 0) AS "actividad_12",
+			IFNULL(MAX(CASE WHEN activity.activityId = 6359 THEN activity_score.ponderation ELSE NULL END), 0) AS "actividad_13",
+			IFNULL(MAX(CASE WHEN activity.activityId = 6382 THEN activity_score.ponderation ELSE NULL END), 0) AS "actividad_14",
+			IFNULL(MAX(CASE WHEN activity.activityId = 6369 THEN activity_score.ponderation ELSE NULL END), 0) AS "actividad_15"
+		FROM
+			user_subject
+		INNER JOIN user ON user.userId = user_subject.alumnoId
+		INNER JOIN course_module ON course_module.courseId = user_subject.courseId
+		INNER JOIN subject_module ON subject_module.subjectModuleId = course_module.subjectModuleId
+		INNER JOIN activity ON activity.courseModuleId = course_module.courseModuleId
+		LEFT JOIN activity_score ON activity_score.activityId = activity.activityId AND activity_score.userId = user.userId
+		WHERE
+			user_subject.courseId = 162
+			GROUP BY user.userId;';
 		$this->Util()->DB()->setQuery($sql);
-		$resultado = $this->Util()->DB()->InsertData();
-
-		$sql = "INSERT INTO user_subject(alumnoId, status, courseId) VALUES('" . $resultado . "', 'activo' , '".$this->courseId."')";
-		$this->Util()->DB()->setQuery($sql);
-		$this->Util()->DB()->InsertData();
-
-		$date = date('Y-m-d');
-		$sql = "INSERT INTO academic_history(subjectId, courseId, userId, semesterId, dateHistory, type, situation) VALUES('".$this->subjectId."', '".$this->courseId."', '".$resultado."', 1, '".$date."', 'alta', 'A')";
-		$this->Util()->DB()->setQuery($sql);
-		$this->Util()->DB()->InsertData();
-		return $resultado;
+		$result = $this->Util()->DB()->GetResult();
+		return $result;
 	}
 }

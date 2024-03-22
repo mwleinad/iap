@@ -83,6 +83,9 @@ switch ($_POST["opcion"]) {
     case 'diplomados':
         include_once('reportes/diplomados.php');
         break;
+    case 'diplomados-evaluaciones':
+        include_once('reportes/diplomados-evaluaciones.php');
+        break;
     case 'becas':
         $where = "";
         if ($_POST['posgrado']) { 
