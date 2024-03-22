@@ -31,6 +31,7 @@ $sheet->setCellValue('F1', 'Funcion');
 $sheet->setCellValue('G1', 'Foto');
 $sheet->setCellValue('H1', 'Curp');
 $sheet->setCellValue('I1', 'Curp Archivo');
+$sheet->setCellValue('J1', 'Contraseña');
 
 $sheet->getStyle('A')->getAlignment()->setHorizontal('center')->setVertical('center');
 $sheet->getStyle('A')->getFont()->setSize(14)->setBold(true);
@@ -50,6 +51,8 @@ $sheet->getStyle('H')->getAlignment()->setHorizontal('center')->setVertical('cen
 $sheet->getStyle('H')->getFont()->setSize(14)->setBold(true);
 $sheet->getStyle('I')->getAlignment()->setHorizontal('center')->setVertical('center');
 $sheet->getStyle('I')->getFont()->setSize(14)->setBold(true);
+$sheet->getStyle('J')->getAlignment()->setHorizontal('center')->setVertical('center');
+$sheet->getStyle('J')->getFont()->setSize(14)->setBold(true);
 
 $funciones = [
     0 => "",
@@ -75,9 +78,10 @@ for ($i = 0; $i < (count($students)); $i++) {
     $sheet->setCellValue("H" . ($i + 2), $students[$i]['curp']);
     $sheet->setCellValue("I" . ($i + 2), $curp['urlBlank']);
     $sheet->getCell('I' . ($i + 2))->getHyperlink()->setUrl($curp['urlBlank']);
+     $sheet->setCellValue("J" . ($i + 2), $students[$i]['password']);
 }
 
-$sheet->getStyle("A2:I" . (count($students) + 1))->getAlignment()->setHorizontal('center')->setVertical('center')->setWrapText(true);
+$sheet->getStyle("A2:J" . (count($students) + 1))->getAlignment()->setHorizontal('center')->setVertical('center')->setWrapText(true);
 
 $fileName = bin2hex(random_bytes(4));
 // Redirect output to a client’s web browser (Xls)
