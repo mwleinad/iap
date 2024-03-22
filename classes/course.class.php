@@ -434,9 +434,7 @@ class Course extends Subject
 				LEFT JOIN subject ON course.subjectId = subject.subjectId 
 				LEFT JOIN major ON major.majorId = subject.tipo
 				where 1 ' . $filtro . '
-				ORDER BY 
-				FIELD (major.name,"MAESTRIA","DOCTORADO","CURSO","ESPECIALIDAD") asc, subject.name, modality desc, initialDate desc,  active
-				
+				ORDER BY course.initialDate DESC, course.finalDate DESC			
 				LIMIT ' . $rowOffset . ', ' . $rowsPerPage;
 		// exit;
 		$this->Util()->DB()->setQuery($sql);
