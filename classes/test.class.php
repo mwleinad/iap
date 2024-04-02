@@ -146,19 +146,21 @@ class Test extends Activity
 		$examenRealizado = $this->Util()->DB()->GetRow();
 		$response = ['acceso' => true];
 		if ($examenRealizado) {
+			$response['acceso'] = $examenRealizado['access'];
 			if ($actividad['reintento']) {
-				$response['acceso'] =  $examenRealizado['ponderation'] == 0 ? true : false;
 				$response['tipo'] = $actividad['tipo'];
 				if (!$actividad['tipo'] && $examenRealizado['try'] < $actividad['tries']) { //Por intentos 
-					$response['intentos'] = $actividad['tries'] - $examenRealizado['try'];
+					$intentosRestantes = $actividad['tries'] - $examenRealizado['try'];
+					$response['mensaje'] = "Puedes volver a realizar el examen, aún cuentas con {$intentosRestantes} intento(s)";
+					$response['intentos'] = $intentosRestantes;
 					return $response;
 				}
 				if ($actividad['tipo'] && $examenRealizado['ponderation'] < $actividad['calificacion']) { //Por calificacion 
+					$response['mensaje'] = "El puntaje mínimo requerido para aprobar esta evaluación es de ({$actividad['calificacion']}). Te recomendamos vuelvas a intentarlo para alcanzar este objetivo. Tienes la oportunidad de volver a realizarla";
 					$response['intentos'] = 1;
 					return $response;
 				}
 			}
-			$response['acceso'] = false;
 			return $response;
 		}
 		return $response;
@@ -282,7 +284,8 @@ class Test extends Activity
 			$this->Util()->DB()->setQuery("
 					UPDATE `activity_score` SET
 						`ponderation` = '" . $score . "',
-						try = try + 1
+						try = try + 1,
+						access = 0
 					WHERE
 						`userId` = '" . $this->getUserId() . "' AND activityId = '" . $this->getActivityId() . "' LIMIT 1");
 			$result = $this->Util()->DB()->UpdateData();
@@ -308,9 +311,6 @@ class Test extends Activity
 		$mail->MsgHTML($body);
 
 		$mail->Send();
-
-
-
 
 		$this->Util()->setError(90000, 'complete', "Has respondido el examen Satisfactoriamente. Tu resultado esta abajo.");
 		$this->Util()->PrintErrors();
@@ -342,8 +342,9 @@ class Test extends Activity
 		return $result;
 	}
 
-	function reiniciarTest() {
-		$sql = "UPDATE activity_score SET ponderation = 0 WHERE activityId = {$this->getActivityId()} AND userId = {$this->getUserId()}";
+	function reiniciarTest()
+	{
+		$sql = "UPDATE activity_score SET access = 1, ponderation = 0 WHERE activityId = {$this->getActivityId()} AND userId = {$this->getUserId()}";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->UpdateData();
 	}
