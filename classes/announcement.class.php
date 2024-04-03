@@ -82,7 +82,7 @@ class Announcement extends Module
 			$theGroup = $group->DefaultGroup();
 			$modulo = $this->Util()->acento($myModule["name"]);
 			$titulo = $this->Util()->acento($this->title);
-			if ($courseId != 162) {
+			if (!in_array($courseId, [162, 167, 168])) {
 				//echo $modulo;
 				$message[3]["subject"] = "Nuevo anuncio disponible en el modulo " . $modulo . " | " . $titulo;
 				$message[3]["body"] = $this->Util()->DecodeTiny($this->description);
@@ -146,7 +146,7 @@ class Announcement extends Module
 			$theGroup = $group->DefaultGroup();
 			$modulo = $this->Util()->acento($myModule["name"]);
 			$titulo = $this->Util()->acento($this->title);
-			if ($courseId != 162) {
+			if (!in_array($courseId, [162, 167, 168])) {
 				//echo $modulo;
 				$message[3]["subject"] = "Se actualizo un anuncio en el modulo " . $modulo . " | " . $titulo;
 				$message[3]["body"] = $this->Util()->DecodeTiny($this->description);

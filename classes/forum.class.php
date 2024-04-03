@@ -580,7 +580,7 @@ class Forum extends Main
 		$group->setCourseId($detalleModulo['courseId']);
 		$grupo = $group->DefaultGroup();
 		$visto = "";
-		if($detalleModulo['courseId'] != 162){
+		if (in_array($detalleModulo['courseId'], [162, 167, 168])) {
 			$x = 0;
 			foreach ($grupo as $alumnos) {
 				if ($x == 0)
@@ -589,7 +589,7 @@ class Forum extends Main
 					$visto = $visto . "," . $alumnos['alumnoId'] . "u";
 				$x++;
 			}
-		}else{
+		} else {
 			$visto = $detalleModulo['access'][0] . "p,1p";
 		}
 
