@@ -290,41 +290,169 @@ $alumnos = [
     "MATE821023HCSNRD07",
     "AAMO891117HCSLNB04",
     "RUMS840811MDGDRN02",
-    "MAGV801108HMCTRC01"
+    "MAGV801108HMCTRC01",
+    "CAVA790514MDFRZR01",
+    "AEEG930225HMCNFL06",
+    "RAFM770902HZSMRR02",
+    "LOCR871118MCSPSS00",
+    "PECP740913MCSRHL01",
+    "GATA820524HSPRRB03",
+    "LOMV950616MCSTNL05",
+    "VAMA791225HJCZRL02",
+    "HEAA840101MHGRDR05",
+    "LELA751117MDFLRM09",
+    "HEAA840101MHGRDR05",
+    "Regb880907mtcyrr00",
+    "BEPR720218HZSCRD07",
+    "ROAR960510HTCDRC01",
+    "VEAR851024HHGLNY08",
+    "Sapa901031htcnll05",
+    "ZARE930331MDFRZL03",
+    "Jilg980820mtcmpd07",
+    "DIZY931216MHGZMR03",
+    "VEAR851024HHGLNY08",
+    "TEZC770818968",
+    "MXME740222MMCRRL15",
+    "GONA910526MCSNRN01",
+    "TURP940706MCSRML01",
+    "AAGI851206MVZLTV02",
+    "GALJ801031MDFRYS04",
+    "MOAA020627HMCRLLA5",
+    "Dulb870315htcxnn08",
+    "AESJ700220HCSRNR03",
+    "LOME751229MCSPRL08",
+    "AAAE761029MMCYCS09",
+    "MOBG900828MCSRRB08",
+    "VASL000119MQTRNZA8",
+    "PAGD700131MCSDRC06",
+    "LOHG700909HCSPRS04",
+    "CXCA970530MOCSBL07",
+    "FIGR850623HCSGZN01",
+    "CARJ880530HCSMZV06",
+    "PIVG870726HNTXLS02",
+    "gurl691023hdftms00",
+    "GOOE841114MCSNCD08",
+    "TOGA670719HGTRMR06",
+    "TEOA961210MCSRCN03",
+    "MOGA960110HCSLRR03",
+    "DOAI820808MCSMRW08",
+    "CUNM811014MHGRCR03",
+    "GOCA820111MDFNML04",
+    "Neaj731116hdfgcn05",
+    "Rora711123mmcjzd02",
+    "PEVA880115HMCRRR02",
+    "CACF970407HDGRMR08",
+    "GALS700919MDFBPS00",
+    "CUJG710621MCSRNN05",
+    "CAVS891205MMCSZN09",
+    "HEAA840101MHGRDR05",
+    "LAME821125HVZGDD07",
+    "AIRM821219MMCTMR09",
+    "LEMI820711MSRLRV08",
+    "MEYM870218MSRRPR04",
+    "Gaca800113htsrnr04",
+    "RUTF920712HDFZRR04",
+    "VAGM770704MTSRRY09",
+    "MEBE821028HDFDRR00",
+    "TEOK890409MCSRCR02",
+    "GAAL660618MCMLNR04",
+    "DORL741126MCSMMC03",
+    "LODA720503MCSPZR01",
+    "Jisa920314mcsmnl00",
+    "PAGD700131MCSDRC06",
+    "AAGM760901MCSLNR05",
+    "HEVG690710HGRRLS09",
+    "DURL920228MVZRZD01",
+    "PASD921018MCSLNN07",
+    "PEHV680301HCSRRR02",
+    "RORD891230HCSMMV07",
+    "ZAUD841030MCSVLM01",
+    "MACD931129HQRRLN02",
+    "CABN990303MQRHSR02",
+    "DEAF981202HQRCQR06", //No está inscrito
+    "LOPD970817HQRPSL06", //No está inscrito
+    "JIAC800722MDFMLS07",
+    "VESF810128HMNRLL04",
+    "OAED900330MCSCGN05",
+    "SACJ830701HCSNSS02",
+    "PAPA720413MDFLLD06",
+    "EECP740722HYNSTB06",
+    "EIFJ660617HDGSLS07",
+    "LONG860530MCSPXR00",
+    "VASN860201MCSLLN02",
+    "NUGD790206MOCXLR06",
+    "DIGE850713MCSZRL04",
+    "EELK860920MQRSNR01",
+    "BACM850327MVZRML00",
+    "AURM941011MDFGYN00",
+    "MABR710224HMCNNG02",
+    "RATP640517HCSMRS09",
+    "MOME960924HCSRLD01",
+    "OOVM670324HCSRLN02",
+    "CAMC830508HJCMNH00",
+    "CALI811220MMCLPR04",
+    "Fism810704mcsgnc00",
+    "SAPC930409HCSNRR07", 
+    "ROCG731001MDFDLL02",
+    "SEMM890627MMCRLN05",
+    "PESI810622MQRRNN07",
+    "GULG840421MCSTRL03",
+    "VIGD710414MNTLRL09",
+    "Docd950111hcsmrn08",
+    "PUZA860307HDFNML00",
+    "VAAE830719MGTLGR04",
+    "VAEM810218MCSZSR15",
+    "EIMS750224MCSSRN04",
+    "MARJ721103HDFRMN03",
+    "BURA820226MCSRZN06",
+    "LOGG780228MDFPND07",
+    "ZACM791113MCSMRN00",
+    "LOAR900909HCSPLD04",
+    "GUAZ860412MDFDNR05",
+    "OAPC800727MCSVRR02",
+    "PEGP850705MCSRLT01",
+    "ROCA710809MDFSRN06",
+    "RILD950315MCSNPN08",
+    "MOMA791121MGRRRN11",
+    "GACS790105MCSRSC08",
+    "VATO891120HCSLRS09",
+    "GAVL750220HCSRZS05",
+    "VERS751205MCSLNM04",
+    "TOLI960330HCSBPR05", 
 ];
 echo "<pre>";
-for ($i=0; $i < count($alumnos) ; $i++) {  
-    $sql = "SELECT userId FROM user WHERE curp = '{$alumnos[$i]}'"; 
+for ($i = 0; $i < count($alumnos); $i++) {
+    $sql = "SELECT userId FROM user WHERE curp = '{$alumnos[$i]}'";
     $util->DB()->setQuery($sql);
     $existeAlumno = $util->DB()->GetSingle();
-    if($existeAlumno > 0){
-        $sql = "SELECT * FROM user_subject WHERE alumnoId = {$existeAlumno} AND courseId = 167"; 
-        $util->DB()->setQuery($sql); 
-        $existe = $util->DB()->GetTotalRows(); 
-        if ($existe == 0) { 
-            $sql = "INSERT INTO user_subject(alumnoId, courseId, status) VALUES($existeAlumno, 167, 'activo')"; 
+    if ($existeAlumno > 0) {
+        $sql = "SELECT * FROM user_subject WHERE alumnoId = {$existeAlumno} AND courseId = 167";
+        $util->DB()->setQuery($sql);
+        $existe = $util->DB()->GetTotalRows();
+        if ($existe == 0) {
+            $sql = "INSERT INTO user_subject(alumnoId, courseId, status) VALUES($existeAlumno, 167, 'activo')";
             $util->DB()->setQuery($sql);
             $util->DB()->InsertData();
 
-            $sql = "INSERT INTO academic_history(subjectId, courseId, userId, semesterId, type, situation) VALUES(58, 167, $existeAlumno, 1, 'alta', 'A')"; 
+            $sql = "INSERT INTO academic_history(subjectId, courseId, userId, semesterId, type, situation) VALUES(58, 167, $existeAlumno, 1, 'alta', 'A')";
             $util->DB()->setQuery($sql);
             $util->DB()->InsertData();
         }
 
-        $sql = "SELECT * FROM user_subject WHERE alumnoId = {$existeAlumno} AND courseId = 168"; 
-        $util->DB()->setQuery($sql); 
+        $sql = "SELECT * FROM user_subject WHERE alumnoId = {$existeAlumno} AND courseId = 168";
+        $util->DB()->setQuery($sql);
         $existe = $util->DB()->GetTotalRows();
-        if ($existe == 0) { 
+        if ($existe == 0) {
             $sql = "INSERT INTO user_subject(alumnoId, courseId, status) VALUES($existeAlumno, 168, 'activo')";
             $util->DB()->setQuery($sql);
             $util->DB()->InsertData();
 
-            $sql = "INSERT INTO academic_history(subjectId, courseId, userId, semesterId, type, situation) VALUES(59, 168, $existeAlumno, 1, 'alta', 'A')"; 
+            $sql = "INSERT INTO academic_history(subjectId, courseId, userId, semesterId, type, situation) VALUES(59, 168, $existeAlumno, 1, 'alta', 'A')";
             $util->DB()->setQuery($sql);
             $util->DB()->InsertData();
         }
-    }else{
-        echo "No existe esta curp:".$alumnos[$i]."<br>";
+    } else {
+        echo "No existe esta curp:" . $alumnos[$i] . "<br>";
     }
     // $sql = "SELECT * FROM user_subject WHERE al";
-} 
+}
