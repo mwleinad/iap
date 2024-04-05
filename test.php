@@ -521,7 +521,7 @@ for ($i = 0; $i < count($alumnos); $i++) {
             $util->DB()->setQuery($sql);
             $existePago = $util->DB()->GetTotalRows();
             if ($existePago == 0) {
-                $sql = "INSERT INTO `pagos`(`alumno_id`, `course_id`, `concepto_id`, `indice`, `fecha_cobro`, `fecha_limite`, `total`, `iva`, `subtotal`, `status`, `descuento`, `beca`, `periodo`, `concepto_course_id`, `condonado`, `created_at`, `updated_at`) VALUES ({$existeAlumno}, 168, 17, 1, '2024-04-04', '2024-04-30', 1500, 0, 1500, 1, 0, 0, 1, 968, 0, NOW(), NOW())";
+                $sql = "INSERT INTO `pagos`(`alumno_id`, `course_id`, `concepto_id`, `indice`, `fecha_cobro`, `fecha_limite`, `total`, `iva`, `subtotal`, `status`, `descuento`, `beca`, `periodo`, `concepto_course_id`, `condonado`, `created_at`, `updated_at`) VALUES ({$existeAlumno}, 168, 17, 1, '2024-05-02', '2024-05-30', 1500, 0, 1500, 1, 0, 0, 1, 968, 0, NOW(), NOW())";
                 $util->DB()->setQuery($sql);
                 $util->DB()->InsertData();
             }
