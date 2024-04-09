@@ -15,24 +15,13 @@
     </nav>
 </div>
 <div class="row">
-    <div class="{($alumno.referenciaBancaria == "") ? "col-md-8" : "col-md-10"}"></div>
+    <div class="col-md-10"></div>
     <div class="col-md-2 mb-3">
         <a class="btn btn-info btn-block" href="{$WEB_ROOT}/datos-fiscales" title="Datos Fiscales">
             Datos Fiscales
             <i class="fa fa-clipboard"></i>
         </a>
     </div>
-    {if $alumno.referenciaBancaria == ""}
-        <form action="{$WEB_ROOT}/ajax/new/finanzas.php" class="form col-md-2 mb-3 text-center"
-            id="form_deposito{$item.courseId}" title="Cuenta para depósito" data-target="#ajax" data-toggle="modal"
-            data-width="900">
-            <input type="hidden" name="opcion" value="cuenta-deposito">
-            <button type="submit" class="btn btn-info btn-block">
-                Cuenta para depósito
-                <i class="fa fa-piggy-bank"></i>
-            </button>
-        </form>
-    {/if}
 </div>
 
 {if count($activeCourse) > 0}
@@ -53,22 +42,36 @@
                                 <b>Currícula:</b>[{$item.majorName}] {$item.name}
                             </button>
                             <div class="d-flex">
-                                <a href="{$WEB_ROOT}/pdf/calendario-pagos.php?alumno={$User.userId}&curso={$item.courseId}"
-                                    class="text-center btn btn-link px-3" target="_blank" title="Descargar Calendario">
-                                    Descargar Calendario<br>
-                                    <i class="fa fa-download"></i>
-                                </a>
-                                <form action="{$WEB_ROOT}/ajax/new/finanzas.php" class="form text-center"
-                                    id="form_pago{$item.courseId}" title="Nuevo Pago" data-target="#ajax" data-toggle="modal"
-                                    data-width="500">
-                                    <input type="hidden" name="opcion" value="nuevo-pago">
-                                    <input type="hidden" name="alumno" value="{$User.userId}">
-                                    <input type="hidden" name="curso" value="{$item.courseId}">
-                                    <button type="submit" class="btn btn-link px-3">
-                                        Solicitar pago<br>
-                                        <i class="fa fa-file-invoice-dollar"></i>
-                                    </button>
-                                </form>
+                                {if $alumno.referenciaBancaria == ""}
+                                    <form action="{$WEB_ROOT}/ajax/new/finanzas.php" class="form text-center"
+                                        id="form_deposito{$item.courseId}" title="Cuenta para depósito" data-target="#ajax"
+                                        data-toggle="modal" data-width="1200">
+                                        <input type="hidden" name="curso" value="{$item.courseId}">
+                                        <input type="hidden" name="opcion" value="cuenta-deposito">
+                                        <button type="submit" class="btn btn-link px-3">
+                                            Cuenta para depósito<br>
+                                            <i class="fa fa-piggy-bank"></i>
+                                        </button>
+                                    </form>
+                                {/if}
+                                {if !in_array($item.courseId, [167, 168])}
+                                    <a href="{$WEB_ROOT}/pdf/calendario-pagos.php?alumno={$User.userId}&curso={$item.courseId}"
+                                        class="text-center btn btn-link px-3" target="_blank" title="Descargar Calendario">
+                                        Descargar Calendario<br>
+                                        <i class="fa fa-download"></i>
+                                    </a>
+                                    <form action="{$WEB_ROOT}/ajax/new/finanzas.php" class="form text-center"
+                                        id="form_pago{$item.courseId}" title="Nuevo Pago" data-target="#ajax" data-toggle="modal"
+                                        data-width="500">
+                                        <input type="hidden" name="opcion" value="nuevo-pago">
+                                        <input type="hidden" name="alumno" value="{$User.userId}">
+                                        <input type="hidden" name="curso" value="{$item.courseId}">
+                                        <button type="submit" class="btn btn-link px-3">
+                                            Solicitar pago<br>
+                                            <i class="fa fa-file-invoice-dollar"></i>
+                                        </button>
+                                    </form>
+                                {/if}
                             </div>
                         </h5>
                     </div>
@@ -119,7 +122,8 @@
                                                                     <td>${$itemp.subtotal|number_format:2:".":","}</td>
                                                                     <td>${$itemp.subtotal * ($itemp.beca / 100)|number_format:2:".":","}</td>
                                                                     <td>${$itemp.total|number_format:2:".":","}</td>
-                                                                    <td>${($itemp.status == 4) ? '0.00' : ($itemp.total - $itemp.monto)|number_format:2:".":","}</td>
+                                                                    <td>${($itemp.status == 4) ? '0.00' : ($itemp.total - $itemp.monto)|number_format:2:".":","}
+                                                                    </td>
                                                                     <td>{$itemp.fecha_cobro}</td>
                                                                     <td>{$itemp.fecha_limite}</td>
                                                                     <td>{$itemp.beca}%</td>

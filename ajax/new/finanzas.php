@@ -6,24 +6,27 @@ session_start();
 
 switch ($_POST["opcion"]) {
     case 'cuenta-deposito':
-        $data = [
-            [
-                "metodo"    => "En ventanilla",
-                "dato"      => "Con número de cuenta: <b>1031331727</b>"
-            ],
-            [
-                "metodo"    => "Por transferencia de un banco distinto a Banorte",
-                "dato"      => "Con número de clabe interbancaria: <b>072100010313317272</b>"
-            ],
-            [
-                "metodo"    => "Por transferencia con cuenta Banorte",
-                "dato"      => "Con número de Cuenta: <b>1031331727</b>"
-            ],
-
-        ];
-        $smarty->assign("banco", "BANORTE IXE");
-        $smarty->assign("nombre_cuenta", "IAP POSTGRADOS");
-        $smarty->assign("data", $data);
+        if (in_array($_POST['curso'], [167, 168])) {
+            $smarty->assign("certificacion", true);
+        } else {
+            $data = [
+                [
+                    "metodo"    => "En ventanilla",
+                    "dato"      => "Con número de cuenta: <b>1031331727</b>"
+                ],
+                [
+                    "metodo"    => "Por transferencia de un banco distinto a Banorte",
+                    "dato"      => "Con número de clabe interbancaria: <b>072100010313317272</b>"
+                ],
+                [
+                    "metodo"    => "Por transferencia con cuenta Banorte",
+                    "dato"      => "Con número de Cuenta: <b>1031331727</b>"
+                ],
+            ];
+            $smarty->assign("banco", "BANORTE IXE");
+            $smarty->assign("nombre_cuenta", "IAP POSTGRADOS");
+            $smarty->assign("data", $data);
+        }  
         echo json_encode([
             'html'  => $smarty->fetch(DOC_ROOT . "/templates/new/cuenta-deposito.tpl"),
             'modal' => true
@@ -294,7 +297,7 @@ switch ($_POST["opcion"]) {
             'growl'     => true,
             'message'   => 'Privilegios actualizados',
             'type'      => 'success',
-            'reload'    => true,             
+            'reload'    => true,
         ]);
         break;
 }
