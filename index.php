@@ -292,8 +292,7 @@ if ($User['bloqueado'] == 1) { //Comprobamos que realmente tenga un pago adeudad
 if (in_array($User['userId'], [ 
 	4405,
 	4404, 
-	4336,
-	4487,
+	4336, 
 	4531, 
 	4548,
 	4549,
