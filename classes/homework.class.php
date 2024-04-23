@@ -213,7 +213,13 @@ class Homework extends Activity
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->InsertData();
 		} else {
-			$contador = is_numeric($count['countUpdate']) ? $count['countUpdate'] + 1 : 1;
+			$contador = is_numeric($count['countUpdate']) ? $count['countUpdate'] + 1 : 1; 
+			$sql = "SELECT course_module.courseId FROM homework INNER JOIN activity ON activity.activityId = homework.activityId INNER JOIN course_module ON course_module.courseModuleId = activity.courseModuleId WHERE homework.activityId = {$this->getActivityId()};";
+			$this->Util()->DB()->setQuery($sql);
+			$curso = $this->Util()->DB()->GetSingle();
+			if (in_array($curso,[167, 168])) {
+				$contador = 0;
+			}
 			$sql = "UPDATE 
 							homework
 							SET
@@ -276,7 +282,7 @@ class Homework extends Activity
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->UpdateData();
 			// exit;
-		}else{
+		} else {
 			$sql = "DELETE FROM homework WHERE activityId = '" . $this->getActivityId() . "' AND userId = '" . $_SESSION['User']['userId'] . "' AND deleted_at IS NULL";
 			$this->Util()->DB()->setQuery($sql);
 			$this->Util()->DB()->DeleteData();
