@@ -16,7 +16,8 @@
             </div>
             <img src="{$WEB_ROOT}/images/credencial/frontal.png" class="img-fluid">
             <picture class='img_credencial_previo'>
-                <img src="https://lh3.google.com/u/0/d/{$credencial.files['photo']['googleId']}" class="img-fluid">
+                <img src="https://www.googleapis.com/drive/v3/files/{$credencial.files['photo']['googleId']}?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE"
+                    class="img-fluid">
             </picture>
             <div class="vigencia">
                 <span>Vigencia</span><br>
@@ -27,7 +28,8 @@
     {* Credencial aceptada *}
     {if $credencial.status == 1}
         <a href=" https://drive.google.com/uc?export=download&id={$credencial.files['credential']['googleId']}">
-            <img src="https://lh3.google.com/u/0/d/{$credencial.files['credential']['googleId']}" class="img-fluid">
+            <img src="https://www.googleapis.com/drive/v3/files/{$credencial.files['credential']['googleId']}?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE"
+                class="img-fluid">
         </a>
     {/if}
 
@@ -54,7 +56,7 @@
 
     <div id="credencial_frontal"
         style="position:absolute; right:-1000%;min-width: 1110px; max-width:1110px; min-height: 700px; max-height:700px;">
-        <div class="p-0 credencial_previo position-relative">
+        <div class="p-0 position-relative">
             <img src="{$WEB_ROOT}/images/credencial/frontal.png" class="img-fluid">
             <div class="nombre_previo">
                 {$alumno.names|upper} {$alumno.lastNamePaterno|upper} {$alumno.lastNameMaterno|upper}

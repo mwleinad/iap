@@ -20042,7 +20042,7 @@ dl li {
 #credencial_frontal .usuario_previo,
 #credencial_frontal .curricula_previa,
 #credencial_frontal .vigencia {
-  font-size: 1.8rem;
+  font-size: 1.7rem;
 }
 
 #credencial_frontal .usuario_previo span {
@@ -20051,4 +20051,28 @@ dl li {
 
 #credencial_frontal .vigencia span {
   font-weight: 800;
+}
+
+@media (max-width: 480) {
+  #ajax .curricula_previa {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 1600px) {
+
+  #ajax .credencial_previo .curricula_previa,
+  #ajax .credencial_previo .vigencia,
+  #ajax .credencial_previo .usuario_previo span,
+  #ajax .credencial_previo .usuario_previo,
+  #ajax .credencial_previo .nombre_previo {
+    font-size: 1rem;
+  }
+
+  #credencial_frontal .nombre_previo,
+  #credencial_frontal .usuario_previo,
+  #credencial_frontal .curricula_previa,
+  #credencial_frontal .vigencia {
+    font-size: 1.7rem;
+  }
 }

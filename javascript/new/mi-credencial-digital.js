@@ -1,10 +1,4 @@
 
-// /*
-//     Tomar una fotografía y guardarla en un archivo v3
-//     @date 2018-10-22
-//     @author parzibyte
-//     @web parzibyte.me/blog
-// */
 const tieneSoporteUserMedia = () =>
     !!(navigator.getUserMedia || (navigator.mozGetUserMedia || navigator.mediaDevices.getUserMedia) || navigator.webkitGetUserMedia || navigator.msGetUserMedia)
 const _getUserMedia = (...arguments) =>

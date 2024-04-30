@@ -244,14 +244,14 @@
                 <div class="col-md-6">
                     <h3 class="w-100 text-center">Parte Frontal</h3>
                     <div class="w-100 p-0 credencial_previo position-relative">
-                        <img src="https://lh3.google.com/u/0/d/{$credential.files['credential']['googleId']}" class="img-fluid">
+                        <img src="https://www.googleapis.com/drive/v3/files/{$credential.files['credential']['googleId']}?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <h3 class="w-100 text-center">Parte Trasera</h3>
                     <div class="w-100 credencial_previo">
                         <img src="{$WEB_ROOT}/images/credencial/atras.png" class="img-fluid">
-                        <img id="codigo-qr" src="https://lh3.google.com/u/0/d/{$credential.files['token']['qr']['googleId']}"></img>
+                        <img id="codigo-qr" src="https://www.googleapis.com/drive/v3/files/{$credential.files['token']['qr']['googleId']}?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE"></img>
                     </div>
                 </div>
                 {if $credential.download == 0}
