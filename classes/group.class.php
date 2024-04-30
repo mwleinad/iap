@@ -87,7 +87,10 @@ class Group extends Module
 	{
 		$notificacion = new Notificacion;
 
-		foreach ($scores as $key => $score) {
+		foreach ($scores as $key => $score) { 
+			if (in_array($key,[4405, 4404, 4336, 4531, 4548, 4549, 4550, 4568, 4570, 4576, 3983, 7098])) {
+				continue;
+			}
 			$k = $key;
 			$this->Util()->ValidateFloat($score, 2, 100, 0);
 			switch ($modality) {
