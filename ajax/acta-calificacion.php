@@ -41,9 +41,9 @@ $studentsRepeat = $group->actaCalificacionRepeat();
 $infoFirma = $personal->extraeFirmaActa();
 $personal->setPersonalId($info['access'][1]);
 $infoPersonal = $personal->Info();
-$breakAlways = $studentsRepeat ? "page-break-after:always" : ""; 
+$breakAlways = $studentsRepeat ? "page-break-after:avoid" : "";
 $main = "";
-$main .= "<table  width='100%' class='txtTicket' style='$breakAlways'>
+$main .= "<table  width='100%' class='txtTicket' style='border: none'>
 			<tr>
 				<td style='width:11px'><center>Num.</center></td>
 				<td ><center>Nombre</center></td>
@@ -86,7 +86,26 @@ foreach ($noTeam as $key => $aux) {
 	}
 	$main .= "</tr>";
 }
-$main .= "</table>";
+$main .= '	<tr style="border: none">
+				<td colspan="4" align="center" style="border: none">
+					<br><br><br>
+					' . $infoPersonal["profesion"] . ' ' . $infoPersonal["name"] . ' ' . $infoPersonal["lastname_paterno"] . ' ' . $infoPersonal["lastname_materno"] . '<br>
+					Catedrático (a)
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" align="center" style="border: none;">
+					<div style="width:49%; display:inline-block;">
+						<br><br><br><br>' . $infoFirma['director'].'<br>
+						Directora Academica
+					</div>
+					<div style="width:49%; display:inline-block;">
+						<br><br><br><br>' . $infoFirma['controlEscolar'].'<br>
+						Servicios Escolares
+					</div>
+				</td> 
+			</tr>';
+$main .= "</table>"; 
 if ($studentsRepeat) {
 	$main .= "<table  width='100%' class='txtTicket' style='page-break-after: never;'>
 	<tr>
@@ -138,7 +157,7 @@ $html = '<html>
 			<head>
 				<style>
 					@page {
-						margin: 320px 50px 200px 50px;
+						margin: 320px 50px 100px 50px;
 						border: 1px solid black;
 					} 
 					
@@ -151,10 +170,9 @@ $html = '<html>
 
 					footer {
 						position: fixed;
-						bottom: -150px;
+						bottom: 0px;
 						left: 0px;
 						right: 0px;
-						height: 100px;
 					}
 
 					.txtTicket{
@@ -206,29 +224,7 @@ $html = '<html>
 						</tr> 
 					</table>
 				</header>
-
-				<footer>
-					<table width=100% align="center" style="border: none" class="txtTicket">	
-						<tr>
-							<td colspan="2" align="center" style="border: none">
-							' . $infoPersonal["profesion"] . ' ' . $infoPersonal["name"] . ' ' . $infoPersonal["lastname_paterno"] . ' ' . $infoPersonal["lastname_materno"] . ' <br>
-							Catedrático (a) 
-							<br>
-							<br>
-							<br>
-							</td>
-						</tr>
-						<tr>
-							<td align="center" style="border: none">
-								' . $infoFirma['director'] . '<br>
-								Directora Academica
-							</td>
-							<td align="center" style="border: none"> 
-								' . $infoFirma['controlEscolar'] . '<br>
-								Servicios Escolares
-							</td>
-						</tr>
-					</table>
+				<footer> 
 				</footer> 
 				<main>
 					' . $main . '
