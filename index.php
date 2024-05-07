@@ -269,7 +269,8 @@ $pages = array(
 	'credenciales',
 	'registro',
 	'reporte-becas',
-	'registro-cobach'
+	'registro-cobach',
+	'reporte-cursos'
 );
 $mensaje = ""; 
 if (!in_array($_GET['page'], $pages) && $_GET['page'] != "logout") {

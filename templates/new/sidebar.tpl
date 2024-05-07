@@ -234,11 +234,16 @@
                                 {if in_array($User.positionId,[1,10])}
                                     <li class="nav-item">
                                         <a class="nav-link" target="_blank"
-                                            href="{$WEB_ROOT}/ajax/new/reportes.php?opcion=diplomados&page=export-excel">Diplomados - Registros</a>
+                                            href="{$WEB_ROOT}/ajax/new/reportes.php?opcion=diplomados&page=export-excel">Diplomados -
+                                            Registros</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" target="_blank"
-                                            href="{$WEB_ROOT}/ajax/new/reportes.php?opcion=diplomados-evaluaciones&page=export-excel">Diplomados - Evaluaciones</a>
+                                            href="{$WEB_ROOT}/ajax/new/reportes.php?opcion=diplomados-evaluaciones&page=export-excel">Diplomados
+                                            - Evaluaciones</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{$WEB_ROOT}/reporte-cursos">Cursos</a>
                                     </li>
                                 {/if}
                             {/if}
