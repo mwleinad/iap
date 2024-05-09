@@ -1,5 +1,4 @@
 <?php
-include_once 'google-api/vendor/autoload.php';
 $courseId = $_GET['id'];
 $credential = $student->getCredential($User['userId'], $courseId); 
 $course->setCourseId($courseId);

@@ -111,16 +111,16 @@ function drawImageProp(ctx, source, iw, ih, x, y, w, h, offsetX, offsetY) {
 
     $enviarFoto.addEventListener('click', function () {
         let foto = $canvas.toDataURL();
-        $enviarFoto.text = "Espere, por favor..."
+        $enviarFoto.innerHTML = "Espere, por favor..."
         $enviarFoto.disabled = true;
         $nuevaFoto.disabled = true;
-        let perfil = document.getElementById('perfil') !== null ? document.getElementById('perfil').val : 0; 
+        let perfil = document.getElementById('perfil') !== null ? document.getElementById('perfil').val : 0;
         var formData = new FormData();
         formData.append("imagen", encodeURIComponent(foto));
-        formData.append("perfil", perfil); 
+        formData.append("perfil", perfil);
         fetch(window.location, {
             method: "POST",
-            body: formData 
+            body: formData
         }).then(resultado => {
             console.log(resultado);
             return resultado.json();
@@ -132,6 +132,11 @@ function drawImageProp(ctx, source, iw, ih, x, y, w, h, offsetX, offsetY) {
             setTimeout(() => {
                 location.reload();
             }, 5000);
+        }).catch(function (error) {
+            console.log("Hubo un problema con la petición Fetch:" + error.message);
+            $enviarFoto.disabled = false;
+            $nuevaFoto.disabled = false;
+            $enviarFoto.innerHTML = "Enviar foto"
         });
     });
     // Comenzamos viendo si tiene soporte, si no, nos detenemos
@@ -233,5 +238,5 @@ function drawImageProp(ctx, source, iw, ih, x, y, w, h, offsetX, offsetY) {
                 });
         }
     }
-})(); 
- 
+})();
+
