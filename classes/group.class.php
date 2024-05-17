@@ -87,8 +87,8 @@ class Group extends Module
 	{
 		$notificacion = new Notificacion;
 
-		foreach ($scores as $key => $score) { 
-			if (in_array($key,[4405, 4404, 4336, 4531, 4548, 4549, 4550, 4568, 4570, 4576, 3983])) {
+		foreach ($scores as $key => $score) {
+			if (in_array($key, [4405, 4404, 4336, 4531, 4548, 4549, 4550, 4568, 4570, 4576, 3983])) {
 				continue;
 			}
 			$k = $key;
@@ -1165,7 +1165,7 @@ class Group extends Module
 				$response['estatus'] = false;
 				$response['mensaje'] = "Hubo un problema al guardar el archivo, intente de nuevo, por favor.";
 			}
-		} 
+		}
 		return $response;
 	}
 
@@ -1194,12 +1194,12 @@ class Group extends Module
 				$response['estatus'] = false;
 				$response['mensaje'] = "Hubo un problema al guardar el archivo, intente de nuevo, por favor.";
 			}
-		} 
+		}
 		return $response;
 	}
 
 	function onSendEncuadre($Id)
-	{  
+	{
 		$response = $this->Util()->validarSubida(['size' => 5242880, 'types' => ['application/pdf', 'application/msword']]);
 		if ($response['estatus']) {
 			$aux = explode(".", $_FILES['framing']["name"]);
@@ -1223,12 +1223,12 @@ class Group extends Module
 				$response['estatus'] = false;
 				$response['mensaje'] = "Hubo un problema al guardar el archivo, intente de nuevo, por favor.";
 			}
-		} 
-		return $response; 
+		}
+		return $response;
 	}
 
 	function onSendRubrica($Id)
-	{ 
+	{
 		$response = $this->Util()->validarSubida(['size' => 5242880, 'types' => ['application/pdf', 'application/msword']]);
 		if ($response['estatus']) {
 			$aux = explode(".", $_FILES['signature']["name"]);
@@ -1252,7 +1252,7 @@ class Group extends Module
 				$response['estatus'] = false;
 				$response['mensaje'] = "Hubo un problema al guardar el archivo, intente de nuevo, por favor.";
 			}
-		} 
+		}
 		return $response;
 	}
 
@@ -1281,7 +1281,7 @@ class Group extends Module
 				$response['estatus'] = false;
 				$response['mensaje'] = "Hubo un problema al guardar el archivo, intente de nuevo, por favor.";
 			}
-		} 
+		}
 		return $response;
 	}
 
@@ -1358,6 +1358,21 @@ class Group extends Module
 				ORDER BY lastNamePaterno ASC, lastNameMaterno ASC, names ASC";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
+		foreach ($result as $key => $item) {
+			if ($item['avatar'] == 1) {
+				$sql = "SELECT * FROM user_credentials WHERE user_id = {$item['userId']} ORDER BY id DESC LIMIT 1";
+				// echo $sql;
+				$this->Util()->DB()->setQuery($sql);
+				$credencial = $this->Util()->DB()->GetRow();
+				$json = json_decode($credencial['photo']);
+				// print_r($json);
+				$result[$key]["foto"] = 'https://www.googleapis.com/drive/v3/files/' . $json->googleId . '?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE';
+			} else {
+				if (file_exists(DOC_ROOT . "/alumnos/" . $item["rutaFoto"] . "")) {
+					$result[$key]["foto"] =  WEB_ROOT . '/alumnos/' . $item["rutaFoto"];
+				}
+			}
+		}
 		return $result;
 	}
 

@@ -19741,7 +19741,7 @@ dl li {
 }
 
 .content-wrapper {
-  background: #f2edf3;
+  background: #e1dfe2;
   padding: 2.75rem 2.25rem;
   width: 100%;
   -webkit-box-flex: 1;
@@ -19990,6 +19990,7 @@ dl li {
   font-size: 1.4rem;
   text-align: center;
   font-weight: 600;
+  padding: 0 40px;
 }
 
 .usuario_previo {
@@ -20017,6 +20018,7 @@ dl li {
   justify-content: center;
   align-items: center;
   font-weight: 600;
+  color: #fff;
 }
 
 .vigencia {

@@ -102,13 +102,13 @@
                                     {if $subject.situation eq 'Ordinario'}
                                         <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}"
                                             title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
-                                            <i class="fas fa-link"></i> Ver
+                                            <i class="fas fa-link"></i> Ingresar
                                         </a>
                                     {/if}
                                     {if $subject.situation eq 'Recursador'}
                                         <a href="{$WEB_ROOT}/modulos-recursar/id/{$subject.courseId}"
                                             title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
-                                            <i class="fas fa-link"></i> Ver
+                                            <i class="fas fa-link"></i> Ingresar
                                         </a>
                                     {/if}<br><br>
                                     <a href="{$WEB_ROOT}/boletas/id/{$subject.courseId}"

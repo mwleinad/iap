@@ -53,6 +53,7 @@
         font-size: 1rem;
         text-align: center;
         font-weight: 600;
+        padding: 0 20px;
     }
 
     #usuario {
@@ -80,6 +81,7 @@
         justify-content: center;
         align-items: center;
         font-weight: 600;
+        color: #fff;
     }
 
     #vigencia {
@@ -114,7 +116,8 @@
 <section class="row">
     <div class="col-12 my-4">
         <div class="row row-cols-1 row-cols-md-2">
-            {if empty($credential) || $credential.status == 2}<!--Credencial rechazada o sin foto-->
+            {if empty($credential) || $credential.status == 2}
+                <!--Credencial rechazada o sin foto-->
                 {if $credential}
                     <div class="alert alert-danger alert-dismissible fade show w-100" role="alert">
                         <strong>La foto de tu credencial ha sido rechazada.</strong>
@@ -128,39 +131,49 @@
                 <div class="col col-md-4 col-lg-5 col-xxl-4 mb-4">
                     <div class="card h-100">
                         <div class="card-body">
+                            <h4>Indicaciones</h4>
                             <ol class="">
-                                <li>Toma tu fotografía al instante, no se permitirá que cargues archivos desde tu
-                                    galería de fotos.
+                                <li>
+                                    Toma tu fotografía al instante, con la cámara de tu laptop o accediendo con tu
+                                    celular.<br>
+                                    <strong>No se permitirá que cargues archivos desde tu galería</strong>
                                 </li>
-                                <li>Debes usar camisa o playera blanca.</li>
-                                <li>El fondo de la fotografía debe ser de un color uniforme(puede ser color gris o
-                                    colores claros),
-                                    en
-                                    una pared lisa sin logotipos.</li>
-                                <li>Procura que la iluminación sea la adecuada para que su rostro pueda ser visible.
+                                <li>
+                                    El fondo de la fotografía debe ser de un color uniforme, preferentemente blanco o de
+                                    color claro, sin logotipos o gráfico alguno.
                                 </li>
-                                <li>La toma debe ser totalmente de frente, enfocando únicamente su rostro y hombros(no
-                                    tomar fotos
-                                    de
-                                    cuerpo completo).</li>
-                                <li>En el caso de utilizar lentes y/o pierciengs se deben retirar para la fotografía.
+                                <li>
+                                    Procurar vestimenta formal, de un solo color preferentemente, sin logotipos o anuncios
                                 </li>
-                                <li>No usar gorras ni sombreros.</li>
-                                <li><span class="resalte"><strong>Mujeres:</strong></span> cabello recogido o suelto, sin
-                                    tapar el rostro acompañado
-                                    de un
-                                    maquillaje
-                                    discreto y aretes pequeños.</li>
-                                <li><span class="resalte"><strong>Hombres:</strong></span> sin barba, sin bigote, con la
-                                    frente
-                                    despejada, si tiene
-                                    cabello largo
-                                    debera sujetarlo para mejor visibilidad del rostro.</li>
+                                <li>
+                                    Procura que la iluminación sea la adecuada para que su rostro pueda ser visible.
+                                </li>
+                                <li>
+                                    La toma debe ser totalmente de frente, enfocando únicamente tu rostro y hombros. No
+                                    tomar fotografías de cuerpo completo, tampoco en paisajes, ni a contra luz.
+                                </li>
+                                <li>
+                                    En el caso de utilizar lentes y/o piercing deberán retirarlos al momento de tomar la
+                                    fotografía.
+                                </li>
+                                <li>
+                                    No usar gorras ni sombreros u otro aditamento
+                                </li>
+                                <li>
+                                    <span class="resalte"><strong>En el caso de las mujeres:</strong></span> cabello
+                                    recogido o suelto, sin tapar el rostro y orejas, y si es necesario acompañado de un
+                                    maquillaje discreto y aretes muy pequeños.
+                                </li>
+                                <li>
+                                    <span class="resalte"><strong>Hombres:</strong></span> sin barba y sin bigote, o en su
+                                    caso recortados, que se vea la línea de la boca. Si tiene cabello largo deberá sujetarlo
+                                    para mejor visibilidad del rostro y la frente despejada.
+                                </li>
                             </ol>
                             <span class="warning">
                                 Una vez realizado los pasos de fotografía, deberás esperar el proceso de validación de tus
-                                datos por el Departamento de Servicios Escolares. Recuerda que si la fotografía no cubre los
-                                requisitos será rechazada y deberás tomarla nuevamente hasta que sea validada.
+                                datos y fotografía por la dirección Académica. Es importante considerar que si la fotografía
+                                no cubre los requisitos será rechazada y deberás tomarla nuevamente hasta que sea validada.
                             </span>
                         </div>
                     </div>
@@ -205,57 +218,70 @@
                                             <div id="curricula">{$curso}</div>
                                             <div id="vigencia"><span>Vigencia:</span><br>31 de diciembre {date('Y')}</div>
                                         </div>
-                                        {* {if $User.photo == ""}
-                                            <div class="col-md-12 mt-3">
-                                                <label for="perfil" class="w-100">¿Deseas utilizar esta foto como foto de perfil?</label>
-                                                <select class="form-control" id="perfil" name="perfil">
-                                                    <option value="1">Sí</option>
-                                                    <option value="0">No</option>
-                                                </select>
-                                            </div>
-                                        {/if} *}
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            {elseif $credential.status == 0}<!--Credencial en espera de validación-->
-                <div class="col col-md-6 mx-auto mb-4">
+            {elseif $credential.status == 0}
+                <!--Credencial en espera de validación-->
+                <div class="col col-md-8 mx-auto mb-4">
                     <div class="card h-100">
                         <div class="card-body">
-                            <span class="warning text-justify">
-                                Actualmente, tu foto se encuentra en proceso de validación por el Departamento de Servicios
-                                Escolares,
-                                cuando tu información sea validada, se activará en la parte inferior de tu currícula activa
-                                el botón "Mi Credencial Digital". La credencial digital podrás descargarla en un archivo
-                                PDF, sin embargo la versión impresa de tu credencial podrás solicitarlo desde el módulo
-                                finanzas para realizar el pago correspondiente y comenzar con el proceso de impresión de
-                                aproximadamente 15 días hábiles, por lo que te será notificado a tu correo institucional
-                                cuando ya esté lista para recogerla en la ventanilla de servicios escolares de Lunes a
-                                Viernes de 8:00 am a 4:00 pm.
-                            </span>
+                            <div class="warning text-justify">
+                                <p>
+                                    Actualmente, tu fotografía se encuentra en proceso de validación, y recibirás una
+                                    notificación en un periodo de 24 a 48 horas en días hábiles. En caso de no recibirla
+                                    puedes
+                                    llamar al área de Servicios Escolares o apoyarte con tu representante de grupo.
+                                </p>
+                                <p>
+                                    Cuando tu información sea validada podrás visualizar tu "Credencial Digital" en esta
+                                    sección, y podrás descargarla en un archivo PDF para su impresión, o en PNG para su
+                                    portabilidad en dispositivos.
+                                </p>
+                                <p>
+                                    En caso de requerir una credencial impresa en plástico, puedes solicitarla al Área de
+                                    Servicios Escolares para recibir indicaciones. Se te informa que este tipo de credencial
+                                    tiene un costo que deberás cubrir antes de iniciar el proceso, y posteriormente
+                                    recogerla en las oficinas del Instituto.
+                                </p>
+                                <p>
+                                    La credencial impresa podrás tenerla en un tiempo de 5 a 10 días hábiles una vez
+                                    cubiertos los requisitos, misma que será entregada en las oficinas de servicios
+                                    escolares, de lunes a viernes, en horario de 8:00 am a 4:00, previa notificación vía
+                                    correo institucional.
+                                </p>
+                            </div>
+                            <div class="text-center">
+                                <a class="btn btn-success mt-3" href="{$WEB_ROOT}">Aceptar</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            {else} <!--Credencial validada-->
+            {else}
+                <!--Credencial validada-->
                 <div id="credencial"></div>
-                <div class="col-md-6">
+                <div class="col-md-6 mx-auto">
                     <h3 class="w-100 text-center">Parte Frontal</h3>
                     <div class="w-100 p-0 credencial_previo position-relative">
-                        <img src="https://www.googleapis.com/drive/v3/files/{$credential.files['credential']['googleId']}?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE" class="img-fluid">
+                        <img src="https://www.googleapis.com/drive/v3/files/{$credential.files['credential']['googleId']}?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE"
+                            class="img-fluid">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 mx-auto" id="back_credential">
                     <h3 class="w-100 text-center">Parte Trasera</h3>
                     <div class="w-100 credencial_previo">
                         <img src="{$WEB_ROOT}/images/credencial/atras.png" class="img-fluid">
-                        <img id="codigo-qr" src="https://www.googleapis.com/drive/v3/files/{$credential.files['token']['qr']['googleId']}?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE"></img>
+                        <img id="codigo-qr"
+                            src="https://www.googleapis.com/drive/v3/files/{$credential.files['token']['qr']['googleId']}?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE"></img>
                     </div>
                 </div>
                 {if $credential.download == 0}
-                    <form class="col-md-12 text-center mt-4 form" data-alert="true" data-mensaje="Solo podrás descargar una vez la credencial, para posteriores descargas deberás comunicarte con Servicios Escolares" method="post" id="form_descarga" action="{$WEB_ROOT}/ajax/new/credenciales.php" method="POST">
+                    <form class="col-md-12 text-center mt-4 form" data-alert="true"
+                        data-mensaje="Solo podrás descargar una vez la credencial, para posteriores descargas deberás comunicarte con Servicios Escolares"
+                        method="post" id="form_descarga" action="{$WEB_ROOT}/ajax/new/credenciales.php" method="POST">
                         <input type="hidden" name="opcion" value="descarga">
                         <input type="hidden" name="credencial" value="{$credential.id}">
                         <button class="btn btn-primary" type="submit">Descargar</button>

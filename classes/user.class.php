@@ -979,26 +979,24 @@ class User extends Main
 		$sql = "SELECT * FROM user WHERE userId = '" . $this->userId . "'";
 		$this->Util()->DB()->setQuery($sql);
 		$row = $this->Util()->DB()->GetRow();
-		if ($row['avatar_credential'] == 1) {
+		if ($row['avatar'] == 1) {
 			$sql = "SELECT * FROM user_credentials WHERE user_id = {$row['userId']} ORDER BY id DESC LIMIT 1";
 			// echo $sql;
 			$this->Util()->DB()->setQuery($sql);
 			$credencial = $this->Util()->DB()->GetRow();
 			$json = json_decode($credencial['photo']);
 			// print_r($json);
-			$row["foto"] = '
-				<img src="' . $json->urlEmbed . '" width="110" height="110"/>';
-			$row["imagen"] = $json->urlEmbed;
+			$row["foto"] = '<img src="https://www.googleapis.com/drive/v3/files/' . $json->googleId . '?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE" width="110" height="110"/>';
+			$row["imagen"] = '<img src="https://www.googleapis.com/drive/v3/files/' . $json->googleId . '?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE"/>';
 		} else {
 			if (file_exists(DOC_ROOT . "/alumnos/" . $row["rutaFoto"] . "")) {
 				// echo DOC_ROOT."/alumnos/".$row["rutaFoto"]."";
 				// exit; 
-				$row["foto"] = '
-							<img src="' . WEB_ROOT . '/alumnos/' . $row["rutaFoto"] . '" width="110" height="110"/>';
-				$row["imagen"] = WEB_ROOT . '/alumnos/' . $row["rutaFoto"] . '';
+				$row["foto"] = '<img src="' . WEB_ROOT . '/alumnos/' . $row["rutaFoto"] . '" width="110" height="110"/>';
+				$row["imagen"] = '<img src="' . WEB_ROOT . '/alumnos/' . $row["rutaFoto"] . '"/>';
 			} else {
 				$row["foto"] = '<img src="' . WEB_ROOT . '/alumnos/no_foto.JPG" width="110" height="110"/>';
-				$row["imagen"] = WEB_ROOT . '/alumnos/no_foto.JPG';
+				$row["imagen"] =  '<img src="' . WEB_ROOT . '/alumnos/no_foto.JPG" width="110" height="110"/>';
 			}
 		}
 		return $row;
@@ -1030,21 +1028,25 @@ class User extends Main
 		$this->Util()->DB()->setQuery($sql);
 		$row = $this->Util()->DB()->GetRow();
 
-		if ($row["rutaFoto"] == null) {
-
-			$row["rutaFoto"] = 's';
-		}
-
-
-		if (file_exists(DOC_ROOT . "/alumnos/" . $row["rutaFoto"] . "")) {
-			// echo DOC_ROOT."/alumnos/".$row["rutaFoto"]."";
-			// exit;
-			$row["foto"] = '
-					<img src="' . WEB_ROOT . '/alumnos/' . $row["rutaFoto"] . '" width="110" height="110"/>';
-			$row["imagen"] = WEB_ROOT . '/alumnos/' . $row["rutaFoto"] . '';
+		if ($row['avatar'] == 1) {
+			$sql = "SELECT * FROM user_credentials WHERE user_id = {$row['userId']} ORDER BY id DESC LIMIT 1";
+			// echo $sql;
+			$this->Util()->DB()->setQuery($sql);
+			$credencial = $this->Util()->DB()->GetRow();
+			$json = json_decode($credencial['photo']);
+			// print_r($json);
+			$row["foto"] = '<img src="https://www.googleapis.com/drive/v3/files/' . $json->googleId . '?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE" width="110" height="110"/>';
+			$row["imagen"] = '<img src="https://www.googleapis.com/drive/v3/files/' . $json->googleId . '?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE" class="img-fluid"/>';
 		} else {
-			$row["foto"] = '<img src="' . WEB_ROOT . '/alumnos/no_foto.JPG" width="110" height="110"/>';
-			$row["imagen"] = WEB_ROOT . '/alumnos/no_foto.JPG';
+			if (file_exists(DOC_ROOT . "/alumnos/" . $row["rutaFoto"] . "")) {
+				// echo DOC_ROOT."/alumnos/".$row["rutaFoto"]."";
+				// exit; 
+				$row["foto"] = '<img src="' . WEB_ROOT . '/alumnos/' . $row["rutaFoto"] . '" class="img-fluid"/>';
+				$row["imagen"] = '<img src="' . WEB_ROOT . '/alumnos/' . $row["rutaFoto"] . '"/>';
+			} else {
+				$row["foto"] = '<img src="' . WEB_ROOT . '/alumnos/no_foto.JPG" width="110" height="110"/>';
+				$row["imagen"] =  '<img src="' . WEB_ROOT . '/alumnos/no_foto.JPG"/>';
+			}
 		}
 		return $row;
 	}

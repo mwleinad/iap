@@ -772,7 +772,7 @@ class Course extends Subject
 		if ($result) {
 			//				$result = $this->Util->EncodeRow($result);
 		}
-
+		$result["name"] = str_replace("NUEVO PROGRAMA", "", $result['name']);
 		$result["access"] = explode("|", $result["access"]);
 
 		$user = new User;

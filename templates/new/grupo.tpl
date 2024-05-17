@@ -9,10 +9,10 @@
 					<div class="card border border-primary w-100">
 						<div class="card-body">
 							<a href="{$WEB_ROOT}/graybox.php?page=view-perfil&id={$item.userId}" data-target="#ajax" data-toggle="modal" data-width="1000px">
-								{if $item.rutaFoto eq ''}
+								{if $item.foto eq ''}
 									<i class="fas fa-user-circle fa-5x"></i>
 								{else}
-									<img src="{$WEB_ROOT}/alumnos/{$item.rutaFoto}?{$rand}" class="rounded-circle" alt="" style="width: 80px"> 
+									<img src="{$item.foto}" class="rounded-circle" alt="" style="width: 80px"> 
 								{/if}
 							</a><br>
 							<p class="card-text">{$item.names|upper} {$item.lastNamePaterno|upper} {$item.lastNameMaterno|upper}</p>

@@ -22,22 +22,6 @@
 		</a>
 	</div>
     <div class="card-body">
-		<form id="frmFoto">
-			<input type="hidden" name="userId" class="form-control" value="{$info.userId}" />
-			<div class="form-group col-md-12 text-center">
-				<div class="profile-userpic">
-					<img src="{{$infoStudent.imagen}}" class="img-fluid img-thumbnail rounded-circle" style="max-width: 300px;" alt="" />
-				</div>
-				<div id="#progress_{$info.userId}"></div>
-				<div id="porcentaje_{$info.userId}"></div>
-				<div class="row d-flex justify-content-center mt-3">
-					<span class="btn btn-outline-info btn-file pointer">
-						<input type="file" name="archivos" id="archivos" onChange="onChangePicture({$info.userId})" class="btn-file" style="border: 0px solid !important">
-						<i class="fas fa-edit fa-lg"></i>
-					</span>
-				</div>
-			</div>
-		</form>
 		<div class="row">
 			<div class="col-md-12 text-center">
 				<p class="text-primary"><i>Cuéntanos mas acerca de ti, incluye datos como edad, formación académica y profesional, intereses personales y algunos aspectos que permitan a tus compañeros conocerte.</i></p>
