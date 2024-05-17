@@ -44,6 +44,9 @@ for ($i = 0; $i < (count($students)); $i++) {
         if ($heading['activityType'] == "Tarea") {
             $data = $student->getActivityScore($heading['activityType'], "AND userId = {$students[$i]['userId']} AND activityId = {$heading['activityId']}");  
             $sheet->setCellValue("{$auxColumn}{$auxRow}", (!isset($data['homeworkId'])  ? "NO ENTREGÓ" : WEB_ROOT."/homework/".$data['path']));
+            if (isset($data['homeworkId'])) {
+                $sheet->getCell("{$auxColumn}{$auxRow}")->getHyperlink()->setUrl(WEB_ROOT."/homework/".$data['path']);
+            }
         }
         if ($heading['activityType'] == "Examen") {
             $data = $student->getActivityScore($heading['activityType'], "AND userId = {$students[$i]['userId']} AND activityId = {$heading['activityId']}");  
