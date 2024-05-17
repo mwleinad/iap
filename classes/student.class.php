@@ -3520,7 +3520,7 @@ class Student extends User
 		if ($typeActivity == "Tarea") {
 			$sql = "SELECT * FROM homework WHERE 1 {$where}";
 			$this->Util()->DB()->setQuery($sql);
-			return $this->Util()->DB()->GetTotalRows();
+			return $this->Util()->DB()->GetRow();
 		}
 		if ($typeActivity == "Examen") {
 			$sql = "SELECT * FROM activity_score WHERE 1 {$where}";

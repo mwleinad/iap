@@ -22,9 +22,9 @@
         <form id="frmGral" action="{$WEB_ROOT}/ajax/new/reportes/cursos.php" method="get" target="_blank"> 
             <div class="row">
                 <input type="hidden" name="page" value="export-excel">
-                <div class="col-md-4">
+                <div class="col-md-2">
                 </div>
-                <div class="col-md-4 mb-3">
+                <div class="col-md-8 mb-3">
                     <label>Cursos</label>
                     <select class="form-control" id="curso" name="curso" required>
                         <option value="">-- Selecciona el curso --</option>

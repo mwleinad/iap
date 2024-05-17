@@ -43,7 +43,7 @@ for ($i = 0; $i < (count($students)); $i++) {
     foreach ($headings as $heading) {
         if ($heading['activityType'] == "Tarea") {
             $data = $student->getActivityScore($heading['activityType'], "AND userId = {$students[$i]['userId']} AND activityId = {$heading['activityId']}");  
-            $sheet->setCellValue("{$auxColumn}{$auxRow}", ($data == 0 ? "NO ENTREGÓ" : "ENTREGÓ"));
+            $sheet->setCellValue("{$auxColumn}{$auxRow}", (!isset($data['homeworkId'])  ? "NO ENTREGÓ" : WEB_ROOT."/homework/".$data['path']));
         }
         if ($heading['activityType'] == "Examen") {
             $data = $student->getActivityScore($heading['activityType'], "AND userId = {$students[$i]['userId']} AND activityId = {$heading['activityId']}");  
