@@ -116,10 +116,10 @@
                                         <i class="far fa-list-alt"></i> Boletas de Calificaciones
                                     </a>
                                     <br><br>
-                                    {* <a href="{$WEB_ROOT}/mi-credencial-digital/id/{$subject.courseId}"
+                                    <a href="{$WEB_ROOT}/mi-credencial-digital/id/{$subject.courseId}"
                                         class="btn btn-outline-light btn-fw btn-sm">
                                         <i class="far fa-list-alt"></i> Mi credencial digital
-                                    </a>  *}
+                                    </a> 
                                 </div>
                             </div>
                         </div>
