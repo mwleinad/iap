@@ -270,15 +270,15 @@
                             class="img-fluid">
                     </div>
                 </div>
-                <div class="col-md-6 mx-auto" id="back_credential">
-                    <h3 class="w-100 text-center">Parte Trasera</h3>
-                    <div class="w-100 credencial_previo">
-                        <img src="{$WEB_ROOT}/images/credencial/atras.png" class="img-fluid">
-                        <img id="codigo-qr"
-                            src="https://www.googleapis.com/drive/v3/files/{$credential.files['token']['qr']['googleId']}?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE"></img>
-                    </div>
-                </div>
                 {if $credential.download == 0}
+                    <div class="col-md-6 mx-auto" id="back_credential">
+                        <h3 class="w-100 text-center">Parte Trasera</h3>
+                        <div class="w-100 credencial_previo">
+                            <img src="{$WEB_ROOT}/images/credencial/atras.png" class="img-fluid">
+                            <img id="codigo-qr"
+                                src="https://www.googleapis.com/drive/v3/files/{$credential.files['token']['qr']['googleId']}?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE"></img>
+                        </div>
+                    </div> 
                     <form class="col-md-12 text-center mt-4 form" data-alert="true"
                         data-mensaje="Solo podrás descargar una vez la credencial, para posteriores descargas deberás comunicarte con Servicios Escolares"
                         method="post" id="form_descarga" action="{$WEB_ROOT}/ajax/new/credenciales.php" method="POST">
