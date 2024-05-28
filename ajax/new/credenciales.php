@@ -57,6 +57,7 @@ switch ($opcion) {
 
             //Generación de la notificación
             $student->setUserId($credencial['user_id']);
+            $student->UpdateAvatarCredential();
             $alumno = $student->GetInfo();  
             $hecho = $_SESSION['User']['userId'] . "p";
             $vista = "p," . $hecho . "," . $credencial['user_id'] . "u";
@@ -178,12 +179,19 @@ switch ($opcion) {
     case 'descarga':
         $credencial = $_POST['credencial'];
         $credentials->setCredential($credencial);
-        $credentials->updateDownload();
         $urlPdf = WEB_ROOT . "/pdf/credencial.php?credencial={$credencial}";
-        echo json_encode([
-            "selector"  => "#form_descarga",
-            "html"      => " ",
-            'blank'     => $urlPdf
-        ]);
+        if (isset($_POST['permiso']) && $_POST['permiso'] == "admin") {
+            echo json_encode([ 
+                'blank'     => $urlPdf
+            ]);
+        }else{
+            $credentials->updateDownload();
+            echo json_encode([
+                "selector"  => "#form_descarga",
+                "html"      => "<script>$('#back_credential').addClass('d-none');</script> ",
+                'blank'     => $urlPdf
+            ]); 
+        }
+       
         break;
 }

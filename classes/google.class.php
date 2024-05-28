@@ -1,5 +1,5 @@
 <?php
-include_once DOC_ROOT.'/google-api/vendor/autoload.php';
+require_once __DIR__ .'/../vendor/autoload.php';
 class Google
 {
     private $DirID = "";
@@ -30,15 +30,15 @@ class Google
 
     function subirArchivo()
     {
-        $client = new Google_Client();
+        $client = new Google\Client();
         $client->useApplicationDefaultCredentials();
         $client->setScopes(["https://www.googleapis.com/auth/drive.file"]);
         try {
             //instanciamos el servicio
-            $service = new Google_Service_Drive($client);
+            $service = new Google\Service\Drive($client);
 
             //instacia de archivo
-            $file = new Google_Service_Drive_DriveFile();
+            $file = new Google\Service\Drive\DriveFile();
             $file->setName($this->archivoNombre);
 
             //obtenemos el mime type
@@ -59,7 +59,7 @@ class Google
                 )
             );
             return $result;
-        } catch (Google_Service_Exception $gs) {
+        } catch (Google\Service\Exception $gs) {
             $m = json_decode($gs->getMessage());
             return $m->error->message;
         } catch (Exception $e) {

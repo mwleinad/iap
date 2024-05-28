@@ -102,13 +102,13 @@
                                     {if $subject.situation eq 'Ordinario'}
                                         <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}"
                                             title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
-                                            <i class="fas fa-link"></i> Ver
+                                            <i class="fas fa-link"></i> Ingresar
                                         </a>
                                     {/if}
                                     {if $subject.situation eq 'Recursador'}
                                         <a href="{$WEB_ROOT}/modulos-recursar/id/{$subject.courseId}"
                                             title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
-                                            <i class="fas fa-link"></i> Ver
+                                            <i class="fas fa-link"></i> Ingresar
                                         </a>
                                     {/if}<br><br>
                                     <a href="{$WEB_ROOT}/boletas/id/{$subject.courseId}"
@@ -116,10 +116,12 @@
                                         <i class="far fa-list-alt"></i> Boletas de Calificaciones
                                     </a>
                                     <br><br>
-                                    {* <a href="{$WEB_ROOT}/mi-credencial-digital/id/{$subject.courseId}"
-                                        class="btn btn-outline-light btn-fw btn-sm">
-                                        <i class="far fa-list-alt"></i> Mi credencial digital
-                                    </a>  *}
+                                    {if !in_array($subject.courseId,[167, 168, 162])}
+                                        <a href="{$WEB_ROOT}/mi-credencial-digital/id/{$subject.courseId}"
+                                            class="btn btn-outline-light btn-fw btn-sm">
+                                            <i class="far fa-list-alt"></i> Mi credencial digital
+                                        </a>
+                                    {/if}
                                 </div>
                             </div>
                         </div>

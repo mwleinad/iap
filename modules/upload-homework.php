@@ -11,7 +11,7 @@
 		$homework->setNombre($_POST["nombre"]);
 		$homework->setUserId($_SESSION["User"]["userId"]);
 		// print_r($_FILES);
-		$response = $util->validarSubida(['size'=>10485760]); 
+		$response = $util->validarSubida(['size'=>41943040]); 
 		if(!$response['estatus']){ 
 			$_SESSION["exito"] = $response['mensaje']; 
 			header("Location:".WEB_ROOT."/calendar-modules-student/id/".$_POST["courseId"]);

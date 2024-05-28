@@ -294,13 +294,20 @@ class Forum extends Main
 			} else
 				$result[$key]["existeArchivo"] = "no";
 
-			$foto = $res["userId"] . ".jpg";
-			if (file_exists(DOC_ROOT . "/alumnos/" . $foto) && $foto != ".jpg") {
-				$result[$key]["foto"] = '<img src="' . WEB_ROOT . '/alumnos/' . $res["userId"] . '.jpg" width="40" height="40" style="height:auto; 
-					width: auto; max-width: 80px; max-height: 80px;" />';
+			if ($res['avatar'] == 1) {
+				$sql = "SELECT * FROM user_credentials WHERE user_id = {$res['userId']} ORDER BY id DESC LIMIT 1";
+				$this->Util()->DB()->setQuery($sql);
+				$credencial = $this->Util()->DB()->GetRow();
+				$json = json_decode($credencial['photo']);
+				$result[$key]["foto"] = '<img src="https://www.googleapis.com/drive/v3/files/' . $json->googleId . '?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE" width="40" height="40"/>';
 			} else {
-				$result[$key]["foto"] = '<i class="fas fa-user-circle fa-4x text-primary"></i>';
+				if (file_exists(DOC_ROOT . "/alumnos/" . $res["rutaFoto"] . "")) {
+					$result[$key]["foto"] = '<img src="' . WEB_ROOT . '/alumnos/' . $res["rutaFoto"] . '" width="40" height="40"/>';
+				} else {
+					$result[$key]["foto"] = '<i class="fas fa-user-circle fa-4x text-primary"></i>';
+				}
 			}
+
 
 			$sql = "SELECT count(*) FROM reply
 							LEFT JOIN user ON user.userId = reply.userId
@@ -326,11 +333,21 @@ class Forum extends Main
 				} else
 					$result[$key]["replies"][$keyReply]["existeArchivo"] = "no";
 
-				if (file_exists(DOC_ROOT . "/alumnos/" . $reply["userId"] . ".jpg")) {
-					$result[$key]["replies"][$keyReply]["foto"] = '<img src="' . WEB_ROOT . '/alumnos/' . $reply["userId"] . '.jpg" width="40" height="40" style=" height: auto; width: auto; max-width: 80px; max-height: 80px;"/>';
+
+				if ($reply['avatar'] == 1) {
+					$sql = "SELECT * FROM user_credentials WHERE user_id = {$reply['userId']} ORDER BY id DESC LIMIT 1";
+					$this->Util()->DB()->setQuery($sql);
+					$credencial = $this->Util()->DB()->GetRow();
+					$json = json_decode($credencial['photo']);
+					$result[$key]["replies"][$keyReply]["foto"] = '<img src="https://www.googleapis.com/drive/v3/files/' . $json->googleId . '?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE" width="40" height="40"/>';
 				} else {
-					$result[$key]["replies"][$keyReply]["foto"] = '<i class="fas fa-user-circle fa-4x text-info"></i>';
+					if (file_exists(DOC_ROOT . "/alumnos/" . $reply["rutaFoto"] . "")) {
+						$result[$key]["replies"][$keyReply]["foto"] = '<img src="' . WEB_ROOT . '/alumnos/' . $reply["rutaFoto"] . '" width="40" height="40"/>';
+					} else {
+						$result[$key]["replies"][$keyReply]["foto"] = '<i class="fas fa-user-circle fa-4x text-primary"></i>';
+					}
 				}
+				
 				$result[$key]["replies"][$keyReply]["content"] = $this->Util()->DecodeTiny($reply["content"]);
 			}
 		}

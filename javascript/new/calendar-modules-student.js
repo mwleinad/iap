@@ -65,8 +65,8 @@ function DoTest(id)
 $("body").on("change", "#path", function(){
 	var tam = this.files[0].size;
 	console.log(tam);
-	if(tam >= 5242880){
-		growl("El archivo no debe pesar más de 5MB, verifique de nuevo, por favor.", "danger");
+	if(tam >= 41943040){
+		growl("El archivo no debe pesar más de 40MB, verifique de nuevo, por favor.", "danger");
 		$(this).val("");
 	}
 });

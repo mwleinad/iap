@@ -3454,9 +3454,9 @@ class Student extends User
 		$this->Util()->DB()->UpdateData();
 	}
 
-	public function UpdateAvatarCredential($userId, $photoCredential)
+	public function UpdateAvatarCredential()
 	{
-		$sql = "UPDATE user SET avatar_credential = {$photoCredential} WHERE userId = {$userId}";
+		$sql = "UPDATE user SET avatar = 1 WHERE userId = {$this->userId}";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->UpdateData($sql);
 	}
@@ -3515,4 +3515,17 @@ class Student extends User
 		$result = $this->Util()->DB()->GetResult();
 		return $result;
 	}
+
+	function getActivityScore($typeActivity, $where = "") {
+		if ($typeActivity == "Tarea") {
+			$sql = "SELECT * FROM homework WHERE 1 {$where}";
+			$this->Util()->DB()->setQuery($sql);
+			return $this->Util()->DB()->GetRow();
+		}
+		if ($typeActivity == "Examen") {
+			$sql = "SELECT * FROM activity_score WHERE 1 {$where}";
+			$this->Util()->DB()->setQuery($sql);
+			return $this->Util()->DB()->GetRow();
+		}
+	} 
 }

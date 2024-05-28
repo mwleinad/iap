@@ -772,7 +772,7 @@ class Course extends Subject
 		if ($result) {
 			//				$result = $this->Util->EncodeRow($result);
 		}
-
+		$result["name"] = str_replace("NUEVO PROGRAMA", "", $result['name']);
 		$result["access"] = explode("|", $result["access"]);
 
 		$user = new User;
@@ -1576,5 +1576,27 @@ class Course extends Subject
 		$this->Util()->DB()->setQuery($sql);
 		$modulos = $this->Util()->DB()->GetSingle();
 		return $modulos;
+	}
+
+	function getCourses($where = "")
+	{
+		$sql = "SELECT major.name as major_name, subject.name as subject_name, course.courseId, `course`.`group`, subject.icon FROM course INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo WHERE 1 {$where}";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		return $result;
+	}
+
+	function getHeadersActivities($where = "") {
+		$sql = "SELECT * FROM `activity` INNER JOIN course_module ON course_module.courseModuleId = activity.courseModuleId WHERE 1 {$where}"; 
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		return $result;
+	}
+
+	function getStudents($where = ""){
+		$sql = "SELECT * FROM user INNER JOIN user_subject ON user_subject.alumnoId = user.userId WHERE 1 {$where}";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		return $result;
 	}
 }

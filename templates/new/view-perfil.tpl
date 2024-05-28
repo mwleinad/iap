@@ -1,14 +1,17 @@
 <div class="card mb-4">
-    <div class="card-header bg-primary text-white">
+	<div class="card-header bg-primary text-white">
 		<i class="fas fa-info-circle"></i> Información del Alumno
-    </div>
-    <div class="card-body text-center">
+	</div>
+	<div class="card-body text-center">
 		{if $infoStudent8.imagen eq ''}
 			<i class="fas fa-user-circle fa-5x"></i>
 		{else}
-			<img src="{{$infoStudent8.imagen}}" class="img-responsive" style="max-width: 400px;" alt=""> 
+			<div class="col-md-6 mx-auto">
+				{{$infoStudent8.imagen}}
+			</div>
 		{/if}
-		<h5 class="card-title">{$infoStudent8.names|upper} {$infoStudent8.lastNamePaterno|upper} {$infoStudent8.lastNameMaterno|upper}</h5>
+		<h5 class="card-title">{$infoStudent8.names|upper} {$infoStudent8.lastNamePaterno|upper}
+			{$infoStudent8.lastNameMaterno|upper}</h5>
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
 				<a class="nav-link active" data-toggle="tab" href="#profile">Perfil</a>
@@ -19,7 +22,7 @@
 				</li>
 			{/if}
 		</ul>
-		
+
 		<div class="tab-content">
 			<div class="tab-pane container active text-center" id="profile">
 				{$infoStudent8.perfil}
@@ -40,7 +43,8 @@
 								</td>
 							</tr>
 						</table>
-						<hr><span class="badge badge-dark">Datos Laborales</span><hr>
+						<hr><span class="badge badge-dark">Datos Laborales</span>
+						<hr>
 						<table class="table table-sm table-bordered table-striped">
 							<tr>
 								<td>
@@ -76,7 +80,8 @@
 								</td>
 							</tr>
 						</table>
-						<hr><span class="badge badge-dark">Estudios</span><hr>
+						<hr><span class="badge badge-dark">Estudios</span>
+						<hr>
 						<table class="table table-sm table-bordered table-striped">
 							<tr>
 								<td>
@@ -105,7 +110,7 @@
 				</div>
 			{/if}
 		</div>
-    </div>
+	</div>
 	<div class="card-footer">
 		<div id="load"></div>
 		<div id="msj5"></div>

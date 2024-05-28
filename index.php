@@ -269,13 +269,14 @@ $pages = array(
 	'credenciales',
 	'registro',
 	'reporte-becas',
-	'registro-cobach'
+	'registro-cobach',
+	'reporte-cursos'
 );
 $mensaje = ""; 
 if (!in_array($_GET['page'], $pages) && $_GET['page'] != "logout") {
 	$_GET['page'] = "homepage";
 }
-$pagesBlackList = [ 'view-modules-student', 'calendar-modules-student'];
+$pagesBlackList = ['test-docente', 'information-modules-student', 'migrupo', 'docente', 'calendar-image-modules-student', 'upload-homework', 'resources-modules-student', 'reply-inbox', 'forum-modules-student', 'team-modules-student','calendar-modules-student', 'forum-modules-student','view-modules-student','modulos-curricula'];
 
 //Bloqueo por pago
 if ($User['bloqueado'] == 1) { //Comprobamos que realmente tenga un pago adeudado
@@ -296,12 +297,10 @@ if (in_array($User['userId'], [
 	4531, 
 	4548,
 	4549,
-	4550, 
-	4568,
+	4550,
 	4570,
 	4576,
-	3983,
-	7098
+	3983
 ])) {
 	$pagesBlackList[] = "finanzas";
 	$pagesBlackList[] = "inbox";
