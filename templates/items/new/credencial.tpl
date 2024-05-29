@@ -16,7 +16,7 @@
             </div>
             <img src="{$WEB_ROOT}/images/credencial/frontal.png" class="img-fluid">
             <picture class='img_credencial_previo'>
-                <img src="https://www.googleapis.com/drive/v3/files/{$credencial.files['photo']['googleId']}?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE"
+                <img src="{$WEB_ROOT}/files/credentials/{$credencial.files['photo']['filename']}"
                     class="img-fluid">
             </picture>
             <div class="vigencia">
@@ -28,7 +28,7 @@
     {* Credencial aceptada *}
     {if $credencial.status == 1}
         <a href=" https://drive.google.com/uc?export=download&id={$credencial.files['credential']['googleId']}">
-            <img src="https://www.googleapis.com/drive/v3/files/{$credencial.files['credential']['googleId']}?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE"
+            <img src="{$imagenCredencial}"
                 class="img-fluid">
         </a>
         <form class="col-md-12 text-center mt-4 form" method="post" id="form_descarga" action="{$WEB_ROOT}/ajax/new/credenciales.php" method="POST">

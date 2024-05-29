@@ -60,8 +60,12 @@ class Credentials extends Main
 				'db' => 'photo', 'dt' => 'foto',
 				'formatter' => function ($d, $row) {
 					if ($row['status'] != 2) {
-						$jsonFile = json_decode($row['foto'], true);
-						return "<a class='ajax_sin_form' data-data='\"opcion\":\"previo\",\"credencial\":{$row['credencial_id']}' href='" . WEB_ROOT . "/ajax/new/credenciales.php'><img src='https://www.googleapis.com/drive/v3/files/" . $jsonFile['googleId'] . "?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE' style='width:150px; height:auto;border-radius:25px; cursor:pointer;'></a>";
+						$jsonFile = json_decode($row['foto'], true); 
+						$imageB64 = base64_encode(file_get_contents($jsonFile['urlEmbed']));
+						$mimeType = $jsonFile['mimeType']; 
+						return "<a class='ajax_sin_form' data-data='\"opcion\":\"previo\",\"credencial\":{$row['credencial_id']}' href='" . WEB_ROOT . "/ajax/new/credenciales.php'>
+							<img src='data:$mimeType;base64,$imageB64' style='width:150px; height:auto;border-radius:25px; cursor:pointer;'>
+						</a>";
 					} else {
 						return "No cuenta con foto";
 					}

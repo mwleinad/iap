@@ -106,10 +106,15 @@ switch ($opcion) {
         if ($credencial['status'] == 0) {
             $image = $credencial['files']['photo']['urlEmbed'];
             $nombreImagen = $credencial['files']['photo']['filename'];
-            $carpeta = "files/credentials";
-            if (!file_exists(DOC_ROOT . "/" . $carpeta . "/" . $nombreImagen)) {
-                file_put_contents(DOC_ROOT . "/" . $carpeta . "/" . $nombreImagen, file_get_contents($image));
-            }
+            $carpeta = "files/credentials"; 
+            file_put_contents(DOC_ROOT . "/" . $carpeta . "/" . $nombreImagen, file_get_contents($image));
+        }
+        if ($credencial['status'] == 1) {
+            $image = $credencial['files']['credential']['urlEmbed'];
+            $imageB64 = base64_encode(file_get_contents($image));
+            $mimeType =  $credencial['files']['credential']['mimeType'];
+            $imagenReal = "data:$mimeType;base64,$imageB64";
+            $smarty->assign("imagenCredencial", $imagenReal);
         }
         // print_r($alumno);
         echo json_encode([
