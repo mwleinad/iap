@@ -3,17 +3,12 @@ include_once('../initPdf.php');
 include_once('../config.php');
 include_once(DOC_ROOT . '/libraries.php');
 
-use Dompdf\Adapter\CPDF;
 use Dompdf\Dompdf;
-use Dompdf\Exception;
 
 session_start();
 $util = new Util;
 $module->setCourseModuleId($_GET["Id"]);
 $info = $module->InfoCourseModule();
-// echo "<pre>";
-// var_dump($info);
-// exit;
 
 $isEnglish = false;
 if ($info['materia'] == 0)
@@ -30,9 +25,6 @@ if ($info['modality'] == 'Online') {
 
 $course->setCourseId($info["courseId"]);
 $infoCo = $course->Info();
-/* echo "<pre>";
-print_r($infoCo);
-exit; */
 $group->setCourseModuleId($_GET["Id"]);
 $group->setCourseId($info["courseId"]);
 $group->setTipoMajor($info["majorName"]);
@@ -96,16 +88,16 @@ $main .= '	<tr style="border: none">
 			<tr>
 				<td colspan="4" align="center" style="border: none;">
 					<div style="width:49%; display:inline-block;">
-						<br><br><br><br>' . $infoFirma['director'].'<br>
+						<br><br><br><br>' . $infoFirma['director'] . '<br>
 						Directora Academica
 					</div>
 					<div style="width:49%; display:inline-block;">
-						<br><br><br><br>' . $infoFirma['controlEscolar'].'<br>
+						<br><br><br><br>' . $infoFirma['controlEscolar'] . '<br>
 						Servicios Escolares
 					</div>
 				</td> 
 			</tr>';
-$main .= "</table>"; 
+$main .= "</table>";
 if ($studentsRepeat) {
 	$main .= "<table  width='100%' class='txtTicket' style='page-break-after: never;'>
 	<tr>
@@ -153,6 +145,8 @@ if ($studentsRepeat) {
 	$main .= "</table>";
 }
 
+$logo = file_get_contents(DOC_ROOT . "/images/logo_correo.jpg");
+$base64 = 'data:image/jpg;base64,' . base64_encode($logo);
 $html = '<html>
 			<head>
 				<style>
@@ -189,7 +183,7 @@ $html = '<html>
 			</head>
 			<body> 
 				<header>
-					<img src="' . DOC_ROOT . '/images/logo_correo.jpg">
+					<img src="' .$base64.'">
 					<center>	
 						<b>INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, A.C.</b>
 						<br>

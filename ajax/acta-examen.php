@@ -126,6 +126,10 @@ if ($_POST['student'] == 0) {
 }else{
     $students[0]['userId'] = $_POST['student'];
 }
+$imagen = file_get_contents(DOC_ROOT . "/images/Escudo.jpg");
+$escudo = 'data:image/jpg;base64,' . base64_encode($imagen);
+$imagen = file_get_contents(DOC_ROOT . "/images/new/docs/mignon.jpg");
+$ovalo = 'data:image/jpg;base64,' . base64_encode($imagen);
 foreach ($students as $item) {
     $student->setUserId($item['userId']);
     $infoStudent = $student->GetInfo();
@@ -142,7 +146,7 @@ foreach ($students as $item) {
     $html.="<div>
                 <table width='100%'>
                     <tr>
-                        <img src='" . DOC_ROOT . "/images/Escudo.jpg' id='mexico' />
+                        <img src='$escudo' id='mexico' />
                         <td width='10%'>&nbsp;</td>
                         <td width='90%'>
                             <span style='font-size: 12pt; position: absolute; right: 40px; top: -15px;'>AEG-16-" . str_replace('20', '', date('Y')) . "</span>
@@ -190,7 +194,7 @@ foreach ($students as $item) {
                 </div>
                 <table width='100%'>
                     <tr style='font-size: 9pt;'>
-                        <img src='" . DOC_ROOT . "/images/new/docs/mignon.jpg' id='mignon' />
+                        <img src='$ovalo' id='mignon' />
                         <td width='23%'>&nbsp;</td>
                         <td width='72%'>
                             <p>ACTA DE EXAMEN DE GRADO No. <b>_______</b> AUTORIZACIÓN No. <b>________________________</b></p>
