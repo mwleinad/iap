@@ -47,7 +47,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link {if $page == "student"}active{/if}" href="{$WEB_ROOT}/student">Alumnos</a>
                                 </li>
-                                {if in_array($User.userId, [1, 142, 177])}
+                                {if in_array($User.userId, [1, 142, 177, 149])}
                                     <li class="nav-item">
                                         <a class="nav-link {if $page == "credenciales"}active{/if}"
                                             href="{$WEB_ROOT}/credenciales">Credenciales</a>
