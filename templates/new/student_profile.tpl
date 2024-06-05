@@ -114,12 +114,19 @@
                                     <a href="{$WEB_ROOT}/boletas/id/{$subject.courseId}"
                                         class="btn btn-outline-light btn-fw btn-sm">
                                         <i class="far fa-list-alt"></i> Boletas de Calificaciones
-                                    </a>
-                                    <br><br>
+                                    </a> 
                                     {if !in_array($subject.courseId,[167, 168, 162])}
+                                        <br><br>
                                         <a href="{$WEB_ROOT}/mi-credencial-digital/id/{$subject.courseId}"
                                             class="btn btn-outline-light btn-fw btn-sm">
                                             <i class="far fa-list-alt"></i> Mi credencial digital
+                                        </a>
+                                    {/if}
+                                    {if $subject.constancia}
+                                        <br><br>
+                                        <a href="{$WEB_ROOT}/pdf/constancia.php?studentId={$User.userId}&courseId={$subject.courseId}" target="_blank"
+                                            class="btn btn-outline-light btn-fw btn-sm">
+                                            <i class="far fa-list-alt"></i> Constancia
                                         </a>
                                     {/if}
                                 </div>
@@ -262,6 +269,13 @@
                                             class="btn btn-outline-light btn-fw btn-sm">
                                             <i class="far fa-list-alt"></i> Boletas de Calificaciones
                                         </a>
+                                        {if $subject.constancia}
+                                            <br><br>
+                                            <a href="{$WEB_ROOT}/pdf/constancia.php?studentId={$User.userId}&courseId={$subject.courseId}" target="_blank"
+                                                class="btn btn-outline-light btn-fw btn-sm">
+                                                <i class="far fa-list-alt"></i> Constancia
+                                            </a>
+                                        {/if}
                                     </div>
                                 {/if}
                             </div>

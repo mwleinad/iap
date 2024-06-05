@@ -332,6 +332,18 @@ class Subject extends Main
 		$this->tipo = $value;
 	}
 
+	private $constancia;
+	public function setConstancia($value)
+	{
+		$this->constancia = $value;
+	}
+
+	private $vigencia;
+	public function setVigencia($value)
+	{
+		$this->vigencia = $value;
+	}
+
 	public function getSubjectId()
 	{
 		return $this->subjectId;
@@ -947,7 +959,9 @@ class Subject extends Main
 						cost='" 	. $this->cost . "',
 						payments='" 	. $this->payments . "',
 						tipo = '" . $this->tipo . "',
-						totalPeriods = " . $this->totalPeriods . "
+						totalPeriods = " . $this->totalPeriods . ",
+						constancia = " . $this->constancia . ",
+						vigencia = " . $this->vigencia . "
 						WHERE subjectId='" . $this->subjectId . "'";
 		//configuramos la consulta con la cadena de actualizacion
 		$this->Util()->DB()->setQuery($sql);
@@ -1523,7 +1537,8 @@ class Subject extends Main
 		return $resultado;
 	}
 
-	function grupos() {
+	function grupos()
+	{
 		$sql = "SELECT * FROM course WHERE  subjectId = {$this->subjectId} ORDER BY course.initialDate DESC";
 		$this->Util()->DB()->setQuery($sql);
 		$grupos = $this->Util()->DB()->GetResult();

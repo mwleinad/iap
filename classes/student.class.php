@@ -1619,6 +1619,7 @@ class Student extends User
 						subject.name AS name, 
 						major.name AS majorName, 
 						subject.icon, 
+						subject.constancia,
 						course.group, 
 						course.modality, 
 						course.initialDate, 
@@ -1640,6 +1641,7 @@ class Student extends User
 					subject.name AS name, 
 					major.name AS majorName, 
 					subject.icon, 
+					subject.constancia,
 					course.group, 
 					course.modality, 
 					course.initialDate, 
@@ -1678,6 +1680,11 @@ class Student extends User
 			$sql = "SELECT * FROM user_credentials WHERE course_id = '" . $res['courseId'] . "' AND user_id ='" . $res['alumnoId'] . "' ";
 			$this->Util()->DB()->setQuery($sql);
 			$result[$key]["credential"] = $this->Util()->DB()->GetRow();
+			if ($res['constancia'] == 1) { 
+				$sql = "SELECT * FROM constancias_conocer WHERE courseId = '" . $res['courseId'] . "' AND studentId ='" . $res['alumnoId'] . "' ";
+				$this->Util()->DB()->setQuery($sql);
+				$result[$key]["constancia"] = $this->Util()->DB()->GetRow();
+			}
 		}
 		return $result;
 	}

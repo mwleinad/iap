@@ -40,7 +40,9 @@
 						<label for="curricula">Tipo Curricula</label>
 						<select class="form-control" onchange="onBuscar()" name="curricula" id="curricula">
 							<option value="0" disabled selected>-- Seleccionar --</option>
-							<option value="">Todo el Historial</option>
+							{if $User.userId != 253}
+								<option value="">Todo el Historial</option>
+							{/if}
 							{foreach from=$lstMajor item=subject}
 								<option value="{$subject.majorId}">{$subject.name}</option>
 							{/foreach}

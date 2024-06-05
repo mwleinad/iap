@@ -160,7 +160,7 @@
 							{if in_array($User.userId,[1, 253])}
 								<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=constancia-conocer&id={$subject.courseId}"
 									data-target="#ajax" data-toggle="modal" title="Constancia">
-									<i class="fas fa-certificate"></i> Constancia
+									<i class="fas fa-certificate"></i> Constancia Evaluación
 								</a>
 							{/if}
 							{if $User.userId == 1}

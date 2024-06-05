@@ -27,6 +27,8 @@
 		$subject->setFechaRvoe($_POST['fechaRvoe']);
 		$subject->setFechaRvoeLinea($_POST['fechaRvoeLinea']);
 		$subject->setTotalPeriods($_POST['totalPeriods']);
+		$subject->setConstancia($_POST['constancia']);
+		$subject->setVigencia($_POST['vigencia']);
 		
 		$subject->Update();
 
