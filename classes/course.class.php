@@ -1599,4 +1599,11 @@ class Course extends Subject
 		$result = $this->Util()->DB()->GetResult();
 		return $result;
 	}
+
+	function getStudentsConocer($where = ""){
+		$sql = "SELECT * FROM user INNER JOIN user_subject ON user_subject.alumnoId = user.userId LEFT JOIN constancias_conocer ON constancias_conocer.courseId = user_subject.courseId AND constancias_conocer.studentId = user_subject.alumnoId WHERE 1 {$where}";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		return $result;
+	}
 }

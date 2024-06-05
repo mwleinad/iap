@@ -19,7 +19,7 @@
                 <i class="mdi mdi-home menu-icon"></i>
             </a>
         </li>
-        {if in_array($User.positionId,[1,2,3,5])}
+        {if in_array($User.positionId,[1, 2, 3, 5])}
             {if !$docente}
                 {if $vistaPrevia ne 1}
                     <li
@@ -105,7 +105,7 @@
                 </div>
             </li>
         {/if}
-        {if $AccessMod[11] == 1 || $User.positionId == 1 || $AccessMod[31] == 1 || $AccessMod[8] == 1 || $AccessMod[39] == 1}
+        {if $AccessMod[11] == 1 || $AccessMod[31] == 1 || $AccessMod[8] == 1 || $AccessMod[39] == 1 || in_array($User.positionId, [1, 10])}
             {if !$docente}
                 {if $vistaPrevia ne 1}
                     <li class="nav-item {if $page == "subject" or $page == "history-subject" or $page == "edit-module"}active{/if}">
@@ -119,7 +119,7 @@
                         <div class="collapse {if $page == "subject" or $page == "history-subject" or $page == "edit-module"}show{/if}"
                             id="m-curricula">
                             <ul class="nav flex-column sub-menu">
-                                {if $AccessMod[39] != 1}
+                                {if $AccessMod[39] != 1 && $User.positionId != 10}
                                     <li class="nav-item">
                                         <a class="nav-link {if $page == "subject" or $page == "edit-module"}active{/if}"
                                             href="{$WEB_ROOT}/subject">Currícula</a>

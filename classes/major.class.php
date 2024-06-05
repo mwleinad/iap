@@ -116,7 +116,12 @@ class Major extends Main
 
 	public function Enumerate()
 	{
-		$this->Util()->DB()->setQuery("SELECT * FROM major ORDER BY name ASC");
+		if(in_array($_SESSION['User']['userId'],[253])){
+			$sql = "SELECT * FROM major WHERE majorId = 5 ORDER BY name ASC";
+		}else{
+			$sql = "SELECT * FROM major ORDER BY name ASC";
+		}
+		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 		
 		foreach($result as $key => $row)
