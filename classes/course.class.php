@@ -406,6 +406,10 @@ class Course extends Subject
 			$filtro .= " AND totalPeriods > 0";
 		}
 
+		if ($_SESSION['User']['userId'] == 253) {
+			$filtro .= " AND subject.constancia = 1";
+		}
+
 		//variable donde guardaremos los registros de la pagina actual y que se regresara para su visualizacion
 		$result = NULL;
 
@@ -428,7 +432,6 @@ class Course extends Subject
 		$arrPages['rowBegin']	= ($currentPage * $rowsPerPage) - $rowsPerPage + 1;
 		//calcular el desplazamiento de los registros a recuperar
 		$rowOffset = $arrPages['rowBegin'] - 1;
-
 		$sql = '
 				SELECT *, major.name AS majorName, subject.name AS name  FROM course
 				LEFT JOIN subject ON course.subjectId = subject.subjectId 
@@ -1399,7 +1402,9 @@ class Course extends Subject
 
 		if ($this->totalPeriods)
 			$filtro .= " AND totalPeriods > 0";
-
+		if (in_array($_SESSION['User']['userId'], [253])) {
+			$filtro .= " AND subject.constancia = 1";
+		}
 		$sql = 'SELECT 
 						DISTINCT(subject.subjectId), 
 						major.name AS majorName, 
@@ -1586,21 +1591,24 @@ class Course extends Subject
 		return $result;
 	}
 
-	function getHeadersActivities($where = "") {
-		$sql = "SELECT * FROM `activity` INNER JOIN course_module ON course_module.courseModuleId = activity.courseModuleId WHERE 1 {$where}"; 
+	function getHeadersActivities($where = "")
+	{
+		$sql = "SELECT * FROM `activity` INNER JOIN course_module ON course_module.courseModuleId = activity.courseModuleId WHERE 1 {$where}";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 		return $result;
 	}
 
-	function getStudents($where = ""){
+	function getStudents($where = "")
+	{
 		$sql = "SELECT * FROM user INNER JOIN user_subject ON user_subject.alumnoId = user.userId WHERE 1 {$where}";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 		return $result;
 	}
 
-	function getStudentsConocer($where = ""){
+	function getStudentsConocer($where = "")
+	{
 		$sql = "SELECT * FROM user INNER JOIN user_subject ON user_subject.alumnoId = user.userId LEFT JOIN constancias_conocer ON constancias_conocer.courseId = user_subject.courseId AND constancias_conocer.studentId = user_subject.alumnoId WHERE 1 {$where}";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
