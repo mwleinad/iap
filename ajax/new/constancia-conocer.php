@@ -2,6 +2,7 @@
 include_once('../../init.php');
 include_once('../../config.php');
 include_once(DOC_ROOT . '/libraries.php');
+include_once(DOC_ROOT . "/properties/messages.php");
 session_start(); 
 $students = $_POST['student']; 
 $sendmail = new SendMail;

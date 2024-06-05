@@ -64,7 +64,7 @@ $html = '<html>
                                     <strong>HACE CONSTAR</strong>
                                 </p>
                                 <p style="text-align:justify; padding-bottom:20px;">
-                                    Que la <strong>C. ' . mb_strtoupper($alumno['names']) . ' ' . mb_strtoupper($alumno['lastNamePaterno']) . ' ' . mb_strtoupper($alumno['lastNameMaterno']) . '</strong>, fue evaluada por esta Entirdad en el estándar <strong>"' . $curso['name'] . '"</strong> con resultados de <strong>"Competente"</strong>
+                                    Que la <strong>C. ' . mb_strtoupper($alumno['names']) . ' ' . mb_strtoupper($alumno['lastNamePaterno']) . ' ' . mb_strtoupper($alumno['lastNameMaterno']) . '</strong>, fue evaluada por esta Entidad en el estándar <strong>"' . $curso['name'] . '"</strong> con resultados de <strong>"Competente"</strong>
                                 </p> 
                                 <p style="text-align:justify; padding-bottom:20px;">
                                     Cabe señalar que la emisión del Certificado de dicha competencia, es posterior al proceso de revisión que el <strong>Comité de dictamen</strong> de esta entidad lleva a cabo, de acuerdo a la normatividad de CONOCER. Esto con el fin de garantizar la transparencia en los procesos de evaluación, por lo anterior, la presente tiene una vigencia de 90 días a partir de la fecha emitida.
