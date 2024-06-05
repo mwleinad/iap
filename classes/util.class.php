@@ -1651,6 +1651,7 @@ class Util extends ErrorLms
 		$resultado = $this->DBErp()->GetResult();
 		return $resultado;
 	}
+	
 	public function localidades($estado, $municipio)
 	{
 		$sql = "SELECT * FROM municipalities WHERE cve_ent = '{$estado}' AND cve_mun = {$municipio} GROUP BY nom_loc ORDER BY nom_loc ASC";

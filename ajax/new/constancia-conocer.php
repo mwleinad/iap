@@ -4,6 +4,9 @@ include_once('../../config.php');
 include_once(DOC_ROOT . '/libraries.php');
 session_start(); 
 $students = $_POST['student']; 
+$sendmail = new SendMail;
+$details_body = "";
+$details_subject = array();
 foreach ($students as $itemStudent) {
     $folio = $_POST['folio'][$itemStudent];
     $where = "studentId = {$itemStudent} AND courseId = {$_POST['course']}";
@@ -12,13 +15,29 @@ foreach ($students as $itemStudent) {
         $constancias->setCurso($_POST['course']);
         $constancias->setAlumno($itemStudent);
         $constancias->setFolio($_POST['folio'][$itemStudent]);
-        $constancias->crearConstanciaConocer();
+        $constancias->crearConstanciaConocer(); 
+
     }else{//Actualizar registro 
         $constancias->setCurso($_POST['course']);
         $constancias->setAlumno($itemStudent);
         $constancias->setFolio($_POST['folio'][$itemStudent]);
         $constancias->actualizarConstanciaConocer();
     } 
+
+    $hecho = $_SESSION['User']['userId'] . "p";
+    $vista = "p," . $hecho . "," . $itemStudent. "u";
+    $actividad = "Se ha generado tu constancia de evaluación";
+    $notificacion->setActividad($actividad);
+    $notificacion->setVista($vista);
+    $notificacion->setHecho($hecho);
+    $notificacion->setTablas("reply");
+    $notificacion->setEnlace("/pdf/constancia.php?courseId={$_POST['course']}&studentId={$itemStudent}");
+    $notificacion->saveNotificacion(); 
+
+    $student->setUserId($itemStudent); 
+    $alumno = $student->GetInfo();  
+   
+    $sendmail->Prepare($message[11]["subject"], $message[11]["body"], $details_body, $details_subject, $alumno['email'], $alumno['names']." ".$alumno['lastNamePaterno']." ".$alumno['lastNameMaterno']);
 }
 $curso = $_POST['course'];
 $students = $course->getStudentsConocer("AND user_subject.courseId = $curso ORDER BY user.lastNamePaterno, user.lastNameMaterno");

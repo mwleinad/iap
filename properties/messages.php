@@ -117,4 +117,7 @@ Favor de realizar de nueva cuenta el proceso para generar tu credencial digital.
 
 $message[10]['subject'] = "Actualización de documentación | Instituto de Administración Pública del Estado de Chiapas";
 $message[10]['body'] = "El docente |docente| ha actualizado el siguiente documento: \"|documento|\"";
+
+$message[11]['subject'] = "Constancia de Evaluación| Instituto de Administración Pública del Estado de Chiapas";
+$message[11]['body'] = "Te informamos que se ha generado tu constancia, puedes revisar en la opción \"Constancia\" de tu currícula activa.";
 ?>
