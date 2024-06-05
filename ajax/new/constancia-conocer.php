@@ -5,9 +5,10 @@ include_once(DOC_ROOT . '/libraries.php');
 include_once(DOC_ROOT . "/properties/messages.php");
 session_start(); 
 $students = $_POST['student']; 
-$sendmail = new SendMail;
-$details_body = "";
+$sendmail = new SendMail; 
 $details_subject = array();
+$course->setCourseId($_POST['course']);
+$infoCurso = $course->Info();
 foreach ($students as $itemStudent) {
     $folio = $_POST['folio'][$itemStudent];
     $where = "studentId = {$itemStudent} AND courseId = {$_POST['course']}";
@@ -38,6 +39,11 @@ foreach ($students as $itemStudent) {
     $student->setUserId($itemStudent); 
     $alumno = $student->GetInfo();  
    
+    $details_body = array(
+        'major'     => $infoCurso['name'],
+        'usuario'   => $alumno['controlNumber'], 
+        'password'  => $alumno['password']
+    );
     $sendmail->Prepare($message[11]["subject"], $message[11]["body"], $details_body, $details_subject, $alumno['email'], $alumno['names']." ".$alumno['lastNamePaterno']." ".$alumno['lastNameMaterno']);
 }
 $curso = $_POST['course'];

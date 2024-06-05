@@ -119,5 +119,15 @@ $message[10]['subject'] = "Actualización de documentación | Instituto de Admin
 $message[10]['body'] = "El docente |docente| ha actualizado el siguiente documento: \"|documento|\"";
 
 $message[11]['subject'] = "Constancia de Evaluación| Instituto de Administración Pública del Estado de Chiapas";
-$message[11]['body'] = "Te informamos que se ha generado tu constancia, puedes revisar en la opción \"Constancia\" de tu currícula activa.";
+$message[11]['body'] = "Estimado usuario,
+
+Se encuentra disponible para su descarga la constancia digital de la evaluación del estándar: |major|.
+
+Para descargarlo, deberá ingresar a nuestro Sistema de educación:
+
+https://app.iapchiapas.edu.mx 
+Usuario: |usuario|
+Contraseña: |password|
+
+Posterior a ello, deberás dar click sobre el botón 'Constancia' ubicado en el estándar dentro de su perfil inicial.";
 ?>
