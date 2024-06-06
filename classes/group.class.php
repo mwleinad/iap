@@ -88,7 +88,7 @@ class Group extends Module
 		$notificacion = new Notificacion;
 
 		foreach ($scores as $key => $score) {
-			if (in_array($key, [4336, 4531, 4548, 4549, 4550, 4570, 4576, 3983])) {
+			if (in_array($key, [4336, 4531, 4570, 4576, 3983])) {
 				continue;
 			}
 			$k = $key;
