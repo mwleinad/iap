@@ -502,8 +502,8 @@ class Util extends ErrorLms
 				break;
 		}
 		$ent = '     ' . $ent;
-		echo $ent . "<br>";
-		echo "$dec<br>";
+		// echo $ent . "<br>";
+		// echo "$dec<br>";
 		if ($dec) {
 			$fin = ' punto';
 			for ($n = 0; $n < strlen($fra); $n++) {
@@ -517,16 +517,16 @@ class Util extends ErrorLms
 			echo $fin;
 		} else
 			$fin = '';
-		echo $fin . "<br>";
+		// echo $fin . "<br>";
 		if ((int)$ent === 0) return 'Cero ' . $fin;
 		$tex = '';
 		$sub = 0;
 		$mils = 0;
 		$neutro = false;
 		while (($num = substr($ent, -3)) != '   ') {
-			echo $num . "<br>";
+			// echo $num . "<br>";
 			$ent = substr($ent, 0, -3);
-			echo $ent . "<br>";
+			// echo $ent . "<br>";
 			if (++$sub < 3 and $fem) {
 				$matuni[1] = 'uno';
 				$subcent = 'as';
@@ -534,10 +534,10 @@ class Util extends ErrorLms
 				$matuni[1] = $neutro ? 'un' : 'uno';
 				$subcent = 'os';
 			}
-			echo $matuni[1] . "<br>";
+			// echo $matuni[1] . "<br>";
 			$t = '';
 			$n2 = substr($num, 1);
-			echo $n2 . "<br>";
+			// echo $n2 . "<br>";
 			if ($n2 == '00') {
 			} elseif ($n2 < 21)
 				$t = ' ' . $matuni[(int)$n2];
@@ -553,7 +553,7 @@ class Util extends ErrorLms
 				$t = ' ' . $matdec[$n2] . $t;
 			}
 			$n = $num[0];
-			echo $n . "<br>";
+			// echo $n . "<br>";
 			if ($n == 1) {
 				$t = ' ciento' . $t;
 			} elseif ($n == 5) {
