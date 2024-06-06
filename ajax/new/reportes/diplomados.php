@@ -74,7 +74,7 @@ for ($i = 0; $i < (count($students)); $i++) {
     $foto = json_decode($students[$i]['foto'], true);
     $curp = json_decode($students[$i]['curpDrive'], true);
     $sexo = $students[$i]['sexo'] == "m" ? "Masculino" : "Femenino"; 
-    $estado = $estados[($students[$i]['estado'] - 1)]['nombre'];
+    $estado = $estados[($students[$i]['estadot'] - 1)]['nombre'];
     $sheet->setCellValue('A' . ($i + 2), $students[$i]['controlNumber']);
     $sheet->setCellValue('B' . ($i + 2), mb_strtoupper($students[$i]['names']) . " " . mb_strtoupper($students[$i]['lastNamePaterno']) . " " . mb_strtoupper($students[$i]['lastNameMaterno']));
     $sheet->setCellValue("C" . ($i + 2), $students[$i]['email']);
