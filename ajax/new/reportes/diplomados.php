@@ -6,9 +6,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 $group->setCourseId(162);
-$students = $group->DefaultGroup();
-// echo "<pre>";
-// print_r($students);
+$students = $group->DefaultGroup(); 
 // Create new Spreadsheet object
 $spreadsheet = new Spreadsheet();
 $spreadsheet->getActiveSheet()->getDefaultColumnDimension()->setWidth(30);
@@ -33,6 +31,7 @@ $sheet->setCellValue('H1', 'Curp');
 $sheet->setCellValue('I1', 'Curp Archivo');
 $sheet->setCellValue('J1', 'Contraseña');
 $sheet->setCellValue('K1', 'Sexo');
+$sheet->setCellValue('K1', 'Estado');
 
 $sheet->getStyle('A')->getAlignment()->setHorizontal('center')->setVertical('center');
 $sheet->getStyle('A')->getFont()->setSize(14)->setBold(true);
@@ -56,6 +55,8 @@ $sheet->getStyle('J')->getAlignment()->setHorizontal('center')->setVertical('cen
 $sheet->getStyle('J')->getFont()->setSize(14)->setBold(true);
 $sheet->getStyle('K')->getAlignment()->setHorizontal('center')->setVertical('center');
 $sheet->getStyle('K')->getFont()->setSize(14)->setBold(true);
+$sheet->getStyle('L')->getAlignment()->setHorizontal('center')->setVertical('center');
+$sheet->getStyle('L')->getFont()->setSize(14)->setBold(true);
 
 $funciones = [
     0 => "",
@@ -67,10 +68,13 @@ $funciones = [
     6 => "Grupo interdisciplinario",
     7 => "Ninguna de las anteriores",
 ];
+
+$estados = $util->estados_iap(); 
 for ($i = 0; $i < (count($students)); $i++) {
     $foto = json_decode($students[$i]['foto'], true);
     $curp = json_decode($students[$i]['curpDrive'], true);
-    $sexo = $students[$i]['sexo'] == "m" ? "Masculimo" : "Femenino";
+    $sexo = $students[$i]['sexo'] == "m" ? "Masculimo" : "Femenino"; 
+    $estado = $estados[($students[$i]['estado'] - 1)]['nombre'];
     $sheet->setCellValue('A' . ($i + 2), $students[$i]['controlNumber']);
     $sheet->setCellValue('B' . ($i + 2), mb_strtoupper($students[$i]['names']) . " " . mb_strtoupper($students[$i]['lastNamePaterno']) . " " . mb_strtoupper($students[$i]['lastNameMaterno']));
     $sheet->setCellValue("C" . ($i + 2), $students[$i]['email']);
@@ -84,9 +88,10 @@ for ($i = 0; $i < (count($students)); $i++) {
     $sheet->getCell('I' . ($i + 2))->getHyperlink()->setUrl($curp['urlBlank']);
     $sheet->setCellValue("J" . ($i + 2), $students[$i]['password']);
     $sheet->setCellValue("K" . ($i + 2), $sexo);
+    $sheet->setCellValue("L" . ($i + 2), $estado);
 }
 
-$sheet->getStyle("A2:K" . (count($students) + 1))->getAlignment()->setHorizontal('center')->setVertical('center')->setWrapText(true);
+$sheet->getStyle("A2:L" . (count($students) + 1))->getAlignment()->setHorizontal('center')->setVertical('center')->setWrapText(true);
 
 $fileName = bin2hex(random_bytes(4));
 // Redirect output to a client’s web browser (Xls)

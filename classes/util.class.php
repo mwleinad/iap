@@ -1621,6 +1621,13 @@ class Util extends ErrorLms
 		return $response;
 	}
 
+	public function estados_iap()
+	{
+		$sql = "SELECT * FROM estado";
+		$this->DB()->setQuery($sql);
+		$resultado = $this->DB()->GetResult();
+		return $resultado;
+	}
 	public function estados()
 	{
 		$sql = "SELECT * FROM municipalities GROUP BY cve_ent";
