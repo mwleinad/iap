@@ -31,7 +31,7 @@ $sheet->setCellValue('H1', 'Curp');
 $sheet->setCellValue('I1', 'Curp Archivo');
 $sheet->setCellValue('J1', 'Contraseña');
 $sheet->setCellValue('K1', 'Sexo');
-$sheet->setCellValue('K1', 'Estado');
+$sheet->setCellValue('L1', 'Estado');
 
 $sheet->getStyle('A')->getAlignment()->setHorizontal('center')->setVertical('center');
 $sheet->getStyle('A')->getFont()->setSize(14)->setBold(true);
