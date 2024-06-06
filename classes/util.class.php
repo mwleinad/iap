@@ -466,9 +466,7 @@ class Util extends ErrorLms
 		$matmil[15] = 'de billones de trillones';
 		$matmil[16] = 'millones de billones de trillones';
 
-		$num = trim((string)@$num);
-		// echo "<pre>";
-		// print_r($num); 
+		$num = trim((string)@$num); 
 		if ($num[0] == '-') {
 			$neg = 'menos ';
 			$num = substr($num, 1);
@@ -479,11 +477,9 @@ class Util extends ErrorLms
 		$zeros = true;
 		$punt = false;
 		$ent = '';
-		$fra = '';
-		// echo "<br>".strlen($num);
+		$fra = ''; 
 		for ($c = 0; $c < strlen($num); $c++) {
-			$n = $num[$c];
-			// echo "<br>N:".$n;
+			$n = $num[$c]; 
 			if (!(strpos(".,'''", $n) === false)) {
 				if ($punt) break;
 				else {
@@ -491,19 +487,15 @@ class Util extends ErrorLms
 					continue;
 				}
 			} elseif (!(strpos('0123456789', $n) === false)) {
-				if ($punt) {
-					// echo "<br>".$n; 
-					$fra .= $n;
-					// echo "<br>Fraccion: ".$fra;
+				if ($punt) { 
+					$fra .= $n; 
 				} else
 					$ent .= $n;
 			} else
 
 				break;
 		}
-		$ent = '     ' . $ent;
-		// echo $ent . "<br>";
-		// echo "$dec<br>";
+		$ent = '     ' . $ent; 
 		if ($dec) {
 			$fin = ' punto';
 			for ($n = 0; $n < strlen($fra); $n++) {
@@ -513,31 +505,25 @@ class Util extends ErrorLms
 					$fin .= $fem ? ' una' : ' uno';
 				else
 					$fin .= ' ' . $matuni[$s];
-			}
-			echo $fin;
+			} 
 		} else
-			$fin = '';
-		// echo $fin . "<br>";
+			$fin = ''; 
 		if ((int)$ent === 0) return 'Cero ' . $fin;
 		$tex = '';
 		$sub = 0;
 		$mils = 0;
 		$neutro = false;
-		while (($num = substr($ent, -3)) != '   ') {
-			// echo $num . "<br>";
-			$ent = substr($ent, 0, -3);
-			// echo $ent . "<br>";
+		while (($num = substr($ent, -3)) != '   ') { 
+			$ent = substr($ent, 0, -3); 
 			if (++$sub < 3 and $fem) {
 				$matuni[1] = 'uno';
 				$subcent = 'as';
 			} else {
 				$matuni[1] = $neutro ? 'un' : 'uno';
 				$subcent = 'os';
-			}
-			// echo $matuni[1] . "<br>";
+			} 
 			$t = '';
-			$n2 = substr($num, 1);
-			// echo $n2 . "<br>";
+			$n2 = substr($num, 1); 
 			if ($n2 == '00') {
 			} elseif ($n2 < 21)
 				$t = ' ' . $matuni[(int)$n2];
@@ -552,8 +538,7 @@ class Util extends ErrorLms
 				$n2 = $num[1];
 				$t = ' ' . $matdec[$n2] . $t;
 			}
-			$n = $num[0];
-			// echo $n . "<br>";
+			$n = $num[0]; 
 			if ($n == 1) {
 				$t = ' ciento' . $t;
 			} elseif ($n == 5) {
