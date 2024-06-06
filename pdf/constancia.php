@@ -36,17 +36,17 @@ $html = '<html>
             <body style="boder:1px solid;">
                 <table style="width:100%">
                     <tr>
-                        <td><img src="' . $logo_IAP . '" style="width:220px;"></td>
-                        <td style="text-align:right;"><img src="' . $logo_RED . '" style="width:180px;"></td>
+                        <td><img src="' . $logo_IAP . '" style="width:200px;"></td>
+                        <td style="text-align:right;"><img src="' . $logo_RED . '" style="width:150px;"></td>
                     </tr> 
                 </table>
                 <table style="width:100%">
                     <tr>
                         <td></td>
                         <td style="text-align:right;">
-                            <div style="padding-top:50px; padding-right:20px; font-family:verdana; font-size:14px;">
+                            <div style="padding-top:25px; padding-right:20px; font-family:verdana; font-size:12px;">
                                 Tuxtla Gutiérrez, Chiapas; a ' . $fecha_espanol . '<br>
-                                Constancia No. IAP/DCYECL/<span style="color:red;">' . str_pad($constanciaAlumno['folio'], 4, "0", STR_PAD_LEFT) . '</span>/' . $anio . '
+                                Constancia No. I<strong>AP/DCYECL/<span style="color:red;">' . str_pad($constanciaAlumno['folio'], 4, "0", STR_PAD_LEFT) . '</span>/' . $anio . '</strong>
                             </div>
                         </td>
                     </tr>
@@ -55,21 +55,21 @@ $html = '<html>
                 <table style="width:100%">
                     <tr>
                         <td style="font-family:verdana">
-                            <div style="padding-left:40px; padding-right:25px; font-size:16px;">
+                            <div style="padding-left:40px; padding-right:25px; font-size:14px;">
                                 <p style="font-size:15px;"><strong>A QUIEN CORRESPONDA:</strong></p>
                                 <p style="text-align:justify;">
                                     La que suscribe <strong>Dra. Erika Aguilar Farrera, Directora</strong> de la <strong>Entidad de Certificación y Evaluación ECE213-15;</strong> por medio del presente:
                                 </p>
-                                <p style="text-align:center;letter-spacing: 4px; font-size:18px;">
+                                <p style="text-align:center;letter-spacing: 4px; font-size:16px;  margin-bottom:10px">
                                     <strong>HACE CONSTAR</strong>
                                 </p>
-                                <p style="text-align:justify; padding-bottom:20px;">
+                                <p style="text-align:justify; margin-bottom:10px;">
                                     Que <strong>' . mb_strtoupper($alumno['names']) . ' ' . mb_strtoupper($alumno['lastNamePaterno']) . ' ' . mb_strtoupper($alumno['lastNameMaterno']) . '</strong>, realizó su proceso de evaluación en esta Entidad en el estándar <strong>"' . $curso['name'] . '"</strong> obteniendo el resultado de <strong>"Competente"</strong>
                                 </p> 
-                                <p style="text-align:justify; padding-bottom:20px;">
+                                <p style="text-align:justify; margin-bottom:10px;">
                                     Cabe señalar que la emisión del Certificado de dicha competencia, es posterior al proceso de revisión que el <strong>Comité de dictamen</strong> de esta entidad lleva a cabo, de acuerdo a la normatividad del Consejo de Normalización de Certificación y Competencias Laborales (CONOCER). Esto con el fin de garantizar la transparencia en los procesos de evaluación, por lo anterior, la presente tiene una vigencia de '.$curso['vigencia'].' días naturales a partir de la fecha emitida.
                                 </p>
-                                <p style="text-align:justify; padding-bottom:20px;">
+                                <p style="text-align:justify; margin-bottom:10px;">
                                     El proceso realizado por esta entidad, es exclusivamente para validar, calificar y aprobar la competencia laboral de acuerdo al estándar presentado, tal y como lo establece las normas del programa del Consejo de Normalización de Certificación y Competencias Laborales (CONOCER).
                                 </p>
                                 <p style="text-align:justify;">
