@@ -26,7 +26,7 @@ $student->setUserId($constanciaAlumno['studentId']);
 $alumno = $student->InfoStudent();
 $course->setCourseId($constanciaAlumno['courseId']);
 $curso = $course->Info();
-$util->apocope = true;  
+$util->apocope = true;
 $html = '<html>
             <head> 
                 <style type="text/css">
@@ -46,7 +46,7 @@ $html = '<html>
                         <td style="text-align:right;">
                             <div style="padding-top:50px; padding-right:20px; font-family:verdana; font-size:14px;">
                                 Tuxtla Gutiérrez, Chiapas; a ' . $fecha_espanol . '<br>
-                                Constancia No. IAP/DCYECL/<span style="color:red;">' . $constanciaAlumno['folio'] . '</span>/' . $anio . '
+                                Constancia No. IAP/DCYECL/<span style="color:red;">' . str_pad($constanciaAlumno['folio'], 4, "0", STR_PAD_LEFT) . '</span>/' . $anio . '
                             </div>
                         </td>
                     </tr>
@@ -67,18 +67,18 @@ $html = '<html>
                                     Que <strong>' . mb_strtoupper($alumno['names']) . ' ' . mb_strtoupper($alumno['lastNamePaterno']) . ' ' . mb_strtoupper($alumno['lastNameMaterno']) . '</strong>, realizó su proceso de evaluación en esta Entidad en el estándar <strong>"' . $curso['name'] . '"</strong> obteniendo el resultado de <strong>"Competente"</strong>
                                 </p> 
                                 <p style="text-align:justify; padding-bottom:20px;">
-                                    Cabe señalar que la emisión del Certificado de dicha competencia, es posterior al proceso de revisión que el <strong>Comité de dictamen</strong> de esta entidad lleva a cabo, de acuerdo a la normatividad de CONOCER. Esto con el fin de garantizar la transparencia en los procesos de evaluación, por lo anterior, la presente tiene una vigencia de 90 días a partir de la fecha emitida.
+                                    Cabe señalar que la emisión del Certificado de dicha competencia, es posterior al proceso de revisión que el <strong>Comité de dictamen</strong> de esta entidad lleva a cabo, de acuerdo a la normatividad del Consejo de Normalización de Certificación y Competencias Laborales (CONOCER). Esto con el fin de garantizar la transparencia en los procesos de evaluación, por lo anterior, la presente tiene una vigencia de '.$curso['vigencia'].' días naturales a partir de la fecha emitida.
                                 </p>
                                 <p style="text-align:justify; padding-bottom:20px;">
-                                    El proceso realizado por esta entidad, es exclusivamente para validar, calificar y aprobar la competencia laboral de acuerdo al estándar presentado, tal y como lo establece las normas del programa del Consejo de Normalización de Certificación y Competencias Laborales CONOCER.
+                                    El proceso realizado por esta entidad, es exclusivamente para validar, calificar y aprobar la competencia laboral de acuerdo al estándar presentado, tal y como lo establece las normas del programa del Consejo de Normalización de Certificación y Competencias Laborales (CONOCER).
                                 </p>
                                 <p style="text-align:justify;">
-                                    A petición de la parte interesada, se extiende la presente en la Ciudad de Tuxtla Gutiérrez, Chiapas; a los <span style="text-transform: lowercase;">'.$util->toWords($dia).'</span> días del mes de <span style="text-transform: lowercase;">'.$mes.'</span> del presente año.
+                                    A petición de la parte interesada, se extiende la presente en la Ciudad de Tuxtla Gutiérrez, Chiapas; a los <span style="text-transform: lowercase;">' . $util->toWords($dia) . '</span> días del mes de <span style="text-transform: lowercase;">' . $mes . '</span> del presente año.
                                 </p>                    
                                 <p style="padding-top:140px; position:relative;">
                                     <strong>Dra. Erika Aguilar Farrera</strong>
-                                    <img src="'.$firma.'" style="width:420px; position:absolute; top:-10; left:0;">
-                                    <span style="position:absolute; top:35; left:255px; color:red; font-size:15px">'.mb_strtoupper($fecha_sello).'</span>
+                                    <img src="' . $firma . '" style="width:420px; position:absolute; top:-10; left:0;">
+                                    <span style="position:absolute; top:35; left:255px; color:red; font-size:15px">' . mb_strtoupper($fecha_sello) . '</span>
                                 </p>
                                 C.c.p- Archivo
                             </div>

@@ -755,6 +755,7 @@ class Course extends Subject
 						*, 
 						major.name AS majorName, 
 						subject.name AS name,
+						subject.vigencia,
 						course.tipo as tipoCuatri,
 						subject.totalPeriods,
 						(SELECT IF((course.modality = 'Online'), subject.crm_id_online, subject.crm_id_local)) AS crm_id,
