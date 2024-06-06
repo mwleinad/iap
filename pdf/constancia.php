@@ -91,7 +91,7 @@ $dompdf = new Dompdf();
 //transform: rotate(10deg); transform-origin: 50%;
 # Definimos el tamaño y orientación del papel que queremos.
 # O por defecto cogerá el que está en el fichero de configuración.
-$dompdf->set_paper("legal", "portrait");
+$dompdf->set_paper("letter", "portrait");
 # Cargamos el contenido HTML.
 $dompdf->load_html($html);
 # Renderizamos el documento PDF.
