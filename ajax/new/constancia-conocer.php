@@ -26,15 +26,15 @@ foreach ($students as $itemStudent) {
         $constancias->actualizarConstanciaConocer();
     } 
 
-    $hecho = $_SESSION['User']['userId'] . "p";
-    $vista = "p," . $hecho . "," . $itemStudent. "u";
-    $actividad = "Se ha generado tu constancia de evaluación";
-    $notificacion->setActividad($actividad);
-    $notificacion->setVista($vista);
-    $notificacion->setHecho($hecho);
-    $notificacion->setTablas("reply");
-    $notificacion->setEnlace("/pdf/constancia.php?courseId={$_POST['course']}&studentId={$itemStudent}");
-    $notificacion->saveNotificacion(); 
+    // $hecho = $_SESSION['User']['userId'] . "p";
+    // $vista = "p," . $hecho . "," . $itemStudent. "u";
+    // $actividad = "Se ha generado tu constancia de evaluación";
+    // $notificacion->setActividad($actividad);
+    // $notificacion->setVista($vista);
+    // $notificacion->setHecho($hecho);
+    // $notificacion->setTablas("reply");
+    // $notificacion->setEnlace("/pdf/constancia.php?courseId={$_POST['course']}&studentId={$itemStudent}");
+    // $notificacion->saveNotificacion(); 
 
     $student->setUserId($itemStudent); 
     $alumno = $student->GetInfo();  
@@ -44,7 +44,7 @@ foreach ($students as $itemStudent) {
         'usuario'   => $alumno['controlNumber'], 
         'password'  => $alumno['password']
     );
-    $sendmail->Prepare($message[11]["subject"], $message[11]["body"], $details_body, $details_subject, $alumno['email'], $alumno['names']." ".$alumno['lastNamePaterno']." ".$alumno['lastNameMaterno']);
+    //$sendmail->Prepare($message[11]["subject"], $message[11]["body"], $details_body, $details_subject, $alumno['email'], $alumno['names']." ".$alumno['lastNamePaterno']." ".$alumno['lastNameMaterno']);
 }
 $curso = $_POST['course'];
 $students = $course->getStudentsConocer("AND user_subject.courseId = $curso ORDER BY user.lastNamePaterno, user.lastNameMaterno");
