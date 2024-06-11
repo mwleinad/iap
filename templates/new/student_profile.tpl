@@ -266,10 +266,12 @@
                                                 <i class="fas fa-link"></i> Ver
                                             </a>
                                         {/if}<br><br>
-                                        <a href="{$WEB_ROOT}/boletas/id/{$subject.courseId}"
-                                            class="btn btn-outline-light btn-fw btn-sm">
-                                            <i class="far fa-list-alt"></i> Boletas de Calificaciones
-                                        </a>
+                                        {if $subject.majorName != "CURSO"}
+                                            <a href="{$WEB_ROOT}/boletas/id/{$subject.courseId}"
+                                                class="btn btn-outline-light btn-fw btn-sm">
+                                                <i class="far fa-list-alt"></i> Boletas de Calificaciones
+                                            </a>
+                                        {/if}
                                         {if $subject.constancia}
                                             <br><br>
                                             <a href="{$WEB_ROOT}/pdf/constancia.php?studentId={$User.userId}&courseId={$subject.courseId}"
