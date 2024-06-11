@@ -110,12 +110,13 @@
                                             title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
                                             <i class="fas fa-link"></i> Ingresar
                                         </a>
-                                    {/if}<br><br>
-                                    <a href="{$WEB_ROOT}/boletas/id/{$subject.courseId}"
-                                        class="btn btn-outline-light btn-fw btn-sm">
-                                        <i class="far fa-list-alt"></i> Boletas de Calificaciones
-                                    </a> 
-                                    {if !in_array($subject.courseId,[167, 168, 162])}
+                                    {/if}
+                                    {if $subject.majorName != "Curso"}
+                                        <br><br>
+                                        <a href="{$WEB_ROOT}/boletas/id/{$subject.courseId}"
+                                            class="btn btn-outline-light btn-fw btn-sm">
+                                            <i class="far fa-list-alt"></i> Boletas de Calificaciones
+                                        </a> 
                                         <br><br>
                                         <a href="{$WEB_ROOT}/mi-credencial-digital/id/{$subject.courseId}"
                                             class="btn btn-outline-light btn-fw btn-sm">
@@ -124,8 +125,8 @@
                                     {/if}
                                     {if $subject.constancia}
                                         <br><br>
-                                        <a href="{$WEB_ROOT}/pdf/constancia.php?studentId={$User.userId}&courseId={$subject.courseId}" target="_blank"
-                                            class="btn btn-outline-light btn-fw btn-sm">
+                                        <a href="{$WEB_ROOT}/pdf/constancia.php?studentId={$User.userId}&courseId={$subject.courseId}"
+                                            target="_blank" class="btn btn-outline-light btn-fw btn-sm">
                                             <i class="far fa-list-alt"></i> Constancia
                                         </a>
                                     {/if}
@@ -271,8 +272,8 @@
                                         </a>
                                         {if $subject.constancia}
                                             <br><br>
-                                            <a href="{$WEB_ROOT}/pdf/constancia.php?studentId={$User.userId}&courseId={$subject.courseId}" target="_blank"
-                                                class="btn btn-outline-light btn-fw btn-sm">
+                                            <a href="{$WEB_ROOT}/pdf/constancia.php?studentId={$User.userId}&courseId={$subject.courseId}"
+                                                target="_blank" class="btn btn-outline-light btn-fw btn-sm">
                                                 <i class="far fa-list-alt"></i> Constancia
                                             </a>
                                         {/if}

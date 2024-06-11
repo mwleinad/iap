@@ -3,7 +3,7 @@
         <i class="fas fa-file-signature"></i> Generar Constancia
     </div>
     <div class="card-body">
-        <form action="{$WEB_ROOT}/ajax/new/constancia-conocer.php" class="form" method="POST" id="form_constancia">
+        <form action="{$WEB_ROOT}/ajax/new/constancia-conocer.php" method="POST" id="form_constancia">
             <input type="hidden" id="course" name="course" value="{$curso}" />
             <div class="row" id="alumnos">
                 {include file="{$DOC_ROOT}/templates/items/new/constancias-conocer.tpl"} 
@@ -38,7 +38,7 @@
                 }
             );
             if (procesar) {
-                $("#form_constancia").submit();
+                $("#form_constancia").addClass('form').submit();
             }
         } else {
             $("#alerta").addClass("alert alert-danger").text("Debe seleccionar por lo menos un alumno.");
