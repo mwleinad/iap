@@ -111,7 +111,7 @@
                                             <i class="fas fa-link"></i> Ingresar
                                         </a>
                                     {/if}
-                                    {if $subject.majorName != "Curso"}
+                                    {if $subject.majorName != "CURSO"}
                                         <br><br>
                                         <a href="{$WEB_ROOT}/boletas/id/{$subject.courseId}"
                                             class="btn btn-outline-light btn-fw btn-sm">
