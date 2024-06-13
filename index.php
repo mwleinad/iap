@@ -272,11 +272,19 @@ $pages = array(
 	'registro-cobach',
 	'reporte-cursos'
 );
-$mensaje = ""; 
+$mensaje = "";
 if (!in_array($_GET['page'], $pages) && $_GET['page'] != "logout") {
 	$_GET['page'] = "homepage";
 }
-$pagesBlackList = ['test-docente', 'information-modules-student', 'migrupo', 'docente', 'calendar-image-modules-student', 'upload-homework', 'resources-modules-student', 'reply-inbox', 'forum-modules-student', 'team-modules-student','calendar-modules-student', 'forum-modules-student','view-modules-student','modulos-curricula'];
+$pagesBlackList = ['test-docente', 'information-modules-student', 'migrupo', 'docente', 'calendar-image-modules-student', 'upload-homework', 'resources-modules-student', 'reply-inbox', 'forum-modules-student', 'team-modules-student', 'calendar-modules-student', 'forum-modules-student', 'view-modules-student', 'modulos-curricula'];
+if ($User) {
+	$estudiantePromo = $course->getStudents("AND user_subject.courseId IN(159, 160, 161, 151) AND user_subject.status = 'activo' AND user_subject.alumnoId = {$_SESSION["User"]["userId"]} ");
+	if ($estudiantePromo[0]['controlNumber']) {
+		$mensajePromo = "<img src='" . WEB_ROOT . "/images/promocion.jpeg' class='img-fluid'>";
+		$smarty->assign("promo", true);
+		$smarty->assign("mensajePromo", $mensajePromo);
+	}
+}
 
 //Bloqueo por pago
 if ($User['bloqueado'] == 1) { //Comprobamos que realmente tenga un pago adeudado
@@ -290,9 +298,9 @@ if ($User['bloqueado'] == 1) { //Comprobamos que realmente tenga un pago adeudad
 }
 
 //Bloqueo por convenio
-if (in_array($User['userId'], [ 
-	4336, 
-	4531, 
+if (in_array($User['userId'], [
+	4336,
+	4531,
 	4570,
 	4576,
 	3983

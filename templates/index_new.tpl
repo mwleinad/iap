@@ -237,9 +237,9 @@
 				});
 			});
 		</script>
-	{/if} 
-	{if $User.type eq "student" and $page eq "homepage"} 
-		{if $User.announcement neq true && $referencia > 0 && $mensaje != ""}
+	{/if}
+	{if $User.type eq "student" and $page eq "homepage"}
+		{if ($promo)}
 			<style>
 				.swal2-show {
 					width: 850px !important;
@@ -251,32 +251,61 @@
 				}
 			</style>
 			<script>
-				Swal.fire({  
-					html: "{$mensaje}",
+				Swal.fire({
+					html: "{$mensajePromo}",
 					showCancelButton: false,
 					confirmButtonColor: '#58ff85',
 					cancelButtonColor: '#ff4545',
 					confirmButtonText: 'Enterado'
+				}).then((result) => {
+					console.log(result);
+					if (result.isConfirmed) {
+						{if $User.announcement neq true && $referencia > 0 && $mensaje != ""}
+							Swal.fire({
+								html: "{$mensaje}",
+								showCancelButton: false,
+								confirmButtonColor: '#58ff85',
+								cancelButtonColor: '#ff4545',
+								confirmButtonText: 'Enterado'
+							});
+						{/if} 
+					} 
 				});
 			</script>
+		{else}
+			{if $User.announcement neq true && $referencia > 0 && $mensaje != ""}
+				<style>
+					.swal2-show {
+						width: 850px !important;
+					}
+
+					.swal2-html-container p {
+						text-align: justify;
+						font-size: 1.2rem;
+					}
+				</style>
+				<script>
+					Swal.fire({
+						html: "{$mensaje}",
+						showCancelButton: false,
+						confirmButtonColor: '#58ff85',
+						cancelButtonColor: '#ff4545',
+						confirmButtonText: 'Enterado'
+					});
+				</script>
+			{/if}
 		{/if}
 		<script>
-			/* ésto comprueba la localStorage si ya tiene la variable guardada */
 			function compruebaAceptaCookies() {
 				if (localStorage.aceptaCookies != 'true') {
 					$(".cookies").removeClass('d-none');
 				}
 			}
 
-			/* aquí guardamos la variable de que se ha
-		aceptado el uso de cookies así no mostraremos
-		el mensaje de nuevo */
 			function aceptarCookies() {
 				localStorage.aceptaCookies = 'true';
 				$(".cookies").addClass('d-none');
 			}
-
-			/* ésto se ejecuta cuando la web está cargada */
 			$(document).ready(function() {
 				compruebaAceptaCookies();
 			});
