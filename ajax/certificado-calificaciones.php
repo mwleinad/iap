@@ -15,6 +15,12 @@ $total_modules = 0;
 $course->setCourseId($_POST['course']);
 $infoCourse = $course->Info();
 $settingCertificate = $certificates->getSettings();
+
+$imagen = file_get_contents(DOC_ROOT . "/images/Escudo.jpg");
+$escudo = 'data:image/jpg;base64,' . base64_encode($imagen);
+$imagen = file_get_contents(DOC_ROOT . "/images/new/docs/mignon.jpg");
+$ovalo = 'data:image/jpg;base64,' . base64_encode($imagen); 
+
 // Calificacion Minima Aprobatoria
 $minCal = 7;
 $prefix = 'CM';
@@ -243,8 +249,8 @@ foreach ($students as $itemStudent) {
     $html .= '<table width="100%">
                 <tr>
                     <td width="17%">
-                        <img src="' . DOC_ROOT . '/images/Escudo.jpg" id="mexico" />
-                        <img src="' . DOC_ROOT . '/images/new/docs/mignon.jpg" id="ovalo" />
+                        <img src="'.$escudo.'" id="mexico" />
+                        <img src="' . $ovalo . '" id="ovalo" />
                     </td>
                     <td width="83%"> 
                         <div style="font-size: 6.5pt; position: absolute; right: -.6cm; top: -10px; width: 80px;"><b>SE-' . $prefix . 'IAP-' . $array_date[0] . '<b></div> 
