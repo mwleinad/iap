@@ -270,7 +270,7 @@ foreach ($students as $itemStudent) {
                             </p>
                             <p style="font-size: 11px; text-align: center;"><b>' . $curso . '</b></p>
                             <p style="font-size: 10.5px; text-align: justify; line-height:1.5;font-family:calibri;">
-                                ACUERDO NÚMERO: <b>' . $rvoe . '</b>, VIGENTE A PARTIR DEL ' . mb_strtoupper($util->FormatReadableDate($fechaRvoe)) . ', DURANTE EL PERIODO:<br> 
+                                ACUERDO NÚMERO: <label style="sans-serif"><b>' . $rvoe . '</b></label>, VIGENTE A PARTIR DEL ' . mb_strtoupper($util->FormatReadableDate($fechaRvoe)) . ', DURANTE EL PERIODO:<br> 
                             </p>
                             <p class="text-center" style="font-size:11px;"><b>' . mb_strtoupper($datePeriod) . '</b></p>
                             <p style="font-size: 10.5px; text-align: center; margin-bottom:0px; line-height:1;font-family:calibri;">CON LOS RESULTADOS QUE A CONTINUACIÓN SE ANOTAN:</p> 
