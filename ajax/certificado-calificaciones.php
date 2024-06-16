@@ -266,7 +266,7 @@ foreach ($students as $itemStudent) {
                             <p style="font-size:10.5px; text-align: justify;line-height:1.2; margin-top:0.4cm; font-family:calibri;">
                                 LA DIRECCIÓN DEL INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, RÉGIMEN PARTICULAR, TURNO ' . mb_strtoupper($infoCourse["turn"]) . ' MODALIDAD ' . $modality . ', CLAVE ' . $myInstitution["identifier"] . ', CERTIFICA QUE:<br>
                                 EL (LA) C. <b style="font-family:sans-serif">' . $nameStudent . '</b><br>
-                                CON No. DE CONTROL: <b>' . $student->GetMatricula($infoCourse["courseId"]) . '</b> ACREDITÓ LAS MATERIAS QUE INTEGRAN EL PLAN DE ESTUDIOS ' . $plan . ' EN:
+                                CON No. DE CONTROL: <label style="font-family:sans-serif;"><b>' . $student->GetMatricula($infoCourse["courseId"]) . '</b></label> ACREDITÓ LAS MATERIAS QUE INTEGRAN EL PLAN DE ESTUDIOS ' . $plan . ' EN:
                             </p>
                             <p style="font-size: 11px; text-align: center;"><b>' . $curso . '</b></p>
                             <p style="font-size: 10.5px; text-align: justify; line-height:1.5;font-family:calibri;">
