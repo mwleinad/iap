@@ -15,6 +15,12 @@ $total_modules = 0;
 $course->setCourseId($_POST['course']);
 $infoCourse = $course->Info();
 $settingCertificate = $certificates->getSettings();
+
+$imagen = file_get_contents(DOC_ROOT . "/images/Escudo.jpg");
+$escudo = 'data:image/jpg;base64,' . base64_encode($imagen);
+$imagen = file_get_contents(DOC_ROOT . "/images/new/docs/mignon.jpg");
+$ovalo = 'data:image/jpg;base64,' . base64_encode($imagen); 
+
 // Calificacion Minima Aprobatoria
 $minCal = 7;
 $prefix = 'CM';
@@ -211,14 +217,14 @@ foreach ($students as $itemStudent) {
                 $next = true;
             }
             $tbody .= '<tr style="border-style: none;">';
-            $tbody .= '<td style="border-style: none; font-size:'.$fuenteMateria.'">' . $qualifications[$period][$element]['name'] . '</td>
-                        <td style="text-align: center; border-style: none; font-size:'.$fuenteMateria.'">' . $qualifications[$period][$element]['score'] . '</td>
-                        <td style="text-align: center; border-style: none; font-size:'.$fuenteMateria.'">' . mb_strtoupper($util->num2letras($qualifications[$period][$element]['score'])) . '</td>
-                        <td style="border-style: none; text-align: center; font-size:'.$fuenteMateria.'">' . mb_strtoupper($qualifications[$period][$element]['comments']) . '</td>
-                        <td style="border-style: none; font-size:'.$fuenteMateria.'">' . ($next ? $qualifications[$period + 1][$element]['name'] : '') . '</td>
-                        <td style="text-align: center; border-style: none; font-size:'.$fuenteMateria.'">' . ($next ? $qualifications[$period + 1][$element]['score'] : '') . '</td>
-                        <td style="text-align: center; border-style: none; font-size:'.$fuenteMateria.'">' . ($next ? mb_strtoupper($util->num2letras($qualifications[$period + 1][$element]['score'])) : '') . '</td>
-                        <td style="border-style: none; text-align: center; font-size:'.$fuenteMateria.'">' . mb_strtoupper($qualifications[$period + 1][$element]['comments']) . '</td>';
+            $tbody .= '<td style="border-style: none;font-family:calibri; font-size:'.$fuenteMateria.'">' . $qualifications[$period][$element]['name'] . '</td>
+                        <td style="text-align: center;font-family:calibri; border-style: none; font-size:'.$fuenteMateria.'">' . $qualifications[$period][$element]['score'] . '</td>
+                        <td style="text-align: center;font-family:calibri; border-style: none; font-size:'.$fuenteMateria.'">' . mb_strtoupper($util->num2letras($qualifications[$period][$element]['score'])) . '</td>
+                        <td style="border-style: none;font-family:calibri; text-align: center; font-size:'.$fuenteMateria.'">' . mb_strtoupper($qualifications[$period][$element]['comments']) . '</td>
+                        <td style="border-style: none;font-family:calibri; font-size:'.$fuenteMateria.'">' . ($next ? $qualifications[$period + 1][$element]['name'] : '') . '</td>
+                        <td style="text-align: center;font-family:calibri; border-style: none; font-size:'.$fuenteMateria.'">' . ($next ? $qualifications[$period + 1][$element]['score'] : '') . '</td>
+                        <td style="text-align: center;font-family:calibri; border-style: none; font-size:'.$fuenteMateria.'">' . ($next ? mb_strtoupper($util->num2letras($qualifications[$period + 1][$element]['score'])) : '') . '</td>
+                        <td style="border-style: none;font-family:calibri; text-align: center; font-size:'.$fuenteMateria.'">' . mb_strtoupper($qualifications[$period + 1][$element]['comments']) . '</td>';
             $tbody .= '</tr>';
             $sumCal += $qualifications[$period][$element]['score'] + ($next ? $qualifications[$period + 1][$element]['score'] : 0);
             $materias++;
@@ -243,31 +249,31 @@ foreach ($students as $itemStudent) {
     $html .= '<table width="100%">
                 <tr>
                     <td width="17%">
-                        <img src="' . DOC_ROOT . '/images/Escudo.jpg" id="mexico" />
-                        <img src="' . DOC_ROOT . '/images/new/docs/mignon.jpg" id="ovalo" />
+                        <img src="'.$escudo.'" id="mexico" />
+                        <img src="' . $ovalo . '" id="ovalo" />
                     </td>
                     <td width="83%"> 
                         <div style="font-size: 6.5pt; position: absolute; right: -.6cm; top: -10px; width: 80px;"><b>SE-' . $prefix . 'IAP-' . $array_date[0] . '<b></div> 
                         <div style="font-size: 9pt; position:absolute; right: 0; width: 80px; top:105px; text-align:right;"><strong>Folio:</strong> <b style="color: red;">' . mb_strtoupper($folios[$itemStudent]) . '</b></div> 
                         <div style="height:8.5cm;">
-                            <div class="text-center" style="margin-top:15px;">
+                            <div class="text-center" style="margin-top:15px">
                                 <label style="font-size: 18px;"><b>GOBIERNO CONSTITUCIONAL DEL ESTADO DE CHIAPAS</b></label><br>
-                                <label style="font-size: 13pt;">SECRETARÍA DE EDUCACIÓN</label><br>
-                                <label style="font-size: 11pt;">SUBSECRETARÍA DE EDUCACIÓN ESTATAL</label><br>
-                                <label style="font-size: 11pt;">DIRECCIÓN DE EDUCACIÓN SUPERIOR</label><br>
-                                <label style="font-size: 11pt;">DEPARTAMENTO DE SERVICIOS ESCOLARES</label>
+                                <label style="font-size: 13pt;font-family:calibri;">SECRETARÍA DE EDUCACIÓN</label><br>
+                                <label style="font-size: 11pt;font-family:calibri;">SUBSECRETARÍA DE EDUCACIÓN ESTATAL</label><br>
+                                <label style="font-size: 11pt;font-family:calibri;">DIRECCIÓN DE EDUCACIÓN SUPERIOR</label><br>
+                                <label style="font-size: 11pt;font-family:calibri;">DEPARTAMENTO DE SERVICIOS ESCOLARES</label>
                             </div>
-                            <p style="font-size:10.5px; text-align: justify;line-height:1.2; margin-top:0.4cm;">
+                            <p style="font-size:10.5px; text-align: justify;line-height:1.2; margin-top:0.4cm; font-family:calibri;">
                                 LA DIRECCIÓN DEL INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, RÉGIMEN PARTICULAR, TURNO ' . mb_strtoupper($infoCourse["turn"]) . ' MODALIDAD ' . $modality . ', CLAVE ' . $myInstitution["identifier"] . ', CERTIFICA QUE:<br>
-                                EL (LA) C. <b>' . $nameStudent . '</b><br>
-                                CON No. DE CONTROL: <b>' . $student->GetMatricula($infoCourse["courseId"]) . '</b> ACREDITÓ LAS MATERIAS QUE INTEGRAN EL PLAN DE ESTUDIOS ' . $plan . ' EN:
+                                EL (LA) C. <b style="font-family:sans-serif">' . $nameStudent . '</b><br>
+                                CON No. DE CONTROL: <label style="font-family:sans-serif;"><b>' . $student->GetMatricula($infoCourse["courseId"]) . '</b></label> ACREDITÓ LAS MATERIAS QUE INTEGRAN EL PLAN DE ESTUDIOS ' . $plan . ' EN:
                             </p>
                             <p style="font-size: 11px; text-align: center;"><b>' . $curso . '</b></p>
-                            <p style="font-size: 10.5px; text-align: justify; line-height:1.5">
-                                ACUERDO NÚMERO: <b>' . $rvoe . '</b>, VIGENTE A PARTIR DEL ' . mb_strtoupper($util->FormatReadableDate($fechaRvoe)) . ', DURANTE EL PERIODO:<br> 
+                            <p style="font-size: 10.5px; text-align: justify; line-height:1.5;font-family:calibri;">
+                                ACUERDO NÚMERO: <label style="font-family:sans-serif"><b>' . $rvoe . '</b></label>, VIGENTE A PARTIR DEL ' . mb_strtoupper($util->FormatReadableDate($fechaRvoe)) . ', DURANTE EL PERIODO:<br> 
                             </p>
                             <p class="text-center" style="font-size:11px;"><b>' . mb_strtoupper($datePeriod) . '</b></p>
-                            <p style="font-size: 10.5px; text-align: center; margin-bottom:0px; line-height:1">CON LOS RESULTADOS QUE A CONTINUACIÓN SE ANOTAN:</p> 
+                            <p style="font-size: 10.5px; text-align: center; margin-bottom:0px; line-height:1;font-family:calibri;">CON LOS RESULTADOS QUE A CONTINUACIÓN SE ANOTAN:</p> 
                         </div>
                     </td>
                 </tr>
@@ -294,16 +300,18 @@ foreach ($students as $itemStudent) {
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="8" style="border:none; text-align:right; padding: 15px 0 0 0; font-weight: 900; font-size:11px;">PROMEDIO GENERAL ' . $promedio . ' ' . mb_strtoupper($promedioLetras) . '</td>
+                        <td colspan="8" style="border:none; text-align:right; padding: 15px 0 0 0;  font-size:11px;">
+                            <label style="font-family:sans-serif;"><b>PROMEDIO GENERAL ' . $promedio . ' ' . mb_strtoupper($promedioLetras) . '</b></label>
+                        </td>
                     </tr>
                 </tfoot>
             </table>
-            <p style="font-size:9.5px">La escala oficial de calificaciones es de 6 (SEIS) a 10 (DIEZ), considerando como mínima aprobatoria ' . $minCal . ' (' . mb_strtoupper($util->num2letras($minCal)) . '). Este certificado ampara <b>'.mb_strtoupper($util->num2letras($total_modules
+            <p style="font-size:9.5px;font-family:calibri;">La escala oficial de calificaciones es de 6 (SEIS) a 10 (DIEZ), considerando como mínima aprobatoria ' . $minCal . ' (' . mb_strtoupper($util->num2letras($minCal)) . '). Este certificado ampara <b>'.mb_strtoupper($util->num2letras($total_modules
             )).'</b> materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ' . $array_date[2] . ' días del mes de ' . mb_strtolower($util->ConvertirMes(intval($array_date[1]))) . ' del año ' . $letraAnio . '.</p>
-            <table width="100%">
+            <table width="100%" style="font-family:calibri;">
                 <tr>
                     <td style="font-size: 9pt; text-align: center;">
-                        <b>' . $rector["genre"] . '</b>
+                        <label style="font-family:sans-serif;"><b>' . $rector["genre"] . '</b></label>
                         <br><br><br> 
                         _________________________________________________
                         <br>
@@ -311,7 +319,7 @@ foreach ($students as $itemStudent) {
                     </td>
                     <td style="width: 10%"></td>
                     <td style="font-size: 9pt; text-align: center;">
-                        <b>' . $secretary["genre"] . '</b>
+                        <label style="font-family:sans-serif"><b>' . $secretary["genre"] . '</b></label>
                         <br><br><br> 
                         _________________________________________________
                         <br>
@@ -321,7 +329,7 @@ foreach ($students as $itemStudent) {
                 <tr>
                     <td style="font-size: 9pt; text-align: center; vertical-align:top;">
                         <br><br><br>
-                        <b>' . $schoolService["genre"] . ' DEL DEPARTAMENTO DE SERVICIOS ESCOLARES</b>
+                        <label style="font-family:sans-serif;"><b>' . $schoolService["genre"] . ' DEL DEPARTAMENTO DE SERVICIOS ESCOLARES</b></label>
                         <br><br><br> 
                         _________________________________________________
                         <br>
@@ -330,7 +338,7 @@ foreach ($students as $itemStudent) {
                     <td style="width: 10%"></td>
                     <td style="font-size: 9pt; text-align: center; vertical-align:top;">
                         <br><br><br>
-                        <label><b>'.$director["genre"].' DE EDUCACIÓN SUPERIOR</b></label>
+                        <label style="font-family:sans-serif;"><b>'.$director["genre"].' DE EDUCACIÓN SUPERIOR</b></label>
                         <br><br><br><br>
                         _________________________________________________
                         <br>
@@ -339,7 +347,7 @@ foreach ($students as $itemStudent) {
                 </tr>
             </table>
             <div style="margin-top:15px;"></div>
-            <table width="100%">
+            <table width="100%" style="font-family:calibri;">
                 <tr style="border-spacing: 0px !important;">
                     <td style="width:45%;line-height:0.5cm;">
                         <table align="center" border="1" class="border" style="padding-right:20px; margin:0; width:100%">
@@ -350,7 +358,7 @@ foreach ($students as $itemStudent) {
                             </tr>
                             <tr>
                                 <td class="border">
-                                    <p style="text-align: right; font-size: 8pt; line-height:0.5cm">
+                                    <p style="text-align: right; font-size: 8pt; line-height:0.5cm; font-family:sans-serif;">
                                         <b>
                                         No. __________________________________________<br>
                                      LIBRO: __________________________________________<br>
