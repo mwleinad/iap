@@ -341,9 +341,10 @@ class Conceptos extends Module
         return $clasificados;
     }
 
-    public function concepto_curso()
+    public function concepto_curso($where = "")
     {
-        $sql = "SELECT * FROM conceptos_course WHERE conceptos_course.concepto_course_id = {$this->conceptoCurso}";
+        $where = $where == "" ? "conceptos_course.concepto_course_id = {$this->conceptoCurso}" : $where;
+        $sql = "SELECT * FROM conceptos_course WHERE $where";
         // echo $sql;
         $this->Util()->DB()->setQuery($sql);
         $resultado = $this->Util()->DB()->GetRow();
@@ -432,9 +433,10 @@ class Conceptos extends Module
         return $resultado;
     }
 
-    public function pago()
-    {
-        $sql = "SELECT pagos.*, (SELECT count(*) FROM cobros WHERE cobros.pago_id = {$this->pagoId}) as cobros FROM pagos WHERE pago_id = {$this->pagoId}";
+    public function pago($where = "")
+    { 
+        $where = $where == "" ? "pago_id = {$this->pagoId}" : $where;
+        $sql = "SELECT pagos.*, (SELECT count(*) FROM cobros WHERE cobros.pago_id = pagos.pago_id) as cobros FROM pagos WHERE $where";
         // echo $sql;
         $this->Util()->DB()->setQuery($sql);
         $resultado = $this->Util()->DB()->GetRow();
