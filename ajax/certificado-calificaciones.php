@@ -247,7 +247,7 @@ foreach ($students as $itemStudent) {
                     </td>
                     <td width="83%"> 
                         <div style="font-size: 6.5pt; position: absolute; right: -.6cm; top: -10px; width: 80px; font-family:arial;"><b>SE-' . $prefix . 'IAP-' . $array_date[0] . '<b></div> 
-                        <div style="font-family:arial; font-size: 9pt; position:absolute; right: 0; width: 80px; top:105px; text-align:right;"><strong>Folio:</strong> <b style="color: red;">' . mb_strtoupper($folios[$itemStudent]) . '</b></div> 
+                        <div style="font-family:arial; font-size: 9pt; position:absolute; right: 0; width: 100px; top:105px; text-align:right;"><strong>Folio:</strong> <b style="color: red;">' . mb_strtoupper($folios[$itemStudent]) . '</b></div> 
                         <div style="height:8.5cm;">
                             <div class="text-center" style="margin-top:15px">
                                 <label style="font-size: 18px;font-family:arial;"><b>GOBIERNO CONSTITUCIONAL DEL ESTADO DE CHIAPAS</b></label><br>
