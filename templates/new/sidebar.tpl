@@ -47,7 +47,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link {if $page == "student"}active{/if}" href="{$WEB_ROOT}/student">Alumnos</a>
                                 </li>
-                                {if in_array($User.userId, [1, 142, 177, 149])}
+                                {if in_array($User.userId, [1, 142, 177, 149, 114])}
                                     <li class="nav-item">
                                         <a class="nav-link {if $page == "credenciales"}active{/if}"
                                             href="{$WEB_ROOT}/credenciales">Credenciales</a>
@@ -205,51 +205,53 @@
                 </li>
             {/if}
             {if !$docente}
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#m-reportes" aria-expanded="false"
-                        aria-controls="m-reportes">
-                        <span class="menu-title">Reportes</span>
-                        <i class="menu-arrow"></i>
-                        <i class="mdi mdi-chart-bar menu-icon"></i>
-                    </a>
-                    <div class="collapse" id="m-reportes">
-                        <ul class="nav flex-column sub-menu">
-                            {if !$docente}
-                                {if in_array($User.positionId,[1,3,24])}
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/report-materia">Materias</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/reporte-indicadores">Indicadores</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/reporte-becas">Becas</a>
-                                    </li>
+                {if in_array($User.positionId,[1,3,24,10])}
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#m-reportes" aria-expanded="false"
+                            aria-controls="m-reportes">
+                            <span class="menu-title">Reportes</span>
+                            <i class="menu-arrow"></i>
+                            <i class="mdi mdi-chart-bar menu-icon"></i>
+                        </a>
+                        <div class="collapse" id="m-reportes">
+                            <ul class="nav flex-column sub-menu">
+                                {if !$docente}
+                                    {if in_array($User.positionId,[1,3,24])}
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{$WEB_ROOT}/report-materia">Materias</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{$WEB_ROOT}/reporte-indicadores">Indicadores</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{$WEB_ROOT}/reporte-becas">Becas</a>
+                                        </li>
+                                    {/if}
+                                    {if in_array($User.positionId,[1,24])}
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{$WEB_ROOT}/reporte-pagos">Pagos</a>
+                                        </li>
+                                    {/if}
+                                    {if in_array($User.positionId,[1,10])}
+                                        <li class="nav-item">
+                                            <a class="nav-link" target="_blank"
+                                                href="{$WEB_ROOT}/ajax/new/reportes.php?opcion=diplomados&page=export-excel">Diplomados -
+                                                Registros</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" target="_blank"
+                                                href="{$WEB_ROOT}/ajax/new/reportes.php?opcion=diplomados-evaluaciones&page=export-excel">Diplomados
+                                                - Evaluaciones</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{$WEB_ROOT}/reporte-cursos">Cursos</a>
+                                        </li>
+                                    {/if}
                                 {/if}
-                                {if in_array($User.positionId,[1,24])}
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/reporte-pagos">Pagos</a>
-                                    </li>
-                                {/if}
-                                {if in_array($User.positionId,[1,10])}
-                                    <li class="nav-item">
-                                        <a class="nav-link" target="_blank"
-                                            href="{$WEB_ROOT}/ajax/new/reportes.php?opcion=diplomados&page=export-excel">Diplomados -
-                                            Registros</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" target="_blank"
-                                            href="{$WEB_ROOT}/ajax/new/reportes.php?opcion=diplomados-evaluaciones&page=export-excel">Diplomados
-                                            - Evaluaciones</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{$WEB_ROOT}/reporte-cursos">Cursos</a>
-                                    </li>
-                                {/if}
-                            {/if}
-                        </ul>
-                    </div>
-                </li>
+                            </ul>
+                        </div>
+                    </li>
+                {/if}
             {/if}
         {/if}
         {/if}
