@@ -20,8 +20,12 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="calificaciones" role="tabpanel"
                 aria-labelledby="calificaciones-tab">
-                <h3 class="text-center my-3">{$infoStudent.names} {$infoStudent.lastNamePaterno}
-                    {$infoStudent.lastNameMaterno}</h3>
+                <h3 class="text-center my-3">
+                    {$infoStudent.names} {$infoStudent.lastNamePaterno} {$infoStudent.lastNameMaterno} <br>
+                    <a href="{$WEB_ROOT}/pdf/historial?page=export-excel&estudiante={$infoStudent.userId}" target="_blank">
+                        Descargar <i class="fa fa-file"></i>
+                    </a>
+                </h3>
                 {foreach from=$cursos item=curso}
                     <div class="accordion" id="accordion{$curso.courseId}">
                         <div class="card">

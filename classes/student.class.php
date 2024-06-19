@@ -3535,4 +3535,11 @@ class Student extends User
 			return $this->Util()->DB()->GetRow();
 		}
 	} 
+
+	function getHistory(){
+		$sql = "SELECT *, GROUP_CONCAT(semesterId ORDER BY type ASC) as periodos, GROUP_CONCAT(type ORDER BY type ASC) as eventos FROM academic_history WHERE userId = {$this->userId} GROUP BY courseId ORDER BY academicHistoryId";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		return $result;
+	}
 }
