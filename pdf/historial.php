@@ -22,7 +22,12 @@ $logo_IAP = 'data:image/jpg;base64,' . base64_encode($imagen);
 $html .= ' <table style="width:100%; font-family:arial;">
             <tr>
                 <td style="width:35%"><img src="' . $logo_IAP . '" style="width:100%;"></td> 
-                <td style="width:65%"><h1>Historial de calificaciones</h1></td>
+                <td style="width:65%">
+                    <div>
+                        <h1 style="margin:0;padding:0">Historial de calificaciones</h1>
+                        <h3 style="margin:0;padding:0;text-transform:uppercase;">'.$infoStudent['names'].' '.$infoStudent['lastNamePaterno'].' '.$infoStudent['lastNameMaterno'].'</h3>
+                    </div>
+                </td>
             </tr> 
         </table>';
 $tbody = "";
@@ -59,11 +64,18 @@ foreach ($historial as $key => $curso) {
     $baja = isset($eventos[1]) ? $eventos[1] : $infoCourse['totalPeriods'];
     for ($period = $alta; $period <= $baja; $period++) {
         $tmp = $student->BoletaCalificacion($infoCourse['courseId'], $period, true);
-        $html .= '<table style="width:100%; border-collapse: collapse; margin:10px; font-family:arial;">
+        $etiqueta = "";
+        if ($alta == $period) {
+            $etiqueta = "style='padding:10px; background-color:green; color: white'";
+        }
+        if ($baja == $period && isset($eventos[1])) {
+            $etiqueta = "style='padding:10px; background-color:red; color: white'";
+        }
+        $html .= '<table style="width:100%; border-collapse: collapse; font-family:arial;">
                     <tbody>
                         <tr>
                             <td>
-                                <strong>' . $infoCourse['tipoCuatri'] . ' ' . $period . '</strong> 
+                                <div '.$etiqueta.'><strong>' . $infoCourse['tipoCuatri'] . ' ' . $period . '</strong></div>
                             </td>
                         </tr>
                     </tbody>
@@ -83,7 +95,7 @@ foreach ($historial as $key => $curso) {
                     }
                     $tbody .= "<tr>
                                     <td>{$item['name']}</td>
-                                    <td style='text-align:center;'>".round($item['addepUp'], 2, PHP_ROUND_HALF_DOWN)."</td>
+                                    <td style='text-align:center;'>" . round($item['addepUp'], 2, PHP_ROUND_HALF_DOWN) . "</td>
                                     <td style='text-align:center;'>{$item['score']}</td>
                                     <td></td>
                                 </tr>";
