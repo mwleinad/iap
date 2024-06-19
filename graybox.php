@@ -234,7 +234,8 @@ $pages = array(
     'conceptos',
     'edit-comment',
     'constancias',
-    'constancia-conocer'
+    'constancia-conocer',
+    'periodos'
 );
 
 if(!in_array($_GET['page'], $pages))

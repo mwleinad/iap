@@ -614,23 +614,24 @@ class Course extends Subject
 							'" . $this->tipoCuatri . "',
 							" . $this->temporalGroup . "
 							)";
-		//configuramos la consulta con la cadena de insercion
 		$this->Util()->DB()->setQuery($sql);
-		//ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
 		$result = $this->Util()->DB()->InsertData();
-		// if ($result > 0) {
-		// 	//si el resultado es mayor a cero, se inserto el nuevo registro con exito...se regresara true
-		// 	$result = true;
-		// 	$this->Util()->setError(90000, 'complete', "Se ha abierto un nuevo curso");
-		// } else {
-		// 	//si el resultado es cero, no se pudo insertar el nuevo registro...se regresara false
-		// 	$result = false;
-		// 	$this->Util()->setError(90010, 'error');
-		// }
-		$this->Util()->PrintErrors();
+		$tipo = $this->tipoCuatri == "Cuatrimestre" ? 4 : 6;
+		$periodos =  $this->obtenerPeriodos($this->initialDate, $this->finalDate, $tipo);
+		foreach ($periodos as $key => $periodo) {
+			$aux = $key + 1;
+			$this->savePeriod($result, $aux, $periodo['periodBegin'], $periodo['periodEnd']);
+		}
 		return $result;
 	}
 
+	public function savePeriod($courseId, $period, $periodBegin, $periodEnd)
+	{
+		$sql = "INSERT INTO course_periods(courseId, period, periodBegin, periodEnd) VALUES('{$courseId}', '{$period}', '{$periodBegin}', '{$periodEnd}')";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->InsertData();
+	}
+	
 
 	public function Update()
 	{
@@ -774,7 +775,9 @@ class Course extends Subject
 		//ejecutamos la consulta y obtenemos el resultado
 		$result = $this->Util()->DB()->GetRow();
 		if ($result) {
-			//				$result = $this->Util->EncodeRow($result);
+			$sql = "SELECT * FROM course_periods WHERE courseId = {$result['courseId']} ORDER BY period";
+			$this->Util()->DB()->setQuery($sql);
+			$result['periodos'] = $this->Util()->DB()->GetResult();
 		}
 		$result["name"] = str_replace("NUEVO PROGRAMA", "", $result['name']);
 		$result["access"] = explode("|", $result["access"]);
@@ -1614,5 +1617,42 @@ class Course extends Subject
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 		return $result;
+	}
+
+	function obtenerPeriodos($fechaInicio, $fechaFinal, $tipo)
+	{
+		$inicio = new DateTime($fechaInicio);
+		$final = new DateTime($fechaFinal);
+		$inicio = $inicio->modify('first day of this month');
+		$final = $final->modify('first day of this month');
+		// Crear un array para almacenar los periodos cuatrimestrales
+		$periodos = [];
+
+		// Iterar desde la fecha de inicio hasta la fecha final en intervalos de 4 meses
+		while ($inicio < $final) {
+			// Clonar la fecha de inicio para evitar modificar el objeto original
+			$periodoInicio = (clone $inicio);
+
+			// Calcular la fecha final del periodo cuatrimestral actual
+			$periodoFinal = (clone $inicio)->add(new DateInterval('P' . $tipo . 'M'))->sub(new DateInterval('P1D'));
+
+			// Asegurarse de que el periodo final no sobrepase la fecha final dada
+			if ($periodoFinal > $final) {
+				$periodoFinal = $final;
+			}
+
+			// Agregar el periodo al array
+			$inicioMes = strftime('%B %Y', $periodoInicio->getTimestamp());
+			$finalMes = strftime('%B %Y', $periodoFinal->getTimestamp());
+			$periodos[] = [
+				'periodBegin' => ucfirst($inicioMes),
+				'periodEnd' => ucfirst($finalMes),
+			];
+
+			// Mover la fecha de inicio al siguiente periodo cuatrimestral
+			$inicio = $inicio->add(new DateInterval('P' . $tipo . 'M'));
+		}
+
+		return $periodos;
 	}
 }

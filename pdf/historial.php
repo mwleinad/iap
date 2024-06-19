@@ -5,7 +5,7 @@ include_once(DOC_ROOT . '/libraries.php');
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
-
+setlocale(LC_TIME, 'es_ES.UTF-8');
 
 $estudianteID = $_GET['estudiante'];
 $student->setUserId($estudianteID);
@@ -13,7 +13,7 @@ $historial = $student->getHistory();
 // echo "<pre>";
 // print_r($historial);
 // exit;
-$primerCurso = $student->primerCurso(); //Obtiene el primer curso si es un temporal.
+$primerCurso = $student->primerCurso(); //Obtiene el primer curso si es un temporal. 
 $infoStudent = $student->GetInfo();
 
 $imagen = file_get_contents(DOC_ROOT . "/images/logo_correo.jpg");
@@ -49,14 +49,24 @@ foreach ($historial as $key => $curso) {
         continue;
     }
     $course->setCourseId($curso['courseId']);
-    $infoCourse = $course->Info();
+    $infoCourse = $course->Info();  
+    if (count($infoCourse['periodos']) == 0) { //No tiene los periodos definidos
+        $tipo = $infoCourse['tipoPeriodo'] == "Cuatrimestre" ? 4 : 6;
+        $periodos = $course->obtenerPeriodos($infoCourse['initialDate'], $infoCourse['finalDate'], $tipo);  
+		foreach ($periodos as $key => $periodo) {
+			$aux = $key + 1;
+			$course->savePeriod($infoCourse['courseId'], $aux, $periodo['periodBegin'], $periodo['periodEnd']);
+		}
+        $infoCourse['periodos'] = $periodos;
+    } 
+    // print_r($infoCourse);
     $calificacionMinima = $infoCourse['majorName'] == "MAESTRÍA" ? 7 : 8;
     $matricula = $student->GetMatricula($curso['courseId']);
     $matricula = $matricula ? $matricula : "S/N";
-    $nivelesValidos = $course->GetEnglishLevels();
+    $nivelesValidos = $course->GetEnglishLevels(); 
     $html .= '<div style="width:100%; font-family: arial;">
                 <h2 style="margin-top:0; margin-bottom:0;">' . $infoCourse['majorName'] . ' - ' . $infoCourse['name'] . '</h2> 
-                <h3 style="margin-top:0; margin-bottom:0;">CICLO: ' . $infoCourse['scholarCicle'] . ' GRUPO: ' . $infoCourse['group'] . '</h3> 
+                <h3 style="margin-top:0; margin-bottom:0;">GRUPO: <span style="color:fca311;">' . $infoCourse['group'] . '</span></h3> 
                 <h3 style="margin-top:0; margin-bottom:0;">Matrícula:' . $matricula . '</h3>  
             </div>';
     $eventos = explode(",", $curso['periodos']);
@@ -64,18 +74,20 @@ foreach ($historial as $key => $curso) {
     $baja = isset($eventos[1]) ? $eventos[1] : $infoCourse['totalPeriods'];
     for ($period = $alta; $period <= $baja; $period++) {
         $tmp = $student->BoletaCalificacion($infoCourse['courseId'], $period, true);
-        $etiqueta = "";
+        $color = "";
+        $etiqueta = $infoCourse['periodos'][$period-1]['periodBegin']." - ".$infoCourse['periodos'][$period-1]['periodEnd'];
         if ($alta == $period) {
-            $etiqueta = "style='padding:10px; background-color:green; color: white'";
+            $color = "style='padding:10px; background-color:green; color: white'";  
         }
         if ($baja == $period && isset($eventos[1])) {
-            $etiqueta = "style='padding:10px; background-color:red; color: white'";
+            $color = "style='padding:10px; background-color:red; color: white'"; 
         }
         $html .= '<table style="width:100%; border-collapse: collapse; font-family:arial;">
                     <tbody>
                         <tr>
                             <td>
-                                <div '.$etiqueta.'><strong>' . $infoCourse['tipoCuatri'] . ' ' . $period . '</strong></div>
+                                <div> '.$etiqueta.'</div>
+                                <div '.$color.'><strong>' . $infoCourse['tipoCuatri'] . ' ' . $period . '</strong></div>
                             </td>
                         </tr>
                     </tbody>
@@ -107,7 +119,7 @@ foreach ($historial as $key => $curso) {
                                 <th style="width:40%">Materia</th>
                                 <th style="width:25%">Calificación acumulada</th>
                                 <th style="width:25%">Calificación final</th>
-                                <th style="width:10%">Descripción</th>
+                                <th style="width:10%">Observación</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -117,7 +129,8 @@ foreach ($historial as $key => $curso) {
             $tbody = "";
         }
     }
-}
+}  
+// exit;
 $dompdf = new Dompdf();
 //transform: rotate(10deg); transform-origin: 50%;
 # Definimos el tamaño y orientación del papel que queremos.
