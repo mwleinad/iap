@@ -86,7 +86,7 @@ foreach ($historial as $key => $curso) {
                     <tbody>
                         <tr>
                             <td>
-                                <div> '.$etiqueta.'</div>
+                                <div style="font-size:18px;"> <strong>'.$etiqueta.'</strong></div>
                                 <div '.$color.'><strong>' . $infoCourse['tipoCuatri'] . ' ' . $period . '</strong></div>
                             </td>
                         </tr>
