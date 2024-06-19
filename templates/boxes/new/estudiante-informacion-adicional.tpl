@@ -22,7 +22,7 @@
                 aria-labelledby="calificaciones-tab">
                 <h3 class="text-center my-3">
                     {$infoStudent.names} {$infoStudent.lastNamePaterno} {$infoStudent.lastNameMaterno} <br>
-                    <a href="{$WEB_ROOT}/pdf/historial?page=export-excel&estudiante={$infoStudent.userId}" target="_blank">
+                    <a href="{$WEB_ROOT}/pdf/historial.php?page=export-excel&estudiante={$infoStudent.userId}" target="_blank">
                         Descargar <i class="fa fa-file"></i>
                     </a>
                 </h3>
