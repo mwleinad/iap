@@ -85,7 +85,7 @@
                                     <div class="card">
                                         <div class="card-header bg-dark text-white"><b>{$item.tipoCuatri} {$period}</b></div>
                                         <div class="card-body">
-                                            <div class="table-responsive" style="overflow: inherit;">
+                                            <div class="table-responsive">
                                                 <table class="table table-sm">
                                                     <thead>
                                                         <tr class="text-center">
@@ -118,16 +118,16 @@
                                                                             </button>
                                                                         {/if}
                                                                     </td>
-                                                                    <td>{$itemp.concepto_nombre} {$contador[$itemp.concepto_id]}</td>
-                                                                    <td>${$itemp.subtotal|number_format:2:".":","}</td>
-                                                                    <td>${$itemp.subtotal * ($itemp.beca / 100)|number_format:2:".":","}</td>
-                                                                    <td>${$itemp.total|number_format:2:".":","}</td>
-                                                                    <td>${($itemp.status == 4) ? '0.00' : ($itemp.total - $itemp.monto)|number_format:2:".":","}
+                                                                    <td data-label="Concepto">{$itemp.concepto_nombre} {$contador[$itemp.concepto_id]}</td>
+                                                                    <td data-label="Subtotal">${$itemp.subtotal|number_format:2:".":","}</td>
+                                                                    <td data-label="Descuento">${$itemp.subtotal * ($itemp.beca / 100)|number_format:2:".":","}</td>
+                                                                    <td data-label="Total a pagar">${$itemp.total|number_format:2:".":","}</td>
+                                                                    <td data-label="Monto pendiente">${($itemp.status == 4) ? '0.00' : ($itemp.total - $itemp.monto)|number_format:2:".":","}
                                                                     </td>
-                                                                    <td>{$itemp.fecha_cobro}</td>
-                                                                    <td>{$itemp.fecha_limite}</td>
-                                                                    <td>{$itemp.beca}%</td>
-                                                                    <td>{$itemp.status_btn}</td>
+                                                                    <td data-label="Fecha cobro">{$itemp.fecha_cobro}</td>
+                                                                    <td data-label="Fecha Límite">{$itemp.fecha_limite}</td>
+                                                                    <td data-label="Beca">{$itemp.beca}%</td>
+                                                                    <td data-label="Estatus">{$itemp.status_btn}</td>
                                                                     {if $alumno.referenciaBancaria != ""}
                                                                         <td>
                                                                             {if !in_array($itemp.status,[2,4])}
@@ -229,7 +229,7 @@
                                                     {foreach from=$item.pagos.otros item=itemp name=forFechas}
                                                         {$contador[$itemp.concepto_id] = $contador[$itemp.concepto_id] + 1}
                                                         <tr>
-                                                            <td>
+                                                            <td data-label="">
                                                                 {if count($itemp.cobros) > 0}
                                                                     <button type="button" data-cobros="#cobros{$itemp.pago_id}"
                                                                         class="btn btn-outline-info btn-sm cobros p-2">
@@ -237,11 +237,11 @@
                                                                     </button>
                                                                 {/if}
                                                             </td>
-                                                            <td>{$itemp.concepto_nombre} {$contador[$item.concepto_id]}</td>
-                                                            <td>${$itemp.subtotal|number_format:2:".":","}</td>
-                                                            <td>${$itemp.total|number_format:2:".":","}</td>
-                                                            <td>${$itemp.total - $itemp.monto|number_format:2:".":","}</td>
-                                                            <td>{$itemp.status_btn}</td>
+                                                            <td data-label="Concepto">{$itemp.concepto_nombre} {$contador[$item.concepto_id]}</td>
+                                                            <td data-label="Subtotal">${$itemp.subtotal|number_format:2:".":","}</td>
+                                                            <td data-label="Total a pagar">${$itemp.total|number_format:2:".":","}</td>
+                                                            <td data-label="Monto pendiente">${$itemp.total - $itemp.monto|number_format:2:".":","}</td>
+                                                            <td data-label="Estatus">{$itemp.status_btn}</td>
                                                             {if $alumno.referenciaBancaria != ""}
                                                                 <td>
                                                                     {if $itemp.status != 2}
@@ -473,11 +473,11 @@
                                                 <thead>
                                                     <tr class="text-center">
                                                         <th></th>
-                                                        <th>Concepto</th>
-                                                        <th>Subtotal</th>
-                                                        <th>Total a pagar</th>
-                                                        <th>Monto pendiente</th>
-                                                        <th>Estatus</th>
+                                                        <th scope="col">Concepto</th>
+                                                        <th scope="col">Subtotal</th>
+                                                        <th scope="col">Total a pagar</th>
+                                                        <th scope="col">Monto pendiente</th>
+                                                        <th scope="col">Estatus</th>
                                                         {if $alumno.referenciaBancaria != ""}
                                                             <th></th>
                                                         {/if}
@@ -490,7 +490,7 @@
                                                     {foreach from=$item.pagos.otros item=itemp name=forFechas}
                                                         {$contador[$itemp.concepto_id] = $contador[$itemp.concepto_id] + 1}
                                                         <tr>
-                                                            <td>
+                                                            <td data-label="">
                                                                 {if count($itemp.cobros) > 0}
                                                                     <button type="button" data-cobros="#cobros{$itemp.pago_id}"
                                                                         class="btn btn-outline-info btn-sm cobros p-2">
@@ -498,15 +498,15 @@
                                                                     </button>
                                                                 {/if}
                                                             </td>
-                                                            <td>{$itemp.concepto_nombre} {$contador[$item.concepto_id]}</td>
-                                                            <td>${$itemp.subtotal|number_format:2:".":","}</td>
-                                                            <td>${$itemp.total|number_format:2:".":","}</td>
-                                                            <td>${$itemp.total - $itemp.monto|number_format:2:".":","}</td>
-                                                            <td>{$itemp.status_btn}
+                                                            <td data-label="Concepto">{$itemp.concepto_nombre} {$contador[$item.concepto_id]}</td>
+                                                            <td data-labe="Subtotal">${$itemp.subtotal|number_format:2:".":","}</td>
+                                                            <td data-label="Total a pagar">${$itemp.total|number_format:2:".":","}</td>
+                                                            <td data-label="Monto pendiente">${$itemp.total - $itemp.monto|number_format:2:".":","}</td>
+                                                            <td data-label="Estatus">{$itemp.status_btn}
                                                                 {($itemp.archivo != "" && $itemp.status == 2) ? "<a class='badge badge-info' target='_blank' href='{$WEB_ROOT}/files/solicitudes/{$itemp.archivo}'>Ver
                                                 documento <i class='fa fa-file-pdf'></i></a>" : ""}</td>
                                                             {if $alumno.referenciaBancaria != ""}
-                                                                <td>
+                                                                <td data-label="">
                                                                     {if $itemp.status != 2}
                                                                         <div class="btn-group" role="group">
                                                                             <button type="button" class="btn btn-primary dropdown-toggle"
@@ -582,3 +582,53 @@
         {/foreach}
     </div>
 {/if}
+
+<style>
+    @media screen and (max-width: 780px) {
+        .card-body{
+            padding: 0 !important;
+        }
+        table {
+            border: 0;
+        }
+
+        table caption {
+            font-size: 1.3em;
+        }
+
+        table thead {
+            border: none;
+            clip: rect(0 0 0 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+        }
+
+        table tr {
+            border-bottom: 3px solid #ddd;
+            display: block;
+            margin-bottom: .625em;
+        }
+
+        table td {
+            border-bottom: 1px solid #ddd;
+            display: block;
+            font-size: .8em;
+            text-align: right;
+        }
+
+        table td::before {
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        table td:last-child {
+            border-bottom: 0;
+        }
+    }
+</style>
