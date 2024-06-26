@@ -95,9 +95,9 @@ foreach ($historial as $key => $curso) {
                 if (array_key_exists($item['subjectModuleId'], $qualifications_repeat)) {
                     $tbody .= "<tr>
                                     <td>{$qualifications_repeat[$item['subjectModuleId']]['name']}</td>
-                                    <td>{$qualifications_repeat[$item['subjectModuleId']]['addepUp']}</td>
-                                    <td>{$qualifications_repeat[$item['subjectModuleId']]['score']}</td>
-                                    <td>REC</td>
+                                    <td style='text-align:center;'>{$qualifications_repeat[$item['subjectModuleId']]['addepUp']}</td>
+                                    <td style='text-align:center;'>{$qualifications_repeat[$item['subjectModuleId']]['score']}</td>
+                                    <td style='text-align:center;'>REC</td>
                                 </tr>";
                 } else {
                     if ($item['tipo'] == 0 && isset($nivelesValidos[$estudianteID]) && in_array($period, $nivelesValidos[$estudianteID])) {
