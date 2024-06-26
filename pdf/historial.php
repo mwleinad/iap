@@ -5,6 +5,7 @@ include_once(DOC_ROOT . '/libraries.php');
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
+
 setlocale(LC_TIME, 'es_ES.UTF-8');
 
 $estudianteID = $_GET['estudiante'];
@@ -25,7 +26,7 @@ $html .= ' <table style="width:100%; font-family:arial;">
                 <td style="width:65%">
                     <div>
                         <h1 style="margin:0;padding:0">Historial de calificaciones</h1>
-                        <h3 style="margin:0;padding:0;text-transform:uppercase;">'.$infoStudent['names'].' '.$infoStudent['lastNamePaterno'].' '.$infoStudent['lastNameMaterno'].'</h3>
+                        <h3 style="margin:0;padding:0;text-transform:uppercase;">' . $infoStudent['names'] . ' ' . $infoStudent['lastNamePaterno'] . ' ' . $infoStudent['lastNameMaterno'] . '</h3>
                     </div>
                 </td>
             </tr> 
@@ -49,21 +50,21 @@ foreach ($historial as $key => $curso) {
         continue;
     }
     $course->setCourseId($curso['courseId']);
-    $infoCourse = $course->Info();  
+    $infoCourse = $course->Info();
     if (count($infoCourse['periodos']) == 0) { //No tiene los periodos definidos
         $tipo = $infoCourse['tipoPeriodo'] == "Cuatrimestre" ? 4 : 6;
-        $periodos = $course->obtenerPeriodos($infoCourse['initialDate'], $infoCourse['finalDate'], $tipo);  
-		foreach ($periodos as $key => $periodo) {
-			$aux = $key + 1;
-			$course->savePeriod($infoCourse['courseId'], $aux, $periodo['periodBegin'], $periodo['periodEnd']);
-		}
+        $periodos = $course->obtenerPeriodos($infoCourse['initialDate'], $infoCourse['finalDate'], $tipo);
+        foreach ($periodos as $key => $periodo) {
+            $aux = $key + 1;
+            $course->savePeriod($infoCourse['courseId'], $aux, $periodo['periodBegin'], $periodo['periodEnd']);
+        }
         $infoCourse['periodos'] = $periodos;
-    } 
+    }
     // print_r($infoCourse);
     $calificacionMinima = $infoCourse['majorName'] == "MAESTRÍA" ? 7 : 8;
     $matricula = $student->GetMatricula($curso['courseId']);
     $matricula = $matricula ? $matricula : "S/N";
-    $nivelesValidos = $course->GetEnglishLevels(); 
+    $nivelesValidos = $course->GetEnglishLevels();
     $html .= '<div style="width:100%; font-family: arial;">
                 <h2 style="margin-top:0; margin-bottom:0;">' . $infoCourse['majorName'] . ' - ' . $infoCourse['name'] . '</h2> 
                 <h3 style="margin-top:0; margin-bottom:0;">GRUPO: <span style="color:fca311;">' . $infoCourse['group'] . '</span></h3> 
@@ -75,18 +76,16 @@ foreach ($historial as $key => $curso) {
     for ($period = $alta; $period <= $baja; $period++) {
         $tmp = $student->BoletaCalificacion($infoCourse['courseId'], $period, true);
         $color = "";
-        $etiqueta = $infoCourse['periodos'][$period-1]['periodBegin']." - ".$infoCourse['periodos'][$period-1]['periodEnd'];
-        if ($alta == $period) {
-            $color = "style='padding:10px; background-color:green; color: white'";  
-        }
+        $etiqueta = $infoCourse['periodos'][$period - 1]['periodBegin'] . " - " . $infoCourse['periodos'][$period - 1]['periodEnd']; 
+        $color = "style='padding:10px; background-color:green; color: white'"; 
         if ($baja == $period && isset($eventos[1])) {
-            $color = "style='padding:10px; background-color:red; color: white'"; 
+            $color = "style='padding:10px; background-color:red; color: white'";
         }
         $html .= '<table style="width:100%; border-collapse: collapse; font-family:arial;">
                     <tbody>
                         <tr>
                             <td> 
-                                <div '.$color.'><strong>' . $infoCourse['tipoCuatri'] . ' ' . $period . ' '.$etiqueta.'</strong></div>
+                                <div ' . $color . '><strong>' . $infoCourse['tipoCuatri'] . ' ' . $period . ' ' . $etiqueta . '</strong></div>
                             </td>
                         </tr>
                     </tbody>
@@ -126,9 +125,10 @@ foreach ($historial as $key => $curso) {
                         </tbody>
                     </table>';
             $tbody = "";
-        }
+        } 
     }
-}  
+    $html.='<div style="page-break-after:always;"></div>';
+}
 // exit;
 $dompdf = new Dompdf();
 //transform: rotate(10deg); transform-origin: 50%;
