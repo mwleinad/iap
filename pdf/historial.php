@@ -85,9 +85,8 @@ foreach ($historial as $key => $curso) {
         $html .= '<table style="width:100%; border-collapse: collapse; font-family:arial;">
                     <tbody>
                         <tr>
-                            <td>
-                                <div style="font-size:18px;"> <strong>'.$etiqueta.'</strong></div>
-                                <div '.$color.'><strong>' . $infoCourse['tipoCuatri'] . ' ' . $period . '</strong></div>
+                            <td> 
+                                <div '.$color.'><strong>' . $infoCourse['tipoCuatri'] . ' ' . $period . ' '.$etiqueta.'</strong></div>
                             </td>
                         </tr>
                     </tbody>
