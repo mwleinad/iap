@@ -76,8 +76,8 @@ foreach ($historial as $key => $curso) {
     for ($period = $alta; $period <= $baja; $period++) {
         $tmp = $student->BoletaCalificacion($infoCourse['courseId'], $period, true);
         $color = "";
-        $etiqueta = $infoCourse['periodos'][$period - 1]['periodBegin'] . " - " . $infoCourse['periodos'][$period - 1]['periodEnd']; 
-        $color = "style='padding:10px; background-color:green; color: white'"; 
+        $etiqueta = $infoCourse['periodos'][$period - 1]['periodBegin'] . " - " . $infoCourse['periodos'][$period - 1]['periodEnd'];
+        $color = "style='padding:10px; background-color:green; color: white'";
         if ($baja == $period && isset($eventos[1])) {
             $color = "style='padding:10px; background-color:red; color: white'";
         }
@@ -93,6 +93,11 @@ foreach ($historial as $key => $curso) {
         if ($tmp) {
             foreach ($tmp as $item) {
                 if (array_key_exists($item['subjectModuleId'], $qualifications_repeat)) {
+                    $calificacion = $qualifications_repeat[$item['subjectModuleId']]['score'];
+                    if ($calificacion < $calificacionMinima && $calificacion != 0)
+                        $calificacion = "<span style='color:red;'>" . ($calificacionMinima - 1) . "</span>";
+                    elseif ($calificacion == 0)
+                        $calificacion = "<span style='color:red;'>N/P</span>";
                     $tbody .= "<tr>
                                     <td>{$qualifications_repeat[$item['subjectModuleId']]['name']}</td>
                                     <td style='text-align:center;'>{$qualifications_repeat[$item['subjectModuleId']]['addepUp']}</td>
@@ -100,13 +105,19 @@ foreach ($historial as $key => $curso) {
                                     <td style='text-align:center;'>REC</td>
                                 </tr>";
                 } else {
+                    $calificacion =  $item['score'];
+                    if ($calificacion < $calificacionMinima && $calificacion != 0)
+                        $calificacion = "<span style='color:red;'>" . ($calificacionMinima - 1) . "</span>";
+                    elseif ($calificacion == 0)
+                        $calificacion = "<span style='color:red;'>N/P</span>";
+
                     if ($item['tipo'] == 0 && isset($nivelesValidos[$estudianteID]) && in_array($period, $nivelesValidos[$estudianteID])) {
-                        $item['score'] = 10;
+                        $calificacion = 10;
                     }
                     $tbody .= "<tr>
                                     <td>{$item['name']}</td>
                                     <td style='text-align:center;'>" . round($item['addepUp'], 2, PHP_ROUND_HALF_DOWN) . "</td>
-                                    <td style='text-align:center;'>{$item['score']}</td>
+                                    <td style='text-align:center;'>{$calificacion}</td>
                                     <td></td>
                                 </tr>";
                 }
@@ -125,9 +136,9 @@ foreach ($historial as $key => $curso) {
                         </tbody>
                     </table>';
             $tbody = "";
-        } 
+        }
     }
-    $html.='<div style="page-break-after:always;"></div>';
+    $html .= '<div style="page-break-after:always;"></div>';
 }
 // exit;
 $dompdf = new Dompdf();

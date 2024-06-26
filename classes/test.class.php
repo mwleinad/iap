@@ -146,7 +146,6 @@ class Test extends Activity
 		$examenRealizado = $this->Util()->DB()->GetRow();
 		$response = ['acceso' => true];
 		if ($examenRealizado) {
-			$response['acceso'] = $examenRealizado['access'];
 			if ($actividad['reintento']) {
 				$response['tipo'] = $actividad['tipo'];
 				if (!$actividad['tipo'] && $examenRealizado['try'] < $actividad['tries']) { //Por intentos 
@@ -160,6 +159,8 @@ class Test extends Activity
 					$response['intentos'] = 1;
 					return $response;
 				}
+			}else{
+				$response['acceso'] = $examenRealizado['try'] == 0 ? true : false;
 			}
 			return $response;
 		}
