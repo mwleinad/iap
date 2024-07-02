@@ -117,7 +117,7 @@ class Major extends Main
 	public function Enumerate()
 	{
 		if(in_array($_SESSION['User']['userId'],[253])){
-			$sql = "SELECT * FROM major WHERE majorId = 5 ORDER BY name ASC";
+			$sql = "SELECT * FROM major WHERE majorId IN(3,5) ORDER BY name ASC";
 		}else{
 			$sql = "SELECT * FROM major ORDER BY name ASC";
 		}

@@ -140,12 +140,6 @@
 									data-target="#ajax" data-toggle="modal" title="Constancia Sencilla">
 									<i class="fas fa-file-alt"></i> Constancia del 50%
 								</a>
-								{if $subject.courseId == 162}
-									<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=diplomas&id={$subject.courseId}"
-										target="_blank" data-target="#ajax" data-toggle="modal" title="Diplomas">
-										<i class="fas fa-clipboard-check"></i> Diplomas
-									</a>
-								{/if}
 								<a class="dropdown-item" href="{$WEB_ROOT}/reporte.php?id={$subject.courseId}" target="_blank"
 									title="Reportes">
 									<i class="fas fa-chart-bar"></i> Reportes
@@ -164,6 +158,12 @@
 								</a>
 							{/if}
 							{if in_array($User.userId,[1, 253])}
+								{if $subject.courseId == 162}
+									<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=diplomas&id={$subject.courseId}"
+										target="_blank" data-target="#ajax" data-toggle="modal" title="Diplomas">
+										<i class="fas fa-clipboard-check"></i> Diplomas
+									</a>
+								{/if}
 								<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=constancia-conocer&id={$subject.courseId}"
 									data-target="#ajax" data-toggle="modal" title="Constancia">
 									<i class="fas fa-certificate"></i> Constancia Evaluación
