@@ -10,6 +10,13 @@ require_once(DOC_ROOT . '/libs/phpqrcode/qrlib.php');
 // Extend the TCPDF class to create custom Header and Footer
 class MYPDF extends TCPDF
 {
+    protected $backgroundImages = [];
+
+    // Establece las imágenes de fondo
+    public function setBackgroundImages($images) {
+        $this->backgroundImages = $images;
+    }
+
     public function Header()
     {
         // get the current page break margin
@@ -19,8 +26,13 @@ class MYPDF extends TCPDF
         // disable auto-page-break
         $this->SetAutoPageBreak(false, 0);
         // set bacground image
-        $img_file = WEB_ROOT . '/images/diploma_162.png';
-        $this->Image($img_file, 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+
+        $page = $this->getPage();
+        if (isset($this->backgroundImages[$page])) {
+            $img_file = $this->backgroundImages[$page]; 
+            // echo $img_file;
+            $this->Image($img_file, 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+        } 
         // restore auto-page-break status
         $this->SetAutoPageBreak($auto_page_break, $bMargin);
         // set the starting point for the page content
@@ -38,7 +50,7 @@ $pdf->SetTitle('Diploma');
 $pdf->SetSubject('Generación de diploma');
 $pdf->SetKeywords('diploma, iap, pdf');
 
-// set header and footer fonts
+// // set header and footer fonts
 $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN)); 
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED); 
 $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
@@ -48,14 +60,21 @@ $pdf->setPrintFooter(false);
 $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM); 
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO); 
 $pdf->SetFont('times', '', 18);  
-$pdf->AddPage(); 
+$backgroundImages = [
+    1 => WEB_ROOT.'/images/diploma_162.png',
+    2 => WEB_ROOT.'/images/diploma_atras_162.png',
+];
 
+// Establece las imágenes de fondo en el PDF
+$pdf->setBackgroundImages($backgroundImages);
+
+$pdf->AddPage();  
 $student->setUserId($_GET['alumno']);
 $infoAlumno = $student->GetInfo();
 $nombreAlumno = $infoAlumno['names'] .' '. $infoAlumno['lastNamePaterno'].' '.$infoAlumno['lastNameMaterno'] ;
 $nombreAlumno = $util->eliminar_acentos($nombreAlumno);
 $nombreAlumno = mb_strtoupper($nombreAlumno);
-$html = '<div style="width:100%; text-align:center;">'.$nombreAlumno.'</div>';
-
+$html = '<div style="width:100%; text-align:center;">'.$nombreAlumno.'</div>'; 
 $pdf->writeHTMLCell('', '', 15, 105, $html, 0, 0, 0, true, 'C', false); 
+$pdf->AddPage(); 
 $pdf->Output('diploma.pdf', 'I');
