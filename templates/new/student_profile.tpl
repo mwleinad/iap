@@ -265,18 +265,25 @@
                                                 title="Módulos de la Currícula" class="btn btn-outline-light btn-fw btn-sm">
                                                 <i class="fas fa-link"></i> Ver
                                             </a>
-                                        {/if}<br><br>
-                                        {if $subject.majorName != "CURSO"}
+                                        {/if} 
+                                        {if !in_array($subject.majorName,["CURSO", "DIPLOMADO"])}
                                             <a href="{$WEB_ROOT}/boletas/id/{$subject.courseId}"
                                                 class="btn btn-outline-light btn-fw btn-sm">
                                                 <i class="far fa-list-alt"></i> Boletas de Calificaciones
                                             </a>
                                         {/if}
-                                        {if $subject.constancia}
+                                        {if $subject.constancia} 
                                             <br><br>
                                             <a href="{$WEB_ROOT}/pdf/constancia.php?studentId={$User.userId}&courseId={$subject.courseId}"
                                                 target="_blank" class="btn btn-outline-light btn-fw btn-sm">
                                                 <i class="far fa-list-alt"></i> Constancia
+                                            </a>
+                                        {/if}
+                                        {if $subject.diploma} 
+                                            <br><br>
+                                            <a href="{$WEB_ROOT}/pdf/diploma.php?alumno={$User.userId}&curso={$subject.courseId}"
+                                                target="_blank" class="btn btn-outline-light btn-fw btn-sm">
+                                                <i class="far fa-list-alt"></i> Diploma
                                             </a>
                                         {/if}
                                     </div>

@@ -631,7 +631,7 @@ class Course extends Subject
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->InsertData();
 	}
-	
+
 
 	public function Update()
 	{
@@ -1654,5 +1654,70 @@ class Course extends Subject
 		}
 
 		return $periodos;
+	}
+
+	function dt_diplomas()
+	{
+		$table = 'user INNER JOIN user_subject ON user_subject.alumnoId = user.userId';
+		$primaryKey = 'userId';
+		$columns = array(
+			array('db' => 'userId', 'dt' => 'userId'),
+			array('db' => 'user.controlNumber', 'dt' => 'control'),
+			array('db' => 'CONCAT(user.names, " ", user.lastNamePaterno," ", user.lastNameMaterno)',  'dt' => 'alumno'),
+			array(
+				'db' => 'userId', 'dt' => 'acciones',
+				'formatter' => function ($d, $row) {
+					$html = "";
+					$this->setUserId($d);
+					$this->setCourseId($_POST['curso']);
+					if ($this->getDiploma() > 0) {
+						$html .= "<a href='" . WEB_ROOT . "/pdf/diploma.php?alumno={$d}&curso={$_POST['curso']}' class='btn btn-primary btn-sm' target='_blank'>Ver diploma</a>
+							<form class='form d-inline' id='form_diploma{$d}' action='" . WEB_ROOT . "/ajax/new/course.php'>
+								<input type='hidden' name='curso' value='{$_POST['curso']}'>
+								<input type='hidden' name='alumno' value='{$d}'>
+								<input type='hidden' name='option' value='deleteDiploma'>
+								<button class='btn btn-sm btn-danger'>
+									Eliminar diploma
+								</button>
+							</form>
+						";
+					} else {
+						$html .= "
+							<form class='form' id='form_diploma{$d}' action='" . WEB_ROOT . "/ajax/new/course.php'>
+								<input type='hidden' name='curso' value='{$_POST['curso']}'>
+								<input type='hidden' name='alumno' value='{$d}'>
+								<input type='hidden' name='option' value='addDiploma'>
+								<button class='btn btn-sm btn-success'>
+									Generar diploma
+								</button>
+							</form>
+						";
+					}
+					return $html;
+				},
+			),
+		);
+		$where = "user_subject.courseId = {$_POST['curso']}";
+		return SSP::complex($_POST, $table, $primaryKey, $columns, $where);
+	}
+
+	function getDiploma()
+	{
+		$sql = "SELECT * FROM diplomas WHERE studentId = {$this->getUserId()} AND courseId = {$this->getCourseId()}";
+		$this->Util()->DB()->setQuery($sql);
+		return $this->Util()->DB()->GetTotalRows();
+	}
+
+	function addDiploma()
+	{
+		$sql = "INSERT INTO diplomas(studentId, courseId) VALUES({$this->getUserId()},{$this->getCourseId()})";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->InsertData();
+	}
+
+	function deleteDiploma() {
+		$sql = "DELETE FROM diplomas WHERE studentId = {$this->getUserId()} AND courseId = {$this->getCourseId()}";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->DeleteData();
 	}
 }

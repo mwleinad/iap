@@ -140,10 +140,12 @@
 									data-target="#ajax" data-toggle="modal" title="Constancia Sencilla">
 									<i class="fas fa-file-alt"></i> Constancia del 50%
 								</a>
-								<a class="dropdown-item" href="{$WEB_ROOT}/diplomas.php?id={$subject.courseId}" target="_blank"
-									title="Diplomas">
-									<i class="fas fa-clipboard-check"></i> Diplomas
-								</a>
+								{if $subject.courseId == 162}
+									<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=diplomas&id={$subject.courseId}"
+										target="_blank" data-target="#ajax" data-toggle="modal" title="Diplomas">
+										<i class="fas fa-clipboard-check"></i> Diplomas
+									</a>
+								{/if}
 								<a class="dropdown-item" href="{$WEB_ROOT}/reporte.php?id={$subject.courseId}" target="_blank"
 									title="Reportes">
 									<i class="fas fa-chart-bar"></i> Reportes
@@ -152,14 +154,15 @@
 									title="Referencia Bancaria" id="{$subject.courseId}">
 									<i class="fas fa-credit-card"></i> Referencia Bancaria
 								</a>
-								<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=periodos&id={$subject.courseId}" data-target="#ajax" data-toggle="modal" title="Periodos del curso">
+								<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=periodos&id={$subject.courseId}"
+									data-target="#ajax" data-toggle="modal" title="Periodos del curso">
 									<i class="fas fa-calendar-alt"></i> Periodos de curso
 								</a>
 								<a class="dropdown-item pointer spanActive" onclick="editPeriodos({$subject.courseId});"
 									title="PERIODOS" id="{$subject.courseId}">
 									<i class="fas fa-calendar-alt"></i> Periodos de materias
 								</a>
-							{/if} 
+							{/if}
 							{if in_array($User.userId,[1, 253])}
 								<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=constancia-conocer&id={$subject.courseId}"
 									data-target="#ajax" data-toggle="modal" title="Constancia">

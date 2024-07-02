@@ -10,9 +10,40 @@ switch ($opcion) {
         $curso = $_POST['course'];
         $util->DB()->setQuery("DELETE FROM course_periods WHERE courseId = {$curso}");
         $util->DB()->DeleteData();
-        foreach ($_POST['periodBegin'] as $periodo => $value) { 
+        foreach ($_POST['periodBegin'] as $periodo => $value) {
             $periodoReal = $periodo + 1;
             $course->savePeriod($curso, $periodoReal, $value, $_POST['periodEnd'][$periodo]);
         }
+        break;
+    case 'dt_diplomas':
+        $response = $course->dt_diplomas($_POST);
+        print_r(json_encode($response));
+        exit;
+        break;
+    case 'addDiploma': 
+        $curso = $_POST['curso'];
+        $alumno = $_POST['alumno'];
+        $course->setCourseId($curso);
+        $course->setUserId($alumno);
+        if ($course->getDiploma() == 0) { 
+            $course->addDiploma();
+            echo json_encode([
+                'growl'     => true,
+                'message'   => 'Diploma generada',  
+                'dtreload'  => "#datatable"
+            ]);
+        }
+        break;
+    case 'deleteDiploma':
+        $curso = $_POST['curso'];
+        $alumno = $_POST['alumno'];
+        $course->setCourseId($curso);
+        $course->setUserId($alumno);
+        $course->deleteDiploma();
+        echo json_encode([
+            'growl'     => true,
+            'message'   => 'Diploma eliminada',  
+            'dtreload'  => "#datatable"
+        ]);
         break;
 }

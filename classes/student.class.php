@@ -1680,11 +1680,14 @@ class Student extends User
 			$sql = "SELECT * FROM user_credentials WHERE course_id = '" . $res['courseId'] . "' AND user_id ='" . $res['alumnoId'] . "' ";
 			$this->Util()->DB()->setQuery($sql);
 			$result[$key]["credential"] = $this->Util()->DB()->GetRow();
-			if ($res['constancia'] == 1) { 
+			if ($res['constancia'] == 1) {
 				$sql = "SELECT * FROM constancias_conocer WHERE courseId = '" . $res['courseId'] . "' AND studentId ='" . $res['alumnoId'] . "' ";
 				$this->Util()->DB()->setQuery($sql);
 				$result[$key]["constancia"] = $this->Util()->DB()->GetRow();
 			}
+			$sql = "SELECT * FROM diplomas WHERE courseId = '" . $res['courseId'] . "' AND studentId ='" . $res['alumnoId'] . "' ";
+			$this->Util()->DB()->setQuery($sql);
+			$result[$key]["diploma"] = $this->Util()->DB()->GetRow();
 		}
 		return $result;
 	}
@@ -3523,7 +3526,8 @@ class Student extends User
 		return $result;
 	}
 
-	function getActivityScore($typeActivity, $where = "") {
+	function getActivityScore($typeActivity, $where = "")
+	{
 		if ($typeActivity == "Tarea") {
 			$sql = "SELECT * FROM homework WHERE 1 {$where}";
 			$this->Util()->DB()->setQuery($sql);
@@ -3534,9 +3538,10 @@ class Student extends User
 			$this->Util()->DB()->setQuery($sql);
 			return $this->Util()->DB()->GetRow();
 		}
-	} 
+	}
 
-	function getHistory(){
+	function getHistory()
+	{
 		$sql = "SELECT *, GROUP_CONCAT(semesterId ORDER BY type ASC) as periodos, GROUP_CONCAT(type ORDER BY type ASC) as eventos FROM academic_history WHERE userId = {$this->userId} GROUP BY courseId ORDER BY academicHistoryId";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
