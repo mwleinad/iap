@@ -22,6 +22,7 @@ class Course extends Subject
 	private $totalPeriods;
 	private $temporalGroup;
 	private $periodo;
+	private $token;
 
 	public function setPeriodo($valor)
 	{
@@ -345,6 +346,10 @@ class Course extends Subject
 	public function getCourseId()
 	{
 		return $this->courseId;
+	}
+
+	public function setToken($value){
+		$this->token = $value;
 	}
 
 
@@ -1670,7 +1675,7 @@ class Course extends Subject
 					$html = "";
 					$this->setUserId($d);
 					$this->setCourseId($_POST['curso']);
-					if ($this->getDiploma() > 0) {
+					if ($this->getDiploma()) {
 						$html .= "<a href='" . WEB_ROOT . "/pdf/diploma.php?alumno={$d}&curso={$_POST['curso']}' class='btn btn-primary btn-sm' target='_blank'>Ver diploma</a>
 							<form class='form d-inline' id='form_diploma{$d}' action='" . WEB_ROOT . "/ajax/new/course.php'>
 								<input type='hidden' name='curso' value='{$_POST['curso']}'>
@@ -1705,12 +1710,12 @@ class Course extends Subject
 	{
 		$sql = "SELECT * FROM diplomas WHERE studentId = {$this->getUserId()} AND courseId = {$this->getCourseId()}";
 		$this->Util()->DB()->setQuery($sql);
-		return $this->Util()->DB()->GetTotalRows();
+		return $this->Util()->DB()->GetRow();
 	}
 
 	function addDiploma()
 	{
-		$sql = "INSERT INTO diplomas(studentId, courseId) VALUES({$this->getUserId()},{$this->getCourseId()})";
+		$sql = "INSERT INTO diplomas(studentId, courseId, token) VALUES({$this->getUserId()},{$this->getCourseId()}, '{$this->token}')";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->InsertData();
 	}

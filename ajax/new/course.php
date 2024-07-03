@@ -23,9 +23,11 @@ switch ($opcion) {
     case 'addDiploma': 
         $curso = $_POST['curso'];
         $alumno = $_POST['alumno'];
+        $token = bin2hex(random_bytes(16));
         $course->setCourseId($curso);
         $course->setUserId($alumno);
-        if ($course->getDiploma() == 0) { 
+        $course->setToken($token); 
+        if (!$course->getDiploma()) { 
             $course->addDiploma();
             echo json_encode([
                 'growl'     => true,
