@@ -43,7 +43,7 @@ if ($_GET['page'] == "procesar-pago") {
 print_r($_SESSION);
 exit; */
 
-if ((!isset($_SESSION['User'])) && $_GET['page'] != 'login' && $_GET['page'] != 'register' && $_GET['page'] != "registro" && $_GET['page'] != "registro-cobach" && $_GET['page'] != "recuperacion")
+if ((!isset($_SESSION['User'])) && !in_array($_GET['page'], ["login", "register", "registro", "registro-cobach", "recuperacion", "verificar"]))
 	header('Location: ' . WEB_ROOT . '/login');
 
 
@@ -270,7 +270,8 @@ $pages = array(
 	'registro',
 	'reporte-becas',
 	'registro-cobach',
-	'reporte-cursos'
+	'reporte-cursos',
+	'verificar'
 );
 $mensaje = "";
 if (!in_array($_GET['page'], $pages) && $_GET['page'] != "logout") {

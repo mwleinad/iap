@@ -61,7 +61,7 @@ class MYPDF extends TCPDF
                 'module_width' => 1, // width of a single module in points
                 'module_height' => 1 // height of a single module in points
             );
-            $qrCodeText = WEB_ROOT."/verificar?token=".$this->token; // texto o URL del QR
+            $qrCodeText = WEB_ROOT."/verificar/token/".$this->token; // texto o URL del QR
             $this->write2DBarcode($qrCodeText, 'QRCODE,H', 15, 273, 22, 22, $style, 'N');
         }
     }

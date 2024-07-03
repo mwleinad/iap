@@ -1706,9 +1706,12 @@ class Course extends Subject
 		return SSP::complex($_POST, $table, $primaryKey, $columns, $where);
 	}
 
-	function getDiploma()
+	function getDiploma($where = NULL)
 	{
-		$sql = "SELECT * FROM diplomas WHERE studentId = {$this->getUserId()} AND courseId = {$this->getCourseId()}";
+		if (is_null($where)) {
+			$where = "studentId = {$this->getUserId()} AND courseId = {$this->getCourseId()}";
+		}
+		$sql = "SELECT * FROM diplomas WHERE $where";
 		$this->Util()->DB()->setQuery($sql);
 		return $this->Util()->DB()->GetRow();
 	}
