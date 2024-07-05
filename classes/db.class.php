@@ -190,6 +190,18 @@ class DB
 
         return( $enum_fields );
     }
+
+    function generateUpdateQuery($fields = array())
+    {
+        $setParts = [];
+        foreach ($fields as $field => $value) {
+            if (isset($value) && $value !== '') {
+                $setParts[] = "$field = '{$value}'";
+            }
+        }
+        $setQuery = implode(', ', $setParts);
+        return $setQuery;
+    }
 }
 
 ?>

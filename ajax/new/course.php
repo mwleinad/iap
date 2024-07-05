@@ -20,18 +20,18 @@ switch ($opcion) {
         print_r(json_encode($response));
         exit;
         break;
-    case 'addDiploma': 
+    case 'addDiploma':
         $curso = $_POST['curso'];
         $alumno = $_POST['alumno'];
         $token = bin2hex(random_bytes(16));
         $course->setCourseId($curso);
         $course->setUserId($alumno);
-        $course->setToken($token); 
-        if (!$course->getDiploma()) { 
+        $course->setToken($token);
+        if (!$course->getDiploma()) {
             $course->addDiploma();
             echo json_encode([
                 'growl'     => true,
-                'message'   => 'Diploma generada',  
+                'message'   => 'Diploma generada',
                 'dtreload'  => "#datatable"
             ]);
         }
@@ -44,7 +44,40 @@ switch ($opcion) {
         $course->deleteDiploma();
         echo json_encode([
             'growl'     => true,
-            'message'   => 'Diploma eliminada',  
+            'message'   => 'Diploma eliminada',
+            'dtreload'  => "#datatable"
+        ]);
+        break;
+    case 'dt_cotejo_conocer':
+        $response = $course->dt_cotejo($_POST);
+        print_r(json_encode($response));
+        exit;
+        break;
+    case 'changePayment':
+        $alumno = $_POST['estudiante'];
+        $curso = $_POST['curso'];
+        $estatus = $_POST['estatus'];
+        $student->setUserId($alumno);
+        $student->setCourseId($curso);
+        $student->setStatusPayment($estatus);
+        $student->updateUserCourse();
+        echo json_encode([
+            'growl'     => true,
+            'message'   => 'Información actualizada',
+            'dtreload'  => "#datatable"
+        ]);
+        break;
+    case 'changeEvaluation':
+        $alumno = $_POST['estudiante'];
+        $curso = $_POST['curso'];
+        $estatus = $_POST['estatus'];
+        $student->setUserId($alumno);
+        $student->setCourseId($curso);
+        $student->setStatusEvaluation($estatus);
+        $student->updateUserCourse();
+        echo json_encode([
+            'growl'     => true,
+            'message'   => 'Información actualizada',
             'dtreload'  => "#datatable"
         ]);
         break;

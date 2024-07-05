@@ -236,7 +236,8 @@ $pages = array(
     'constancias',
     'constancia-conocer',
     'periodos',
-    'diplomas'
+    'diplomas',
+    'cotejo-conocer'
 );
 
 if(!in_array($_GET['page'], $pages))

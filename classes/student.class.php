@@ -3547,4 +3547,24 @@ class Student extends User
 		$result = $this->Util()->DB()->GetResult();
 		return $result;
 	}
+
+	private $status_payment, $status_evaluation;
+	public function setStatusPayment($value) {
+		$this->status_payment = $value;
+	}
+	public function setStatusEvaluation($value) {
+		$this->status_evaluation = $value;
+	}
+
+	function updateUserCourse() {
+		$fields = [
+			'status_payment'	=> $this->status_payment, 
+			'status_evaluation'	=> $this->status_evaluation
+		];
+		$updateQuery = $this->Util()->DB()->generateUpdateQuery($fields);
+		$sql = "UPDATE user_subject SET $updateQuery WHERE alumnoId = {$this->getUserId()} AND courseId = {$this->getCourseId()}";  
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->UpdateData();
+		return true;
+	}  
 }

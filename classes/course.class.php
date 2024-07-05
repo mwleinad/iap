@@ -348,7 +348,8 @@ class Course extends Subject
 		return $this->courseId;
 	}
 
-	public function setToken($value){
+	public function setToken($value)
+	{
 		$this->token = $value;
 	}
 
@@ -636,8 +637,7 @@ class Course extends Subject
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->InsertData();
 	}
-
-
+	
 	public function Update()
 	{
 		if ($this->Util()->PrintErrors()) {
@@ -719,8 +719,6 @@ class Course extends Subject
 		return $result;
 	}
 
-
-
 	public function Info_modality()
 	{
 		//creamos la cadena de seleccion
@@ -751,9 +749,7 @@ class Course extends Subject
 		$result["encargado"] = $info;
 		return $result;
 	}
-
-
-
+	
 	public function Info()
 	{
 		//creamos la cadena de seleccion
@@ -1723,9 +1719,68 @@ class Course extends Subject
 		$this->Util()->DB()->InsertData();
 	}
 
-	function deleteDiploma() {
+	function deleteDiploma()
+	{
 		$sql = "DELETE FROM diplomas WHERE studentId = {$this->getUserId()} AND courseId = {$this->getCourseId()}";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->DeleteData();
+	}
+
+	function dt_cotejo()
+	{
+		$table = 'user INNER JOIN user_subject ON user_subject.alumnoId = user.userId';
+		$primaryKey = 'userId';
+		$columns = array(
+			array('db' => 'userId', 'dt' => 'userId'),
+			array('db' => 'user.controlNumber', 'dt' => 'control'),
+			array('db' => 'CONCAT(user.names, " ", user.lastNamePaterno," ", user.lastNameMaterno)',  'dt' => 'alumno'),
+			array('db' => 'IF(user_subject.status_payment = 1, "PAGADO", "PENDIENTE")', "dt" => "pago"),
+			array('db' => 'IF(user_subject.status_evaluation = 1, "Sí", "No")', "dt" => "evaluacion"),
+			array('db' => 'user_subject.status_payment', "dt" => "status_payment"),
+			array('db' => 'user_subject.status_evaluation', "dt" => "status_evaluation"),
+			array(
+				'db' => 'userId', 'dt' => 'acciones',
+				'formatter' => function ($d, $row) {
+					$html = "";
+					if ($row['status_payment']) {
+						$html .= "<form action='".WEB_ROOT."/ajax/new/course.php' method='POST' class='form mb-3' id='form_pago_{$d}'>
+									<input type='hidden' name='option' value='changePayment'>
+									<input type='hidden' name='curso' value='{$_POST['curso']}'>
+									<input type='hidden' name='estudiante' value='{$d}'>
+									<input type='hidden' name='estatus' value='0'>
+									<button class='btn btn-warning'>Cambiar a pago pendiente</button>
+								</form>";
+					} else {
+						$html .= "<form action='".WEB_ROOT."/ajax/new/course.php' method='POST' class='form mb-3' id='form_pago_{$d}'>
+									<input type='hidden' name='option' value='changePayment'>
+									<input type='hidden' name='curso' value='{$_POST['curso']}'>
+									<input type='hidden' name='estudiante' value='{$d}'>
+									<input type='hidden' name='estatus' value='1'>
+									<button class='btn btn-primary'>Cambiar a pagado </button>
+								</form>";
+					}
+					if ($row['status_evaluation']) {
+						$html .= "<form action='".WEB_ROOT."/ajax/new/course.php' method='POST' class='form mb-3' id='form_evaluation_{$d}'>
+									<input type='hidden' name='option' value='changeEvaluation'>
+									<input type='hidden' name='curso' value='{$_POST['curso']}'>
+									<input type='hidden' name='estudiante' value='{$d}'>
+									<input type='hidden' name='estatus' value='0'>
+									<button class='btn btn-warning'>Cambiar a no la evaluación</button>
+								</form>";
+					} else {
+						$html .= "<form action='".WEB_ROOT."/ajax/new/course.php' method='POST' class='form mb-3' id='form_evaluation_{$d}'>
+									<input type='hidden' name='option' value='changeEvaluation'>
+									<input type='hidden' name='curso' value='{$_POST['curso']}'>
+									<input type='hidden' name='estudiante' value='{$d}'>
+									<input type='hidden' name='estatus' value='1'>
+									<button class='btn btn-primary'>Cambiar a si la evaluación</button>
+								</form>";
+					}
+					return $html;
+				},
+			),
+		);
+		$where = "user_subject.courseId = {$_POST['curso']}";
+		return SSP::complex($_POST, $table, $primaryKey, $columns, $where);
 	}
 }

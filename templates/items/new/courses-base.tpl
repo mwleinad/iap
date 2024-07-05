@@ -168,6 +168,10 @@
 									data-target="#ajax" data-toggle="modal" title="Constancia">
 									<i class="fas fa-certificate"></i> Constancia Evaluación
 								</a>
+								<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=cotejo-conocer&id={$subject.courseId}"
+									data-target="#ajax" data-toggle="modal" title="Constancia">
+									<i class="fas fa-certificate"></i> Cotejo Conocer
+								</a>
 							{/if}
 							{if $User.userId == 1}
 								<form id="form_calendario{$subject.courseId}" class="form dropdown-item pointer spanActive"

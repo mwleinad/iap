@@ -29,13 +29,16 @@ $sheet->setCellValue('E1', 'Telefono');
 $sheet->setCellValue('F1', 'Lugar de Trabajo');
 $sheet->setCellValue('G1', 'Curp');
 $sheet->setCellValue('H1', 'Curp Archivo');
+
 $auxHeading = "I";
 
 foreach ($headings as $item) {
     $sheet->setCellValue("{$auxHeading}1", $item['resumen']);
     $auxHeading++;
 }
-
+$sheet->setCellValue("{$auxHeading}1", 'Pago');
+$auxHeading++;
+$sheet->setCellValue("{$auxHeading}1", 'Evaluación');
 $auxRow = 2;
 for ($i = 0; $i < (count($students)); $i++) {
     $curp = json_decode($students[$i]['curpDrive'], true);
@@ -63,6 +66,11 @@ for ($i = 0; $i < (count($students)); $i++) {
         }
         $auxColumn++;
     }
+    $statusPayment = $students[$i]['status_payment'] == 1 ? "Pagado" : "Pendiente";
+    $statusEvaluation = $students[$i]['status_evaluation'] == 1 ? "Sí" : "No";
+    $sheet->setCellValue("{$auxColumn}{$auxRow}", $statusPayment);
+    $auxColumn++;
+    $sheet->setCellValue("{$auxColumn}{$auxRow}", $statusEvaluation);
     $auxRow++;
 }
  
