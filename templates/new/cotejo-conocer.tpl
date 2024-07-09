@@ -4,7 +4,7 @@
             <span class="page-title-icon bg-gradient-primary text-white mr-2">
                 <i class="mdi mdi-home"></i>
             </span>
-            Información adicional
+            Información adicional - {$curso.name}
         </h3>
         <nav aria-label="breadcrumb">
             <ul class="breadcrumb">
@@ -46,7 +46,7 @@
             data: {
                 _token: $("meta[name='csrf-token'] ").attr('content'),
                 option: 'dt_cotejo_conocer',
-                curso: {$curso}
+                curso: {$curso.courseId}
             }
         },
         language: {
