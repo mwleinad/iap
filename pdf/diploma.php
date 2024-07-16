@@ -104,7 +104,7 @@ $student->setUserId($_GET['alumno']);
 $infoAlumno = $student->GetInfo();
 $nombreAlumno = $infoAlumno['names'] . ' ' . $infoAlumno['lastNamePaterno'] . ' ' . $infoAlumno['lastNameMaterno'];
 $nombreAlumno = $util->eliminar_acentos($nombreAlumno);
-$nombreAlumno = mb_strtoupper($nombreAlumno);
+$nombreAlumno = mb_strtoupper($nombreAlumno, 'UTF-8');
 $pdf->setToken($diploma['token']);
 
 $html = '<div style="width:100%; text-align:center;">' . $nombreAlumno . '</div>';
