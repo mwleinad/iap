@@ -1,54 +1,48 @@
 {if $curso.constancia}
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
-            <i class="fas fa-file-signature"></i> Generar Constancia
+            <i class="fas fa-file-signature"></i> Generar Constancia - {$curso.name}
         </div>
         <div class="card-body">
-            <form action="{$WEB_ROOT}/ajax/new/constancia-conocer.php" method="POST" id="form_constancia">
-                <input type="hidden" id="course" name="course" value="{$curso.courseId}" />
-                <div class="row" id="alumnos">
-                    {include file="{$DOC_ROOT}/templates/items/new/constancias-conocer.tpl"}
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-12 text-center">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-success" id="procesar">Generar</button>
-                    </div>
-                </div>
-                <div id="alerta"></div>
-            </form>
+            <table class="table" id="datatable" data-url="{$WEB_ROOT}/ajax/new/course.php">
+                <thead>
+                    <tr>
+                        <th>Control</th>
+                        <th>Alumno</th> 
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
     </div>
 
     <script>
-        $("body").on("click", "#procesar", function(ev) {
-            ev.preventDefault();
-            $(".is-invalid").removeClass(".is-invalid");
-            $("#alerta").removeClass("alert alert-danger").text("");
-            var procesar = true;
-            if ($(".checkbox").is(":checked")) {
-                $('.checkbox:checked').each(
-                    function() {
-                        if ($("#folio" + $(this).val()).val() == "") {
-                            $("#folio" + $(this).val()).focus();
-                            $("#folio" + $(this).val()).addClass("is-invalid");
-                            $("#folio" + $(this).val()).parent().find(".invalid-feedback").text(
-                                "Campo requerido");
-                            procesar = false;
-                        }
-                    }
-                );
-                if (procesar) {
-                    $("#form_constancia").addClass('form').submit();
+        $("#datatable").DataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            ajax: {
+                url: $("#datatable").data('url'),
+                dataType: "json",
+                type: "POST",
+                data: {
+                    _token: $("meta[name='csrf-token'] ").attr('content'),
+                    option: 'dt_constancias_conocer',
+                    curso: {$curso.courseId}
                 }
-            } else {
-                $("#alerta").addClass("alert alert-danger").text("Debe seleccionar por lo menos un alumno.");
-            }
-        });
-        flatpickr('.i-calendar', {
-            dateFormat: "Y-m-d"
+            },
+            language: {
+                url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            },
+            columns: [
+                { data: "control" },
+                { data: "alumno" }, 
+                { data: "acciones" }
+            ],
         });
     </script>
 {else}
-    <div class="alert alert-warning text-center p-5 m-0">La generación de constancias no está activada para este curso.</div>
+    <div class="alert alert-warning text-center p-5 m-0">La generación de constancias no está activada para este curso.
+    </div>
 {/if}

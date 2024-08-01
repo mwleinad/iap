@@ -637,7 +637,7 @@ class Course extends Subject
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->InsertData();
 	}
-	
+
 	public function Update()
 	{
 		if ($this->Util()->PrintErrors()) {
@@ -749,7 +749,7 @@ class Course extends Subject
 		$result["encargado"] = $info;
 		return $result;
 	}
-	
+
 	public function Info()
 	{
 		//creamos la cadena de seleccion
@@ -1743,7 +1743,7 @@ class Course extends Subject
 				'formatter' => function ($d, $row) {
 					$html = "";
 					if ($row['status_payment']) {
-						$html .= "<form action='".WEB_ROOT."/ajax/new/course.php' method='POST' class='form mb-3' id='form_pago_{$d}'>
+						$html .= "<form action='" . WEB_ROOT . "/ajax/new/course.php' method='POST' class='form mb-3' id='form_pago_{$d}'>
 									<input type='hidden' name='option' value='changePayment'>
 									<input type='hidden' name='curso' value='{$_POST['curso']}'>
 									<input type='hidden' name='estudiante' value='{$d}'>
@@ -1751,7 +1751,7 @@ class Course extends Subject
 									<button class='btn btn-warning'>Cambiar a pago pendiente</button>
 								</form>";
 					} else {
-						$html .= "<form action='".WEB_ROOT."/ajax/new/course.php' method='POST' class='form mb-3' id='form_pago_{$d}'>
+						$html .= "<form action='" . WEB_ROOT . "/ajax/new/course.php' method='POST' class='form mb-3' id='form_pago_{$d}'>
 									<input type='hidden' name='option' value='changePayment'>
 									<input type='hidden' name='curso' value='{$_POST['curso']}'>
 									<input type='hidden' name='estudiante' value='{$d}'>
@@ -1760,7 +1760,7 @@ class Course extends Subject
 								</form>";
 					}
 					if ($row['status_evaluation']) {
-						$html .= "<form action='".WEB_ROOT."/ajax/new/course.php' method='POST' class='form mb-3' id='form_evaluation_{$d}'>
+						$html .= "<form action='" . WEB_ROOT . "/ajax/new/course.php' method='POST' class='form mb-3' id='form_evaluation_{$d}'>
 									<input type='hidden' name='option' value='changeEvaluation'>
 									<input type='hidden' name='curso' value='{$_POST['curso']}'>
 									<input type='hidden' name='estudiante' value='{$d}'>
@@ -1768,13 +1768,49 @@ class Course extends Subject
 									<button class='btn btn-warning'>Cambiar a no la evaluación</button>
 								</form>";
 					} else {
-						$html .= "<form action='".WEB_ROOT."/ajax/new/course.php' method='POST' class='form mb-3' id='form_evaluation_{$d}'>
+						$html .= "<form action='" . WEB_ROOT . "/ajax/new/course.php' method='POST' class='form mb-3' id='form_evaluation_{$d}'>
 									<input type='hidden' name='option' value='changeEvaluation'>
 									<input type='hidden' name='curso' value='{$_POST['curso']}'>
 									<input type='hidden' name='estudiante' value='{$d}'>
 									<input type='hidden' name='estatus' value='1'>
 									<button class='btn btn-primary'>Cambiar a si la evaluación</button>
 								</form>";
+					}
+					return $html;
+				},
+			),
+		);
+		$where = "user_subject.courseId = {$_POST['curso']}";
+		return SSP::complex($_POST, $table, $primaryKey, $columns, $where);
+	}
+	function dt_constancias_conocer()
+	{
+		$table = 'user INNER JOIN user_subject ON user_subject.alumnoId = user.userId';
+		$primaryKey = 'userId';
+		$columns = array(
+			array('db' => 'userId', 'dt' => 'userId'),
+			array('db' => 'user.controlNumber', 'dt' => 'control'),
+			array('db' => 'CONCAT(user.names, " ", user.lastNamePaterno," ", user.lastNameMaterno)',  'dt' => 'alumno'),
+			array('db' => '(SELECT constancias_conocer.id FROM constancias_conocer WHERE constancias_conocer.studentId = user.userId AND constancias_conocer.courseId = user_subject.courseId)', 'dt' => 'constancia'),
+			array(
+				'db' => 'userId', 'dt' => 'acciones',
+				'formatter' => function ($d, $row) {
+					$html = "";
+					if ($row['constancia']) {
+						$html = '<a href="' . WEB_ROOT . '/pdf/constancia.php?courseId=' . $_POST['curso'] . '&studentId=' . $row['userId'] . '" target="_blank">
+									<i class="fas fa-download"></i>
+								</a>';
+					} else {
+						$html = '<form id="form_' . $row['userId'].$_POST['curso'] . '" class="form" action="' . WEB_ROOT . '/ajax/new/constancia-conocer.php" method="POST">
+									<input type="hidden" name="student" value="' . $row['userId'] . '">
+									<input type="hidden" name="course" value="' . $_POST['curso'] . '">
+									<div class="input-group">
+									 	<div class="input-group-prepend">
+										 	<input placeholder="Folio..." type="text" class="form-control" id="folio' . $row['userId'] . '" name="folio" required> 
+											<button class="btn btn-success" type="submit">Generar</button> 
+										</div>
+									</div>
+								</form>';
 					}
 					return $html;
 				},

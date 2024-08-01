@@ -81,4 +81,8 @@ switch ($opcion) {
             'dtreload'  => "#datatable"
         ]);
         break;
+    case 'dt_constancias_conocer':
+        $response = $course->dt_constancias_conocer($_POST);
+        print_r(json_encode($response));
+        break;
 }
