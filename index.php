@@ -282,7 +282,7 @@ if ($User) {
 	$estudiantePromo = $course->getStudents("AND user_subject.courseId IN(159, 160, 161, 151) AND user_subject.status = 'activo' AND user_subject.alumnoId = {$_SESSION["User"]["userId"]} ");
 	if ($estudiantePromo[0]['controlNumber']) {
 		$mensajePromo = "<img src='" . WEB_ROOT . "/images/promocion.jpeg?v=2' class='img-fluid'>";
-		$smarty->assign("promo", true);
+		$smarty->assign("promo", false);
 		$smarty->assign("mensajePromo", $mensajePromo);
 	}
 }
