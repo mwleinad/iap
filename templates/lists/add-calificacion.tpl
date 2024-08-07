@@ -24,7 +24,7 @@
                         <input type="text" readonly name="pro_{$item.alumnoId}" id="pro_{$item.alumnoId}" value="{$item.addepUp}" class="form-control" />
                     </td>
                     <td class="text-center">
-                        <input {(in_array($item.alumnoId,[4336, 4531, 4570, 4576, 3983, 4548, 4549, 4550])) ? 'disabled' : ''} type="text" {if $info.habilitarCalificar eq 'no'} readonly {/if} maxlength="2" onkeypress="return soloLetras(event)" name="cal_{$item.alumnoId}" id="cal_{$item.alumnoId}" value="{if $item.score < 7 and $majorName eq 'MAESTRÍA' and $item.score != 0} 6 {else if $item.score < 8 and $majorName eq 'DOCTORADO' and $item.score != 0} 7 {else if $item.score eq 0} N/P {else} {$item.score} {/if}" class="form-control {if $item.score < 7 and $majorName eq 'MAESTRÍA'} bg-danger {else if $item.score < 8 and $majorName eq 'DOCTORADO'} bg-danger {/if}" {if $item.is_validated == 1} readonly {/if} />
+                        <input {(in_array($item.alumnoId,[4336, 4531, 4570, 4576, 3983])) ? 'disabled' : ''} type="text" {if $info.habilitarCalificar eq 'no'} readonly {/if} maxlength="2" onkeypress="return soloLetras(event)" name="cal_{$item.alumnoId}" id="cal_{$item.alumnoId}" value="{if $item.score < 7 and $majorName eq 'MAESTRÍA' and $item.score != 0} 6 {else if $item.score < 8 and $majorName eq 'DOCTORADO' and $item.score != 0} 7 {else if $item.score eq 0} N/P {else} {$item.score} {/if}" class="form-control {if $item.score < 7 and $majorName eq 'MAESTRÍA'} bg-danger {else if $item.score < 8 and $majorName eq 'DOCTORADO'} bg-danger {/if}" {if $item.is_validated == 1} readonly {/if} />
                     </td>
                 </tr>
             {foreachelse}

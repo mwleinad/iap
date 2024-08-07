@@ -305,10 +305,7 @@ if (in_array($User['userId'], [
 	4531,
 	4570,
 	4576,
-	3983, 
-	4548,
-	4549,
-	4550
+	3983
 ])) {
 	$pagesBlackList[] = "finanzas";
 	$pagesBlackList[] = "inbox";
