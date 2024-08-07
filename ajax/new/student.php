@@ -598,8 +598,7 @@ switch ($_POST['opcion']) {
 			exit;
 		}
 
-		$alumnoActual = $student->GetInfo("AND email = '$email'");
-		print_r($infoAlumno);
+		$alumnoActual = $student->GetInfo("AND email = '$email'"); 
 		if ($alumnoActual['userId']) { //Ya existe un alumno con este correo, hay que actualizarlo. 
 			$existeEnCurso = $student->getCourses("AND user_subject.courseId = 169 AND user_subject.alumnoId = " . $alumnoActual['userId']);
 			if (count($existeEnCurso) > 0) { //Verificamos que no exista en el curso actual
