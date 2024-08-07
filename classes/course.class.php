@@ -1408,7 +1408,7 @@ class Course extends Subject
 		if ($this->totalPeriods)
 			$filtro .= " AND totalPeriods > 0";
 		if (in_array($_SESSION['User']['userId'], [253])) {
-			$filtro .= " AND(subject.constancia = 1 OR course.courseId IN(162))";
+			$filtro .= " AND(subject.constancia = 1 OR course.courseId IN(162, 169))";
 		}
 		$sql = 'SELECT 
 						DISTINCT(subject.subjectId), 

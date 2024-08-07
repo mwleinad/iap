@@ -158,7 +158,7 @@
 								</a>
 							{/if}
 							{if in_array($User.userId,[1, 253])}
-								{if $subject.courseId == 162}
+								{if in_array($subject.courseId, [162, 169])}
 									<a class="dropdown-item" href="{$WEB_ROOT}/graybox.php?page=diplomas&id={$subject.courseId}"
 										target="_blank" data-target="#ajax" data-toggle="modal" title="Diplomas">
 										<i class="fas fa-clipboard-check"></i> Diplomas

@@ -402,7 +402,7 @@ class Student extends User
 		$course = new Course();
 		$course->setCourseId($_POST["curricula"]);
 		$courseData = $course->Info();
-		if (!in_array($_POST['curricula'], [162, 167, 168])) {
+		if (!in_array($_POST['curricula'], [162, 167, 168, 169])) {
 			// CRM
 			$sql = "SELECT uuid()";
 			$this->Util()->DBCrm()->setQuery($sql);
@@ -3481,7 +3481,7 @@ class Student extends User
 	//Retorna el alumno inscrito en el curso Gestión Documental y Administración de Archivos y, si tiene, la curricula adicional activa. 
 	function alumnoConDiplomado($alumnoId)
 	{
-		$sql = "SELECT * FROM `user_subject` B WHERE alumnoId = {$alumnoId} AND status = 'activo' AND EXISTS(SELECT * FROM user_subject A WHERE A.alumnoId = B.alumnoId AND A.courseId = 162);";
+		$sql = "SELECT * FROM `user_subject` B WHERE alumnoId = {$alumnoId} AND status = 'activo' AND EXISTS(SELECT * FROM user_subject A WHERE A.alumnoId = B.alumnoId AND A.courseId IN (162, 169));";
 		$this->Util()->DB()->setQuery($sql);
 		$resultado = $this->Util()->DB()->GetTotalRows();
 		return $resultado;
@@ -3518,7 +3518,7 @@ class Student extends User
 		INNER JOIN activity ON activity.courseModuleId = course_module.courseModuleId
 		LEFT JOIN activity_score ON activity_score.activityId = activity.activityId AND activity_score.userId = user.userId
 		WHERE
-			user_subject.courseId = 162
+			user_subject.courseId IN (162, 169)
 			GROUP BY user.userId;';
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();

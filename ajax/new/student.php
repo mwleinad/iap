@@ -655,8 +655,8 @@ switch ($_POST['opcion']) {
 					'growl'		=> true,
 					'type'		=> 'success',
 					'message'	=> 'Se ha completado el registro, se ha enviado un correo con el usuario y contraseña para acceder a la plataforma.',
-					// 'location'	=> WEB_ROOT . "/login",
-					// 'duracion'	=> 5000
+					'location'	=> WEB_ROOT . "/login",
+					'duracion'	=> 5000
 				]);
 			}
 		} else {
@@ -711,8 +711,8 @@ switch ($_POST['opcion']) {
 					'growl'		=> true,
 					'type'		=> 'success',
 					'message'	=> 'Se ha completado el registro, se ha enviado un correo con el usuario y contraseña para acceder a la plataforma.',
-					// 'location'	=> WEB_ROOT . "/login",
-					// 'duracion'	=> 5000
+					'location'	=> WEB_ROOT . "/login",
+					'duracion'	=> 5000
 				]);
 			} else {
 				echo json_encode([
