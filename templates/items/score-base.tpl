@@ -37,7 +37,7 @@
                 {/if}
             </td>
             <td class="text-center" id='test{$item.activityScoreId}'>
-                <input type="text" class="form-control" maxlength="5" size="5"  name="ponderation[{$item.alumnoId}]" value="{$item.ponderation}" {(in_array($item.alumnoId,[4336, 4531, 4570, 4576, 3983])) ? 'disabled' : ''} />
+                <input type="text" class="form-control" maxlength="5" size="5"  name="ponderation[{$item.alumnoId}]" value="{$item.ponderation}" {(in_array($item.alumnoId,[4336, 4531, 4570, 4576, 3983, 4548, 4549, 4550])) ? 'disabled' : ''} />
                 {if $actividad.activityType == "Examen" && $item.try > 0 && in_array($User['userId'],[1,149])} 
                     <button class="btn btn-danger p-3 ajax" title="Eliminar intento de examen" data-id="{$item.activityScoreId}" data-student="{$item.alumnoId}" data-url="{$WEB_ROOT}/ajax/score-activity-new.php" data-option="deleteScore">
                         <i class="fa fa-trash"></i>

@@ -43,7 +43,7 @@ if ($_GET['page'] == "procesar-pago") {
 print_r($_SESSION);
 exit; */
 
-if ((!isset($_SESSION['User'])) && !in_array($_GET['page'], ["login", "register", "registro", "registro-cobach", "recuperacion", "verificar"]))
+if ((!isset($_SESSION['User'])) && !in_array($_GET['page'], ["login", "register", "registro", "registro-cobach", "recuperacion", "verificar", "registro-INAI"]))
 	header('Location: ' . WEB_ROOT . '/login');
 
 
@@ -271,7 +271,8 @@ $pages = array(
 	'reporte-becas',
 	'registro-cobach',
 	'reporte-cursos',
-	'verificar'
+	'verificar',
+	'registro-INAI'
 );
 $mensaje = "";
 if (!in_array($_GET['page'], $pages) && $_GET['page'] != "logout") {
@@ -304,7 +305,10 @@ if (in_array($User['userId'], [
 	4531,
 	4570,
 	4576,
-	3983
+	3983, 
+	4548,
+	4549,
+	4550
 ])) {
 	$pagesBlackList[] = "finanzas";
 	$pagesBlackList[] = "inbox";

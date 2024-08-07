@@ -206,10 +206,6 @@ class Student extends User
 		$sql = "INSERT INTO academic_history(subjectId, courseId, userId, semesterId, dateHistory, type, situation) VALUES(" . $this->subjectId . ", " . $this->courseId . ", " . $this->userId . ", " . $semesterId . ", CURDATE(), '" . $type . "', '" . $situation . "')";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->InsertData();
-
-		$sql = "UPDATE pagos SET deleted_at = NOW() WHERE course_id = {$this->courseId} AND alumno_id = {$this->userId} AND periodo >= {$semesterId} AND status <> 2 AND deleted_at IS NULL";
-		$this->Util()->DB()->setQuery($sql);
-		$this->Util()->DB()->UpdateData();
 		return true;
 	}
 
@@ -283,14 +279,17 @@ class Student extends User
 		}
 	}
 
-	public function GetInfo()
+	public function GetInfo($where = "")
 	{
+		if ($where == "") {
+			$where = "AND userId = $this->userId";
+		}
 		$sql = "SELECT u.*, 
 						m.nombre AS nombreciudad 
 				FROM user AS u 
 					LEFT JOIN municipio AS m 
 						ON m.municipioId = u.ciudadt
-		WHERE userId = '" . $this->userId . "'";
+		WHERE 1 $where";
 		$this->Util()->DB()->setQuery($sql);
 		$row = $this->Util()->DB()->GetRow();
 		$row["names"] = $this->Util()->DecodeTiny($row["names"]);
@@ -3566,5 +3565,65 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->UpdateData();
 		return true;
-	}  
+	}
+
+	function getCourses($where = "")
+	{
+		$sql = "SELECT major.name as major_name, subject.name as subject_name, course.courseId, course.group, subject.icon, course.initialDate, course.finalDate, course.subjectId FROM user_subject INNER JOIN course ON course.courseId = user_subject.courseId INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo WHERE 1 {$where}";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		return $result;
+	}
+
+	function updateStudent()
+	{
+		$fields = [
+			'names' 			=> $this->names,
+			'lastNamePaterno' 	=> $this->lastNamePaterno,
+			'lastNameMaterno' 	=> $this->lastNameMaterno,
+			'email' 			=> $this->email,
+			'phone' 			=> $this->phone,
+			'password' 			=> $this->password,
+			'workplace' 		=> $this->workplace,
+			'workplacePosition' => $this->workplacePosition,
+			'estado' 			=> $this->state,
+			'ciudad'			=> $this->city,
+			'estadot'			=> $this->state,
+			'ciudadt'			=> $this->city,
+			'curp'				=> $this->getCurp(),
+			'curpDrive'			=> $this->curpDrive,
+			'foto'				=> $this->foto,
+			'sexo'				=> $this->sexo,
+			'workplaceOcupation' => $this->workplaceOcupation,
+			'academicDegree'	=> $this->academicDegree,
+			'rfc'				=> $this->rfc,
+			'adscripcion'		=> $this->adscripcion,
+			'coordination'		=> $this->coordination,
+			'funcion'			=> $this->funcion
+		];
+		$updateQuery = $this->Util()->DB()->generateUpdateQuery($fields);
+		$sql = "UPDATE user SET $updateQuery WHERE userId = {$this->getUserId()}";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->UpdateData();
+		$resultado['status'] = true;
+		return $resultado;
+	}
+
+	function addUserCourse()
+	{
+		$sql = "INSERT INTO user_subject(alumnoId, courseId,status,situation) VALUES ({$this->getUserId()}, {$this->courseId}, 'activo', 'A')";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->InsertData();
+	}
+
+	function saveInai()
+	{
+		$controlNumber = $this->getControlNumber();
+		$sql = "INSERT INTO user(controlNumber, names, lastNamePaterno, lastNameMaterno, email, phone, password, workPlace, workplaceOcupation, paist, estadot, actualizado, estado, curpDrive, curp) VALUES('" . $controlNumber . "', '" . $this->name . "', '" . $this->lastNamePaterno . "', '" . $this->lastNameMaterno . "', '" . $this->email . "', '" . $this->phone . "', '" . $this->password . "', '" . $this->workplace . "', '".$this->workplaceOcupation."', 1, {$this->estadoT}, 'si', {$this->estadoT}, {$this->curpDrive}, '{$this->curp}')";
+		
+		$this->Util()->DB()->setQuery($sql); 
+		$resultado['status'] = $this->Util()->DB()->InsertData();
+		$resultado['usuario'] = $controlNumber; 
+		return $resultado;
+	}
 }

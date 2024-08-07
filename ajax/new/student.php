@@ -2,6 +2,7 @@
 include_once('../../init.php');
 include_once('../../config.php');
 include_once(DOC_ROOT . '/libraries.php');
+include_once(DOC_ROOT . "/properties/messages.php");
 
 session_start();
 switch ($_POST['opcion']) {
@@ -387,7 +388,7 @@ switch ($_POST['opcion']) {
 				}
 			} elseif ($foto != "NULL") {
 				$foto = "'" . json_encode($foto) . "'";
-			} 
+			}
 		}
 
 		if (!empty($errors)) {
@@ -536,5 +537,191 @@ switch ($_POST['opcion']) {
 				// 'location'	=> WEB_ROOT . '/login',
 			]);
 		}
+		break;
+	case "registro-inai":
+		$name = strip_tags($_POST['names']);
+		$firstSurname = strip_tags($_POST['lastNamePaterno']);
+		$secondSurname = strip_tags($_POST['lastNameMaterno']);
+		$genre = strip_tags($_POST['sexo']);
+		$curp = $_POST['curp'];
+		$password = $_POST['password'];
+		$email = $_POST['email'];
+		$phone = $_POST['mobile'];
+		$workplace = "INAI";
+		$workplaceOcupation = "FUNCIONARIO PÚBLICO FEDERAL";
+		$funcion = intval($_POST['funcion']);
+		$estado = 9;
+		$curso = 169;
+		$errors = [];
+		if ($name == '') {
+			$errors['names'] = "Por favor, no se olvide de poner el nombre.";
+		}
+		if ($firstSurname == '') {
+			$errors['lastNamePaterno'] = "Por favor, no se olvide de poner el apellido parterno.";
+		}
+		if ($secondSurname == '') {
+			$errors['lastNameMaterno'] = "Por favor, no se olvide de poner el apellido materno.";
+		}
+		if ($password == '') {
+			$errors['password'] = "Por favor, no se olvide de poner la contraseña.";
+		}
+		if ($email == '') {
+			$errors['email'] = "Por favor, no se olvide de poner el correo electrónico.";
+		}
+		if ($phone == '') {
+			$errors['mobile'] = "Por favor, no se olvide de el número de celular.";
+		}
+		if (empty($curp)) {
+			$errors['curp'] = "Por favor, no se olvide de poner la curp.";
+		}
+		$nombreAlumno = $util->eliminar_acentos(str_replace(' ', '_', trim($name . "_" . $firstSurname . "_" . $secondSurname)));
+		$nombreAlumno = strtolower($nombreAlumno);
+		$response = $util->Util()->validarSubidaPorArchivo([
+			"curparchivo" => [
+				'types' 	=> ['application/pdf'],
+				'size' 		=> 5242880,
+				'required'	=> true
+			]
+		]);
+		foreach ($response as $key => $value) {
+			if (!$value['status']) {
+				$errors[$key] = $value['mensaje'];
+			}
+		}
+
+		if (!empty($errors)) {
+			header('HTTP/1.1 422 Unprocessable Entity');
+			header('Content-Type: application/json; charset=UTF-8');
+			echo json_encode([
+				'errors'    => $errors
+			]);
+			exit;
+		}
+
+		$alumnoActual = $student->GetInfo("AND email = '$email'");
+		print_r($infoAlumno);
+		if ($alumnoActual['userId']) { //Ya existe un alumno con este correo, hay que actualizarlo. 
+			$existeEnCurso = $student->getCourses("AND user_subject.courseId = 169 AND user_subject.alumnoId = " . $alumnoActual['userId']);
+			if (count($existeEnCurso) > 0) { //Verificamos que no exista en el curso actual
+				echo json_encode([
+					'growl'		=> true,
+					'type'		=> 'danger',
+					'message'	=> 'Este correo ya se encuentra registrado en este curso. Contacte con el administrador.',
+				]);
+			} else { //Si no existe lo agregamos al curso y actualizamos sus datos 
+				$student->setNames($name);
+				$student->setLastNamePaterno($firstSurname);
+				$student->setLastNameMaterno($secondSurname);
+				$student->setEmail($email);
+				$student->setPhone($phone);
+				$student->setCurp($curp);
+				$student->setWorkplace($workplace);
+				$student->setWorkplaceOcupation($workplaceOcupation);
+				$student->setEstadoT($estado);
+				$student->setFuncion($funcion);
+				$carpetaId = "1W8OjOFcfVruqCuvaerLArhe9GOvQq82a";
+				$google = new Google($carpetaId);
+				$ruta = DOC_ROOT . "/tmp/";
+				$extension = pathinfo($_FILES['curparchivo']['name'], PATHINFO_EXTENSION);
+				$temporal =  $_FILES['curparchivo']['tmp_name'];
+				$nombre = $key . "_" . $nombreAlumno;
+				$documento =  $nombre . "." . $extension;
+				move_uploaded_file($temporal, $ruta . $documento);
+				$google->setArchivoNombre($documento);
+				$google->setArchivo($ruta . $documento);
+				$respuesta = $google->subirArchivo();
+				$json = '{ 
+					"googleId": "' . $respuesta['id'] . '"
+				}';
+				unlink($ruta . $documento);
+				$student->setCurpDrive("{$json}");
+				$student->setAcademicDegree($_POST['academicDegree']);
+				$student->setUserId($alumnoActual['userId']);
+				$student->setCourseId(169);
+				$student->updateStudent();
+				$student->addUserCourse();
+				$dataCourse = $student->getCourses("AND user_subject.courseId = 169 AND user_subject.alumnoId = " . $alumnoActual['userId']);
+				$student->setSubjectId($dataCourse[0]['subjectId']);
+				$student->AddAcademicHistory('alta', 'A', 1);
+				$details_body = array(
+					'major'		=> $dataCourse[0]['major_name'],
+					'course'	=> $dataCourse[0]['subject_name'],
+					'email'	=> $alumnoActual['controlNumber'],
+					'password'	=> $alumnoActual['password'],
+				);
+				$details_subject = array();
+				$sendmail->Prepare($message[1]["subject"], $message[1]["body"], $details_body, $details_subject, $email, $name . " " . $firstSurname . " " . $secondSurname);
+				echo json_encode([
+					'growl'		=> true,
+					'type'		=> 'success',
+					'message'	=> 'Se ha completado el registro, se ha enviado un correo con el usuario y contraseña para acceder a la plataforma.',
+					// 'location'	=> WEB_ROOT . "/login",
+					// 'duracion'	=> 5000
+				]);
+			}
+		} else {
+			$student->setControlNumber();
+			$student->setName($name);
+			$student->setLastNamePaterno($firstSurname);
+			$student->setLastNameMaterno($secondSurname);
+			$student->setPassword($password);
+			$student->setEmail($email);
+			$student->setPhone($phone);
+			$student->setCurp($curp);
+			$student->setWorkplace($workplace);
+			$student->setWorkplaceOcupation($workplaceOcupation);
+			$student->setEstadoT($estado);
+			$student->setFuncion($funcion);
+
+			$carpetaId = "1W8OjOFcfVruqCuvaerLArhe9GOvQq82a";
+			$google = new Google($carpetaId);
+			$ruta = DOC_ROOT . "/tmp/";
+			$extension = pathinfo($_FILES['curparchivo']['name'], PATHINFO_EXTENSION);
+			$temporal =  $_FILES['curparchivo']['tmp_name'];
+			$nombre = $key . "_" . $nombreAlumno;
+			$documento =  $nombre . "." . $extension;
+			move_uploaded_file($temporal, $ruta . $documento);
+			$google->setArchivoNombre($documento);
+			$google->setArchivo($ruta . $documento);
+			$respuesta = $google->subirArchivo();
+			$json = '{ 
+					"googleId": "' . $respuesta['id'] . '"
+				}';
+			unlink($ruta . $documento);
+			$student->setCurpDrive("'{$json}'");
+			$student->setAcademicDegree($_POST['academicDegree']);
+			$response = $student->saveInai();
+			if ($response['status']) {
+				$student->setUserId($response['status']);
+				$student->setCourseId(169);
+				$student->addUserCourse();
+				$dataCourse = $student->getCourses("AND user_subject.courseId = 169 AND user_subject.alumnoId = " . $response['status']);
+				$student->setSubjectId($dataCourse[0]['subjectId']);
+				$student->AddAcademicHistory('alta', 'A', 1);
+				$details_body = array(
+					'major'		=> $dataCourse[0]['major_name'],
+					'course'	=> $dataCourse[0]['subject_name'],
+					'email'		=> $response['usuario'],
+					'password'	=> $password,
+				);
+				$details_subject = array();
+				$sendmail->Prepare($message[1]["subject"], $message[1]["body"], $details_body, $details_subject, $email, $name . " " . $firstSurname . " " . $secondSurname);
+
+				echo json_encode([
+					'growl'		=> true,
+					'type'		=> 'success',
+					'message'	=> 'Se ha completado el registro, se ha enviado un correo con el usuario y contraseña para acceder a la plataforma.',
+					// 'location'	=> WEB_ROOT . "/login",
+					// 'duracion'	=> 5000
+				]);
+			} else {
+				echo json_encode([
+					'growl'		=> true,
+					'type'		=> 'danger',
+					'message'	=> $response['message'],
+				]);
+			}
+		}
+
 		break;
 }
