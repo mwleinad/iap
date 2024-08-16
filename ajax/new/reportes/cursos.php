@@ -22,15 +22,16 @@ $spreadsheet->getProperties()->setCreator('William Ramírez')
 $sheet = $spreadsheet->getActiveSheet();
 
 $sheet->setCellValue('A1', 'Usuario');
-$sheet->setCellValue('B1', 'Nombre');
-$sheet->setCellValue('C1', 'Apellido Paterno');
-$sheet->setCellValue('D1', 'Apellido Materno'); 
-$sheet->setCellValue('E1', 'Telefono');
-$sheet->setCellValue('F1', 'Lugar de Trabajo');
-$sheet->setCellValue('G1', 'Curp');
-$sheet->setCellValue('H1', 'Curp Archivo');
+$sheet->setCellValue('B1', 'Contraseña');
+$sheet->setCellValue('C1', 'Nombre');
+$sheet->setCellValue('D1', 'Apellido Paterno');
+$sheet->setCellValue('E1', 'Apellido Materno'); 
+$sheet->setCellValue('F1', 'Telefono');
+$sheet->setCellValue('G1', 'Lugar de Trabajo');
+$sheet->setCellValue('H1', 'Curp');
+$sheet->setCellValue('I1', 'Curp Archivo');
 
-$auxHeading = "I";
+$auxHeading = "J";
 
 foreach ($headings as $item) {
     $sheet->setCellValue("{$auxHeading}1", $item['resumen']);
@@ -43,15 +44,16 @@ $auxRow = 2;
 for ($i = 0; $i < (count($students)); $i++) {
     $curp = json_decode($students[$i]['curpDrive'], true);
     $sheet->setCellValue("A" . ($i + 2), $students[$i]['controlNumber']);
-    $sheet->setCellValue("B" . ($i + 2), mb_strtoupper($students[$i]['names']));
-    $sheet->setCellValue("C" . ($i + 2), mb_strtoupper($students[$i]['lastNamePaterno']));
-    $sheet->setCellValue("D" . ($i + 2), mb_strtoupper($students[$i]['lastNameMaterno'])); 
-    $sheet->setCellValue("E" . ($i + 2), $students[$i]['mobile']);
-    $sheet->setCellValue("F" . ($i + 2), $students[$i]['workplace']);
-    $sheet->setCellValue("G" . ($i + 2), $students[$i]['curp']);
-    $sheet->setCellValue("H" . ($i + 2), $curp['urlBlank']);
-    $sheet->getCell('H' . ($i + 2))->getHyperlink()->setUrl($curp['urlBlank']);
-    $auxColumn = "I";
+    $sheet->setCellValue("B" . ($i + 2), $students[$i]['password']);
+    $sheet->setCellValue("C" . ($i + 2), mb_strtoupper($students[$i]['names']));
+    $sheet->setCellValue("D" . ($i + 2), mb_strtoupper($students[$i]['lastNamePaterno']));
+    $sheet->setCellValue("E" . ($i + 2), mb_strtoupper($students[$i]['lastNameMaterno'])); 
+    $sheet->setCellValue("F" . ($i + 2), $students[$i]['mobile']);
+    $sheet->setCellValue("G" . ($i + 2), $students[$i]['workplace']);
+    $sheet->setCellValue("H" . ($i + 2), $students[$i]['curp']);
+    $sheet->setCellValue("I" . ($i + 2), $curp['urlBlank']);
+    $sheet->getCell('I' . ($i + 2))->getHyperlink()->setUrl($curp['urlBlank']);
+    $auxColumn = "J";
     foreach ($headings as $heading) {
         if ($heading['activityType'] == "Tarea") {
             $data = $student->getActivityScore($heading['activityType'], "AND userId = {$students[$i]['userId']} AND activityId = {$heading['activityId']}");  
