@@ -23,23 +23,23 @@
     </div>
     <div class="card-body">
         <form id="frmGral" target="_blank" action="{$WEB_ROOT}/ajax/new/reportes.php?page=export-excel" method="post">
-            <input type="hidden" value="becas" name="opcion">
-            <div class="row">
+            <input type="hidden" value="diplomados" name="opcion">
+            <div class="row"> 
                 <div class="col-md-6 form-group">
-                    <label for="posgrado">Posgrado</label>
-                    <select class="form-control" name="posgrado" id="posgrado" required
-                        data-url="{$WEB_ROOT}/ajax/new/becas.php">
-                        <option value="">--Selecciona un posgrado--</option>
-                        {foreach from=$posgrados item=item}
-                            <option value="{$item.subjectId}">[{$item.nivelPosgrado}]{$item.posgrado}</option>
+                    <label for="grupo">Grupo</label>
+                    <select class="form-control" name="grupo" id="grupo" required>
+                        <option value="">--Selecciona un grupo--</option>
+                        {foreach from=$grupos item=grupo}
+                            <option value="{$grupo.courseId}">{$grupo.group}</option>
                         {/foreach}
                     </select>
                 </div>
-                <div class="col-md-6 form-group">
-                    <label for="grupo">Grupo</label>
-                    <select class="form-control" name="grupo" id="grupo" required
-                        data-url="{$WEB_ROOT}/ajax/new/becas.php">
-                        <option value="">--Selecciona un grupo--</option>
+                <div class="col-md-6">
+                    <label for="tipo">Tipo</label>
+                    <select class="form-control" id="tipo" name="tipo" required>
+                        <option value="">--Selecciona un tipo de reporte--</option>
+                        <option value="1">Registros</option>
+                        <option value="2">Evaluaciones</option>
                     </select>
                 </div>
                 <div class="col-md-12 text-center">

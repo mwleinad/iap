@@ -324,9 +324,12 @@ class Conceptos extends Module
         return $resultado;
     }
 
-    public function conceptos_cursos_relacionados()
+    public function conceptos_cursos_relacionados($where = NULL)
     {
-        $sql = "SELECT conceptos_course.*, conceptos.nombre as concepto_nombre FROM conceptos_course INNER JOIN conceptos ON conceptos.concepto_id = conceptos_course.concepto_id WHERE conceptos_course.course_id = {$this->getCourseId()} AND conceptos_course.deleted_at IS NULL ORDER BY conceptos_course.fecha_cobro ASC";
+        if (is_null($where)) {
+            $where = "conceptos_course.course_id = {$this->getCourseId()} AND conceptos_course.deleted_at IS NULL ORDER BY conceptos_course.fecha_cobro ASC";
+        }
+        $sql = "SELECT conceptos_course.*, conceptos.nombre as concepto_nombre FROM conceptos_course INNER JOIN conceptos ON conceptos.concepto_id = conceptos_course.concepto_id WHERE $where";
         // echo $sql;
         $this->Util()->DB()->setQuery($sql);
         $resultado = $this->Util()->DB()->GetResult();

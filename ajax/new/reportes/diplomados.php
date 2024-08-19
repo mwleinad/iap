@@ -5,7 +5,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
-$group->setCourseId(162);
+$group->setCourseId($_POST['grupo']);
 $students = $group->DefaultGroup(); 
 // Create new Spreadsheet object
 $spreadsheet = new Spreadsheet();

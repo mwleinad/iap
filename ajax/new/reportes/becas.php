@@ -6,7 +6,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 $spreadsheet = new Spreadsheet();
-$spreadsheet->getActiveSheet()->getDefaultColumnDimension()->setWidth(30);
 // Set document properties
 $spreadsheet->getProperties()->setCreator('William Ramírez')
     ->setLastModifiedBy('William Ramírez')
@@ -17,44 +16,71 @@ $spreadsheet->getProperties()->setCreator('William Ramírez')
     ->setCategory('Reportes');
 $sheet = $spreadsheet->getActiveSheet();
 
-$sheet->setCellValue('A1', 'Posgrado');
-$sheet->setCellValue('B1', 'Currícula');
-$sheet->setCellValue('C1', 'Grupo');
-$sheet->setCellValue('D1', 'Alumno');
-$sheet->setCellValue('E1', 'Periodo');
-$sheet->setCellValue('F1', 'Concepto');
-$sheet->setCellValue('G1', 'Beca'); 
-$sheet->getStyle('A')->getAlignment()->setHorizontal('center')->setVertical('center');
-$sheet->getStyle('A')->getFont()->setSize(14)->setBold(true);
-$sheet->getStyle('B')->getAlignment()->setHorizontal('center')->setVertical('center');
-$sheet->getStyle('B')->getFont()->setSize(14)->setBold(true);
-$sheet->getStyle('C')->getAlignment()->setHorizontal('center')->setVertical('center');
-$sheet->getStyle('C')->getFont()->setSize(14)->setBold(true);
-$sheet->getStyle('D')->getAlignment()->setHorizontal('center')->setVertical('center');
-$sheet->getStyle('D')->getFont()->setSize(14)->setBold(true);
-$sheet->getStyle('E')->getAlignment()->setHorizontal('center')->setVertical('center');
-$sheet->getStyle('E')->getFont()->setSize(14)->setBold(true);
-$sheet->getStyle('F')->getAlignment()->setHorizontal('center')->setVertical('center');
-$sheet->getStyle('F')->getFont()->setSize(14)->setBold(true);
-$sheet->getStyle('G')->getAlignment()->setHorizontal('center')->setVertical('center');
-$sheet->getStyle('G')->getFont()->setSize(14)->setBold(true); 
-$row = 2;
-foreach ($data as $item) {
-    $sheet->setCellValue("A{$row}", $item['posgrado']);
-    $sheet->setCellValue("B{$row}", $item['name']);
-    $sheet->setCellValue("C{$row}", $item['group']);
-    $sheet->setCellValue("D{$row}", $item['alumno']);
-    $sheet->setCellValue("E{$row}", $item['periodo']);
-    $sheet->setCellValue("F{$row}", $item['concepto']); 
-    $sheet->setCellValue("G{$row}", $item['beca']); 
-    $row++;
+$posgrado = $courseData['major_name']." EN ". str_replace("NUEVO PROGRAMA", "", $courseData['subject_name']);
+
+$sheet->setCellValue('A1', 'POSGRADO:');
+$sheet->getStyle('A1')->getAlignment()->setHorizontal('right')->setVertical('center'); 
+$sheet->getStyle('A1')->getFont()->setSize(14)->setBold(true);
+$sheet->setCellValue('B1', $posgrado);
+$sheet->mergeCells('B1:H1'); 
+
+$sheet->setCellValue('A2', 'GRUPO:'); 
+$sheet->getStyle('A2')->getAlignment()->setHorizontal('right')->setVertical('center'); 
+$sheet->setCellValue('B2', $courseData['group']); 
+$sheet->getStyle('A2')->getFont()->setSize(14)->setBold(true); 
+
+$sheet->setCellValue('A3', mb_strtoupper($courseData['tipo']).":");
+$sheet->getStyle('A3')->getAlignment()->setHorizontal('right')->setVertical('center'); 
+$sheet->getStyle('A3')->getFont()->setSize(14)->setBold(true); 
+$sheet->setCellValue('B3', $periodoActual); 
+
+foreach ($variable as $key => $value) {
+    # code...
 }
 
+$spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+$spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+$spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+$spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+// $sheet->setCellValue('A1', 'Posgrado');
+// $sheet->setCellValue('B1', 'Currícula');
+// $sheet->setCellValue('C1', 'Grupo');
+// $sheet->setCellValue('D1', 'Alumno');
+// $sheet->setCellValue('E1', 'Periodo');
+// $sheet->setCellValue('F1', 'Concepto');
+// $sheet->setCellValue('G1', 'Beca'); 
+// $sheet->getStyle('A')->getAlignment()->setHorizontal('center')->setVertical('center');
+// $sheet->getStyle('A')->getFont()->setSize(14)->setBold(true);
+// $sheet->getStyle('B')->getAlignment()->setHorizontal('center')->setVertical('center');
+// $sheet->getStyle('B')->getFont()->setSize(14)->setBold(true);
+// $sheet->getStyle('C')->getAlignment()->setHorizontal('center')->setVertical('center');
+// $sheet->getStyle('C')->getFont()->setSize(14)->setBold(true);
+// $sheet->getStyle('D')->getAlignment()->setHorizontal('center')->setVertical('center');
+// $sheet->getStyle('D')->getFont()->setSize(14)->setBold(true);
+// $sheet->getStyle('E')->getAlignment()->setHorizontal('center')->setVertical('center');
+// $sheet->getStyle('E')->getFont()->setSize(14)->setBold(true);
+// $sheet->getStyle('F')->getAlignment()->setHorizontal('center')->setVertical('center');
+// $sheet->getStyle('F')->getFont()->setSize(14)->setBold(true);
+// $sheet->getStyle('G')->getAlignment()->setHorizontal('center')->setVertical('center');
+// $sheet->getStyle('G')->getFont()->setSize(14)->setBold(true); 
+// $row = 2;
+// foreach ($data as $item) {
+//     $sheet->setCellValue("A{$row}", $item['posgrado']);
+//     $sheet->setCellValue("B{$row}", $item['name']);
+//     $sheet->setCellValue("C{$row}", $item['group']);
+//     $sheet->setCellValue("D{$row}", $item['alumno']);
+//     $sheet->setCellValue("E{$row}", $item['periodo']);
+//     $sheet->setCellValue("F{$row}", $item['concepto']); 
+//     $sheet->setCellValue("G{$row}", $item['beca']); 
+//     $row++;
+// }
+
+$sheet->getStyle("A1:C5")->getAlignment()->setWrapText(true); 
 
 $fileName = bin2hex(random_bytes(4));
 // Redirect output to a client’s web browser (Xls)
 header('Content-Type: application/vnd.ms-excel; charset=utf-8');
-header('Content-Disposition: attachment;filename="becas' . $fileName . '.xls"');
+header('Content-Disposition: attachment;filename="becas.xls"');
 header('Cache-Control: max-age=0');
 // If you're serving to IE 9, then the following may be needed
 header('Cache-Control: max-age=1');
