@@ -6,7 +6,7 @@ session_start();
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
-$headings = $course->getHeadersActivities("AND course_module.courseId = {$_POST['grupo']}"); 
+$headings = $course->getHeadersActivities("AND course_module.courseId = {$_POST['grupo']} ORDER BY activity.resumen ASC"); 
 $students = $course->getStudents("AND user_subject.courseId = {$_POST['grupo']}"); 
  
 $spreadsheet = new Spreadsheet();
