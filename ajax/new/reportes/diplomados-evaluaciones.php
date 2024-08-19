@@ -43,12 +43,12 @@ for ($i = 0; $i < count($students); $i++) {
     foreach ($headings as $heading) { 
         if ($heading['activityType'] == "Examen") {
             $data = $student->getActivityScore($heading['activityType'], "AND userId = {$students[$i]['userId']} AND activityId = {$heading['activityId']}");  
-            $sheet->setCellValue("{$auxColumn}{$auxRow}", ($data['ponderation']));
+            $sheet->setCellValue("{$auxColumn}{$auxRow}", ($data ? $data['ponderation'] : "0"));
         }
         $auxColumn++;
     }
     $auxRow++;
-}  
+} 
 $sheet->getStyle("A2:$auxHeading" . (count($students) + 1))->getAlignment()->setHorizontal('center')->setVertical('center')->setWrapText(true); 
 $fileName = bin2hex(random_bytes(4));
 // Redirect output to a client’s web browser (Xls)
