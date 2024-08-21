@@ -14,68 +14,91 @@ $spreadsheet->getProperties()->setCreator('William Ramírez')
     ->setDescription('Reporte de cuántos alumnos tienen cierta beca por grupos')
     ->setKeywords('Alumnos')
     ->setCategory('Reportes');
+$spreadsheet->getDefaultStyle()->getFont()->setSize(14);
 $sheet = $spreadsheet->getActiveSheet();
 
-$posgrado = $courseData['major_name']." EN ". str_replace("NUEVO PROGRAMA", "", $courseData['subject_name']);
+$posgrado = $courseData['major_name'] . " EN " . str_replace("NUEVO PROGRAMA", "", $courseData['subject_name']);
 
 $sheet->setCellValue('A1', 'POSGRADO:');
-$sheet->getStyle('A1')->getAlignment()->setHorizontal('right')->setVertical('center'); 
-$sheet->getStyle('A1')->getFont()->setSize(14)->setBold(true);
+$sheet->getStyle('A1')->getAlignment()->setHorizontal('right')->setVertical('center');
+$sheet->getStyle('A1')->getFont()->setBold(true);
 $sheet->setCellValue('B1', $posgrado);
-$sheet->mergeCells('B1:H1'); 
+$sheet->mergeCells('B1:H1');
 
-$sheet->setCellValue('A2', 'GRUPO:'); 
-$sheet->getStyle('A2')->getAlignment()->setHorizontal('right')->setVertical('center'); 
-$sheet->setCellValue('B2', $courseData['group']); 
-$sheet->getStyle('A2')->getFont()->setSize(14)->setBold(true); 
+$sheet->setCellValue('A2', 'GRUPO:');
+$sheet->getStyle('A2')->getAlignment()->setHorizontal('right')->setVertical('center');
+$sheet->setCellValue('B2', $courseData['group']);
+$sheet->getStyle('A2')->getFont()->setBold(true);
 
-$sheet->setCellValue('A3', mb_strtoupper($courseData['tipo']).":");
-$sheet->getStyle('A3')->getAlignment()->setHorizontal('right')->setVertical('center'); 
-$sheet->getStyle('A3')->getFont()->setSize(14)->setBold(true); 
-$sheet->setCellValue('B3', $periodoActual); 
+$sheet->setCellValue('A3', mb_strtoupper($courseData['tipo']) . ":");
+$sheet->getStyle('A3')->getAlignment()->setHorizontal('right')->setVertical('center');
+$sheet->getStyle('A3')->getFont()->setBold(true);
+$sheet->setCellValue('B3', $periodoActual);
+$sheet->getStyle('B3')->getAlignment()->setHorizontal('left')->setVertical('center');
 
-foreach ($variable as $key => $value) {
-    # code...
+$sheet->setCellValue("C5", "BECAS");
+
+$sheet->setCellValue("A6", "USUARIO");
+$sheet->setCellValue("B6", "NOMBRE");
+$auxColumnBegin = "B";
+foreach ($conceptosData['periodicos'] as $data) {
+    $auxColumnBegin++;
+    $sheet->setCellValue("{$auxColumnBegin}6", mb_strtoupper($data['concepto_nombre']));
+}
+$sheet->mergeCells("C5:{$auxColumnBegin}5");
+$sheet->getStyle('C5')->getAlignment()->setHorizontal('center')->setVertical('center');
+$sheet->getStyle('C5')->getFont()->setBold(true);
+$sheet->getStyle("A6:{$auxColumnBegin}6")->getAlignment()->setHorizontal('center')->setVertical('center');
+$sheet->getStyle("A6:{$auxColumnBegin}6")->getFont()->setBold(true);
+
+$auxRow = 6;
+$auxColumnDeuda = 0;
+$auxColumnProximos = 0;
+$auxColumnProximosPago = 0;
+foreach ($alumnos as $alumno) {
+    $auxColumn = "B";
+    $auxRow++;
+    $sheet->setCellValue("A{$auxRow}", $alumno['controlNumber']);
+    $sheet->setCellValue("B{$auxRow}", $alumno['names'] . " " . $alumno['lastNamePaterno'] . " " . $alumno['lastNameMaterno']);
+    $adeudo = 0;
+    foreach ($alumno['becas'] as $beca) {
+        $auxColumn++;
+        $sheet->setCellValue("{$auxColumn}{$auxRow}", $beca['beca'] . "%");
+    }
+    $auxColumn++;
+    $auxColumnDeuda = $auxColumn;
+    $sheet->setCellValue("{$auxColumn}{$auxRow}", "$" . number_format($alumno['deuda'], 2));
+
+    foreach ($alumno['proximos'] as $proximo) {
+        $auxColumn++;
+        $sheet->setCellValue("{$auxColumn}{$auxRow}", $proximo);
+    }
+    $auxColumnProximosPago = $auxColumn;
+    $auxColumn++;
+    $sheet->setCellValue("{$auxColumn}{$auxRow}", "$" . number_format($alumno['proximo'], 2));
 }
 
-$spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
-$spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
-$spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
-$spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
-// $sheet->setCellValue('A1', 'Posgrado');
-// $sheet->setCellValue('B1', 'Currícula');
-// $sheet->setCellValue('C1', 'Grupo');
-// $sheet->setCellValue('D1', 'Alumno');
-// $sheet->setCellValue('E1', 'Periodo');
-// $sheet->setCellValue('F1', 'Concepto');
-// $sheet->setCellValue('G1', 'Beca'); 
-// $sheet->getStyle('A')->getAlignment()->setHorizontal('center')->setVertical('center');
-// $sheet->getStyle('A')->getFont()->setSize(14)->setBold(true);
-// $sheet->getStyle('B')->getAlignment()->setHorizontal('center')->setVertical('center');
-// $sheet->getStyle('B')->getFont()->setSize(14)->setBold(true);
-// $sheet->getStyle('C')->getAlignment()->setHorizontal('center')->setVertical('center');
-// $sheet->getStyle('C')->getFont()->setSize(14)->setBold(true);
-// $sheet->getStyle('D')->getAlignment()->setHorizontal('center')->setVertical('center');
-// $sheet->getStyle('D')->getFont()->setSize(14)->setBold(true);
-// $sheet->getStyle('E')->getAlignment()->setHorizontal('center')->setVertical('center');
-// $sheet->getStyle('E')->getFont()->setSize(14)->setBold(true);
-// $sheet->getStyle('F')->getAlignment()->setHorizontal('center')->setVertical('center');
-// $sheet->getStyle('F')->getFont()->setSize(14)->setBold(true);
-// $sheet->getStyle('G')->getAlignment()->setHorizontal('center')->setVertical('center');
-// $sheet->getStyle('G')->getFont()->setSize(14)->setBold(true); 
-// $row = 2;
-// foreach ($data as $item) {
-//     $sheet->setCellValue("A{$row}", $item['posgrado']);
-//     $sheet->setCellValue("B{$row}", $item['name']);
-//     $sheet->setCellValue("C{$row}", $item['group']);
-//     $sheet->setCellValue("D{$row}", $item['alumno']);
-//     $sheet->setCellValue("E{$row}", $item['periodo']);
-//     $sheet->setCellValue("F{$row}", $item['concepto']); 
-//     $sheet->setCellValue("G{$row}", $item['beca']); 
-//     $row++;
-// }
+$sheet->setCellValue("{$auxColumnDeuda}6", "DEUDA ACTUAL");
+$sheet->getStyle("{$auxColumnDeuda}6")->getFont()->setBold(true);
+$sheet->getStyle("{$auxColumnDeuda}6")->getAlignment()->setHorizontal('center')->setVertical('center');
 
-$sheet->getStyle("A1:C5")->getAlignment()->setWrapText(true); 
+$auxColumnDeuda++;
+$auxColumnProximos = $auxColumnDeuda;
+$sheet->setCellValue("{$auxColumnProximos}5", "PRÓXIMOS PAGOS");
+$sheet->getStyle("{$auxColumnProximos}5")->getFont()->setBold(true);
+$sheet->getStyle("{$auxColumnProximos}5")->getAlignment()->setHorizontal('center')->setVertical('center');
+
+$sheet->mergeCells("{$auxColumnProximos}5:{$auxColumnProximosPago}5");
+foreach ($conceptosProximos as $concepto) {
+    $sheet->setCellValue("{$auxColumnProximos}6", mb_strtoupper($concepto['nombre']));
+    $sheet->getStyle("{$auxColumnProximos}6")->getFont()->setBold(true);
+    $sheet->getStyle("{$auxColumnProximos}6")->getAlignment()->setHorizontal('center')->setVertical('center');
+    $auxColumnProximos++;
+}
+
+$sheet->setCellValue("{$auxColumnProximos}6","INGRESO APROXIMADO");
+$sheet->getStyle("{$auxColumnProximos}6")->getFont()->setBold(true);
+$sheet->getStyle("{$auxColumnProximos}6")->getAlignment()->setHorizontal('center')->setVertical('center');
 
 $fileName = bin2hex(random_bytes(4));
 // Redirect output to a client’s web browser (Xls)
