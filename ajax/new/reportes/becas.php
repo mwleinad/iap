@@ -67,6 +67,9 @@ foreach ($alumnos as $alumno) {
     }
     $auxColumn++;
     $auxColumnDeuda = $auxColumn;
+    $sheet->setCellValue("{$auxColumn}{$auxRow}", "$" . number_format($alumno['pagado'], 2));
+
+    $auxColumn++;
     $sheet->setCellValue("{$auxColumn}{$auxRow}", "$" . number_format($alumno['deuda'], 2));
 
     foreach ($alumno['proximos'] as $proximo) {
@@ -78,6 +81,11 @@ foreach ($alumnos as $alumno) {
     $sheet->setCellValue("{$auxColumn}{$auxRow}", "$" . number_format($alumno['proximo'], 2));
 }
 
+$sheet->setCellValue("{$auxColumnDeuda}6", "MONTO PAGADO");
+$sheet->getStyle("{$auxColumnDeuda}6")->getFont()->setBold(true);
+$sheet->getStyle("{$auxColumnDeuda}6")->getAlignment()->setHorizontal('center')->setVertical('center');
+
+$auxColumnDeuda++;
 $sheet->setCellValue("{$auxColumnDeuda}6", "DEUDA ACTUAL");
 $sheet->getStyle("{$auxColumnDeuda}6")->getFont()->setBold(true);
 $sheet->getStyle("{$auxColumnDeuda}6")->getAlignment()->setHorizontal('center')->setVertical('center');
@@ -96,7 +104,7 @@ foreach ($conceptosProximos as $concepto) {
     $auxColumnProximos++;
 }
 
-$sheet->setCellValue("{$auxColumnProximos}6","INGRESO APROXIMADO");
+$sheet->setCellValue("{$auxColumnProximos}6","INGRESO ESTIMADO");
 $sheet->getStyle("{$auxColumnProximos}6")->getFont()->setBold(true);
 $sheet->getStyle("{$auxColumnProximos}6")->getAlignment()->setHorizontal('center')->setVertical('center');
 

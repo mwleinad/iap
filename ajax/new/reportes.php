@@ -98,7 +98,7 @@ switch ($_POST["opcion"]) {
         $util->DB()->setQuery($sql);
         $alumnos = $util->DB()->GetResult();
 
-        $sql = "SELECT conceptos.nombre FROM `pagos` INNER JOIN conceptos ON conceptos.concepto_id = pagos.concepto_id WHERE pagos.course_id = {$courseData['courseId']} AND pagos.periodo >= {$periodoActual} GROUP BY pagos.concepto_id;";
+        $sql = "SELECT conceptos.nombre, conceptos.concepto_id FROM `pagos` INNER JOIN conceptos ON conceptos.concepto_id = pagos.concepto_id WHERE pagos.course_id = {$courseData['courseId']} AND pagos.periodo >= {$periodoActual} GROUP BY pagos.concepto_id;";
         $util->DB()->setQuery($sql);
         $conceptosProximos = $util->DB()->GetResult();
 
@@ -107,21 +107,29 @@ switch ($_POST["opcion"]) {
             $util->DB()->setQuery($sql);
             $alumnos[$key]['becas'] = $util->DB()->GetResult();
 
-            $sql = "SELECT SUM(IF(pagos.beca <> 100, total, 0)) monto_pagar, (SELECT SUM(cobros.monto) FROM cobros WHERE cobros.pago_id = pagos.pago_id) as monto_pagado FROM `pagos` WHERE pagos.deleted_at IS NULL AND pagos.alumno_id = {$alumno['userId']} AND pagos.status <> 2 AND pagos.fecha_limite >= NOW() AND pagos.periodo <> 0 AND pagos.beca <> 100 AND pagos.course_id = {$alumno['course_id']};";
+            $sql = "SELECT SUM(IF(pagos.beca <> 100, total, 0)) monto_pagar, (SELECT SUM(cobros.monto) FROM cobros WHERE cobros.pago_id = pagos.pago_id) as monto_pagado FROM `pagos` WHERE pagos.deleted_at IS NULL AND pagos.alumno_id = {$alumno['userId']} AND pagos.status <> 2 AND pagos.fecha_limite <= NOW() AND pagos.periodo <> 0 AND pagos.beca <> 100 AND pagos.course_id = {$alumno['course_id']};";
             $util->DB()->setQuery($sql);
             $montos = $util->DB()->GetResult();
             $alumnos[$key]["deuda"] = $montos[0]['monto_pagar'] - $montos[0]['monto_pagado'];
+            $alumnos[$key]['pagado'] = $montos[0]['monto_pagado'];
             foreach ($conceptosProximos as $conceptoProximo) {
-                $sql = "SELECT SUM(pagos.pago_id) as cantidad FROM `pagos` WHERE pagos.deleted_at IS NULL AND pagos.alumno_id = {$alumno['userId']} AND pagos.status <> 2 AND pagos.fecha_limite >= NOW() AND pagos.periodo <> 0 AND pagos.beca <> 100 AND pagos.course_id = {$alumno['course_id']} AND pagos.concepto_id = 1 GROUP BY pagos.concepto_id;";
+                $sql = "SELECT COUNT(pagos.pago_id) as cantidad FROM `pagos` WHERE pagos.deleted_at IS NULL AND pagos.alumno_id = {$alumno['userId']} AND pagos.status <> 2 AND pagos.fecha_limite >= NOW() AND pagos.periodo <> 0 AND pagos.beca <> 100 AND pagos.course_id = {$alumno['course_id']} AND pagos.concepto_id = {$conceptoProximo['concepto_id']} GROUP BY pagos.concepto_id;"; 
                 $util->DB()->setQuery($sql);
                 $cantidad = $util->DB()->GetSingle();
                 $alumnos[$key]['proximos'][] = $cantidad;
             }
 
-            $sql = "SELECT (SELECT SUM(IF(pagos.beca <> 100, total, 0)) monto_pagar FROM cobros WHERE cobros.pago_id = pagos.pago_id) as monto_pagado FROM `pagos` WHERE pagos.deleted_at IS NULL AND pagos.alumno_id = {$alumno['userId']} AND pagos.status <> 2 AND pagos.fecha_limite >= NOW() AND pagos.periodo <> 0 AND pagos.beca <> 100 AND pagos.course_id = {$alumno['course_id']};";
-            $util->DB()->setQuery($sql);
+            $sql = "SELECT SUM(pagos.total) FROM `pagos` WHERE pagos.deleted_at IS NULL AND pagos.alumno_id = {$alumno['userId']} AND pagos.status <> 2 AND pagos.fecha_limite >= NOW() AND pagos.periodo <> 0 AND pagos.beca <> 100 AND pagos.course_id = {$alumno['course_id']};";
+            $util->DB()->setQuery($sql); 
             $alumnos[$key]["proximo"] =  $util->DB()->GetSingle();
-        }
+        } 
+
+        // echo "<pre>";
+        // print_r($courseData);
+        // print_r($conceptosData['periodicos']);
+        // print_r($alumnos);
+        // print_r($conceptosProximos);
+        // exit;
         include_once('reportes/becas.php');
         break;
 }
