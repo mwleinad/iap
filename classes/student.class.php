@@ -402,7 +402,7 @@ class Student extends User
 		$course = new Course();
 		$course->setCourseId($_POST["curricula"]);
 		$courseData = $course->Info();
-		if (!in_array($_POST['curricula'], [162, 167, 168, 169])) {
+		if (!in_array($_POST['curricula'], [162, 167, 168, 169, 170])) {
 			// CRM
 			$sql = "SELECT uuid()";
 			$this->Util()->DBCrm()->setQuery($sql);

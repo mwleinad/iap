@@ -597,7 +597,7 @@ class Forum extends Main
 		$group->setCourseId($detalleModulo['courseId']);
 		$grupo = $group->DefaultGroup();
 		$visto = "";
-		if (in_array($detalleModulo['courseId'], [162, 167, 168, 169])) {
+		if (in_array($detalleModulo['courseId'], [162, 167, 168, 169, 170])) {
 			$x = 0;
 			foreach ($grupo as $alumnos) {
 				if ($x == 0)
