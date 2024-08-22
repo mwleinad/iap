@@ -94,7 +94,7 @@ switch ($_POST["opcion"]) {
         $periodoActual = $course->periodoActual();
         $conceptosData = $conceptos->conceptos_cursos_relacionados("conceptos_course.course_id = {$courseData['courseId']} AND conceptos_course.periodo = {$periodoActual} GROUP BY conceptos.concepto_id");
 
-        $sql = "SELECT user.userId, user.controlNumber, user.names, user.lastNamePaterno, user.lastNameMaterno, pagos.course_id FROM pagos INNER JOIN user ON user.userId = pagos.alumno_id WHERE pagos.course_id = {$courseData['courseId']} AND periodo = {$periodoActual} GROUP BY userId;";
+        $sql = "SELECT user.userId, user.controlNumber, user.names, user.lastNamePaterno, user.lastNameMaterno, pagos.course_id FROM pagos INNER JOIN user ON user.userId = pagos.alumno_id WHERE pagos.course_id = {$courseData['courseId']} AND periodo = {$periodoActual} AND pagos.deleted_at IS NULL GROUP BY userId;";
         $util->DB()->setQuery($sql);
         $alumnos = $util->DB()->GetResult();
 
