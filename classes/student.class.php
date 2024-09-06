@@ -3448,12 +3448,7 @@ class Student extends User
 	{
 		$sql = "INSERT INTO user_credentials(user_id, course_id, photo, status, created_at, updated_at) VALUES($student, $course, '{$files}', 0, NOW(), NOW())";
 		$this->Util()->DB()->setQuery($sql);
-		$id = $this->Util()->DB()->InsertData();
-
-		// $token = password_hash($id . $student . $course, PASSWORD_BCRYPT);
-		// $sql = "UPDATE user_credentials SET token = '$token' WHERE id = {$id}";
-		// $this->Util()->DB()->setQuery($sql);
-		// $this->Util()->DB()->UpdateData();
+		$id = $this->Util()->DB()->InsertData(); 
 	}
 
 	public function editCredential($student, $course, $files, $status)

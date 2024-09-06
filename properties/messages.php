@@ -130,4 +130,11 @@ Usuario: |usuario|
 Contraseña: |password|
 
 Posterior a ello, deberás dar click sobre el botón 'Constancia' ubicado en el estándar dentro de su perfil inicial.";
+
+
+$message[12]['subject'] = "Solicitud de credencial digital | Instituto de Administración Pública del Estado de Chiapas";
+$message[12]['body'] = "Estimado administrador,
+
+El alumno |alumno| ha generado una solicitud para su Credencial Digital. Puedes revisarla en la siguiente ruta: 
+https://app.iapchiapas.edu.mx/credenciales";
 ?>
