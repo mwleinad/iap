@@ -104,4 +104,14 @@ class Credentials extends Main
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->UpdateData($sql);
 	}
+
+	private $message;
+	public function setMessage($value) {
+		$this->message = $value;
+	}
+	public function addHistoryCredential() {
+		$sql = "INSERT INTO credentials_history(credencial_id, message) VALUES('{$this->credential}', '{$this->message}')";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->InsertData();
+	}
 }

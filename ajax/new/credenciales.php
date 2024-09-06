@@ -54,7 +54,8 @@ switch ($opcion) {
             $credentials->setCredentialDrive($files);
             $credentials->setStatus($aceptado);
             $credentials->updateCredential();
-
+            $credentials->setMessage($_SESSION['User']['nombreCompleto']." aprobó la Credencial Digital");
+            $credentials->addHistoryCredential();
             //Generación de la notificación
             $student->setUserId($credencial['user_id']);
             $student->UpdateAvatarCredential();
@@ -153,6 +154,8 @@ switch ($opcion) {
         $google->setArchivoID($credencial['files']['photo']['googleId']);
         $respuesta = $google->eliminarArchivo();
         $credentials->updateCredential();
+        $credentials->setMessage($_SESSION['User']['nombreCompleto']." ha rechazado la Credencial por el siguiente motivo: ".$motivo);
+        $credentials->addHistoryCredential();
 
         $student->setUserId($credencial['user_id']);
         $alumno = $student->GetInfo();
