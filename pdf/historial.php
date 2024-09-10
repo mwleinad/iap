@@ -99,10 +99,10 @@ foreach ($historial as $key => $curso) {
                     elseif ($calificacion == 0)
                         $calificacion = "<span style='color:red;'>N/P</span>";
                     $tbody .= "<tr>
-                                    <td>{$qualifications_repeat[$item['subjectModuleId']]['name']}</td>
-                                    <td style='text-align:center;'>{$qualifications_repeat[$item['subjectModuleId']]['addepUp']}</td>
-                                    <td style='text-align:center;'>{$qualifications_repeat[$item['subjectModuleId']]['score']}</td>
-                                    <td style='text-align:center;'>REC</td>
+                                    <td style='font-size:12px;'>{$qualifications_repeat[$item['subjectModuleId']]['name']}</td>
+                                    <td style='text-align:center; font-siez:14px;'>{$qualifications_repeat[$item['subjectModuleId']]['addepUp']}</td>
+                                    <td style='text-align:center; font-size:14px;'>{$qualifications_repeat[$item['subjectModuleId']]['score']}</td>
+                                    <td style='text-align:center; font-size:12px;'>REC</td>
                                 </tr>";
                 } else {
                     $calificacion =  $item['score'];
@@ -115,9 +115,9 @@ foreach ($historial as $key => $curso) {
                         $calificacion = 10;
                     }
                     $tbody .= "<tr>
-                                    <td>{$item['name']}</td>
-                                    <td style='text-align:center;'>" . round($item['addepUp'], 2, PHP_ROUND_HALF_DOWN) . "</td>
-                                    <td style='text-align:center;'>{$calificacion}</td>
+                                    <td style='font-size:12px'>{$item['name']}</td>
+                                    <td style='text-align:center; font-size:14px;'>" . round($item['addepUp'], 2, PHP_ROUND_HALF_DOWN) . "</td>
+                                    <td style='text-align:center; font-size:14px;'>{$calificacion}</td>
                                     <td></td>
                                 </tr>";
                 }
@@ -151,4 +151,4 @@ $dompdf->load_html($html);
 # Renderizamos el documento PDF.
 $dompdf->render();
 # Enviamos el fichero PDF al navegador. 
-$dompdf->stream("Chistorial.pdf", array('Attachment' => 0));
+$dompdf->stream("Historial.pdf", array('Attachment' => 0));
