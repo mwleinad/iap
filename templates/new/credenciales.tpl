@@ -14,6 +14,7 @@
                     <th>Grupo</th>
                     <th>Foto</th>
                     <th>Estatus</th> 
+                    <th>Historial</th>
                 </tr>
             </thead>
             <tbody></tbody>

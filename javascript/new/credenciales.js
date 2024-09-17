@@ -24,7 +24,8 @@ $("#datatable").DataTable({
         {
             data: "estatus",
             // "orderable": false
-        }, 
+        },
+        { data: "historial" }
     ],
     columnDefs: [
         {

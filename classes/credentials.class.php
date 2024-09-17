@@ -34,7 +34,8 @@ class Credentials extends Main
 	}
 
 	private $token;
-	function setToken($token){
+	function setToken($token)
+	{
 		$this->token = $token;
 	}
 
@@ -57,12 +58,13 @@ class Credentials extends Main
 			array('db' => 'CASE WHEN user_credentials.status = 0 THEN "<span class=\"badge badge-warning\">Pendiente</span>" WHEN user_credentials.status = 1 THEN "<span class=\"badge badge-success\">Aprobada</span>" ELSE "<span class=\"badge badge-danger\">Rechazada</span>" END', 'dt' => 'estatus'),
 			array('db'	=> 'user_credentials.status', 'status'),
 			array(
-				'db' => 'photo', 'dt' => 'foto',
+				'db' => 'photo',
+				'dt' => 'foto',
 				'formatter' => function ($d, $row) {
 					if ($row['status'] != 2) {
-						$jsonFile = json_decode($row['foto'], true); 
+						$jsonFile = json_decode($row['foto'], true);
 						$imageB64 = base64_encode(file_get_contents($jsonFile['urlEmbed']));
-						$mimeType = $jsonFile['mimeType']; 
+						$mimeType = $jsonFile['mimeType'];
 						return "<a class='ajax_sin_form' data-data='\"opcion\":\"previo\",\"credencial\":{$row['credencial_id']}' href='" . WEB_ROOT . "/ajax/new/credenciales.php'>
 							<img src='data:$mimeType;base64,$imageB64' style='width:150px; height:auto;border-radius:25px; cursor:pointer;'>
 						</a>";
@@ -70,6 +72,19 @@ class Credentials extends Main
 						return "No cuenta con foto";
 					}
 				},
+			),
+			array(
+				'db' => 'id',
+				'dt' => 'historial',
+				'formatter' => function ($d, $row) {
+					$where = "AND credencial_id = {$row['historial']}";
+					$historial = $this->getHistoryCredential($where);
+					$html = "";
+					foreach ($historial as $item) {
+						$html.="{$item['message']}<br>";
+					}
+					return $html;
+				}
 			),
 		);
 		$where = "user_credentials.deleted_at IS NULL";
@@ -90,7 +105,7 @@ class Credentials extends Main
 		$response = $this->Util()->DB()->GetRow();
 		if ($response) {
 			$response['files'] = [
-				"photo" => json_decode($response['photo'],true),
+				"photo" => json_decode($response['photo'], true),
 				"credential" => json_decode($response['credential'], true),
 				"token"	=> json_decode($response['token'], true)
 			];
@@ -106,12 +121,20 @@ class Credentials extends Main
 	}
 
 	private $message;
-	public function setMessage($value) {
+	public function setMessage($value)
+	{
 		$this->message = $value;
 	}
-	public function addHistoryCredential() {
+	public function addHistoryCredential()
+	{
 		$sql = "INSERT INTO credentials_history(credencial_id, message) VALUES('{$this->credential}', '{$this->message}')";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->InsertData();
+	}
+
+	public function getHistoryCredential($where = "") {
+		$sql = "SELECT * FROM credentials_history WHERE 1 {$where}";
+		$this->Util()->DB()->setQuery($sql);
+		return $this->Util()->DB()->GetResult();
 	}
 }
