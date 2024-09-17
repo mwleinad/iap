@@ -206,6 +206,13 @@ class Student extends User
 		$sql = "INSERT INTO academic_history(subjectId, courseId, userId, semesterId, dateHistory, type, situation) VALUES(" . $this->subjectId . ", " . $this->courseId . ", " . $this->userId . ", " . $semesterId . ", CURDATE(), '" . $type . "', '" . $situation . "')";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->InsertData();
+
+		if ($type == "baja") {
+			$sql = "UPDATE pagos SET deleted_at = NOW() WHERE course_id = {$this->courseId} AND alumno_id = {$this->userId} AND periodo >= {$semesterId} AND status <> 2 AND deleted_at IS NULL";
+			$this->Util()->DB()->setQuery($sql);
+			$this->Util()->DB()->UpdateData();
+		}
+
 		return true;
 	}
 
@@ -3448,7 +3455,7 @@ class Student extends User
 	{
 		$sql = "INSERT INTO user_credentials(user_id, course_id, photo, status, created_at, updated_at) VALUES($student, $course, '{$files}', 0, NOW(), NOW())";
 		$this->Util()->DB()->setQuery($sql);
-		$id = $this->Util()->DB()->InsertData(); 
+		$id = $this->Util()->DB()->InsertData();
 	}
 
 	public function editCredential($student, $course, $files, $status)
@@ -3543,20 +3550,23 @@ class Student extends User
 	}
 
 	private $status_payment, $status_evaluation;
-	public function setStatusPayment($value) {
+	public function setStatusPayment($value)
+	{
 		$this->status_payment = $value;
 	}
-	public function setStatusEvaluation($value) {
+	public function setStatusEvaluation($value)
+	{
 		$this->status_evaluation = $value;
 	}
 
-	function updateUserCourse() {
+	function updateUserCourse()
+	{
 		$fields = [
-			'status_payment'	=> $this->status_payment, 
+			'status_payment'	=> $this->status_payment,
 			'status_evaluation'	=> $this->status_evaluation
 		];
 		$updateQuery = $this->Util()->DB()->generateUpdateQuery($fields);
-		$sql = "UPDATE user_subject SET $updateQuery WHERE alumnoId = {$this->getUserId()} AND courseId = {$this->getCourseId()}";  
+		$sql = "UPDATE user_subject SET $updateQuery WHERE alumnoId = {$this->getUserId()} AND courseId = {$this->getCourseId()}";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->UpdateData();
 		return true;
@@ -3614,11 +3624,11 @@ class Student extends User
 	function saveInai()
 	{
 		$controlNumber = $this->getControlNumber();
-		$sql = "INSERT INTO user(controlNumber, names, lastNamePaterno, lastNameMaterno, email, phone, password, workPlace, workplaceOcupation, paist, estadot, actualizado, estado, curpDrive, curp) VALUES('" . $controlNumber . "', '" . $this->name . "', '" . $this->lastNamePaterno . "', '" . $this->lastNameMaterno . "', '" . $this->email . "', '" . $this->phone . "', '" . $this->password . "', '" . $this->workplace . "', '".$this->workplaceOcupation."', 1, {$this->estadoT}, 'si', {$this->estadoT}, {$this->curpDrive}, '{$this->curp}')";
-		
-		$this->Util()->DB()->setQuery($sql); 
+		$sql = "INSERT INTO user(controlNumber, names, lastNamePaterno, lastNameMaterno, email, phone, password, workPlace, workplaceOcupation, paist, estadot, actualizado, estado, curpDrive, curp) VALUES('" . $controlNumber . "', '" . $this->name . "', '" . $this->lastNamePaterno . "', '" . $this->lastNameMaterno . "', '" . $this->email . "', '" . $this->phone . "', '" . $this->password . "', '" . $this->workplace . "', '" . $this->workplaceOcupation . "', 1, {$this->estadoT}, 'si', {$this->estadoT}, {$this->curpDrive}, '{$this->curp}')";
+
+		$this->Util()->DB()->setQuery($sql);
 		$resultado['status'] = $this->Util()->DB()->InsertData();
-		$resultado['usuario'] = $controlNumber; 
+		$resultado['usuario'] = $controlNumber;
 		return $resultado;
 	}
 }
