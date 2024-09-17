@@ -107,7 +107,7 @@ switch ($_POST["opcion"]) {
             $util->DB()->setQuery($sql);
             $alumnos[$key]['becas'] = $util->DB()->GetResult();
 
-            $sql = "SELECT SUM(IF(pagos.beca <> 100, total, 0)) monto_pagar, (SELECT SUM(cobros.monto) FROM cobros WHERE cobros.pago_id = pagos.pago_id) as monto_pagado FROM `pagos` WHERE pagos.deleted_at IS NULL AND pagos.alumno_id = {$alumno['userId']} AND pagos.fecha_limite <= NOW() AND pagos.periodo <> 0 AND pagos.beca <> 100 AND pagos.course_id = {$alumno['course_id']};";  
+            $sql = "SELECT SUM(IF(pagos.beca <> 100, total, 0)) monto_pagar, SUM((SELECT SUM(cobros.monto) FROM cobros WHERE cobros.pago_id = pagos.pago_id)) as monto_pagado FROM `pagos` WHERE pagos.deleted_at IS NULL AND pagos.alumno_id = {$alumno['userId']} AND pagos.fecha_limite <= NOW() AND pagos.periodo <> 0 AND pagos.beca <> 100 AND pagos.course_id = {$alumno['course_id']};";  
             $util->DB()->setQuery($sql);
             $montos = $util->DB()->GetResult();
 
