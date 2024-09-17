@@ -81,7 +81,7 @@ class Credentials extends Main
 					$historial = $this->getHistoryCredential($where);
 					$html = "";
 					foreach ($historial as $item) {
-						$html.="{$item['message']}<br>";
+						$html.="<div style='white-space: break-spaces'>{$item['message']}</div>";
 					}
 					return $html;
 				}
