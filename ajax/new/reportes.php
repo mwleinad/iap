@@ -107,12 +107,16 @@ switch ($_POST["opcion"]) {
             $util->DB()->setQuery($sql);
             $alumnos[$key]['becas'] = $util->DB()->GetResult();
 
-            $sql = "SELECT SUM(IF(pagos.beca <> 100, total, 0)) monto_pagar, SUM((SELECT SUM(cobros.monto) FROM cobros WHERE cobros.pago_id = pagos.pago_id)) as monto_pagado FROM `pagos` WHERE pagos.deleted_at IS NULL AND pagos.alumno_id = {$alumno['userId']} AND pagos.fecha_limite <= NOW() AND pagos.periodo <> 0 AND pagos.beca <> 100 AND pagos.course_id = {$alumno['course_id']};";  
+            $sql = "SELECT SUM(IF(pagos.beca <> 100, total, 0)) monto_pagar FROM `pagos` WHERE pagos.deleted_at IS NULL AND pagos.alumno_id = {$alumno['userId']} AND pagos.fecha_limite <= NOW() AND pagos.periodo <> 0 AND pagos.beca <> 100 AND pagos.course_id = {$alumno['course_id']};";  
             $util->DB()->setQuery($sql);
-            $montos = $util->DB()->GetResult();
+            $montoPagar = $util->DB()->GetSingle();
 
-            $alumnos[$key]["deuda"] = $montos[0]['monto_pagar'] - $montos[0]['monto_pagado'];
-            $alumnos[$key]['pagado'] = $montos[0]['monto_pagado'];
+            $sql = "SELECT SUM((SELECT SUM(cobros.monto) FROM cobros WHERE cobros.pago_id = pagos.pago_id)) as monto_pagado FROM `pagos` WHERE pagos.deleted_at IS NULL AND pagos.alumno_id = {$alumno['userId']} AND pagos.periodo <> 0 AND pagos.beca <> 100 AND pagos.course_id = {$alumno['course_id']};";  
+            $util->DB()->setQuery($sql);
+            $montoPagado = $util->DB()->GetSingle();
+            $deuda =  $montoPagar - $montoPagado;
+            $alumnos[$key]["deuda"] = $deuda < 0 ? 0 : $deuda;
+            $alumnos[$key]['pagado'] = $montoPagado;
             foreach ($conceptosProximos as $conceptoProximo) {
                 $sql = "SELECT COUNT(pagos.pago_id) as cantidad FROM `pagos` WHERE pagos.deleted_at IS NULL AND pagos.alumno_id = {$alumno['userId']} AND pagos.status <> 2 AND pagos.fecha_limite >= NOW() AND pagos.periodo <> 0 AND pagos.beca <> 100 AND pagos.course_id = {$alumno['course_id']} AND pagos.concepto_id = {$conceptoProximo['concepto_id']} GROUP BY pagos.concepto_id;"; 
                 $util->DB()->setQuery($sql);
