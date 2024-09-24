@@ -195,13 +195,15 @@
                             <div class="collapse" id="m-reportes">
                                 <ul class="nav flex-column sub-menu">
                                     {if !$docente}
-                                        {if in_array($User.positionId,[1,3,24])}
+                                        {if in_array($User.positionId,[1,3,24,2])}
                                             <li class="nav-item">
                                                 <a class="nav-link" href="{$WEB_ROOT}/report-materia">Materias</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="{$WEB_ROOT}/reporte-indicadores">Indicadores</a>
                                             </li>
+                                        {/if}
+                                        {if in_array($User.positionId,[1,24,2])}
                                             <li class="nav-item">
                                                 <a class="nav-link" href="{$WEB_ROOT}/reporte-becas">Becas</a>
                                             </li>
@@ -214,7 +216,7 @@
                                         {if in_array($User.positionId,[1,10])}
                                             <li class="nav-item">
                                                 <a class="nav-link" href="{$WEB_ROOT}/reporte-diplomado">Diplomados</a>
-                                            </li> 
+                                            </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="{$WEB_ROOT}/reporte-cursos">Cursos</a>
                                             </li>
