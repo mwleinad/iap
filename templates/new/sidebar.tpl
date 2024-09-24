@@ -195,7 +195,7 @@
                             <div class="collapse" id="m-reportes">
                                 <ul class="nav flex-column sub-menu">
                                     {if !$docente}
-                                        {if in_array($User.positionId,[1,3,24,2])}
+                                        {if in_array($User.positionId,[1,3,24])}
                                             <li class="nav-item">
                                                 <a class="nav-link" href="{$WEB_ROOT}/report-materia">Materias</a>
                                             </li>
