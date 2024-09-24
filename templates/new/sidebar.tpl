@@ -184,7 +184,7 @@
                     </li>
                 {/if}
                 {if !$docente}
-                    {if in_array($User.positionId,[1,3,24,10])}
+                    {if in_array($User.positionId,[1,3,24,10, 2])}
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#m-reportes" aria-expanded="false"
                                 aria-controls="m-reportes">
