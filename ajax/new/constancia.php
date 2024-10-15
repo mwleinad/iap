@@ -228,11 +228,13 @@ foreach ($students as $itemStudent) {
     $nameStudent =  mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']);
     $nameStudent = $util->eliminar_acentos($nameStudent);
     $curso = str_replace("EN", "", $infoCourse["name"]);
-    $letraAnio =  $array_date[0] == 2023 ? "dos mil veintitrés" : mb_strtolower($util->num2letras($array_date[0]));  
+    $letraAnio =  $array_date[0] == 2023 ? "dos mil veintitrés" : mb_strtolower($util->num2letras($array_date[0])); 
+    $imagen = file_get_contents(DOC_ROOT . "/images/logos/Logo_3.jpg");
+    $logo = 'data:image/jpg;base64,' . base64_encode($imagen); 
     $html .= '<table width="100%">
                  <tr>
                     <td style="padding-top:60px;">
-                        <img src="' . DOC_ROOT . '/images/logos/Logo_3.jpg" id="logo"/> 
+                        <img src="'.$logo.'" id="logo"/> 
                     </td>
                 </tr>
                 <tr>
