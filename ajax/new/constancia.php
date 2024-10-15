@@ -233,32 +233,32 @@ foreach ($students as $itemStudent) {
     $logo = 'data:image/jpg;base64,' . base64_encode($imagen); 
     $html .= '<table width="100%">
                  <tr>
-                    <td style="padding-top:60px;">
-                        <img src="'.$logo.'" id="logo"/> 
+                    <td style="padding-top:0px;">
+                        <img src="'.$logo.'" id="logo" style="width:250px;"/> 
                     </td>
                 </tr>
                 <tr>
                     <td>  
-                        <h3 style="text-align:center; padding-top:20px;">INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS,  A.C.</h3>
+                        <h4 style="text-align:center; padding-top:0px;">INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS,  A.C.</h4>
                         <div style="text-align:right; margin-top:0;font-size:12px;">IAP/SE/DA/<span style="color:red;">' . $folio . '</span>/'.date('Y').'</div>
                         <div> 
-                            <p style="font-size:12px; text-align: justify;line-height:1.2; margin-top:0.2cm;">
+                            <p style="font-size:11px; text-align: justify;line-height:1.2; margin-top:0.2cm;">
                                 LA DIRECCIÓN ACADÉMICA DEL INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, RÉGIMEN PARTICULAR, TURNO ' . mb_strtoupper($infoCourse["turn"]) . ' MODALIDAD ' . $modality . ', CLAVE ' . $myInstitution["identifier"] . ', HACE CONSTAR QUE: <br>
                             </p>
-                            <div style="font-size: 14px; text-align: center; padding:10px 0;">
+                            <div style="font-size: 13px; text-align: center; padding:10px 0;">
                                 <b>' . $nameStudent . '</b>
                             </div>
-                            <p style="font-size:12px; text-align: center; line-height:1.2; margin-top:0.4cm;">
+                            <p style="font-size:11px; text-align: center; line-height:1.2; margin-top:0.4cm;">
                                 CON No. DE CONTROL: <b>' . $student->GetMatricula($infoCourse["courseId"]) . '</b> ACREDITÓ LAS MATERIAS QUE INTEGRAN EL PLAN DE ESTUDIOS ' . $plan . ':
                             </p>
-                            <p style="font-size: 14px; text-align: center;">
+                            <p style="font-size: 13px; text-align: center;">
                                 <b>' .  $infoCourse['majorName'] . ' EN ' . $curso . '</b>
                             </p>
-                            <p style="font-size: 12px; text-align: center; line-height:1.5">
+                            <p style="font-size: 11px; text-align: center; line-height:1.5">
                                 ACUERDO NÚMERO: <b>' . mb_strtoupper($rvoe) . '</b>, VIGENTE A PARTIR DEL ' . mb_strtoupper($util->FormatReadableDate($fechaRvoe)) . ', DURANTE EL PERIODO:<br> 
                             </p>
-                            <p class="text-center" style="font-size:12px;"><b>' . mb_strtoupper($periodo) . '</b></p>
-                            <p style="font-size: 12px; text-align: center; margin-bottom:20px; line-height:1">CON LOS RESULTADOS QUE A CONTINUACIÓN SE ANOTAN:</p> 
+                            <p class="text-center" style="font-size:11px;"><b>' . mb_strtoupper($periodo) . '</b></p>
+                            <p style="font-size: 11px; text-align: center; margin-bottom:20px; line-height:1">CON LOS RESULTADOS QUE A CONTINUACIÓN SE ANOTAN:</p> 
                         </div>
                     </td>
                 </tr>
@@ -285,15 +285,15 @@ foreach ($students as $itemStudent) {
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="8" style="border:none; text-align:right; padding: 15px 0 0 0; font-weight: 900; font-size:11px;">PROMEDIO GENERAL ' . $promedio . ' ' . mb_strtoupper($promedioLetras) . '</td>
+                        <td colspan="8" style="border:none; text-align:right; padding: 15px 0 0 0; font-weight: 900; font-size:11px; font-family:arial;">PROMEDIO GENERAL ' . $promedio . ' ' . mb_strtoupper($promedioLetras) . '</td>
                     </tr>
                 </tfoot>
             </table>
-            <p style="font-size:12px; line-height:15px;">La escala oficial de calificaciones es de '.$minCalOf.' ('. mb_strtoupper($util->num2letras($minCalOf)).') a 10 (DIEZ), considerando como mínima aprobatoria ' . $minCal . ' (' . mb_strtoupper($util->num2letras($minCal)) . '). Esta constancia ampara <b>' . mb_strtoupper($util->num2letras($total_modules)) . '</b> materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ' . $array_date[2] . ' días del mes de ' . mb_strtolower($util->ConvertirMes(intval($array_date[1]))) . ' del año ' . $letraAnio . '.</p>
+            <p style="font-size:10px; line-height:13px;">La escala oficial de calificaciones es de '.$minCalOf.' ('. mb_strtoupper($util->num2letras($minCalOf)).') a 10 (DIEZ), considerando como mínima aprobatoria ' . $minCal . ' (' . mb_strtoupper($util->num2letras($minCal)) . '). Esta constancia ampara <b>' . mb_strtoupper($util->num2letras($total_modules)) . '</b> materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ' . $array_date[2] . ' días del mes de ' . mb_strtolower($util->ConvertirMes(intval($array_date[1]))) . ' del año ' . $letraAnio . '.</p>
             <table width="100%">
                 <tr>
                     <td style="font-size: 12px; text-align: center;"> 
-                        <br><br><br><br><br><br><br><br><br><br>
+                        <br><br><br><br><br><br><br><br>
                         _________________________________________________
                         <br>
                         <div style="margin-top:5px;">
@@ -317,7 +317,7 @@ $html .= "</body>
 $mipdf = new DOMPDF();
 # Definimos el tamaño y orientación del papel que queremos.
 # O por defecto cogerá el que está en el fichero de configuración.
-$mipdf->set_paper("legal", "portrait");
+$mipdf->set_paper("letter", "portrait");
 # Cargamos el contenido HTML.
 $mipdf->load_html($html);
 # Renderizamos el documento PDF.
