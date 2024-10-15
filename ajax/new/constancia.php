@@ -240,7 +240,7 @@ foreach ($students as $itemStudent) {
                 <tr>
                     <td>  
                         <h3 style="text-align:center; padding-top:20px;">INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS,  A.C.</h3>
-                        <div style="text-align:right; margin-top:0;font-size:12px; color:red;"><b>' . $folio . '</b></div>
+                        <div style="text-align:right; margin-top:0;font-size:12px;">IAP/SE/DA/<span style="color:red;">' . $folio . '</span>/'.date('Y').'</div>
                         <div> 
                             <p style="font-size:12px; text-align: justify;line-height:1.2; margin-top:0.2cm;">
                                 LA DIRECCIÓN ACADÉMICA DEL INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, RÉGIMEN PARTICULAR, TURNO ' . mb_strtoupper($infoCourse["turn"]) . ' MODALIDAD ' . $modality . ', CLAVE ' . $myInstitution["identifier"] . ', HACE CONSTAR QUE: <br>
