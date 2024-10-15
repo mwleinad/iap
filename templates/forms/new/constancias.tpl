@@ -13,6 +13,10 @@
             <label for="rvoe">RVOE</label>
             <input type="text" name="rvoe" value="{($info.modality == "online") ? $info.rvoeLinea : $info.rvoe}" id="rvoe" class="form-control text-uppercase" />
         </div>
+        <div class="form-group col-md-6">
+            <label for="fecha_rvoe">Fecha REVOE</label>
+            <input type="text" name="fecha_rvoe" value="{($info.modality == "online") ? $info.fechaRvoeLinea : $info.fechaRvoe}" id="fecha_rvoe" class="form-control i-calendar" />
+        </div>
         <h3 class="col-md-12">Selecciona al alumno</h3>  
         {foreach from=$students item=item}
             <div class="input-group mb-3 col-md-8 align-items-center form-group">

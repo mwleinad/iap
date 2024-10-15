@@ -25,13 +25,12 @@ if ($infoCourse['majorId'] == 18) {
 }
 // Modalidad y RVOE
 $rvoe = $_POST['rvoe']; 
+$fechaRvoe = $_POST['fecha_rvoe'];
 if ($infoCourse['modality'] == 'Online') {
-    $modality = 'NO ESCOLAR';
-    $fechaRvoe = $infoCourse['fechaRvoeLinea'];
+    $modality = 'NO ESCOLAR'; 
 }
 if ($infoCourse['modality'] == 'Local' || $infoCourse['modality'] == "Mixta") {
-    $modality = $infoCourse['modality'] == "Local" ? 'ESCOLAR' : "MIXTA";
-    $fechaRvoe = $infoCourse['fechaRvoe'];    
+    $modality = $infoCourse['modality'] == "Local" ? 'ESCOLAR' : "MIXTA"; 
 } 
 
 $infoCourse['tipoCuatri'] = $infoCourse['tipoCuatri'] == '' ? "Cuatrimestre" : $infoCourse['tipoCuatri'];
@@ -100,6 +99,7 @@ foreach ($students as $itemStudent) {
         $constancias->setFechaExpedicion($fechaExpedicion);
         $constancias->setPeriodo($periodo);
         $constancias->setRvoe($rvoe);
+        $constancias->setFechaRvoe($fechaRvoe);
         $constancias->setCurso($_POST['course']);
         $constancias->setAlumno($itemStudent);
         $constancias->setFolio($_POST['folio'][$itemStudent]);
@@ -108,9 +108,11 @@ foreach ($students as $itemStudent) {
         $fechaExpedicion = empty($fechaExpedicion) ? $constanciaAlumno['fecha_expedicion'] : $fechaExpedicion;
         $periodo = empty($periodo) ? $constanciaAlumno['periodo'] : $periodo;
         $rvoe = empty($rvoe) ? $constanciaAlumno['rvoe'] : $rvoe; 
+        $fechaRvoe = empty($fechaRvoe) ? $constanciaAlumno['fechaRvoe'] : $fechaRvoe; 
         $constancias->setFechaExpedicion($fechaExpedicion);
         $constancias->setPeriodo($periodo);
         $constancias->setRvoe($rvoe);
+        $constancias->setFechaRvoe($fechaRvoe);
         $constancias->setCurso($_POST['course']);
         $constancias->setAlumno($itemStudent);
         $constancias->setFolio($_POST['folio'][$itemStudent]);

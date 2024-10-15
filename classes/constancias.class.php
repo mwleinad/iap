@@ -1,7 +1,7 @@
 <?php
 class Constancias extends Module
 {
-    private $fecha_expedicion, $periodo, $rvoe, $folio, $alumno, $curso, $Util;
+    private $fecha_expedicion, $periodo, $rvoe, $folio, $alumno, $curso, $Util, $fechaRvoe;
 
     function setFechaExpedicion($data): void
     {
@@ -16,6 +16,11 @@ class Constancias extends Module
     function setRvoe($data): void
     {
         $this->rvoe = $data;
+    }
+
+    function setFechaRvoe($data): void
+    {
+        $this->fechaRvoe = $data;
     }
 
     function setFolio($data): void
@@ -49,14 +54,14 @@ class Constancias extends Module
     }
 
     function crearConstancia() {
-        $sql = "INSERT INTO constancias(fecha_expedicion, periodo, rvoe, folio, alumno_id, course_id) VALUES('{$this->fecha_expedicion}','{$this->periodo}', '{$this->rvoe}', '{$this->folio}', '{$this->alumno}', '{$this->curso}')";
+        $sql = "INSERT INTO constancias(fecha_expedicion, periodo, rvoe, folio, alumno_id, course_id, fechaRvoe) VALUES('{$this->fecha_expedicion}','{$this->periodo}', '{$this->rvoe}', '{$this->folio}', '{$this->alumno}', '{$this->curso}', '{$this->fechaRvoe}')";
 
         $this->Util()->DB()->setQuery($sql);
         $this->Util()->DB()->InsertData();
     }
 
     function actualizarConstancia() {
-        $sql = "UPDATE constancias SET fecha_expedicion = '{$this->fecha_expedicion}', periodo = '{$this->periodo}', rvoe = '{$this->rvoe}', folio = '{$this->folio}' WHERE alumno_id = '{$this->alumno}' AND course_id = '{$this->curso}'";
+        $sql = "UPDATE constancias SET fecha_expedicion = '{$this->fecha_expedicion}', periodo = '{$this->periodo}', rvoe = '{$this->rvoe}', folio = '{$this->folio}', fechaRvoe = '{$this->fechaRvoe}' WHERE alumno_id = '{$this->alumno}' AND course_id = '{$this->curso}'";
 
         $this->Util()->DB()->setQuery($sql);
         $this->Util()->DB()->UpdateData();
