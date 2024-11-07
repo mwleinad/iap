@@ -273,7 +273,8 @@ $pages = array(
 	'reporte-cursos',
 	'verificar',
 	'registro-INAI',
-	'reporte-diplomado'
+	'reporte-diplomado',
+	'diploma-multiple'
 );
 $mensaje = "";
 if (!in_array($_GET['page'], $pages) && $_GET['page'] != "logout") {

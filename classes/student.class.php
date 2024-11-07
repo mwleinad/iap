@@ -1693,7 +1693,12 @@ class Student extends User
 			}
 			$sql = "SELECT * FROM diplomas WHERE courseId = '" . $res['courseId'] . "' AND studentId ='" . $res['alumnoId'] . "' ";
 			$this->Util()->DB()->setQuery($sql);
-			$result[$key]["diploma"] = $this->Util()->DB()->GetRow();
+			$result[$key]["diploma"] = $this->Util()->DB()->GetRow(); 
+			 
+			$sql = "SELECT diploma_multiple.id FROM `diploma_alumnos` INNER JOIN diploma_multiple ON diploma_multiple.id = diploma_alumnos.diploma_id INNER JOIN diploma_cursos ON diploma_cursos.diploma_id = diploma_multiple.id WHERE diploma_cursos.course_id = {$res['courseId']} AND diploma_alumnos.alumno_id = {$res['alumnoId']}";  
+			$this->Util()->DB()->setQuery($sql);
+			$result[$key]['diplomaMultiple'] = $this->Util()->DB()->GetSingle();
+			 
 		}
 		return $result;
 	}

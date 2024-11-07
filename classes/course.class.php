@@ -1666,7 +1666,8 @@ class Course extends Subject
 			array('db' => 'user.controlNumber', 'dt' => 'control'),
 			array('db' => 'CONCAT(user.names, " ", user.lastNamePaterno," ", user.lastNameMaterno)',  'dt' => 'alumno'),
 			array(
-				'db' => 'userId', 'dt' => 'acciones',
+				'db' => 'userId',
+				'dt' => 'acciones',
 				'formatter' => function ($d, $row) {
 					$html = "";
 					$this->setUserId($d);
@@ -1739,7 +1740,8 @@ class Course extends Subject
 			array('db' => 'user_subject.status_payment', "dt" => "status_payment"),
 			array('db' => 'user_subject.status_evaluation', "dt" => "status_evaluation"),
 			array(
-				'db' => 'userId', 'dt' => 'acciones',
+				'db' => 'userId',
+				'dt' => 'acciones',
 				'formatter' => function ($d, $row) {
 					$html = "";
 					if ($row['status_payment']) {
@@ -1783,6 +1785,7 @@ class Course extends Subject
 		$where = "user_subject.courseId = {$_POST['curso']}";
 		return SSP::complex($_POST, $table, $primaryKey, $columns, $where);
 	}
+
 	function dt_constancias_conocer()
 	{
 		$table = 'user INNER JOIN user_subject ON user_subject.alumnoId = user.userId';
@@ -1793,7 +1796,8 @@ class Course extends Subject
 			array('db' => 'CONCAT(user.names, " ", user.lastNamePaterno," ", user.lastNameMaterno)',  'dt' => 'alumno'),
 			array('db' => '(SELECT constancias_conocer.id FROM constancias_conocer WHERE constancias_conocer.studentId = user.userId AND constancias_conocer.courseId = user_subject.courseId)', 'dt' => 'constancia'),
 			array(
-				'db' => 'userId', 'dt' => 'acciones',
+				'db' => 'userId',
+				'dt' => 'acciones',
 				'formatter' => function ($d, $row) {
 					$html = "";
 					if ($row['constancia']) {
@@ -1801,7 +1805,7 @@ class Course extends Subject
 									<i class="fas fa-download"></i>
 								</a>';
 					} else {
-						$html = '<form id="form_' . $row['userId'].$_POST['curso'] . '" class="form" action="' . WEB_ROOT . '/ajax/new/constancia-conocer.php" method="POST">
+						$html = '<form id="form_' . $row['userId'] . $_POST['curso'] . '" class="form" action="' . WEB_ROOT . '/ajax/new/constancia-conocer.php" method="POST">
 									<input type="hidden" name="student" value="' . $row['userId'] . '">
 									<input type="hidden" name="course" value="' . $_POST['curso'] . '">
 									<div class="input-group">
@@ -1818,5 +1822,98 @@ class Course extends Subject
 		);
 		$where = "user_subject.courseId = {$_POST['curso']}";
 		return SSP::complex($_POST, $table, $primaryKey, $columns, $where);
+	}
+
+	public function dt_diplomas_multiples()
+	{
+		$table = 'diploma_multiple';
+		$primaryKey = 'id';
+		$columns = array(
+			array('db' => 'id', 			'dt' => 'id'),
+			array('db' => 'nombre', 		'dt' => 'nombre'),
+			array('db' => 'imagen_portada',	'dt' => 'imagen_portada', 'formatter' => function ($d, $row) {
+				return "<iframe src='https://drive.google.com/file/d/{$row['imagen_portada']}/preview' style='border:0;'></iframe>";
+			}),
+			array('db' => 'imagen_contraportada', 'dt' => 'imagen_contraportada', 'formatter' => function ($d, $row) {
+				return "<iframe src='https://drive.google.com/file/d/{$row['imagen_contraportada']}/preview' style='border:0;'></iframe>";
+			}),
+			array('db'	=> '(SELECT GROUP_CONCAT(diploma_cursos.course_id) FROM diploma_cursos WHERE diploma_cursos.diploma_id = diploma_multiple.id)', 'dt'	=> 'cursos'),
+			array(
+				'db' => 'id',
+				'dt' => 'acciones',
+				'formatter' => function ($d, $row) {
+					$html = "<form class='form' id='form_curso_alumno" . $row['id'] . "' action='" . WEB_ROOT . "/ajax/new/course.php' method='POST'>
+								<input type='hidden' name='option' value='addStudentDiploma'>
+								<input type='hidden' name='diploma' value='" . $row['id'] . "'>
+								<button class='btn btn-success' type='submit'>Agregar alumno</button>
+							</form>";
+					return $html;
+				},
+			),
+		);
+		$where = "";
+		return SSP::complex($_POST, $table, $primaryKey, $columns, $where);
+	}
+
+	public function addDiplomaMultiple($nombre, $imagen_portada, $imagen_contraportada)
+	{
+		$sql = "INSERT INTO diploma_multiple(nombre, imagen_portada, imagen_contraportada) VALUES('$nombre', '$imagen_portada', '$imagen_contraportada')";
+		$this->Util()->DB()->setQuery($sql);
+		return $this->Util()->DB()->InsertData();
+	}
+
+
+	public function addDiplomaCurso($diploma, $curso)
+	{
+		$sql = "INSERT INTO diploma_cursos(diploma_id, course_id) VALUES($diploma, $curso)";
+		$this->Util()->DB()->setQuery($sql);
+		return $this->Util()->DB()->InsertData();
+	}
+
+	public function dt_alumnos_diplomas()
+	{
+		$table = 'user_subject INNER JOIN user ON user.userId = user_subject.alumnoId';
+		$primaryKey = 'courseId';
+		$columns = array(
+			array('db'	=> 'user.userId', 			'dt'	=> 'id'),
+			array('db'	=> 'user.controlNumber',	'dt' 	=> 'controlNumber'),
+			array('db'	=> 'user.password',			'dt' 	=> 'password'),
+			array('db' 	=> 'CONCAT(user.names, " ", user.lastNamePaterno, " ", user.lastNameMaterno)', 	'dt' => 'nombre'),
+			array('db'	=> "(SELECT COUNT(*) FROM diploma_alumnos WHERE diploma_alumnos.alumno_id = user.userId AND diploma_alumnos.diploma_id = {$_POST['diploma']})", 'dt'	=> 'existe'),
+			array(
+				'db' => 'user.userId',
+				'dt' => 'acciones',
+				'formatter' => function ($d, $row) {
+					if ($row['existe'] == 0) {
+						return "<form id='form_generateDiploma".$row['id']."' class='form' method='POST' action='".WEB_ROOT."/ajax/new/course.php'>
+								<input type='hidden' name='option' value='generateDiploma'>
+								<input type='hidden' name='diploma' value='".$_POST['diploma']."'>
+								<input type='hidden' name='student' value='".$row['id']."'>
+								<button class='btn btn-success' type='submit'>Generar documento</button>
+							</form>";
+					}
+					return "<form id='form_generateDiploma".$row['id']."' class='form' method='POST' action='".WEB_ROOT."/ajax/new/course.php'>
+								<input type='hidden' name='option' value='deleteDiplomaMultiple'>
+								<input type='hidden' name='diploma' value='".$_POST['diploma']."'>
+								<input type='hidden' name='student' value='".$row['id']."'>
+								<button class='btn btn-danger' type='submit'>Quitar documento</button>
+							</form>";
+				},
+			),
+		);
+		$where = "1 GROUP BY user.userId";
+		return SSP::complex($_POST, $table, $primaryKey, $columns, $where, null);
+	}
+
+	public function generateDiploma($diploma, $alumno, $token) {
+		$sql = "INSERT INTO diploma_alumnos(diploma_id, alumno_id, token) VALUES($diploma, $alumno, '{$token}')";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->InsertData();
+	}
+
+	public function deleteDiplomaMultiple($diploma, $alumno) {
+		$sql = "DELETE FROM diploma_alumnos WHERE diploma_id = '{$diploma}' AND alumno_id = '{$alumno}'";
+		$this->Util()->DB()->setQuery($sql);
+		$this->Util()->DB()->InsertData();
 	}
 }

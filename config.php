@@ -36,3 +36,5 @@ define("BN_SSL", getenv('BN_SSL'));
 
 define("URL_API", getenv('URL_API'));
 define("BEARERTOKEN", getenv('BEARERTOKEN'));
+
+define('GOOGLE_DRIVE_FOLDER_DIPLOMA', getenv('GOOGLE_DRIVE_FOLDER_DIPLOMA'));
