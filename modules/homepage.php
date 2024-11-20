@@ -71,10 +71,17 @@
 		$activeCourses = [];
 	}
 	// print_r($activeCourses);
-	$smarty->assign("activeCourses", $activeCourses); 
-	$smarty->assign("inactiveCourses", $inactiveCourses);	
+	
 
 	$finishedCourses = $student->StudentCourses("finalizado");
+	foreach ($finishedCourses as $key => $value) { 
+		if (in_array($_SESSION['User']['userId'], [7480, 7481, 7482]) && date('Y-m-d') < "2024-11-30") {
+			$activeCourses[] = $finishedCourses[$key];
+			unset($finishedCourses[$key]);
+		}
+	}
+	$smarty->assign("activeCourses", $activeCourses); 
+	$smarty->assign("inactiveCourses", $inactiveCourses);	
 	$smarty->assign("finishedCourses", $finishedCourses);	
 	 	
 
