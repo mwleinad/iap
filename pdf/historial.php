@@ -67,7 +67,7 @@ foreach ($historial as $key => $curso) {
     $nivelesValidos = $course->GetEnglishLevels();
     $html .= '<div style="width:100%; font-family: arial;">
                 <h2 style="margin-top:0; margin-bottom:0;">' . $infoCourse['majorName'] . ' - ' . $infoCourse['name'] . '</h2> 
-                <h3 style="margin-top:0; margin-bottom:0;">GRUPO: <span style="color:fca311;">' . $infoCourse['group'] . '</span></h3> 
+                <h2 style="margin-top:0; margin-bottom:0;">GRUPO: <span style="color:000;">' . $infoCourse['group'] . '</span></h2> 
                 <h3 style="margin-top:0; margin-bottom:0;">Matrícula:' . $matricula . '</h3>  
             </div>';
     $eventos = explode(",", $curso['periodos']);
