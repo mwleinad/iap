@@ -15,10 +15,14 @@
     </nav>
 </div>
 <div class="row">
-    <div class="col-md-3">
-        {include file="new/card_student.tpl"}
+    <div class="col-md-12 col-xl-3">
+        <div class="row">
+            <div class="col-md-8 col-xl-12 mx-auto mb-3">
+                {include file="new/card_student.tpl"}
+            </div>
+        </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-12 col-xl-9">
         <div class="row">
             <div class="col-md-12">
                 {if $msjC eq 'si'}
@@ -68,7 +72,7 @@
                 {* CURRICULA ACTIVA *}
 
                 {foreach from=$activeCourses item=subject}
-                    <div class="col-md-4 stretch-card grid-margin">
+                    <div class="col-md-6 col-xl-4 stretch-card grid-margin">
                         <div class="card card-img-holder text-white bg-gradient-primary">
                             <div class="text-center">
                                 <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula">
@@ -223,7 +227,7 @@
                 </div>
                 {* CURRICULA Finalizada *}
                 {foreach from=$finishedCourses item=subject}
-                    <div class="col-md-4 stretch-card grid-margin">
+                    <div class="col-md-6 col-xl-4 stretch-card grid-margin">
                         <div class="card card-img-holder text-white bg-gradient-primary">
                             <div class="text-center">
                                 <a href="{$WEB_ROOT}/modulos-curricula/id/{$subject.courseId}" title="Módulos de la Currícula">
@@ -320,7 +324,7 @@
                     </h3>
                 </div>
                 {* FINANZAS *}
-                <div class="col-md-4 stretch-card grid-margin">
+                <div class="col-md-6 col-xl-4 stretch-card grid-margin">
                     <div class="card bg-gradient-success card-img-holder text-white">
                         <div class="text-center">
                             <a href="{$WEB_ROOT}/finanzas">
@@ -341,7 +345,7 @@
                     </div>
                 </div>
                 {* INBOX *}
-                <div class="col-md-4 stretch-card grid-margin">
+                <div class="col-md-6 col-xl-4 stretch-card grid-margin">
                     <div class="card bg-gradient-success card-img-holder text-white">
                         <div class="text-center">
                             <a href="{$WEB_ROOT}/inbox/or/h">
@@ -362,7 +366,7 @@
                     </div>
                 </div>
                 {* DOCUMENTOS *}
-                <div class="col-md-4 stretch-card grid-margin">
+                <div class="col-md-6 col-xl-4 stretch-card grid-margin">
                     <div class="card bg-gradient-success card-img-holder text-white">
                         <div class="text-center">
                             <a href="{$WEB_ROOT}/doc-alumno">
@@ -383,7 +387,7 @@
                     </div>
                 </div>
                 {* PERSONAL ACADEMICO *}
-                <div class="col-md-4 stretch-card grid-margin">
+                <div class="col-md-6 col-xl-4 stretch-card grid-margin">
                     <div class="card bg-gradient-success card-img-holder text-white">
                         <div class="text-center">
                             <a href="{$WEB_ROOT}/personal-academico">
@@ -405,7 +409,7 @@
                 </div>
                 {* REGLAMENTO GENERAL DE POSGRADO *}
                 {if $showRegulation}
-                    <div class="col-md-4 stretch-card grid-margin">
+                    <div class="col-md-6 col-xl-4 stretch-card grid-margin">
                         <div class="card bg-gradient-success card-img-holder text-white">
                             <div class="text-center">
                                 <a href="{$WEB_ROOT}/reglamento">
@@ -427,7 +431,7 @@
                     </div>
                 {/if}
                 {* ACERVO DIGITAL *}
-                <div class="col-md-4 stretch-card grid-margin">
+                <div class="col-md-6 col-xl-4 stretch-card grid-margin">
                     <div class="card bg-gradient-success card-img-holder text-white">
                         <div class="text-center">
                             <a href="https://biblioteca.iapchiapas.edu.mx/" target="_blank">
@@ -453,20 +457,21 @@
     </div>
 </div>
 <div class="cookies d-none">
-    <div class="container" style="background: #fff; border-radius: 20px 20px 0 0;">
+    <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div style=" padding: 20px 40px; text-align: justify; font-size: 18px;">
-                    <h5 style="font-size:20px; text-align:center; font-weight: 700;">Esta página web hace uso de cookies
-                    </h5>
+                <div class="content">
+                    <h5 class="title">Esta página web hace uso de cookies</h5>
                     Las cookies necesarias ayudan a hacer una página web utilizable activando funciones básicas como la
                     navegación en la página y el acceso a áreas seguras. La página web no puede funcionar adecuadamente
                     sin estas cookies.
                 </div>
             </div>
             <div class="col-md-12 text-center mb-3">
-                <button class="btn btn-success" type="button" onclick="aceptarCookies()">Aceptar Cookies</button>
-                <a class="btn btn-info" target="_blank" href="https://iapchiapas.edu.mx/aviso_privacidad">Aviso de
+                <button class="btn btn-success mb-2 btn-block" type="button" onclick="aceptarCookies()">Aceptar
+                    Cookies</button>
+                <a class="btn btn-info btn-block" target="_blank"
+                    href="https://iapchiapas.edu.mx/aviso_privacidad">Aviso de
                     privacidad</a>
             </div>
         </div>

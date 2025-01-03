@@ -18,7 +18,7 @@
 <div class="card mb-4">
     {*<div class="card-header bg-primary text-white"></div>*}
     <div class="card-body">
-        <h3 class="text-center">{$infoCourses.majorName|upper}: {$infoCourses.name|upper} - GRUPO: {$infoCourses.group}</h3>
+        <h3 class="text-center page-title mb-3">{$infoCourses.majorName|upper}: {$infoCourses.name|upper} - GRUPO: {$infoCourses.group}</h3>
         <div id="accordion">
             {for $cuatrimestre = $alta to $baja}
                 <div class="card">
@@ -29,16 +29,16 @@
                         <div class="card-body">
                             {foreach from=$subjects item=subject}
                                 {if $cuatrimestre eq $subject.semesterId}
-                                    <div class="card border-secondary mb-2 border border-info">
+                                    <div class="card border-secondary mb-2 border border-info card-module">
                                         <div class="card-header bg-info text-white">
                                             {$subject.name}
-                                            <span class="badge badge-dark float-right">
+                                            <span class="badge badge-dark">
                                                 Cuatrimestre: {$subject.semesterId}
                                             </span>
                                         </div>
                                         <div class="card-body">
                                             <div class="row mb-2">
-                                                <div class="col-md-4 text-center">
+                                                <div class="col-md-6 col-lg-4 text-center">
                                                     <h5 class="card-title"><b>Fecha Inicio:</b> {$subject.initialDate|date_format:"%d-%m-%Y"}</h5>
                                                     <h5 class="card-title"><b>Fecha Fin:</b> {$subject.finalDate|date_format:"%d-%m-%Y"}</h5>
                                                     <p class="card-text">
@@ -84,9 +84,9 @@
                                                         {/if}
                                                     </p>
                                                 </div>
-                                                <div class="col-md-8 text-center">
+                                                <div class="col-md-6 col-lg-8 text-center">
                                                     {if $subject.icon eq ''}
-                                                        <img src="{$WEB_ROOT}/images/logos/Logo_3.png" alt="IAP Chiapas" style="width: 250px !important; height: auto !important; border-radius: 0 !important;" />
+                                                        <img src="{$WEB_ROOT}/images/logos/logo-humanismo.webp" alt="IAP Chiapas" style="width: 250px !important; height: auto !important; border-radius: 0 !important;" />
                                                     {else} 
                                                         <img src="{$WEB_ROOT}/images/new/modulos/{$subject.icon}" alt="IAP Chiapas" style="width: 300px !important; height: auto !important; border-radius: 0 !important;">
                                                     {/if}<br />

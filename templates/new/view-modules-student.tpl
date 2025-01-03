@@ -15,10 +15,10 @@
     </nav>
 </div>
 <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-12 col-lg-2">
         {include file="new/student-menu.tpl"}
     </div>
-    <div class="col-md-10">
+    <div class="col-md-12 col-lg-10">
         <div class="row">
             <div class="col-md-12 mb-3">
                 <h3 class="page-title">
@@ -28,7 +28,7 @@
                     <b>Anuncios</b>
                 </h3>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" id="announcements">
                 {include file="boxes/status_no_ajax.tpl"}
                 {include file="{$DOC_ROOT}/templates/lists/new/module-announcements.tpl"}
             </div>

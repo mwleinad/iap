@@ -5,7 +5,7 @@
     <div class="card-body">
         <div id="tblContent" class="row">
 			{* ASIDE *}
-			<div class="col-md-2">
+			<div class="col-lg-3">
 				<div class="list-group">
 					{if $userType eq 'student' && $countCourses >= 1}
 						<a data-target="#ajax" class="list-group-item list-group-item-action inbox" data-toggle="modal" href="{$WEB_ROOT}/graybox.php?page=nuevo-inbox" data-title="Compose"> 
@@ -35,7 +35,7 @@
 				</div>
 			</div>
 			{* CONTENT *}
-			<div class="col-md-10">
+			<div class="col-lg-10">
 				{* SEARCH *}
 				<div class="col-md-12 mb-4">
 					<form action="#" class="form-search">

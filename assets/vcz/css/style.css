@@ -17561,9 +17561,6 @@ code {
   background: #fff;
 }
 
-.card .card-body {
-  padding: 2.5rem 2.5rem;
-}
 
 .card .card-body+.card-body {
   padding-top: 1rem;
@@ -20055,10 +20052,56 @@ dl li {
   font-weight: 800;
 }
 
-@media (max-width: 480) {
+.cookies>.container {
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+}
+
+.cookies .content {
+  padding: 20px 40px;
+  text-align: justify;
+  font-size: 18px;
+}
+
+.cookies .content .title {
+  font-size: 20px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.card-module .card-header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
   #ajax .curricula_previa {
     font-size: 1rem;
   }
+
+  .cookies .content {
+    font-size: 16px;
+    padding: 20px 0;
+  }
+
+  .cookies .content .title {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 990px) {
+
+  #announcements iframe,
+  #announcements .card-body {
+    width: 100%;
+  }
+
+  #announcements .card-body {
+    overflow-x: auto;
+    max-height: 600px;
+  }
+
 }
 
 @media (max-width: 1600px) {
