@@ -71,9 +71,9 @@ class Files extends Main
 		//print_r($prof);
 		// Set some content to print
 		$logo = DOC_ROOT."/images/logo_correo.jpg";
-		$dia = date("d");
-		$mes = date("m");
-		$anio = date("Y");
+		$dia = date("d", strtotime($infoU['created_at']));
+		$mes = date("m", strtotime($infoU['created_at']));
+		$anio = date("Y", strtotime($infoU['created_at']));
 		$meses = ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"];
 
 		$nacimiento = new DateTime($infoU["birthdate"]);
