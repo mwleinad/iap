@@ -1544,4 +1544,12 @@ class Subject extends Main
 		$grupos = $this->Util()->DB()->GetResult();
 		return $grupos;
 	}
+ 
+	public function getSubjects($where = "")
+	{
+		$sql = "SELECT subject.*, major.name as majorName FROM subject INNER JOIN major ON major.majorId = subject.tipo WHERE 1 {$where}";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		return $result;
+	}
 }

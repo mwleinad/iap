@@ -37,10 +37,12 @@ class Student extends User
 	{
 		$this->actualizado = $value;
 	}
+
 	public function setValidar($value)
 	{
 		$this->validar = $value;
 	}
+
 	public function setPeriodo($value)
 	{
 		$this->periodo = $value;
@@ -193,12 +195,6 @@ class Student extends User
 	function setFuncion($value)
 	{
 		$this->funcion = $value;
-	}
-
-	private $schoolNumber;
-	function setSchoolNumber($value)
-	{
-		$this->schoolNumber = $value;
 	}
 
 	public function AddAcademicHistory($type, $situation, $semesterId = 1)
@@ -376,41 +372,53 @@ class Student extends User
 		return $total;
 	}
 
-	public function Save($option = "")
+	public function Save()
 	{
-		if ($this->Util()->PrintErrors())
-			return false;
 
-		if ($this->curpDrive == "") {
-			$this->curpDrive = 'NULL';
-		}
-		if ($this->foto == "") {
-			$this->foto = 'NULL';
-		}
-		if ($this->actualizado == "") {
-			$this->actualizado = 'no';
-		}
-		$sql = "SELECT COUNT(*) FROM user WHERE email = '" . $this->getEmail() . "'";
+		include(DOC_ROOT . "/properties/messages.php");
+		$sql = "SELECT * FROM user WHERE email = '" . $this->getEmail() . "'";
 		// Verificando que no se duplique el correo electronico
 		$this->Util()->DB()->setQuery($sql);
-		$total = $this->Util()->DB()->GetSingle();
-		if ($total > 0) {
-			$this->Util()->setError(10028, "error", "Este e-mail ya ha sido registrado previamente");
-			$this->Util()->PrintErrors();
-			return false;
-		}
-		// Validando contraseña de minimo 6 caracteres
-		if (strlen($this->getPassword()) < 6) {
-			$this->Util()->setError(10028, "error", "El password debe de contener al menos 6 caracteres.");
-			$this->Util()->PrintErrors();
-			return false;
-		}
-
-		$course = new Course();
-		$course->setCourseId($_POST["curricula"]);
-		$courseData = $course->Info();
-		if (!in_array($_POST['curricula'], [162, 167, 168, 169, 170])) {
-			// CRM
+		$usuario = $this->Util()->DB()->GetRow();
+		$subject = new Subject;
+		$subjectData = $subject->getSubjects("AND subject.subjectId = $this->subjectId");
+		$crmName = $subjectData[0]['crm_name_local'];
+		$crmId = $subjectData[0]['crm_id_local'];
+		if (isset($usuario['userId'])) { //Ya se encuentra registrado en la plataforma 
+			//Checamos que no tenga un preregistro a otra curricula
+			$sql = "SELECT COUNT(*) FROM user_preregistro WHERE user_id = '" . $usuario['userId'] . "' AND subject_id = '" . $this->subjectId . "'";
+			$this->Util()->DB()->setQuery($sql);
+			$preregistro = $this->Util()->DB()->GetSingle();
+			if (!$preregistro) {
+				$sql = "INSERT INTO user_preregistro (user_id, subject_id) VALUES ('" . $usuario['userId'] . "', '" . $this->subjectId . "')";
+				$this->Util()->DB()->setQuery($sql);
+				$this->Util()->DB()->InsertData();
+			}
+			$sendmail = new SendMail;
+			$details_body = array(
+				"usuario" 		=> $this->getControlNumber(),
+				"contrasena" 	=> $this->getPassword(),
+			);
+			$nombre = $this->getNames() . " " . $this->getLastNamePaterno() . " " . $this->getLastNameMaterno();
+			$details_subject = array();
+			$sendmail->Prepare($message[13]['subject'], $message[13]['body'], $details_body, $details_subject, $this->getEmail(), $nombre);
+			$personal = new Personal;
+			$where = "AND numero IN(4, 5, 6)";
+			$academicos = $personal->enumeratePersonalAcademico($where);
+			foreach ($academicos as $academico) {
+				$sendmail = new SendMail;
+				$details_body = array(
+					"academico"	=> $academico['name'] . " " . $academico['lastname_paterno'] . " " . $academico['lastname_materno'],
+					"alumno" 	=> $nombre,
+					"correo" 	=> $this->getEmail(),
+					"fecha"		=> date('d-m-Y H:i:s'),
+					"curso"		=> $subjectData[0]['majorName'] . " " . $subjectData[0]['name'],
+					"telefono"	=> $this->getMobile(),
+				);
+				$details_subject = array();
+				$sendmail->Prepare($message[14]["subject"], $message[14]["body"], $details_body, $details_subject, $academico['correo'], $academico['name'] . " " . $academico['lastname_paterno'] . " " . $academico['lastname_materno']);
+			}
+		} else {
 			$sql = "SELECT uuid()";
 			$this->Util()->DBCrm()->setQuery($sql);
 			$leadId = $this->Util()->DBCrm()->GetSingle();
@@ -448,8 +456,8 @@ class Student extends User
 						0,
 						'Education System',
 						'New',
-						'" . $courseData['crm_name'] . "',
-						'" . $courseData['crm_id'] . "'
+						'" . $crmName . "',
+						'" . $crmId . "'
 						)";
 
 			$this->Util()->DBCrm()->setQuery($sql);
@@ -510,9 +518,8 @@ class Student extends User
 				)";
 			$this->Util()->DBCrm()->setQuery($sql);
 			$this->Util()->DBCrm()->InsertData();
-		}
 
-		$sqlQuery = "INSERT INTO 
+			$sqlQuery = "INSERT INTO 
 						user 
 						(
 							type,
@@ -522,41 +529,20 @@ class Student extends User
 							controlNumber,
 							birthdate,							
 							email, 
-							phone, 
-							password,
-							street, 
-							number, 
-							colony, 
+							mobile, 
+							password, 
 							ciudad, 
 							estado, 
-							pais, 
-							postalCode, 
-							sexo, 
-							maritalStatus, 
-							fax,
-							mobile,
+							pais,  
+							sexo,  
 							workplace,
-							workplaceOcupation,
-							workplaceAddress,
-							workplaceArea,
-							workplacePosition,
-							workplaceCity,
+							workplaceOcupation, 
+							workplacePosition, 
 							paist,
 							estadot,
-							ciudadt,
-							workplacePhone,
-							workplaceEmail,
-							academicDegree,
-							profesion,
-							school,
-							masters,
-							mastersSchool,
-							highSchool,
-							actualizado,
-							curpDrive,
-							curp,
-							foto,
-							funcion
+							ciudadt, 
+							academicDegree, 
+							actualizado 
 						)
 							VALUES
 						(
@@ -567,100 +553,72 @@ class Student extends User
 							'" . $this->getControlNumber() . "',
 							'" . $this->getBirthdate() . "',							
 							'" . $this->getEmail() . "', 
-							'" . $this->getPhone() . "', 
-							'" . $this->getPassword() . "',
-							'" . $this->getStreet() . "', 
-							'" . $this->getNumer() . "', 
-							'" . $this->getColony() . "', 
-							'" . $this->getCity() . "', 
-							'" . $this->getState() . "', 
-							'" . $this->getCountry() . "', 
-							'" . $this->getPostalCode() . "', 
-							'" . $this->getSexo() . "', 
-							'" . $this->getMaritalStatus() . "', 
-							'" . $this->getFax() . "', 
 							'" . $this->getMobile() . "', 
-							'" . $this->getWorkplace() . "', 
-							'" . $this->getWorkplaceOcupation() . "', 
-							'" . $this->getWorkplaceAddress() . "', 
-							'" . $this->getWorkplaceArea() . "', 
-							'" . $this->getWorkplacePosition() . "', 
+							'" . $this->getPassword() . "', 
 							'" . $this->getCiudadT() . "', 
+							'" . $this->getEstadoT() . "', 
+							'" . $this->getPaisT() . "',   
+							'" . $this->getSexo() . "',    
+							'" . $this->getWorkplace() . "', 
+							'" . $this->getWorkplaceOcupation() . "',  
+							'" . $this->getWorkplacePosition() . "',  
 							'" . $this->getPaisT() . "', 
 							'" . $this->getEstadoT() . "', 
-							'" . $this->getCiudadT() . "',
-							'" . $this->getWorkplacePhone() . "', 
-							'" . $this->getWorkplaceEmail() . "', 
-							'" . $this->getAcademicDegree() . "', 
-							'" . $this->getProfesion() . "', 
-							'" . $this->getSchool() . "', 
-							'" . $this->getMasters() . "', 
-							'" . $this->getMastersSchool() . "', 
-							'" . $this->getHighSchool() . "',
-							'" . $this->actualizado . "',
-							{$this->curpDrive},
-							'{$this->curp}',
-							{$this->foto},
-							'{$this->funcion}'
+							'" . $this->getCiudadT() . "',  
+							'" . $this->getAcademicDegree() . "',  
+							'" . $this->actualizado . "'
 						)";
-		// echo $sqlQuery;
-		$this->Util()->DB()->setQuery($sqlQuery);
-
-		if ($id = $this->Util()->DB()->InsertData()) {
-			$fecha_aplicacion = date("Y-m-d H:i:s");
-			$enlace = "/student";
-
-			if ($this->getRegister() == 0) {
+			$this->Util()->DB()->setQuery($sqlQuery);
+			$id = $this->Util()->DB()->InsertData();
+			if ($id) {
+				$sql = "INSERT INTO user_preregistro (user_id, subject_id) VALUES ('" . $id . "', '" . $this->subjectId . "')";
+				$this->Util()->DB()->setQuery($sql);
+				$this->Util()->DB()->InsertData();
+				$fecha_aplicacion = date("Y-m-d H:i:s");
+				$enlace = "/student";
 				$hecho = $id . "u";
 				$actividad = "Se ha Registrado un nuevo Alumno";
 				$visto = $id . "u,1p";
-			} else {
-				$hecho = $_SESSION['User']['userId'] . "p";
-				$actividad = "Se ha registrado un Alumno(" . $this->getNames() . " " . $this->getLastNamePaterno() . " " . $this->getLastNameMaterno() . ") desde el panel de Administración ";
-				$visto = "1p," . $_SESSION['User']['userId'] . "p";
-			}
 
-			$sqlNot = "INSERT INTO notificacion(notificacionId,actividad,vista,hecho,fecha_aplicacion,tablas,enlace)
+				$sqlNot = "INSERT INTO notificacion(notificacionId,actividad,vista,hecho,fecha_aplicacion,tablas,enlace)
 			   		VALUES('', '" . $actividad . "', '" . $visto . "', '" . $hecho . "', '" . $fecha_aplicacion . "', 'reply', '" . $enlace . "')";
-			$this->Util()->DB()->setQuery($sqlNot);
-			// Ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
-			$this->Util()->DB()->InsertData();
-		}
+				$this->Util()->DB()->setQuery($sqlNot);
+				// Ejecutamos la consulta y guardamos el resultado, que sera el ultimo positionId generado
+				$this->Util()->DB()->InsertData();
+			}
 
-		if ($option == "createCurricula") {
-			$course = new Course();
-			$course->setCourseId($_POST["curricula"]);
-			$courseInfo = $course->Info();
-			if ($this->tipo_beca == "Ninguno")
-				$this->por_beca = 0;
+			$sendmail = new SendMail;
+			$details_body = array(
+				"usuario" 		=> $this->getControlNumber(),
+				"contrasena" 	=> $this->getPassword(),
+			);
+			$nombre = $this->getNames() . " " . $this->getLastNamePaterno() . " " . $this->getLastNameMaterno();
+			$details_subject = array();
+			$sendmail->Prepare($message[13]['subject'], $message[13]['body'], $details_body, $details_subject, $this->getEmail(), $nombre);
+			$personal = new Personal;
+			$where = "AND numero IN(4,5)";
+			$academicos = $personal->enumeratePersonalAcademico($where);
+			foreach ($academicos as $academico) {
+				$sendmail = new SendMail;
+				$details_body = array(
+					"academico"	=> $academico['name'] . " " . $academico['lastname_paterno'] . " " . $academico['lastname_materno'],
+					"alumno" 	=> $nombre,
+					"correo" 	=> $this->getEmail(),
+					"fecha"		=> date('d-m-Y H:i:s'),
+					"curso"		=> $subjectData[0]['majorName'] . " " . $subjectData[0]['name'],
+					"telefono"	=> $this->getMobile(),
+				);
+				$details_subject = array();
 
-			$this->AddUserToCurriculaRegister($id, $_POST["curricula"], $this->getNames(), $this->getEmail(), $this->getPassword(), $courseInfo["majorName"], $courseInfo["name"], $this->tipo_beca, $this->por_beca, "");
-
-			if ($this->getRegister() == 0) {
-				$complete1 = "Te has registrado exitosamente. Te hemos enviado un correo electronico con los datos de ingreso al sistema";
-				$this->Util()->setError(10028, "complete", $complete1);
-				$complete2 = "En caso de no estar en tu bandeja de entrada, verifica en correos no deseados";
-				$this->Util()->setError(10028, "complete", $complete2);
-				$complete4 = "Cualquier problema que llegaras a tener, escribenos a enlinea@iapchiapas.org.mx";
-				$this->Util()->setError(10028, "complete", $complete4);
-				$complete3 = "Bienvenido";
-				$this->Util()->setError(10028, "complete", $complete3);
-			} else {
-				$complete = "Has ingresado al Alumno exitosamente, Se ha enviado un correo electronico para continuar con su proceso de inscripción";
-				$this->Util()->setError(10028, "complete", $complete);
+				$sendmail->Prepare($message[14]["subject"], $message[14]["body"], $details_body, $details_subject, $academico['correo'], $academico['name'] . " " . $academico['lastname_paterno'] . " " . $academico['lastname_materno']);
 			}
 		}
-		$this->Util()->PrintErrors();
+
 		return true;
 	}
 
 	public function AddUserToCurriculaRegister($id, $curricula, $nombre, $email, $password, $major, $course, $tipo_beca, $por_beca, $matricula)
 	{
-		include_once(DOC_ROOT . "/properties/messages.php");
-		$sql = "SELECT COUNT(*) FROM user_subject WHERE alumnoId = '" . $id . "' AND courseId = '" . $curricula . "'";
-		$this->Util()->DB()->setQuery($sql);
-		$count = $this->Util()->DB()->GetSingle();
-
 		$sql = "SELECT subjectId FROM course WHERE courseId = '" . $curricula . "'";
 		$this->Util()->DB()->setQuery($sql);
 		$subjectId = $this->Util()->DB()->GetSingle();
@@ -1026,7 +984,6 @@ class Student extends User
 		return $complete;
 	}
 
-
 	public function Update()
 	{
 		if ($this->Util()->PrintErrors())
@@ -1259,16 +1216,13 @@ class Student extends User
 		$result2 = $this->Util()->DB()->GetResult();
 		foreach ($result2 as $key => $res) {
 			$card = $res;
-			$sql = "SELECT user_subject.courseId, user_subject.alumnoId, user_subject.status, subject.name AS name, major.name AS majorName, subject.icon, course.group, course.modality, course.initialDate, course.finalDate, 'Ordinario' AS situation FROM user_subject LEFT JOIN course ON course.courseId = user_subject.courseId LEFT JOIN subject ON subject.subjectId = course.subjectId LEFT JOIN major ON major.majorId = subject.tipo WHERE alumnoId = '{$res['userId']}' AND status = 'activo' AND CURDATE() <= course.finalDate UNION SELECT usr.courseId, usr.alumnoId, usr.status, subject.name AS name, major.name AS majorName, subject.icon, course.group, course.modality, course.initialDate, course.finalDate, 'Recursador' AS situation FROM user_subject_repeat usr LEFT JOIN course ON course.courseId = usr.courseId LEFT JOIN subject ON subject.subjectId = course.subjectId LEFT JOIN major ON major.majorId = subject.tipo WHERE alumnoId = '{$res['userId']}' AND status = 'activo' ORDER BY status ASC";
-			// echo $sql;
+
+			$sql = "SELECT * FROM (SELECT course.subjectId, 'curso' as tipo FROM user_subject INNER JOIN course ON course.courseId = user_subject.courseId WHERE alumnoId = " . $res["userId"] . " AND status = 'activo' UNION ALL SELECT subject_id as subjectId, 'preregistro' as tipo FROM user_preregistro WHERE user_id = " . $res["userId"].") A  GROUP BY A.subjectId";
 			$this->Util()->DB()->setQuery($sql);
-			$courseId = $this->Util()->DB()->GetResult();
-			if (count($courseId) == 0) {
-				$sql = "SELECT courseId FROM user_subject WHERE alumnoId = " . $res["userId"] . " ORDER BY registrationId DESC LIMIT 1";
-				$this->Util()->DB()->setQuery($sql);
-				$courseId = $this->Util()->DB()->GetResult();
-			}
-			$card["courseId"] = $courseId;
+			$curriculas = $this->Util()->DB()->GetResult();
+		 
+			$card['curriculas'] = $curriculas;
+
 			$card["lastNameMaterno"] = $this->Util()->DecodeTiny($card["lastNameMaterno"]);
 			$card["lastNamePaterno"] = $this->Util()->DecodeTiny($card["lastNamePaterno"]);
 			$card["names"] = $this->Util()->DecodeTiny($card["names"]);
@@ -1693,12 +1647,11 @@ class Student extends User
 			}
 			$sql = "SELECT * FROM diplomas WHERE courseId = '" . $res['courseId'] . "' AND studentId ='" . $res['alumnoId'] . "' ";
 			$this->Util()->DB()->setQuery($sql);
-			$result[$key]["diploma"] = $this->Util()->DB()->GetRow(); 
-			 
-			$sql = "SELECT diploma_multiple.id FROM `diploma_alumnos` INNER JOIN diploma_multiple ON diploma_multiple.id = diploma_alumnos.diploma_id INNER JOIN diploma_cursos ON diploma_cursos.diploma_id = diploma_multiple.id WHERE diploma_cursos.course_id = {$res['courseId']} AND diploma_alumnos.alumno_id = {$res['alumnoId']}";  
+			$result[$key]["diploma"] = $this->Util()->DB()->GetRow();
+
+			$sql = "SELECT diploma_multiple.id FROM `diploma_alumnos` INNER JOIN diploma_multiple ON diploma_multiple.id = diploma_alumnos.diploma_id INNER JOIN diploma_cursos ON diploma_cursos.diploma_id = diploma_multiple.id WHERE diploma_cursos.course_id = {$res['courseId']} AND diploma_alumnos.alumno_id = {$res['alumnoId']}";
 			$this->Util()->DB()->setQuery($sql);
 			$result[$key]['diplomaMultiple'] = $this->Util()->DB()->GetSingle();
-			 
 		}
 		return $result;
 	}
@@ -3635,5 +3588,19 @@ class Student extends User
 		$resultado['status'] = $this->Util()->DB()->InsertData();
 		$resultado['usuario'] = $controlNumber;
 		return $resultado;
+	}
+
+	public function preRegistros() {
+		$sql = "SELECT * FROM (SELECT course.subjectId, 'curso' as tipo FROM user_subject INNER JOIN course ON course.courseId = user_subject.courseId WHERE alumnoId = " . $this->getUserId() . " AND status = 'activo' UNION ALL SELECT subject_id as subjectId, 'preregistro' as tipo FROM user_preregistro WHERE user_id = " . $this->getUserId().") A  GROUP BY A.subjectId";
+		$this->Util()->DB()->setQuery($sql);
+		$data = $this->Util()->DB()->GetResult();
+		foreach ($data as $item) {
+			$sql = "SELECT subject.subjectId, major.name as majorName, subject.name as subjectName FROM subject INNER JOIN major ON major.majorId = subject.tipo WHERE subjectId = " . $item['subjectId'];
+			$this->Util()->DB()->setQuery($sql);
+			$subject = $this->Util()->DB()->GetRow();
+			$subject['tipo'] = $item['tipo'];
+			$subjects[] = $subject;
+		}
+		return $subjects;
 	}
 }

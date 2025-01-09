@@ -18,8 +18,8 @@ function desactivar(id, activo) {
 		beforeSend: function () {
 			$('#tblContent').html(LOADER3);
 		},
-		success: function (response) { 
-			var splitResp = response.split("[#]"); 
+		success: function (response) {
+			var splitResp = response.split("[#]");
 			DoSearch();
 			if (splitResp[0] == "ok") {
 				// $("#tblContent").html(splitResp[2]);
@@ -50,8 +50,8 @@ function activar(id, activo) {
 		beforeSend: function () {
 			$('#tblContent').html(LOADER3);
 		},
-		success: function (response) { 
-			var splitResp = response.split("[#]"); 
+		success: function (response) {
+			var splitResp = response.split("[#]");
 			DoSearch()
 			if (splitResp[0] == "ok") {
 				// $("#tblContent").html(splitResp[2]);
@@ -81,8 +81,8 @@ function saveEditStudentAlumn() {
 		beforeSend: function () {
 			$("#centeredDivOnPopup").hide();
 		},
-		success: function (response) { 
-			var splitResp = response.split("[#]"); 
+		success: function (response) {
+			var splitResp = response.split("[#]");
 			if (splitResp[0] == "ok") {
 				DoSearch()
 				$("#res_").html(splitResp[1]);
@@ -115,9 +115,9 @@ function estado_dependencia() {
 		beforeSend: function () {
 
 		},
-		success: function (response) { 
-			var splitResp = response.split("[#]");  
-			$("#Stateposition").html(response); 
+		success: function (response) {
+			var splitResp = response.split("[#]");
+			$("#Stateposition").html(response);
 		},
 		error: function () {
 			alert(msgError);
@@ -141,9 +141,9 @@ function ciudad_dependencia() {
 		beforeSend: function () {
 
 		},
-		success: function (response) { 
-			var splitResp = response.split("[#]"); 
-			$("#Cityposition").html(response); 
+		success: function (response) {
+			var splitResp = response.split("[#]");
+			$("#Cityposition").html(response);
 		},
 		error: function () {
 			alert(msgError);
@@ -167,9 +167,9 @@ function estado_dependenciat() {
 		beforeSend: function () {
 
 		},
-		success: function (response) { 
-			var splitResp = response.split("[#]");  
-			$("#Statepositiont").html(response); 
+		success: function (response) {
+			var splitResp = response.split("[#]");
+			$("#Statepositiont").html(response);
 		},
 		error: function () {
 			alert(msgError);
@@ -191,7 +191,7 @@ function ciudad_dependenciat() {
 		beforeSend: function () {
 
 		},
-		success: function (response) { 
+		success: function (response) {
 			var splitResp = response.split("[#]");
 			$("#Citypositiont").html(response);
 		},
@@ -237,7 +237,7 @@ function AddStudentRegister() {
 		url: WEB_ROOT + '/ajax/student.php',
 		type: "POST",
 		data: $('#addStudentForm').serialize(),
-		success: function (data) { 
+		success: function (data) {
 			var splitResponse = data.split("[#]");
 
 			if (splitResponse[0] == "fail") {
@@ -276,7 +276,7 @@ function viewCourse() {
 			$('divLoading').show();
 		},
 		success: function (response) {
-			$('divLoading').hide(); 
+			$('divLoading').hide();
 			var splitResp = response.split("[#]");
 
 
@@ -311,7 +311,7 @@ function addModuls() {
 			$('#tblContentGray').html(LOADER3);
 		},
 		success: function (response) {
-			$('divLoading').hide(); 
+			$('divLoading').hide();
 			var splitResp = response.split("[#]");
 
 
@@ -337,7 +337,7 @@ function generaSolicitud(alumnoId, courseId) {
 			$('#tblContentGray').html(LOADER3);
 		},
 		success: function (response) {
-			$('divLoading').hide(); 
+			$('divLoading').hide();
 			var splitResp = response.split("[#]");
 
 
@@ -360,7 +360,7 @@ function getModules() {
 		url: WEB_ROOT + '/ajax/course.php',
 		data: { "type": "getModules", "courseId": curricula },
 		beforeSend: function () { },
-		success: function (response) { 
+		success: function (response) {
 			$("#divModules").html(response);
 		},
 		error: function () {
@@ -378,7 +378,7 @@ function addCourseModule() {
 			$('#tblContentGray').html(LOADER3);
 		},
 		success: function (response) {
-			$('divLoading').hide(); 
+			$('divLoading').hide();
 			var splitResp = response.split("[#]");
 			$('#tblContentGray').html(splitResp[1]);
 		},
@@ -403,16 +403,16 @@ function enviarArchivo(Id) {
 		type: 'POST',
 		xhr: function () {
 			var XHR = $.ajaxSettings.xhr();
-			XHR.upload.addEventListener('progress', function (e) { 
+			XHR.upload.addEventListener('progress', function (e) {
 				var Progress = ((e.loaded / e.total) * 100);
-				Progress = (Progress); 
+				Progress = (Progress);
 				$('#progress_' + Id).val(Math.round(Progress));
 				$('#porcentaje_' + Id).html(Math.round(Progress) + '%');
 			}, false);
 			return XHR;
 		},
 		beforeSend: function () { },
-		success: function (response) { 
+		success: function (response) {
 			var splitResp = response.split("[#]");
 			$("#loader").html("");
 			if ($.trim(splitResp[0]) == "ok") {
@@ -436,7 +436,7 @@ function onDeleteDoc(Id, userId) {
 		url: WEB_ROOT + '/ajax/new/studentCurricula.php',
 		data: $("#frmGral").serialize(true) + '&Id=' + Id + '&type=onDelete&userId=' + userId + '&cId=admin',
 		beforeSend: function () { },
-		success: function (response) { 
+		success: function (response) {
 			var splitResp = response.split("[#]");
 
 			if ($.trim(splitResp[0]) == "ok") {
@@ -448,4 +448,4 @@ function onDeleteDoc(Id, userId) {
 		}
 	});
 
-}
+} 

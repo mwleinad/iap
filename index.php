@@ -266,13 +266,10 @@ $pages = array(
 	'pagar',
 	'procesar-pago',
 	'mi-credencial-digital',
-	'credenciales',
-	'registro',
-	'reporte-becas',
-	'registro-cobach',
+	'credenciales', 
+	'reporte-becas', 
 	'reporte-cursos',
-	'verificar',
-	'registro-INAI',
+	'verificar', 
 	'reporte-diplomado',
 	'diploma-multiple'
 );

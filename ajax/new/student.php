@@ -8,23 +8,21 @@ session_start();
 switch ($_POST['opcion']) {
 	case 'registro':
 		$status = $_POST['status'];
-		// Información Personal
-
+		// Información Personal 
 		$nombre = $_POST['names'];
 		$paterno = $_POST['lastNamePaterno'];
 		$materno = $_POST['lastNameMaterno'];
 		$sexo = $_POST['sexo'];
-		$password = trim($_POST['password']);
 		$correo = $_POST['email'];
 		$telefono = $_POST['mobile'];
 		$ocupacion = $_POST['workplaceOcupation'];
 		$lugarTrabajo = $_POST['workplace'];
 		$cargo = $_POST['workplacePosition'];
-		$pais = $_POST['paist'];
+		$pais = 1;
 		$estado = $_POST['estadot'];
 		$ciudad = $_POST['ciudadt'];
-		$curp = $_POST['curp'];
-		$funcion = $_POST['funcion'];
+		$curricula = $_POST['curricula'];
+
 		$errors = [];
 		if ($nombre == '') {
 			$errors['names'] = "Por favor, no se olvide de poner el nombre.";
@@ -35,11 +33,10 @@ switch ($_POST['opcion']) {
 		if ($materno == '') {
 			$errors['lastNameMaterno'] = "Por favor, no se olvide de poner el apellido materno.";
 		}
-		if ($password == '') {
-			$errors['password'] = "Por favor, no se olvide de poner la contraseña.";
-		}
 		if ($correo == '') {
 			$errors['email'] = "Por favor, no se olvide de poner el correo electrónico.";
+		}elseif (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+			$errors['email'] = "Por favor, ingrese un correo electrónico válido.";
 		}
 		if ($telefono == '') {
 			$errors['mobile'] = "Por favor, no se olvide de el número de celular.";
@@ -50,36 +47,18 @@ switch ($_POST['opcion']) {
 		if ($cargo == '') {
 			$errors['workplacePosition'] = "Por favor, no se olvide de poner el puesto.";
 		}
-		if (empty($pais)) {
-			$errors['paist'] = "Por favor, no se olvide de seleccionar el pais.";
-		}
 		if (empty($estado)) {
 			$errors['estadot'] = "Por favor, no se olvide de seleccionar el estado.";
 		}
-		if (empty($curp)) {
-			$errors['curp'] = "Por favor, no se olvide de poner la curp.";
+		if (empty($ciudad)) {
+			$errors['ciudadt'] = "Por favor, no se olvide de seleccionar la ciudad.";
+		}
+		if (empty($curricula)) {
+			$errors['curricula'] = "Por favor, no se olvide de seleccionar la currícula.";
 		}
 
 		$nombreAlumno = $util->eliminar_acentos(trim($nombre . "_" . $paterno . "_" . $materno));
 		$nombreAlumno = strtolower($nombreAlumno);
-
-		$response = $util->Util()->validarSubidaPorArchivo([
-			"curparchivo" => [
-				'types' 	=> ['application/pdf'],
-				'size' 		=> 5242880,
-				'required'	=> true
-			],
-			"foto"	=> [
-				'types' 	=> ['image/jpeg', 'image/png'],
-				'size' 		=> 5242880,
-				'required'	=> true
-			]
-		]);
-		foreach ($response as $key => $value) {
-			if (!$value['status']) {
-				$errors[$key] = $value['mensaje'];
-			}
-		}
 
 		if (!empty($errors)) {
 			header('HTTP/1.1 422 Unprocessable Entity');
@@ -90,6 +69,7 @@ switch ($_POST['opcion']) {
 			exit;
 		}
 
+		$password = "iap_" . $util->generarContrasena(8);
 		$student->setPermiso($_POST['permiso']);
 		$student->setControlNumber();
 		$student->setNames($nombre);
@@ -104,56 +84,26 @@ switch ($_POST['opcion']) {
 		$student->setWorkplacePosition($cargo);
 		$student->setPaisT($pais);
 		$student->setEstadoT($estado);
-		$student->setCiudadT(1);
-		$student->setCurp($curp);
-		$student->setFuncion($funcion);
-		$student->setActualizado("si");
-		$carpetaId = "1dIsKbt6QM4Y7I56Lgfv8NDyjFlreTD0T";
-		$google = new Google($carpetaId);
-		foreach ($_FILES as $key => $archivo) {
-			$ruta = DOC_ROOT . "/tmp/";
-			$extension = pathinfo($archivo['name'], PATHINFO_EXTENSION);
-			$temporal =  $archivo['tmp_name'];
-			$nombre = $key . "_" . $nombreAlumno;
-			$documento =  $nombre . "." . $extension;
-			move_uploaded_file($temporal, $ruta . $documento);
-
-			$google->setArchivoNombre($documento);
-			$google->setArchivo($ruta . $documento);
-			$respuesta = $google->subirArchivo();
-			$files[$key] = '{
-				"filename": "' . $respuesta['name'] . '",
-				"googleId": "' . $respuesta['id'] . '",
-				"mimeType": "' . $respuesta['mimeType'] . '",
-				"urlBlank": "https://drive.google.com/open?id=' . $respuesta['id'] . '",
-				"urlEmbed": "https://drive.google.com/uc?id=' . $respuesta['id'] . '",
-				"mimeTypeOriginal":"' . $archivo['type'] . '"
-			}';
-			unlink($ruta . $documento);
-		}
-		$student->setCurpDrive("'{$files['curparchivo']}'");
-		$student->setFoto("'{$files['foto']}'");
-		// Estudios
+		$student->setCiudadT($ciudad);
+		$student->setActualizado("no");
+		$student->setSubjectId($curricula); 
 		$student->setAcademicDegree($_POST['academicDegree']);
-
-		if (!$student->Save("createCurricula")) {
-			$json = json_decode($files['curparchivo'], true);
-			$google->setArchivoID($json['googleId']);
-			$respuesta = $google->eliminarArchivo();
-
-			$json = json_decode($files['foto'], true);
-			$google->setArchivoID($json['googleId']);
-			$respuesta = $google->eliminarArchivo();
-
+		$response = $student->Save();
+		if ($response) {
 			echo json_encode([
-				'errorOld'    => "fail[#]" . $smarty->fetch(DOC_ROOT . '/templates/boxes/status.tpl'),
+				'growl'		=> true,
+				'message'	=> 'Muchas gracias por completar tu registro, en breve nos comunicaremos contigo para darte acceso a la plataforma.',
+				'type'		=> 'success',
+				'location'	=> WEB_ROOT . "/login",
 			]);
 		} else {
 			echo json_encode([
-				'errorOld'	=> "ok[#]" . $smarty->fetch(DOC_ROOT . '/templates/boxes/status.tpl'),
-				'location'	=> WEB_ROOT . '/login',
+				'growl'		=> true,
+				'message'	=> 'Hubo un error con el registro, por favor intenta de nuevo.',
+				'type'		=> 'error'
 			]);
 		}
+
 		break;
 
 	case 'reinscripcion':
@@ -598,7 +548,7 @@ switch ($_POST['opcion']) {
 			exit;
 		}
 
-		$alumnoActual = $student->GetInfo("AND email = '$email'"); 
+		$alumnoActual = $student->GetInfo("AND email = '$email'");
 		if ($alumnoActual['userId']) { //Ya existe un alumno con este correo, hay que actualizarlo. 
 			$existeEnCurso = $student->getCourses("AND user_subject.courseId = 169 AND user_subject.alumnoId = " . $alumnoActual['userId']);
 			if (count($existeEnCurso) > 0) { //Verificamos que no exista en el curso actual

@@ -50,13 +50,13 @@
 			<a href="{$WEB_ROOT}/graybox.php?page=estudiante-informacion-adicional&id={$item.userId}&auxTpl=1" data-target="#ajax" data-toggle="modal" data-width="1000px">
 				<i class="fas fa-book fa-2x text-primary pointer" data-toggle="tooltip" data-placement="top" title="Información adicional"></i>
 			</a>
-			{if $User.userId != 256}
-				{if count($item.courseId) > 1}
+			{if $User.userId != 256} 
+				{if count($item.curriculas) > 1}
 					<a href="{$WEB_ROOT}/graybox.php?page=ficha-registro&id={$item.userId}" data-target="#ajax" data-toggle="modal" data-width="700px">
 						<i class="fas fa-file-export fa-2x text-info pointer" data-toggle="tooltip" data-placement="top" title="Ficha de Registro"></i>
 					</a>
 				{else}
-					<a href="{$WEB_ROOT}/pdf/solicitudes.php?alumnoId={$item.userId}&cursoId={$item.courseId[0].courseId}" target="_blank">
+					<a href="{$WEB_ROOT}/pdf/solicitudes.php?alumnoId={$item.userId}&cursoId={$item.curriculas[0].subjectId}&tipo={$item.curriculas[0]['tipo']}" target="_blank">
 						<i class="fas fa-file-export fa-2x text-info pointer" data-toggle="tooltip" data-placement="top" title="Ficha de Registro"></i>
 					</a> 
 				{/if} 

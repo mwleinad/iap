@@ -43,11 +43,3 @@
         <div id="loader2" ></div>
     </div>
 </div>
-
-<script type="text/javascript" charset="utf-8">
-    $(document).observe('dom:loaded', function() {ldelim}
-    {foreach from=$students item=item key=key}
-        new FancyZoom('foto-{$item.userId}', {ldelim}width:400, height:300{rdelim});
-    {/foreach}
-    {rdelim});
-</script>

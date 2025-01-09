@@ -1590,7 +1590,7 @@ class Personal extends Main
 		return $result;
 	}
 
-	public function enumeratePersonalAcademico()
+	public function enumeratePersonalAcademico($where = "")
 	{
 
 
@@ -1599,7 +1599,7 @@ class Personal extends Main
 				FROM 
 					personal
 				WHERE
-					mostrar ='si' order by numero asc";
+					mostrar ='si' {$where} order by numero asc";
 		// exit;
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();

@@ -1,10 +1,9 @@
 <?php
-	$paises=$student->EnumeratePaises();	
-	$smarty->assign('paises',$paises);
-	$prof = $profesion->Enumerate();
-	$prof = $util->EncodeResult($prof);
-	$smarty->assign('prof',$prof);
-	$activeCourses = $course->EnumerateActive('AND course.courseId <> 162');
-	$smarty->assign("activeCourses", $activeCourses);
-	$smarty->assign("no_admin",true);
-?>
+$student->setCountry(1);
+$estados = $student->EnumerateEstados();
+
+$where = "AND major.majorId IN(1, 18, 34) AND subject.listarRegistro = 1 ORDER BY major.majorId, subject.name";
+$subjects = $subject->getSubjects($where);
+
+$smarty->assign('curriculas', $subjects);
+$smarty->assign('estados', $estados);

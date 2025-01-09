@@ -34,8 +34,7 @@ $message[2]["body"] = "
 	El Instituto de Administración Pública del Estado de Chiapas, A. C., agradece tu pago y te informa que este ha sido autorizado. El acceso a:
 
 	El(la) |major| <b>|course|</b>
-
-Se encuentra activo por lo que ya puedes acceder a la curr�cula que hayas elegido.
+	Se encuentra activo por lo que ya puedes acceder a la curr�cula que hayas elegido.
 	";
 
 
@@ -137,4 +136,35 @@ $message[12]['body'] = "Estimado administrador,
 
 El alumno |alumno| ha generado una solicitud para su Credencial Digital. Puedes revisarla en la siguiente ruta: 
 https://app.iapchiapas.edu.mx/credenciales";
-?>
+
+$message[13]['subject'] = "Mensaje de bienvenida | Instituto de Administración Pública del Estado de Chiapas";
+$message[13]['body'] = "Bienvenido al Instituto de Administración Pública del Estado de Chiapas. Estamos muy agradecidos que nos hayas elegido.
+	
+	Estamos emocionados de tenerte como parte de nuestra comunidad educativa. Tu registro ha sido exitoso, y pronto uno de nuestros representantes se pondrá en contacto contigo para proporcionarte más detalles y ayudarte a aprovechar al máximo esta experiencia de aprendizaje.
+
+	Mientras tanto, te invitamos a explorar nuestra plataforma y descubrir todo lo que tenemos para ofrecer. Si tienes alguna pregunta, no dudes en contactarnos en contacto@iapchiapas.edu.mx o a través de nuestro whatsapp 961 172 4971.
+
+	¡Gracias por elegirnos para tu desarrollo educativo!
+
+	Tu datos para ingresar al sistema son los siguientes
+	<b>Liga de Acceso:</b> https://app.iapchiapas.edu.mx/
+	<b>Usuario:</b> |usuario|
+	<b>Contrase&ntilde;a del Sistema:</b> |contrasena|
+
+	Atentamente, el Instituto de Administración Pública del Estado de Chiapas";
+
+$message[14]['subject'] = "Nuevo Registro de Alumno | Instituto de Administración Pública del Estado de Chiapas";
+$message[14]['body'] = "Hola |academico|, 
+	Te informamos que un nuevo alumno, |alumno|, se ha registrado recientemente en nuestra plataforma. Es necesario que lo contactes a la brevedad para brindarle más información y orientarlo sobre los próximos pasos en su proceso educativo.
+
+	Detalles del alumno: 
+	Nombre: |alumno|
+	Correo electrónico: |correo|
+	Teléfono: |telefono|
+	Currícula en la que está interesado: |curso|
+	Fecha de registro: |fecha|
+
+	Gracias por tu atención y esfuerzo para garantizar una experiencia positiva para nuestros alumnos.
+
+	Atentamente, el Instituto de Administración Pública del Estado de Chiapas";
+
