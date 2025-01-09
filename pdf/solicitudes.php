@@ -143,9 +143,9 @@ $html = '
     <table><tr><td align="center"><br></td></tr></table> 
     <table>
         <tr> 
-            <td align="center" style="border-bottom:1px solid black;">' . mb_strtoupper($infoAlumno['lastNamePaterno']) . '</td>
-            <td align="center" style="border-bottom:1px solid black;">' . mb_strtoupper($infoAlumno['lastNameMaterno']) . '</td>
-            <td align="center" style="border-bottom:1px solid black;">' . mb_strtoupper($infoAlumno['names']) . '</td>
+            <td align="center" style="border-bottom:1px solid black;">' . mb_strtoupper($infoAlumno['lastNamePaterno'], 'UTF-8') . '</td>
+            <td align="center" style="border-bottom:1px solid black;">' . mb_strtoupper($infoAlumno['lastNameMaterno'], 'UTF-8') . '</td>
+            <td align="center" style="border-bottom:1px solid black;">' . mb_strtoupper($infoAlumno['names'], 'UTF-8') . '</td>
         </tr> 
         <tr>
             <td align="center">Apellido Paterno</td>
@@ -173,15 +173,15 @@ $html = '
     <table style="padding:10px 0 0 0;">
         <tr>
             <td width="30%">Domicilio Particular:</td>
-            <td style="border-bottom:1px solid black;" width="70%" align="center">' . mb_strtoupper($infoAlumno['street']) . ' ' . mb_strtoupper($infoAlumno['number']) . '</td>
+            <td style="border-bottom:1px solid black;" width="70%" align="center">' . mb_strtoupper($infoAlumno['street'], 'UTF-8') . ' ' . mb_strtoupper($infoAlumno['number']) . '</td>
         </tr> 
     </table>
     <table><tr><td align="center"></td></tr></table>
     <table>
         <tr>
-            <td align="center" style="border-bottom:1px solid black;">' . mb_strtoupper($infoAlumno['colony']) . '</td>
+            <td align="center" style="border-bottom:1px solid black;">' . mb_strtoupper($infoAlumno['colony'],'UTF-8') . '</td>
             <td align="center" style="border-bottom:1px solid black;">' . mb_strtoupper($infoAlumno['postalCode']) . '</td>
-            <td align="center" style="border-bottom:1px solid black;">' . mb_strtoupper($infoAlumno['municipio']) . '</td>
+            <td align="center" style="border-bottom:1px solid black;">' . mb_strtoupper($infoAlumno['municipio'],'UTF-8') . '</td>
         </tr>
         <tr>
             <td align="center">Colonia</td>
@@ -218,7 +218,7 @@ $html = '
     <table>
         <tr>
             <td align="left" width="20%">Lugar de Trabajo:</td>
-            <td width="80%" style="text-align:center; border-bottom:1px solid black;">' . mb_strtoupper($infoAlumno['workplace']) . '</td>
+            <td width="80%" style="text-align:center; border-bottom:1px solid black;">' . mb_strtoupper($infoAlumno['workplace'],'UTF-8') . '</td>
         </tr>
     </table>
     <table style="padding:5px 0px 0px 0px;">
