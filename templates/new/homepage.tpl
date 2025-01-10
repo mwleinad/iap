@@ -36,6 +36,10 @@
             Bienvenido(a) {$User.username}
         </div>
         <div class="card-body">
+            <script src="https://unpkg.com/@lottiefiles/lottie-player@2.0.8/dist/lottie-player.js"></script>
+            <lottie-player src="https://lottie.host/43d8bea4-6e31-48b0-a330-8cbf06cd32f4/4wNH2bwwMg.json"
+                background="##FFFFFF" speed="1" style="width: 100%; height: 300px" loop autoplay direction="1"
+                mode="normal"></lottie-player>
             <p>
                 El <b>Instituto de Administración Pública del Estado de Chiapas, A. C.</b><br />te da la mas cordial
                 bienvenida a nuestro Sistema de Educación en Línea.
