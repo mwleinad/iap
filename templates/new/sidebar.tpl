@@ -68,7 +68,7 @@
                 {/if}
             {/if}
         {/if}
-        {if in_array($User.positionId,[1, 3, 24])}
+        {if in_array($User.positionId,[1, 3, 24]) && $User.userId != 260}
             <li class="nav-item {if $page == "configurar-calendario" or $page == "cobranza-calendario"}active{/if}">
                 <a class="nav-link" data-toggle="collapse" href="#m-cobranza"
                     aria-expanded="{if $page == "configurar-calendario" or $page == "cobranza-calendario"}true{else}false{/if}"
