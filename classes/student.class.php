@@ -393,31 +393,31 @@ class Student extends User
 				$sql = "INSERT INTO user_preregistro (user_id, subject_id) VALUES ('" . $usuario['userId'] . "', '" . $this->subjectId . "')";
 				$this->Util()->DB()->setQuery($sql);
 				$this->Util()->DB()->InsertData();
+				$personal = new Personal;
+				$where = "AND numero IN(5)";
+				$academicos = $personal->enumeratePersonalAcademico($where);
+				foreach ($academicos as $academico) {
+					$sendmail = new SendMail;
+					$details_body = array(
+						"academico"	=> $academico['name'] . " " . $academico['lastname_paterno'] . " " . $academico['lastname_materno'],
+						"alumno" 	=> $nombre,
+						"correo" 	=> $this->getEmail(),
+						"fecha"		=> date('d-m-Y H:i:s'),
+						"curso"		=> $subjectData[0]['majorName'] . " " . $subjectData[0]['name'],
+						"telefono"	=> $this->getMobile(),
+					);
+					$details_subject = array();
+					$sendmail->Prepare($message[14]["subject"], $message[14]["body"], $details_body, $details_subject, $academico['correo'], $academico['name'] . " " . $academico['lastname_paterno'] . " " . $academico['lastname_materno']);
+				}
 			}
 			$sendmail = new SendMail;
 			$details_body = array(
-				"usuario" 		=> $this->getControlNumber(),
-				"contrasena" 	=> $this->getPassword(),
+				"usuario" 		=> $usuario['controlNumber'],
+				"contrasena" 	=> $usuario['password'],
 			);
 			$nombre = $this->getNames() . " " . $this->getLastNamePaterno() . " " . $this->getLastNameMaterno();
 			$details_subject = array();
 			$sendmail->Prepare($message[13]['subject'], $message[13]['body'], $details_body, $details_subject, $this->getEmail(), $nombre);
-			$personal = new Personal;
-			$where = "AND numero IN(4, 5, 6)";
-			$academicos = $personal->enumeratePersonalAcademico($where);
-			foreach ($academicos as $academico) {
-				$sendmail = new SendMail;
-				$details_body = array(
-					"academico"	=> $academico['name'] . " " . $academico['lastname_paterno'] . " " . $academico['lastname_materno'],
-					"alumno" 	=> $nombre,
-					"correo" 	=> $this->getEmail(),
-					"fecha"		=> date('d-m-Y H:i:s'),
-					"curso"		=> $subjectData[0]['majorName'] . " " . $subjectData[0]['name'],
-					"telefono"	=> $this->getMobile(),
-				);
-				$details_subject = array();
-				$sendmail->Prepare($message[14]["subject"], $message[14]["body"], $details_body, $details_subject, $academico['correo'], $academico['name'] . " " . $academico['lastname_paterno'] . " " . $academico['lastname_materno']);
-			}
 		} else {
 			$sql = "SELECT uuid()";
 			$this->Util()->DBCrm()->setQuery($sql);
@@ -596,7 +596,7 @@ class Student extends User
 			$details_subject = array();
 			$sendmail->Prepare($message[13]['subject'], $message[13]['body'], $details_body, $details_subject, $this->getEmail(), $nombre);
 			$personal = new Personal;
-			$where = "AND numero IN(4,5)";
+			$where = "AND numero IN(5)";
 			$academicos = $personal->enumeratePersonalAcademico($where);
 			foreach ($academicos as $academico) {
 				$sendmail = new SendMail;
@@ -1217,10 +1217,10 @@ class Student extends User
 		foreach ($result2 as $key => $res) {
 			$card = $res;
 
-			$sql = "SELECT * FROM (SELECT course.subjectId, 'curso' as tipo FROM user_subject INNER JOIN course ON course.courseId = user_subject.courseId WHERE alumnoId = " . $res["userId"] . " AND status = 'activo' UNION ALL SELECT subject_id as subjectId, 'preregistro' as tipo FROM user_preregistro WHERE user_id = " . $res["userId"].") A  GROUP BY A.subjectId";
+			$sql = "SELECT * FROM (SELECT course.subjectId, 'curso' as tipo FROM user_subject INNER JOIN course ON course.courseId = user_subject.courseId WHERE alumnoId = " . $res["userId"] . " AND status = 'activo' UNION ALL SELECT subject_id as subjectId, 'preregistro' as tipo FROM user_preregistro WHERE user_id = " . $res["userId"] . ") A  GROUP BY A.subjectId";
 			$this->Util()->DB()->setQuery($sql);
 			$curriculas = $this->Util()->DB()->GetResult();
-		 
+
 			$card['curriculas'] = $curriculas;
 
 			$card["lastNameMaterno"] = $this->Util()->DecodeTiny($card["lastNameMaterno"]);
@@ -3590,8 +3590,9 @@ class Student extends User
 		return $resultado;
 	}
 
-	public function preRegistros() {
-		$sql = "SELECT * FROM (SELECT course.subjectId, 'curso' as tipo FROM user_subject INNER JOIN course ON course.courseId = user_subject.courseId WHERE alumnoId = " . $this->getUserId() . " AND status = 'activo' UNION ALL SELECT subject_id as subjectId, 'preregistro' as tipo FROM user_preregistro WHERE user_id = " . $this->getUserId().") A  GROUP BY A.subjectId";
+	public function preRegistros()
+	{
+		$sql = "SELECT * FROM (SELECT course.subjectId, 'curso' as tipo FROM user_subject INNER JOIN course ON course.courseId = user_subject.courseId WHERE alumnoId = " . $this->getUserId() . " AND status = 'activo' UNION ALL SELECT subject_id as subjectId, 'preregistro' as tipo FROM user_preregistro WHERE user_id = " . $this->getUserId() . ") A  GROUP BY A.subjectId";
 		$this->Util()->DB()->setQuery($sql);
 		$data = $this->Util()->DB()->GetResult();
 		foreach ($data as $item) {
