@@ -21,7 +21,7 @@
                         <div class="collapse {if in_array($page, ["major", "personal1", "student", "position", "role", "profesion", "recording"])}show{/if}"
                             id="m-catalogos">
                             <ul class="nav flex-column sub-menu">
-                                {if in_array($User.userId, [1, 142])}
+                                {if in_array($User.userId, [1, 142, 260])}
                                     <li class="nav-item">
                                         <a class="nav-link {if $page == "major"}active{/if}" href="{$WEB_ROOT}/major">Programas
                                             Académicos</a>
@@ -34,7 +34,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link {if $page == "student"}active{/if}" href="{$WEB_ROOT}/student">Alumnos</a>
                                 </li>
-                                {if in_array($User.userId, [1, 142, 177, 149, 114])}
+                                {if in_array($User.userId, [1, 142, 177, 149, 114, 260])}
                                     <li class="nav-item">
                                         <a class="nav-link {if $page == "credenciales"}active{/if}"
                                             href="{$WEB_ROOT}/credenciales">Credenciales</a>
@@ -52,7 +52,7 @@
                                             href="{$WEB_ROOT}/profesion">Profesiones</a>
                                     </li>
                                 {/if}
-                                {if in_array($User.userId, [1, 142, 177])}
+                                {if in_array($User.userId, [1, 142, 177, 260])}
                                     <li class="nav-item">
                                         <a class="nav-link" href="{$WEB_ROOT}/cat-doc-alumno">Documentos Alumnos</a>
                                     </li>
