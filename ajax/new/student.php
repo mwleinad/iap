@@ -1,4 +1,7 @@
 <?php
+
+use Google\Service\CloudSearch\Id;
+
 include_once('../../init.php');
 include_once('../../config.php');
 include_once(DOC_ROOT . '/libraries.php');
@@ -35,7 +38,7 @@ switch ($_POST['opcion']) {
 		}
 		if ($correo == '') {
 			$errors['email'] = "Por favor, no se olvide de poner el correo electrónico.";
-		}elseif (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+		} elseif (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
 			$errors['email'] = "Por favor, ingrese un correo electrónico válido.";
 		}
 		if ($telefono == '') {
@@ -86,7 +89,7 @@ switch ($_POST['opcion']) {
 		$student->setEstadoT($estado);
 		$student->setCiudadT($ciudad);
 		$student->setActualizado("no");
-		$student->setSubjectId($curricula); 
+		$student->setSubjectId($curricula);
 		$student->setAcademicDegree($_POST['academicDegree']);
 		$response = $student->Save();
 		if ($response) {
@@ -671,6 +674,180 @@ switch ($_POST['opcion']) {
 				]);
 			}
 		}
+		break;
+	case "updateStudentRegister":
+		$student->setUserId($_POST['id']);
+		$names = strip_tags(trim($_POST['names']));
+		$lastNamePaterno = strip_tags(trim($_POST['lastNamePaterno']));
+		$lastNameMaterno = strip_tags(trim($_POST['lastNameMaterno']));
+		$sexo = strip_tags(trim($_POST['sexo']));
+		$birthday = explode('-', $_POST['birthday']);
+		$maritalStatus = strip_tags($_POST['maritalStatus']);
+		$street = strip_tags(trim($_POST['street']));
+		$number = strip_tags(trim($_POST['number']));
+		$colony = strip_tags(trim($_POST['colony']));
+		$pais = 1;
+		$estado = intval($_POST['estado']);
+		$ciudad = intval($_POST['ciudad']);
+		$postalCode = strip_tags($_POST['postalCode']);
+		$email = strip_tags(trim($_POST['email']));
+		$mobile = strip_tags(trim($_POST['mobile']));
+		$phone = strip_tags(trim($_POST['phone']));
+		$fax = strip_tags(trim($_POST['fax']));
+		$workplaceOcupation = strip_tags(trim($_POST['workplaceOcupation']));
+		$workplace = strip_tags(trim($_POST['workplace']));
+		$workplaceAddress = strip_tags(trim($_POST['workplaceAddress']));
+		$paist = 1;
+		$estadot = intval($_POST['estadot']);
+		$ciudadt = intval($_POST['ciudadt']);
+		$workplaceArea = strip_tags(trim($_POST['workplaceArea']));
+		$workplacePosition = strip_tags(trim($_POST['workplacePosition']));
+		$workplacePhone = strip_tags(trim($_POST['workplacePhone']));
+		$workplaceEmail = strip_tags(trim($_POST['workplaceEmail']));
+		$academicDegree = strip_tags(trim($_POST['academicDegree']));
+		$profesion = intval($_POST['profesion']);
+		$school = strip_tags(trim($_POST['school']));
+		$masters = strip_tags(trim($_POST['masters']));
+		$mastersSchool = strip_tags(trim($_POST['mastersSchool']));
+		$highSchool = strip_tags(trim($_POST['highSchool']));
 
+		if (empty($names)) {
+			$errors['names'] = "Por favor, no se olvide de poner el nombre.";
+		}
+		if (empty($lastNamePaterno)) {
+			$errors['lastNamePaterno'] = "Por favor, no se olvide de poner el apellido paterno.";
+		}
+		if (empty($lastNameMaterno)) {
+			$errors['lastNameMaterno'] = "Por favor, no se olvide de poner el apellido materno.";
+		}
+		if (empty($sexo)) {
+			$errors['sexo'] = "Por favor, no se olvide de seleccionar el sexo.";
+		}
+		if (empty($birthday)) {
+			$errors['birthday'] = "Por favor, no se olvide de poner la fecha de nacimiento.";
+		}
+		if (empty($maritalStatus)) {
+			$errors['maritalStatus'] = "Por favor, no se olvide de seleccionar el estado civil.";
+		}
+		if (empty($street)) {
+			$errors['street'] = "Por favor, no se olvide de poner la calle.";
+		}
+		if (empty($number)) {
+			$errors['number'] = "Por favor, no se olvide de poner el número.";
+		}
+		if (empty($colony)) {
+			$errors['colony'] = "Por favor, no se olvide de poner la colonia, fraccionamiento, etc...";
+		}
+		if (empty($estado)) {
+			$errors['estado'] = "Por favor, no se olvide de seleccionar el estado.";
+		}
+		if (empty($ciudad)) {
+			$errors['ciudad'] = "Por favor, no se olvide de seleccionar la ciudad.";
+		}
+		if (empty($postalCode)) {
+			$errors['postalCode'] = "Por favor, no se olvide de poner el código postal.";
+		}
+		if (empty($email)) {
+			$errors['email'] = "Por favor, no se olvide de poner el correo electrónico.";
+		} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			$errors['email'] = "Por favor, ingrese un correo electrónico válido.";
+		}
+		if (empty($mobile)) {
+			$errors['mobile'] = "Por favor, no se olvide de poner el número de celular.";
+		}
+		if (empty($workplaceOcupation)) {
+			$errors['workplaceOcupation'] = "Por favor, no se olvide de poner la ocupación.";
+		}
+		if (empty($workplace)) {
+			$errors['workplace'] = "Por favor, no se olvide de poner el lugar de trabajo.";
+		}
+		if (empty($workplaceAddress)) {
+			$errors['workplaceAddress'] = "Por favor, no se olvide de poner la dirección del trabajo.";
+		}
+		if (empty($estadot)) {
+			$errors['estadot'] = "Por favor, no se olvide de seleccionar el estado donde labora.";
+		}
+		if (empty($ciudadt)) {
+			$errors['ciudadt'] = "Por favor, no se olvide de seleccionar la ciudad donde labora.";
+		}
+		if (empty($workplaceArea)) {
+			$errors['workplaceArea'] = "Por favor, no se olvide de poner el área de trabajo.";
+		}
+		if (empty($workplacePosition)) {
+			$errors['workplacePosition'] = "Por favor, no se olvide de poner el puesto de trabajo.";
+		}
+		if (empty($workplacePhone)) {
+			$errors['workplacePhone'] = "Por favor, no se olvide de poner el teléfono del trabajo.";
+		}
+		if (empty($workplaceEmail)) {
+			$errors['workplaceEmail'] = "Por favor, no se olvide de poner el correo del trabajo.";
+		} elseif (!filter_var($workplaceEmail, FILTER_VALIDATE_EMAIL)) {
+			$errors['workplaceEmail'] = "Por favor, ingrese un correo electrónico válido.";
+		}
+		if (empty($academicDegree)) {
+			$errors['academicDegree'] = "Por favor, no se olvide de seleccionar el grado académico.";
+		}
+		if (empty($profesion)) {
+			$errors['profesion'] = "Por favor, no se olvide de seleccionar la profesión.";
+		}
+		if (empty($school)) {
+			$errors['school'] = "Por favor, no se olvide de poner la escuela.";
+		}
+		if (empty($highSchool)) {
+			$errors['highSchool'] = "Por favor, no se olvide de poner la preparatoria.";
+		}
+		if (!empty($errors)) {
+			header('HTTP/1.1 422 Unprocessable Entity');
+			header('Content-Type: application/json; charset=UTF-8');
+			echo json_encode([
+				'errors'    => $errors
+			]);
+			exit;
+		}
+
+		// Información Personal
+		$student->setNames($_POST['names']);
+		$student->setLastNamePaterno($_POST['lastNamePaterno']);
+		$student->setLastNameMaterno($_POST['lastNameMaterno']);
+		$student->setSexo($_POST['sexo']);
+
+		$student->setBirthdate(intval($birthday[2]), intval($birthday[1]), intval($birthday[0]));
+		$student->setMaritalStatus($_POST['maritalStatus']);
+
+		// Domicilio
+		$student->setStreet($_POST['street']);
+		$student->setNumber($_POST['number']);
+		$student->setColony($_POST['colony']);
+		$student->setCountry($_POST['pais']);
+		$student->setState($_POST['estado']);
+		$student->setCity($_POST['ciudad']);
+		$student->setPostalCode($_POST['postalCode']);
+
+		// Datos De Contacto
+		$student->setEmail($_POST['email']);
+		$student->setMobile($_POST['mobile']);
+		$student->setPhone($_POST['phone']);
+		$student->setFax($_POST['fax']);
+
+		// Datos Laborales
+		$student->setWorkplaceOcupation($_POST['workplaceOcupation']);
+		$student->setWorkplace($_POST['workplace']);
+		$student->setWorkplaceAddress($_POST['workplaceAddress']);
+		$student->setPaisT($_POST['paist']);
+		$student->setEstadoT($_POST['estadot']);
+		$student->setCiudadT($_POST['ciudadt']);
+		$student->setWorkplaceArea($_POST['workplaceArea']);
+		$student->setWorkplacePosition($_POST['workplacePosition']);
+		$student->setWorkplacePhone($_POST['workplacePhone']);
+		$student->setWorkplaceEmail($_POST['workplaceEmail']);
+
+		// Estudios
+		$student->setAcademicDegree($_POST['academicDegree']);
+		$student->setProfesion($_POST['profesion']);
+		$student->setSchool($_POST['school']);
+		$student->setMasters($_POST['masters']);
+		$student->setMastersSchool($_POST['mastersSchool']);
+		$student->setHighSchool($_POST['highSchool']);
+		$response = $student->updateStudent();
 		break;
 }

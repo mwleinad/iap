@@ -389,6 +389,7 @@ class Student extends User
 			$sql = "SELECT COUNT(*) FROM user_preregistro WHERE user_id = '" . $usuario['userId'] . "' AND subject_id = '" . $this->subjectId . "'";
 			$this->Util()->DB()->setQuery($sql);
 			$preregistro = $this->Util()->DB()->GetSingle();
+			$nombre = $this->getNames() . " " . $this->getLastNamePaterno() . " " . $this->getLastNameMaterno();
 			if (!$preregistro) {
 				$sql = "INSERT INTO user_preregistro (user_id, subject_id) VALUES ('" . $usuario['userId'] . "', '" . $this->subjectId . "')";
 				$this->Util()->DB()->setQuery($sql);
@@ -414,8 +415,7 @@ class Student extends User
 			$details_body = array(
 				"usuario" 		=> $usuario['controlNumber'],
 				"contrasena" 	=> $usuario['password'],
-			);
-			$nombre = $this->getNames() . " " . $this->getLastNamePaterno() . " " . $this->getLastNameMaterno();
+			); 
 			$details_subject = array();
 			$sendmail->Prepare($message[13]['subject'], $message[13]['body'], $details_body, $details_subject, $this->getEmail(), $nombre);
 		} else {
@@ -3559,10 +3559,8 @@ class Student extends User
 			'sexo'				=> $this->sexo,
 			'workplaceOcupation' => $this->workplaceOcupation,
 			'academicDegree'	=> $this->academicDegree,
-			'rfc'				=> $this->rfc,
-			'adscripcion'		=> $this->adscripcion,
-			'coordination'		=> $this->coordination,
-			'funcion'			=> $this->funcion
+			'funcion'			=> $this->funcion,
+			'birthdate'			=> $this->birthdate,
 		];
 		$updateQuery = $this->Util()->DB()->generateUpdateQuery($fields);
 		$sql = "UPDATE user SET $updateQuery WHERE userId = {$this->getUserId()}";

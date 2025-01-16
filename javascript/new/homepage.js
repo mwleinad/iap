@@ -242,11 +242,11 @@ function updateStudentRegister() {
 			}
         }
     });
-}
+} 
 
 function estado_dependenciat()
 {
-    var paisId = $("#paist").val();
+    var paisId = 1;
     $.ajax({
         url : WEB_ROOT+'/ajax/new/dependencia-estadot.php',
         type: "POST",
@@ -284,7 +284,7 @@ function ciudad_dependenciat()
 
 function estado_dependencia()
 {
-    var paisId = $("#pais").val();
+    var paisId = 1;
     $.ajax({
         url : WEB_ROOT+'/ajax/new/dependencia-estado.php',
         type: "POST",
