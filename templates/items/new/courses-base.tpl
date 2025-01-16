@@ -173,7 +173,7 @@
 									<i class="fas fa-certificate"></i> Cotejo Conocer
 								</a>
 							{/if}
-							{if $User.userId == 1}
+							{if in_array($User.userId,[1, 149])}
 								<form id="form_calendario{$subject.courseId}" class="form dropdown-item pointer spanActive"
 									action="{$WEB_ROOT}/ajax/new/conceptos.php" method="POST">
 									<input type="hidden" name="opcion" value="conceptos-curso">
