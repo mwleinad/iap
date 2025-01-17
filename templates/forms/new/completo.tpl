@@ -6,17 +6,18 @@
     <div class="row">
         <div class="form-group col-md-6">
             <label for="names">Nombre:</label>
-            <input type="text" name="names" id="names" class="form-control" value="{$dataStudent.names}" />
+            <input type="text" name="names" id="names" class="form-control" value="{$dataStudent.names}"
+                placeholder="Escribe tu nombre..." />
         </div>
         <div class="form-group col-md-6">
             <label for="lastNamePaterno">Apellido Paterno:</label>
             <input type="text" name="lastNamePaterno" id="lastNamePaterno" class="form-control"
-                value="{$dataStudent.lastNamePaterno}" />
+                value="{$dataStudent.lastNamePaterno}" placeholder="Escribe tu primer apellido..." />
         </div>
         <div class="form-group col-md-6">
             <label for="lastNameMaterno">Apellido Materno:</label>
             <input type="text" name="lastNameMaterno" id="lastNameMaterno" class="form-control"
-                value="{$dataStudent.lastNameMaterno}" />
+                value="{$dataStudent.lastNameMaterno}" placeholder="Escribe tu segundo apellido..." />
         </div>
         <div class="form-group col-md-6">
             <label for="sexo">Sexo:</label>
@@ -29,23 +30,27 @@
             {* day-month-year *}
             <label for="birthday">Fecha de Nacimiento:</label>
             <input type="text" id="birthday" name="birthday" class="form-control i-calendar"
-                value="{$dataStudent.yearBirthdate}-{$dataStudent.monthBirthdate}-{$dataStudent.dayBirthdate}" />
+                value="{$dataStudent.yearBirthdate}-{$dataStudent.monthBirthdate}-{$dataStudent.dayBirthdate}"
+                placeholder="Fecha de nacimiento..." />
         </div>
         <div class="form-group col-md-6">
             <label for="maritalStatus">Estado Civil:</label>
             {include file="{$DOC_ROOT}/templates/forms/maritalStatus.tpl" selected=$dataStudent.maritalStatus}
         </div>
         <div class="form-group col-md-6">
-            <label for="habilidades">Principales habilidades o habilidades</label>
-            <textarea class="form-control" id="habilidades" rows="6" name="habilidades">{$dataStudent.habilidades}</textarea>
+            <label for="habilidades">Principales habilidades o destrezas</label>
+            <textarea class="form-control" id="habilidades" rows="6" name="habilidades"
+                placeholder="Escribe aquí tus habilidades o destrezas...">{$dataStudent.habilidades}</textarea>
         </div>
         <div class="form-group col-md-6">
             <label for="aspiraciones">Principales aspiraciones y proyectos de vida</label>
-            <textarea class="form-control" id="aspiraciones" rows="6" name="aspiraciones">{$dataStudent.aspiraciones}</textarea>
+            <textarea class="form-control" id="aspiraciones" rows="6" name="aspiraciones"
+                placeholder="Escribe aquí tus aspiraciones...">{$dataStudent.aspiraciones}</textarea>
         </div>
         <div class="form-group col-md-6">
             <label for="aficiones">Aficiones, gustos o pasatiempos</label>
-            <textarea class="form-control" id="aficiones" rows="6" name="aficiones">{$dataStudent.aficiones}</textarea>
+            <textarea class="form-control" id="aficiones" rows="6" name="aficiones"
+                placeholder="Escribe aquí tus aficiones, gustos o pasatiempos...">{$dataStudent.aficiones}</textarea>
         </div>
     </div>
 
@@ -54,15 +59,18 @@
     <div class="row">
         <div class="form-group col-md-4">
             <label for="street">Calle:</label>
-            <input type="text" name="street" id="street" class="form-control" value="{$dataStudent.street}" />
+            <input type="text" name="street" id="street" class="form-control" value="{$dataStudent.street}"
+                placeholder="Escribe aquí tu calle..." />
         </div>
         <div class="form-group col-md-4">
             <label for="number">Número:</label>
-            <input type="text" name="number" id="number" class="form-control" value="{$dataStudent.number}" />
+            <input type="text" name="number" id="number" class="form-control" value="{$dataStudent.number}"
+                placeholder="Escribe el número..." />
         </div>
         <div class="form-group col-md-4">
             <label for="colony">Colonia:</label>
-            <input type="text" name="colony" id="colony" class="form-control" value="{$dataStudent.colony}" />
+            <input type="text" name="colony" id="colony" class="form-control" value="{$dataStudent.colony}"
+                placeholder="Escribe aquí tu colonia..." />
         </div>
     </div>
     <div class="row">
@@ -98,8 +106,8 @@
         </div>
         <div class="form-group col-md-3">
             <label for="postalCode">Código Postal:</label>
-            <input type="text" name="postalCode" id="postalCode" class="form-control"
-                value="{$dataStudent.postalCode}" />
+            <input type="text" name="postalCode" id="postalCode" class="form-control" value="{$dataStudent.postalCode}"
+                placeholder="Escribe aquí tu código postal..." />
         </div>
     </div>
 
@@ -108,11 +116,13 @@
     <div class="row">
         <div class="form-group col-md-6">
             <label for="email">Correo Electrónico:</label>
-            <input type="text" name="email" id="email" class="form-control" value="{$dataStudent.email}" />
+            <input type="text" name="email" id="email" class="form-control" value="{$dataStudent.email}"
+                placeholder="Escribe aquí tu correo electrónico..." />
         </div>
         <div class="form-group col-md-6">
             <label for="mobile">Celular:</label>
-            <input type="text" name="mobile" id="mobile" class="form-control" value="{$dataStudent.mobile}" />
+            <input type="text" name="mobile" id="mobile" class="form-control" value="{$dataStudent.mobile}"
+                placeholder="Escribe aquí tu celular..." />
         </div>
     </div>
     <div class="row">
@@ -188,27 +198,28 @@
         <div class="form-group col-md-6">
             <label for="workplaceArea">Area:</label>
             <input type="text" name="workplaceArea" id="workplaceArea" class="form-control"
-                value="{$dataStudent.workplaceArea}" />
+                value="{$dataStudent.workplaceArea}" placeholder="Escribe aquí el área..." />
         </div>
         <div class="form-group col-md-6">
             <label for="workplacePosition">Puesto:</label>
             <input type="text" name="workplacePosition" id="workplacePosition" class="form-control"
-                value="{$dataStudent.workplacePosition}" />
+                value="{$dataStudent.workplacePosition}" placeholder="Escribe aquí tu puesto..." />
         </div>
         <div class="form-group col-md-12">
             <label for="actividades">Actividades que desempeña</label>
-            <textarea name="actividades" id="actividades" class="form-control"
-                rows="6">{$dataStudent.actividades}</textarea>
+            <textarea name="actividades" id="actividades" class="form-control" rows="6"
+                placeholder="Escribe aquí las actividades que desempeñas...">{$dataStudent.actividades}</textarea>
         </div>
         <div class="form-group col-md-6">
             <label for="workplacePhone">Teléfono de Oficina:</label>
             <input type="text" name="workplacePhone" id="workplacePhone" class="form-control"
-                value="{$dataStudent.workplacePhone}" />
+                placeholder="Escribe aquí el teléfono de tu oficina..." value="{$dataStudent.workplacePhone}" />
         </div>
         <div class="form-group col-md-6">
             <label for="workplaceEmail">Correo Institucional:</label>
             <input type="text" name="workplaceEmail" id="workplaceEmail" class="form-control"
-                value="{$dataStudent.workplaceEmail}" />
+                value="{$dataStudent.workplaceEmail}"
+                placeholder="Escribe aquí el correo institucional donde trabajas..." />
         </div>
     </div>
 
@@ -243,18 +254,20 @@
     <div class="row">
         <div class="form-group col-md-6">
             <label for="school">Escuela o Institución Universitaria:</label>
-            <input type="text" name="school" id="school" class="form-control" value="{$dataStudent.school}" />
+            <input type="text" name="school" id="school" class="form-control" value="{$dataStudent.school}"
+                placeholder="Escribe aquí la escuela universitaria..." />
         </div>
         <div class="form-group col-md-6">
             <label for="masters">Maestría en:</label>
-            <input type="text" name="masters" id="masters" class="form-control" value="{$dataStudent.masters}" />
+            <input type="text" name="masters" id="masters" class="form-control" value="{$dataStudent.masters}"
+                placeholder="Escribe aquí tu maestría..." />
         </div>
     </div>
     <div class="row">
         <div class="form-group col-md-6">
             <label for="mastersSchool">Escuela o Institución Maestría:</label>
             <input type="text" name="mastersSchool" id="mastersSchool" class="form-control"
-                value="{$dataStudent.mastersSchool}" />
+                value="{$dataStudent.mastersSchool}" placeholder="Escribe aquí la escuela de la maestría..." />
         </div>
         <div class="form-group col-md-6">
             <label for="highSchool">Escuela o Institución Bachillerato:</label>
@@ -287,11 +300,13 @@
         </div>
         <div class="form-group col-md-12">
             <label>¿Cuáles son tus expectativas del programa y qué esperas obtener o aportar?</label>
-            <textarea name="expectativas" id="expectativas" class="form-control" rows="6">{$dataStudent.expectativas}</textarea>
+            <textarea name="expectativas" id="expectativas" class="form-control" rows="6"
+                placeholder="Escribe aquí las expectativas...">{$dataStudent.expectativas}</textarea>
         </div>
         <div class="form-group col-md-12">
             <label>¿Algo más que desees compartir?</label>
-            <textarea name="comentarios" id="comentarios" class="form-control" rows="8">{$dataStudent.comentarios}</textarea>
+            <textarea name="comentarios" id="comentarios" class="form-control" rows="8"
+                placeholder="Escribe aquí tus comentarios adicionales...">{$dataStudent.comentarios}</textarea>
         </div>
     </div>
     <div class="form-group">
@@ -299,6 +314,9 @@
             <button type="submit" class="btn btn-success btn-block">
                 Guardar
             </button>
+        </div>
+        <div class="col-md-6 mx-auto text-center">
+            <a class="btn btn-link" href="{$WEB_ROOT}/aviso_privacidad">Aviso de privacidad</a>
         </div>
     </div>
 </form>

@@ -711,6 +711,17 @@ switch ($_POST['opcion']) {
 		$mastersSchool = strip_tags(trim($_POST['mastersSchool']));
 		$highSchool = strip_tags(trim($_POST['highSchool']));
 
+		$habilidades = strip_tags($_POST['habilidades']);
+		$aspiraciones = strip_tags($_POST['aspiraciones']);
+		$aficiones = strip_tags($_POST['aficiones']);
+		$actividades = strip_tags($_POST['actividades']);
+		$reconocimiento = intval($_POST['reconocimiento']);
+		$tipoReconocimiento = strip_tags($_POST['tipoReconocimiento']);
+		$institutoReconocimiento = strip_tags($_POST['institutoReconocimiento']);
+		$lugarReconocimiento = strip_tags($_POST['lugarReconocimiento']);
+		$expectativas = strip_tags($_POST['expectativas']);
+		$comentarios = strip_tags($_POST['comentarios']);
+
 		if (empty($names)) {
 			$errors['names'] = "Por favor, no se olvide de poner el nombre.";
 		}
@@ -796,6 +807,43 @@ switch ($_POST['opcion']) {
 		if (empty($highSchool)) {
 			$errors['highSchool'] = "Por favor, no se olvide de poner la preparatoria.";
 		}
+		if (!empty($academicDegree) && ($academicDegree == "MAESTRIA" || $academicDegree == "DOCTORADO")) {
+			if (empty($masters)) {
+				$errors['masters'] = "Por favor, no se olvide de poner la maestría.";
+			}
+			if (empty($mastersSchool)) {
+				$errors['mastersSchool'] = "Por favor, no se olvide de poner la escuela de la maestría.";
+			}
+		}
+		if (empty($habilidades)) {
+			$errors['habilidades'] = "Por favor, no se olvide de poner las habilidades.";
+		}
+		if (empty($aspiraciones)) {
+			$errors['aspiraciones'] = "Por favor, no se olvide de poner las aspiraciones.";
+		}
+		if (empty($aficiones)) {
+			$errors['aficiones'] = "Por favor, no se olvide de poner las aficiones.";
+		}
+		if (empty($actividades)) {
+			$errors['actividades'] = "Por favor, no se olvide de poner las actividades.";
+		}
+		if (empty($expectativas)) {
+			$errors['expectativas'] = "Por favor, no se olvide de poner las expectativas.";
+		}
+		if (empty($comentarios)) {
+			$errors['comentarios'] = "Por favor, no se olvide de poner los comentarios.";
+		}
+		if ($reconocimiento == 1) {
+			if (empty($tipoReconocimiento)) {
+				$errors['tipoReconocimiento'] = "Por favor, no se olvide de poner el tipo de reconocimiento.";
+			}
+			if (empty($institutoReconocimiento)) {
+				$errors['institutoReconocimiento'] = "Por favor, no se olvide de poner el instituto de reconocimiento.";
+			}
+			if (empty($lugarReconocimiento)) {
+				$errors['lugarReconocimiento'] = "Por favor, no se olvide de poner el lugar de reconocimiento.";
+			}
+		}
 		if (!empty($errors)) {
 			header('HTTP/1.1 422 Unprocessable Entity');
 			header('Content-Type: application/json; charset=UTF-8');
@@ -806,48 +854,228 @@ switch ($_POST['opcion']) {
 		}
 
 		// Información Personal
-		$student->setNames($_POST['names']);
-		$student->setLastNamePaterno($_POST['lastNamePaterno']);
-		$student->setLastNameMaterno($_POST['lastNameMaterno']);
-		$student->setSexo($_POST['sexo']);
+		$student->setNames($names);
+		$student->setLastNamePaterno($lastNamePaterno);
+		$student->setLastNameMaterno($lastNameMaterno);
+		$student->setSexo($sexo);
 
 		$student->setBirthdate(intval($birthday[2]), intval($birthday[1]), intval($birthday[0]));
-		$student->setMaritalStatus($_POST['maritalStatus']);
+		$student->setMaritalStatus($maritalStatus);
 
 		// Domicilio
-		$student->setStreet($_POST['street']);
-		$student->setNumber($_POST['number']);
-		$student->setColony($_POST['colony']);
-		$student->setCountry($_POST['pais']);
-		$student->setState($_POST['estado']);
-		$student->setCity($_POST['ciudad']);
-		$student->setPostalCode($_POST['postalCode']);
+		$student->setStreet($street);
+		$student->setNumber($number);
+		$student->setColony($colony);
+		$student->setCountry($pais);
+		$student->setState($estado);
+		$student->setCity($ciudad);
+		$student->setPostalCode($postalCode);
 
 		// Datos De Contacto
-		$student->setEmail($_POST['email']);
-		$student->setMobile($_POST['mobile']);
-		$student->setPhone($_POST['phone']);
-		$student->setFax($_POST['fax']);
+		$student->setEmail($email);
+		$student->setMobile($mobile);
+		$student->setPhone($phone);
+		$student->setFax($fax);
 
 		// Datos Laborales
-		$student->setWorkplaceOcupation($_POST['workplaceOcupation']);
-		$student->setWorkplace($_POST['workplace']);
-		$student->setWorkplaceAddress($_POST['workplaceAddress']);
-		$student->setPaisT($_POST['paist']);
-		$student->setEstadoT($_POST['estadot']);
-		$student->setCiudadT($_POST['ciudadt']);
-		$student->setWorkplaceArea($_POST['workplaceArea']);
-		$student->setWorkplacePosition($_POST['workplacePosition']);
-		$student->setWorkplacePhone($_POST['workplacePhone']);
-		$student->setWorkplaceEmail($_POST['workplaceEmail']);
+		$student->setWorkplaceOcupation($workplaceOcupation);
+		$student->setWorkplace($workplace);
+		$student->setWorkplaceAddress($workplaceAddress);
+		$student->setPaisT($paist);
+		$student->setEstadoT($estadot);
+		$student->setCiudadT($ciudadt);
+		$student->setWorkplaceArea($workplaceArea);
+		$student->setWorkplacePosition($workplacePosition);
+		$student->setWorkplacePhone($workplacePhone);
+		$student->setWorkplaceEmail($workplaceEmail);
 
 		// Estudios
-		$student->setAcademicDegree($_POST['academicDegree']);
-		$student->setProfesion($_POST['profesion']);
-		$student->setSchool($_POST['school']);
-		$student->setMasters($_POST['masters']);
-		$student->setMastersSchool($_POST['mastersSchool']);
-		$student->setHighSchool($_POST['highSchool']);
+		$student->setAcademicDegree($academicDegree);
+		$student->setProfesion($profesion);
+		$student->setSchool($school);
+		$student->setMasters($masters);
+		$student->setMastersSchool($mastersSchool);
+		$student->setHighSchool($highSchool);
+
+		// Información Adicional
+		$student->setHabilidades($habilidades);
+		$student->setAspiraciones($aspiraciones);
+		$student->setAficiones($aficiones);
+		$student->setActividades($actividades);
+		$student->setExpectativas($expectativas);
+		$student->setComentarios($comentarios);
+		$student->setReconocimiento($reconocimiento);
+		$student->setTipoReconocimiento($tipoReconocimiento);
+		$student->setInstitutoReconocimiento($institutoReconocimiento);
+		$student->setLugarReconocimiento($lugarReconocimiento);
+		$student->setActualizado('si');
 		$response = $student->updateStudent();
+
+		if ($response['status']) {
+			$_SESSION['User']['actualizado'] = 'si';
+			echo json_encode([
+				'growl'		=> true,
+				'type'		=> 'success',
+				'message'	=> 'Se han actualizado tus datos',
+				'location'	=> WEB_ROOT,
+				'duracion'	=> 5000
+			]);
+		} else {
+			echo json_encode([
+				'growl'		=> true,
+				'type'		=> 'danger',
+				'message'	=> 'Hubo un error, intente de nuevo',
+			]);
+		}
+		break;
+	case 'updatePerfil':
+		$student->setUserId($_POST['id']);
+		$names = strip_tags(trim($_POST['names']));
+		$lastNamePaterno = strip_tags(trim($_POST['lastNamePaterno']));
+		$lastNameMaterno = strip_tags(trim($_POST['lastNameMaterno']));
+		$sexo = strip_tags(trim($_POST['sexo']));
+		$workplaceOcupation = strip_tags(trim($_POST['workplaceOcupation']));
+		$workplace = strip_tags(trim($_POST['workplace']));
+		$workplacePosition = strip_tags(trim($_POST['workplacePosition']));
+		$workplacePhone = strip_tags(trim($_POST['workplacePhone']));
+		$academicDegree = strip_tags(trim($_POST['academicDegree']));
+		$school = strip_tags(trim($_POST['school']));
+		$masters = strip_tags(trim($_POST['masters']));
+		$mastersSchool = strip_tags(trim($_POST['mastersSchool']));
+		$highSchool = strip_tags(trim($_POST['highSchool']));
+
+		$habilidades = strip_tags($_POST['habilidades']);
+		$aspiraciones = strip_tags($_POST['aspiraciones']);
+		$aficiones = strip_tags($_POST['aficiones']);
+		$actividades = strip_tags($_POST['actividades']);
+		$reconocimiento = intval($_POST['reconocimiento']);
+		$tipoReconocimiento = strip_tags($_POST['tipoReconocimiento']);
+		$institutoReconocimiento = strip_tags($_POST['institutoReconocimiento']);
+		$lugarReconocimiento = strip_tags($_POST['lugarReconocimiento']);
+		$expectativas = strip_tags($_POST['expectativas']);
+		$comentarios = strip_tags($_POST['comentarios']);
+
+		if (empty($names)) {
+			$errors['names'] = "Por favor, no se olvide de poner el nombre.";
+		}
+		if (empty($lastNamePaterno)) {
+			$errors['lastNamePaterno'] = "Por favor, no se olvide de poner el apellido paterno.";
+		}
+		if (empty($lastNameMaterno)) {
+			$errors['lastNameMaterno'] = "Por favor, no se olvide de poner el apellido materno.";
+		}
+		if (empty($sexo)) {
+			$errors['sexo'] = "Por favor, no se olvide de seleccionar el sexo.";
+		}
+
+
+		if (empty($workplace)) {
+			$errors['workplace'] = "Por favor, no se olvide de poner el lugar de trabajo.";
+		}
+		if (empty($workplacePosition)) {
+			$errors['workplacePosition'] = "Por favor, no se olvide de poner el puesto de trabajo.";
+		}
+
+		if (empty($academicDegree)) {
+			$errors['academicDegree'] = "Por favor, no se olvide de seleccionar el grado académico.";
+		}
+		if (empty($school)) {
+			$errors['school'] = "Por favor, no se olvide de poner la escuela.";
+		}
+		if (empty($highSchool)) {
+			$errors['highSchool'] = "Por favor, no se olvide de poner la preparatoria.";
+		}
+		if (!empty($academicDegree) && ($academicDegree == "MAESTRIA" || $academicDegree == "DOCTORADO")) {
+			if (empty($masters)) {
+				$errors['masters'] = "Por favor, no se olvide de poner la maestría.";
+			}
+			if (empty($mastersSchool)) {
+				$errors['mastersSchool'] = "Por favor, no se olvide de poner la escuela de la maestría.";
+			}
+		}
+		if (empty($habilidades)) {
+			$errors['habilidades'] = "Por favor, no se olvide de poner las habilidades.";
+		}
+		if (empty($aspiraciones)) {
+			$errors['aspiraciones'] = "Por favor, no se olvide de poner las aspiraciones.";
+		}
+		if (empty($aficiones)) {
+			$errors['aficiones'] = "Por favor, no se olvide de poner las aficiones.";
+		}
+		if (empty($actividades)) {
+			$errors['actividades'] = "Por favor, no se olvide de poner las actividades.";
+		}
+		if (empty($expectativas)) {
+			$errors['expectativas'] = "Por favor, no se olvide de poner las expectativas.";
+		}
+		if (empty($comentarios)) {
+			$errors['comentarios'] = "Por favor, no se olvide de poner los comentarios.";
+		}
+		if ($reconocimiento == 1) {
+			if (empty($tipoReconocimiento)) {
+				$errors['tipoReconocimiento'] = "Por favor, no se olvide de poner el tipo de reconocimiento.";
+			}
+			if (empty($institutoReconocimiento)) {
+				$errors['institutoReconocimiento'] = "Por favor, no se olvide de poner el instituto de reconocimiento.";
+			}
+			if (empty($lugarReconocimiento)) {
+				$errors['lugarReconocimiento'] = "Por favor, no se olvide de poner el lugar de reconocimiento.";
+			}
+		}
+		if (!empty($errors)) {
+			header('HTTP/1.1 422 Unprocessable Entity');
+			header('Content-Type: application/json; charset=UTF-8');
+			echo json_encode([
+				'errors'    => $errors
+			]);
+			exit;
+		}
+
+		// Información Personal
+		$student->setNames($names);
+		$student->setLastNamePaterno($lastNamePaterno);
+		$student->setLastNameMaterno($lastNameMaterno);
+		$student->setSexo($sexo);
+
+		// Datos Laborales 
+		$student->setWorkplace($workplace);
+		$student->setWorkplacePosition($workplacePosition);
+
+		// Estudios
+		$student->setAcademicDegree($academicDegree);
+		$student->setSchool($school);
+		$student->setMasters($masters);
+		$student->setMastersSchool($mastersSchool);
+		$student->setHighSchool($highSchool);
+
+		// Información Adicional
+		$student->setHabilidades($habilidades);
+		$student->setAspiraciones($aspiraciones);
+		$student->setAficiones($aficiones);
+		$student->setActividades($actividades);
+		$student->setExpectativas($expectativas);
+		$student->setComentarios($comentarios);
+		$student->setReconocimiento($reconocimiento);
+		$student->setTipoReconocimiento($tipoReconocimiento);
+		$student->setInstitutoReconocimiento($institutoReconocimiento);
+		$student->setLugarReconocimiento($lugarReconocimiento);
+		$response = $student->updateStudent();
+
+		if ($response['status']) {
+			echo json_encode([
+				'growl'		=> true,
+				'type'		=> 'success',
+				'message'	=> 'Se han actualizado tu perfil',
+				'location'	=> WEB_ROOT,
+				'duracion'	=> 5000
+			]);
+		} else {
+			echo json_encode([
+				'growl'		=> true,
+				'type'		=> 'danger',
+				'message'	=> 'Hubo un error, intente de nuevo',
+			]);
+		}
+		break;
 		break;
 }

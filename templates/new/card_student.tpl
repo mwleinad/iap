@@ -1,11 +1,11 @@
 <div class="card">
-    {if $infoStudent.imagen ne ''}
-        {$infoStudent.imagen}
-    {else}
-        <div class="text-center mt-3">
-            <i class="fas fa-user-circle fa-6x"></i>
-        </div>
-    {/if}
+    <div class="text-center mt-3">
+        {if $infoStudent.imagen ne ''}
+            {$infoStudent.imagen}
+        {else}
+            <img src="{$WEB_ROOT}/images/logo-humanismo-cuadrado.webp" class="img-fluid" alt="Logo Humanismo">
+        {/if}
+    </div>
     <div class="card-body">
         <h5 class="card-title text-center">{$User['nombreCompleto']}</h5>
         <p class="card-text">El <b>Instituto de Administración Pública del Estado de Chiapas, A. C.</b> te da la más

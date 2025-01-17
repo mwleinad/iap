@@ -22,9 +22,7 @@ class Student extends User
 	private $nuevo;
 	private $repite;
 	private $documentoId;
-	private $tipoMajor;
-	private $tipo_beca;
-	private $por_beca;
+	private $tipoMajor; 
 	private $validar = true;
 	private $periodo;
 	private $correoInstitucional;
@@ -32,6 +30,16 @@ class Student extends User
 	private $curpDrive;
 	private $funcion;
 	private $actualizado;
+	private $habilidades;
+	private $aspiraciones;
+	private $expectativas;
+	private $aficiones;
+	private $actividades;
+	private $comentarios;
+	private $reconocimiento;
+	private $tipoReconocimiento;
+	private $institutoReconocimiento;
+	private $lugarReconocimiento;
 
 	public function setActualizado($value)
 	{
@@ -148,19 +156,8 @@ class Student extends User
 	public function setEstatus($value)
 	{
 		$this->estatus = $value;
-	}
-
-
-	public function setTipoBeca($value)
-	{
-		$this->tipo_beca = $value;
-	}
-
-	public function setPorBeca($value)
-	{
-		$this->por_beca = $value;
-	}
-
+	} 
+	 
 	public function setDocumentoId($value)
 	{
 		$this->Util()->ValidateInteger($value);
@@ -195,6 +192,56 @@ class Student extends User
 	function setFuncion($value)
 	{
 		$this->funcion = $value;
+	}
+
+	public function setHabilidades($value)
+	{
+		$this->habilidades = $value;
+	}
+
+	public function setAspiraciones($value)
+	{
+		$this->aspiraciones = $value;
+	}
+
+	public function setExpectativas($value)
+	{
+		$this->expectativas = $value;
+	}
+
+	public function setAficiones($value)
+	{
+		$this->aficiones = $value;
+	}
+
+	public function setActividades($value)
+	{
+		$this->actividades = $value;
+	}
+
+	public function setComentarios($value)
+	{
+		$this->comentarios = $value;
+	}
+
+	public function setReconocimiento($value)
+	{
+		$this->reconocimiento = $value;
+	}
+
+	public function setTipoReconocimiento($value)
+	{
+		$this->tipoReconocimiento = $value;
+	}
+
+	public function setInstitutoReconocimiento($value)
+	{
+		$this->institutoReconocimiento = $value;
+	}
+
+	public function setLugarReconocimiento($value)
+	{
+		$this->lugarReconocimiento = $value;
 	}
 
 	public function AddAcademicHistory($type, $situation, $semesterId = 1)
@@ -3551,8 +3598,8 @@ class Student extends User
 			'workplacePosition' => $this->workplacePosition,
 			'estado' 			=> $this->state,
 			'ciudad'			=> $this->city,
-			'estadot'			=> $this->state,
-			'ciudadt'			=> $this->city,
+			'estadot'			=> $this->estadoT,
+			'ciudadt'			=> $this->ciudadT,
 			'curp'				=> $this->getCurp(),
 			'curpDrive'			=> $this->curpDrive,
 			'foto'				=> $this->foto,
@@ -3561,6 +3608,26 @@ class Student extends User
 			'academicDegree'	=> $this->academicDegree,
 			'funcion'			=> $this->funcion,
 			'birthdate'			=> $this->birthdate,
+			'habilidades'		=> $this->habilidades,
+			'aspiraciones'		=> $this->aspiraciones,
+			'expectativas'		=> $this->expectativas,
+			'aficiones'			=> $this->aficiones,
+			'actividades'		=> $this->actividades,
+			'reconocimiento'	=> $this->reconocimiento,
+			'tipoReconocimiento' 	=> $this->tipoReconocimiento,
+			'lugarReconocimiento' 	=> $this->lugarReconocimiento,
+			'institutoReconocimiento'	=> $this->institutoReconocimiento,
+			'comentarios'		=> $this->comentarios,
+			'pais'				=> 1,
+			'school'			=> $this->school,
+			'masters'			=> $this->masters,
+			'mastersSchool'		=> $this->mastersSchool,
+			'highSchool'		=> $this->highSchool,
+			'postalCode'		=> $this->postalCode,
+			'workplaceArea'		=> $this->workplaceArea,
+			'workplacePhone'	=> $this->workplacePhone,
+			'workplaceEmail'	=> $this->workplaceEmail,
+			'actualizado'		=> $this->actualizado
 		];
 		$updateQuery = $this->Util()->DB()->generateUpdateQuery($fields);
 		$sql = "UPDATE user SET $updateQuery WHERE userId = {$this->getUserId()}";
@@ -3601,5 +3668,12 @@ class Student extends User
 			$subjects[] = $subject;
 		}
 		return $subjects;
+	}
+
+	public function perfilActualizado() {
+		$sql = "SELECT COUNT(*) as actualizado FROM user WHERE userId = ". $this->getUserId() ." AND(names IS NULL OR lastNamePaterno IS NULL OR lastNameMaterno OR workplace IS NULL OR workplaceOcupation IS NULL OR estadot IS NULL OR ciudadt IS NULL OR sexo IS NULL OR workplaceOcupation IS NULL OR academicDegree IS NULL OR birthdate IS NULL OR habilidades IS NULL OR aspiraciones IS NULL OR expectativas IS NULL OR aficiones IS NULL OR actividades IS NULL OR reconocimiento IS NULL OR tipoReconocimiento IS NULL OR lugarReconocimiento IS NULL OR institutoReconocimiento IS NULL OR comentarios IS NULL OR school IS NULL OR masters IS NULL OR mastersSchool IS NULL OR highSchool IS NULL OR workplaceArea IS NULL OR workplacePhone IS NULL OR workplaceEmail IS NULL)";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetSingle();
+		return $result > 0 ? false : true;
 	}
 }

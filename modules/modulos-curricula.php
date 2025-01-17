@@ -1,4 +1,8 @@
 <?php
+	$perfilActualizado = $student->perfilActualizado();
+	if (!$perfilActualizado) {
+		header("Location:".WEB_ROOT."/perfil?update=1");
+	}
 	$course->setCourseId($_GET["id"]); 
 	$hasSubject = $student->info_subject($_GET['id']);
 	if (!$hasSubject) {

@@ -20121,3 +20121,18 @@ dl li {
     font-size: 1.7rem;
   }
 }
+
+
+.header_main {
+  background-image: url(http://localhost/iap/images/new/cintillo.png);
+  background-size: contain;
+  color: black !important;
+  padding: 20px 15px;
+}
+
+.header_main .sub_header{
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  display: inline;
+}
