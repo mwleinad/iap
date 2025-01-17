@@ -1,6 +1,6 @@
 <?php
 	$perfilActualizado = $student->perfilActualizado();
-	if (!$perfilActualizado) {
+	if ($perfilActualizado > 0) {
 		header("Location:".WEB_ROOT."/perfil?update=1");
 	}
 	$course->setCourseId($_GET["id"]); 
