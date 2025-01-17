@@ -31,7 +31,7 @@
 				(Esta información será visible para tus compañeros y profesores)
 			</div>
 		</div>
-		<form class="form col-md-12" id="form_perfil" action="{$WEB_ROOT}/ajax/new/student">
+		<form class="form col-md-12" id="form_perfil" action="{$WEB_ROOT}/ajax/new/student.php">
 			<input type="hidden" name="opcion" value="updatePerfil">
 			<input type="hidden" name="id" value="{$dataStudent.userId}">
 			<div class="row">
