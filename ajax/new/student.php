@@ -943,6 +943,7 @@ switch ($_POST['opcion']) {
 		$masters = strip_tags(trim($_POST['masters']));
 		$mastersSchool = strip_tags(trim($_POST['mastersSchool']));
 		$highSchool = strip_tags(trim($_POST['highSchool']));
+		$profesion = intval($_POST['profesion']);
 
 		$habilidades = strip_tags($_POST['habilidades']);
 		$aspiraciones = strip_tags($_POST['aspiraciones']);
@@ -1042,6 +1043,7 @@ switch ($_POST['opcion']) {
 		$student->setWorkplacePosition($workplacePosition);
 
 		// Estudios
+		$student->setProfesion($profesion);
 		$student->setAcademicDegree($academicDegree);
 		$student->setSchool($school);
 		$student->setMasters($masters);

@@ -306,7 +306,20 @@
 				localStorage.aceptaCookies = 'true';
 				$(".cookies").addClass('d-none');
 			}
+
+			function compruebaBienvenida() {
+				console.log(localStorage.cerrarBienvenida);
+				if (localStorage.cerrarBienvenida != "true") {
+					$("#bienvenida").removeClass('d-none');
+				}
+				cerrarBienvenida();
+			} 
+			function cerrarBienvenida() {
+				localStorage.cerrarBienvenida = true;
+			}
+
 			$(document).ready(function() {
+				compruebaBienvenida();
 				compruebaAceptaCookies();
 			});
 		</script>

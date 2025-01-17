@@ -3627,7 +3627,8 @@ class Student extends User
 			'workplaceArea'		=> $this->workplaceArea,
 			'workplacePhone'	=> $this->workplacePhone,
 			'workplaceEmail'	=> $this->workplaceEmail,
-			'actualizado'		=> $this->actualizado
+			'actualizado'		=> $this->actualizado,
+			'profesion'			=> $this->profesion	
 		];
 		$updateQuery = $this->Util()->DB()->generateUpdateQuery($fields);
 		$sql = "UPDATE user SET $updateQuery WHERE userId = {$this->getUserId()}";
