@@ -3,7 +3,7 @@
         {if $infoStudent.imagen ne ''}
             {$infoStudent.imagen}
         {else}
-            <img src="{$WEB_ROOT}/images/logo-humanismo-cuadrado.webp" class="img-fluid" alt="Logo Humanismo">
+            <img src="{$WEB_ROOT}/images/logos/logo-humanismo-cuadrado.webp" class="img-fluid" alt="Logo Humanismo">
         {/if}
     </div>
     <div class="card-body">
