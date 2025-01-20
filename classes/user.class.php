@@ -987,7 +987,7 @@ class User extends Main
 			$json = json_decode($credencial['photo']);
 			// print_r($json);
 			$row["foto"] = '<img src="https://www.googleapis.com/drive/v3/files/' . $json->googleId . '?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE" width="110" height="110"/>';
-			$row["imagen"] = '<img src="https://www.googleapis.com/drive/v3/files/' . $json->googleId . '?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE"/>';
+			$row["imagen"] = '<img src="https://www.googleapis.com/drive/v3/files/' . $json->googleId . '?alt=media&key=AIzaSyDPUxMMPT7P29XC9NTBKlMuR_34xWwt3UE" class="img-fluid"/>';
 		} else {
 			if (file_exists(DOC_ROOT . "/alumnos/" . $row["rutaFoto"] . "")) {
 				// echo DOC_ROOT."/alumnos/".$row["rutaFoto"]."";

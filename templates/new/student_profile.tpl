@@ -61,43 +61,14 @@
             </div>
         {else}
             <div class="row">
-                <div class="col-md-12 mb-3 d-none" id="bienvenida">
+                <div class="col-md-12 mb-3" id="bienvenida">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="text-center">¡Bienvenida del Instituto de Administración Pública del Estado de Chiapas A.C.!</h2>
-                            <div class="col-md-8 text-center mx-auto">
-                                <img src="{$WEB_ROOT}/images/new/presidenta.png" class="img-fluid" alt="Presidenta del Instituto de Administración Pública del Estado de Chiapas A.C.">
-                            </div>
-                            <h3>Queridos/as estudiantes:</h3>
-                            <p class="h4">
-                                Es un honor darles la más cordial bienvenida a esta gran comunidad académica. En nombre del
-                                Instituto y de todos los que formamos parte de él, quiero expresar mi alegría por contar con
-                                cada uno de ustedes como parte de nuestra familia.
-                            </p>
-                            <p class="h4">
-                                Han tomado una decisión importante al unirse a esta institución, un lugar donde encontrarán
-                                un espacio para aprender, crecer y desarrollar todo su potencial. Nuestro compromiso es
-                                brindarles una educación de excelencia, fomentando valores como el respeto, la
-                                responsabilidad y la colaboración.
-                            </p>
-                            <p class="h4">
-                                Aprovechen al máximo las oportunidades que encontrarán aquí: desde las clases, los proyectos
-                                y las actividades extracurriculares, hasta el intercambio de ideas con sus compañeros y
-                                profesores. Este es el comienzo de una etapa que marcará sus vidas de manera significativa.
-                            </p>
-                            <p class="h4">
-                                Recuerden que cuentan con nuestro apoyo en todo momento. Si necesitan orientación, nuestro
-                                equipo docente y administrativo está a su disposición para acompañarlos en este camino.
-                            </p>
-                            <p class="h4">
-                                Una vez más, bienvenidos/as al Instituto. Estoy segura de que juntos construiremos un futuro
-                                lleno de logros y éxitos.
-                            </p> 
-                            <p class="h4"><strong>Con entusiasmo y aprecio.</strong></p> 
-                            <p class="h4">
-                                <strong>Mtra. Lysette Raquel Lameiro Camacho</strong><br>
-                                Presidenta del Instituto de Administración Pública del Estado de Chiapas A.C.
-                            </p>
+                            <iframe width="100%" height="600"
+                                src="https://www.youtube.com/embed/nSi0UPTStdQ?si=SBw1oeKswcSjgz_f?rel=0&amp;autoplay=1"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>

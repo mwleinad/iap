@@ -308,9 +308,8 @@
 			}
 
 			function compruebaBienvenida() {
-				console.log(localStorage.cerrarBienvenida);
-				if (localStorage.cerrarBienvenida != "true") {
-					$("#bienvenida").removeClass('d-none');
+				if (localStorage.cerrarBienvenida == "true") {
+					$("#bienvenida").remove(); 
 				}
 				cerrarBienvenida();
 			} 
