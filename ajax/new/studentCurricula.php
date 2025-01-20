@@ -753,34 +753,5 @@ switch ($_POST["type"]) {
 		$student->setUserId($alumno);
 		$cursos = $student->StudentCourses();
 		echo json_encode($cursos);
-		break;
-
-	case 'addStudentGroup':
-		$courseId = $_POST['courseId'];
-		$studentId = $_POST['userId'];
-		$existeEnCurso = $student->getCourses("AND user_subject.courseId = {$courseId} AND user_subject.alumnoId = {$studentId}");
-		if (count($existeEnCurso) > 0) {
-			echo json_encode([
-				'growl'		=> true,
-				'type'		=> 'danger',
-				'message'	=> 'El alumno ya se encuentra en este grupo, intente con otro.',
-			]);
-		} else {
-			$student->setCourseId($courseId);
-			$student->setUserId($studentId);
-			$student->addUserCourse();
-			$dataCourse = $student->getCourses("AND user_subject.courseId = {$courseId} AND user_subject.alumnoId = {$studentId}");
-			$student->setSubjectId($dataCourse[0]['subjectId']);
-			$student->AddAcademicHistory('alta', 'A', 1);
-			$activeCoursesStudent = $student->getCourses("AND user_subject.alumnoId = {$studentId}");
-			$smarty->assign("activeCourseStudent", $activeCoursesStudent);
-			echo json_encode([
-				'growl'		=> true,
-				'type'		=> 'success',
-				'message'	=> 'Alumno agregado',
-				'html'		=> $smarty->fetch(DOC_ROOT . "/templates/lists/curriculas.tpl"),
-				'selector'	=> '#contentCurrent'
-			]);
-		}
-		break;
+		break; 
 }

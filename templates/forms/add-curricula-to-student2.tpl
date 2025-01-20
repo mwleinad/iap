@@ -20,8 +20,9 @@
 			<label for="courseId"><span class="reqField">*</span> Selecciona Curricula:</label>
 			<select name="courseId" id="courseId" class="form-control">
 				<option value=""></option>
-				{foreach from=$curricula item=curso}
-					<option value="{$curso.courseId}">{$curso.majorName} - {$curso.name} - {$curso.group} - {$curso.courseId}</option>
+				{foreach from=$activeCourses item=curso}
+					<option value="{$curso.courseId}">({$curso.courseId}) - {$curso.major_name}
+					{$curso.subject_name} {$curso.group}</option>
 				{/foreach}  
 			</select>
 		</div>
