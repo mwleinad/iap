@@ -1,6 +1,6 @@
 <div class="card">
-    <div class="card-header bg-primary text-white">
-        <i class="fas fa-money-check-alt"></i> Conceptos de pago
+    <div class="card-header bg-primary text-white header_main">
+        <div class="sub_header"><i class="fas fa-money-check-alt"></i> Conceptos de pago</div>
         <form action="{$WEB_ROOT}/ajax/new/conceptos.php" method="POST" id="form_concepto" class="form d-inline">
             <input type="hidden" name="opcion" value="agregar-concepto">
             <button type="submit" data-target="#ajax" data-toggle="modal"
@@ -47,3 +47,9 @@
         </table>
     </div>
 </div>
+
+<style>
+    .table td{
+        white-space: normal;
+    }
+</style>

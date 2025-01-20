@@ -16,8 +16,8 @@
 </div>
 
 <div class="card mb-4">
-    <div class="card-header bg-primary text-white">
-		<i class="far fa-folder"></i> Documentos del Alumno
+    <div class="card-header bg-primary text-white header_main">
+		<div class="sub_header"><i class="far fa-folder"></i> Documentos del Alumno</div>
         <a href="{$WEB_ROOT}/graybox.php?page=add-cat-doc-alumno-add" class="btn btn-info float-right" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Agregar Documento">
             <i class="fas fa-plus"></i> Agregar
         </a>

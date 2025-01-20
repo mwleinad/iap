@@ -16,8 +16,8 @@
 </div>
 
 <div class="card mb-4">
-    <div class="card-header bg-primary text-white">
-        <i class="fas fa-calendar-alt"></i> Instancias de Curricula
+    <div class="card-header bg-primary text-white header_main">
+        <div class="sub_header"><i class="fas fa-calendar-alt"></i> Instancias de Curricula</div>
     </div>
     <div class="card-body">
         {if $msj == 'si'}

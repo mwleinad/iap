@@ -16,8 +16,8 @@
 </div>
 
 <div class="card mb-4">
-    <div class="card-header bg-primary text-white">
-        <i class="fas fa-user-tag"></i> Puestos
+    <div class="card-header bg-primary text-white header_main">
+        <div class="sub_header"><i class="fas fa-user-tag"></i> Puestos</div>
         <a href="javascript:;" class="btn btn-info float-right" id="btnAddPosition">
             <i class="fas fa-plus"></i> Agregar
         </a>

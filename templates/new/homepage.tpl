@@ -27,13 +27,13 @@
 
     {* BEGIN Portlet PORTLET *}
     <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
+        <div class="card-header bg-primary text-white header_main">
             {if $User.type == "student"}
                 <img alt="" width="32px" class="img-circle" src="{$infoStudent.imagen}">
             {else}
                 <i class="fa fa-gift"></i>
             {/if}
-            Bienvenido(a) {$User.username}
+            <div class="sub_header">Bienvenido(a) {$User.username}</div>
         </div>
         <div class="card-body">
             <script src="https://unpkg.com/@lottiefiles/lottie-player@2.0.8/dist/lottie-player.js"></script>
@@ -56,8 +56,8 @@
     {if $User.type != "student"}
         <div id="ac1" class="mb-4">
             <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <i class="fas fa-bell"></i> Notificaciones
+                <div class="card-header bg-primary text-white header_main">
+                    <div class="sub_header"><i class="fas fa-bell"></i> Notificaciones</div>
                     <a class="card-link text-white float-right" data-toggle="collapse" href="#collapseOne">
                         <i class="fas fa-caret-down fa-lg"></i>
                     </a>

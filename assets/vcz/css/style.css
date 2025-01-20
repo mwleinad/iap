@@ -18647,7 +18647,7 @@ dl li {
   -webkit-transition: width 0.25s ease, background 0.25s ease;
   -moz-transition: width 0.25s ease, background 0.25s ease;
   -ms-transition: width 0.25s ease, background 0.25s ease;
-  background: #73B760;
+  background: #fff;
   width: 260px;
   height: 70px;
 }
@@ -18674,7 +18674,7 @@ dl li {
 }
 
 .navbar .navbar-brand-wrapper .navbar-brand img {
-  width: calc(260px - 120px);
+  width: calc(300px - 120px);
   max-width: 100%;
   margin: auto;
   vertical-align: middle;

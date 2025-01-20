@@ -16,10 +16,9 @@
 </div>
 
 <div class="card mb-4">
-    <div class="card-header bg-primary text-white">
-        <i class="fas fa-list"></i> Instancias de Curricula
+    <div class="card-header bg-primary text-white header_main p-2"> 
 		{if $docente != 1}
-			<a href="{$WEB_ROOT}/graybox.php?page=open-subject" class="btn btn-info float-right" data-target="#ajax" data-toggle="modal">
+			<a href="{$WEB_ROOT}/graybox.php?page=open-subject" class="btn btn-info float-right d-inline" data-target="#ajax" data-toggle="modal">
 				<i class="fas fa-plus"></i> Agregar
 			</a>
 		{/if}

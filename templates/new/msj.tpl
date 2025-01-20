@@ -16,8 +16,8 @@
 </div>
 
 <div class="card mb-4">
-    <div class="card-header bg-primary text-white">
-		<i class="far fa-envelope"></i> Mensajes
+    <div class="card-header bg-primary text-white header_main">
+		<div class="sub_header"><i class="far fa-envelope"></i> Mensajes</div>
         <a href="{$WEB_ROOT}/graybox.php?page=add-msj" class="btn btn-info float-right" data-target="#ajax" data-toggle="modal" data-width="1000px" title="Agregar Mensaje">
             <i class="fas fa-plus"></i> Agregar
         </a>

@@ -16,8 +16,8 @@
 </div>
 
 <div class="card mb-4">
-    <div class="card-header bg-primary text-white">
-        <i class="fas fa-user-graduate"></i> Tipos de Profesiones
+    <div class="card-header bg-primary text-white header_main">
+        <div class="sub_header"><i class="fas fa-user-graduate"></i> Tipos de Profesiones</div>
         <a href="javascript:;" class="btn btn-info float-right" id="btnAddProfesion">
             <i class="fas fa-plus"></i> Agregar
         </a>

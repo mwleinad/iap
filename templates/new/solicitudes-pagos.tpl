@@ -1,6 +1,6 @@
 <div class="card mb-4">
-    <div class="card-header bg-primary text-white">
-        <i class="fas fa-file-contract"></i> Solicitudes de pago
+    <div class="card-header bg-primary text-white header_main">
+        <div class="sub_header"><i class="fas fa-file-contract"></i> Solicitudes de pago</div>
     </div>
     <div class="card-body">
         <table class="table" id="datatable" data-url="{$WEB_ROOT}/solicitudes-pagos">
