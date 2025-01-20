@@ -24,8 +24,46 @@
 		</ul>
 
 		<div class="tab-content">
-			<div class="tab-pane container active text-center" id="profile">
-				{$infoStudent8.perfil}
+			<div class="tab-pane container active" id="profile">
+				<div class="row my-5 text-left">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">Datos generales</div>
+							<div class="card-body">
+								<p class="card-text"><b>Nombre completo: </b> {$infoStudent8.names} {$infoStudent8.lastNamePaterno} {$infoStudent8.lastNameMaterno}</p>
+								<p class="card-text"><b>Sexo: </b> {if $infoStudent8.sexo eq "m"} Masculino {else} Femenino {/if}</p>
+								<p class="card-text"><b>Principales habilidades o destrezas: </b> {$infoStudent8.habilidades}</p>
+								<p class="card-text"><b>Principales aspiraciones y proyectos de vida: </b> {$infoStudent8.aspiraciones}</p>
+								<p class="card-text"><b>Aficiones, gustos y pasatiempos: </b> {$infoStudent8.aficiones}</p>
+								<p class="card-text"><b>Expectativas del programa (Qué espera obtener o aportar): </b> {$infoStudent8.expectativas}</p>
+								<p class="card-text"><b>Comentarios adicionales: </b> {$infoStudent8.comentarios}</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">Estudios</div>
+							<div class="card-body">
+								<p class="card-text"><b>Grado académico: </b> {$infoStudent8.academicDegree}</p>
+								<p class="card-text"><b>Profesión: </b> {$infoStudent8.profesionName}</p>
+								<p class="card-text"><b>¿Ha recibido algún reconocimiento o distinción?: </b> {if $infoStudent8.reconocimiento eq 1} Si {else} No {/if}</p>
+								<p class="card-text"><b>Tipo de reconocimiento o distinción: </b> {$infoStudent8.tipoReconocimiento}</p>
+								<p class="card-text"><b>Instituto que lo emitió: </b> {$infoStudent8.institutoReconocimiento}</p>
+								<p class="card-text"><b>Lugar donde fue emitido: </b> {$infoStudent8.lugarReconocimiento}</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">Datos laborales</div>
+							<div class="card-body">
+								<p class="card-text"><b>Lugar de trabajo: </b> {$infoStudent8.workplace}</p>
+								<p class="card-text"><b>Puesto: </b> {$infoStudent8.workplacePosition}</p>
+								<p class="card-text"><b>Actividades que desempeña: </b> {$infoStudent8.actividades}</p>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			{if $userPerfil eq 'Administrador' || $userPerfil eq 'Docente'}
 				<div class="tab-pane container fade" id="information">
