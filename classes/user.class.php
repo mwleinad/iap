@@ -992,8 +992,8 @@ class User extends Main
 			if (file_exists(DOC_ROOT . "/alumnos/" . $row["rutaFoto"] . "")) {
 				// echo DOC_ROOT."/alumnos/".$row["rutaFoto"]."";
 				// exit; 
-				$row["foto"] = '<img src="' . WEB_ROOT . '/alumnos/' . $row["rutaFoto"] . '" width="110" height="110"/>';
-				$row["imagen"] = '<img src="' . WEB_ROOT . '/alumnos/' . $row["rutaFoto"] . '"/>';
+				$row["foto"] = '<img src="' . WEB_ROOT . '/alumnos/' . $row["rutaFoto"] . '" width="110" height="110" class="img-fluid"/>';
+				$row["imagen"] = '<img src="' . WEB_ROOT . '/alumnos/' . $row["rutaFoto"] . '" class="img-fluid"/>';
 			} else {
 				$row["foto"] = '<img src="' . WEB_ROOT . '/images/logos/logo-humanismo-cuadrado.webp" class="img-fluid"/>';
 				$row["imagen"] =  '<img src="' . WEB_ROOT . '/images/logos/logo-humanismo-cuadrado.webp" class="img-fluid"/>';
@@ -1042,7 +1042,7 @@ class User extends Main
 				// echo DOC_ROOT."/alumnos/".$row["rutaFoto"]."";
 				// exit; 
 				$row["foto"] = '<img src="' . WEB_ROOT . '/alumnos/' . $row["rutaFoto"] . '" class="img-fluid"/>';
-				$row["imagen"] = '<img src="' . WEB_ROOT . '/alumnos/' . $row["rutaFoto"] . '"/>';
+				$row["imagen"] = '<img src="' . WEB_ROOT . '/alumnos/' . $row["rutaFoto"] . '" class="img-fluid"/>';
 			} else {
 				$row["foto"] = '<img src="' . WEB_ROOT . '/images/logos/logo-humanismo-cuadrado.webp" class="img-fluid"/>';
 				$row["imagen"] =  '<img src="' . WEB_ROOT . '/images/logos/logo-humanismo-cuadrado.webp" class="img-fluid"/>';
