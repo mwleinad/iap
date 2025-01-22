@@ -16,7 +16,7 @@
 </div>
 
 <div class="card mb-4">
-	<div class="card-header text-right header_main">
+	<div class="card-header text-right header_main p-4">
 		<a class="btn btn-primary d-inline" href="https://iapchiapas.edu.mx/aviso_privacidad" target="_blank"
 			title="Aviso de Privacidad">
 			<i class="fas fa-user-secret"></i> Aviso de Privacidad

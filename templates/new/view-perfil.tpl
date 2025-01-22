@@ -1,6 +1,6 @@
 <div class="card mb-4">
-	<div class="card-header bg-primary text-white">
-		<i class="fas fa-info-circle"></i> Información del Alumno
+	<div class="card-header bg-primary header_main">
+		<div class="sub_header"><i class="fas fa-info-circle"></i> Información del Alumno</div>
 	</div>
 	<div class="card-body text-center">
 		{if $infoStudent8.imagen eq ''}

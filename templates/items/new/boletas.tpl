@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card border border-success">
-            <div class="card-header bg-success text-white">
-                <h4><b>Curricula:</b> [{$courseInfo.majorName}] {$courseInfo.name}</h4>
+            <div class="card-header bg-success header_main">
+                <h4 class="sub_header"><b>Curricula:</b> [{$courseInfo.majorName}] {$courseInfo.name}</h4>
                 {if $courseInfo.totalPeriods > 0}
-                    <h4><b>Total de {$courseInfo.tipoCuatri}: </b> {$courseInfo.totalPeriods}</h4>
+                    <h4 class="sub_header"><b>Total de {$courseInfo.tipoCuatri}: </b> {$courseInfo.totalPeriods}</h4>
                 {/if}<br>
             </div>
             <div class="card-body">

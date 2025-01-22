@@ -1,11 +1,11 @@
 <div class="card mb-4">
-    <div class="card-header bg-primary text-white">
-        <i class="fas fa-bullhorn"></i> Tópico {$topic.nombre}
+    <div class="card-header bg-primary header_main">
+        <div class="sub_header"><i class="fas fa-bullhorn"></i> Tópico {$topic.nombre}</div>
         <div class="col-md-12 text-right">
-            <a href="{$WEB_ROOT}/forumsub-modules-student/id/{$id}/topicId/{$topic.topicId}" class="btn btn-outline-light btn-sm">
+            <a href="{$WEB_ROOT}/forumsub-modules-student/id/{$id}/topicId/{$topic.topicId}" class="btn btn-light btn-sm">
                 <i class="fas fa-arrow-circle-left"></i> Regresar
             </a>
-            <a href="javascript:void(0)" onClick="updateForo()" class="btn btn-outline-light btn-sm">
+            <a href="javascript:void(0)" onClick="updateForo()" class="btn btn-light btn-sm">
                 <i class="fas fa-sync-alt"></i> Actualizar
             </a>
         </div>

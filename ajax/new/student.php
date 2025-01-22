@@ -1079,5 +1079,55 @@ switch ($_POST['opcion']) {
 			]);
 		}
 		break;
+	case 'sendFeedback':
+		$comentarios = strip_tags($_POST['comentarios']);
+		$tipo = strip_tags($_POST['tipo']);
+		$alumno = $_SESSION['User']['userId'];
+		if (empty($comentarios)) {
+			$errors['comentarios'] = "Por favor, no te olvides de agregar tus comentarios.";
+		}
+		if (empty($tipo)) {
+			$errors['tipo'] = "Por favor, no se olvide de seleccionar el tipo de feedback.";
+		}
+		if (!empty($errors)) {
+			header('HTTP/1.1 422 Unprocessable Entity');
+			header('Content-Type: application/json; charset=UTF-8');
+			echo json_encode([
+				'errors'    => $errors
+			]);
+			exit;
+		}
+
+		$student->setTipo($tipo);
+		$student->setAlumnoId($alumno);
+		$student->setUserId($alumno);
+		$student->setComentarios($comentarios);
+		$response = $student->addFeedback();
+		if ($response['status']) {
+			$sendmail = new SendMail;
+			$dataStudent = $student->GetInfo();
+			$details_body = array(
+				"alumno" 		=> $dataStudent['names'] . " " . $dataStudent['lastNamePaterno'] . " " . $dataStudent['lastNameMaterno'],
+				"correo" 		=> $dataStudent['email'],
+				"tipo"			=> $tipo,
+				"comentarios"	=> $comentarios
+			);
+			$details_subject = array();
+			$sendmail->Prepare($message[15]["subject"], $message[15]["body"], $details_body, $details_subject, 'sistemas@iapchiapas.edu.mx', 'Sistemas IAP');
+
+			echo json_encode([
+				'growl'		=> true,
+				'type'		=> 'success',
+				'message'	=> '¡Gracias por compartir tu feedback con nosotros!',
+				'location'	=> WEB_ROOT,
+				'duracion'	=> 5000
+			]);
+		} else {
+			echo json_encode([
+				'growl'		=> true,
+				'type'		=> 'danger',
+				'message'	=> 'Hubo un error, intente de nuevo',
+			]);
+		}
 		break;
 }

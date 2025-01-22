@@ -9,16 +9,16 @@
     background-color: #dadbda;
 }
 </style>
-<div class="portlet box red" >
-    <div class="portlet-title p-3 text-white" style="background-color: #73b760;">
-        <div class="caption">
+<div class="card" >
+    <div class="card-header bg-primary header_main">
+        <div class="caption sub_header">
             <i class="fa fa-bullhorn"></i>Modulos
         </div>
         <div class="actions">
 
         </div>
     </div>
-    <div class="portlet-body p-5">
+    <div class="card-body p-5">
        <table width="100%" class="tblGral table table-striped table-condensed flip-content">
 			<thead>
 				<th></th>

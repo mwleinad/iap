@@ -1,6 +1,6 @@
 <div class="card mb-4">
-    <div class="card-header bg-primary text-white">
-		<i class="far fa-envelope"></i> Inbox
+    <div class="card-header bg-primary header_main">
+		<div class="sub_header"><i class="far fa-envelope"></i> Inbox</div>
     </div>
     <div class="card-body">
         <div id="tblContent" class="row">

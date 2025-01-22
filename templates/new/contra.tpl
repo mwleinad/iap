@@ -1,6 +1,6 @@
 <div class="card mb-4">
-    <div class="card-header bg-primary text-white">
-        <i class="fas fa-save"></i> <b>Actualizar Contraseña</b> {$myModule.name|truncate:65:"..."} &raquo;
+    <div class="card-header bg-primary header_main">
+        <div class="sub_header"><i class="fas fa-save"></i> <b>Actualizar Contraseña</b> {$myModule.name|truncate:65:"..."} &raquo;</div>
     </div>
     <div class="card-body">
 		<form id="frmPass" onsubmit="return false;">
@@ -27,7 +27,7 @@
 			<div class="col-md-12 text-center"><div id="msj5"></div></div>
 			<div class="col-md-12 mt-3 text-center">
 				<button class="btn btn-success" type="button" onClick="onSavePass()">Actualizar</button>
-				<button type="button" class="btn btn-danger closeModal" onClick="btnClose()">Cancelar</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 			</div>
 		</div>
     </div>

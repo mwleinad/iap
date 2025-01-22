@@ -41,10 +41,10 @@ $pdf->SetPrintFooter(false);
 $pdf->AddPage();
 
 
-$logo = DOC_ROOT . "/images/logo_correo.jpg";
+$logo = DOC_ROOT . "/images/logos/logo-humanismo.jpeg";
 $xInicial = $pdf->getX();
 $y = $pdf->getY();
-$pdf->Image($logo, $xInicial, $y, 50, 20, 'JPG', WEB_ROOT, '', true, 150, '', false, false, 0, false, false, false);
+$pdf->Image($logo, $xInicial, $y, 50, 20, 'JPEG', WEB_ROOT, '', true, 300, '', false, false, 0, false, false, false);
 
 // Texto inicial 
 $html = "<h3>PAGO POR SPEI(Transferencia)</h3>";

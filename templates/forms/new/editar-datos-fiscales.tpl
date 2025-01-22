@@ -1,6 +1,8 @@
 <div class="card">
-    <div class="card-header bg-primary text-white">
-        <i class="fas fa-money-check-alt"></i> Datos Fiscales
+    <div class="card-header bg-primary header_main">
+        <div class="sub_header">
+            <i class="fas fa-money-check-alt"></i> Datos Fiscales
+        </div>
     </div>
     <form class="card-body row form" id="form_actualizar_regimen" action="{$WEB_ROOT}/ajax/new/finanzas.php">
         <input type="hidden" name="opcion" value="actualizar-datos-fiscales">

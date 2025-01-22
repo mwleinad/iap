@@ -271,7 +271,8 @@ $pages = array(
 	'reporte-cursos',
 	'verificar', 
 	'reporte-diplomado',
-	'diploma-multiple'
+	'diploma-multiple',
+	'feedback'
 );
 $mensaje = "";
 if (!in_array($_GET['page'], $pages) && $_GET['page'] != "logout") {

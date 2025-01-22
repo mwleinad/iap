@@ -34,3 +34,13 @@
     </div>
 </div>
 <div style="position:relative" id="divStatus"></div>
+
+
+{if $User.type eq "student"}
+    <div class="feedback">
+        <a href="{$WEB_ROOT}/feedback">
+            <span class="d-none feedback-text">Dar feedback</span>
+            <img src="{$WEB_ROOT}/images/new/icons/feedback.svg" class="img-fluid">
+        </a>
+    </div>
+{/if}

@@ -40,6 +40,7 @@ class Student extends User
 	private $tipoReconocimiento;
 	private $institutoReconocimiento;
 	private $lugarReconocimiento;
+	private $tipo;
 
 	public function setActualizado($value)
 	{
@@ -242,6 +243,10 @@ class Student extends User
 	public function setLugarReconocimiento($value)
 	{
 		$this->lugarReconocimiento = $value;
+	}
+
+	public function setTipo($value) {
+		$this->tipo = $value;
 	}
 
 	public function AddAcademicHistory($type, $situation, $semesterId = 1)
@@ -3676,5 +3681,12 @@ class Student extends User
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetSingle();
 		return $result;
+	}
+	
+	public function addFeedback() {
+		$sql = "INSERT INTO feedback(tipo, comentarios, alumno_id, created_at, updated_at) VALUES('{$this->tipo}', '{$this->comentarios}', '{$this->alumnoId}', NOW(), NOW())";
+		$this->Util()->DB()->setQuery($sql);
+		$response['status'] = $this->Util()->DB()->InsertData();
+		return $response;
 	}
 }

@@ -1,6 +1,8 @@
 <div class="card mb-4">
-    <div class="card-header bg-primary text-white">
-        <i class="far fa-folder-open"></i> Documentos
+    <div class="card-header bg-primary header_main">
+        <div class="sub_header">
+            <i class="far fa-folder-open"></i> Documentos
+        </div>
     </div>
     <div class="card-body">
         <div id="msj"></div>

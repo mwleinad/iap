@@ -13,8 +13,7 @@ class MYPDF extends TCPDF
     //Page header
     public function Header()
     {
-        $logo = DOC_ROOT . "/images/logo_correo.jpg";
-        $image_file = K_PATH_IMAGES . 'logo_example.jpg';
+        $logo = DOC_ROOT . "/images/logos/logo-humanismo.jpeg"; 
         $this->Image($logo, 15, 10, 50, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
     }
 

@@ -168,3 +168,11 @@ $message[14]['body'] = "Hola |academico|,
 
 	Atentamente, el Instituto de Administración Pública del Estado de Chiapas";
 
+
+$message[15]['subject'] = "Feedback | Instituto de Administración Pública del Estado de Chiapas";
+$message[15]['body'] = "Hola administrador del sistema, te informamos que el siguiente alumno te ha enviado comentarios de feedback para el sistema de educación:
+	Alumno: |alumno|
+	Correo: |correo|
+	Tipo: |tipo|
+	Comentarios: |comentarios|
+	Atentamente, el Instituto de Administración Pública del Estado de Chiapas";
