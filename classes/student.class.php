@@ -3677,7 +3677,7 @@ class Student extends User
 	}
 
 	public function perfilActualizado() {
-		$sql = "SELECT COUNT(*) as actualizado FROM user WHERE userId = ". $this->getUserId() ." AND(names IS NULL OR lastNamePaterno IS NULL OR lastNameMaterno OR workplace IS NULL OR workplaceOcupation IS NULL OR estadot IS NULL OR ciudadt IS NULL OR sexo IS NULL OR workplaceOcupation IS NULL OR academicDegree IS NULL OR birthdate IS NULL OR habilidades IS NULL OR aspiraciones IS NULL OR expectativas IS NULL OR aficiones IS NULL OR actividades IS NULL OR reconocimiento IS NULL OR tipoReconocimiento IS NULL OR lugarReconocimiento IS NULL OR institutoReconocimiento IS NULL OR comentarios IS NULL OR school IS NULL OR masters IS NULL OR mastersSchool IS NULL OR highSchool IS NULL OR workplaceArea IS NULL OR workplacePhone IS NULL OR workplaceEmail IS NULL)";
+		$sql = "SELECT COUNT(*) as actualizado FROM user WHERE userId = ". $this->getUserId() ." AND(names IS NULL OR lastNamePaterno IS NULL OR lastNameMaterno OR workplace IS NULL OR workplaceOcupation IS NULL OR estadot IS NULL OR ciudadt IS NULL OR sexo IS NULL OR workplaceOcupation IS NULL OR academicDegree IS NULL OR birthdate IS NULL OR habilidades IS NULL OR aspiraciones IS NULL OR expectativas IS NULL OR aficiones IS NULL OR actividades IS NULL OR reconocimiento IS NULL OR(reconocimiento = 1 AND (tipoReconocimiento IS NULL OR lugarReconocimiento IS NULL OR institutoReconocimiento IS NULL)) OR comentarios IS NULL OR school OR (academicDegree IN ('MAESTRIA', 'DOCTORADO') AND (masters IS NULL OR mastersSchool IS NULL)) OR highSchool IS NULL OR workplaceArea IS NULL OR workplacePhone IS NULL OR workplaceEmail IS NULL)";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetSingle();
 		return $result;

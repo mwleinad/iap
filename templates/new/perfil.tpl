@@ -152,7 +152,7 @@
 					<label>¿Has recibido algún reconocimiento o distinción?</label>
 					<select class="form-control" id="reconocimiento" name="reconocimiento">
 						<option value="1">Sí</option>
-						<option value="0">No</option>
+						<option value="0" {($dataStudent.reconocimiento == 0) ? "selected" : ""}>No</option>
 					</select>
 				</div>
 				<div class="form-group col-md-6">
