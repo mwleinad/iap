@@ -52,8 +52,7 @@
                             Actualización de Datos
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Por favor realiza la actualización de tus datos para poder ingresar a
-                                todos los módulos de la Plataforma de Educación En Línea...</h5>
+                            <h5 class="card-title">Por favor realiza la actualización de tus datos para ingresar a todos los módulos de la plataforma de educación en línea</h5>
                             {include file="{$DOC_ROOT}/templates/forms/new/completo.tpl"}
                         </div>
                     </div>
