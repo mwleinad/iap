@@ -78,7 +78,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="i-expiration"><i class="fas fa-calendar-alt"></i></span>
                             </div>
-                            <input type="text" id="expiration" name="expiration" class="form-control" placeholder="MM/AA" aria-describedby="i-expiration" pattern="^(0[1-9]|10|11|12)\/(1[9]|2[0-9])$" maxlength="5" onkeypress="return validateExpiration(event);">
+                            <input type="text" id="expiration" name="expiration" class="form-control" placeholder="MM/AA" aria-describedby="i-expiration" pattern="^(0[1-9]|10|11|12)\/(2[5-9]|3[0-9])$" maxlength="5" onkeypress="return validateExpiration(event);">
                         </div>
                     </div>
                     <div class="form-group col-md-4">
