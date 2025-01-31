@@ -100,10 +100,10 @@
                 <option value="DOCTORADO" {if $info.academicDegree == "DOCTORADO"} selected="selected" {/if}>DOCTORADO
                 </option>
                 <option value="ACREDITACION DE BACHILLERATO(286)"
-                    {if $info.academicDegree == "ACREDITACION DE BACHILLERATO(286)"} selected="selected" {/if}>ACREDITACION DE BACHILLERATO
+                    {if $info.academicDegree == "ACREDITACION DE BACHILLERATO(286)"} selected="selected" {/if}>ACREDITACION DE BACHILLERATO(286)
                 </option>
                 <option value="ACREDITACION DE LICENCIATURA(286)"
-                    {if $info.academicDegree == "ACREDITACION DE LICENCIATURA(286)"} selected="selected" {/if}>ACREDITACION DE LICENCIATURA
+                    {if $info.academicDegree == "ACREDITACION DE LICENCIATURA(286)"} selected="selected" {/if}>ACREDITACION DE LICENCIATURA(286)
                 </option>
                 <option value="OTROS" {if $info.academicDegree == "OTROS"} selected="selected" {/if}>OTROS</option>
             </select>
