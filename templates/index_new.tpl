@@ -273,7 +273,7 @@
 				});
 			</script>
 		{else}
-			{if $User.announcement neq true && $referencia > 0 && $mensaje != ""}
+			{if $referencia > 0 && $mensaje != ""}
 				<style>
 					.swal2-show {
 						width: 850px !important;

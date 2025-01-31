@@ -753,5 +753,60 @@ switch ($_POST["type"]) {
 		$student->setUserId($alumno);
 		$cursos = $student->StudentCourses();
 		echo json_encode($cursos);
-		break; 
+		break;
+	case 'addStudentGroup':
+		$courseId = $_POST['courseId'];
+		$studentId = $_POST['userId'];
+		$existeEnCurso = $student->getCourses("AND user_subject.courseId = {$courseId} AND user_subject.alumnoId = {$studentId}");
+		if (count($existeEnCurso) > 0) {
+			echo json_encode([
+				'growl'		=> true,
+				'type'		=> 'danger',
+				'message'	=> 'El alumno ya se encuentra en este grupo, intente con otro.',
+			]);
+		} else {
+			$student->setCourseId($courseId);
+			$student->setUserId($studentId);
+
+			//Vamos a verificar que el alumno no tenga historial duplicado
+			$existeDuplicado = $student->historialDuplicado();
+			if ($existeDuplicado) {
+				echo json_encode([
+					'growl'		=> true,
+					'type'		=> 'danger',
+					'message'	=> 'Este alumno tiene historial duplicado, favor de comunicarse con el administrador.',
+				]);
+			}
+
+			//Verificamos si la baja es después del primer periodo para no perder el historial académico
+			$ultimaBaja = $student->ultimaBaja();
+			if ($ultimaBaja > 1) {
+				// echo json_encode([
+				// 	'growl'		=> true,
+				// 	'type'		=> 'success',
+				// 	'message'	=> 'Alumno agregado',
+				// 	'html'		=> $smarty->fetch(DOC_ROOT . "/templates/items/new/curriculas.tpl"),
+				// 	'selector'	=> '#contentCurrent'
+				// ]);
+			} else {
+			}
+
+
+
+
+			// $student->addUserCourse();
+			// $dataCourse = $student->getCourses("AND user_subject.courseId = {$courseId} AND user_subject.alumnoId = {$studentId}");
+			// $student->setSubjectId($dataCourse[0]['subjectId']);
+			// $student->AddAcademicHistory('alta', 'A', 1);
+			// $activeCoursesStudent = $student->getCourses("AND user_subject.alumnoId = {$studentId}");
+			// $smarty->assign("activeCourseStudent", $activeCoursesStudent);
+			// echo json_encode([
+			// 	'growl'		=> true,
+			// 	'type'		=> 'success',
+			// 	'message'	=> 'Alumno agregado',
+			// 	'html'		=> $smarty->fetch(DOC_ROOT . "/templates/items/new/curriculas.tpl"),
+			// 	'selector'	=> '#contentCurrent'
+			// ]);
+		}
+		break;
 }
