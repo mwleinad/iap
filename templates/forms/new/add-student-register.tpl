@@ -22,7 +22,7 @@
                 <option value="f">Femenino</option>
             </select>
         </div>
-    </div> 
+    </div>
     <span class="badge badge-dark"><i class="fas fa-address-book"></i> Datos de Contacto</span>
     <hr />
     <div class="row">
@@ -63,7 +63,7 @@
             <input type="text" name="workplacePosition" id="workplacePosition" class="form-control" />
         </div>
     </div>
-    <div class="row"> 
+    <div class="row">
         <div class="form-group col-md-4">
             <label for="estadot">Estado:</label>
             <div id="Statepositiont">
@@ -99,6 +99,12 @@
                 </option>
                 <option value="DOCTORADO" {if $info.academicDegree == "DOCTORADO"} selected="selected" {/if}>DOCTORADO
                 </option>
+                <option value="ACREDITACION DE BACHILLERATO(286)"
+                    {if $info.academicDegree == "ACREDITACION DE BACHILLERATO(286)"} selected="selected" {/if}>DOCTORADO
+                </option>
+                <option value="ACREDITACION DE LICENCIATURA(286)"
+                    {if $info.academicDegree == "ACREDITACION DE LICENCIATURA(286)"} selected="selected" {/if}>DOCTORADO
+                </option>
                 <option value="OTROS" {if $info.academicDegree == "OTROS"} selected="selected" {/if}>OTROS</option>
             </select>
         </div>
@@ -116,11 +122,11 @@
         <button type="submit" class="btn btn-success">Guardar</button>
     </div>
 </form>
- 
+
 <div class="row">
     <div class="col-md-12">
         <a href="https://iapchiapas.edu.mx/aviso_privacidad" target="_blank" title="Aviso de Privacidad">
             Aviso de Privacidad
         </a>
     </div>
-</div> 
+</div>
