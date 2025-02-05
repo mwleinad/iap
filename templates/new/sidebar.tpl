@@ -95,15 +95,15 @@
         {if $AccessMod[11] == 1 || $AccessMod[31] == 1 || $AccessMod[8] == 1 || $AccessMod[39] == 1 || in_array($User.positionId, [1, 10])}
             {if !$docente}
                 {if $vistaPrevia ne 1}
-                    <li class="nav-item {if $page == "subject" or $page == "history-subject" or $page == "edit-module"}active{/if}">
+                    <li class="nav-item {if $page == "subject" or $page == "curriculas" or $page == "edit-module"}active{/if}">
                         <a class="nav-link" data-toggle="collapse" href="#m-curricula"
-                            aria-expanded="{if $page == "subject" or $page == "history-subject"}true{else}false{/if}"
+                            aria-expanded="{if $page == "subject" or $page == "curriculas"}true{else}false{/if}"
                             aria-controls="m-curricula">
                             <span class="menu-title">Currícula</span>
                             <i class="menu-arrow"></i>
                             <i class="mdi mdi-school menu-icon"></i>
                         </a>
-                        <div class="collapse {if $page == "subject" or $page == "history-subject" or $page == "edit-module"}show{/if}"
+                        <div class="collapse {if $page == "subject" or $page == "curriculas" or $page == "edit-module"}show{/if}"
                             id="m-curricula">
                             <ul class="nav flex-column sub-menu">
                                 {if $AccessMod[39] != 1 && $User.positionId != 10}
@@ -113,15 +113,15 @@
                                     </li>
                                 {/if}
                                 <li class="nav-item">
-                                    <a class="nav-link {if $page == "history-subject"}active{/if}"
-                                        href="{$WEB_ROOT}/history-subject">Historial</a>
+                                    <a class="nav-link {if $page == "curriculas"}active{/if}"
+                                        href="{$WEB_ROOT}/curriculas">Historial</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
                 {else}
                     <li class="nav-item">
-                        <a class="nav-link" href="{$WEB_ROOT}/history-subject">
+                        <a class="nav-link" href="{$WEB_ROOT}/curriculas">
                             <span class="menu-title">Currícula</span>
                             <i class="mdi mdi-school menu-icon"></i>
                         </a>

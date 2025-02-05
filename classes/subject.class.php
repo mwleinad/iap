@@ -1544,10 +1544,25 @@ class Subject extends Main
 		$grupos = $this->Util()->DB()->GetResult();
 		return $grupos;
 	}
- 
+
 	public function getSubjects($where = "")
 	{
-		$sql = "SELECT subject.*, major.name as majorName FROM subject INNER JOIN major ON major.majorId = subject.tipo WHERE 1 {$where}";
+		$sql = "SELECT subject.*, major.name as majorName, major.majorId FROM subject INNER JOIN major ON major.majorId = subject.tipo WHERE 1 {$where}";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
+		return $result;
+	}
+
+	public function getCountModulesSubject()
+	{
+		$sql = "SELECT COUNT(*) FROM subject_module WHERE subjectId = {$this->subjectId}";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetSingle();
+		return $result;
+	}
+
+	public function getSubjectsCourse($where = "") {
+		$sql = "SELECT subject.*, major.name as majorName FROM `course` INNER JOIN course_module ON course_module.courseId = course.courseId INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo  WHERE 1 {$where}";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 		return $result;

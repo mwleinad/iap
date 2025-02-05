@@ -27,7 +27,7 @@
 	$coursesCount = $course->EnumerateCount();
 	$lstMajor = $major->Enumerate();
 	
-	$result = $course->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/history-subject', $arrPage);
+	$result = $course->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/curriculas', $arrPage);
 	if($_SESSION['User']['perfil'] == 'Docente')
 		$uniqueSubjects = $course->EnumerateSubjectByPage(); 
 	// $result = $util->orderMultiDimensionalArray($result,'active',true);

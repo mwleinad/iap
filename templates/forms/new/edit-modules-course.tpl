@@ -53,7 +53,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h4>
-                        Perteneciente al (a la) {$myModule.majorName}: <b>{$myModule.subjectName} - {$myModule.groupA}</b> {if !$docente} | <a href="{$WEB_ROOT}/history-subject" title="Ver Curricula" class="btn btn-success btn-sm">Ver Curricula Activa</a>{/if}
+                        Perteneciente al (a la) {$myModule.majorName}: <b>{$myModule.subjectName} - {$myModule.groupA}</b> {if !$docente} | <a href="{$WEB_ROOT}/curriculas" title="Ver Curricula" class="btn btn-success btn-sm">Ver Curricula Activa</a>{/if}
                     </h4>
                     <h4>
                         Nombre del Módulo: <b>{$myModule.name}</b>

@@ -804,8 +804,6 @@ class Course extends Subject
 
 	public function EnumerateActive($where = '')
 	{
-		//TODO porque tenia IN(0) no logro recordar -> Para mostrar solo los cursos en donde si se pueden inscribir
-		//				WHERE course.active = 'si' AND courseId IN (0)
 		$sql = "
 		SELECT *, major.name AS majorName, subject.name AS name, subject.rvoe FROM course
 		LEFT JOIN subject ON course.subjectId = subject.subjectId 
@@ -1590,7 +1588,7 @@ class Course extends Subject
 
 	function getCourses($where = "")
 	{
-		$sql = "SELECT major.name as major_name, subject.name as subject_name, course.courseId, `course`.`group`, subject.icon, course.tipo FROM course INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo WHERE 1 {$where}";
+		$sql = "SELECT major.name as major_name, subject.name as subject_name, course.courseId, `course`.`group`, subject.icon, course.tipo, course.subjectId, subject.totalPeriods FROM course INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo WHERE 1 {$where}";
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 		return $result;
@@ -1885,17 +1883,17 @@ class Course extends Subject
 				'dt' => 'acciones',
 				'formatter' => function ($d, $row) {
 					if ($row['existe'] == 0) {
-						return "<form id='form_generateDiploma".$row['id']."' class='form' method='POST' action='".WEB_ROOT."/ajax/new/course.php'>
+						return "<form id='form_generateDiploma" . $row['id'] . "' class='form' method='POST' action='" . WEB_ROOT . "/ajax/new/course.php'>
 								<input type='hidden' name='option' value='generateDiploma'>
-								<input type='hidden' name='diploma' value='".$_POST['diploma']."'>
-								<input type='hidden' name='student' value='".$row['id']."'>
+								<input type='hidden' name='diploma' value='" . $_POST['diploma'] . "'>
+								<input type='hidden' name='student' value='" . $row['id'] . "'>
 								<button class='btn btn-success' type='submit'>Generar documento</button>
 							</form>";
 					}
-					return "<form id='form_generateDiploma".$row['id']."' class='form' method='POST' action='".WEB_ROOT."/ajax/new/course.php'>
+					return "<form id='form_generateDiploma" . $row['id'] . "' class='form' method='POST' action='" . WEB_ROOT . "/ajax/new/course.php'>
 								<input type='hidden' name='option' value='deleteDiplomaMultiple'>
-								<input type='hidden' name='diploma' value='".$_POST['diploma']."'>
-								<input type='hidden' name='student' value='".$row['id']."'>
+								<input type='hidden' name='diploma' value='" . $_POST['diploma'] . "'>
+								<input type='hidden' name='student' value='" . $row['id'] . "'>
 								<button class='btn btn-danger' type='submit'>Quitar documento</button>
 							</form>";
 				},
@@ -1905,15 +1903,211 @@ class Course extends Subject
 		return SSP::complex($_POST, $table, $primaryKey, $columns, $where, null);
 	}
 
-	public function generateDiploma($diploma, $alumno, $token) {
+	public function generateDiploma($diploma, $alumno, $token)
+	{
 		$sql = "INSERT INTO diploma_alumnos(diploma_id, alumno_id, token) VALUES($diploma, $alumno, '{$token}')";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->InsertData();
 	}
 
-	public function deleteDiplomaMultiple($diploma, $alumno) {
+	public function deleteDiplomaMultiple($diploma, $alumno)
+	{
 		$sql = "DELETE FROM diploma_alumnos WHERE diploma_id = '{$diploma}' AND alumno_id = '{$alumno}'";
 		$this->Util()->DB()->setQuery($sql);
 		$this->Util()->DB()->InsertData();
+	}
+
+	public function dt_courses_request($subjectId, $modality)
+	{
+		$table = 'course INNER JOIN subject ON subject.subjectId = course.subjectId';
+		$primaryKey = 'course.courseId';
+		$columns = array(
+			array('db' => 'course.courseId',	'dt' => 'courseId'),
+			array('db' => 'subject.rvoe',		'dt' => 'rvoeLocal'),
+			array('db' => 'subject.rvoeLinea',	'dt' => 'rvoeLinea'),
+			array('db' => 'course.modality',	'dt' => 'modalidad', 'formatter' => function ($id, $row) {
+				$modalidad = ["Local" => "Escolar", "Online" => "No Escolar", "Mixta" => "Mixta"];
+				return $modalidad[$row['modalidad']];
+			}),
+			array('db' => 'subject.rvoe',		'dt' => 'rvoe', 'formatter' => function ($id, $row) {
+				return $row['modalidad'] == "Local" ? $row['rvoeLocal'] : $row['rvoeLinea'];
+			}),
+			array('db' => 'subject.name',		'dt' => 'nombre'),
+			array('db' => '`course`.`group`',	'dt' => 'grupo'),
+			array('db' => 'course.initialDate',	'dt' => 'fecha_inicial'),
+			array('db' => 'course.finalDate',	'dt' => 'fecha_final'),
+			array('db' => 'course.courseId',	'dt' => 'modulos', 'formatter'	=> function ($id, $row) {
+				$id = $row['courseId'];
+				$this->setCourseId($id);
+				$courseData = $this->getCourse();
+				$modulesCourse = $this->getCountModulesCourse();
+				$this->setSubjectId($courseData['subjectId']);
+				$modulesSubject = $this->getCountModulesSubject();
+
+				$html = "<a href='" . WEB_ROOT . "/graybox.php?page=view-modules-course&id=" . $id . "' title='Ver Modulos de Curso' data-target='#ajax' data-toggle='modal' >
+					<i class='far fa-window-restore text-info fa-lg'></i>
+				</a>";
+				if ($_SESSION['User']['perfil'] != "Docente") {
+					$html .= "<a href='" . WEB_ROOT . "/graybox.php?page=add-modules-course&id=" . $id . "' title='Agregar Modulo a Curso' data-target='#ajax' data-toggle='modal' style='color:#000' >
+						<i class='fas fa-plus-circle text-dark fa-lg'></i>
+					</a>";
+				}
+				return $_SESSION['User']['perfil'] == "Docente" ? $html : "$modulesCourse/$modulesSubject" . $html;
+			}),
+			array('db' => 'course.courseId',	'dt' => 'alumnos', 'formatter'	=> function ($id, $row) {
+				$id = $row['courseId'];
+				$sql = "SELECT * FROM user_subject WHERE user_subject.courseId = $id AND user_subject.status = 'activo'";
+				$this->Util()->DB()->setQuery($sql);
+				$activos = $this->Util()->DB()->GetTotalRows();
+				$sql = "SELECT * FROM user_subject WHERE user_subject.courseId = $id AND user_subject.status = 'inactivo'";
+				$this->Util()->DB()->setQuery($sql);
+				$inactivos = $this->Util()->DB()->GetTotalRows();
+				$html = "";
+				if ($_SESSION['User']['perfil'] == "Docente") {
+					$html .= "<span class='spanActive badge badge-success rounded-circle' title='Alumnos Activos'>$activos</span>
+					<span class='spanInactive badge badge-danger rounded-circle' title='Alumnos Inactivos'>" . $inactivos . "</span>";
+				} else {
+					$html .= "<form class='form d-inline' action='" . WEB_ROOT . "/ajax/new/studentCurricula.php' method='POST' id='activeStudent" . $id . "'>
+						<input type='hidden' name='type' value='StudentAdmin'>
+						<input type='hidden' name='id' value='" . $id . "'>
+						<input type='hidden' name='tip' value='Activo'>
+						<button type='submit' class='pointer spanActive badge badge-success rounded-circle' data-target='#ajax' data-toggle='modal' title='Alumnos Activos'>$activos</button>
+					</form> / <form class='form d-inline' action='" . WEB_ROOT . "/ajax/new/studentCurricula.php' method='POST' id='inactiveStudent" . $id . "'>
+						<input type='hidden' name='type' value='StudentInactivoAdmin'>
+						<input type='hidden' name='id' value='" . $id . "'>
+						<input type='hidden' name='tip' value='Inactivo'>
+						<button type='submit' class='pointer spanInactive badge badge-danger rounded-circle' data-target='#ajax' data-toggle='modal' title='Alumnos Inactivos'>" . $inactivos . "</button>
+					</form>";
+				}
+				return $html;
+			}),
+			array('db' => 'subject.tipo', 		'dt' => 'tipo'),
+			array('db' => 'course.courseId',	'dt' => 'acciones', 'formatter'	=> function ($id, $row) {
+				$id = $row['courseId'];
+				if ($_SESSION['User']['perfil'] == "Docente")
+					return "";
+				$acciones = "";
+				if ($_SESSION['User']['userId'] != 253) {
+					$acciones .= '	<a class="dropdown-item py-0 spanActive" href="#" onclick="VerGrupo(' . $id . ',\'matricula\');"
+										title="Matrículas" id="' . $id . '">
+										<i class="fas fa-cog"></i> Matrículas
+									</a>
+									<a class="dropdown-item py-0" href="' . WEB_ROOT . '/graybox.php?page=niveles-ingles&id=' . $id . '"
+									data-target="#ajax" data-toggle="modal" title="Niveles de Inglés">
+										<i class="far fa-check-square"></i> Niveles de Inglés
+									</a>
+									<a class="dropdown-item py-0" href="' . WEB_ROOT . '/graybox.php?page=titulacion&id=' . $id . '"
+									data-target="#ajax" data-toggle="modal" title="Títulos">
+										<i class="fas fa-file-signature"></i> Títulos
+									</a>
+									<a class="dropdown-item py-0" href="' . WEB_ROOT . '/graybox.php?page=qualifications-course&id=' . $id . '" data-target="#ajax" data-toggle="modal" title="Boleta de Calificaciones">
+										<i class="fas fa-file-signature"></i> Boleta de Calificaciones
+									</a>
+									<a class="dropdown-item py-0" href="' . WEB_ROOT . '/graybox.php?page=ver-sabana-course&id=' . $id . '"
+									data-target="#ajax" data-toggle="modal" title="Sabana de Calificaciones">
+										<i class="fas fa-tasks"></i> Sabana de Calificaciones
+									</a> 
+									<a class="dropdown-item py-0" href="' . WEB_ROOT . '/graybox.php?page=certificates-course&id=' . $id . '"
+										data-target="#ajax" data-toggle="modal" title="Certificados">
+										<i class="fas fa-certificate"></i> Certificados
+									</a> 
+									<a class="dropdown-item py-0" href="' . WEB_ROOT . '/graybox.php?page=acta-examen-course&id=' . $id . '"
+										data-target="#ajax" data-toggle="modal" title="Acta de Examen">
+										<i class="fas fa-file-contract"></i> Acta de Examen
+									</a>
+									<a class="dropdown-item py-0" href="' . WEB_ROOT . '/graybox.php?page=constancias&id=' . $id . '"
+										data-target="#ajax" data-toggle="modal" title="Constancias" data-width="1100px">
+										<i class="fas fa-certificate"></i> Constancias
+									</a>
+									<a class="dropdown-item py-0"
+										href="' . WEB_ROOT . '/graybox.php?page=constancia-sencilla-course&id=' . $id . '"
+										data-target="#ajax" data-toggle="modal" title="Constancia Sencilla">
+										<i class="fas fa-file-alt"></i> Constancia Sencilla
+									</a>
+									<a class="dropdown-item py-0"
+										href="' . WEB_ROOT . '/graybox.php?page=constancia-calificaciones-course&id=' . $id . '"
+										data-target="#ajax" data-toggle="modal" title="Constancia Sencilla">
+										<i class="fas fa-file-alt"></i> Constancia del 50%
+									</a>
+									<a class="dropdown-item py-0 pointer spanActive" onclick="VerGrupo(' . $id . ');"
+									title="Referencia Bancaria" id="' . $id . '">
+										<i class="fas fa-credit-card"></i> Referencia Bancaria
+									</a>
+									<a class="dropdown-item py-0" href="' . WEB_ROOT . '/graybox.php?page=periodos&id=' . $id . '"
+										data-target="#ajax" data-toggle="modal" title="Periodos del curso">
+										<i class="fas fa-calendar-alt"></i> Periodos de curso
+									</a>
+									';
+				}
+				if (in_array($_SESSION['User']['userId'], [1, 253])) {
+					if (in_array($id, [162, 169])) {
+						$acciones .= '<a class="dropdown-item" href="' . WEB_ROOT . '/graybox.php?page=diplomas&id=' . $id . '"
+						target="_blank" data-target="#ajax" data-toggle="modal" title="Diplomas">
+							<i class="fas fa-clipboard-check"></i> Diplomas
+						</a>';
+					}
+					$acciones .= '<a class="dropdown-item" href="' . WEB_ROOT . '/graybox.php?page=constancia-conocer&id=' . $id . '"
+									data-target="#ajax" data-toggle="modal" title="Constancia">
+									<i class="fas fa-certificate"></i> Constancia Evaluación
+								</a>
+								<a class="dropdown-item" href="' . WEB_ROOT . '/graybox.php?page=cotejo-conocer&id=' . $id . '"
+									data-target="#ajax" data-toggle="modal" title="Constancia">
+									<i class="fas fa-certificate"></i> Cotejo Conocer
+								</a>';
+				}
+				if (in_array($_SESSION['User']['userId'], [1, 149])) {
+					$acciones .= '<form id="form_calendario' . $id . '" class="form dropdown-item pointer spanActive"
+						action="' . WEB_ROOT . '/ajax/new/conceptos.php" method="POST">
+						<input type="hidden" name="opcion" value="conceptos-curso">
+						<input type="hidden" name="curso" value="' . $id . '">
+						<button type="submit" class="border-0 bg-transparent p-0" data-target="#ajax" data-toggle="modal">
+							<i class="fas fa-calendar-alt"></i> Calendario de Pagos
+						</button>
+					</form>';
+				}
+				$html = '<div class="dropdown">
+							<button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+								<i class="fas fa-bars"></i>
+							</button>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="' . WEB_ROOT . '/graybox.php?page=edit-course&id=' . $id . '" data-target="#ajax" data-toggle="modal" title="Editar">
+									<i class="fas fa-edit"></i> Editar
+								</a>
+								' . $acciones . '
+							</div>
+						</div>';
+				return $html;
+			}),
+		);
+
+		$where = "subject.subjectId = " . $subjectId;
+		if ($modality != "") {
+			$where .= " AND course.modality = '" . $modality . "'";
+		}
+		if ($_SESSION['User']['perfil'] == "Docente") {
+			$table .= " INNER JOIN course_module ON course_module.courseId = course.courseId";
+			$where .= " AND course_module.access LIKE '%|{$_SESSION['User']['userId']}|%' GROUP BY course.courseId";
+		}
+		return SSP::complex($_POST, $table, $primaryKey, $columns, $where);
+	}
+
+	public function getCourse()
+	{
+		$sql = "SELECT major.name as major_name, subject.subjectId, subject.name as subject_name, course.courseId, `course`.`group`, course.initialDate, course.finalDate, course.access, subject.totalPeriods as totalPeriods FROM course INNER JOIN subject ON subject.subjectId = course.subjectId INNER JOIN major ON major.majorId = subject.tipo WHERE courseId = {$this->courseId}";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetRow();
+
+		$result["access"] = explode("|", $result["access"]);
+		$personal = new Personal;
+		$personalData = $personal->getPersonal("AND personalId = {$result['access'][0]}")[0];
+		$result["encargado"] = $personalData;
+		return $result;
+	}
+
+	public function getCountModulesCourse()
+	{
+		$sql = "SELECT COUNT(*) FROM course_module WHERE courseId = {$this->courseId}";
+		$this->Util()->DB()->setQuery($sql);
+		return $this->Util()->DB()->GetSingle();
 	}
 }

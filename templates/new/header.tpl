@@ -120,7 +120,7 @@
                                 <i class="mdi mdi-account mr-2 text-success"></i>
                                 Perfil
                             </a>
-                            <a class="dropdown-item" href="{$WEB_ROOT}/history-subject">
+                            <a class="dropdown-item" href="{$WEB_ROOT}/curriculas">
                                 <i class="mdi mdi-format-list-bulleted mr-2 text-success"></i>
                                 Currícula
                             </a>

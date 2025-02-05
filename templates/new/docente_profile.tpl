@@ -52,7 +52,7 @@
             <div class="col-md-4 stretch-card grid-margin">
                 <div class="card bg-gradient-success card-img-holder text-white">
                     <div class="text-center">
-                        <a href="{$WEB_ROOT}/history-subject">
+                        <a href="{$WEB_ROOT}/curriculas">
                             <img class="card-img-top" src="{$WEB_ROOT}/images/new/icons/curricula.svg" alt="">
                         </a>
                     </div>
@@ -62,7 +62,7 @@
                         </h4>
                         <h2 class="mb-5">Currícula</h2>
                         <div class="text-center">
-                            <a href="{$WEB_ROOT}/history-subject" class="btn btn-outline-light btn-fw btn-sm">
+                            <a href="{$WEB_ROOT}/curriculas" class="btn btn-outline-light btn-fw btn-sm">
                                 <i class="fas fa-link"></i> Ver
                             </a>
                         </div>

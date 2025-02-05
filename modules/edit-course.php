@@ -46,7 +46,7 @@
 		$course->setTemporalGroup($_POST["temporalGroup"]);
 		$course->Update();
 
-		header("Location:" . WEB_ROOT . "/history-subject");
+		header("Location:" . WEB_ROOT . "/curriculas");
 		exit;
 	}
 

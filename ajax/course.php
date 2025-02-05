@@ -43,7 +43,7 @@ switch($_POST["type"])
 					if(isset($_GET["$pageVar"]))
 						$viewPage = $_GET["$pageVar"];	
 					
-					$subjects = $course->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/history-subject', $arrPage);
+					$subjects = $course->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT.'/curriculas', $arrPage);
 					$subjects = $util->EncodeResult($subjects);
 					$smarty->assign('subjects', $subjects);	
 					$smarty->assign('arrPage', $arrPage);

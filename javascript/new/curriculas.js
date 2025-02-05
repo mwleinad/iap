@@ -1,8 +1,55 @@
-$(document).ready(function () {
-
-
-
+$(".datatable").each(function (index, element) {
+    $(element).DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        ajax: {
+            url: $(element).data('url'),
+            dataType: "json",
+            type: "POST",
+            data: {
+                _token: $("meta[name='csrf-token'] ").attr('content'),
+                modalidad: $("#modalidad").val()
+            }
+        },
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+        },
+        columns: [
+            { data: "courseId" },
+            { data: "rvoe" },
+            {
+                data: "nombre",
+                className: "compact"
+            },
+            { data: "grupo" },
+            { data: "modalidad" },
+            { data: "fecha_inicial" },
+            { data: "fecha_final" },
+            { data: "modulos" },
+            { data: "alumnos" },
+            {
+                data: "acciones",
+                orderable: false,
+            }
+        ],
+        order: [[0, 'desc']]
+    });
 });
+
+$(".collapse").on("shown.bs.collapse", function () {
+    $.each($.fn.dataTable.tables(true), function () {
+        $(this).DataTable().columns.adjust().draw();
+    });
+});
+
+document.querySelectorAll(".auto-submit").forEach(select => {
+    select.addEventListener("change", function () {
+        document.getElementById("form_search").submit();
+    });
+});
+
+
 
 function descargarConstancias(Id, tipodocId) {
     $.ajax({
@@ -249,7 +296,7 @@ function addSaveSolicitud() {
         type: "POST",
         url: WEB_ROOT + '/ajax/new/studentCurricula.php',
         data: $("#frmGral").serialize(true) + '&solicitudId=' + $('#solicitudId').val() + '&type=addSaveSolicitud',
-        beforeSend: function () {},
+        beforeSend: function () { },
         success: function (response) {
             console.log(response)
             var splitResp = response.split("[#]");
@@ -274,27 +321,6 @@ function addSaveSolicitud() {
         }
     });
 } //addSolicitud
-
-
-function onBuscar() {
-    $.ajax({
-        url: WEB_ROOT + '/ajax/new/studentCurricula.php',
-        type: "POST",
-        data: $("#frmFlt1").serialize(true) + '&type=onBuscar',
-        beforeSend: function () {
-            $("#tblContent").html(`<div class="text-center"> <i class="fas fa-spinner fa-pulse fa-lg"></i> Cargando... </div>`);
-        },
-        success: function (data) {
-            console.log(data)
-            // $('#load_'+Id).html('');
-            // $('#tr_'+Id).toggle();
-            $('#tblContent').html(data);
-        },
-        error: function () {
-            alert('Algo salio mal, compruebe su conexion a internet');
-        }
-    });
-}
 
 
 function savePeriodos() {
@@ -357,16 +383,16 @@ function DeleteStudentCurricula(userId, courseId) {
                     period: result.value.period,
                     situation: result.value.situation
                 },
-            }).done(function(response){
+            }).done(function (response) {
                 response = JSON.parse(response);
                 console.log(response);
-                if(response.periodoValido){
+                if (response.periodoValido) {
                     if (response.estatus) {
                         ShowStatus(response.mensaje);
-                    }else{
+                    } else {
                         ShowStatusPopUp(response.mensaje);
                     }
-                }else{
+                } else {
                     $("#ajax.modal").modal();
                     $("#ajax .modal-content").html(response.calificaciones);
                 }
@@ -393,7 +419,7 @@ function EnableStudentCurricula(userId, courseId) {
                     courseId: courseId,
                     userId: userId
                 },
-                beforeSend: function () {},
+                beforeSend: function () { },
                 success: function (transport) {
                     var response = transport.responseText || "no response text";
                     console.log(response);
@@ -438,7 +464,7 @@ function additional() {
             course: course,
             semester: semester
         },
-        beforeSend: function () {},
+        beforeSend: function () { },
         success: function (data) {
             console.log(data);
             $('#additional').html(data);

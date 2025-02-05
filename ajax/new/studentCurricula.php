@@ -404,7 +404,7 @@ switch ($_POST["type"]) {
 		$course->setActivo($_POST['activo']);
 		$course->setModalidad($_POST['modalidad']);
 		$course->setCurricula($_POST['curricula']);
-		$result = $course->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT . '/history-subject', $arrPage);
+		$result = $course->EnumerateByPage($viewPage, $rowsPerPage, $pageVar, WEB_ROOT . '/curriculas', $arrPage);
 		$uniqueSubjects = $course->EnumerateSubjectByPage();
 		$smarty->assign('User', $_SESSION['User']);
 		$smarty->assign('subjects', $result);
@@ -755,8 +755,8 @@ switch ($_POST["type"]) {
 		echo json_encode($cursos);
 		break;
 	case 'addStudentGroup':
-		$courseId = $_POST['courseId'];
-		$studentId = $_POST['userId'];
+		$courseId = intval($_POST['courseId']);
+		$studentId = intval($_POST['userId']);
 		$existeEnCurso = $student->getCourses("AND user_subject.courseId = {$courseId} AND user_subject.alumnoId = {$studentId}");
 		if (count($existeEnCurso) > 0) {
 			echo json_encode([
@@ -776,37 +776,72 @@ switch ($_POST["type"]) {
 					'type'		=> 'danger',
 					'message'	=> 'Este alumno tiene historial duplicado, favor de comunicarse con el administrador.',
 				]);
+				break;
 			}
 
 			//Verificamos si la baja es después del primer periodo para no perder el historial académico
+			$dataCourse = $course->getCourses("AND course.courseId = $courseId")[0];
+			$student->setSubjectId($dataCourse['subjectId']);
 			$ultimaBaja = $student->ultimaBaja();
-			if ($ultimaBaja > 1) {
-				// echo json_encode([
-				// 	'growl'		=> true,
-				// 	'type'		=> 'success',
-				// 	'message'	=> 'Alumno agregado',
-				// 	'html'		=> $smarty->fetch(DOC_ROOT . "/templates/items/new/curriculas.tpl"),
-				// 	'selector'	=> '#contentCurrent'
-				// ]);
-			} else {
+			$periodo = intval($_POST['period']);
+			$periodosMaximos = $ultimaBaja;
+
+			if ($ultimaBaja > 1 && $periodo == 0) {
+				$smarty->assign("periodo", $ultimaBaja);
+				$smarty->assign("periodosMaximos", $periodosMaximos);
+				echo json_encode([
+					'growl'		=> true,
+					'type'		=> 'danger',
+					'message'	=> 'Por favor, seleccione el periodo de inicio',
+					'html'		=> $smarty->fetch(DOC_ROOT . "/templates/items/new/period-course.tpl"),
+					'selector'	=> '#sectionForm'
+				]);
+				break;
 			}
+			$periodo = $periodo == 0 ? 1 : $periodo;
 
+			$student->addUserCourse();
+			$student->AddAcademicHistory('alta', 'A', $periodo);
 
+			$conceptos->setCourseId($courseId);
+			$conceptos->setAlumno($studentId);
+			$relacionados = $conceptos->conceptos_cursos_relacionados();
 
-
-			// $student->addUserCourse();
-			// $dataCourse = $student->getCourses("AND user_subject.courseId = {$courseId} AND user_subject.alumnoId = {$studentId}");
-			// $student->setSubjectId($dataCourse[0]['subjectId']);
-			// $student->AddAcademicHistory('alta', 'A', 1);
-			// $activeCoursesStudent = $student->getCourses("AND user_subject.alumnoId = {$studentId}");
-			// $smarty->assign("activeCourseStudent", $activeCoursesStudent);
-			// echo json_encode([
-			// 	'growl'		=> true,
-			// 	'type'		=> 'success',
-			// 	'message'	=> 'Alumno agregado',
-			// 	'html'		=> $smarty->fetch(DOC_ROOT . "/templates/items/new/curriculas.tpl"),
-			// 	'selector'	=> '#contentCurrent'
-			// ]);
+			foreach ($relacionados['periodicos'] as $item) {
+				if ($periodo <= $item['periodo']) {
+					$conceptos->setCosto($item['total']);
+					$fecha_cobro = is_null($item['fecha_cobro']) ? "NULL" : "'{$item['fecha_cobro']}'";
+					$fecha_limite = is_null($item['fecha_limite']) ? "NULL" : "'{$item['fecha_limite']}'";
+					$conceptos->setIndice($item['indice']);
+					$conceptos->setConceptoCurso($item['concepto_course_id']);
+					$conceptos->setFechaCobro($fecha_cobro);
+					$conceptos->setFechaLimite($fecha_limite);
+					$conceptos->setTotal($item['total']);
+					$conceptos->setCosto(($item['total']));
+					$conceptos->setPeriodo($item['periodo']);
+					$conceptos->setDescuento($item['descuento']);
+					$conceptos->setBeca(0);
+					$conceptos->setCourseId($item['course_id']);
+					$conceptos->setConcepto($item['concepto_id']);
+					$conceptos->setUserId($_SESSION['User']['userId']);
+					$conceptos->guardar_pago();
+				}
+			}
+  
+			$activeCoursesStudent = $student->getCourses("AND user_subject.alumnoId = {$studentId} AND user_subject.status = 'activo' AND course.finalDate >= NOW()");
+			$inactiveCoursesStudent = $student->getCourses("AND user_subject.alumnoId = {$studentId} AND user_subject.status = 'inactivo'");
+			$finishedCoursesStudent = $student->getCourses("AND user_subject.alumnoId = {$studentId} AND user_subject.status = 'activo' AND course.finalDate <= NOW()");
+			$smarty->assign("activeCourseStudent", $activeCoursesStudent);
+			$smarty->assign("inactiveCourseStudent", $inactiveCoursesStudent);
+			$smarty->assign("finishedCourseStudent", $finishedCoursesStudent); 
+			
+			echo json_encode([
+				'growl'		=> true,
+				'type'		=> 'success',
+				'message'	=> 'Alumno agregado',
+				'html'		=> $smarty->fetch(DOC_ROOT . "/templates/items/new/student-curricula.tpl"),
+				'selector'	=> '#contentCurrent'
+			]);
 		}
 		break;
 }

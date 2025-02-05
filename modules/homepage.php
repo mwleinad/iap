@@ -43,13 +43,6 @@
 			$smarty->assign('prof',$prof);
 		}
 	}
-	//if($_POST['courseId']){ 
-	// $student->AddUserToCurriculaFromCatalog($_POST["userId"], $_POST["courseId"],"Ninguno",0);
-    // $smarty->display(DOC_ROOT.'/templates/boxes/status.tpl');
-	// print_r($_POST); exit;
-	// $x=1;
-	//}	
-	// print_r($_SESSION);exit;
 	
 	$smarty->assign("x",$x);	
 	$user->allow_access();	

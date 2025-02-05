@@ -11,7 +11,7 @@
             $student->setCourseId($courseId);
             $student->setCertificate($value);
         }
-		header("Location:" . WEB_ROOT . "/history-subject");
+		header("Location:" . WEB_ROOT . "/curriculas");
 		exit;
 	}
 	$group->setCourseId($_GET['id']);

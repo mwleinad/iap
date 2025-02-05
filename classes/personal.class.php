@@ -1532,7 +1532,7 @@ class Personal extends Main
 	}
 
 	public function onDeleteRubrica($cmId)
-	{ 
+	{
 		$sql = "SELECT 
 					* 
 				FROM 
@@ -1541,15 +1541,15 @@ class Personal extends Main
 					courseModuleId = " . $cmId . "";
 		// exit;
 		$this->Util()->DB()->setQuery($sql);
-		$info = $this->Util()->DB()->GetRow(); 
+		$info = $this->Util()->DB()->GetRow();
 		@unlink(DOC_ROOT . '/docentes/rubrica/' . $info['rutaRubrica']);
 
 		$sql = 'UPDATE 		
 				course_module SET 		
 				rutaRubrica = ""			      		
-				WHERE courseModuleId = ' . $cmId . ''; 
+				WHERE courseModuleId = ' . $cmId . '';
 		$this->Util()->DB()->setQuery($sql);
-		$response['estatus'] = $this->Util()->DB()->UpdateData(); 
+		$response['estatus'] = $this->Util()->DB()->UpdateData();
 		return $response;
 	}
 
@@ -1560,15 +1560,15 @@ class Personal extends Main
 				FROM 
 					course_module
 				WHERE
-					courseModuleId = " . $cmId . ""; 
+					courseModuleId = " . $cmId . "";
 		$this->Util()->DB()->setQuery($sql);
-		$info = $this->Util()->DB()->GetRow(); 
+		$info = $this->Util()->DB()->GetRow();
 		@unlink(DOC_ROOT . '/docentes/encuadre/' . $info['rutaEncuadre']);
 
 		$sql = 'UPDATE 		
 				course_module SET 		
 				rutaEncuadre = ""			      		
-				WHERE courseModuleId = ' . $cmId . ''; 
+				WHERE courseModuleId = ' . $cmId . '';
 		$this->Util()->DB()->setQuery($sql);
 		$response['estatus'] = $this->Util()->DB()->UpdateData();
 		return $response;
@@ -1649,6 +1649,14 @@ class Personal extends Main
 		$this->Util()->DB()->setQuery($sql);
 		$result = $this->Util()->DB()->GetResult();
 
+		return $result;
+	}
+
+	public function getPersonal($where = "", $order = "personal.name ASC")
+	{
+		$sql = "SELECT personal.* FROM personal WHERE 1 {$where} ORDER BY {$order}";
+		$this->Util()->DB()->setQuery($sql);
+		$result = $this->Util()->DB()->GetResult();
 		return $result;
 	}
 }

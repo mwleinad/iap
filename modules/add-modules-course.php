@@ -17,7 +17,7 @@
 		$module->setActive($_POST["active"]);
 		$module->AddModuleToCourse();
 		
-		header("Location:" . WEB_ROOT . "/history-subject");
+		header("Location:" . WEB_ROOT . "/curriculas");
 		exit;
 	}
 
