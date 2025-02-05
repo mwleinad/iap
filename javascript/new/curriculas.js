@@ -3,6 +3,7 @@ $(".datatable").each(function (index, element) {
         processing: true,
         serverSide: true,
         responsive: true,
+        searching: false,
         ajax: {
             url: $(element).data('url'),
             dataType: "json",
