@@ -64,11 +64,11 @@
                 <div class="col-md-12 mb-3" id="bienvenida">
                     <div class="card">
                         <div class="card-body">
-                            <iframe width="100%" height="600"
+                            {* <iframe width="100%" height="600"
                                 src="https://www.youtube.com/embed/nSi0UPTStdQ?si=SBw1oeKswcSjgz_f?rel=0&amp;autoplay=1"
                                 title="YouTube video player" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> *}
                         </div>
                     </div>
                 </div>
