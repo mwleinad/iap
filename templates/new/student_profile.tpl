@@ -52,7 +52,8 @@
                             Actualización de Datos
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Por favor realiza la actualización de tus datos para ingresar a todos los módulos de la plataforma de educación en línea</h5>
+                            <h5 class="card-title">Por favor realiza la actualización de tus datos para ingresar a todos los
+                                módulos de la plataforma de educación en línea</h5>
                             {include file="{$DOC_ROOT}/templates/forms/new/completo.tpl"}
                         </div>
                     </div>
@@ -62,7 +63,12 @@
             <div class="row">
                 <div class="col-md-12 mb-3" id="bienvenida">
                     <div class="card">
-                        <div class="card-body"> 
+                        <div class="card-body">
+                            <iframe width="100%" height="600"
+                                src="https://www.youtube.com/embed/nSi0UPTStdQ?si=SBw1oeKswcSjgz_f?rel=0&amp;autoplay=1"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>
