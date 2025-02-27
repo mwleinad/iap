@@ -745,7 +745,7 @@ class Module extends Course
 
 	public function EnumerateInbox()
 	{
-		$filtro = "AND chat.deleted_at IS NULL";
+		$filtro = "AND c.deleted_at IS NULL";
 		if ($this->statusIn) {
 			$filtro .= " and c.estatus = '" . $this->statusIn . "'";
 		}
