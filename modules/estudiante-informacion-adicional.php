@@ -123,4 +123,5 @@ $smarty->assign("cuatrimestre", $position);
 $smarty->assign("cursos", $cursos);
 $smarty->assign("recursamiento", $recursamiento);
 $smarty->assign("infoStudent", $infoStudent);
+$smarty->assign("User", $_SESSION['User']);
 $smarty->display(DOC_ROOT . '/templates/boxes/new/estudiante-informacion-adicional.tpl');

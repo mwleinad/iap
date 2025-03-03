@@ -22,9 +22,12 @@
                 aria-labelledby="calificaciones-tab">
                 <h3 class="text-center my-3">
                     {$infoStudent.names} {$infoStudent.lastNamePaterno} {$infoStudent.lastNameMaterno} <br>
-                    <a href="{$WEB_ROOT}/pdf/historial.php?page=export-excel&estudiante={$infoStudent.userId}" target="_blank">
-                        Descargar <i class="fa fa-file"></i>
-                    </a>
+                    {if $User.userId != 256}
+                        <a href="{$WEB_ROOT}/pdf/historial.php?page=export-excel&estudiante={$infoStudent.userId}"
+                            target="_blank">
+                            Descargar <i class="fa fa-file"></i>
+                        </a>
+                    {/if}
                 </h3>
                 {foreach from=$cursos item=curso}
                     <div class="accordion" id="accordion{$curso.courseId}">
@@ -53,7 +56,9 @@
                                                     <div class="row"
                                                         style=" padding: 20px 0; background-color: {if $calificaciones@last &&  $curso.status == "inactivo"} #ef5372; {else} #73b760; {/if} font-size: 20px; color: white; border-radius:20px;">
                                                         <div class="col-6 text-center">Materia</div>
-                                                        <div class="col-2 text-center">Calificación Acumulada</div>
+                                                        {if $User.userId != 256}
+                                                            <div class="col-2 text-center">Calificación Acumulada</div>
+                                                        {/if}
                                                         <div class="col-2 text-center">Calificación Final</div>
                                                         <div class="col-2 text-center">Descripción</div>
                                                     </div>
@@ -62,7 +67,9 @@
                                                     <div class="row" style=" padding: 20px 0; font-size: 18px;">
                                                         {foreach from=$calificaciones item=calificacion}
                                                             <div class="col-6 text-center">{$calificacion.name}</div>
-                                                            <div class="col-2 text-center">{$calificacion.addepUp}</div>
+                                                            {if $User.userId != 256}
+                                                                <div class="col-2 text-center">{$calificacion.addepUp}</div>
+                                                            {/if}
                                                             <div class="col-2 text-center">
                                                                 {if $calificacion.score < $curso.calificacionMinima && $calificacion.score != 0}
                                                                     <span class="text-danger">{$curso.calificacionMinima-1}</span>
