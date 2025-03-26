@@ -400,7 +400,7 @@ foreach ($students as $itemStudent) {
                             <p style="font-size: 10px;line-height:1.15; text-align:justify;font-family:arial;">
                                 <b>SE LEGALIZA,</b> PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO QUE EL AUTÓGRAFO QUE ANTECEDE CORRESPONDE ' . $prefijoDirector . ' ' . $director['genre'] . ' DE EDUCACIÓN SUPERIOR.
                             </p> 
-                            <p style="font-size: 7pt; text-align: center; font-family:arial;line-height:0.2; margin-top:15px;">
+                            <p style="font-size: 7pt; text-align: center; font-family:arial;line-height:0.2; margin-top:25px;">
                                 <b>' . $director["name"] . '</b><br>
                                 ________________________________
                             </p>
