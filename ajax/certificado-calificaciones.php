@@ -345,11 +345,11 @@ foreach ($students as $itemStudent) {
             <div style="margin-top:10px;">' . $brsAdittional . '' . $brsAdittional . '</div>
             <table width="100%" style="font-family:arialmt;">
                 <tr style="border-spacing: 0px !important;">
-                    <td style="width:45%;line-height:0.5cm;">
+                    <td style="width:45%;" valign="top">
                         <table align="center" border="1" class="border" style="padding-right:20px; margin:0; width:100%">
                             <tr>
                                 <td class="bg-gray" style="margin:0; padding:0;"> 
-                                    <p style="font-size: 10px; text-align:center; line-height:1.3;margin-top:5px; margin-bottom:5px;">DEPARTAMENTO DE SERVICIOS ESCOLARES</p>
+                                    <p style="font-size: 10px; text-align:center; line-height:0.7; margin-bottom:5px;">DEPARTAMENTO DE SERVICIOS ESCOLARES</p>
                                 </td>
                             </tr>
                             <tr>
@@ -371,7 +371,7 @@ foreach ($students as $itemStudent) {
                             </tr>
                             <tr>
                                 <td class="border" style="text-align: center;">
-                                    <br><br>
+                                    <br><br><br>
                                     <span style="font-size: 6pt;">
                                         ' . $comparison["name"] . '  
                                     </span>
@@ -383,8 +383,8 @@ foreach ($students as $itemStudent) {
                                 </td>
                             </tr>
                             <tr>
-                                <td class="border" style="text-align: center;">
-                                    <br><br>
+                                <td class="border" style="text-align: center;"> 
+                                    <br><br><br>
                                     <span style="font-size: 6pt;">
                                         ' . $head["name"] . '
                                     </span>
@@ -393,25 +393,25 @@ foreach ($students as $itemStudent) {
                         </table>                        
                     </td>
                     <td style="width:55%;" valign="top">
-                        <p style="font-size: 9px;line-height:1.5; text-align:justify;font-family:arial;">
+                        <p style="font-size: 9px;line-height:1.15; text-align:justify;font-family:arial;">
                             EN CUMPLIMIENTO AL ARTÍCULO <strong>31, FRACCIÓN IX</strong> DE LA LEY ORGÁNICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, <b>27 FRACCIÓN XX</b> DEL REGLAMENTO INTERIOR DE LA SECRETARÍA GENERAL DE GOBIERNO. LA COORDINACIÓN DE ASUNTOS JURÍDICOS DE GOBIERNO DEL ESTADO.
                         </p>
-                        <p style="font-size: 9px;line-height:1.5; text-align:justify;font-family:arial;">
+                        <p style="font-size: 9px;line-height:1.15; text-align:justify;font-family:arial;">
                             <b>SE LEGALIZA,</b> PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO QUE EL AUTÓGRAFO QUE ANTECEDE CORRESPONDE ' . $prefijoDirector .' ' . $director['genre'] . ' DE EDUCACIÓN SUPERIOR:
                         </p>
-                        <p style="font-size: 7pt; text-align: center;">
-                            ' . $director["name"] . '<br>
-                            ___________________________________________________________________________
+                        <p style="font-size: 7pt; text-align: center; font-family:arial;line-height:0.2;">
+                            <b>' . $director["name"] . '</b><br>
+                            ___________________________________________
                         </p>
-                        <p style="font-size: 7pt; text-align: center;">
-                            TUXTLA GUTIÉRREZ, CHIAPAS; A _____________________________________________
-                        </p><br>
-                        <p style="font-size: 7pt; text-align: center;">
-                        ____________________________________________<br>
-                            ' . $coordinator["name"] . '
+                        <p style="font-size: 7pt; text-align: center; font-family:arial; margin-top:30px;">
+                            <b>TUXTLA GUTIÉRREZ, CHIAPAS; A _____________________________________________</b>
+                        </p><br><br>
+                        <p style="font-size: 7pt; text-align: center; font-family:arial;">
+                            <b>____________________________________________<br>
+                            ' . $coordinator["name"] . '</b>
                         </p>
-                        <p style="font-size: 7pt; text-align: center;">
-                            ' . $coordinator["genre"] . ' DE ASUNTOS JURÍDICOS DE GOBIERNO DE LA SECRETARÍA GENERAL DE GOBIERNO Y MEDIACIÓN
+                        <p style="font-size: 7pt; text-align: center; font-family:arial;">
+                            <b>' . $coordinator["genre"] . ' DE ASUNTOS JURÍDICOS DE GOBIERNO DE LA SECRETARÍA GENERAL DE GOBIERNO Y MEDIACIÓN</b>
                         </p><br><br>
                     </td>
                 </tr>
