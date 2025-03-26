@@ -19,7 +19,7 @@ $settingCertificate = $certificates->getSettings();
 $imagen = file_get_contents(DOC_ROOT . "/images/Escudo.jpg");
 $escudo = 'data:image/jpg;base64,' . base64_encode($imagen);
 $imagen = file_get_contents(DOC_ROOT . "/images/new/docs/mignon.jpg");
-$ovalo = 'data:image/jpg;base64,' . base64_encode($imagen); 
+$ovalo = 'data:image/jpg;base64,' . base64_encode($imagen);
 
 // Calificacion Minima Aprobatoria
 $minCal = 7;
@@ -193,7 +193,7 @@ foreach ($students as $itemStudent) {
     $sumCal = 0;
     $materias = 0;
     $fuenteMateria = $infoCourse['totalPeriods'] <= 4 ? "9px" : "7px";
-    
+
     for ($period = 1; $period <= $infoCourse['totalPeriods']; $period += 2) {
         $max_modules = count($qualifications[$period]);
         $next = false;
@@ -201,9 +201,9 @@ foreach ($students as $itemStudent) {
             $next = true;
         }
         $tbody .= ' <tr style="border-style: none;">
-                        <td style="font-family:arial;text-align: center; border-style: none; padding:7px 0;font-size:'.$fuenteMateria.'"><b>' . mb_strtoupper($position[$period] . ' ' . $infoCourse['tipoCuatri']) . '</b></td>
+                        <td style="font-family:arial;text-align: center; border-style: none; padding:7px 0;font-size:' . $fuenteMateria . '"><b>' . mb_strtoupper($position[$period] . ' ' . $infoCourse['tipoCuatri']) . '</b></td>
                         <td colspan="3" style="border-style: none; padding:5px 0;"></td>
-                        <td style="font-family:arial;text-align: center; border-style: none; padding:7px 0;font-size:'.$fuenteMateria.'"><b>' . ($next ? mb_strtoupper($position[$period + 1] . ' ' . $infoCourse['tipoCuatri']) : '') . '</b></td>
+                        <td style="font-family:arial;text-align: center; border-style: none; padding:7px 0;font-size:' . $fuenteMateria . '"><b>' . ($next ? mb_strtoupper($position[$period + 1] . ' ' . $infoCourse['tipoCuatri']) : '') . '</b></td>
                         <td colspan="3" style="border-style: none; padding:5px 0;"></td>
                     </tr>';
         for ($element = 0; $element < $max_modules; $element++) {
@@ -212,14 +212,14 @@ foreach ($students as $itemStudent) {
                 $next = true;
             }
             $tbody .= '<tr style="border-style: none;">';
-            $tbody .= '<td style="border-style: none;font-family:arialmt; font-size:'.$fuenteMateria.'">' . $qualifications[$period][$element]['name'] . '</td>
-                        <td style="text-align: center;font-family:arialmt; border-style: none; font-size:'.$fuenteMateria.'">' . $qualifications[$period][$element]['score'] . '</td>
-                        <td style="text-align: center;font-family:arialmt; border-style: none; font-size:'.$fuenteMateria.'">' . mb_strtoupper($util->num2letras($qualifications[$period][$element]['score'])) . '</td>
-                        <td style="border-style: none;font-family:arialmt; text-align: center; font-size:'.$fuenteMateria.'">' . mb_strtoupper($qualifications[$period][$element]['comments']) . '</td>
-                        <td style="border-style: none;font-family:arialmt; font-size:'.$fuenteMateria.'">' . ($next ? $qualifications[$period + 1][$element]['name'] : '') . '</td>
-                        <td style="text-align: center;font-family:arialmt; border-style: none; font-size:'.$fuenteMateria.'">' . ($next ? $qualifications[$period + 1][$element]['score'] : '') . '</td>
-                        <td style="text-align: center;font-family:arialmt; border-style: none; font-size:'.$fuenteMateria.'">' . ($next ? mb_strtoupper($util->num2letras($qualifications[$period + 1][$element]['score'])) : '') . '</td>
-                        <td style="border-style: none;font-family:arialmt; text-align: center; font-size:'.$fuenteMateria.'">' . mb_strtoupper($qualifications[$period + 1][$element]['comments']) . '</td>';
+            $tbody .= '<td style="border-style: none;font-family:arialmt; font-size:' . $fuenteMateria . '">' . $qualifications[$period][$element]['name'] . '</td>
+                        <td style="text-align: center;font-family:arialmt; border-style: none; font-size:' . $fuenteMateria . '">' . $qualifications[$period][$element]['score'] . '</td>
+                        <td style="text-align: center;font-family:arialmt; border-style: none; font-size:' . $fuenteMateria . '">' . mb_strtoupper($util->num2letras($qualifications[$period][$element]['score'])) . '</td>
+                        <td style="border-style: none;font-family:arialmt; text-align: center; font-size:' . $fuenteMateria . '">' . mb_strtoupper($qualifications[$period][$element]['comments']) . '</td>
+                        <td style="border-style: none;font-family:arialmt; font-size:' . $fuenteMateria . '">' . ($next ? $qualifications[$period + 1][$element]['name'] : '') . '</td>
+                        <td style="text-align: center;font-family:arialmt; border-style: none; font-size:' . $fuenteMateria . '">' . ($next ? $qualifications[$period + 1][$element]['score'] : '') . '</td>
+                        <td style="text-align: center;font-family:arialmt; border-style: none; font-size:' . $fuenteMateria . '">' . ($next ? mb_strtoupper($util->num2letras($qualifications[$period + 1][$element]['score'])) : '') . '</td>
+                        <td style="border-style: none;font-family:arialmt; text-align: center; font-size:' . $fuenteMateria . '">' . mb_strtoupper($qualifications[$period + 1][$element]['comments']) . '</td>';
             $tbody .= '</tr>';
             $sumCal += $qualifications[$period][$element]['score'] + ($next ? $qualifications[$period + 1][$element]['score'] : 0);
             $materias++;
@@ -228,23 +228,23 @@ foreach ($students as $itemStudent) {
         }
         $promedio = bcdiv($sumCal, $materias, 1);
         if (intval($promedio) == 10) {
-            $promedioLetras = $util->num2letras(10,false, false);
-        }else{
-            $promedioLetras = $util->num2letras($promedio,false, true);
+            $promedioLetras = $util->num2letras(10, false, false);
+        } else {
+            $promedioLetras = $util->num2letras($promedio, false, true);
         }
         $promedio = intval($promedio) == 10 ? intval($promedio) : $promedio;
         // exit;
     }
     $plan = ($infoCourse['majorName'] == "DOCTORADO" ? "DEL " : "DE LA ") . $infoCourse['majorName'];
-    $prefijoDirector = $director['genre'] == "DIRECTOR" ? "DEL " : "A LA " . $director['genre'];
+    $prefijoDirector = $director['genre'] == "DIRECTOR" ? "AL " : "A LA " . $director['genre'];
     $nameStudent =  mb_strtoupper($infoStudent['names']) . " " . mb_strtoupper($infoStudent['lastNamePaterno']) . " " . mb_strtoupper($infoStudent['lastNameMaterno']);
     $nameStudent = $util->eliminar_acentos($nameStudent);
-    $curso = str_replace("EN", "", $infoCourse["name"]); 
-    $letraAnio =  $array_date[0] == 2023 ? "dos mil veintitrés" : mb_strtolower($util->num2letras($array_date[0])); 
+    $curso = str_replace("EN", "", $infoCourse["name"]);
+    $letraAnio =  $array_date[0] == 2023 ? "dos mil veintitrés" : mb_strtolower($util->num2letras($array_date[0]));
     $html .= '<table width="100%">
                 <tr>
                     <td width="17%">
-                        <img src="'.$escudo.'" id="mexico" />
+                        <img src="' . $escudo . '" id="mexico" />
                         <img src="' . $ovalo . '" id="ovalo" />
                     </td>
                     <td width="83%"> 
@@ -301,13 +301,14 @@ foreach ($students as $itemStudent) {
                     </tr>
                 </tfoot>
             </table>
-            <p style="font-size:9.5px;font-family:arialmt;">La escala oficial de calificaciones es de 6 (SEIS) a 10 (DIEZ), considerando como mínima aprobatoria ' . $minCal . ' (' . mb_strtoupper($util->num2letras($minCal)) . '). Este certificado ampara <b>'.mb_strtoupper($util->num2letras($total_modules
-            )).'</b> materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ' . $array_date[2] . ' días del mes de ' . mb_strtolower($util->ConvertirMes(intval($array_date[1]))) . ' del año ' . $letraAnio . '.</p>
+            <p style="font-size:9.5px;font-family:arialmt;">La escala oficial de calificaciones es de 6 (SEIS) a 10 (DIEZ), considerando como mínima aprobatoria ' . $minCal . ' (' . mb_strtoupper($util->num2letras($minCal)) . '). Este certificado ampara <b>' . mb_strtoupper($util->num2letras(
+        $total_modules
+    )) . '</b> materias del plan de estudios vigente y en cumplimiento a las prescripciones legales, se expide en Tuxtla Gutiérrez, Chiapas a los ' . $array_date[2] . ' días del mes de ' . mb_strtolower($util->ConvertirMes(intval($array_date[1]))) . ' del año ' . $letraAnio . '.</p>
             <table width="100%" style="font-family:arialmt;">
                 <tr>
                     <td style="font-size: 9pt; text-align: center;">
                         <label style="font-family:arial;"><b>' . $rector["genre"] . '</b></label>
-                        <br><br><br>'.$brsAdittional.' 
+                        <br><br><br>' . $brsAdittional . ' 
                         _________________________________________________
                         <br>
                         ' . $rector["name"] . '
@@ -315,7 +316,7 @@ foreach ($students as $itemStudent) {
                     <td style="width: 10%"></td>
                     <td style="font-size: 9pt; text-align: center;">
                         <label style="font-family:arial;"><b>' . $secretary["genre"] . '</b></label>
-                        <br><br><br>'.$brsAdittional.'
+                        <br><br><br>' . $brsAdittional . '
                         _________________________________________________
                         <br>
                         ' . $secretary["name"] . '
@@ -325,7 +326,7 @@ foreach ($students as $itemStudent) {
                     <td style="font-size: 9pt; text-align: center; vertical-align:top;">
                         <br><br><br>
                         <label style="font-family:arial;"><b>' . $schoolService["genre"] . ' DEL DEPARTAMENTO DE SERVICIOS ESCOLARES</b></label>
-                        <br><br><br>'.$brsAdittional.'
+                        <br><br><br>' . $brsAdittional . '
                         _________________________________________________
                         <br>
                        ' . $schoolService["name"] . '
@@ -333,15 +334,15 @@ foreach ($students as $itemStudent) {
                     <td style="width: 10%"></td>
                     <td style="font-size: 9pt; text-align: center; vertical-align:top;">
                         <br><br><br>
-                        <label style="font-family:arial;"><b>'.$director["genre"].' DE EDUCACIÓN SUPERIOR</b></label>
-                        <br><br><br><br>'.$brsAdittional.'
+                        <label style="font-family:arial;"><b>' . $director["genre"] . ' DE EDUCACIÓN SUPERIOR</b></label>
+                        <br><br><br><br>' . $brsAdittional . '
                         _________________________________________________
                         <br>
                         ' . $director["name"] . '
                     </td>
                 </tr>
             </table>
-            <div style="margin-top:15px;">'.$brsAdittional.''.$brsAdittional.'</div>
+            <div style="margin-top:15px;">' . $brsAdittional . '' . $brsAdittional . '</div>
             <table width="100%" style="font-family:arialmt;">
                 <tr style="border-spacing: 0px !important;">
                     <td style="width:45%;line-height:0.5cm;">
@@ -392,11 +393,11 @@ foreach ($students as $itemStudent) {
                         </table>                        
                     </td>
                     <td style="width:55%;" valign="top">
-                        <p style="font-size: 9px;line-height:1.5; text-align:justify;">
-                            CON FUNDAMENTO EN EL ARTÍCULO 29, FRACCIÓN X DE LA LEY ORGÁNICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, 27 FRACCIÓN XX DEL REGLAMENTO INTERIOR DE LA SECRETARÍA GENERAL DE GOBIERNO:
+                        <p style="font-size: 9px;line-height:1.5; text-align:justify;font-family:arial;">
+                            EN CUMPLIMIENTO AL ARTÍCULO <strong>31, FRACCIÓN IX</strong> DE LA LEY ORGÁNICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, <b>27 FRACCIÓN XX</b> DEL REGLAMENTO INTERIOR DE LA SECRETARÍA GENERAL DE GOBIERNO. LA COORDINACIÓN DE ASUNTOS JURÍDICOS DE GOBIERNO DEL ESTADO.
                         </p>
-                        <p style="font-size: 9px;line-height:1.5; text-align:justify;">
-                            SE LEGALIZA, PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO, LA FIRMA QUE ANTECEDE CORRESPONDE ' . $prefijoDirector . ' DE EDUCACIÓN SUPERIOR:
+                        <p style="font-size: 9px;line-height:1.5; text-align:justify;font-family:arial;">
+                            <b>SE LEGALIZA,</b> PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO QUE EL AUTÓGRAFO QUE ANTECEDE CORRESPONDE ' . $prefijoDirector .' ' . $director['genre'] . ' DE EDUCACIÓN SUPERIOR:
                         </p>
                         <p style="font-size: 7pt; text-align: center;">
                             ' . $director["name"] . '<br>
@@ -406,16 +407,16 @@ foreach ($students as $itemStudent) {
                             TUXTLA GUTIÉRREZ, CHIAPAS; A _____________________________________________
                         </p><br>
                         <p style="font-size: 7pt; text-align: center;">
-                            ' . $coordinator["genre"] . ' DE ASUNTOS JURÍDICOS DE GOBIERNO
-                        </p><br><br>
-                        <p style="font-size: 7pt; text-align: center;">
                         ____________________________________________<br>
                             ' . $coordinator["name"] . '
                         </p>
+                        <p style="font-size: 7pt; text-align: center;">
+                            ' . $coordinator["genre"] . ' DE ASUNTOS JURÍDICOS DE GOBIERNO DE LA SECRETARÍA GENERAL DE GOBIERNO Y MEDIACIÓN
+                        </p><br><br>
                     </td>
                 </tr>
             </table>
-            <br>'.$brsAdittional.'
+            <br>' . $brsAdittional . '
             <p style="font-size: 6pt; text-align: center;font-family:arial;"><b>ESTE DOCUMENTO NO ES VÁLIDO SI PRESENTA RASPADURAS O ENMENDADURAS</b></p>';
     if ($itemStudent !== end($students)) {
         $html .= '<div class="page_break"></div>';
