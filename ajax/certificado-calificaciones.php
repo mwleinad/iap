@@ -326,7 +326,7 @@ foreach ($students as $itemStudent) {
                     <td style="font-size: 9pt; text-align: center; vertical-align:top;">
                         <br><br><br>
                         <label style="font-family:arial;"><b>' . $schoolService["genre"] . ' DEL DEPARTAMENTO DE SERVICIOS ESCOLARES</b></label>
-                        <br><br><br>' . $brsAdittional . '
+                        <br><br>' . $brsAdittional . '
                         _________________________________________________
                         <br>
                        ' . $schoolService["name"] . '
@@ -335,21 +335,21 @@ foreach ($students as $itemStudent) {
                     <td style="font-size: 9pt; text-align: center; vertical-align:top;">
                         <br><br><br>
                         <label style="font-family:arial;"><b>' . $director["genre"] . ' DE EDUCACIÓN SUPERIOR</b></label>
-                        <br><br><br><br>' . $brsAdittional . '
+                        <br><br><br>' . $brsAdittional . '
                         _________________________________________________
                         <br>
                         ' . $director["name"] . '
                     </td>
                 </tr>
             </table>
-            <div style="margin-top:15px;">' . $brsAdittional . '' . $brsAdittional . '</div>
+            <div style="margin-top:10px;">' . $brsAdittional . '' . $brsAdittional . '</div>
             <table width="100%" style="font-family:arialmt;">
                 <tr style="border-spacing: 0px !important;">
                     <td style="width:45%;line-height:0.5cm;">
                         <table align="center" border="1" class="border" style="padding-right:20px; margin:0; width:100%">
                             <tr>
                                 <td class="bg-gray" style="margin:0; padding:0;"> 
-                                    <p style="font-size: 10px; text-align:center; line-height:1;margin-top:5px; margin-bottom:5px;">DEPARTAMENTO DE SERVICIOS ESCOLARES</p>
+                                    <p style="font-size: 10px; text-align:center; line-height:1.3;margin-top:5px; margin-bottom:5px;">DEPARTAMENTO DE SERVICIOS ESCOLARES</p>
                                 </td>
                             </tr>
                             <tr>
@@ -416,7 +416,7 @@ foreach ($students as $itemStudent) {
                     </td>
                 </tr>
             </table>
-            <br>' . $brsAdittional . '
+            ' . $brsAdittional . '
             <p style="font-size: 6pt; text-align: center;font-family:arial;"><b>ESTE DOCUMENTO NO ES VÁLIDO SI PRESENTA RASPADURAS O ENMENDADURAS</b></p>';
     if ($itemStudent !== end($students)) {
         $html .= '<div class="page_break"></div>';
