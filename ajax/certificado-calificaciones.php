@@ -345,7 +345,7 @@ foreach ($students as $itemStudent) {
             <div style="margin-top:10px;">' . $brsAdittional . '' . $brsAdittional . '</div>
             <table width="100%" style="font-family:arialmt;">
                 <tr style="border-spacing: 0px !important;">
-                    <td style="width:45%;" valign="top">
+                    <td style="width:46%;" valign="top">
                         <table align="center" border="1" class="border" style="padding-right:20px; margin:0; width:100%">
                             <tr>
                                 <td class="bg-gray" style="margin:0; padding:0;"> 
@@ -392,27 +392,29 @@ foreach ($students as $itemStudent) {
                             </tr>
                         </table>                        
                     </td>
-                    <td style="width:55%;" valign="top">
-                        <p style="font-size: 9px;line-height:1.15; text-align:justify;font-family:arial;">
-                            EN CUMPLIMIENTO AL ARTÍCULO <strong>31, FRACCIÓN IX</strong> DE LA LEY ORGÁNICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, <b>27 FRACCIÓN XX</b> DEL REGLAMENTO INTERIOR DE LA SECRETARÍA GENERAL DE GOBIERNO. LA COORDINACIÓN DE ASUNTOS JURÍDICOS DE GOBIERNO DEL ESTADO.
-                        </p>
-                        <p style="font-size: 9px;line-height:1.15; text-align:justify;font-family:arial;">
-                            <b>SE LEGALIZA,</b> PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO QUE EL AUTÓGRAFO QUE ANTECEDE CORRESPONDE ' . $prefijoDirector .' ' . $director['genre'] . ' DE EDUCACIÓN SUPERIOR:
-                        </p>
-                        <p style="font-size: 7pt; text-align: center; font-family:arial;line-height:0.2;">
-                            <b>' . $director["name"] . '</b><br>
-                            ___________________________________________
-                        </p>
-                        <p style="font-size: 7pt; text-align: center; font-family:arial; margin-top:30px;">
-                            <b>TUXTLA GUTIÉRREZ, CHIAPAS; A _____________________________________________</b>
-                        </p><br><br>
-                        <p style="font-size: 7pt; text-align: center; font-family:arial;">
-                            <b>____________________________________________<br>
-                            ' . $coordinator["name"] . '</b>
-                        </p>
-                        <p style="font-size: 7pt; text-align: center; font-family:arial;">
-                            <b>' . $coordinator["genre"] . ' DE ASUNTOS JURÍDICOS DE GOBIERNO DE LA SECRETARÍA GENERAL DE GOBIERNO Y MEDIACIÓN</b>
-                        </p><br><br>
+                    <td style="width:54%;" valign="top">
+                        <div style="width:100%; padding:0 15px 0 25px;">
+                            <p style="font-size: 10px;line-height:1.15; text-align:justify;font-family:arial;">
+                                EN CUMPLIMIENTO AL ARTÍCULO <strong>31, FRACCIÓN IX</strong> DE LA LEY ORGÁNICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, <b>27 FRACCIÓN XX</b> DEL REGLAMENTO INTERIOR DE LA SECRETARÍA GENERAL DE GOBIERNO. LA COORDINACIÓN DE ASUNTOS JURÍDICOS DE GOBIERNO DEL ESTADO.
+                            </p>
+                            <p style="font-size: 10px;line-height:1.15; text-align:justify;font-family:arial;">
+                                <b>SE LEGALIZA,</b> PREVIO COTEJO CON LA EXISTENTE EN EL CONTROL RESPECTIVO QUE EL AUTÓGRAFO QUE ANTECEDE CORRESPONDE ' . $prefijoDirector . ' ' . $director['genre'] . ' DE EDUCACIÓN SUPERIOR.
+                            </p> 
+                            <p style="font-size: 7pt; text-align: center; font-family:arial;line-height:0.2; margin-top:15px;">
+                                <b>' . $director["name"] . '</b><br>
+                                ________________________________
+                            </p>
+                            <p style="font-size: 7pt; text-align: center; font-family:arial; margin-top:30px;">
+                                <b>TUXTLA GUTIÉRREZ, CHIAPAS; A ___________________________________</b>
+                            </p><br><br>
+                            <p style="font-size: 7pt; text-align: center; font-family:arial;">
+                                <b>__________________________________________________________________<br>
+                                ' . $coordinator["name"] . '</b>
+                            </p>
+                            <p style="font-size: 7pt; text-align: center; font-family:arial; margin-top:-7px;">
+                                <b>' . $coordinator["genre"] . ' DE ASUNTOS JURÍDICOS DE GOBIERNO DE LA SECRETARÍA GENERAL DE GOBIERNO Y MEDIACIÓN</b>
+                            </p><br><br>
+                        </div>
                     </td>
                 </tr>
             </table>
