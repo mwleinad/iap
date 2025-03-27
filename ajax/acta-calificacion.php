@@ -89,7 +89,7 @@ $main .= '	<tr style="border: none">
 				<td colspan="4" align="center" style="border: none;">
 					<div style="width:49%; display:inline-block;">
 						<br><br><br><br>' . $infoFirma['director'] . '<br>
-						Directora Academica
+						' . $infoFirma['directorGenre'] . '
 					</div>
 					<div style="width:49%; display:inline-block;">
 						<br><br><br><br>' . $infoFirma['controlEscolar'] . '<br>
@@ -183,7 +183,7 @@ $html = '<html>
 			</head>
 			<body> 
 				<header>
-					<img src="' .$base64.'">
+					<img src="' . $base64 . '">
 					<center>	
 						<b>INSTITUTO DE ADMINISTRACIÓN PÚBLICA DEL ESTADO DE CHIAPAS, A.C.</b>
 						<br>

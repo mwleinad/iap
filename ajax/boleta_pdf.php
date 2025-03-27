@@ -82,7 +82,7 @@
 		$contenido .= "<center><font class='txtTicket'>Tuxtla Gutiérrez, Chiapas; ".date('d')." ".$mes." de  ".date('Y')."</font></center><br><br>";
 		$contenido .= "<br><br><br><br><center><table width='100%' border='0' align='center' class='txtTicket'>
 		<tr><td><center><b>C.P. y L.D. Orfanel toalá ramos<br>Director Academico</b></center></td>
-		<td><center><b>Lic. ana gloria carvajal cruz<br>Control Escolar</b></center></td></tr></table>";
+		<td><center><b>Lic. Eric Velázquez Areola<br>Control Escolar</b></center></td></tr></table>";
 
 	
 	
