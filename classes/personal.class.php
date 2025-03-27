@@ -827,7 +827,7 @@ class Personal extends Main
 		$info = $this->Util()->DB()->GetRow();
 
 		$data['director'] = $info9['name'] . ' ' . $info9['lastname_paterno'] . ' ' . $info9['lastname_materno'];
-		$data['directorGenre'] = $info9['genre'] == "h" ? "Director Académico" : "Directora Académica";
+		$data['directorGenre'] = $info9['sexo'] == "h" ? "Director Académico" : "Directora Académica";
 		$data['controlEscolar'] = $info['profesion'] . ' ' . $info['name'] . ' ' . $info['lastname_paterno'] . ' ' . $info['lastname_materno'];
 
 		return $data;
