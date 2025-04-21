@@ -413,7 +413,7 @@ foreach ($students as $itemStudent) {
                             </p>
                             <p style="font-size: 7pt; text-align: center; font-family:arial; margin-top:-7px;">
                                 <b>' . $coordinator["genre"] . ' DE ASUNTOS JURÍDICOS DE GOBIERNO DE LA SECRETARÍA GENERAL DE GOBIERNO Y MEDIACIÓN</b>
-                            </p><br><br>
+                            </p><br>
                         </div>
                     </td>
                 </tr>
