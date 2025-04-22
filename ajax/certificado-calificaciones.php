@@ -97,7 +97,7 @@ $html = '<html>
                     }
 
                     .footer {
-                        position: fixed; 
+                        position: absolute; 
                         bottom: -20px; 
                         left: 0px; 
                         right: 0px;
