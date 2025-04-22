@@ -96,9 +96,9 @@ $html = '<html>
                         background-color: #dddddd;
                     }
 
-                    footer {
+                    .footer {
                         position: fixed; 
-                        bottom: -50px; 
+                        bottom: -20px; 
                         left: 0px; 
                         right: 0px;
                         height: 50px; 
@@ -431,7 +431,7 @@ foreach ($students as $itemStudent) {
                     </td>
                 </tr>
             </table>
-            ' . $brsAdittional . '<footer><b>ESTE DOCUMENTO NO ES VÁLIDO SI PRESENTA RASPADURAS O ENMENDADURAS</b></footer>';
+            ' . $brsAdittional . '<div class="footer"><b>ESTE DOCUMENTO NO ES VÁLIDO SI PRESENTA RASPADURAS O ENMENDADURAS</b></div>';
     if ($itemStudent !== end($students)) {
         $html .= '<div class="page_break"></div>';
     }
