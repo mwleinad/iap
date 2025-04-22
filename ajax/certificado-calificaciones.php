@@ -431,13 +431,13 @@ foreach ($students as $itemStudent) {
                     </td>
                 </tr>
             </table>
-            ' . $brsAdittional . '';
+            ' . $brsAdittional . '<footer><b>ESTE DOCUMENTO NO ES VÁLIDO SI PRESENTA RASPADURAS O ENMENDADURAS</b></footer>';
     if ($itemStudent !== end($students)) {
         $html .= '<div class="page_break"></div>';
     }
 }
 
-$html .= "<footer><b>ESTE DOCUMENTO NO ES VÁLIDO SI PRESENTA RASPADURAS O ENMENDADURAS</b></footer>
+$html .= "
     </body>
 </html>";
 // echo $html;
