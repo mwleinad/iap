@@ -95,6 +95,19 @@ $html = '<html>
                     .bg-gray {
                         background-color: #dddddd;
                     }
+
+                    footer {
+                        position: fixed; 
+                        bottom: -50px; 
+                        left: 0px; 
+                        right: 0px;
+                        height: 50px; 
+                        text-align: center;
+                        font-size: 6pt;
+                        font-family:arial;
+                        padding:0; 
+                        margin:0;
+                    }
                 </style>
             </head>
             <body style="boder:1px solid;">';
@@ -418,14 +431,14 @@ foreach ($students as $itemStudent) {
                     </td>
                 </tr>
             </table>
-            ' . $brsAdittional . '
-            <p style="font-size: 6pt; text-align: center;font-family:arial;"><b>ESTE DOCUMENTO NO ES VÁLIDO SI PRESENTA RASPADURAS O ENMENDADURAS</b></p>';
+            ' . $brsAdittional . '';
     if ($itemStudent !== end($students)) {
         $html .= '<div class="page_break"></div>';
     }
 }
 
-$html .= "</body>
+$html .= "<footer><b>ESTE DOCUMENTO NO ES VÁLIDO SI PRESENTA RASPADURAS O ENMENDADURAS</b></footer>
+    </body>
 </html>";
 // echo $html;
 // echo "</pre>";  
